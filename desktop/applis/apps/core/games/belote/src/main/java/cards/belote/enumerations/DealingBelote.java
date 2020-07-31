@@ -4,16 +4,11 @@ import code.util.*;
 import code.util.Ints;
 
 public enum DealingBelote {
-    CLASSIC_2_VS_2(4, Numbers.wrapIntArray(3,2),Numbers.wrapIntArray(3)),
-    COINCHE_2_VS_2(4, Numbers.wrapIntArray(3,3,2),Numbers.wrapIntArray());
+    CLASSIC_2_VS_2(4),
+    COINCHE_2_VS_2(4);
     private final int nombreJoueurs;
-    private final int[] distributionDebut;
-    private final int[] distributionFin;
-    DealingBelote(int _nombreJoueurs,
-                  int[] _distributionDebut, int[] _distributionFin){
+    DealingBelote(int _nombreJoueurs){
         nombreJoueurs = _nombreJoueurs;
-        distributionDebut = _distributionDebut;
-        distributionFin = _distributionFin;
     }
     public int getNombreJoueurs() {
         return nombreJoueurs;
@@ -49,14 +44,14 @@ public enum DealingBelote {
 
     public Ints getDistributionDebut() {
         Ints distributionDebut_ = new Ints();
-        for(int i: distributionDebut){
+        for(int i: valDistributionDebut()){
             distributionDebut_.add(i);
         }
         return distributionDebut_;
     }
     public Ints getDistributionFin() {
         Ints distributionFin_ = new Ints();
-        for(int i: distributionFin){
+        for(int i: valDistributionFin()){
             distributionFin_.add(i);
         }
         return distributionFin_;
@@ -64,27 +59,39 @@ public enum DealingBelote {
 
     public int getFirstCards() {
         int remainingCards_ = 0;
-        for(int i: distributionDebut) {
+        for(int i: valDistributionDebut()) {
             remainingCards_ += i;
         }
         return remainingCards_;
     }
     public int getRemainingCards() {
         int remainingCards_ = 0;
-        for(int i: distributionFin) {
+        for(int i: valDistributionFin()) {
             remainingCards_ += i * nombreJoueurs;
         }
         return remainingCards_;
     }
     public int getNombreCartesParJoueur(){
         int nombreCartesParJoueur_ = 0;
-        for(int i: distributionDebut) {
+        for(int i: valDistributionDebut()) {
             nombreCartesParJoueur_ += i;
         }
-        for(int i: distributionFin) {
+        for(int i: valDistributionFin()) {
             nombreCartesParJoueur_ += i;
         }
         return nombreCartesParJoueur_;
+    }
+    private int[] valDistributionDebut() {
+        if (this == CLASSIC_2_VS_2) {
+            return Numbers.wrapIntArray(3,2);
+        }
+        return Numbers.wrapIntArray(3,3,2);
+    }
+    private int[] valDistributionFin() {
+        if (this == CLASSIC_2_VS_2) {
+            return Numbers.wrapIntArray(3);
+        }
+        return Numbers.wrapIntArray();
     }
     public static EnumList<DealingBelote> getRepartitionsValides() {
         EnumList<DealingBelote> repartitions_ = new EnumList<DealingBelote>();
