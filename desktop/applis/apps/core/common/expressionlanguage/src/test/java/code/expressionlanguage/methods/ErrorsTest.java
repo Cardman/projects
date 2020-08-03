@@ -1,10 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -13717,7 +13713,42 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a title=\"Bad index by parsing.\" class=\"e\">+</a> {\n" +
                 "}</pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void report646Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" $default:\n");
+        xml_.append("  $int i;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
+                " <a title=\"The block is unexpected.\" class=\"e\">$default</a>:\n" +
+                "  $int i;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report647Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.MyEnum {\n");
+        xml_.append(" $case 1:\n");
+        xml_.append("  $int i;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
+                " <a title=\"The block is unexpected.\" class=\"e\">$case</a> 1:\n" +
+                "  $int i;\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();

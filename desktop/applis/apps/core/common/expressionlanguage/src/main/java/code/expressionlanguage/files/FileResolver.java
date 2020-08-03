@@ -276,7 +276,6 @@ public final class FileResolver {
         boolean okType_ = false;
         boolean enableByEndLine_ = false;
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
-        after_.setEnabledEnumHeader(enableByEndLine_);
         after_.setIndex(i_);
         after_.setParent(null);
         CommentDelimiters current_ = null;
