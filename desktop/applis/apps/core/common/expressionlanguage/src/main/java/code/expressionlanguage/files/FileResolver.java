@@ -873,7 +873,7 @@ public final class FileResolver {
                 annotationsTypes_ = par_.getAnnotations();
                 afterAccessType_ = par_.getAfter();
                 accessOffsetType_ = par_.getIndex() - _offset;
-                deltaType_ = accessOffsetType_ - (instructionRealLocation_ + _offset);
+                deltaType_ = accessOffsetType_ - instructionRealLocation_;
             }
             nextIndex_ += deltaType_;
             String keyWordOperator_ = keyWords_.getKeyWordOperator();
@@ -943,7 +943,7 @@ public final class FileResolver {
                         annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                         annotationsParam_ = par_.getAnnotations();
                         info_ = par_.getAfter();
-                        paramOffest_ = par_.getIndex();
+                        paramOffest_ = par_.getIndex() - _offset;
                         paramOffest_ += StringList.getFirstPrintableCharIndex(info_);
                     }
                     annotationsIndexesParams_.add(annotationsIndexesParam_);
@@ -1562,12 +1562,12 @@ public final class FileResolver {
         StringList annotations_ = new StringList();
         int typeOffset_ = _instructionLocation;
         if (trimmedInstruction_.charAt(0) == ANNOT) {
-            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionLocation);
+            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionLocation+_offset);
             par_.parse();
             annotationsIndexes_ = par_.getAnnotationsIndexes();
             annotations_ = par_.getAnnotations();
             trimmedInstruction_ = par_.getAfter();
-            typeOffset_ = par_.getIndex();
+            typeOffset_ = par_.getIndex()-_offset;
         }
         if (StringExpUtil.startsWithKeyWord(trimmedInstruction_,keyWordPrivate_)) {
             accessFct_ = AccessEnum.PRIVATE;
@@ -1996,12 +1996,12 @@ public final class FileResolver {
                 Ints annotationsIndexesParam_ = new Ints();
                 StringList annotationsParam_ = new StringList();
                 if (info_.trim().charAt(0) == ANNOT) {
-                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_);
+                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_+_offset);
                     par_.parse();
                     annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                     annotationsParam_ = par_.getAnnotations();
                     info_ = par_.getAfter();
-                    paramOffest_ = par_.getIndex();
+                    paramOffest_ = par_.getIndex()-_offset;
                     paramOffest_ += StringList.getFirstPrintableCharIndex(info_);
                 }
                 annotationsIndexesParams_.add(annotationsIndexesParam_);
