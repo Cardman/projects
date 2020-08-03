@@ -10,27 +10,34 @@ public final class ParsedImportedTypes {
 
     private final StringList importedTypes = new StringList();
     private final Ints offsetsImports = new Ints();
+    private int offset;
     private int nextIndex;
     private boolean ok;
-    public ParsedImportedTypes(int _nextIndex, String _fullFile) {
+    private boolean skip;
+
+    public ParsedImportedTypes(int _nextIndex, String _part) {
         nextIndex = _nextIndex;
-        if (_nextIndex >= _fullFile.length()) {
+        if (_part.isEmpty()) {
             return;
         }
-        if (_fullFile.charAt(_nextIndex) != BEGIN_BLOCK) {
+        if (_part.charAt(0) != BEGIN_BLOCK) {
             ok = true;
+            skip = true;
             return;
         }
 
         nextIndex = nextIndex + 1;
         int indexImport_ = 0;
-        int len_ = _fullFile.length();
+        int len_ = _part.length();
         StringBuilder str_ = new StringBuilder();
-        while (nextIndex < len_) {
-            char currentChar_ = _fullFile.charAt(nextIndex);
+        int current_ = 0;
+        current_++;
+        while (current_ < len_) {
+            char currentChar_ = _part.charAt(current_);
             if (currentChar_ == END_BLOCK) {
 
                 nextIndex = nextIndex + 1;
+                current_++;
                 break;
             }
             if (currentChar_ == END_IMPORTS) {
@@ -47,20 +54,32 @@ public final class ParsedImportedTypes {
             }
 
             nextIndex = nextIndex + 1;
+            current_++;
         }
-        nextIndex = FileResolver.skipWhitespace(nextIndex, _fullFile);
+        offset = nextIndex+StringList.getFirstPrintableCharIndex(_part.substring(current_));
+        nextIndex = FileResolver.skipWhitespace(current_, _part);
         ok = true;
     }
 
     public boolean isOk() {
         return ok;
     }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
     public StringList getImportedTypes() {
         return importedTypes;
     }
     public Ints getOffsetsImports() {
         return offsetsImports;
     }
+
+    public int getOffset() {
+        return offset;
+    }
+
     public int getNextIndex() {
         return nextIndex;
     }

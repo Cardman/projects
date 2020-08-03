@@ -540,7 +540,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have the type pkg.MySuper..Inner as super type because pkg.MySuper..Inner is instance type.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySuper\" href=\"#m60\">MySuper</a>.<a title=\"pkg.MySuper..Inner\" href=\"#m90\">Inner</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m60\">pkg.MySuper </a>{\n" +
-                " $public $class <a name=\"m90\">Inner </a>{\n" +
+                " $public $class <a name=\"m90\">Inner</a> {\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -566,8 +566,8 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "\n" +
                 "The type pkg.MyOuter..MyClass cannot have the type pkg.MyOuter..MySuper..Inner as super type.\" class=\"e\">MyClass</a>:<a title=\"pkg.MyOuter..MySuper\" href=\"#m88\">MySuper</a>.<a title=\"pkg.MyOuter..MySuper..Inner\" href=\"#m115\">Inner</a> {\n" +
                 " }\n" +
-                " $public $class <a name=\"m88\">MySuper </a>{\n" +
-                "  $public $class <a name=\"m115\">Inner </a>{\n" +
+                " $public $class <a name=\"m88\">MySuper</a> {\n" +
+                "  $public $class <a name=\"m115\">Inner</a> {\n" +
                 "  }\n" +
                 " }\n" +
                 "}\n" +
@@ -8625,7 +8625,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "$public $class <a name=\"m73\">pkg.MyClTwo </a>{\n" +
-                " $public $class <a name=\"m103\">Inner </a>{\n" +
+                " $public $class <a name=\"m103\">Inner</a> {\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -8653,7 +8653,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 " }\n" +
                 "}\n" +
                 "$public $class <a name=\"m81\">pkg.MyClTwo </a>{\n" +
-                " $public $class <a name=\"m111\">Inner </a>{\n" +
+                " $public $class <a name=\"m111\">Inner</a> {\n" +
                 " }\n" +
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
@@ -12402,9 +12402,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.MyEnum{<a title=\"Bad index by parsing.\" class=\"e\">\n" +
-                "</a> {}\n" +
-                "<a title=\"Bad index by parsing.\" class=\"e\">}</a></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum pkg.MyEnum{\n" +
+                " {}<a title=\"Bad index by parsing.\" class=\"e\">\n" +
+                "</a><a title=\"Bad index by parsing.\" class=\"e\">}</a></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
