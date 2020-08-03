@@ -15,7 +15,7 @@ public final class ParsedImportedTypes {
     private int nextIndex;
     private boolean skip;
 
-    public ParsedImportedTypes(int _nextIndex, String _part) {
+    public ParsedImportedTypes(int _nextIndex,int _offset, String _part) {
         nextIndex = _nextIndex;
         if (_part.isEmpty()) {
             skip = true;
@@ -42,7 +42,7 @@ public final class ParsedImportedTypes {
             }
             if (currentChar_ == END_IMPORTS) {
                 importedTypes.add(str_.toString());
-                offsetsImports.add(indexImport_);
+                offsetsImports.add(indexImport_+_offset);
                 str_.delete(0, str_.length());
             } else {
                 if (!Character.isWhitespace(currentChar_)) {

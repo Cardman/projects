@@ -26,6 +26,7 @@ public abstract class Block implements AnalyzedBlock {
     protected static final String EMPTY_STRING = "";
 
     private BracedBlock parent;
+    private FileBlock file;
 
     private Block nextSibling;
 
@@ -139,14 +140,24 @@ public abstract class Block implements AnalyzedBlock {
         _block.getErrorsBlock().add(un_.getBuiltError());
         return false;
     }
-
-    public final FileBlock getFile() {
-        Block b_ = this;
-        while (!(b_ instanceof FileBlock)) {
-            b_ = b_.getParent();
+    public final RootBlock retrieveParentType() {
+        Block p_ = this;
+        while (!(p_ instanceof RootBlock)) {
+            if (p_ == null) {
+                return null;
+            }
+            p_ = p_.getParent();
         }
-        return (FileBlock) b_;
+        return (RootBlock) p_;
     }
+    public final FileBlock getFile() {
+        return file;
+    }
+
+    public void setFile(FileBlock _file) {
+        file = _file;
+    }
+
     public MemberCallingsBlock getOuterFuntionInType() {
         Block p_ = getParent();
         return getOuterFuntionInType(p_);

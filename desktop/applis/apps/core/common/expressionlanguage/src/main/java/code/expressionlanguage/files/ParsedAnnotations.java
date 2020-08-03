@@ -158,7 +158,7 @@ public final class ParsedAnnotations {
             j_++;
         }
         if (endLoop_) {
-            index = lenInst_;
+            index = lenInst_ + instructionLocation;
         }
     }
     private static boolean isPart(char _char) {

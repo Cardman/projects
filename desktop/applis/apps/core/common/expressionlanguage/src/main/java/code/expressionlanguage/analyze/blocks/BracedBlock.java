@@ -18,6 +18,10 @@ public abstract class BracedBlock extends Block {
 
     public final void appendChild(Block _child) {
         _child.setParent(this);
+        FileBlock file_ = getFile();
+        if (file_ != null) {
+            _child.setFile(file_);
+        }
         if (firstChild == null) {
             firstChild = _child;
             return;

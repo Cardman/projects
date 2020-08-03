@@ -18,7 +18,7 @@ public final class InterfacesPart {
         part = _part;
         locIndex = _locIndex;
     }
-    void parse(KeyWords _keyWords) {
+    void parse(KeyWords _keyWords, int _offset) {
         String keyWordInterfaces_ = _keyWords.getKeyWordInterfaces();
         if (StringExpUtil.startsWithKeyWord(part,0, keyWordInterfaces_)) {
             int begin_ = part.indexOf(BEGIN_CALLING);
@@ -35,7 +35,7 @@ public final class InterfacesPart {
                     String interfacesInfo_ = part.substring(begin_ + 1, end_);
                     for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
                         staticInitInterfaces.add(p);
-                        staticInitInterfacesOffset.add(interfaceOffest_);
+                        staticInitInterfacesOffset.add(interfaceOffest_+_offset);
                         interfaceOffest_ += p.length() + 1;
                     }
                     locIndex += end_ + 1;

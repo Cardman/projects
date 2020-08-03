@@ -439,6 +439,6 @@ public final class ParsedAnnotationsTest {
         assertEq(0,p_.getAnnotations().size());
         assertEq(0,p_.getAnnotationsIndexes().size());
         assertEq("",p_.getAfter());
-        assertEq(0, p_.getIndex());
+        assertEq(19, p_.getIndex());
     }
 }

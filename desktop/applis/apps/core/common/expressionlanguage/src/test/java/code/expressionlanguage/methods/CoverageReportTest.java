@@ -15840,6 +15840,233 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage393Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("static pkg.ExTwo.*;\n");
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append(" int infoIntOne()2i;\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" int infoIntTwo()4i;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" public static int method( @MyAnnot(infoIntOne=1i)@MyAnnotTwo(infoIntTwo=3i) int p){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+                "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
+                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                "}\n" +
+                "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                "}\n" +
+                "public class <a name=\"m146\">pkg.Ex</a> {\n" +
+                "\n" +
+                " public static int <a name=\"m175\">method</a>( @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i)@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m237\">p</a>){\n" +
+                "  return <span class=\"n\">0i</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m276\">catching</a>(){\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage394Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("static pkg.ExTwo.*;\n");
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append(" int infoIntOne()2i;\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" int infoIntTwo()4i;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" public static int method(@MyAnnot(infoIntOne=1i) @MyAnnotTwo(infoIntTwo=3i) int p){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+                "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
+                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                "}\n" +
+                "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                "}\n" +
+                "public class <a name=\"m146\">pkg.Ex</a> {\n" +
+                "\n" +
+                " public static int <a name=\"m175\">method</a>(@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i) @<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m237\">p</a>){\n" +
+                "  return <span class=\"n\">0i</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m276\">catching</a>(){\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage395Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("static pkg.ExTwo.*;\n");
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append(" int infoIntOne()2i;\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" int infoIntTwo()4i;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" public static int method( @MyAnnot(infoIntOne=1i) @MyAnnotTwo(infoIntTwo=3i) int p){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+                "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
+                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                "}\n" +
+                "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                "}\n" +
+                "public class <a name=\"m146\">pkg.Ex</a> {\n" +
+                "\n" +
+                " public static int <a name=\"m175\">method</a>( @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=1i) @<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int <a name=\"m238\">p</a>){\n" +
+                "  return <span class=\"n\">0i</span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m277\">catching</a>(){\n" +
+                "  return <span class=\"f\">0i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage396Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotTwo {\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnotThree {\n");
+        xml_.append(" @MyAnnot\n");
+        xml_.append(" @MyAnnotTwo\n");
+        xml_.append(" $int method;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
+                "}\n" +
+                "$public $annotation <a name=\"m95\">pkg.MyAnnotThree</a> {\n" +
+                " @<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
+                " @<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a>\n" +
+                " $int <span class=\"g\"><a name=\"m143\">method</a></span>;\n" +
+                "}\n" +
+                "$public $class <a name=\"m168\">pkg.Ex</a> {\n" +
+                " $public $static $int <a name=\"m199\">catching</a>(){\n" +
+                "  $return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage397Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" int extField;\n");
+        xml_.append(" void m(){\n");
+        xml_.append("  @MyAnnot\n");
+        xml_.append("  class Loc{\n");
+        xml_.append("   int field;\n");
+        xml_.append("  }\n");
+        xml_.append("  Loc l = new Loc();\n");
+        xml_.append("  l.field = 2;\n");
+        xml_.append("  extField = l.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Ext e = new Ext();\n");
+        xml_.append("  e.m();\n");
+        xml_.append("  return e.extField;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
+                " void <a name=\"m37\">m</a>(){\n" +
+                "  @<a title=\"pkg.MyAnnot\" href=\"#m236\">MyAnnot</a>\n" +
+                "  class <a name=\"m61\">Loc</a>{\n" +
+                "   int <span class=\"f\"><a name=\"m73\">field</a></span>;\n" +
+                "  }\n" +
+                "  <a title=\"pkg.Ext..Loc+1\" href=\"#m61\">Loc</a> <span class=\"f\"><span class=\"f\"><a name=\"m90\">l</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ext..Loc+1\" href=\"#m61\">Loc</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m90\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m73\">field</a> </span></span>=<span class=\"f\"> 2</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m90\">l</a></span>.<span class=\"f\"><a title=\"pkg.Ext..Loc+1.field\" href=\"#m73\">field</a></span></span></span>;\n" +
+                " }\n" +
+                " static int <a name=\"m157\">m</a>(){\n" +
+                "  <a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <span class=\"f\"><span class=\"f\"><a name=\"m168\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m168\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.m()\" href=\"#m37\">m</a>()</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m168\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public annotation <a name=\"m236\">pkg.MyAnnot</a> {\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

@@ -11,8 +11,8 @@ public final class ClassBlock extends RootBlock implements UniqueRootedBlock {
     private final boolean abstractType;
     private final boolean staticType;
 
-    public ClassBlock(int _idRowCol, int _categoryOffset, String _name, String _packageName, OffsetAccessInfo _access,
-                      String _templateDef, IntMap< String> _directSuperTypes,
+    public ClassBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
+                      String _templateDef, IntMap<String> _directSuperTypes,
                       boolean _finalType,
                       boolean _abstractType, boolean _staticType,
                       OffsetsBlock _offset) {

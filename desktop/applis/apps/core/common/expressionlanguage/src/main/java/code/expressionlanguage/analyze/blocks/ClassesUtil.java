@@ -478,6 +478,7 @@ public final class ClassesUtil {
         int index_ = -1;
         if (parentType_ != null) {
             index_ = parentType_.getNumberAll();
+            _root.setFile(parentType_.getFile());
         }
         ExecRootBlock execParentType_ = null;
         if (page_.getMapTypes().getKeys().isValidIndex(index_)) {

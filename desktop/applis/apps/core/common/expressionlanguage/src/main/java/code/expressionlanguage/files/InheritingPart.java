@@ -15,7 +15,7 @@ public final class InheritingPart {
         beginDefinition = _beginDefinition;
         part = _part;
     }
-    void parse(int _offset) {
+    void parse(int _offset, int _globalOffset) {
         int locIndex_ = 0;
         StringBuilder str_ = new StringBuilder();
         StringBuilder typeNamePref_ = new StringBuilder();
@@ -46,7 +46,7 @@ public final class InheritingPart {
             }
             if (locChar_ == INHERIT && nbOpened_ == 0) {
                 if (foundInherit_) {
-                    superTypes.put(inheritIndex_, str_.toString());
+                    superTypes.put(inheritIndex_+_globalOffset, str_.toString());
                 }
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
@@ -62,7 +62,7 @@ public final class InheritingPart {
             locIndex_ = locIndex_ + 1;
         }
         if (foundInherit_) {
-            superTypes.put(inheritIndex_, str_.toString());
+            superTypes.put(inheritIndex_+_globalOffset, str_.toString());
         }
 
         tempDef = templateDef_.toString();

@@ -95,6 +95,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringMap<Integer> counts = new StringMap<Integer>();
     private String suffix="";
     private StringMap<String> mappings = new StringMap<String>();
+    private RootBlock parentType;
 
     RootBlock(int _idRowCol, String _name,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -319,14 +320,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
     }
     public final RootBlock getParentType() {
-        BracedBlock p_ = getParent();
-        while (!(p_ instanceof RootBlock)) {
-            if (p_ == null) {
-                return null;
-            }
-            p_ = p_.getParent();
-        }
-        return (RootBlock) p_;
+        return parentType;
+    }
+
+    public final void setParentType(RootBlock _parentType) {
+        parentType = _parentType;
     }
 
     public final CustList<RootBlock> getAllParentTypes() {
