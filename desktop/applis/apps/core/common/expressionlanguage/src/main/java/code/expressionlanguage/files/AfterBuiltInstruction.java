@@ -9,6 +9,8 @@ public final class AfterBuiltInstruction {
 
     private BracedBlock parent;
 
+    private String packageName = "";
+
     private boolean enabledEnumHeader;
 
     public int getIndex() {
@@ -35,4 +37,11 @@ public final class AfterBuiltInstruction {
         enabledEnumHeader = _enabledEnumHeader;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String _packageName) {
+        packageName = _packageName;
+    }
 }

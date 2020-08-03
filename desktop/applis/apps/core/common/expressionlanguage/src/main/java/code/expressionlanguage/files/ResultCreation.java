@@ -1,10 +1,20 @@
 package code.expressionlanguage.files;
 
-public abstract class ResultCreation {
+import code.expressionlanguage.analyze.blocks.Block;
+
+public final class ResultCreation {
 
     private int nextIndex;
 
-    private boolean ok;
+    private Block block;
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block _block) {
+        block = _block;
+    }
 
     public int getNextIndex() {
         return nextIndex;
@@ -14,11 +24,4 @@ public abstract class ResultCreation {
         nextIndex = _nextIndex;
     }
 
-    public boolean isOk() {
-        return ok;
-    }
-
-    public void setOk(boolean _ok) {
-        ok = _ok;
-    }
 }

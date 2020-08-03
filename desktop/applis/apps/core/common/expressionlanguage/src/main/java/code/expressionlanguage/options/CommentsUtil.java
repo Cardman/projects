@@ -23,12 +23,8 @@ public final class CommentsUtil {
                 break;
             }
             if (tr_.charAt(0) != '\\') {
-                if (tr_.charAt(0) != '<') {
-                    if (tr_.charAt(0) != '>') {
-                        ok_ = false;
-                        break;
-                    }
-                }
+                ok_ = false;
+                break;
             }
         }
         if (!ok_) {

@@ -125,7 +125,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (!_packageName.isEmpty()) {
-            nameLength += _packageName.length() + 1;
+            nameLength = (_packageName+"."+_name).trim().length();
+        } else {
+            nameLength = _name.trim().length();
         }
     }
 

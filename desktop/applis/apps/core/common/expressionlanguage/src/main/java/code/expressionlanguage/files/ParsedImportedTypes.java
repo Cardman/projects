@@ -1,5 +1,6 @@
 package code.expressionlanguage.files;
 
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -12,16 +13,15 @@ public final class ParsedImportedTypes {
     private final Ints offsetsImports = new Ints();
     private int offset;
     private int nextIndex;
-    private boolean ok;
     private boolean skip;
 
     public ParsedImportedTypes(int _nextIndex, String _part) {
         nextIndex = _nextIndex;
         if (_part.isEmpty()) {
+            skip = true;
             return;
         }
         if (_part.charAt(0) != BEGIN_BLOCK) {
-            ok = true;
             skip = true;
             return;
         }
@@ -56,13 +56,9 @@ public final class ParsedImportedTypes {
             nextIndex = nextIndex + 1;
             current_++;
         }
-        offset = nextIndex+StringList.getFirstPrintableCharIndex(_part.substring(current_));
-        nextIndex = FileResolver.skipWhitespace(current_, _part);
-        ok = true;
-    }
-
-    public boolean isOk() {
-        return ok;
+        int offsetAfter_ = StringExpUtil.getOffset(_part.substring(current_));
+        offset = nextIndex+ offsetAfter_;
+        nextIndex = current_ + offsetAfter_;
     }
 
     public boolean isSkip() {

@@ -44,6 +44,9 @@ public final class InterfacesPart {
                     part = part.trim();
                 }
             }
+        } else {
+            locIndex += StringExpUtil.getOffset(part);
+            part = part.trim();
         }
     }
 

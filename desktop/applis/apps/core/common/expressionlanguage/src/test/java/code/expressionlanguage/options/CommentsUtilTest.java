@@ -31,16 +31,16 @@ public final class CommentsUtilTest {
     @Test
     public void test3() {
         CustList<CommentDelimiters> user_ = new CustList<CommentDelimiters>();
-        user_.add(new CommentDelimiters(">",new StringList("\n")));
-        user_.add(new CommentDelimiters("<html>",new StringList("</html>")));
+        user_.add(new CommentDelimiters("\\>",new StringList("\n")));
+        user_.add(new CommentDelimiters("\\<html>",new StringList("</html>")));
         user_.add(new CommentDelimiters("\\\\",new StringList("\n")));
         user_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         CustList<CommentDelimiters> default_ = new CustList<CommentDelimiters>();
         CommentsUtil.checkAndUpdateComments(user_,default_);
         assertEq(4,user_.size());
-        assertEq(">",user_.first().getBegin());
+        assertEq("\\>",user_.first().getBegin());
         assertEq(new StringList("\r\n","\r","\n"),user_.first().getEnd());
-        assertEq("<html>",user_.get(1).getBegin());
+        assertEq("\\<html>",user_.get(1).getBegin());
         assertEq(new StringList("</html>"),user_.get(1).getEnd());
         assertEq("\\\\",user_.get(2).getBegin());
         assertEq(new StringList("\r\n","\r","\n"),user_.get(2).getEnd());
