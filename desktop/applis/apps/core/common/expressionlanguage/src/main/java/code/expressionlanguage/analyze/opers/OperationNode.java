@@ -477,7 +477,6 @@ public abstract class OperationNode {
         return _str;
     }
     static void checkClassAccess(OperationNode _op,ContextEl _conf, String _glClass, String _classStr) {
-        Classes classes_ = _conf.getClasses();
         RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(_classStr);
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
         Accessed a_;

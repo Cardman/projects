@@ -58,6 +58,9 @@ public final class FileResolver {
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
         Ints offsetsImports_ = new Ints();
+        Ints beginComments_ = _block.getBeginComments();
+        Ints endComments_ = _block.getEndComments();
+        CustList<CommentDelimiters> comments_ = _context.getComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
@@ -65,7 +68,7 @@ public final class FileResolver {
                 int length_ = endCom_.length();
                 if (length_ > 0) {
                     i_ += length_;
-                    appendEnd(_block, i_, endCom_);
+                    appendEnd(i_, endCom_, endComments_);
                     appendEndComment(str_, endCom_);
                     current_ = null;
                     continue;
@@ -112,10 +115,10 @@ public final class FileResolver {
                 }
             }
             boolean skip_= false;
-            for (CommentDelimiters c: _context.getComments()) {
+            for (CommentDelimiters c: comments_) {
                 if (_file.startsWith(c.getBegin(),i_)) {
                     current_ = c;
-                    _block.getBeginComments().add(i_);
+                    beginComments_.add(i_);
                     int beginLen_ = c.getBegin().length();
                     for (int e = 0; e < beginLen_; e++) {
                         str_.append(' ');
@@ -134,9 +137,7 @@ public final class FileResolver {
                 str_.delete(0, str_.length());
             } else {
                 if (!Character.isWhitespace(currentChar_)) {
-                    if (str_.length() == 0) {
-                        indexImport_ = i_;
-                    }
+                    indexImport_ = setInstLocation(str_, indexImport_, i_);
                     str_.append(currentChar_);
                 } else {
                     str_.append(currentChar_);
@@ -197,7 +198,7 @@ public final class FileResolver {
                     int length_ = endCom_.length();
                     if (length_ > 0) {
                         i_ += length_;
-                        appendEnd(_block, i_, endCom_);
+                        appendEnd(i_, endCom_, endComments_);
                         current_ = null;
                         continue;
                     }
@@ -215,10 +216,10 @@ public final class FileResolver {
                     break;
                 }
                 boolean skip_= false;
-                for (CommentDelimiters c: _context.getComments()) {
+                for (CommentDelimiters c: comments_) {
                     if (_file.startsWith(c.getBegin(),i_)) {
                         current_ = c;
-                        _block.getBeginComments().add(i_);
+                        beginComments_.add(i_);
                         i_ += c.getBegin().length();
                         skip_ = true;
                         break;
@@ -231,7 +232,7 @@ public final class FileResolver {
                 i_ = i_ + 1;
             }
             if (ended_ && current_ != null) {
-                _block.getEndComments().add(len_ - 1);
+                endComments_.add(len_ - 1);
             }
             if (!hasNext_) {
                 return;
@@ -240,7 +241,7 @@ public final class FileResolver {
         }
     }
 
-    private static void appendEndComment(StringBuilder str_, String endCom_) {
+    static void appendEndComment(StringBuilder str_, String endCom_) {
         for (char c: endCom_.toCharArray()) {
             if (c < ' ') {
                 str_.append(c);
@@ -279,6 +280,9 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(null);
         CommentDelimiters current_ = null;
+        CustList<CommentDelimiters> comments_ = _context.getComments();
+        Ints beginComments_ = fileBlock_.getBeginComments();
+        Ints endComments_ = fileBlock_.getEndComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
@@ -286,7 +290,7 @@ public final class FileResolver {
                 int length_ = endCom_.length();
                 if (length_ > 0) {
                     i_ += length_;
-                    appendEnd(fileBlock_, i_, endCom_);
+                    appendEnd(i_, endCom_, endComments_);
                     appendEndComment(instruction_, endCom_);
                     current_ = null;
                     continue;
@@ -300,8 +304,8 @@ public final class FileResolver {
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
                         //ERROR
-                        addBadIndex(_input,out_,currentParent_, i_);
-                        break;
+                        i_++;
+                        continue;
                     }
                     instruction_.append(_file.charAt(i_+1));
 
@@ -325,8 +329,8 @@ public final class FileResolver {
                 if (currentChar_ == ESCAPE) {
                     if (i_ + 1 >= len_) {
                         //ERROR
-                        addBadIndex(_input,out_,currentParent_, i_);
-                        break;
+                        i_++;
+                        continue;
                     }
                     instruction_.append(_file.charAt(i_+1));
 
@@ -349,8 +353,8 @@ public final class FileResolver {
                 instruction_.append(currentChar_);
                 if (i_ + 1 >= len_) {
                     //ERROR
-                    addBadIndex(_input,out_,currentParent_, i_);
-                    break;
+                    i_++;
+                    continue;
                 }
                 if(currentChar_ == DEL_TEXT) {
                     if (_file.charAt(i_ + 1) != DEL_TEXT) {
@@ -371,10 +375,10 @@ public final class FileResolver {
                 continue;
             }
             boolean skip_= false;
-            for (CommentDelimiters c: _context.getComments()) {
+            for (CommentDelimiters c: comments_) {
                 if (_file.startsWith(c.getBegin(),i_)) {
                     current_ = c;
-                    fileBlock_.getBeginComments().add(i_);
+                    beginComments_.add(i_);
                     int beginLen_ = c.getBegin().length();
                     i_ += beginLen_;
                     for (int e = 0; e < beginLen_; e++) {
@@ -388,9 +392,7 @@ public final class FileResolver {
                 continue;
             }
             if (currentChar_ == DEL_CHAR) {
-                if (instruction_.length() == 0) {
-                    instructionLocation_ = i_;
-                }
+                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
                 constChar_ = true;
 
@@ -398,9 +400,7 @@ public final class FileResolver {
                 continue;
             }
             if (currentChar_ == DEL_STRING) {
-                if (instruction_.length() == 0) {
-                    instructionLocation_ = i_;
-                }
+                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
                 constString_ = true;
 
@@ -408,9 +408,7 @@ public final class FileResolver {
                 continue;
             }
             if (currentChar_ == DEL_TEXT) {
-                if (instruction_.length() == 0) {
-                    instructionLocation_ = i_;
-                }
+                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
                 constText_ = true;
 
@@ -451,8 +449,9 @@ public final class FileResolver {
                 if (enableByEndLine_) {
                     if (currentChar_ == BEGIN_TEMPLATE) {
                         //increment to last greater
+                        instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                         ParsedTemplatedType par_ = new ParsedTemplatedType(instruction_,i_);
-                        par_.parse(_file);
+                        par_.parse(_file,comments_,beginComments_,endComments_);
                         i_ = par_.getCurrent();
                         continue;
                     }
@@ -460,9 +459,7 @@ public final class FileResolver {
                 //End line
             }
             if (!endInstruction_) {
-                if (instruction_.length() == 0) {
-                    instructionLocation_ = i_;
-                }
+                instructionLocation_ = setInstLocation(instruction_, instructionLocation_, i_);
                 instruction_.append(currentChar_);
             }
             if (currentChar_ == BEGIN_CALLING) {
@@ -527,6 +524,13 @@ public final class FileResolver {
         return out_;
     }
 
+    private static int setInstLocation(StringBuilder instruction_, int instructionLocation_, int i_) {
+        if (instruction_.length() == 0) {
+            return i_;
+        }
+        return instructionLocation_;
+    }
+
     private static void addBadIndex(InputTypeCreation _input, ResultCreation _out,BracedBlock _currentParent, int _index) {
         if (_currentParent != null) {
             _currentParent.getBadIndexes().add(_index);
@@ -534,11 +538,11 @@ public final class FileResolver {
             _input.getBadIndexes().add(_index);
         }
     }
-    private static void appendEnd(FileBlock _fileBlock, int _i, String _e) {
+    static void appendEnd(int _i, String _e, Ints _endComments) {
         if (_e.trim().isEmpty()) {
-            _fileBlock.getEndComments().add(_i -2);
+            _endComments.add(_i -2);
         } else {
-            _fileBlock.getEndComments().add(_i -1);
+            _endComments.add(_i -1);
         }
     }
 
@@ -3072,7 +3076,7 @@ public final class FileResolver {
         return -1;
     }
 
-    private static String getEndCom(String _file, int _i, CommentDelimiters _current) {
+    static String getEndCom(String _file, int _i, CommentDelimiters _current) {
         String endCom_ = "";
         for (String e: _current.getEnd()) {
             if (_file.startsWith(e, _i)) {

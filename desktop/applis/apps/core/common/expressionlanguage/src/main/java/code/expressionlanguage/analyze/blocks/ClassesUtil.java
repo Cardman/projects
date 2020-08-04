@@ -1436,7 +1436,7 @@ public final class ClassesUtil {
                     String baseParams_ = StringExpUtil.getIdFromAllTypes(b);
                     String base_ = StringExpUtil.getQuickComponentBaseType(baseParams_).getComponent();
                     upperNotObj_.add(b);
-                    if (_context.getClasses().getClassBodiesMap().contains(base_)) {
+                    if (_context.getAnalyzing().getAnaClassBody(base_) != null) {
                         existCustom_ = true;
                     } else {
                         existNative_ = true;
