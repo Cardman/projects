@@ -1173,7 +1173,7 @@ public final class LinkageUtil {
         _parts.addAllElts(_cond.getTypePartOffsets());
         int blOffset_ = _cond.getValueOffest();
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
-        buildCoverageReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),endBl_,_parts, _cond.getTrOffset() -1,_cond.getUniqueFieldName(),false);
+        buildCoverageReport(_cont,_vars,blOffset_,_cond,inst_,endBl_,_parts, _cond.getTrOffset() -1,_cond.getUniqueFieldName(),false);
     }
 
     private static void processElementBlockError(VariablesOffsets _vars,ElementBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -1219,7 +1219,7 @@ public final class LinkageUtil {
         }
         _parts.addAllElts(_cond.getTypePartOffsets());
         int blOffset_ = _cond.getValueOffest();
-        buildErrorReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),_parts, _cond.getTrOffset() -1, uniqueFieldName_,true);
+        buildErrorReport(_cont,_vars,blOffset_,_cond,inst_,_parts, _cond.getTrOffset() -1, uniqueFieldName_);
     }
     private static void processFieldBlockReport(VariablesOffsets _vars,FieldBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         buildAnnotField(_vars, _cond, _cont, _parts);
@@ -1462,7 +1462,7 @@ public final class LinkageUtil {
         _parts.addAllElts(_cond.getTypePartOffsets());
         int blOffset_ = _cond.getValueOffest();
         int endBl_ = _cond.getValueOffest() + _cond.getValue().length();
-        buildCoverageReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),endBl_,_parts, _cond.getTrOffset() -1,_cond.getUniqueFieldName(),false);
+        buildCoverageReport(_cont,_vars,blOffset_,_cond,inst_,endBl_,_parts, _cond.getTrOffset() -1,_cond.getUniqueFieldName(),false);
     }
     private static void processInnerElementBlockError(VariablesOffsets _vars,InnerElementBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
         processAnnotationError(_vars,_cond,_cont,_parts);
@@ -1503,7 +1503,7 @@ public final class LinkageUtil {
         }
         _parts.addAllElts(_cond.getTypePartOffsets());
         int blOffset_ = _cond.getValueOffest();
-        buildErrorReport(_cont,_vars,blOffset_,_cond,_cond.getRoot(),_parts,_cond.getTrOffset() -1,_cond.getUniqueFieldName(),true);
+        buildErrorReport(_cont,_vars,blOffset_,_cond,inst_,_parts,_cond.getTrOffset() -1,_cond.getUniqueFieldName());
     }
 
     private static String getLineErr(StringList _list) {
@@ -1673,7 +1673,7 @@ public final class LinkageUtil {
                                         Block _block,
                                         OperationNode _nodes,
                                         CustList<PartOffset> _parts) {
-        buildErrorReport(_cont,_vars,_offsetBlock,_block,_nodes,_parts,0,"",false);
+        buildErrorReport(_cont,_vars,_offsetBlock,_block,_nodes,_parts,0,"");
     }
 
     public static void buildCoverageReport(ContextEl _cont, VariablesOffsets _vars,int _offsetBlock,
@@ -1689,15 +1689,13 @@ public final class LinkageUtil {
                                            OperationNode _root,
                                            int _endBlock,
                                            CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _annotation) {
-        OperationNode root_ = adjust(_root,!_fieldName.isEmpty());
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();
         boolean addCover_ = !(_block instanceof CaseCondition) && !(_block instanceof AnnotationMethodBlock) && !_annotation;
-        OperationNode r_ = root_;
-        OperationNode val_ = root_;
+        OperationNode val_ = _root;
         while (true) {
             AbstractCoverageResult result_ = getCovers(_cont, _block, val_);
-            getBeginOp(_cont, _block, _parts, _fieldName, r_, val_, sum_, addCover_, val_, result_);
+            getBeginOp(_cont, _block, _parts, _fieldName, _root, val_, sum_, addCover_, val_, result_);
             left(_cont,_vars,currentFileName_,_offsetBlock,_block,sum_,val_, result_,_parts, currentFileName_);
             OperationNode firstChildOp_ = val_.getFirstChild();
             if (firstChildOp_ != null) {
@@ -1718,7 +1716,7 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                boolean st_ = end(_vars,val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
+                boolean st_ = end(_vars,val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, _root);
                 if (st_) {
                     stopOp_ = true;
                 }
@@ -1736,15 +1734,13 @@ public final class LinkageUtil {
     public static void buildErrorReport(ContextEl _cont, VariablesOffsets _vars, int _offsetBlock,
                                         Block _block,
                                         OperationNode _root,
-                                        CustList<PartOffset> _parts, int _tr, String _fieldName, boolean _ad) {
+                                        CustList<PartOffset> _parts, int _tr, String _fieldName) {
         if (_root == null) {
             return;
         }
-        OperationNode root_ = adjust(_root,_ad);
         int sum_ = _tr + _offsetBlock - _fieldName.length();
         String currentFileName_ = _vars.getCurrentFileName();
-        OperationNode r_ = root_;
-        OperationNode val_ = root_;
+        OperationNode val_ = _root;
         while (true) {
             leftError(_cont,_vars,currentFileName_,_offsetBlock,_block,sum_,val_, _parts, currentFileName_);
             OperationNode firstChildOp_ = val_.getFirstChild();
@@ -1764,7 +1760,7 @@ public final class LinkageUtil {
                     val_=nextSiblingOp_;
                     break;
                 }
-                boolean st_ = end(_vars,val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, r_);
+                boolean st_ = end(_vars,val_,parent_, _cont, currentFileName_, offsetEnd_, _parts, _root);
                 if (st_) {
                     stopOp_ = true;
                 }
@@ -1778,13 +1774,7 @@ public final class LinkageUtil {
             }
         }
     }
-    private static OperationNode adjust(OperationNode _root, boolean _ad) {
-        OperationNode root_ = _root;
-        if (_ad) {
-            root_ = root_.getFirstChild().getNextSibling();
-        }
-        return root_;
-    }
+
     private static boolean end(VariablesOffsets _vars,OperationNode _cur,MethodOperation parent_, ContextEl _cont, String currentFileName_, int offsetEnd_, CustList<PartOffset> _parts, OperationNode r_) {
         boolean stopOp_ = false;
         if (parent_ == null) {

@@ -2743,12 +2743,11 @@ public final class FileResolver {
             boolean ok_ = false;
             int nextEltMut_ = getIndex(exp_, END_LINE);
             if (nextEltMut_ > -1) {
-                int nextElt_ = getIndex(exp_, END_LINE);
-                String init_ = exp_.substring(0, nextElt_);
+                String init_ = exp_.substring(0, nextEltMut_);
                 initOff_ += StringList.getFirstPrintableCharIndex(init_);
                 exp_ = exp_.substring(init_.length()+1);
-                int toOff_ = initOff_ + nextElt_;
-                nextElt_ = getIndex(exp_, END_LINE);
+                int toOff_ = initOff_ + nextEltMut_;
+                int nextElt_ = getIndex(exp_, END_LINE);
                 if (nextElt_ > -1) {
                     String to_ = exp_.substring(0, nextElt_);
                     int expOff_ = toOff_ + nextElt_;

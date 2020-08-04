@@ -2684,6 +2684,7 @@ public final class ElResolver {
         }
 
         String sub_ = _string.substring(_from + 1, indexParRight_);
+        int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String subTrim_ = sub_.trim();
         int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
         if (subTrim_.startsWith(ARR) && arrRight_ > -1) {
@@ -2709,7 +2710,7 @@ public final class ElResolver {
             }
         }
         CustList<PartOffset> curr_ = _conf.getAnalyzing().getCurrentParts();
-        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1, sub_, true, curr_);
+        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1 + off_, subTrim_, true, curr_);
         if (!typeOut_.isEmpty()) {
             _d.getDelCast().add(_from);
             _d.getDelCast().add(indexParRight_);
