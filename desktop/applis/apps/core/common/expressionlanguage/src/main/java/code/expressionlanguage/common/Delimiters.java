@@ -34,6 +34,8 @@ public final class Delimiters {
     private Ints delClass = new Ints();
     private Ints delSimpleAnnotations = new Ints();
     private Ints callings = new Ints();
+    private Ints indexesNew = new Ints();
+    private Ints indexesNewEnd = new Ints();
     private CustList<StringInfo> stringInfo = new CustList<StringInfo>();
     private CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private CustList<VariableInfo> variables = new CustList<VariableInfo>();
@@ -139,6 +141,14 @@ public final class Delimiters {
 
     public Ints getCallings() {
         return callings;
+    }
+
+    public Ints getIndexesNew() {
+        return indexesNew;
+    }
+
+    public Ints getIndexesNewEnd() {
+        return indexesNewEnd;
     }
 
     public int getIndexBegin() {

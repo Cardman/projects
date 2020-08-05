@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -29,6 +30,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
 public abstract class OperationNode {
@@ -147,7 +149,6 @@ public abstract class OperationNode {
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         String keyWordThis_ = keyWords_.getKeyWordThis();
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
-        String keyWordValues_ = keyWords_.getKeyWordValues();
         ConstType ct_ = _op.getConstType();
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
@@ -210,6 +211,11 @@ public abstract class OperationNode {
                 }
                 if (StringList.quickEq(op_,"[")) {
                     return new DimensionArrayInstancing(_index, _indexChild, _m, _op);
+                }
+                Block block_ = _op.getBlock();
+                if (block_ instanceof AnonymousTypeBlock) {
+                    ((AnonymousTypeBlock)block_).setIndexEnd(((AnonymousTypeBlock)block_).getIdRowCol()+_op.getLength());
+                    return new AnonymousInstancingOperation(_index,_indexChild,_m,_op,(AnonymousTypeBlock)block_);
                 }
                 return new StandardInstancingOperation(_index, _indexChild, _m, _op);
             }
@@ -1992,14 +1998,24 @@ public abstract class OperationNode {
         for (String s: _fromClasses) {
             String baseCurName_ = StringExpUtil.getIdFromAllTypes(s);
             AnaGeneType root_ = _conf.getAnalyzing().getAnaGeneType(_conf,baseCurName_);
-            if (root_ == null) {
-                continue;
+            if (root_ instanceof RootBlock) {
+                String gene_ = root_.getGenericString();
+                addToList(_conf,typeInfos_,_staticContext,root_,s,root_,gene_,0,true);
+                for (AnaFormattedRootBlock m: ((RootBlock)root_).getAllGenericSuperTypesInfo()) {
+                    RootBlock rootBlock_ = m.getRootBlock();
+                    String formatted_ = m.getFormatted();
+                    addToList(_conf,typeInfos_,_staticContext,root_,s, rootBlock_, formatted_,0,false);
+                }
             }
-            String gene_ = root_.getGenericString();
-            addToList(_conf,typeInfos_,_staticContext,root_,s,gene_,0,true);
-            for (String m : root_.getAllGenericSuperTypes()) {
-                addToList(_conf,typeInfos_,_staticContext,root_,s,m,0,false);
+            if (root_ instanceof StandardType) {
+                String gene_ = root_.getGenericString();
+                addToList(_conf,typeInfos_,_staticContext,root_,s,root_,gene_,0,true);
+                for (String m : root_.getAllGenericSuperTypes()) {
+                    StandardType sup_ = _conf.getStandards().getStandards().getVal(m);
+                    addToList(_conf,typeInfos_,_staticContext,root_,s,sup_,m,0,false);
+                }
             }
+
         }
         typeInfosMap_.put(0,typeInfos_);
         for (TypeInfo t: typeInfos_) {
@@ -2035,9 +2051,11 @@ public abstract class OperationNode {
                     scope_ = MethodAccessKind.STATIC;
                 }
                 String gene_ = p.getGenericString();
-                addToList(_conf,typeInfosInt_,scope_,root_,f_,gene_,anc_,true);
-                for (String m : p.getAllGenericSuperTypes()) {
-                    addToList(_conf,typeInfosInt_,scope_,root_,f_,m,anc_,false);
+                addToList(_conf,typeInfosInt_,scope_,root_,f_,root_,gene_,anc_,true);
+                for (AnaFormattedRootBlock m: r_.getAllGenericSuperTypesInfo()) {
+                    RootBlock rootBlock_ = m.getRootBlock();
+                    String formatted_ = m.getFormatted();
+                    addToList(_conf,typeInfosInt_,scope_,root_,f_,rootBlock_,formatted_,anc_,false);
                 }
                 if (p.isStaticType()) {
                     add_ = false;
@@ -2047,18 +2065,16 @@ public abstract class OperationNode {
         }
         return typeInfosMap_.values();
     }
-    private static void addToList(ContextEl _conf, CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, String _second, int _anc, boolean _base) {
+    private static void addToList(ContextEl _conf, CustList<TypeInfo> _list, MethodAccessKind _k, AnaGeneType _firstType, String _first, AnaGeneType _secondType,String _second, int _anc, boolean _base) {
         TypeInfo t_ = newTypeInfo(_conf, _k, _firstType,_first, _second, _anc);
         String f_ = t_.getType();
-        String id_ = StringExpUtil.getIdFromAllTypes(f_);
         for (TypeInfo t: _list) {
             if (StringList.quickEq(t.getType(), f_)) {
                 return;
             }
         }
-        AnaGeneType info_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
         t_.setBase(_base);
-        t_.setSuperTypes(info_.getAllSuperTypes());
+        t_.setSuperTypes(_secondType.getAllSuperTypes());
         _list.add(t_);
     }
 

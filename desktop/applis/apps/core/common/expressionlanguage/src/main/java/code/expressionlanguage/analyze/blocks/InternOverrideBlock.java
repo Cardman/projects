@@ -96,7 +96,7 @@ public final class InternOverrideBlock extends Leaf {
                 superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
                 String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _context);
                 RootBlock formattedType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
-                if (formatted_.isEmpty()) {
+                if (formattedType_ == null) {
                     allParts.addAllElts(superPartOffsets_);
                     localSum_ += s.length()+1;
                     continue;

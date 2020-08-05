@@ -78,6 +78,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     String cl_ = cid_.getName();
                     cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                     previousInts_.add(cl_);
+                } else {
+                    previousInts_.add("");
                 }
             }
             while (true) {
@@ -113,6 +115,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                         checkInherits(this,_conf, previousInts_, n_, cl_);
                         previousInts_.add(cl_);
+                    } else {
+                        previousInts_.add("");
                     }
                 }
                 f_ = n_;
@@ -131,7 +135,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             RootBlock supType_ = _conf.getAnalyzing().getAnaClassBody(sup_);
-            if (supType_.isSubTypeOf(_cl,_conf)) {
+            if (supType_ != null && supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());

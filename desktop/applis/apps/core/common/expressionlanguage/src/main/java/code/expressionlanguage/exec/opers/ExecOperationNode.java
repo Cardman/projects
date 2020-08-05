@@ -175,6 +175,12 @@ public abstract class ExecOperationNode {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             return new ExecStandardInstancingOperation(s_);
         }
+        if (_anaNode instanceof AnonymousInstancingOperation) {
+            AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
+            ExecAnonymousInstancingOperation exec_ = new ExecAnonymousInstancingOperation(s_);
+            _cont.getAnalyzing().getMapAnonymous().last().addEntry(s_,exec_);
+            return exec_;
+        }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
             if (a_.getClassMethodId() != null) {

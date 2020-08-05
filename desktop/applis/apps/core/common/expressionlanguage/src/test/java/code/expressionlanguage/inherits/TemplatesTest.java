@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -960,7 +961,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
         assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
         assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());

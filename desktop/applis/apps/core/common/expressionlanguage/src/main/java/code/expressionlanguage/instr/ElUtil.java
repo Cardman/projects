@@ -2,6 +2,7 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
@@ -162,6 +163,7 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        _conf.getAnalyzing().getMapAnonymous().removeLast();
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -296,7 +298,11 @@ public final class ElUtil {
 
     public static void retrieveErrorsAnalyze(ContextEl _context, OperationNode _current) {
         _current.analyze(_context);
-        Block currentBlock_ = _context.getAnalyzing().getCurrentBlock();
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        if (_current instanceof AnonymousInstancingOperation) {
+            analyzing_.getAnonymousTypes().add((AnonymousInstancingOperation) _current);
+        }
+        Block currentBlock_ = analyzing_.getCurrentBlock();
         if (currentBlock_ instanceof FieldBlock) {
             MethodOperation parent_ = _current.getParent();
             if (parent_ instanceof DeclaringOperation) {
@@ -383,9 +389,9 @@ public final class ElUtil {
     }
 
     private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
-        return block_ instanceof StandardInstancingOperation
+        return block_ instanceof AbstractInstancingOperation
                 && _index == CustList.FIRST_INDEX
-                && ((StandardInstancingOperation) block_).isNewBefore();
+                && ((AbstractInstancingOperation) block_).isNewBefore();
     }
 
     private static OperationNode createNextSibling(OperationNode _block, ContextEl _context, String _fieldName, boolean _hasFieldName) {
@@ -395,7 +401,7 @@ public final class ElUtil {
         }
         IntTreeMap<String> children_ = p_.getChildren();
         int delta_ = 1;
-        if (p_ instanceof StandardInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
+        if (p_ instanceof AbstractInstancingOperation && p_.getFirstChild() instanceof StaticInitOperation) {
             delta_ = 0;
         }
         if (_block.getIndexChild() + delta_ >= children_.size()) {

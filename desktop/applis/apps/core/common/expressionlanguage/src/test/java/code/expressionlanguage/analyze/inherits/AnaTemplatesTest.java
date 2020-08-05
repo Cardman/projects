@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.structs.DoubleStruct;
@@ -390,6 +391,24 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String inferred_ = AnaTemplates.tryInfer("java.lang.$Fct",new StringMap<String>(), "java.lang.$Fct<java.lang.Number>", cont_);
         assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
+    }
+    @Test
+    public void tryInfer17Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:ExFour<T> {}\n");
+        xml_.append("$public $interface pkg.ExThree<V>:ExFour<V> {}\n");
+        xml_.append("$public $interface pkg.ExFour<W>:ExFive<W> {}\n");
+        xml_.append("$public $interface pkg.ExFive<X> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = AnaTemplates.tryInfer("",new StringMap<String>(), "", cont_);
+        assertNull(inferred_);
+        assertEq(0,AnaTemplates.getBoundAll(null).size());
     }
     @Test
     public void getVarTypes() {
@@ -6334,6 +6353,15 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
 
 
+    @Test
+    public void getCorrectTemplateAll1() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<StringList> t_ = new StringMap<StringList>();
+        assertTrue(AnaTemplates.getCorrectTemplateAll("",new StringList(),new StringMap<StringList>(),cont_).isEmpty());
+    }
+
+
 
 
 
@@ -6353,7 +6381,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
         assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
         assertTrue( _cont.isEmptyErrors());

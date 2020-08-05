@@ -1,0 +1,64 @@
+package code.expressionlanguage.exec.opers;
+
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.util.CustList;
+import code.util.IdMap;
+import code.util.StringList;
+
+public final class ExecAnonymousInstancingOperation extends
+        ExecInvokingOperation {
+
+    private String methodName;
+
+    private ConstructorId constId;
+
+    private String className;
+
+    private int naturalVararg;
+
+    private String lastType;
+    public ExecAnonymousInstancingOperation(AnonymousInstancingOperation _s) {
+        super(_s);
+        setExecAnonymousInstancingOperation(_s);
+    }
+    public void setExecAnonymousInstancingOperation(AnonymousInstancingOperation _s) {
+        methodName = _s.getMethodName();
+        constId = _s.getConstId();
+        className = _s.getClassName();
+        naturalVararg = _s.getNaturalVararg();
+        lastType = _s.getLastType();
+    }
+    @Override
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
+        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+        Argument res_ = getArgument(previous_, arguments_, _conf);
+        setSimpleArgument(res_, _conf, _nodes);
+    }
+    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
+                         ContextEl _conf) {
+        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        CustList<ExecOperationNode> filter_ = filterInvoking(chidren_);
+        int off_ = StringList.getFirstPrintableCharIndex(methodName);
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        String className_;
+        PageEl page_ = _conf.getLastPage();
+        className_ = page_.formatVarType(className, _conf);
+        String base_ = StringExpUtil.getIdFromAllTypes(className_);
+        if (ExecutingUtil.hasToExit(_conf,base_)) {
+            return Argument.createVoid();
+        }
+        String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf);
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
+        return instancePrepareFormat(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, "", -1);
+    }
+}

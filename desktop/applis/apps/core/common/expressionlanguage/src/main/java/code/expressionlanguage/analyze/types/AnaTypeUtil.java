@@ -249,6 +249,7 @@ public final class AnaTypeUtil {
             page_.setCurrentAnaBlock(c);
             page_.setGlobalClass(c.getGenericString());
             page_.setGlobalType(c);
+            page_.setGlobalDirType(null);
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
@@ -299,6 +300,7 @@ public final class AnaTypeUtil {
                 page_.setCurrentAnaBlock(c);
                 page_.setGlobalClass(c.getGenericString());
                 page_.setGlobalType(c);
+                page_.setGlobalDirType(null);
                 page_.setGlobalOffset(offsetSup_);
                 page_.setOffset(0);
                 sup_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sup_);
@@ -314,6 +316,7 @@ public final class AnaTypeUtil {
                     page_.setCurrentAnaBlock(c);
                     page_.setGlobalClass(c.getGenericString());
                     page_.setGlobalType(c);
+                    page_.setGlobalDirType(null);
                     page_.setGlobalOffset(offsetSub_);
                     page_.setOffset(0);
                     sub_ = ResolvingImportTypes.resolveAccessibleIdType(_context,0,sub_);

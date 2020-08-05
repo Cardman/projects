@@ -51,6 +51,18 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(!ctx_.isEmptyErrors());
     }
     @Test
+    public void calculate3FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$operator+ $int(){pkg.MyInt.$this;$new CharSequence(){};($new CharSequence(){});}\n");
+        xml_.append("$public $interface pkg.MyInt{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl ctx_ = contextElSingleDotDefaultReadOnly();
+        Classes.validateAll(files_,ctx_);
+        assertTrue(!ctx_.isEmptyErrors());
+    }
+    @Test
     public void calculateStaticField183__FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

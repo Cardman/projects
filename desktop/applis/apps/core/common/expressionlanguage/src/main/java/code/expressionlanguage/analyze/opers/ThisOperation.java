@@ -50,6 +50,18 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             String gl_ = _conf.getAnalyzing().getGlobalClass();
             gl_ = StringExpUtil.getIdFromAllTypes(gl_);
             RootBlock g_ = _conf.getAnalyzing().getAnaClassBody(gl_);
+            if (g_ == null) {
+                FoundErrorInterpret static_ = new FoundErrorInterpret();
+                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                //key word len
+                static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
+                        _conf.getKeyWords().getKeyWordThis());
+                _conf.getAnalyzing().getLocalizer().addError(static_);
+                getErrs().add(static_.getBuiltError());
+                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+                return;
+            }
             for (RootBlock r: g_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
                     if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {

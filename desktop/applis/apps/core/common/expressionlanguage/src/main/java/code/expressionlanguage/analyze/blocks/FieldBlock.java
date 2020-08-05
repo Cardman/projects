@@ -161,7 +161,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, Calculation.staticCalculation(staticField));
+        Calculation calcul_ = Calculation.staticCalculation(staticField);
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(valueOffset,value, _cont, calcul_);
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();

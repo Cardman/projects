@@ -599,6 +599,9 @@ public final class AnaTemplates {
     public static String getCorrectTemplateAll(String _realClassName, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
         String id_ = StringExpUtil.getIdFromAllTypes(_realClassName);
         RootBlock g_ = _context.getAnalyzing().getAnaClassBody(id_);
+        if (g_ == null) {
+            return "";
+        }
         CustList<StringList> bounds_ = g_.getBoundAll();
         int len_ = bounds_.size();
         if (len_ != _parts.size()) {
@@ -620,8 +623,17 @@ public final class AnaTemplates {
         return _realClassName;
     }
 
+    public static CustList<StringList> getBoundAll(AnaGeneType _ana) {
+        if (_ana == null) {
+            return new CustList<StringList>();
+        }
+        return _ana.getBoundAll();
+    }
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
         AnaGeneType g_ = _context.getAnalyzing().getAnaGeneType(_context,_erased);
+        if (g_ == null) {
+            return null;
+        }
         String idParam_ = StringExpUtil.getIdFromAllTypes(_declaring);
         String gene_ = g_.getGenericString();
         String type_ = "";

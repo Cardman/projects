@@ -178,11 +178,16 @@ final class AnaNamePartType extends AnaLeafPartType {
             if (owners_.isEmpty()) {
                 continue;
             }
+            RootBlock inner_ = null;
+            String genStr_ = "";
+            String id_ = "";
             if (owners_.onlyOneElt()) {
-                String genStr_ = owners_.first();
-                String id_ = StringExpUtil.getIdFromAllTypes(genStr_);
+                genStr_ = owners_.first();
+                id_ = StringExpUtil.getIdFromAllTypes(genStr_);
                 String in_ = StringList.concat(id_,"..",type_);
-                RootBlock inner_ = _an.getAnalyzing().getAnaClassBody(in_);
+                inner_ = _an.getAnalyzing().getAnaClassBody(in_);
+            }
+            if (inner_ != null) {
                 if (inner_.isStaticType()) {
                     setAnalyzedType(StringList.concat(id_,"..",type_));
                     owner = a;

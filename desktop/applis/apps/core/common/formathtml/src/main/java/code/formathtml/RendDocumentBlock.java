@@ -38,6 +38,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setAccessStaticContext(MethodAccessKind.STATIC);
+        page_.setGlobalDirType(null);
         if (_cont.getBeansInfos().contains(beanName)) {
             page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();

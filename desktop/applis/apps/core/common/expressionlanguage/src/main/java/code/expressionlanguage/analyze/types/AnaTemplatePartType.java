@@ -78,7 +78,7 @@ final class AnaTemplatePartType extends AnaBinaryType {
         String tempClFull_ = fetchTemplate();
         tempCl_ = StringExpUtil.getIdFromAllTypes(tempCl_);
         AnaGeneType type_ = _an.getAnalyzing().getAnaGeneType(_an,tempCl_);
-        CustList<StringList> boundsAll_ = type_.getBoundAll();
+        CustList<StringList> boundsAll_ = AnaTemplates.getBoundAll(type_);
         int i_ = 0;
         for (StringList t: boundsAll_) {
             getBeginOps().add(new PartOffset("",0));

@@ -750,9 +750,6 @@ public final class CoverageTest extends ProcessMethodCommon {
         assertTrue(!value_.isCoverTrue());
         assertTrue(!value_.isCoverFalse());
     }
-    private static void validate(ContextEl _c, StringMap<String> _f) {
-        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
-    }
     @Test
     public void coverage48Test() {
         StringBuilder xml_ = new StringBuilder();

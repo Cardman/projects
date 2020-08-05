@@ -1,6 +1,8 @@
 package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnonymousResult;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.ExpPartDelimiters;
 import code.expressionlanguage.common.StringExpUtil;
@@ -66,6 +68,9 @@ final class AfterUnaryParts {
     private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
+    private Block block;
+    private int length;
+    private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
 
     AfterUnaryParts(int _offset, String _string, ExpPartDelimiters _del, Delimiters _d) {
         del = _del;
@@ -115,6 +120,7 @@ final class AfterUnaryParts {
         index = firstPrintChar_;
     }
     void setInstance(String _string, ContextEl _conf) {
+        anonymousResults = _conf.getAnalyzing().getAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
@@ -128,6 +134,15 @@ final class AfterUnaryParts {
     void setState(int _offset, String _string, Delimiters _d) {
         int firstPrintChar_ = del.getFirstPrintIndex();
         char curChar_ = _string.charAt(index);
+        block =  null;
+        for (AnonymousResult a: anonymousResults) {
+            if (a.getIndex() == index + _offset) {
+                index = a.getUntil() - _offset + 1;
+                block = a.getType();
+                length = a.getLength();
+                return;
+            }
+        }
         if (_d.getDimsAddonIndexes().containsObj(index+_offset)) {
             laterIndexesDouble.add(index);
             index++;
@@ -664,5 +679,13 @@ final class AfterUnaryParts {
 
     boolean isLeftParFirstOperator() {
         return leftParFirstOperator;
+    }
+
+    Block getBlock() {
+        return block;
+    }
+
+    int getLength() {
+        return length;
     }
 }

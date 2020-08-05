@@ -33,6 +33,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private StringList basePackages = new StringList();
     private StringList packages = new StringList();
     private int length;
+    private int numberFile;
 
     public FileBlock(OffsetsBlock _offset, boolean _predefined) {
         super(_offset);
@@ -174,5 +175,13 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public StringList getPackages() {
         return packages;
+    }
+
+    public int getNumberFile() {
+        return numberFile;
+    }
+
+    public void setNumberFile(int numberFile) {
+        this.numberFile = numberFile;
     }
 }

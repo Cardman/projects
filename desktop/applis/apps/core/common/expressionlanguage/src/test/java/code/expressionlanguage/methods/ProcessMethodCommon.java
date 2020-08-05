@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -147,6 +146,19 @@ public abstract class ProcessMethodCommon {
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOne(opt_);
+    }
+
+    protected static StringMap<String> getErrors(ContextEl _cont) {
+        return _cont.getOptions().getErrors();
+    }
+
+    protected static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
+        validate(cont_,files_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    protected static void validateAndCheckNoErrors(StringMap<String> files_, ContextEl cont_) {
+        validate(cont_,files_);
+        assertTrue(cont_.isEmptyErrors());
     }
     protected static ContextEl contextElErrorStdReadOnlyDef() {
         Options opt_ = new Options();
@@ -469,7 +481,7 @@ public abstract class ProcessMethodCommon {
         MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
         _cont.setAnalyzing();
         _cont.getAnalyzing().setHeaders(headers_);
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont);
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
     }
 
     protected static ContextEl getRootContextEl() {
@@ -542,6 +554,13 @@ public abstract class ProcessMethodCommon {
             return (Struct) str_;
         }
         return null;
+    }
+    protected static void validateAndCheckValid(StringMap<String> _files, ContextEl _cont) {
+        validate(_cont, _files);
+        assertTrue(_cont.isEmptyErrors());
+    }
+    protected static void validate(ContextEl _c, StringMap<String> _f) {
+        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();

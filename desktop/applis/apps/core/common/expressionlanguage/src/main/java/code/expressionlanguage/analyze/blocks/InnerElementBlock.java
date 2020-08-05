@@ -7,7 +7,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInnerTypeOrElement;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -20,7 +19,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
-public final class InnerElementBlock extends RootBlock implements InnerTypeOrElement,UniqueRootedBlock {
+public final class InnerElementBlock extends ImmutableNameRootBlock implements InnerTypeOrElement,UniqueRootedBlock {
 
     private final String fieldName;
 

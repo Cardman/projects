@@ -2,7 +2,16 @@ package code.expressionlanguage.instr;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.AnonymousResult;
+import code.expressionlanguage.analyze.InterfacesPart;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
+import code.expressionlanguage.files.FileResolver;
+import code.expressionlanguage.files.InputTypeCreation;
+import code.expressionlanguage.files.ResultCreation;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.options.KeyWords;
@@ -97,19 +106,26 @@ public final class ElResolver {
     public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
-        return commonCheck(_string, _conf, _minIndex, new FullFieldRetriever(d_,_string,_conf), d_);
+        AnalyzedPageEl ana_ = _conf.getAnalyzing();
+        ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
+        return commonCheck(_string, _conf, _minIndex, ret_, d_);
     }
 
     public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        return commonCheck(_string, _conf, _elOffest, new FullFieldRetriever(d_,_string,_conf), d_);
+        AnalyzedPageEl ana_ = _conf.getAnalyzing();
+        ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
+        return commonCheck(_string, _conf, _elOffest, ret_, d_);
     }
 
     static Delimiters checkSyntaxQuick(String _string, ContextEl _conf) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        return commonCheck(_string, _conf, 0, new QuickFieldRetriever(d_), d_);
+        QuickFieldRetriever ret_ = new QuickFieldRetriever(d_);
+        return commonCheck(_string, _conf, 0, ret_, d_);
     }
     private static Delimiters commonCheck(String _string, ContextEl _conf, int _minIndex, FieldRetriever _ret, Delimiters _d) {
         boolean partOfString_ = _d.isPartOfString();
@@ -138,6 +154,8 @@ public final class ElResolver {
             i_++;
         }
         int beginIndex_ = i_;
+        AnalyzedPageEl ana_ = _conf.getAnalyzing();
+        ana_.getAnonymousResults().clear();
         if (i_ >= len_) {
             _d.setBadOffset(i_);
             return _d;
@@ -227,7 +245,6 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
-            AnalyzedPageEl ana_ = _conf.getAnalyzing();
             if (ana_.getCurrentBlock() instanceof FieldBlock
                     && parsBrackets_.isEmpty()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
@@ -540,6 +557,7 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
             int j_ = i_+keyWordNew_.length();
+            int l_ = j_;
 
             int count_ = 0;
             boolean foundLeftPar_ = false;
@@ -549,6 +567,7 @@ public final class ElResolver {
                 if (!Character.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_LEFT) {
                         foundLeft_ = true;
+                        l_++;
                     }
                     if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
                         foundLeftPar_ = true;
@@ -556,10 +575,12 @@ public final class ElResolver {
                     j_++;
                     break;
                 }
+                l_++;
                 j_++;
             }
             if (foundLeftPar_) {
                 i_ = j_-1;
+                _d.getIndexesNew().add(i_);
                 _out.setNextIndex(i_);
                 return;
             }
@@ -568,15 +589,39 @@ public final class ElResolver {
                 char curLoc_ = _string.charAt(j_);
                 if (!Character.isWhitespace(curLoc_)) {
                     if (curLoc_ == ANN_ARR_RIGHT) {
+                        l_++;
+                        j_++;
                         found_ = true;
                     }
                     break;
                 }
+                l_++;
                 j_++;
             }
             if (foundLeft_ && !found_) {
                 _d.setBadOffset(j_);
                 return;
+            }
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    break;
+                }
+                l_++;
+                j_++;
+            }
+            if (StringExpUtil.startsWithKeyWord(_string,l_, keyWordInterfaces_)) {
+                int k_ = _string.indexOf(PAR_LEFT, l_);
+                if (k_ < 0) {
+                    _d.setBadOffset(j_);
+                    return;
+                }
+                k_ = _string.indexOf(PAR_RIGHT, k_);
+                if (k_ < 0) {
+                    _d.setBadOffset(j_);
+                    return;
+                }
+                j_ = k_;
             }
             while (j_ < len_) {
                 char curLoc_ = _string.charAt(j_);
@@ -607,6 +652,7 @@ public final class ElResolver {
                 return;
             }
             i_ = j_;
+            _d.getIndexesNew().add(i_);
             _out.setNextIndex(i_);
             return;
         }
@@ -1398,10 +1444,38 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
+            if (_dout.getIndexesNew().containsObj(parsBrackets_.lastKey())) {
+                _dout.getIndexesNewEnd().add(i_);
+            }
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == ANN_ARR_LEFT) {
             parsBrackets_.put(i_, curChar_);
+            int bk_ = getBackPrintChar(_string, i_);
+            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
+                if (_dout.getIndexesNewEnd().containsObj(bk_)) {
+                    RootBlock globalType_ = _conf.getAnalyzing().getGlobalDirType();
+                    if (globalType_ != null) {
+                        int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                        String packageName_ = globalType_.getPackageName();
+                        InputTypeCreation input_ = new InputTypeCreation();
+                        input_.setFile(globalType_.getFile());
+                        input_.setNextIndex(i_);
+                        ResultCreation res_ = FileResolver.processOuterTypeBody(_conf, input_, packageName_, instrLoc_, _string);
+                        Block block_ = res_.getBlock();
+                        int j_ = res_.getNextIndex() - 1;
+                        AnonymousResult anonymous_ = new AnonymousResult();
+                        anonymous_.setIndex(i_);
+                        anonymous_.setUntil(j_);
+                        anonymous_.setLength(j_-i_+1);
+                        anonymous_.setType(block_);
+                        _conf.getAnalyzing().getAnonymousResults().add(anonymous_);
+                        _dout.getAllowedOperatorsIndexes().add(i_);
+                        doubleDotted_.setNextIndex(j_);
+                        return;
+                    }
+                }
+            }
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -2366,6 +2440,8 @@ public final class ElResolver {
         op_.setLeftParFirstOperator(leftParFirstOperator_);
         op_.setFctName(fctName_);
         op_.setErrorDot(af_.isErrorDot());
+        op_.setBlock(af_.getBlock());
+        op_.setLength(af_.getLength());
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         String extracted_ = af_.getExtracted();
         op_.setExtractType(extracted_);

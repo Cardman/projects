@@ -31,7 +31,6 @@ import code.util.*;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
 
-    private final String name;
     private final StringList nameErrors = new StringList();
 
     private final String packageName;
@@ -93,22 +92,22 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringList allSuperTypes = new StringList();
     private StringList allReservedInners = new StringList();
     private StringMap<Integer> counts = new StringMap<Integer>();
+    private StringMap<Integer> countsAnon = new StringMap<Integer>();
     private String suffix="";
     private StringMap<String> mappings = new StringMap<String>();
     private RootBlock parentType;
+    private boolean added;
 
-    RootBlock(int _idRowCol, String _name,
+    RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
               IntMap<String> _directSuperTypes, OffsetsBlock _offset) {
         super(_offset);
         allOverridingMethods = new CustList<OverridingMethodDto>();
-        name = _name.trim();
         packageName = StringExpUtil.removeDottedSpaces(_packageName);
         access = _access.getInfo();
         accessOffset = _access.getOffset();
         templateDef = _templateDef;
         idRowCol = _idRowCol;
-        setupOffsets(_name, _packageName);
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             String type_ = StringExpUtil.removeDottedSpaces(t.getValue());
@@ -130,6 +129,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         } else {
             nameLength = _name.trim().length();
         }
+    }
+
+    public void setNameLength(int nameLength) {
+        this.nameLength = nameLength;
     }
 
     public int getAccessOffset() {
@@ -458,12 +461,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return templateDef;
     }
 
-    public String getName() {
-        return name;
-    }
+    public abstract String getName();
 
     public String getSuffixedName() {
-        return StringList.concat(name,suffix);
+        return StringList.concat(getName(),suffix);
     }
     public String getPackageName() {
         return packageName;
@@ -1963,6 +1964,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public StringMap<Integer> getCounts() {
         return counts;
+    }
+
+    public StringMap<Integer> getCountsAnon() {
+        return countsAnon;
     }
 
     public String getSuffix() {

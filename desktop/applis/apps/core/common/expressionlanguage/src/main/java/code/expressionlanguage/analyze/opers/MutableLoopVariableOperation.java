@@ -27,6 +27,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private final StringList nameErrors = new StringList();
 
     private int ref;
+    private boolean declare;
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -48,6 +49,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
+            declare = true;
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
             variableName = str_;
@@ -123,5 +125,9 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     public int getRef() {
         return ref;
+    }
+
+    public boolean isDeclare() {
+        return declare;
     }
 }

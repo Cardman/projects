@@ -2,22 +2,18 @@ package code.expressionlanguage.linkage;
 
 import code.expressionlanguage.analyze.blocks.OperatorBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.CustList;
+import code.util.IdList;
 import code.util.StringList;
 
 public final class VariablesOffsets {
+    private IdList<OperationNode> visited = new IdList<OperationNode>();
+    private CustList<LinkageStackElement> stack = new CustList<LinkageStackElement>();
+    private LinkageStackElement state;
     private String currentFileName = "";
-    private boolean possibleDeclareLoopVars;
     private CustList<RootBlock> refFoundTypes;
     private CustList<OperatorBlock> refOperators;
-
-    public boolean isPossibleDeclareLoopVars() {
-        return possibleDeclareLoopVars;
-    }
-
-    public void setPossibleDeclareLoopVars(boolean _possibleDeclareLoopVars) {
-        possibleDeclareLoopVars = _possibleDeclareLoopVars;
-    }
 
     public String getCurrentFileName() {
         return currentFileName;
@@ -50,5 +46,21 @@ public final class VariablesOffsets {
 
     public void setRefOperators(CustList<OperatorBlock> _refOperators) {
         refOperators = _refOperators;
+    }
+
+    public IdList<OperationNode> getVisited() {
+        return visited;
+    }
+
+    public CustList<LinkageStackElement> getStack() {
+        return stack;
+    }
+
+    public LinkageStackElement getState() {
+        return state;
+    }
+
+    public void setState(LinkageStackElement state) {
+        this.state = state;
     }
 }

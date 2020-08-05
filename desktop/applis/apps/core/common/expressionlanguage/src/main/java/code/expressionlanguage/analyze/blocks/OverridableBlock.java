@@ -219,7 +219,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
             superPartOffsets_.addAllElts(analyzing_.getCurrentParts());
             String formattedDest_ = AnaTemplates.getOverridingFullTypeByBases(root_, clDest_, _context);
             RootBlock formattedDestType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formattedDest_));
-            if (formattedDest_.isEmpty()) {
+            if (formattedDestType_ == null) {
                 allInternParts.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 continue;

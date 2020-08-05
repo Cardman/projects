@@ -75,6 +75,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             int len_ = children_.size();
             StringList previousInts_ = new StringList();
+            boolean existAll_ = true;
             for (int i = 1; i < len_; i++) {
                 int index_ = getPartOffsetsChildren().size();
                 IntTreeMap<String> operators_ = getOperations().getOperators();
@@ -99,17 +100,21 @@ public final class IdOperation extends AbstractUnaryOperation {
                     return;
                 }
                 ConstructorId cid_ = ((InterfaceFctConstructor) op_).getConstId();
-                if (cid_ == null) {
-                    //already error
-                    LgNames stds_ = _conf.getStandards();
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
-                    return;
+                String cl_ = "";
+                if (cid_ != null) {
+                    cl_ = cid_.getName();
+                    cl_ = StringExpUtil.getIdFromAllTypes(cl_);
+                } else {
+                    existAll_ = false;
                 }
-                String cl_ = cid_.getName();
-                cl_ = StringExpUtil.getIdFromAllTypes(cl_);
                 checkInherits(_conf, op_,previousInts_, cl_);
                 previousInts_.add(cl_);
                 getPartOffsetsChildren().add(parts_);
+            }
+            if (!existAll_) {
+                LgNames stds_ = _conf.getStandards();
+                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                return;
             }
             StringList all_ = new StringList(rBase_.getAllSuperTypes());
             all_.add(id_);
@@ -158,7 +163,7 @@ public final class IdOperation extends AbstractUnaryOperation {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
             RootBlock supType_ = _conf.getAnalyzing().getAnaClassBody(sup_);
-            if (supType_.isSubTypeOf(_cl,_conf)) {
+            if (supType_ != null &&supType_.isSubTypeOf(_cl,_conf)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

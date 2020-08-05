@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.Members;
@@ -14,6 +15,7 @@ import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
+import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
@@ -28,6 +30,7 @@ public final class AnalyzedPageEl {
 
     private String globalClass = "";
     private RootBlock globalType;
+    private RootBlock globalDirType;
 
     private final CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
 
@@ -46,6 +49,8 @@ public final class AnalyzedPageEl {
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
+    private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private ExecBracedBlock blockToWrite;
 
@@ -99,6 +104,9 @@ public final class AnalyzedPageEl {
     private AbstractBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
+    private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
+    private CustList<AnonymousInstancingOperation> anonymousTypes = new CustList<AnonymousInstancingOperation>();
+    private CustList<IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation>> mapAnonymous = new CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
@@ -139,6 +147,14 @@ public final class AnalyzedPageEl {
 
     public void setGlobalType(RootBlock _globalType) {
         globalType = _globalType;
+    }
+
+    public RootBlock getGlobalDirType() {
+        return globalDirType;
+    }
+
+    public void setGlobalDirType(RootBlock _globalDirType) {
+        globalDirType = _globalDirType;
     }
 
     public void initMutableLoopVars() {
@@ -417,6 +433,14 @@ public final class AnalyzedPageEl {
 
     public CustList<RootBlock> getFoundTypes() {
         return foundTypes;
+    }
+
+    public CustList<OperatorBlock> getFoundOperators() {
+        return foundOperators;
+    }
+
+    public CustList<RootBlock> getPrevFoundTypes() {
+        return prevFoundTypes;
     }
 
     public CustList<RootBlock> getRefFoundTypes() {
@@ -706,5 +730,17 @@ public final class AnalyzedPageEl {
 
     public StringMap<ToStringMethodHeader> getToStringMethods() {
         return toStringMethods;
+    }
+
+    public CustList<AnonymousResult> getAnonymousResults() {
+        return anonymousResults;
+    }
+
+    public CustList<AnonymousInstancingOperation> getAnonymousTypes() {
+        return anonymousTypes;
+    }
+
+    public CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>> getMapAnonymous() {
+        return mapAnonymous;
     }
 }

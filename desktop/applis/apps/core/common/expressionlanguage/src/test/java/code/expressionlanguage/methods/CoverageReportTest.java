@@ -16601,13 +16601,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         validate(cont_,files_);
         assertTrue(!cont_.isEmptyErrors());
     }
-    private static void validateAndCheckValid(StringMap<String> _files, ContextEl _cont) {
-        validate(_cont, _files);
-        assertTrue(_cont.isEmptyErrors());
-    }
-    private static void validate(ContextEl _c, StringMap<String> _f) {
-        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
-    }
+
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

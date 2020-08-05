@@ -27,6 +27,7 @@ public final class VariableOperation extends LeafOperation implements
     private final StringList nameErrors = new StringList();
 
     private int ref;
+    private boolean declare;
 
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -65,6 +66,7 @@ public final class VariableOperation extends LeafOperation implements
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (ElUtil.isDeclaringVariable(this, _conf)) {
+            declare = true;
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
             variableName = str_;
@@ -103,6 +105,9 @@ public final class VariableOperation extends LeafOperation implements
         setResultClass(new ClassArgumentMatching(className));
     }
 
+    public boolean isDeclare() {
+        return declare;
+    }
 
     public String getVariableName() {
         return variableName;

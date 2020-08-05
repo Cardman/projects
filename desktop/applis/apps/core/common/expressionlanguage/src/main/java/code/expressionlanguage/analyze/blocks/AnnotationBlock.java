@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 
-public final class AnnotationBlock extends RootBlock {
+public final class AnnotationBlock extends ImmutableNameRootBlock {
 
     public AnnotationBlock(int _idRowCol, String _name,
                            String _packageName, OffsetAccessInfo _access, String _templateDef,

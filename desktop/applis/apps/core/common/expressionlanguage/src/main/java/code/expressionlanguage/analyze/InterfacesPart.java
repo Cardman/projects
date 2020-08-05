@@ -1,4 +1,4 @@
-package code.expressionlanguage.files;
+package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
@@ -14,11 +14,11 @@ public final class InterfacesPart {
     private boolean ok = true;
     private String part;
     private int locIndex;
-    InterfacesPart(String _part, int _locIndex) {
+    public InterfacesPart(String _part, int _locIndex) {
         part = _part;
         locIndex = _locIndex;
     }
-    void parse(KeyWords _keyWords, int _offset) {
+    public void parse(KeyWords _keyWords, int _delta, int _offset) {
         String keyWordInterfaces_ = _keyWords.getKeyWordInterfaces();
         if (StringExpUtil.startsWithKeyWord(part,0, keyWordInterfaces_)) {
             int begin_ = part.indexOf(BEGIN_CALLING);
@@ -31,7 +31,7 @@ public final class InterfacesPart {
                     //ERROR
                     ok = false;
                 } else {
-                    int interfaceOffest_ = locIndex+begin_ + 1;
+                    int interfaceOffest_ = _delta+begin_ + 1;
                     String interfacesInfo_ = part.substring(begin_ + 1, end_);
                     for (String p: StringList.splitChars(interfacesInfo_, SEP_CALLING)) {
                         staticInitInterfaces.add(p);

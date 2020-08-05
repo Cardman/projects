@@ -13770,20 +13770,5 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</pre></body></html>", filesExp_.firstValue());
     }
 
-    private static StringMap<String> getErrors(ContextEl _cont) {
-        return _cont.getOptions().getErrors();
-    }
 
-    private static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
-        validate(cont_,files_);
-        assertTrue(!cont_.isEmptyErrors());
-    }
-    private static void validateAndCheckNoErrors(StringMap<String> files_, ContextEl cont_) {
-        validate(cont_,files_);
-        assertTrue(cont_.isEmptyErrors());
-    }
-
-    private static void validate(ContextEl _c, StringMap<String> _f) {
-        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
-    }
 }

@@ -1,4 +1,5 @@
 package code.expressionlanguage.instr;
+import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.NumberInfos;
@@ -41,6 +42,8 @@ public final class OperationsSequence {
     private int countArrays;
     private Ints errorParts = new Ints();
     private boolean instance;
+    private Block block;
+    private int length;
     public void setValue(String _string, int _offset) {
         values = new IntTreeMap<String>();
         values.put((int)CustList.FIRST_INDEX, _string);
@@ -99,14 +102,16 @@ public final class OperationsSequence {
                             initArrayDim_ = true;
                         }
                         if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
-                            if (instance) {
+                            if (!instance) {
+                                operators.clear();
+                                operators.put(afterLastPar_,"");
+                                return;
+                            }
+                            if (block == null) {
                                 values.put((int)CustList.FIRST_INDEX, _string);
                                 constType = ConstType.ERROR_INST;
                                 return;
                             }
-                            operators.clear();
-                            operators.put(afterLastPar_,"");
-                            return;
                         }
                     } else {
                         pureDot_ = true;
@@ -373,5 +378,21 @@ public final class OperationsSequence {
 
     public void setErrorDot(boolean _errorDot) {
         errorDot = _errorDot;
+    }
+
+    public Block getBlock() {
+        return block;
+    }
+
+    public void setBlock(Block _block) {
+        block = _block;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 }

@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.files.OffsetAccessInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.util.*;
 
-public final class InterfaceBlock extends RootBlock {
+public final class InterfaceBlock extends ImmutableNameRootBlock {
 
     private final boolean staticType;
 

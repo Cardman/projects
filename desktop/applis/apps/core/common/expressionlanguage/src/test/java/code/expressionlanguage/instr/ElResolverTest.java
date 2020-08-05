@@ -5449,6 +5449,22 @@ public final class ElResolverTest extends ProcessMethodCommon {
         String el_ = "1e1 ";
         assertEq(-1, checkSyntax(conf_, el_).getBadOffset());
     }
+
+    @Test
+    public void checkSyntax96FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$new $interfaces ";
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+    }
+
+    @Test
+    public void checkSyntax97FailTest() {
+        ContextEl conf_ = contextEl();
+        addImportingPage(conf_);
+        String el_ = "$new $interfaces( ";
+        assertEq(6, checkSyntax(conf_, el_).getBadOffset());
+    }
     private static void addImportingPage(ContextEl _conf) {
 
     }
