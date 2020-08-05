@@ -1143,4 +1143,80 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void coverage419Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" String field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  Int[] a = {new Int(1){\n");
+        xml_.append("   public String field;\n");
+        xml_.append("   Int(int p){\n");
+        xml_.append("    field=\"one\\\"escape\"+p;\n");
+        xml_.append("   }\n");
+        xml_.append("   public String field(){\n");
+        xml_.append("    return field+\"endone\";\n");
+        xml_.append("   }\n");
+        xml_.append("  },new Int(2,3){\n");
+        xml_.append("   public String field;\n");
+        xml_.append("   Int(int p, int q){\n");
+        xml_.append("    field=\"two\\\"escape\"+p+';'+q;\n");
+        xml_.append("   }\n");
+        xml_.append("   public String field(){\n");
+        xml_.append("    return field+\"endtwo\";\n");
+        xml_.append("   }\n");
+        xml_.append("  }};\n");
+        xml_.append("  String res = \"\";\n");
+        xml_.append("  int i = 0;\n");
+        xml_.append("  while (i < 2){\n");
+        xml_.append("   res+=a[i].field()+',';\n");
+        xml_.append("   i++;\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+                " String <a name=\"m28\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m45\">pkg.Ext</a> {\n" +
+                " static String <a name=\"m70\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#m10\">Int</a>[] <span class=\"f\"><span class=\"f\"><a name=\"m83\">a</a> </span>=<span class=\"f\"> {<span class=\"f\"><a title=\"pkg.Ext..Int*1.pkg.Ext..Int*1(int)\" href=\"#m127\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"f\">1</span>)<span class=\"t\"><a name=\"m98\">{</a>\n" +
+                "   public String <span class=\"f\"><a name=\"m117\">field</a></span>;\n" +
+                "   <a name=\"m127\">Int(</a>int <a name=\"m135\">p</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m117\">field</a></span>=<span class=\"f\"><span class=\"f\"><span class=\"s\">\"one\\\"escape\"</span></span>+<span class=\"f\"><a href=\"#m135\">p</a></span></span></span>;\n" +
+                "   }\n" +
+                "   public String <a name=\"m188\">field</a>(){\n" +
+                "    return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m117\">field</a></span>+<span class=\"f\"><span class=\"s\">\"endone\"</span></span></span>;\n" +
+                "   }\n" +
+                "  }</span></span>,<span class=\"f\"><a title=\"pkg.Ext..Int*2.pkg.Ext..Int*2(int,int)\" href=\"#m274\">new</a> <a title=\"pkg.Int\" href=\"#m10\">Int</a>(<span class=\"f\">2</span>,<span class=\"f\">3</span>)<span class=\"t\"><a name=\"m245\">{</a>\n" +
+                "   public String <span class=\"f\"><a name=\"m264\">field</a></span>;\n" +
+                "   <a name=\"m274\">Int(</a>int <a name=\"m282\">p</a>, int <a name=\"m289\">q</a>){\n" +
+                "    <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*2.field\" href=\"#m264\">field</a></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"s\">\"two\\\"escape\"</span></span>+<span class=\"f\"><a href=\"#m282\">p</a></span></span>+<span class=\"f\"><span class=\"s\">';'</span></span></span>+<span class=\"f\"><a href=\"#m289\">q</a></span></span></span>;\n" +
+                "   }\n" +
+                "   public String <a name=\"m348\">field</a>(){\n" +
+                "    return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ext..Int*2.field\" href=\"#m264\">field</a></span>+<span class=\"f\"><span class=\"s\">\"endtwo\"</span></span></span>;\n" +
+                "   }\n" +
+                "  }</span></span>}</span></span>;\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m404\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m420\">i</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">while</span> (<span class=\"f\"><span class=\"f\"><a href=\"#m420\">i</a> </span>&lt;<span class=\"f\"> 2</span></span>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m404\">res</a></span>+=<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m83\">a</a></span><span class=\"f\">[<span class=\"f\"><a href=\"#m420\">i</a></span>]</span></span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m28\">field</a>()</span></span>+<span class=\"f\"><span class=\"s\">','</span></span></span></span>;\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m420\">i</a></span>++</span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m404\">res</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
 }
