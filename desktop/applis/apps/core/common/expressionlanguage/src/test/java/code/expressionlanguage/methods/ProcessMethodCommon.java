@@ -134,6 +134,13 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOne(opt_);
     }
 
+    protected static ContextEl contextElCoverageDefaultEnComment() {
+        Options opt_ = new Options();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOne("en",opt_);
+    }
     protected static ContextEl contextElCoverageDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));

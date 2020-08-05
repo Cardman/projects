@@ -1219,4 +1219,50 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverageComment17Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Int l = new Int(){\n");
+        xml_.append("   public int field=++extField;\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return\\*comment*\\field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageDefaultEnComment();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+                " int <a name=\"m25\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m42\">pkg.Ext</a> {\n" +
+                " static int <span class=\"g\"><a name=\"m64\">extField</a></span>;\n" +
+                " static int <a name=\"m86\">m</a>(){\n" +
+                "  <a title=\"pkg.Int\" href=\"#m10\">Int</a> <span class=\"f\"><span class=\"f\"><a name=\"m97\">l</a> </span>=<span class=\"f\"> new <a title=\"pkg.Int\" href=\"#m10\">Int</a>()<span class=\"t\"><a name=\"m110\">{</a>\n" +
+                "   public int <span class=\"f\"><span class=\"f\"><a name=\"m126\">field</a></span>=<span class=\"f\">++<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m64\">extField</a></span></span></span>;\n" +
+                "   public int <a name=\"m158\">field</a>(){\n" +
+                "    return<span class=\"c\">\\*comment*\\</span><span class=\"f\"><a title=\"pkg.Ext..Int*1.field\" href=\"#m126\">field</a></span>;\n" +
+                "   }\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m97\">l</a></span>.<span class=\"f\"><a title=\"pkg.Int.field()\" href=\"#m25\">field</a>()</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+
 }
