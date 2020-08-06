@@ -47,6 +47,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private int fieldNumber;
     private EnumBlock parentEnum;
     private StringList fieldList = new StringList();
+    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
 
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
@@ -255,5 +256,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     @Override
     public void setFieldNumber(int fieldNumber) {
         this.fieldNumber = fieldNumber;
+    }
+
+    @Override
+    public CustList<AnonymousTypeBlock> getAnonymous() {
+        return anonymous;
     }
 }

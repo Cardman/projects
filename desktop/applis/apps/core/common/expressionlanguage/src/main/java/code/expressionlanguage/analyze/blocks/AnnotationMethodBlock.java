@@ -54,6 +54,11 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
     }
 
     @Override
+    public String getSignature(ContextEl _ana) {
+        return getId().getSignature(_ana);
+    }
+
+    @Override
     public MethodId getId() {
         return new MethodId(MethodAccessKind.INSTANCE, getName(), new StringList(), false);
     }
@@ -90,8 +95,8 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         cast_.setFileName(_stds.getAnalyzing().getLocalizer().getCurrentFileName());
         cast_.setIndexFile(_stds.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //return type len
-        cast_.buildError(_stds.getAnalysisMessages().getUnexpectedType(),
-                itype_);
+        cast_.buildError(_stds.getAnalysisMessages().getUnexpectedRetType(),
+                itype_,getSignature(_stds));
         _stds.addError(cast_);
         addNameErrors(cast_);
     }

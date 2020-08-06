@@ -29,7 +29,7 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
 
     private CustList<ExecOperationNode> opValue;
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-
+    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     public ExecFieldBlock(FieldBlock _offset) {
         super(_offset.getOffset());
         valueOffset = _offset.getValueOffset();
@@ -131,4 +131,8 @@ public final class ExecFieldBlock extends ExecLeaf implements ExecInfoBlock {
         return opValue;
     }
 
+    @Override
+    public CustList<ExecRootBlock> getAnonymous() {
+        return anonymous;
+    }
 }

@@ -14,6 +14,7 @@ public final class Members {
     private IdMap<InnerTypeOrElement,ExecInnerTypeOrElement> allElementFields = new IdMap<InnerTypeOrElement,ExecInnerTypeOrElement>();
     private IdMap<AnnotableBlock,ExecAnnotableBlock> allAnnotables = new IdMap<AnnotableBlock,ExecAnnotableBlock>();
     private IdMap<NamedFunctionBlock,ExecNamedFunctionBlock> allNamed = new IdMap<NamedFunctionBlock,ExecNamedFunctionBlock>();
+    private IdMap<MemberCallingsBlock,ExecMemberCallingsBlock> allFct = new IdMap<MemberCallingsBlock,ExecMemberCallingsBlock>();
 
     public IdMap<AnnotationMethodBlock, ExecAnnotationMethodBlock> getAllAnnotMethods() {
         return allAnnotMethods;
@@ -49,5 +50,9 @@ public final class Members {
 
     public IdMap<NamedFunctionBlock, ExecNamedFunctionBlock> getAllNamed() {
         return allNamed;
+    }
+
+    public IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> getAllFct() {
+        return allFct;
     }
 }

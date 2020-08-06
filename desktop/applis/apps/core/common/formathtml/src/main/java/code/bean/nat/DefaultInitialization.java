@@ -171,6 +171,9 @@ public final class DefaultInitialization {
         _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
+        _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
+        _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
+        _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.setAliasGetDeclaredExplicits("getDeclaredExplicits");
         _lgNames.setAliasGetDeclaredImplicits("getDeclaredImplicits");

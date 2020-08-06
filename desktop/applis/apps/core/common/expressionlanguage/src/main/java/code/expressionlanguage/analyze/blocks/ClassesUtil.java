@@ -128,6 +128,29 @@ public final class ClassesUtil {
                 e.getValue().getFunctional().addAllElts(root_.getFunctional());
             }
         }
+        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
+            RootBlock root_ = e.getKey();
+            Members valueMember_ = _context.getAnalyzing().getMapMembers().getValue(root_.getNumberAll());
+            IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
+            IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
+            for (Block b: ClassesUtil.getDirectChildren(root_)) {
+                if (b instanceof MemberCallingsBlock) {
+                    ExecMemberCallingsBlock value_ = allFct_.getValue(((MemberCallingsBlock) b).getNumberFct());
+                    for (AnonymousTypeBlock a: ((MemberCallingsBlock)b).getAnonymous()) {
+                        value_.getAnonymous().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                    }
+                    for (RootBlock a: ((MemberCallingsBlock)b).getReserved()) {
+                        value_.getReserved().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                    }
+                }
+                if (b instanceof InfoBlock) {
+                    ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
+                    for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
+                        value_.getAnonymous().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                    }
+                }
+            }
+        }
     }
 
     private static ClassMethodIdReturn tryGetDeclaredToString(ContextEl _conf, RootBlock _class) {
@@ -738,6 +761,8 @@ public final class ClassesUtil {
                     mem_.getAllAnnotables().addEntry((ConstructorBlock) b,val_);
                     ((ConstructorBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((ConstructorBlock) b,val_);
+                    ((MemberCallingsBlock)b).setNumberFct(mem_.getAllFct().size());
+                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof OverridableBlock) {
                     ExecOverridableBlock val_ = new ExecOverridableBlock((OverridableBlock)b);
@@ -747,6 +772,8 @@ public final class ClassesUtil {
                     mem_.getAllAnnotables().addEntry((OverridableBlock) b,val_);
                     ((OverridableBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((OverridableBlock) b,val_);
+                    ((MemberCallingsBlock)b).setNumberFct(mem_.getAllFct().size());
+                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof AnnotationMethodBlock) {
                     ExecAnnotationMethodBlock val_ = new ExecAnnotationMethodBlock((AnnotationMethodBlock)b);
@@ -757,18 +784,28 @@ public final class ClassesUtil {
                     mem_.getAllAnnotables().addEntry((AnnotationMethodBlock) b,val_);
                     ((AnnotationMethodBlock) b).setNameNumber(mem_.getAllNamed().size());
                     mem_.getAllNamed().addEntry((AnnotationMethodBlock) b,val_);
+                    ((MemberCallingsBlock)b).setNumberFct(mem_.getAllFct().size());
+                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof InstanceBlock) {
                     ExecInstanceBlock val_ = new ExecInstanceBlock(b.getOffset());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
+                    ((InitBlock) b).setNumber(mem_.getAllInits().size());
+                    val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
+                    ((MemberCallingsBlock)b).setNumberFct(mem_.getAllFct().size());
+                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
                 if (b instanceof StaticBlock) {
                     ExecStaticBlock val_ = new ExecStaticBlock(b.getOffset());
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
+                    ((InitBlock) b).setNumber(mem_.getAllInits().size());
+                    val_.setNumber(mem_.getAllInits().size());
                     mem_.getAllInits().put((InitBlock) b,val_);
+                    ((MemberCallingsBlock)b).setNumberFct(mem_.getAllFct().size());
+                    mem_.getAllFct().addEntry((MemberCallingsBlock)b,val_);
                 }
             }
             page_.getMapMembers().addEntry(k_, mem_);

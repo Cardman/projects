@@ -205,6 +205,9 @@ public abstract class LgNames {
     public static final String GET_DECLARED_STATIC_METHODS = "GetDeclaredStaticMethods";
     public static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
     public static final String GET_DECLARED_FIELDS = "GetDeclaredFields";
+    public static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
+    public static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
+    public static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
     public static final String FIELD = "Field";
     public static final String IS_NORMAL = "IsNormal";
     public static final String SAME_REF = "SameRef";
@@ -465,6 +468,9 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_DECLARED_CLASSES,getAliasGetDeclaredClasses()),
                 new KeyValueMemberName(GET_DECLARED_CONSTRUCTORS,getAliasGetDeclaredConstructors()),
                 new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,getAliasGetDeclaredLocalTypes()),
+                new KeyValueMemberName(GET_DECLARED_BLOCKS,getAliasGetDeclaredBlocks()),
                 new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
                 new KeyValueMemberName(GET_DECLARED_IMPLICITS,getAliasGetDeclaredImplicits()),
                 new KeyValueMemberName(GET_DECLARED_TRUE_OPERATORS,getAliasGetDeclaredTrueOperators()),
@@ -2200,6 +2206,30 @@ public abstract class LgNames {
     }
     public void setAliasGetDeclaredFields(String _aliasGetDeclaredFields) {
         reflect.setAliasGetDeclaredFields(_aliasGetDeclaredFields);
+    }
+
+    public String getAliasGetDeclaredAnonymousTypes() {
+        return reflect.getAliasGetDeclaredAnonymousTypes();
+    }
+
+    public void setAliasGetDeclaredAnonymousTypes(String aliasGetDeclaredAnonymousTypes) {
+        this.reflect.setAliasGetDeclaredAnonymousTypes(aliasGetDeclaredAnonymousTypes);
+    }
+
+    public String getAliasGetDeclaredBlocks() {
+        return reflect.getAliasGetDeclaredBlocks();
+    }
+
+    public void setAliasGetDeclaredBlocks(String aliasGetDeclaredBlocks) {
+        this.reflect.setAliasGetDeclaredBlocks(aliasGetDeclaredBlocks);
+    }
+
+    public String getAliasGetDeclaredLocalTypes() {
+        return reflect.getAliasGetDeclaredLocalTypes();
+    }
+
+    public void setAliasGetDeclaredLocalTypes(String aliasGetDeclaredLocalTypes) {
+        this.reflect.setAliasGetDeclaredLocalTypes(aliasGetDeclaredLocalTypes);
     }
     public String getAliasMakeGeneric() {
         return reflect.getAliasMakeGeneric();

@@ -9,8 +9,7 @@ import code.expressionlanguage.exec.ClassNameCmp;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.OperatorCmp;
-import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.functionid.*;
@@ -46,6 +45,9 @@ public final class AliasReflection {
     private String aliasGetDeclaredStaticMethods;
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
+    private String aliasGetDeclaredBlocks;
+    private String aliasGetDeclaredLocalTypes;
+    private String aliasGetDeclaredAnonymousTypes;
     private String aliasGetSuperClass;
     private String aliasGetGenericSuperClass;
     private String aliasGetInterfaces;
@@ -291,6 +293,12 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredFalseOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_);
+        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
@@ -397,6 +405,12 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasConstructor, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -437,6 +451,9 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetGenericType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasField, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -502,6 +519,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasMethod, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -618,6 +641,27 @@ public final class AliasReflection {
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+                FieldMetaInfo field_ = NumParsers.getField(_struct);
+                ExecAnnotableBlock annotableBlock_ = field_.getAnnotableBlock();
+                StringList methods_;
+                methods_ = new StringList();
+                if (annotableBlock_ instanceof ExecInfoBlock) {
+                    for (ExecRootBlock c: ((ExecInfoBlock)annotableBlock_).getAnonymous()) {
+                        methods_.add(c.getFullName());
+                    }
+                }
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             FieldMetaInfo field_ = NumParsers.getField(_struct);
             String owner_ = field_.getDeclaringClass();
             String typeField_ = field_.getType();
@@ -730,6 +774,40 @@ public final class AliasReflection {
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                StringList methods_;
+                methods_ = new StringList();
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                fetchAnonymous(methods_, callee_);
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                StringList methods_;
+                methods_ = new StringList();
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                fetchLocalTypes(methods_, callee_);
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetReturnType)) {
@@ -954,6 +1032,7 @@ public final class AliasReflection {
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
+                        met_.setCallee(o);
                         operators_.add(met_);
                     }
                     operators_.sortElts(new OperatorCmp());
@@ -980,6 +1059,7 @@ public final class AliasReflection {
                         MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
+                        met_.setCallee(o);
                         candidates_.add(met_);
                     }
                 }
@@ -1312,6 +1392,40 @@ public final class AliasReflection {
                         if (eqType(id_,args_[0],args_[1],args_[2],args_[3])) {
                             candidates_.add(e.getValue());
                         }
+                    }
+                }
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredBlocks)) {
+                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+                ObjectMap<MethodId, MethodMetaInfo> methods_;
+                methods_ = cl_.getBlocsInfos();
+                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+                if (args_.length == 0) {
+                    Struct[] methodsArr_ = new Struct[methods_.size()];
+                    int index_ = 0;
+                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                        methodsArr_[index_] = e.getValue();
+                        index_++;
+                    }
+                    ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                    result_.setResult(str_);
+                    return result_;
+                }
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
+                    MethodId id_ = e.getKey();
+                    if (eq(id_,args_[0],args_[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE)) {
+                        candidates_.add(e.getValue());
                     }
                 }
                 Struct[] methodsArr_ = new Struct[candidates_.size()];
@@ -1812,11 +1926,61 @@ public final class AliasReflection {
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+                StringList methods_;
+                methods_ = new StringList();
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                fetchAnonymous(methods_, callee_);
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
+                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+                StringList methods_;
+                methods_ = new StringList();
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                fetchLocalTypes(methods_, callee_);
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
             result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,method_.getFormClassName()));
             return result_;
         }
         return result_;
+    }
+
+    private static void fetchLocalTypes(StringList methods_, ExecMemberCallingsBlock callee_) {
+        if (callee_ != null) {
+            for (ExecRootBlock c: callee_.getReserved()) {
+                methods_.add(c.getFullName());
+            }
+        }
+    }
+
+    private static void fetchAnonymous(StringList methods_, ExecMemberCallingsBlock callee_) {
+        if (callee_ != null) {
+            for (ExecRootBlock c: callee_.getAnonymous()) {
+                methods_.add(c.getFullName());
+            }
+        }
     }
 
     private static String getReturnTypeClone(ContextEl _cont, String _instClass, String _idCl) {
@@ -2027,6 +2191,31 @@ public final class AliasReflection {
     public void setAliasGetDeclaredFields(String _aliasGetDeclaredFields) {
         aliasGetDeclaredFields = _aliasGetDeclaredFields;
     }
+
+    public String getAliasGetDeclaredAnonymousTypes() {
+        return aliasGetDeclaredAnonymousTypes;
+    }
+
+    public void setAliasGetDeclaredAnonymousTypes(String aliasGetDeclaredAnonymousTypes) {
+        this.aliasGetDeclaredAnonymousTypes = aliasGetDeclaredAnonymousTypes;
+    }
+
+    public String getAliasGetDeclaredBlocks() {
+        return aliasGetDeclaredBlocks;
+    }
+
+    public void setAliasGetDeclaredBlocks(String aliasGetDeclaredBlocks) {
+        this.aliasGetDeclaredBlocks = aliasGetDeclaredBlocks;
+    }
+
+    public String getAliasGetDeclaredLocalTypes() {
+        return aliasGetDeclaredLocalTypes;
+    }
+
+    public void setAliasGetDeclaredLocalTypes(String aliasGetDeclaredLocalTypes) {
+        this.aliasGetDeclaredLocalTypes = aliasGetDeclaredLocalTypes;
+    }
+
     public String getAliasGetSuperClass() {
         return aliasGetSuperClass;
     }

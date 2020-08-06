@@ -342,6 +342,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
+        _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
+        _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
+        _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.setAliasGetDeclaredExplicits("getDeclaredExplicits");
         _lgNames.setAliasGetDeclaredImplicits("getDeclaredImplicits");
@@ -643,6 +646,9 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetAnnotationsParameters("valAnnotationsParametrees");
         _lgNames.setAliasGetDeclaredConstructors("valConstructeursDeclares");
         _lgNames.setAliasGetDeclaredFields("valChampsDeclares");
+        _lgNames.setAliasGetDeclaredAnonymousTypes("valTypesAnonymesDeclares");
+        _lgNames.setAliasGetDeclaredBlocks("valBlocsDeclares");
+        _lgNames.setAliasGetDeclaredLocalTypes("valLocalTypesDeclares");
         _lgNames.setAliasGetDeclaredMethods("valMethodsDeclares");
         _lgNames.setAliasGetDeclaredExplicits("valExplicitesDeclares");
         _lgNames.setAliasGetDeclaredImplicits("valImplicitesDeclares");

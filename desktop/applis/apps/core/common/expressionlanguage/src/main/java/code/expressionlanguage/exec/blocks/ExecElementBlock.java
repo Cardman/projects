@@ -24,7 +24,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     private int trOffset;
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
-
+    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     public ExecElementBlock(ElementBlock _offset) {
         super(_offset.getOffset());
         fieldName = _offset.getUniqueFieldName();
@@ -126,5 +126,10 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
             ip_.clearCurrentEls();
         }
         processBlock(_cont);
+    }
+
+    @Override
+    public CustList<ExecRootBlock> getAnonymous() {
+        return anonymous;
     }
 }

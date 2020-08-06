@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
 import code.expressionlanguage.exec.opers.ExecConstructorLambdaOperation;
@@ -40,6 +41,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private String fileName;
     private ExecAnnotableBlock annotableBlock;
     private ExecAnnotableParametersBlock functionBlock;
+    private ExecMemberCallingsBlock function;
 
     public RendLambdaOperation(LambdaOperation _l,ContextEl _cont) {
         super(_l);
@@ -65,6 +67,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
             annotableBlock = ExecAbstractLambdaOperation.fetchField(_l,_cont);
         } else {
             functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l,_cont);
+            function = ExecAbstractLambdaOperation.fetchFunction(_l,_cont);
         }
     }
 
@@ -87,11 +90,11 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         }
         if (method == null) {
             arg_.setStruct(ExecConstructorLambdaOperation.newLambda(_previous, context_,foundClass,realId,returnFieldType,
-                    shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock));
+                    shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function));
             return arg_;
         }
         arg_.setStruct(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,
-                directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock));
+                directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function));
         return arg_;
     }
 

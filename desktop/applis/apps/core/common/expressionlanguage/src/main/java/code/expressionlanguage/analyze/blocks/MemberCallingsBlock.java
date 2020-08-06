@@ -11,10 +11,12 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock {
+public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock,ReturnableWithSignature {
 
     private StringMap<String> mappings = new StringMap<String>();
     private CustList<RootBlock> reserved = new CustList<RootBlock>();
+    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private int numberFct;
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
     }
@@ -238,10 +240,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     public String getPseudoSignature(ContextEl _an) {
-        if (this instanceof ReturnableWithSignature) {
-            return ((ReturnableWithSignature)this).getSignature(_an);
-        }
-        return EMPTY_STRING;
+        return getSignature(_an);
     }
 
     public abstract void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl);
@@ -254,5 +253,17 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public CustList<RootBlock> getReserved() {
         return reserved;
+    }
+
+    public CustList<AnonymousTypeBlock> getAnonymous() {
+        return anonymous;
+    }
+
+    public int getNumberFct() {
+        return numberFct;
+    }
+
+    public void setNumberFct(int numberFct) {
+        this.numberFct = numberFct;
     }
 }

@@ -42,6 +42,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     private EnumBlock parentEnum;
     private StringList fieldList = new StringList();
     private int numberInner = -1;
+    private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -238,5 +239,10 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
 
     public void setNumberInner(int numberInner) {
         this.numberInner = numberInner;
+    }
+
+    @Override
+    public CustList<AnonymousTypeBlock> getAnonymous() {
+        return anonymous;
     }
 }

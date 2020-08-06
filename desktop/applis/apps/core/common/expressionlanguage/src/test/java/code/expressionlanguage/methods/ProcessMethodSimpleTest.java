@@ -3411,6 +3411,59 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertEq(0.5,getDouble(ret_));
     }
     @Test
+    public void calculateArgument53__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private $static String out;\n");
+        xml_.append(" $static{\n");
+        xml_.append("  String v = `\t`; $final $stack[] st = $stack.current();\n");
+        xml_.append("  out = st[0].toString()+st[1].toString();\n");
+        xml_.append(" }\n");
+        xml_.append(" $private $static String m(){\n");
+        xml_.append("  $return out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_,cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
+        Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "out"));
+        assertEq("pkg/Ex:3,2:55\n" +
+                "pkgtwo.ExClass.pkg/Ex:4,48:110\n" +
+                "pkgtwo.ExClass.$static 0()",((StringStruct)out_).getInstance());
+    }
+    @Test
+    public void calculateArgument54__Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$class pkgtwo.ExClass {\n");
+        xml_.append(" $private String out;\n");
+        xml_.append(" {\n");
+        xml_.append("  String v = `\t`; $final $stack[] st = $stack.current();\n");
+        xml_.append("  out = st[0].toString()+st[1].toString()+st[2].toString()+st[3].toString();\n");
+        xml_.append(" }\n");
+        xml_.append(" $private $static String m(){\n");
+        xml_.append("  $return $new ExClass().out;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_,cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_;
+        ret_ = calculateNormal("pkgtwo.ExClass", id_, args_, cont_);
+         assertEq("pkg/Ex:8,11:226\n" +
+                 "pkgtwo.ExClass.$static m()pkg/Ex:1,1:0\n" +
+                 "pkgtwo.ExClass.pkg/Ex:2,22:45\n" +
+                 "pkgtwo.ExClass.pkg/Ex:4,48:95\n" +
+                 "pkgtwo.ExClass.0()",getString(ret_));
+    }
+    @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

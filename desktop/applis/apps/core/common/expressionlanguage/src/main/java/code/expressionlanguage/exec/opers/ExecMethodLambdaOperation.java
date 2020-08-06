@@ -7,6 +7,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
@@ -22,6 +23,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     private boolean directCast;
     private boolean expCast;
     private ExecAnnotableParametersBlock functionBlock;
+    private ExecMemberCallingsBlock function;
 
     public ExecMethodLambdaOperation(LambdaOperation _l, ContextEl _cont) {
         super(_l);
@@ -31,6 +33,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         directCast = _l.isDirectCast();
         expCast = _l.isExpCast();
         functionBlock = fetchFunction(_l, _cont);
+        function = fetchFunction(_l, _cont);
     }
 
     @Override
@@ -48,10 +51,10 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph) {
-        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, abstractMethod, expCast, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock);
+        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, abstractMethod, expCast, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph, boolean abstractMethod, boolean expCast, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock) {
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph, boolean abstractMethod, boolean expCast, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecMemberCallingsBlock function) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);
@@ -90,6 +93,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             metaInfo_.setExpCast(expCast);
             metaInfo_.setFileName(fileName);
             metaInfo_.setAnnotableBlock(functionBlock);
+            metaInfo_.setCallee(function);
             l_.setMetaInfo(metaInfo_);
         }
         return l_;

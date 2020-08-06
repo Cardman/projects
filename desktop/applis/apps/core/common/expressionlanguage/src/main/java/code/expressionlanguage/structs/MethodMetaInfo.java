@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -26,8 +27,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private final String returnType;
     private String fileName = EMPTY_STRING;
     private boolean expCast;
-    private final boolean invokable;
+    private boolean invokable;
     private ExecAnnotableParametersBlock annotableBlock;
+    private ExecMemberCallingsBlock callee;
+
     public MethodMetaInfo() {
         invokable = false;
         className = "";
@@ -50,6 +53,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         formClassName = _formClassName;
     }
 
+    public void setInvokable(boolean invokable) {
+        this.invokable = invokable;
+    }
+
     public ExecAnnotableBlock getAnnotableBlock() {
         return getAnnotableBlockParam();
     }
@@ -59,6 +66,14 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     }
     public void setAnnotableBlock(ExecAnnotableParametersBlock annotableBlock) {
         this.annotableBlock = annotableBlock;
+    }
+
+    public ExecMemberCallingsBlock getCallee() {
+        return callee;
+    }
+
+    public void setCallee(ExecMemberCallingsBlock callee) {
+        this.callee = callee;
     }
 
     @Override

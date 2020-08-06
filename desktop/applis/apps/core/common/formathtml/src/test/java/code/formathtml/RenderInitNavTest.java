@@ -882,6 +882,9 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
+        _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
+        _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
+        _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
         _lgNames.setAliasGetDeclaredExplicits("getDeclaredExplicits");
         _lgNames.setAliasGetDeclaredImplicits("getDeclaredImplicits");

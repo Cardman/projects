@@ -146,10 +146,15 @@ public final class AnonymousInstancingOperation extends
         block.getAllReservedInners().addAllElts(_conf.getAnalyzing().getGlobalDirType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _conf.getAnalyzing().getCurrentFct();
         if (currentFct_ != null) {
+            currentFct_.getAnonymous().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             block.getMappings().putAllMap(_conf.getAnalyzing().getGlobalDirType().getMappings());
+        }
+        Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
+        if (currentBlock_ instanceof InfoBlock) {
+            ((InfoBlock)currentBlock_).getAnonymous().add(block);
         }
         block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());

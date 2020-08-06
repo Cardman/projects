@@ -61,6 +61,7 @@ public final class AnalysisMessages {
     public static final String ABSTRACT_METHOD_REF="AbstractMethodRef";
     public static final String INACCESSIBLE_TYPE="InaccessibleType";
     public static final String UNEXPECTED_TYPE="UnexpectedType";
+    public static final String UNEXPECTED_RET_TYPE="UnexpectedRetType";
     public static final String METHODS_ACCESSES="MethodsAccesses";
     public static final String EMPTY_PACKAGE="EmptyPackage";
     public static final String EMPTY_PART_CLASS_NAME="EmptyPartClassName";
@@ -291,6 +292,7 @@ public final class AnalysisMessages {
     private String abstractMethodRef="The method {1} from the type {0} must not be called directly because of abstract.";
     private String inaccessibleType="The type {0} is not accessible from the type {1}.";
     private String unexpectedType="The type {0} is unexpected.";
+    private String unexpectedRetType="The return type {0} in the function {1} is unexpected.";
     private String methodsAccesses="The method {1} from the type {0} is strictly more accessible than the method {3} from the type {2}.";
     private String emptyPackage="A type must have an non empty package.";
     private String emptyPartClassName="The part must not be empty.";
@@ -524,6 +526,7 @@ public final class AnalysisMessages {
         mess_.addEntry(ABSTRACT_METHOD_REF,getAbstractMethodRef());
         mess_.addEntry(INACCESSIBLE_TYPE,getInaccessibleType());
         mess_.addEntry(UNEXPECTED_TYPE,getUnexpectedType());
+        mess_.addEntry(UNEXPECTED_RET_TYPE,getUnexpectedRetType());
         mess_.addEntry(METHODS_ACCESSES,getMethodsAccesses());
         mess_.addEntry(EMPTY_PACKAGE,getEmptyPackage());
         mess_.addEntry(EMPTY_PART_CLASS_NAME,getEmptyPartClassName());
@@ -1138,6 +1141,14 @@ public final class AnalysisMessages {
 
     public void setUnexpectedType(String unexpectedType) {
         this.unexpectedType = unexpectedType;
+    }
+
+    public String getUnexpectedRetType() {
+        return unexpectedRetType;
+    }
+
+    public void setUnexpectedRetType(String unexpectedRetType) {
+        this.unexpectedRetType = unexpectedRetType;
     }
 
     public String getMethodsAccesses() {

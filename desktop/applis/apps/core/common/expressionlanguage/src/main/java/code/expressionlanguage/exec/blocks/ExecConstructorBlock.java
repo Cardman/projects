@@ -2,12 +2,11 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ConstructorBlock;
-import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements ReturnableWithSignature {
+public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
     private boolean implicitCallSuper;
 

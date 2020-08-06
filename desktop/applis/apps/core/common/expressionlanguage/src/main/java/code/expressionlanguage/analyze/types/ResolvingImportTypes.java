@@ -498,7 +498,6 @@ public final class ResolvingImportTypes {
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
         String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
-        int import_ = 1;
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
             for (String i: t) {
@@ -525,7 +524,6 @@ public final class ResolvingImportTypes {
                 fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
             }
             methods_.add(m_);
-            import_++;
         }
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
@@ -553,7 +551,6 @@ public final class ResolvingImportTypes {
                 fetchImportStaticMethods(_analyzable,_glClass, _method, m_, foundCandidate_, typesLoc_);
             }
             methods_.add(m_);
-            import_++;
         }
         return methods_;
     }
@@ -561,7 +558,6 @@ public final class ResolvingImportTypes {
     private static void fetchImportStaticMethods(ContextEl _analyzable, String _glClass, String _method, CustList<ImportedMethod> _methods, String _typeLoc, StringList _typesLoc) {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,s);
-            String pkg_ = super_.getPackageName();
             String outer_ = "";
             if (super_ instanceof RootBlock) {
                 outer_ = ((RootBlock)super_).getOuterFullName();
@@ -575,6 +571,7 @@ public final class ResolvingImportTypes {
                 }
                 if (e instanceof OverridableBlock) {
                     OverridableBlock c = (OverridableBlock) e;
+                    String pkg_ = super_.getPackageName();
                     Accessed a_ = new Accessed(c.getAccess(), pkg_, s, outer_);
                     if (!ContextUtil.canAccess(_typeLoc, a_, _analyzable)) {
                         continue;

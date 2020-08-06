@@ -73,6 +73,7 @@ public final class AnalysisMessagesTest {
         def_.setAbstractMethodRef("");
         def_.setInaccessibleType("");
         def_.setUnexpectedType("");
+        def_.setUnexpectedRetType("");
         def_.setMethodsAccesses("");
         def_.setEmptyPackage("");
         def_.setEmptyPartClassName("");

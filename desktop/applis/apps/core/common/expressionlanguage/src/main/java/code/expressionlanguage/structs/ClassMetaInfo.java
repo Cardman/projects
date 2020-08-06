@@ -38,6 +38,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private final ObjectMap<MethodId, MethodMetaInfo> truesInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> falsesInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> methodsInfos;
+    private final ObjectMap<MethodId, MethodMetaInfo> blocsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
 
     private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
 
@@ -386,6 +387,10 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     public StringStruct exportValue() {
         return getDisplayedString();
+    }
+
+    public ObjectMap<MethodId, MethodMetaInfo> getBlocsInfos() {
+        return blocsInfos;
     }
 
     @Override

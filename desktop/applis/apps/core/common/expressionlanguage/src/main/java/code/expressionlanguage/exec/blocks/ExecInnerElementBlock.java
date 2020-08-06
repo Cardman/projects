@@ -22,7 +22,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     private int fieldNameOffest;
 
     private int trOffset;
-
+    private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
     public ExecInnerElementBlock(InnerElementBlock _offset) {
         super(_offset);
         fieldName = _offset.getUniqueFieldName();
@@ -109,4 +109,8 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
         processBlock(_cont);
     }
 
+    @Override
+    public CustList<ExecRootBlock> getAnonymous() {
+        return anonymous;
+    }
 }

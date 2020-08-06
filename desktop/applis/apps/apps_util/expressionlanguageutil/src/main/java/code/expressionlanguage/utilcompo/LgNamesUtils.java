@@ -3479,6 +3479,7 @@ public class LgNamesUtils extends LgNames {
         _mess.setAbstractMethodRef(get(_util,_cust,AnalysisMessages.ABSTRACT_METHOD_REF));
         _mess.setInaccessibleType(get(_util,_cust,AnalysisMessages.INACCESSIBLE_TYPE));
         _mess.setUnexpectedType(get(_util,_cust,AnalysisMessages.UNEXPECTED_TYPE));
+        _mess.setUnexpectedRetType(get(_util,_cust,AnalysisMessages.UNEXPECTED_RET_TYPE));
         _mess.setMethodsAccesses(get(_util,_cust,AnalysisMessages.METHODS_ACCESSES));
         _mess.setEmptyPackage(get(_util,_cust,AnalysisMessages.EMPTY_PACKAGE));
         _mess.setEmptyPartClassName(get(_util,_cust,AnalysisMessages.EMPTY_PART_CLASS_NAME));
@@ -3937,6 +3938,9 @@ public class LgNamesUtils extends LgNames {
         setAliasGetDeclaredStaticMethods(get(_util,_cust, GET_DECLARED_STATIC_METHODS));
         setAliasGetDeclaredConstructors(get(_util,_cust, GET_DECLARED_CONSTRUCTORS));
         setAliasGetDeclaredFields(get(_util,_cust, GET_DECLARED_FIELDS));
+        setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
+        setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
+        setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
         setAliasField(get(_util,_cust, FIELD));
         setAliasIsNormal(get(_util,_cust, IS_NORMAL));
         setAliasSameRef(get(_util,_cust, SAME_REF));

@@ -4,13 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.GeneCustModifierMethod;
 import code.expressionlanguage.analyze.blocks.MethodKind;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
-import code.expressionlanguage.analyze.blocks.ReturnableWithSignature;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ReturnableWithSignature {
+public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
 
     private final boolean staticMethod;
     private final boolean staticCallMethod;

@@ -21,4 +21,5 @@ public interface InfoBlock extends GeneField, AnnotableBlock {
     boolean isFinalField();
 
     AccessEnum getAccess();
+    CustList<AnonymousTypeBlock> getAnonymous();
 }
