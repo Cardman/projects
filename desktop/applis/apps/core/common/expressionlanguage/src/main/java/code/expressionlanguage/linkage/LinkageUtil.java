@@ -714,7 +714,9 @@ public final class LinkageUtil {
         AbstractCoverageResult result_ = _cont.getCoverage().getCoverSwitchs(parent_,_cond);
         int off_ = _cond.getValueOffset();
         String tag_ = getCaseDefaultTag(result_);
-        _parts.add(new PartOffset(tag_,off_));
+        if (_vars.getStack().last().getCurrent() == null) {
+            _parts.add(new PartOffset(tag_, off_));
+        }
         if (!_cond.getImportedType().isEmpty()) {
             _parts.addAllElts(_cond.getPartOffsets());
             String variableName_ = _cond.getVariableName();
@@ -736,8 +738,10 @@ public final class LinkageUtil {
             OperationNode current_ = getCurrent(_vars,root_);
             buildCoverageReport(_cont, 0, _vars,off_,_cond, current_, root_,offsetEndBlock_,_parts);
         }
-        tag_ = "</span>";
-        _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+        if (_vars.getState() == null) {
+            tag_ = "</span>";
+            _parts.add(new PartOffset(tag_,off_+ _cond.getValue().length()));
+        }
     }
 
     private static String getCaseDefaultTag(AbstractCoverageResult _result) {

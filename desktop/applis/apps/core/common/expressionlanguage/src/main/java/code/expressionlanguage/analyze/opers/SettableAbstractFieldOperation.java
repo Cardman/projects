@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
@@ -198,6 +200,7 @@ public abstract class SettableAbstractFieldOperation extends
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(res_.getResult());
             _oper.setSimpleArgumentAna(arg_,_conf);
+            trySetDotParent(_conf, _oper, arg_);
             return;
         }
         if (ElUtil.isDeclaringField(_oper, _conf)) {
@@ -209,6 +212,17 @@ public abstract class SettableAbstractFieldOperation extends
             Argument arg_ = Argument.createVoid();
             arg_.setStruct(str_);
             _oper.setSimpleArgumentAna(arg_,_conf);
+            trySetDotParent(_conf, _oper, arg_);
+        }
+    }
+    private static void trySetDotParent(ContextEl _conf, OperationNode _oper, Argument _arg) {
+        Block bl_ = _conf.getAnalyzing().getCurrentBlock();
+        if (!(bl_ instanceof CaseCondition)) {
+            return;
+        }
+        if (_oper.getIndexChild() > 0
+                && _oper.getParent() instanceof AbstractDotOperation) {
+            _oper.getParent().setSimpleArgumentAna(_arg,_conf);
         }
     }
     public boolean isVariable() {

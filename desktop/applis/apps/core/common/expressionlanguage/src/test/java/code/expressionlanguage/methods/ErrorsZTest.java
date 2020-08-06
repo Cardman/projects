@@ -670,4 +670,41 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report659Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" int CST = 1;\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  String res = \"\";\n");
+        xml_.append("  switch(1){\n");
+        xml_.append("   case new Int(){}.CST:\n");
+        xml_.append("    res += 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+                " int <a name=\"m21\">CST</a> = 1;\n" +
+                "}\n" +
+                "class <a name=\"m38\">pkg.Ext</a> {\n" +
+                " static String <a name=\"m63\">m</a>(){\n" +
+                "  String <a name=\"m77\">res</a> = <span class=\"s\">\"\"</span>;\n" +
+                "  switch(1){\n" +
+                "   <a title=\"The case block with expression new Int(){}.CST is not constant.\" class=\"e\">case</a> new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m117\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m21\">CST</a>:\n" +
+                "    <a href=\"#m77\">res</a> += 1;\n" +
+                "  }\n" +
+                "  return <a href=\"#m77\">res</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
 }

@@ -1219,7 +1219,82 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
-
+    @Test
+    public void coverage420Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int CST = 1;\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  String res = \"\";\n");
+        xml_.append("  switch(1){\n");
+        xml_.append("   case new Int(){}.CST:\n");
+        xml_.append("    res += 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">CST</a> </span>=<span class=\"g\"> 1</span></span>;\n" +
+                "}\n" +
+                "class <a name=\"m51\">pkg.Ext</a> {\n" +
+                " static String <a name=\"m76\">m</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m90\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">1</span>){\n" +
+                "   case <span class=\"f\">new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m130\">{</a>}</span>.<a title=\"pkg.Int.CST\" href=\"#m34\">CST</a></span>:\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m90\">res</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m90\">res</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage421Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static final int CST = 1;\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  String res = \"\";\n");
+        xml_.append("  switch(2){\n");
+        xml_.append("   case CST+CST:\n");
+        xml_.append("    res += 1;\n");
+        xml_.append("  }\n");
+        xml_.append("  return res;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">CST</a> </span>=<span class=\"g\"> 1</span></span>;\n" +
+                " static String <a name=\"m58\">m</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m72\">res</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">2</span>){\n" +
+                "   case <span class=\"f\"><a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a>+<a title=\"pkg.Ext.CST\" href=\"#m34\">CST</a></span>:\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m72\">res</a> </span>+=<span class=\"f\"> 1</span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m72\">res</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
