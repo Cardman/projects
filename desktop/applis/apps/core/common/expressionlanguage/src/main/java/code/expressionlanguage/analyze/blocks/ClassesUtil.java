@@ -266,6 +266,42 @@ public final class ClassesUtil {
                     }
                 }
             }
+            for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: _context.getAnalyzing().getMapAnonymous()) {
+                for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
+                    AnonymousTypeBlock block_ = e.getKey().getBlock();
+                    RootBlock parentType_ = block_.getParentType();
+                    if (parentType_ == null) {
+                        continue;
+                    }
+                    String base_ = e.getKey().getBase();
+                    String enumClassName_ = _context.getStandards().getAliasEnumType();
+                    String enumParamClassName_ = _context.getStandards().getAliasEnumParam();
+                    if (StringList.quickEq(enumParamClassName_, base_)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(block_.getFile().getFileName());
+                        undef_.setIndexFile(e.getKey().getIndex());
+                        //original type len
+                        undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                                block_.getFullName(),
+                                base_);
+                        _context.addError(undef_);
+                        block_.addNameErrors(undef_);
+                    }
+                    if (StringList.quickEq(enumClassName_, base_)) {
+                        FoundErrorInterpret undef_;
+                        undef_ = new FoundErrorInterpret();
+                        undef_.setFileName(block_.getFile().getFileName());
+                        undef_.setIndexFile(e.getKey().getIndex());
+                        //original type len
+                        undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                                block_.getFullName(),
+                                base_);
+                        _context.addError(undef_);
+                        block_.addNameErrors(undef_);
+                    }
+                }
+            }
             _context.getAnalyzing().getPrevFoundTypes().addAllElts(_context.getAnalyzing().getFoundTypes());
             _context.getAnalyzing().getFoundTypes().clear();
             _context.getAnalyzing().getFoundOperators().clear();

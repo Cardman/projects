@@ -21,6 +21,8 @@ public final class AnonymousInstancingOperation extends
 
     private AnonymousTypeBlock block;
     private String glClass;
+    private String base;
+    private int index;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, AnonymousTypeBlock _block) {
@@ -43,6 +45,7 @@ public final class AnonymousInstancingOperation extends
     @Override
     public void analyze(ContextEl _conf) {
         tryAnalyze(_conf);
+        index = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
         setClassName(_conf.getStandards().getAliasObject());
         KeyWords keyWords_ = _conf.getKeyWords();
@@ -139,6 +142,7 @@ public final class AnonymousInstancingOperation extends
         block.getRowColDirectSuperTypes().put(-1, _realClassName);
         block.setName(((ImmutableNameRootBlock)g_).getName());
         block.setParentType(_conf.getAnalyzing().getGlobalType());
+        base = base_;
         block.getAllReservedInners().addAllElts(_conf.getAnalyzing().getGlobalDirType().getAllReservedInners());
         MemberCallingsBlock currentFct_ = _conf.getAnalyzing().getCurrentFct();
         if (currentFct_ != null) {
@@ -180,5 +184,13 @@ public final class AnonymousInstancingOperation extends
 
     public String getGlClass() {
         return glClass;
+    }
+
+    public String getBase() {
+        return base;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }
