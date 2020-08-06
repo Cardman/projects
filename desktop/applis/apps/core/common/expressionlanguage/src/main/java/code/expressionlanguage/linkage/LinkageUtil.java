@@ -157,10 +157,10 @@ public final class LinkageUtil {
             if (child_ instanceof FileBlock) {
                 processFileBlockReport((FileBlock)child_,list_);
             }
-            if (child_ instanceof RootBlock) {
-                processGlobalRootBlockError((RootBlock) child_, list_);
+            if (child_ instanceof RootBlock || child_ instanceof OperatorBlock) {
+                processGlobalRootBlockError((BracedBlock) child_, list_);
                 if (child_.getParent() instanceof FileBlock) {
-                    if (!((RootBlock) child_).getGlobalErrorsPars().isEmpty()) {
+                    if (!((BracedBlock) child_).getGlobalErrorsPars().isEmpty()) {
                         child_ = nextSkip(child_, _ex);
                         continue;
                     }
@@ -323,7 +323,7 @@ public final class LinkageUtil {
             _parts.add(new PartOffset("</a>", index_+ g.getLength()));
         }
     }
-    private static void processGlobalRootBlockError(RootBlock _cond, CustList<PartOffset> _parts) {
+    private static void processGlobalRootBlockError(BracedBlock _cond, CustList<PartOffset> _parts) {
         for (GraphicErrorInterpret g: _cond.getGlobalErrorsPars()) {
             int index_ = g.getIndexFile();
             _parts.add(new PartOffset("<a title=\""+g.getBuiltError()+"\" class=\"e\">", index_));

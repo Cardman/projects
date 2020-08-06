@@ -757,4 +757,38 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</pre></body></html>", filesExp_.firstValue());
     }
+    @Test
+    public void report662Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$operator+ pkg.MySub() {\n");
+        xml_.append(" $int i\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator+ pkg.MySub() {\n" +
+                " $int i<a title=\"Bad index by parsing.\" class=\"e\">\n" +
+                "</a></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report663Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  new CharSequence(){int nonSeen;};\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  <a title=\"The type $core.CharSequence is not resolved for instancing.\" class=\"e\">new</a> CharSequence()<span class=\"t\"><a name=\"m54\">{</a>int nonSeen;}</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</pre></body></html>", filesExp_.firstValue());
+    }
 }
