@@ -33,12 +33,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage2Test() {
@@ -58,14 +58,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">8</span></span>;\n" +
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage3Test() {
@@ -85,14 +85,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage4Test() {
@@ -112,14 +112,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"false\">==</a><span class=\"f\"> 2 </span></span>?<span class=\"n\">{<span class=\"n\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage5Test() {
@@ -143,7 +143,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -154,7 +154,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage6Test() {
@@ -179,7 +179,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -191,7 +191,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage7Test() {
@@ -215,7 +215,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -226,7 +226,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage8Test() {
@@ -250,7 +250,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -261,7 +261,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage9Test() {
@@ -288,7 +288,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -302,7 +302,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage10Test() {
@@ -333,7 +333,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
                 "$public $class <a name=\"m60\">pkg.Ex</a> {\n" +
@@ -351,7 +351,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage11Test() {
@@ -381,7 +381,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">infoInt</a>()1i;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(2i)\n" +
@@ -398,7 +398,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage12Test() {
@@ -419,7 +419,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m46\">st</a> </span>=<span class=\"g\"> 0</span></span>;\n" +
                 " $public $static $int <a name=\"m76\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m94\">t</a></span>;\n" +
@@ -427,7 +427,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m94\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage13Test() {
@@ -453,7 +453,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -466,7 +466,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage14Test() {
@@ -492,7 +492,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -505,7 +505,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -531,7 +531,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -543,7 +543,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -569,7 +569,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">8</span></span>;\n" +
@@ -581,7 +581,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -607,7 +607,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">9</span></span>;\n" +
@@ -619,7 +619,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -647,7 +647,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">9</span></span>;\n" +
@@ -661,7 +661,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -689,7 +689,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">8</span></span>;\n" +
@@ -703,7 +703,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage20Test() {
@@ -724,7 +724,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.$static call()\" href=\"#m99\">call</a>()</span>;\n" +
                 " }\n" +
@@ -732,7 +732,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage21Test() {
@@ -753,7 +753,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
@@ -761,7 +761,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"n\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage22Test() {
@@ -797,7 +797,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m245\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m268\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m268\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m268\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -820,7 +820,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"n\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage22_Test() {
@@ -856,7 +856,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a>[<span class=\"i\">pkg.Ex</span>;] <a title=\"pkg.Ex\" href=\"#m223\">Ex</a> (<a title=\"pkg.Ex\" href=\"#m223\">Ex</a> <a name=\"m27\">p</a>, <a title=\"pkg.Ex\" href=\"#m223\">Ex</a> <a name=\"m33\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a>[<span class=\"i\">pkg.Ex</span>;] <a title=\"pkg.Ex\" href=\"#m223\">Ex</a> (<a title=\"pkg.Ex\" href=\"#m223\">Ex</a> <a name=\"m27\">p</a>, <a title=\"pkg.Ex\" href=\"#m223\">Ex</a> <a name=\"m33\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m223\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m41\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m223\">Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m41\">out</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m246\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m27\">p</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m246\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m33\">q</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m246\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m41\">out</a></span>;\n" +
@@ -879,7 +879,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"n\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage23Test() {
@@ -907,7 +907,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -922,7 +922,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage_23Test() {
@@ -950,7 +950,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -965,7 +965,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage__23Test() {
@@ -993,7 +993,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -1008,7 +1008,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage24Test() {
@@ -1036,7 +1036,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">-<span class=\"f\">1i</span></span></span>;\n" +
@@ -1051,7 +1051,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage25_Test() {
@@ -1076,7 +1076,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
@@ -1088,7 +1088,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">$values(<a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a>)</span>.<span class=\"f\"><b>length</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage25__Test() {
@@ -1113,7 +1113,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
@@ -1125,7 +1125,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">$valueOf(<a title=\"pkg.ExEnum\" href=\"#m12\">ExEnum</a>,<span class=\"f\"><span class=\"s\">\"ONE\"</span></span>)</span>.<span class=\"f\"><a title=\"pkg.ExEnum.field\" href=\"#m43\">field</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage25Test() {
@@ -1159,7 +1159,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum()\" href=\"#m51\">ONE</a>;\n" +
                 " public int <span class=\"g\"><a name=\"m43\">field</a></span>;\n" +
                 " <a name=\"m51\">ExEnum(</a>){\n" +
@@ -1180,7 +1180,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m147\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage26Test() {
@@ -1214,7 +1214,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m54\">ONE</a>(<span class=\"g\">5</span>);\n" +
                 " public int <span class=\"g\"><a name=\"m46\">field</a></span>;\n" +
                 " <a name=\"m54\">ExEnum(</a>int <a name=\"m65\">param</a>){\n" +
@@ -1235,7 +1235,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m163\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage27Test() {
@@ -1269,7 +1269,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m55\">FOUR</a>(<span class=\"g\">5</span>);\n" +
                 " public int <span class=\"g\"><a name=\"m47\">field</a></span>;\n" +
                 " <a name=\"m55\">ExEnum(</a>int <a name=\"m66\">param</a>){\n" +
@@ -1290,7 +1290,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m164\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage28Test() {
@@ -1320,7 +1320,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\">ONE</a>;\n" +
                 "}\n" +
                 "public class <a name=\"m46\">pkg.Ex</a> {\n" +
@@ -1337,7 +1337,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m103\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage29Test() {
@@ -1375,7 +1375,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m37\">FOUR</a>(<span class=\"g\">5</span>){\n" +
                 "  <a name=\"m37\">(</a>int <a name=\"m42\">p</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum.pkg.ExEnum(int)\" href=\"#m87\">super</a>(<span class=\"g\"><a href=\"#m42\">p</a></span>)</span>;\n" +
@@ -1400,7 +1400,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m196\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage30Test() {
@@ -1441,7 +1441,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\" title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR()\" href=\"#m34\">FOUR</a>{\n" +
                 "  <a name=\"m34\">(</a>){\n" +
                 "   <span class=\"g\"><a title=\"pkg.ExEnum-FOUR.pkg.ExEnum-FOUR(int)\" href=\"#m56\">this</a>(<span class=\"g\">5</span>)</span>;\n" +
@@ -1469,7 +1469,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m215\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage31Test() {
@@ -1501,7 +1501,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m26\">FOUR</a>{\n" +
                 "  public int <span class=\"g\"><a name=\"m45\">field</a></span>;\n" +
                 " };\n" +
@@ -1520,7 +1520,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m128\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage32Test() {
@@ -1591,7 +1591,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">f</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m33\">s</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
                 "operator<a name=\"m87\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m103\">f</a>) {\n" +
@@ -1649,7 +1649,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">null</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage33Test() {
@@ -1714,7 +1714,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"n\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m24\">f</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"n\"><span class=\"n\"> <a href=\"#m33\">s</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
                 "operator<a name=\"m87\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m103\">f</a>) {\n" +
@@ -1766,7 +1766,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m922\">pkg.ExTwo</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage34Test() {
@@ -1831,7 +1831,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">operator<a name=\"m8\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m24\">f</a>,<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m33\">s</a>) {\n" +
                 " return <span class=\"n\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m244\">new</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m24\">f</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a> </span></span>+<span class=\"n\"><span class=\"n\"> <a href=\"#m33\">s</a></span>.<span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m236\">field</a></span></span></span>)</span>;\n" +
                 "}\n" +
                 "operator<a name=\"m87\">+</a> <a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m215\">pkg.Ex</a> <a name=\"m103\">f</a>) {\n" +
@@ -1883,7 +1883,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m928\">pkg.ExTwo</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage35Test() {
@@ -1904,7 +1904,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"><span class=\"f\"> <span class=\"s\">\"\"</span></span>&lt;<span class=\"f\"><span class=\"s\">\"\"</span></span></span></span>;\n" +
                 "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m74\">toStr</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
@@ -1912,7 +1912,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage36Test() {
@@ -1934,7 +1934,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"><span class=\"f\"> <span class=\"s\">\"\"</span></span>&lt;<span class=\"f\"><span class=\"s\">\"\"</span></span></span></span>;\n" +
                 "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m74\">toStr</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
@@ -1943,7 +1943,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage37Test() {
@@ -1965,7 +1965,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"><span class=\"f\"> <span class=\"s\">\"\"</span></span>&lt;<span class=\"f\"><span class=\"s\">\"\"</span></span></span></span>;\n" +
                 "  <b title=\"$core.String\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m74\">toStr</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
@@ -1974,7 +1974,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage38Test() {
@@ -1997,7 +1997,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.Annotation</a> {}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.Annotation</a> {}\n" +
                 "public class <a name=\"m49\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m77\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m93\">s</a> </span>=<span class=\"f\"><span class=\"f\"> <span class=\"s\">\"\"</span></span>&lt;<span class=\"f\"><span class=\"s\">\"\"</span></span></span></span>;\n" +
@@ -2007,7 +2007,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage39Test() {
@@ -2031,7 +2031,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">one</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  <span class=\"p\">if</span> (<span class=\"p\"><a href=\"#m57\">one</a></span>){\n" +
@@ -2042,7 +2042,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\">6</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage40Test() {
@@ -2072,7 +2072,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2087,7 +2087,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage41Test() {
@@ -2118,7 +2118,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2134,7 +2134,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage42Test() {
@@ -2161,7 +2161,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2173,7 +2173,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage43Test() {
@@ -2203,7 +2203,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2218,7 +2218,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage44Test() {
@@ -2251,7 +2251,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m126\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2266,7 +2266,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m126\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -2301,7 +2301,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m126\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2317,7 +2317,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m126\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -2348,7 +2348,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m126\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2360,7 +2360,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m126\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -2394,7 +2394,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m126\">res</a></span>;\n" +
                 " $static {\n" +
@@ -2409,7 +2409,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m126\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage48Test() {
@@ -2441,7 +2441,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <span class=\"p\">for</span> (int <span class=\"f\"><span class=\"f\"><a name=\"m62\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"p\"><span class=\"f\"><a href=\"#m62\">i</a> </span><a title=\"true\">&lt;</a><span class=\"f\"> 2</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a></span>++</span>){\n" +
                 "   <span class=\"f\">if</span> (<span class=\"f\">!<span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a> </span>%<span class=\"f\"> 2 </span></span>==<span class=\"f\"> 0</span></span>)</span></span>){\n" +
@@ -2460,7 +2460,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">null</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage49Test() {
@@ -2492,7 +2492,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1</span></span>){\n" +
@@ -2511,7 +2511,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m280\">pkg.ExTwo</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage50Test() {
@@ -2541,7 +2541,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"p\">if</span> (<span class=\"p\"><span class=\"f\"><a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1</span></span>){\n" +
@@ -2558,7 +2558,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m233\">pkg.ExTwo</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage51Test() {
@@ -2589,7 +2589,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
                 "$public $class <a name=\"m60\">pkg.Ex</a> {\n" +
@@ -2607,7 +2607,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage52Test() {
@@ -2635,7 +2635,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">seven</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><a name=\"m83\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m83\">i</a> </span>&lt;<span class=\"f\"> 4</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m83\">i</a></span>++</span>){\n" +
@@ -2650,7 +2650,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">8</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage53Test() {
@@ -2678,7 +2678,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"boolean\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">seven</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><a name=\"m83\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m83\">i</a> </span>&lt;<span class=\"f\"> 4</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m83\">i</a></span>++</span>){\n" +
@@ -2693,7 +2693,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">8</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage54Test() {
@@ -2722,7 +2722,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <span class=\"p\">for</span> (int <span class=\"f\"><span class=\"f\"><a name=\"m62\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"p\"><span class=\"f\"><a href=\"#m62\">i</a> </span><a title=\"true\">&lt;</a><span class=\"f\"> 2</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a></span>++</span>){\n" +
                 "   <span class=\"f\">if</span> (<span class=\"f\">!<span class=\"f\">(<span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">i</a> </span>%<span class=\"f\"> 2 </span></span>==<span class=\"f\"> 0</span></span>)</span></span>){\n" +
@@ -2738,7 +2738,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m248\">pkg.ExTwo</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage55Test() {
@@ -2758,14 +2758,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m66\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"#m25\">$new</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage56Test() {
@@ -2783,12 +2783,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$new StringBuilder(<span class=\"f\"><span class=\"s\">\"hello\"</span></span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage57Test() {
@@ -2813,7 +2813,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -2825,7 +2825,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage58Test() {
@@ -2853,7 +2853,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -2868,7 +2868,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage59Test() {
@@ -2898,7 +2898,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -2915,7 +2915,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage60Test() {
@@ -2945,7 +2945,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">-<span class=\"f\">1i</span></span></span>;\n" +
@@ -2962,7 +2962,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage61Test() {
@@ -2990,7 +2990,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -3005,7 +3005,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage62Test() {
@@ -3029,7 +3029,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3040,7 +3040,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }<span class=\"n\">while</span> (<span class=\"n\">true</span>);\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage63Test() {
@@ -3064,7 +3064,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3075,7 +3075,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage64Test() {
@@ -3102,7 +3102,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3116,7 +3116,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage65Test() {
@@ -3144,7 +3144,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3159,7 +3159,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage66Test() {
@@ -3179,14 +3179,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m66\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"#m25\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage67Test() {
@@ -3206,14 +3206,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " <a name=\"m25\">$public Ex(</a>$int <a name=\"m41\">p</a>){\n" +
                 " }\n" +
                 " $public $static Object <a name=\"m72\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m25\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage68Test() {
@@ -3243,7 +3243,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustIter</a>&lt;<a name=\"m28\">#T</a>&gt; :$iterator&lt;<a href=\"#m28\">#T</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustIter</a>&lt;<a name=\"m28\">#T</a>&gt; :$iterator&lt;<a href=\"#m28\">#T</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">#T</a>&gt; <span class=\"g\"><a name=\"m75\">list</a></span>;\n" +
                 " $private $int <span class=\"g\"><a name=\"m96\">length</a></span>;\n" +
                 " $private $int <span class=\"g\"><a name=\"m119\">index</a></span>;\n" +
@@ -3260,7 +3260,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m119\">index</a></span>&lt;<span class=\"g\"><a title=\"pkg.CustIter.length\" href=\"#m96\">length</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(1));
+                "</span></pre></body></html>", filesExp_.getValue(1));
     }
     @Test
     public void coverage69Test() {
@@ -3290,7 +3290,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustList</a>&lt;<a name=\"m28\">#U</a>&gt; :$iterable&lt;<a href=\"#m28\">#U</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustList</a>&lt;<a name=\"m28\">#U</a>&gt; :$iterable&lt;<a href=\"#m28\">#U</a>&gt;{\n" +
                 " $private <a href=\"#m28\">#U</a>[] <span class=\"g\"><a name=\"m63\">list</a></span>;\n" +
                 " $private $int <span class=\"g\"><a name=\"m84\">length</a></span>;\n" +
                 " <a name=\"m93\">$public (</a>){\n" +
@@ -3331,7 +3331,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"g\"><a title=\"pkg.CustIter.pkg.CustIter(pkg.CustList&lt;#T&gt;)\" href=\"CustIter.html#m127\">$new</a> <a title=\"pkg.CustIter\" href=\"CustIter.html#m15\">pkg.CustIter</a>&lt;<a href=\"#m28\">#U</a>&gt;(<span class=\"g\">$this</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(2));
+                "</span></pre></body></html>", filesExp_.getValue(2));
     }
     @Test
     public void coverage70Test() {
@@ -3364,7 +3364,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustIterTable</a>&lt;<a name=\"m33\">U</a>,<a name=\"m35\">V</a>&gt; :$iteratorTable&lt;<a href=\"#m33\">U</a>,<a href=\"#m35\">V</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustIterTable</a>&lt;<a name=\"m33\">U</a>,<a name=\"m35\">V</a>&gt; :$iteratorTable&lt;<a href=\"#m33\">U</a>,<a href=\"#m35\">V</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;<a href=\"#m33\">U</a>,<a href=\"#m35\">V</a>&gt; <span class=\"g\"><a name=\"m85\">list</a></span>;\n" +
                 " $private $int <span class=\"g\"><a name=\"m106\">length</a></span>;\n" +
                 " $private $int <span class=\"g\"><a name=\"m129\">index</a></span>;\n" +
@@ -3381,7 +3381,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIterTable.index\" href=\"#m129\">index</a></span>&lt;<span class=\"g\"><a title=\"pkg.CustIterTable.length\" href=\"#m106\">length</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(3));
+                "</span></pre></body></html>", filesExp_.getValue(3));
     }
     @Test
     public void coverage71Test() {
@@ -3414,7 +3414,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustTable</a>&lt;<a name=\"m29\">U</a>,<a name=\"m31\">V</a>&gt; :$iterableTable&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustTable</a>&lt;<a name=\"m29\">U</a>,<a name=\"m31\">V</a>&gt; :$iterableTable&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt; <span class=\"g\"><a name=\"m90\">list</a></span>;\n" +
                 " <a name=\"m97\">$public (</a>){\n" +
                 "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt;()</span></span>;\n" +
@@ -3435,7 +3435,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"g\"><a title=\"pkg.CustIterTable.pkg.CustIterTable(pkg.CustTable&lt;#U,#V&gt;)\" href=\"CustIterTable.html#m137\">$new</a> <a title=\"pkg.CustIterTable\" href=\"CustIterTable.html#m15\">CustIterTable</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;(<span class=\"g\">$this</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(4));
+                "</span></pre></body></html>", filesExp_.getValue(4));
     }
     @Test
     public void coverage72Test() {
@@ -3468,7 +3468,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.CustPair</a>&lt;<a name=\"m28\">U</a>,<a name=\"m30\">V</a>&gt; :$pair&lt;<a href=\"#m28\">U</a>,<a href=\"#m30\">V</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustPair</a>&lt;<a name=\"m28\">U</a>,<a name=\"m30\">V</a>&gt; :$pair&lt;<a href=\"#m28\">U</a>,<a href=\"#m30\">V</a>&gt;{\n" +
                 " $private <a href=\"#m28\">U</a> <span class=\"g\"><a name=\"m58\">first</a></span>;\n" +
                 " $private <a href=\"#m30\">V</a> <span class=\"g\"><a name=\"m77\">second</a></span>;\n" +
                 " <a name=\"m86\">$public CustPair(</a>){\n" +
@@ -3487,7 +3487,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.CustPair.first\" href=\"#m58\">first</a> </span>=<span class=\"n\"> <a href=\"#m281\">f</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(5));
+                "</span></pre></body></html>", filesExp_.getValue(5));
     }
     @Test
     public void coverage73Test() {
@@ -3520,7 +3520,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">&lt;</a> $boolean (<a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m28\">p</a>, <a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m38\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">&lt;</a> $boolean (<a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m28\">p</a>, <a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m38\">q</a>){\n" +
                 " $return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m28\">p</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m178\">field</a></span></span><a title=\"&quot;\">&lt;</a><span class=\"f\"><span class=\"f\"><a href=\"#m38\">q</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m178\">field</a></span></span></span>;\n" +
                 "}\n" +
                 "$operator<a name=\"m79\">&gt;</a> $boolean (<a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m98\">p</a>, <a title=\"pkg.Ex\" href=\"#m155\">pkg.Ex</a> <a name=\"m108\">q</a>){\n" +
@@ -3540,7 +3540,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">5</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage74Test() {
@@ -3564,7 +3564,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3575,7 +3575,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage75Test() {
@@ -3600,7 +3600,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3612,7 +3612,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage76Test() {
@@ -3636,7 +3636,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3647,7 +3647,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage77Test() {
@@ -3674,7 +3674,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -3688,7 +3688,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage78Test() {
@@ -3706,12 +3706,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$new StringBuilder(<span class=\"f\"><span class=\"s\">\"hel\\\"lo\"</span></span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage79Test() {
@@ -3729,12 +3729,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$new StringBuilder(<span class=\"f\"><span class=\"s\">`hel``lo`</span></span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage80Test() {
@@ -3752,12 +3752,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $char <a name=\"m47\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"s\">'\\''</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage81Test() {
@@ -3790,7 +3790,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m398\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m398\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m398\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -3810,7 +3810,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m372\">pkg.ExTwo</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m398\">field</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage82Test() {
@@ -3846,7 +3846,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m401\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m401\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m401\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -3869,7 +3869,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m401\">field</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage83Test() {
@@ -3894,7 +3894,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>,<span class=\"f\"><a name=\"m42\">two</a></span></span>;\n" +
                 " $public $static $int <a name=\"m69\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m88\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a>()</span></span>;\n" +
@@ -3906,7 +3906,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">5</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage84Test() {
@@ -3931,7 +3931,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>=<span class=\"f\">7</span></span>,<span class=\"f\"><span class=\"f\"><a name=\"m44\">two</a></span>=<span class=\"f\">8</span></span></span>;\n" +
                 " $public $static $int <a name=\"m73\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m92\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a>()</span></span>;\n" +
@@ -3943,7 +3943,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">5</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage85Test() {
@@ -3964,7 +3964,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m28\">ONE</a>,<a name=\"m32\">TWO</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m54\">pkg.Ex</a> {\n" +
@@ -3972,7 +3972,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m28\">ONE</a></span></span>.<span class=\"f\">$ordinal()</span></span>+<span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a></span>.<span class=\"f\"><a title=\"pkg.ExEnum.TWO\" href=\"#m32\">TWO</a></span></span>.<span class=\"f\">$ordinal()</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage86Test() {
@@ -4005,7 +4005,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -4023,7 +4023,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage87Test() {
@@ -4056,7 +4056,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -4074,7 +4074,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage88Test() {
@@ -4093,13 +4093,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">$static java.lang.Integer.MAX_VALUE</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">$static java.lang.Integer.MAX_VALUE</span>;\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m83\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">MAX_VALUE</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage88_Test() {
@@ -4117,13 +4117,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">" +
                 "$public $class [<span class=\"i\">$static java.lang.Integer.MAX_VALUE</span>;] <a name=\"m54\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m85\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">MAX_VALUE</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage89Test() {
@@ -4142,13 +4142,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m46\">field</a></span>;\n" +
                 " $public $static $int <a name=\"m75\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m46\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,,field)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage90Test() {
@@ -4169,7 +4169,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m28\">ONE</a>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m50\">pkg.Ex</a> {\n" +
@@ -4177,7 +4177,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m28\">$lambda</a>(<a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a>,,ONE)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage91Test() {
@@ -4198,7 +4198,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m28\">ONE</a>{};\n" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
@@ -4206,7 +4206,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m28\">$lambda</a>(<a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a>,,ONE)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage92Test() {
@@ -4224,12 +4224,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\">$lambda(Integer,,MAX_VALUE)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage93Test() {
@@ -4247,12 +4247,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\">$lambda(StringBuilder,$new)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage94Test() {
@@ -4270,12 +4270,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\">$lambda(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,$new)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage95Test() {
@@ -4295,14 +4295,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " <a name=\"m25\">$public Ex(</a>){\n" +
                 " }\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m62\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex()\" href=\"#m25\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,$new)</span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage96Test() {
@@ -4324,7 +4324,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " <a name=\"m46\">$public Ex(</a>$int <a name=\"m62\">field</a>){\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\">$this</span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a></span></span>=<span class=\"f\"><a href=\"#m62\">field</a></span></span>;\n" +
@@ -4333,7 +4333,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m46\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,$new,$int)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage97Test() {
@@ -4351,12 +4351,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>[] <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\">$lambda(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>[],$new,$int)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage98Test() {
@@ -4374,12 +4374,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">$lambda(String,length)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage99Test() {
@@ -4400,7 +4400,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.inst()\" href=\"#m118\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,inst)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
@@ -4408,7 +4408,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage99_Test() {
@@ -4429,7 +4429,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$static()</span>.<span class=\"f\"><a title=\"pkg.Ex.$static inst()\" href=\"#m133\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,inst,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
@@ -4437,7 +4437,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage99__Test() {
@@ -4461,7 +4461,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$static()</span>.<span class=\"f\"><a title=\"pkg.Ex.$static inst(pkg.ExTwo)\" href=\"#m151\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,inst,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m201\">ExTwo</a>)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">$new <a title=\"pkg.ExTwo\" href=\"#m201\">ExTwo</a>()</span>)</span></span>;\n" +
                 " }\n" +
@@ -4472,7 +4472,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m201\">pkg.ExTwo</a> {\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m227\">v</a></span>=<span class=\"f\">5</span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage100Test() {
@@ -4497,7 +4497,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $public $static $int <a name=\"m67\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.[]($int)\" href=\"#m143\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,[],$int)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">8</span>)</span></span>;\n" +
@@ -4509,7 +4509,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span>=<span class=\"n\"> <b>$value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage101Test() {
@@ -4534,7 +4534,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $public $static Object <a name=\"m69\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\">$new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.[]=($int)\" href=\"#m203\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,[]=,$int)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">8</span>,<span class=\"f\">15</span>)</span></span>;\n" +
@@ -4546,7 +4546,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m38\">field</a> </span>=<span class=\"f\"> <b>$value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage102Test() {
@@ -4574,7 +4574,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m45\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m25\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m45\">o</a></span>;\n" +
@@ -4589,7 +4589,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">$lambda</a>($operator,+,<a title=\"pkg.Ex\" href=\"#m123\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m123\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m192\">one</a></span>,<span class=\"f\"><a href=\"#m214\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage102_Test() {
@@ -4617,7 +4617,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m45\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m25\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m45\">o</a></span>;\n" +
@@ -4632,7 +4632,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">$lambda</a>($operator,+,$id,<a title=\"pkg.Ex\" href=\"#m123\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m123\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m192\">one</a></span>,<span class=\"f\"><a href=\"#m214\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage103_Test() {
@@ -4660,7 +4660,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m25\">a</a>,<a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a> <a name=\"m34\">b</a>) {\n" +
                 " <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m45\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m123\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m45\">o</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m25\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a> </span></span>+<span class=\"f\"><span class=\"f\"> <a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m146\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m45\">o</a></span>;\n" +
@@ -4675,7 +4675,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m192\">one</a></span>.<span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m9\">$lambda</a>($operator,+,$id,<a title=\"pkg.Ex\" href=\"#m123\">Ex</a>)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m214\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage104_Test() {
@@ -4704,7 +4704,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m24\">a</a>, <a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m34\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m24\">a</a>, <a title=\"pkg.Ex\" href=\"#m73\">pkg.Ex</a> <a name=\"m34\">b</a>){\n" +
                 " $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m24\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m34\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m96\">a</a></span></span></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m73\">pkg.Ex</a> {\n" +
@@ -4720,7 +4720,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">2i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage103Test() {
@@ -4744,7 +4744,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 " <a name=\"m28\">ONE</a>{};\n" +
                 " $public $int <a name=\"m49\">method</a>(){\n" +
                 "  $return <span class=\"f\">5</span>;\n" +
@@ -4755,7 +4755,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExEnum.ONE\" href=\"#m28\">$lambda</a>(<a title=\"pkg.ExEnum\" href=\"#m14\">ExEnum</a>,,ONE)</span>.<span class=\"f\"><b>call</b>()</span></span>.<span class=\"f\"><a title=\"pkg.ExEnum.method()\" href=\"#m49\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage104Test() {
@@ -4780,7 +4780,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m38\">one</a></span>,<span class=\"f\"><span class=\"f\"><a name=\"m42\">two</a></span>=<span class=\"f\"><a title=\"pkg.Ex.one\" href=\"#m38\">one</a></span></span></span>;\n" +
                 " $public $static $int <a name=\"m73\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m92\">one</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">pkg.Ex</a>()</span></span>;\n" +
@@ -4792,7 +4792,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">5</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage105Test() {
@@ -4828,7 +4828,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -4851,7 +4851,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage106Test() {
@@ -4887,7 +4887,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -4910,7 +4910,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m413\">field</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage107Test() {
@@ -4931,7 +4931,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $char <a name=\"m47\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"s\">'\\''</span></span>;\n" +
                 " }\n" +
@@ -4939,7 +4939,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"n\"><span class=\"n\"><span class=\"s\">\"\"</span></span>+<span class=\"n\"><span class=\"s\">'\\''</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage108Test() {
@@ -4960,7 +4960,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
@@ -4968,7 +4968,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage109Test() {
@@ -4989,7 +4989,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
@@ -4997,7 +4997,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage110Test() {
@@ -5019,7 +5019,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <span class=\"f\">$for ($boolean <a name=\"m91\">c</a></span>:<span class=\"f\">{<span class=\"f\">$true</span>,<span class=\"f\">$false</span>}</span>){\n" +
@@ -5028,7 +5028,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage111Test() {
@@ -5050,7 +5050,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <span class=\"p\">$for ($boolean <a name=\"m91\">c</a></span>:<span class=\"f\">{}</span>){\n" +
@@ -5059,7 +5059,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage112Test() {
@@ -5080,7 +5080,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <span class=\"p\"><span class=\"p\"><a href=\"#m63\">b</a> </span>&amp;=<span class=\"f\"> $true</span></span>;\n" +
@@ -5088,7 +5088,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage113Test() {
@@ -5112,7 +5112,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <span class=\"f\">$for ($boolean <a name=\"m73\">b</a></span>:<span class=\"f\">{<span class=\"f\">$true</span>,<span class=\"f\">$false</span>}</span>){\n" +
                 "   <span class=\"f\">$for ($boolean <a name=\"m110\">c</a></span>:<span class=\"f\">{<span class=\"f\">$false</span>,<span class=\"f\">$true</span>}</span>){\n" +
@@ -5123,7 +5123,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage114Test() {
@@ -5145,7 +5145,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <span class=\"f\">$for ($boolean <a name=\"m91\">c</a></span>:<span class=\"f\">{<span class=\"f\">$true</span>,<span class=\"f\">$false</span>,<span class=\"f\">$true</span>}</span>){\n" +
@@ -5154,7 +5154,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage115Test() {
@@ -5174,14 +5174,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>,<span class=\"f\"><span class=\"f\"> <a name=\"m64\">u</a> </span>=<span class=\"f\"> 2</span></span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m79\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span><a title=\"true\">&amp;</a><a title=\"true\">&amp;</a><span class=\"p\"><span class=\"f\"> <a href=\"#m64\">u</a> </span><a title=\"true\">==</a><span class=\"f\"> 2</span></span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m79\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage116Test() {
@@ -5203,7 +5203,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m75\">i</a> </span>=<span class=\"f\"> 0</span></span>,<span class=\"f\"><span class=\"f\"> <a name=\"m82\">j</a> </span>=<span class=\"f\"> 1</span></span></span>; <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a> </span>&lt;<span class=\"f\"> 2 </span></span>&amp;<a title=\"true\">&amp;</a><span class=\"p\"><span class=\"f\"> <a href=\"#m82\">j</a> </span><a title=\"true\">&lt;</a><span class=\"f\"> 4</span></span></span>; <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a></span>++</span>,<span class=\"f\"><span class=\"f\"><a href=\"#m82\">j</a></span>++</span></span>){\n" +
@@ -5212,7 +5212,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage117Test() {
@@ -5234,7 +5234,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m75\">i</a> </span>=<span class=\"f\"> 0</span></span>,<span class=\"f\"><span class=\"f\"> <a name=\"m82\">j</a> </span>=<span class=\"f\"> <a href=\"#m75\">i</a></span></span></span>; <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a> </span>&lt;<span class=\"f\"> 2 </span></span>&amp;<a title=\"true\">&amp;</a><span class=\"p\"><span class=\"f\"> <a href=\"#m82\">j</a> </span><a title=\"true\">&lt;</a><span class=\"f\"> 4</span></span></span>; <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a></span>++</span>,<span class=\"f\"><span class=\"f\"><a href=\"#m82\">j</a></span>++</span></span>){\n" +
@@ -5243,7 +5243,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage118Test() {
@@ -5263,14 +5263,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>,<span class=\"f\"><span class=\"f\"> <a name=\"m64\">u</a> </span>=<span class=\"f\"> <a href=\"#m57\">s</a></span></span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m79\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span><a title=\"true\">&amp;</a><a title=\"false\">&amp;</a><span class=\"p\"><span class=\"f\"> <a href=\"#m64\">u</a> </span><a title=\"false\">==</a><span class=\"f\"> 2</span></span></span>?<span class=\"n\">{<span class=\"n\">4i</span>}</span>:<span class=\"f\">{<span class=\"f\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m79\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage119Test() {
@@ -5292,7 +5292,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">for</span> (int <span class=\"f\"><span class=\"f\"><span class=\"f\"><a name=\"m75\">i</a> </span>=<span class=\"f\"> 0</span></span>,<span class=\"f\"> <a name=\"m82\">j</a></span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a> </span>&lt;<span class=\"f\"> 2</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m75\">i</a></span>++</span>){\n" +
@@ -5301,7 +5301,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage120Test() {
@@ -5323,7 +5323,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">for (int <a name=\"m75\">i</a></span> : <span class=\"f\">{<span class=\"f\">1</span>,<span class=\"f\">2</span>}</span>){\n" +
@@ -5332,7 +5332,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage121Test() {
@@ -5354,7 +5354,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $int <span class=\"f\"><span class=\"f\"><a name=\"m63\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">$for ($int <a name=\"m83\">i</a></span> : <span class=\"f\">{<span class=\"f\">1</span>,<span class=\"f\">2</span>}</span>){\n" +
@@ -5363,7 +5363,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a href=\"#m63\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage122Test() {
@@ -5385,7 +5385,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  <span class=\"f\">for (int <a name=\"m75\">i</a></span> : <span class=\"f\">{<span class=\"f\">1</span>,<span class=\"f\">2</span>}</span>){\n" +
@@ -5394,7 +5394,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">s</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage123Test() {
@@ -5421,7 +5421,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">catching</a>(){\n" +
                 "  $int <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">0i</span></span>;\n" +
@@ -5435,7 +5435,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage124Test() {
@@ -5460,12 +5460,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo\" href=\"../pkg2/Ex.html#m15\">ExTwo</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.$static exmeth()\" href=\"../pkg2/Ex.html#m49\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage125Test() {
@@ -5490,12 +5490,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo\" href=\"../Ex.html#m15\">ExTwo</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.$static exmeth()\" href=\"../Ex.html#m49\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage126Test() {
@@ -5520,12 +5520,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo\" href=\"inner/Ex.html#m15\">ExTwo</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.$static exmeth()\" href=\"inner/Ex.html#m49\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage127Test() {
@@ -5550,12 +5550,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo\" href=\"../pkg2/Ex.html#m15\">ExTwo</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.$static exmeth()\" href=\"../pkg2/Ex.html#m49\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage128Test() {
@@ -5580,12 +5580,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo\" href=\"../../d2/pkg2/Ex.html#m15\">ExTwo</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.$static exmeth()\" href=\"../../d2/pkg2/Ex.html#m49\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -5613,7 +5613,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  long <span class=\"f\"><a name=\"m58\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m58\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -5627,7 +5627,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m58\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -5658,7 +5658,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  long <span class=\"f\"><a name=\"m58\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m58\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -5675,7 +5675,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m58\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -5706,7 +5706,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  long <span class=\"f\"><a name=\"m58\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m58\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -5723,7 +5723,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m58\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -5751,7 +5751,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  long <span class=\"f\"><a name=\"m58\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m58\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -5765,7 +5765,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m58\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage133Test() {
@@ -5798,7 +5798,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -5816,7 +5816,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage134Test() {
@@ -5849,7 +5849,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
@@ -5867,7 +5867,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage135Test() {
@@ -5891,7 +5891,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -5902,7 +5902,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage136Test() {
@@ -5935,7 +5935,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m66\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;Number,Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m126\">res</a></span>;\n" +
                 " $static {\n" +
@@ -5950,7 +5950,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m126\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage137Test() {
@@ -5974,7 +5974,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <b title=\"int\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m57\">seven</a> </span>=<span class=\"f\"> 8</span></span>;\n" +
                 "  <span class=\"f\">for</span> (<b title=\"int\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m79\">i</a> </span>=<span class=\"f\"> 0</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m79\">i</a> </span>&lt;<span class=\"f\"> 2</span></span>; <span class=\"f\"><span class=\"f\"><a href=\"#m79\">i</a></span>++</span>){\n" +
@@ -5985,7 +5985,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">seven</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6015,7 +6015,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
@@ -6031,7 +6031,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m100\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6061,7 +6061,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
                 "}\n" +
                 "public class <a name=\"m48\">pkg.Ex</a> {\n" +
@@ -6077,7 +6077,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6107,7 +6107,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>\n" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.Ex</a> {\n" +
@@ -6123,7 +6123,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m100\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6153,7 +6153,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>\n" +
                 "}\n" +
                 "public class <a name=\"m48\">pkg.Ex</a> {\n" +
@@ -6169,7 +6169,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m92\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6200,7 +6200,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExEnum</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m57\">ONE</a> </span>=<span class=\"g\"> 10</span></span>;\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m96\">TWO</a> </span>=<span class=\"g\"> 8</span></span>;\n" +
                 "}\n" +
@@ -6217,7 +6217,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m170\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6248,7 +6248,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExEnum</a> {\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m51\">ONE</a> </span>=<span class=\"g\"> 10</span></span>;\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m86\">TWO</a> </span>=<span class=\"g\"> 8</span></span>;\n" +
                 "}\n" +
@@ -6265,7 +6265,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m154\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6296,7 +6296,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>;\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m65\">THREE</a> </span>=<span class=\"g\"> 9</span></span>;\n" +
                 "}\n" +
@@ -6313,7 +6313,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m141\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -6344,7 +6344,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m25\">ONE</a>,<a name=\"m29\">TWO</a>;\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m59\">THREE</a> </span>=<span class=\"g\"> 9</span></span>;\n" +
                 "}\n" +
@@ -6361,7 +6361,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">1</span>+<span class=\"f\">(int)<span class=\"f\"><a href=\"#m129\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage146Test() {
@@ -6386,7 +6386,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -6398,7 +6398,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage147Test() {
@@ -6423,7 +6423,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m70\">sum</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
@@ -6435,7 +6435,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m70\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage148Test() {
@@ -6453,12 +6453,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)<span class=\"f\">$null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage149Test() {
@@ -6476,12 +6476,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)<span class=\"f\">null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage150Test() {
@@ -6499,12 +6499,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)<span class=\"f\">$null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage151Test() {
@@ -6522,12 +6522,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">$(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)<span class=\"f\">null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage152Test() {
@@ -6546,13 +6546,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m46\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
                 " $public $static $int <a name=\"m73\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\">$static(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span>.<span class=\"f\"><a title=\"pkg.Ex.i\" href=\"#m46\">i</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage153Test() {
@@ -6571,13 +6571,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\"m41\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">static(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>.<span class=\"f\"><a title=\"pkg.Ex.i\" href=\"#m41\">i</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage154Test() {
@@ -6595,12 +6595,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"p\"><span class=\"f\">null </span>instanceof <a title=\"pkg.Ex\" href=\"#m13\">Ex</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage155Test() {
@@ -6619,13 +6619,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">#T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">#T</a>&gt; {\n" +
                 " public static class <a name=\"m47\">ExTwo</a>{}\n" +
                 " public static boolean <a name=\"m78\">exmeth</a>(){\n" +
                 "  return <span class=\"p\"><span class=\"f\">null </span>instanceof <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;<a title=\"pkg.Ex..ExTwo\" href=\"#m47\">ExTwo</a>&gt;</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage156Test() {
@@ -6661,7 +6661,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">U</a>&gt; {\n" +
                 "  public int <span class=\"f\"><a name=\"m63\">field</a></span>;\n" +
                 "  <a name=\"m72\">public(</a>int <a name=\"m83\">p</a>){\n" +
@@ -6684,7 +6684,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m387\">instance</a></span>.<span class=\"f\"><a title=\"pkg.Ex.call2(#T)\" href=\"#m312\">call2</a>(<span class=\"f\"><span class=\"s\">\"\"</span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage157Test() {
@@ -6720,7 +6720,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">U</a>&gt; {\n" +
                 "  public int <span class=\"f\"><a name=\"m63\">field</a></span>;\n" +
                 "  <a name=\"m72\">public(</a><a href=\"#m45\">U</a> <a name=\"m81\">p</a>){\n" +
@@ -6743,7 +6743,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m386\">instance</a></span>.<span class=\"f\"><a title=\"pkg.Ex.call2(#T)\" href=\"#m314\">call2</a>(<span class=\"f\">0</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage158Test() {
@@ -6764,7 +6764,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.inst(pkg.Ex)\" href=\"#m120\">$lambda</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,inst,$id,<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
@@ -6772,7 +6772,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage159Test() {
@@ -6790,12 +6790,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m40\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">defaultValue(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage160Test() {
@@ -6816,7 +6816,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.inst(pkg.Ex)\" href=\"#m107\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
@@ -6824,7 +6824,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage161Test() {
@@ -6849,12 +6849,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>&lt;Integer&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExTwo.inst(#T)\" href=\"Ex2.html#m40\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>,<a href=\"Ex2.html#m23\">#T</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage161_Test() {
@@ -6879,12 +6879,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>&lt;Integer&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExTwo.inst(#T)\" href=\"Ex2.html#m40\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>,<a href=\"Ex2.html#m23\">T</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage162Test() {
@@ -6905,7 +6905,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.static inst(pkg.Ex)\" href=\"#m121\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,static,<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
@@ -6913,7 +6913,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage163Test() {
@@ -6931,12 +6931,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m48\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage164Test() {
@@ -6959,7 +6959,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">S</a>&gt; {\n" +
                 " }\n" +
                 " public <a title=\"pkg.Ex..Inner\" href=\"#m39\">Inner</a>&lt;int&gt; <a name=\"m72\">exmeth</a>(){\n" +
@@ -6969,7 +6969,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;()</span>.<span class=\"f\"><a title=\"pkg.Ex.exmeth()\" href=\"#m72\">exmeth</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage165Test() {
@@ -6989,14 +6989,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public class <a name=\"m39\">Inner</a>&lt;<a name=\"m45\">S</a>&gt; {\n" +
                 " }\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;.<a title=\"pkg.Ex..Inner\" href=\"#m39\">Inner</a>&lt;int&gt; <a name=\"m87\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;()</span>.<span class=\"f\">new <a title=\"pkg.Ex..Inner\" href=\"#m39\">Inner</a><a title=\"pkg.Ex&lt;int&gt;..Inner&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage166Test() {
@@ -7014,12 +7014,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;[] <a name=\"m50\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>[<span class=\"f\">0</span>]</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage167Test() {
@@ -7037,12 +7037,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;?&gt; <a name=\"m46\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt;()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage168Test() {
@@ -7060,12 +7060,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[] <a name=\"m42\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[]{}</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage169Test() {
@@ -7083,12 +7083,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[] <a name=\"m42\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">{}</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage170Test() {
@@ -7109,7 +7109,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.static inst(pkg.Ex...)\" href=\"#m126\">inst</a>(<span class=\"f\">$vararg(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>,<span class=\"f\">$firstopt(<span class=\"f\">null</span>)</span>)</span></span>;\n" +
                 " }\n" +
@@ -7117,7 +7117,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage171Test() {
@@ -7138,7 +7138,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex.static inst(pkg.Ex...)\" href=\"#m110\">inst</a>(<span class=\"f\">$vararg(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>)</span></span>;\n" +
                 " }\n" +
@@ -7146,7 +7146,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>.<span class=\"f\">length()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage172Test() {
@@ -7174,7 +7174,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExSuper</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExSuper</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m39\">field</a></span>;\n" +
                 " public int <a name=\"m58\">this</a>(int <a name=\"m67\">param</a>){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExSuper.field\" href=\"#m39\">field</a></span>;\n" +
@@ -7189,7 +7189,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m210\">e</a></span>.<span class=\"f\">super</span></span><span class=\"f\"><a title=\"pkg.ExSuper.[](int)\" href=\"#m58\">[</a><span class=\"f\">8</span><a title=\"pkg.ExSuper.[](int)\" href=\"#m58\">]</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage173Test() {
@@ -7215,7 +7215,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
                 " public static int <a name=\"m60\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m75\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
@@ -7228,7 +7228,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m34\">field</a> </span>=<span class=\"n\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage174Test() {
@@ -7254,7 +7254,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
                 " public static int <a name=\"m60\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m75\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
@@ -7267,7 +7267,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m34\">field</a> </span>=<span class=\"n\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage175Test() {
@@ -7293,7 +7293,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
                 " public static int <a name=\"m60\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m75\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
@@ -7306,7 +7306,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m34\">field</a> </span>=<span class=\"n\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage176Test() {
@@ -7332,7 +7332,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">field</a></span>;\n" +
                 " public static int <a name=\"m60\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m75\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
@@ -7345,7 +7345,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.field\" href=\"#m34\">field</a> </span>=<span class=\"n\"> <b>value</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage177Test() {
@@ -7368,7 +7368,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
                 " <a name=\"m31\">ONE</a>&lt;<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>,<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>&gt;,\n" +
                 " <a name=\"m47\">TWO</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m78\">ExTwo</a>,<a title=\"pkg.Ex\" href=\"#m104\">Ex</a>&gt;{}\n" +
                 "}\n" +
@@ -7378,7 +7378,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage_177Test() {
@@ -7401,7 +7401,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
                 " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>, <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>&gt;,\n" +
                 " <a name=\"m49\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m82\">ExTwo</a>, <a title=\"pkg.Ex\" href=\"#m108\">Ex</a>&gt;{}\n" +
                 "}\n" +
@@ -7411,7 +7411,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage_178Test() {
@@ -7434,7 +7434,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.ExEnum</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">S</a>&gt; {\n" +
                 " <a name=\"m31\">ONE</a>&lt; <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> , <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> &gt;,\n" +
                 " <a name=\"m51\">TWO</a>&lt; <a title=\"pkg.ExTwo\" href=\"#m86\">ExTwo</a> , <a title=\"pkg.Ex\" href=\"#m112\">Ex</a> &gt;{}\n" +
                 "}\n" +
@@ -7444,7 +7444,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage178Test() {
@@ -7470,7 +7470,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a> {\n" +
                 " public static int <span class=\"g\"><a name=\"m44\">count</a></span>;\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m63\">field</a> </span>=<span class=\"f\"> ++<span class=\"f\"><a title=\"pkg.ExTwo.count\" href=\"#m44\">count</a></span></span></span>;\n" +
                 "}\n" +
@@ -7483,7 +7483,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m139\">sum</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage179Test() {
@@ -7515,7 +7515,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExTwo</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m44\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a>&lt;<a title=\"pkg.ExTwo\" href=\"#m15\">ExTwo</a>,<a title=\"pkg.ExTwo\" href=\"#m15\">ExTwo</a>&gt; <span class=\"g\"><span class=\"g\"><a name=\"m93\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustTable.pkg.CustTable()\" href=\"CustTable.html#m97\">$new</a> <a title=\"pkg.CustTable\" href=\"CustTable.html#m15\">CustTable</a><a title=\"pkg.CustTable&lt;pkg.ExTwo,pkg.ExTwo&gt;\">&lt;&gt;</a>()</span></span>;\n" +
@@ -7529,7 +7529,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.res\" href=\"#m140\">res</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage180Test() {
@@ -7553,7 +7553,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m34\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  try {\n" +
@@ -7564,7 +7564,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage181Test() {
@@ -7585,7 +7585,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m34\">field</a> </span>=<span class=\"f\"> 15</span></span>;\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m64\">exmeth</a>(){\n" +
                 "  for (<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m84\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;;) {\n" +
@@ -7593,7 +7593,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  }\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage182Test() {
@@ -7617,7 +7617,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7628,7 +7628,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage183Test() {
@@ -7653,7 +7653,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7665,7 +7665,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage184Test() {
@@ -7690,7 +7690,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7702,7 +7702,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage185Test() {
@@ -7726,7 +7726,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7737,7 +7737,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " <a name=\"m150\">$public Ex(</a>@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a> $int <a name=\"m175\">p</a>,@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">MyAnnotTwo</a> $int <a name=\"m194\">q</a>){\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage186Test() {
@@ -7762,7 +7762,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7774,7 +7774,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$operator<a name=\"m160\">+</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>(@<a title=\"pkg.MyAnnot\" href=\"#m20\">pkg.MyAnnot</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m189\">p</a>,@<a title=\"pkg.MyAnnotTwo\" href=\"#m56\">pkg.MyAnnotTwo</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m214\">q</a>){\n" +
                 " $return <span class=\"n\">$new <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>()</span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage187Test() {
@@ -7797,7 +7797,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>\n" +
@@ -7807,7 +7807,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m130\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage188Test() {
@@ -7836,7 +7836,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7852,7 +7852,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage189Test() {
@@ -7877,7 +7877,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7889,7 +7889,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage190Test() {
@@ -7913,7 +7913,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7924,7 +7924,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage191Test() {
@@ -7950,7 +7950,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public annotation <a name=\"m18\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "public annotation <a name=\"m52\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -7963,7 +7963,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">7</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage192Test() {
@@ -7990,7 +7990,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -8004,7 +8004,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$operator<a name=\"m189\">+</a> <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>(<a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m205\">p</a>, <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a> <a name=\"m215\">q</a>){\n" +
                 " $return <span class=\"n\">$new <a title=\"pkg.Ex\" href=\"#m90\">pkg.Ex</a>()</span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage193Test() {
@@ -8031,7 +8031,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -8045,7 +8045,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage194Test() {
@@ -8078,7 +8078,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -8098,7 +8098,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m384\">pkg.ExTwo</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m410\">field</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage195Test() {
@@ -8131,7 +8131,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\">+</a> <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> (<a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m26\">p</a>, <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <a name=\"m36\">q</a>){\n" +
                 " <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">out</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m130\">pkg.Ex</a>()</span></span>;\n" +
                 " <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m48\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a> </span></span>=<span class=\"f\"><span class=\"f\"><span class=\"f\"> <a href=\"#m26\">p</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m36\">q</a></span>.<span class=\"f\"><a title=\"pkg.ExTwo.field\" href=\"#m410\">field</a></span></span></span></span>;\n" +
                 " $return <span class=\"f\"><a href=\"#m48\">out</a></span>;\n" +
@@ -8151,7 +8151,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "$public $class <a name=\"m384\">pkg.ExTwo</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m410\">field</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage196Test() {
@@ -8174,7 +8174,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " <a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a> <a name=\"m46\">method</a>() @<a title=\"pkg.MyAnnotTwo\" href=\"#m90\">MyAnnotTwo</a>;\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m90\">pkg.MyAnnotTwo</a> {\n" +
@@ -8184,7 +8184,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage197Test() {
@@ -8207,7 +8207,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo</a> {}\n" +
                 "$public $interface <a name=\"m85\">pkg.IntThree</a> {}\n" +
                 "$public $interface <a name=\"m120\">pkg.IntFour</a> {}\n" +
@@ -8217,7 +8217,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage198Test() {
@@ -8240,7 +8240,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo</a> {}\n" +
                 "$public $interface <a name=\"m85\">pkg.IntThree</a> {}\n" +
                 "$public $interface <a name=\"m120\">pkg.IntFour</a> {}\n" +
@@ -8250,7 +8250,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage199Test() {
@@ -8273,7 +8273,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.IntOne</a> {}\n" +
                 "$public $interface <a name=\"m52\">pkg.IntTwo</a> {}\n" +
                 "$public $interface <a name=\"m85\">pkg.IntThree</a> {}\n" +
                 "$public $interface <a name=\"m120\">pkg.IntFour</a> {}\n" +
@@ -8283,7 +8283,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage200Test() {
@@ -8306,7 +8306,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
@@ -8316,7 +8316,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m140\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage201Test() {
@@ -8339,7 +8339,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
@@ -8349,7 +8349,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m141\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage202Test() {
@@ -8373,7 +8373,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 " $int <a name=\"m57\">method2</a>()3;\n" +
                 "}\n" +
@@ -8384,7 +8384,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m168\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage203Test() {
@@ -8407,7 +8407,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(2)\n" +
@@ -8417,7 +8417,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m133\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage204Test() {
@@ -8441,7 +8441,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <span class=\"g\"><span class=\"g\"><a name=\"m40\">method</a> </span>=<span class=\"g\"> 5</span></span>;\n" +
                 " $int <a name=\"m58\">method</a>()1;\n" +
                 "}\n" +
@@ -8452,7 +8452,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m158\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m58\">method</a>()</span></span>+<span class=\"f\"><span class=\"f\"><a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method\" href=\"#m40\">method</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage205Test() {
@@ -8475,7 +8475,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
@@ -8485,7 +8485,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m140\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">$lambda</a>(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>,method)</span></span>.<span class=\"f\"><b>call</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage206Test() {
@@ -8508,7 +8508,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>=2)\n" +
@@ -8518,7 +8518,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">$lambda</a>(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>,method)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m140\">m</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage207Test() {
@@ -8537,13 +8537,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
                 " $public $static $int <a name=\"m86\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"f\">(<span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>)</span></span>+<span class=\"f\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage208Test() {
@@ -8565,7 +8565,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $final $int <span class=\"g\"><span class=\"g\"><a name=\"m53\">FIELD</a> </span>=<span class=\"g\"> 2</span></span>;\n" +
                 " $public $static $int <a name=\"m86\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">2</span>;\n" +
@@ -8574,7 +8574,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"n\">(<span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span>+<span class=\"n\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>)</span></span>+<span class=\"n\"><a title=\"pkg.Ex.FIELD\" href=\"#m53\">FIELD</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage209Test() {
@@ -8597,7 +8597,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " String <a name=\"m42\">method</a>()<span class=\"s\">\"1\"</span>;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m42\">method</a>=<span class=\"s\">\"2\"</span>)\n" +
@@ -8607,7 +8607,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m42\">$lambda</a>(<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>,method)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m148\">m</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage210Test() {
@@ -8628,7 +8628,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
@@ -8636,7 +8636,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage211Test() {
@@ -8657,7 +8657,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
@@ -8665,7 +8665,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage212Test() {
@@ -8686,7 +8686,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m82\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
@@ -8694,7 +8694,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage213Test() {
@@ -8715,7 +8715,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m63\">b</a> </span>=<span class=\"f\"> $true</span></span>;\n" +
                 "  <b title=\"$boolean\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m81\">c</a> </span>=<span class=\"f\"> $false</span></span>;\n" +
@@ -8723,7 +8723,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage214Test() {
@@ -8741,12 +8741,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\"m44\">method</a>(){\n" +
                 "  return <span class=\"f\">explicit(int)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage215Test() {
@@ -8772,7 +8772,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m161\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
@@ -8785,7 +8785,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m188\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage216Test() {
@@ -8811,7 +8811,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  return <span class=\"f\">explicit(<a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>)<span class=\"f\">new <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>()</span></span>;\n" +
                 " }\n" +
@@ -8824,7 +8824,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m200\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage217Test() {
@@ -8850,7 +8850,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m165\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m109\">ExClass</a>,int)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
@@ -8863,7 +8863,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m192\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage218Test() {
@@ -8889,7 +8889,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m178\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
@@ -8902,7 +8902,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m206\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage219Test() {
@@ -8929,7 +8929,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m210\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m154\">ExClass</a>,explicit,int)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m77\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
@@ -8943,7 +8943,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m237\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage220Test() {
@@ -8970,7 +8970,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m77\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m214\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m158\">ExClass</a>,explicit,$id,int)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m77\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
@@ -8984,7 +8984,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m241\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage221Test() {
@@ -9016,7 +9016,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m273\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExClassTwo\" href=\"#m123\">ExClassTwo</a>&lt;int&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExClassTwo.method(#S)\" href=\"#m162\">method</a>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
@@ -9035,7 +9035,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m361\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage222Test() {
@@ -9062,7 +9062,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
                 "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m232\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;,explicit,$id,<a href=\"#m184\">#T</a>)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m87\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
@@ -9076,7 +9076,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m260\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage223Test() {
@@ -9095,13 +9095,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  Fct&lt;Object,String&gt; <span class=\"f\"><span class=\"f\"><a name=\"m78\">fct</a> </span>=<span class=\"f\"> $lambda(String,explicit,Object)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m78\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><span class=\"s\">\"5\"</span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage224Test() {
@@ -9120,13 +9120,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.Apply\" href=\"#m13\">Apply</a> <a name=\"m46\">method</a>(){\n" +
                 "  Fct&lt;Object,<a title=\"pkg.Apply\" href=\"#m13\">Apply</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m76\">fct</a> </span>=<span class=\"f\"> $lambda(<a title=\"pkg.Apply\" href=\"#m13\">Apply</a>,explicit,Object)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m76\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">new <a title=\"pkg.Apply\" href=\"#m13\">Apply</a>()</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage225Test() {
@@ -9160,7 +9160,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a> <a name=\"m51\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClassTwo.static explicit(pkg.ExClassTwo,pkg.ExClass)\" href=\"#m356\">explicit</a>(<a title=\"pkg.ExClassTwo\" href=\"#m294\">ExClassTwo</a>,<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>)<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass,int)\" href=\"#m197\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m141\">ExClass</a>,int)<span class=\"f\">5</span></span></span>;\n" +
                 " }\n" +
@@ -9181,7 +9181,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m390\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage226Test() {
@@ -9200,13 +9200,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <span class=\"g\"><span class=\"g\"><a name=\"m41\">i</a></span>=<span class=\"g\">0</span></span>;\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)</span>.<span class=\"f\"><a title=\"pkg.Ex.i\" href=\"#m41\">i</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage227Test() {
@@ -9224,12 +9224,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static StringBuilder <a name=\"m55\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$new StringBuilder(<span class=\"f\"><span class=\"f\"><span class=\"s\">\"\t\"</span></span>+<span class=\"f\"><span class=\"s\">\"\n\"</span></span></span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage228Test() {
@@ -9247,12 +9247,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  {$return <span class=\"f\">1i</span>;}\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage229Test() {
@@ -9270,12 +9270,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"n\"> 2</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage230Test() {
@@ -9293,12 +9293,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">null </span>??<span class=\"f\"> 2</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage231Test() {
@@ -9316,12 +9316,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">1 </span>??<span class=\"n\"> null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage232Test() {
@@ -9339,12 +9339,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">(int)<span class=\"f\">(<span class=\"f\"><span class=\"f\">null </span>??<span class=\"f\"> null</span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage233Test() {
@@ -9365,7 +9365,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"n\"><span class=\"n\">1 </span>??<span class=\"n\"> 2</span></span>;\n" +
                 " }\n" +
@@ -9373,7 +9373,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage234Test() {
@@ -9394,7 +9394,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"n\"><span class=\"n\">null </span>??<span class=\"n\"> 2</span></span>;\n" +
                 " }\n" +
@@ -9402,7 +9402,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage235Test() {
@@ -9423,7 +9423,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"n\"><span class=\"n\">1 </span>??<span class=\"n\"> null</span></span>;\n" +
                 " }\n" +
@@ -9431,7 +9431,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage236Test() {
@@ -9452,7 +9452,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"n\">(int)<span class=\"n\">(<span class=\"n\"><span class=\"n\">null </span>??<span class=\"n\"> null</span></span>)</span></span>;\n" +
                 " }\n" +
@@ -9460,7 +9460,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage237Test() {
@@ -9480,14 +9480,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m61\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m78\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m61\">i</a> </span><a title=\"not null\">?</a>?<span class=\"n\"> <a href=\"#m78\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage238Test() {
@@ -9507,14 +9507,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m61\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m81\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m61\">i</a> </span><a title=\"null\">?</a><a title=\"not null\">?</a><span class=\"p\"> <a href=\"#m81\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage239Test() {
@@ -9534,14 +9534,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m61\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m78\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m61\">i</a> </span><a title=\"not null\">?</a>?<span class=\"n\"> <a href=\"#m78\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage240Test() {
@@ -9561,14 +9561,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m61\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m81\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m61\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a><span class=\"p\"> <a href=\"#m81\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage241Test() {
@@ -9588,14 +9588,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage242Test() {
@@ -9615,14 +9615,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"true\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage243Test() {
@@ -9642,14 +9642,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"true\">?</a>?<span class=\"n\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage244Test() {
@@ -9669,14 +9669,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage245Test() {
@@ -9696,14 +9696,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage246Test() {
@@ -9723,14 +9723,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"false\">?</a><span class=\"p\"> <a href=\"#m85\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage247Test() {
@@ -9750,14 +9750,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?<span class=\"n\"> <a href=\"#m86\">j</a></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage248Test() {
@@ -9777,14 +9777,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\">true </span>??<span class=\"n\"><span class=\"n\"> <a href=\"#m65\">i</a> </span>??<span class=\"n\"> <a href=\"#m86\">j</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage249Test() {
@@ -9802,12 +9802,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">true </span>??<span class=\"n\"><span class=\"n\"> false </span>??<span class=\"n\"> null</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage250Test() {
@@ -9826,13 +9826,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\">(boolean)<span class=\"p\">(<span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">?</a>?<span class=\"n\"><span class=\"n\"> false </span>??<span class=\"n\"> null</span></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage251Test() {
@@ -9851,13 +9851,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"null\">?</a>?<span class=\"f\"><span class=\"f\"> false </span>??<span class=\"f\"> true</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage252Test() {
@@ -9876,13 +9876,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m61\">v</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m61\">v</a> </span><a title=\"null\">?</a>?<span class=\"f\"><span class=\"f\"> 0 </span>??<span class=\"f\"> 1</span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage253Test() {
@@ -9902,14 +9902,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?=<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage254Test() {
@@ -9929,14 +9929,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"false\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage255Test() {
@@ -9956,14 +9956,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m86\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?=<span class=\"n\"> <a href=\"#m86\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage256Test() {
@@ -9983,14 +9983,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage257Test() {
@@ -10010,14 +10010,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"true\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage258Test() {
@@ -10037,14 +10037,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"not null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage259Test() {
@@ -10064,14 +10064,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m82\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>?=<span class=\"n\"> <a href=\"#m82\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage260Test() {
@@ -10091,14 +10091,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m82\">j</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>?=<span class=\"n\"> <a href=\"#m82\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage261Test() {
@@ -10118,14 +10118,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m85\">j</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a><a title=\"null\">?</a>=<span class=\"p\"> <a href=\"#m85\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage262Test() {
@@ -10148,7 +10148,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth1</a>(){\n" +
                 "  return <span class=\"f\">1</span>;\n" +
                 " }\n" +
@@ -10158,7 +10158,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><a href=\"#m110\">i</a> </span>??=<span class=\"n\"> <a href=\"#m130\">j</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage263Test() {
@@ -10177,13 +10177,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"false\">?</a>?=<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage264Test() {
@@ -10202,13 +10202,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  Boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?=<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -10228,13 +10228,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"not null\">?</a>?=<span class=\"n\"> 1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage266Test() {
@@ -10253,13 +10253,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static Integer <a name=\"m45\">exmeth</a>(){\n" +
                 "  Integer <span class=\"f\"><span class=\"f\"><a name=\"m65\">i</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"p\"><a href=\"#m65\">i</a> </span><a title=\"null\">?</a>?=<span class=\"f\"> 1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage267Test() {
@@ -10278,13 +10278,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m48\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m91\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m48\">field</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage268Test() {
@@ -10303,13 +10303,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
                 " public static final <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <span class=\"g\"><span class=\"g\"><a name=\"m54\">field</a> </span>=<span class=\"g\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a><a title=\"pkg.Ex&lt;int&gt;\">&lt;&gt;</a>()</span></span>;\n" +
                 " public static <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;int&gt; <a name=\"m97\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m54\">field</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage269Test() {
@@ -10331,7 +10331,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">count</a></span>=<span class=\"f\">0</span></span>;\n" +
                 "  <span class=\"f\">for (Integer <a name=\"m81\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">1</span>}</span>){\n" +
@@ -10340,7 +10340,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage270Test() {
@@ -10364,7 +10364,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">count</a></span>=<span class=\"f\">0</span></span>;\n" +
                 "  <span class=\"f\">for (Integer <a name=\"m81\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">1</span>}</span>){\n" +
@@ -10375,7 +10375,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage271Test() {
@@ -10399,7 +10399,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">count</a></span>=<span class=\"f\">false</span></span>;\n" +
                 "  <span class=\"f\">for (Boolean <a name=\"m93\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">true</span>,<span class=\"f\">false</span>}</span>){\n" +
@@ -10410,7 +10410,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"p\"><a href=\"#m65\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage272Test() {
@@ -10432,7 +10432,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">count</a></span>=<span class=\"f\">0</span></span>;\n" +
                 "  <span class=\"f\">for (Integer <a name=\"m81\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>,<span class=\"f\">1</span>}</span>){\n" +
@@ -10441,7 +10441,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage273Test() {
@@ -10463,7 +10463,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">count</a></span>=<span class=\"f\">0</span></span>;\n" +
                 "  <span class=\"f\">for (Integer <a name=\"m81\">i</a></span>: <span class=\"f\">{<span class=\"f\">null</span>}</span>){\n" +
@@ -10472,7 +10472,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage274Test() {
@@ -10494,7 +10494,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">count</a></span>=<span class=\"f\">0</span></span>;\n" +
                 "  <span class=\"f\">for (Integer <a name=\"m81\">i</a></span>: <span class=\"f\">{<span class=\"f\">1</span>}</span>){\n" +
@@ -10503,7 +10503,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m57\">count</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage275Test() {
@@ -10526,7 +10526,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
                 " <a name=\"m45\">ONE</a>{public int <a name=\"m60\">first</a>(int <a name=\"m70\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m70\">add</a></span></span>;}};\n" +
                 "}\n" +
@@ -10536,7 +10536,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage276Test() {
@@ -10558,7 +10558,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
                 " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
@@ -10567,7 +10567,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage277Test() {
@@ -10589,7 +10589,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
                 " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
@@ -10598,7 +10598,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage278Test() {
@@ -10620,7 +10620,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m34\">ExInner</a> {\n" +
                 " <a name=\"m45\">ONE</a>{public static int <a name=\"m67\">first</a>(int <a name=\"m77\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m77\">add</a></span></span>;}};\n" +
                 "}\n" +
@@ -10629,7 +10629,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage279Test() {
@@ -10652,7 +10652,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " <a name=\"m61\">ONE</a>{public static int <a name=\"m83\">first</a>(int <a name=\"m93\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m93\">add</a></span></span>;}};\n" +
@@ -10662,7 +10662,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage279_Test() {
@@ -10686,7 +10686,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " ;\n" +
@@ -10697,7 +10697,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage279__Test() {
@@ -10719,7 +10719,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {;\n" +
                 "public static int <span class=\"g\"><span class=\"g\"><a name=\"m40\">field</a> </span>=<span class=\"g\"><span class=\"g\"> static(<a title=\"pkg.Ex\" href=\"#m12\">Ex</a>)</span>.<span class=\"g\"><a title=\"pkg.Ex.static exmeth2()\" href=\"#m133\">exmeth2</a>()</span></span></span>;\n" +
                 " public static int <a name=\"m89\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
@@ -10728,7 +10728,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"g\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage280Test() {
@@ -10751,7 +10751,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner..ONE</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner..ONE</span>;\n" +
                 "public enum <a name=\"m33\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m55\">ExInner</a> {\n" +
                 " <a name=\"m66\">ONE</a>{public static int <a name=\"m88\">first</a>(int <a name=\"m98\">add</a>){return <span class=\"g\"><span class=\"g\">4i</span>+<span class=\"g\"><a href=\"#m98\">add</a></span></span>;}};\n" +
@@ -10761,7 +10761,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage281Test() {
@@ -10787,7 +10787,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " <a name=\"m61\">ONE</a>{};\n" +
@@ -10800,7 +10800,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage282Test() {
@@ -10826,7 +10826,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " <a name=\"m61\">ONE</a>{};\n" +
@@ -10839,7 +10839,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage283Test() {
@@ -10865,7 +10865,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " <a name=\"m61\">ONE</a>{};\n" +
@@ -10878,7 +10878,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage284Test() {
@@ -10904,7 +10904,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">pkg.Ex.ExInner</span>;\n" +
                 "public enum <a name=\"m28\">pkg.Ex</a> {;\n" +
                 "public enum <a name=\"m50\">ExInner</a> {\n" +
                 " <a name=\"m61\">ONE</a>{};\n" +
@@ -10917,7 +10917,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage285Test() {
@@ -10946,7 +10946,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">a</a></span>;\n" +
                 " operator<a name=\"m46\">+</a> int (<a title=\"pkg.Ex\" href=\"#m13\">pkg.Ex</a> <a name=\"m60\">a</a>, <a title=\"pkg.Ex\" href=\"#m13\">pkg.Ex</a> <a name=\"m70\">b</a>){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m60\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m70\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m34\">a</a></span></span></span>;\n" +
@@ -10962,7 +10962,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage286Test() {
@@ -10993,7 +10993,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m34\">a</a></span>;\n" +
                 " operator<a name=\"m46\">+</a> <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> (<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m55\">a</a>, <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m61\">b</a>){\n" +
                 "  <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m70\">c</a> </span>=<span class=\"f\"> new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span></span>;\n" +
@@ -11011,7 +11011,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage287Test() {
@@ -11040,7 +11040,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
                 "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
@@ -11055,7 +11055,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m181\">one</a></span>,<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage288Test() {
@@ -11084,7 +11084,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
                 "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
@@ -11099,7 +11099,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m181\">one</a></span>,<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage289Test() {
@@ -11127,7 +11127,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $operator<a name=\"m55\">+</a> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>) {\n" +
                 "  <b title=\"pkg.Ex\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m80\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span></span>;\n" +
@@ -11142,7 +11142,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m181\">one</a></span>.<span class=\"f\"><a title=\"$static +(pkg.Ex,pkg.Ex)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>,+,$id,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)</span></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m203\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage290Test() {
@@ -11171,7 +11171,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
                 " $operator<a name=\"m51\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m62\">a</a>, <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m68\">b</a>){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m62\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m68\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span></span>;\n" +
@@ -11187,7 +11187,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">2i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage291Test() {
@@ -11216,7 +11216,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator <a name=\"m10\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m25\">a</a>, <a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m35\">b</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator <a name=\"m10\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m25\">a</a>, <a title=\"pkg.Ex\" href=\"#m74\">pkg.Ex</a> <a name=\"m35\">b</a>){\n" +
                 " $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m25\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m35\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m97\">a</a></span></span></span>;\n" +
                 "}\n" +
                 "$public $class <a name=\"m74\">pkg.Ex</a> {\n" +
@@ -11232,7 +11232,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">2i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage292Test() {
@@ -11261,7 +11261,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $int <span class=\"f\"><a name=\"m38\">a</a></span>;\n" +
                 " $operator <a name=\"m52\">+</a> $int (<a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m63\">a</a>, <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m69\">b</a>){\n" +
                 "  $return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m63\">a</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span>+<span class=\"f\"><span class=\"f\"><a href=\"#m69\">b</a></span>.<span class=\"f\"><a title=\"pkg.Ex.a\" href=\"#m38\">a</a></span></span></span>;\n" +
@@ -11277,7 +11277,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">2i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage293Test() {
@@ -11308,7 +11308,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\"m44\">method</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.ExCaller\" href=\"#m117\">ExCaller</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.ExCaller.staticCall method()\" href=\"#m156\">method</a>()</span></span>;\n" +
                 " }\n" +
@@ -11326,7 +11326,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m353\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m309\">field</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -11354,7 +11354,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m37\">a</a></span>;\n" +
                 " operator<a name=\"m49\">!</a> int (<a title=\"pkg.Apply\" href=\"#m13\">pkg.Apply</a> <a name=\"m66\">a</a>){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m66\">a</a></span>.<span class=\"f\"><a title=\"pkg.Apply.a\" href=\"#m37\">a</a></span></span>;\n" +
@@ -11368,7 +11368,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage295Test() {
@@ -11394,7 +11394,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m158\">$</a>(<a title=\"pkg.ExClass\" href=\"#m102\">ExClass</a>,int)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
@@ -11407,7 +11407,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m178\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage296Test() {
@@ -11433,7 +11433,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m171\">$</a>(<a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt;,<a href=\"#m123\">#T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
@@ -11446,7 +11446,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m192\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage297Test() {
@@ -11477,7 +11477,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\"m44\">method</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.ExCaller\" href=\"#m117\">ExCaller</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.ExCaller.staticCall method()\" href=\"#m156\">method</a>()</span></span>;\n" +
                 " }\n" +
@@ -11495,7 +11495,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m339\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m302\">field</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage298Test() {
@@ -11516,7 +11516,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
@@ -11524,7 +11524,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage299Test() {
@@ -11545,7 +11545,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
@@ -11553,7 +11553,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage300Test() {
@@ -11574,7 +11574,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
@@ -11582,7 +11582,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage301Test() {
@@ -11603,7 +11603,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
@@ -11611,7 +11611,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span><span class=\"f\">[<span class=\"f\">0</span>]</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage302Test() {
@@ -11632,7 +11632,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class interfaces(<a title=\"pkg.ExInt\" href=\"#m109\">ExInt</a>) <a name=\"m31\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m109\">ExInt</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class interfaces(<a title=\"pkg.ExInt\" href=\"#m109\">ExInt</a>) <a name=\"m31\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m109\">ExInt</a> {\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -11640,7 +11640,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public interface <a name=\"m109\">pkg.ExInt</a> {\n" +
                 " public static int <span class=\"g\"><a name=\"m140\">v</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage303Test() {
@@ -11666,7 +11666,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -11679,7 +11679,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public interface <a name=\"m191\">pkg.ExInt</a> {\n" +
                 " public static int <span class=\"g\"><a name=\"m222\">v</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage304Test() {
@@ -11705,7 +11705,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -11718,7 +11718,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  public static int <span class=\"g\"><a name=\"m228\">v</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage305Test() {
@@ -11741,7 +11741,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class interfaces(<a title=\"pkg.ExTwo\" href=\"#m121\">ExTwo</a>.<a title=\"pkg.ExTwo..ExInt\" href=\"#m158\">ExInt</a>) <a name=\"m37\">pkg.Ex</a>:<a title=\"pkg.ExTwo\" href=\"#m121\">pkg.ExTwo</a>.<a title=\"pkg.ExTwo..ExInt\" href=\"#m158\">ExInt</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class interfaces(<a title=\"pkg.ExTwo\" href=\"#m121\">ExTwo</a>.<a title=\"pkg.ExTwo..ExInt\" href=\"#m158\">ExInt</a>) <a name=\"m37\">pkg.Ex</a>:<a title=\"pkg.ExTwo\" href=\"#m121\">pkg.ExTwo</a>.<a title=\"pkg.ExTwo..ExInt\" href=\"#m158\">ExInt</a> {\n" +
                 " public static int <a name=\"m81\">exmeth</a>(){\n" +
                 "  return <span class=\"f\">0</span>;\n" +
                 " }\n" +
@@ -11751,7 +11751,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  public static int <span class=\"g\"><a name=\"m186\">v</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage306Test() {
@@ -11776,7 +11776,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m143\">ExInt</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m143\">ExInt</a> {\n" +
                 " <a name=\"m29\">public Ex(</a>){\n" +
                 "  <span class=\"f\">interfaces(<a title=\"pkg.ExInt\" href=\"#m143\">ExInt</a>)()</span>;\n" +
                 " }\n" +
@@ -11788,7 +11788,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public interface <a name=\"m143\">pkg.ExInt</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m167\">v</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage307Test() {
@@ -11815,7 +11815,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m148\">ExInt</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>:<a title=\"pkg.ExInt\" href=\"#m148\">ExInt</a> {\n" +
                 " <a name=\"m29\">public Ex(</a>int <a name=\"m43\">v</a>){\n" +
                 "  <span class=\"f\"><a title=\"pkg.ExInt.pkg.ExInt(int)\" href=\"#m176\">interfaces</a>(<a title=\"pkg.ExInt\" href=\"#m148\">ExInt</a>)(<span class=\"f\"><a href=\"#m43\">v</a></span>)</span>;\n" +
                 " }\n" +
@@ -11829,7 +11829,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\">this</span>.<span class=\"f\"><a title=\"pkg.ExInt.v\" href=\"#m172\">v</a></span></span>=<span class=\"f\"><a href=\"#m193\">v</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage308Test() {
@@ -11859,7 +11859,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.ExInt\" href=\"#m255\">ExInt</a> <span class=\"f\"><span class=\"f\"><a name=\"m59\">i</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExImp\" href=\"#m167\">ExImp</a>()</span></span>;\n" +
                 "  Fct&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">f</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m59\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExInt.v()\" href=\"#m272\">$lambda</a>(<a title=\"pkg.ExInt\" href=\"#m255\">ExInt</a>,v)</span></span></span>;\n" +
@@ -11876,7 +11876,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public interface <a name=\"m255\">pkg.ExInt</a> {\n" +
                 " int <a name=\"m272\">v</a>();\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage309Test() {
@@ -11906,7 +11906,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.ExInt\" href=\"#m277\">ExInt</a> <span class=\"f\"><span class=\"f\"><a name=\"m59\">i</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExImp\" href=\"#m189\">ExImp</a>()</span></span>;\n" +
                 "  Fct&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">f</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m59\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExInt.v()\" href=\"#m294\">$lambda</a>(<a title=\"pkg.ExInt\" href=\"#m277\">ExInt</a>,v)</span></span></span>;\n" +
@@ -11923,7 +11923,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public interface <a name=\"m277\">pkg.ExInt</a> {\n" +
                 " int <a name=\"m294\">v</a>();\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage310Test() {
@@ -11959,7 +11959,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.ExInt\" href=\"#m313\">ExInt</a> <span class=\"f\"><span class=\"f\"><a name=\"m59\">i</a> </span>=<span class=\"f\"> <a title=\"pkg.ExImp.pkg.ExImp(int)\" href=\"#m214\">new</a> <a title=\"pkg.ExImp\" href=\"#m195\">ExImp</a>(<span class=\"f\">150</span>)</span></span>;\n" +
                 "  Fct&lt;int&gt; <span class=\"f\"><span class=\"f\"><a name=\"m90\">f</a> </span>=<span class=\"f\"><span class=\"f\"> <a href=\"#m59\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExInt.v()\" href=\"#m375\">$lambda</a>(<a title=\"pkg.ExInt\" href=\"#m313\">ExInt</a>,v)</span></span></span>;\n" +
@@ -11982,7 +11982,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 " }\n" +
                 " int <a name=\"m375\">v</a>();\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage311Test() {
@@ -12016,7 +12016,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
@@ -12037,7 +12037,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage312Test() {
@@ -12071,7 +12071,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
@@ -12092,7 +12092,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage313Test() {
@@ -12126,7 +12126,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
@@ -12147,7 +12147,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage314Test() {
@@ -12181,7 +12181,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " <a title=\"pkg.MyAnnotSecond\" href=\"#m76\">MyAnnotSecond</a> <a name=\"m49\">m</a>();\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m76\">pkg.MyAnnotSecond</a> {\n" +
@@ -12202,7 +12202,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage315Test() {
@@ -12225,7 +12225,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>(<a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
@@ -12235,7 +12235,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m141\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage316Test() {
@@ -12258,7 +12258,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">method</a>()1;\n" +
                 "}\n" +
                 "@<a title=\"pkg.MyAnnot\" href=\"#m20\">MyAnnot</a>( <a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a> =2)\n" +
@@ -12268,7 +12268,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a href=\"#m142\">m</a></span>.<span class=\"f\"><a title=\"pkg.MyAnnot.method()\" href=\"#m40\">method</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage317Test() {
@@ -12313,14 +12313,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.ExThree", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class [<span class=\"i\">pkg.Int3</span>;<span class=\"i\">pkg.Int2</span>;] $interfaces(<a title=\"pkg.Int3\" href=\"Int3.html#m19\">Int3</a>) <a name=\"m54\">pkgtwo.Ex</a> :<a title=\"pkg.Int2\" href=\"Int2.html#m19\">Int2</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class [<span class=\"i\">pkg.Int3</span>;<span class=\"i\">pkg.Int2</span>;] $interfaces(<a title=\"pkg.Int3\" href=\"Int3.html#m19\">Int3</a>) <a name=\"m54\">pkgtwo.Ex</a> :<a title=\"pkg.Int2\" href=\"Int2.html#m19\">Int2</a>{\n" +
                 "\n" +
                 " <a name=\"m73\">$public(</a>){\n" +
                 "  <span class=\"f\">$interfaces(<a title=\"pkg.Int3\" href=\"Int3.html#m19\">Int3</a>)()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.ExThree</a> {\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExThree</a> {\n" +
                 " $public <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m48\">inst</a></span>=<span class=\"f\"><a title=\"pkgtwo.Ex.pkgtwo.Ex()\" href=\"Ex.html#m73\">$new</a> <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a>()</span></span>;\n" +
                 " $public <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a> <span class=\"f\"><span class=\"f\"><a name=\"m90\">ance</a></span>=<span class=\"f\"><a title=\"pkgtwo.Ex.pkgtwo.Ex()\" href=\"Ex.html#m73\">$new</a> <a title=\"pkgtwo.Ex\" href=\"Ex.html#m54\">pkgtwo.Ex</a>()</span></span>;\n" +
                 " <a name=\"m114\">$public (</a>){\n" +
@@ -12329,19 +12329,19 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a title=\"pkg.ExThree.pkg.ExThree()\" href=\"#m114\">$new</a> <a title=\"pkg.ExThree\" href=\"#m15\">ExThree</a>()</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(1));
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int</a> :<a title=\"pkg.Int2\" href=\"Int2.html#m19\">pkg.Int2</a>{}\n" +
-                "</pre></body></html>", filesExp_.getValue(2));
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int2</a> :<a title=\"pkg.Int3\" href=\"Int3.html#m19\">pkg.Int3</a>{}\n" +
-                "</pre></body></html>", filesExp_.getValue(3));
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $interface <a name=\"m19\">pkg.Int3</a> {\n" +
+                "</span></pre></body></html>", filesExp_.getValue(1));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.Int</a> :<a title=\"pkg.Int2\" href=\"Int2.html#m19\">pkg.Int2</a>{}\n" +
+                "</span></pre></body></html>", filesExp_.getValue(2));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.Int2</a> :<a title=\"pkg.Int3\" href=\"Int3.html#m19\">pkg.Int3</a>{}\n" +
+                "</span></pre></body></html>", filesExp_.getValue(3));
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.Int3</a> {\n" +
                 " $public $static $int <span class=\"g\"><span class=\"g\"><a name=\"m52\">nb</a></span>=<span class=\"g\">1i</span></span>;\n" +
                 " {\n" +
                 "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Int3.nb\" href=\"#m52\">nb</a></span>++</span>;\n" +
                 " }\n" +
                 " $public $int <span class=\"f\"><span class=\"f\"><a name=\"m87\">common</a></span>=<span class=\"f\"><a title=\"pkg.Int3.nb\" href=\"#m52\">nb</a></span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(4));
+                "</span></pre></body></html>", filesExp_.getValue(4));
     }
     @Test
     public void coverage318Test() {
@@ -12359,12 +12359,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static int <a name=\"m44\">method</a>(){\n" +
                 "  return <span class=\"f\">default(<span class=\"f\">1</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage319Test() {
@@ -12385,7 +12385,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\"><a title=\"pkg.Ex.$static call()\" href=\"#m100\">call</a> ()</span>;\n" +
                 " }\n" +
@@ -12393,7 +12393,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage320Test() {
@@ -12414,7 +12414,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$classchoice(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)<a title=\"pkg.Ex.$static call()\" href=\"#m116\">call</a> ()</span>;\n" +
                 " }\n" +
@@ -12422,7 +12422,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage321Test() {
@@ -12443,7 +12443,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">$superaccess(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)<a title=\"pkg.Ex.$static call()\" href=\"#m116\">call</a> ()</span>;\n" +
                 " }\n" +
@@ -12451,7 +12451,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage322Test() {
@@ -12471,14 +12471,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m57\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m72\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m57\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m72\">t</a></span>.<span class=\"f\"><b>length</b></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage323Test() {
@@ -12498,14 +12498,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int[] <a name=\"m43\">exmeth</a>(){\n" +
                 "  int <span class=\"f\"><span class=\"f\"><a name=\"m59\">s</a> </span>=<span class=\"f\"> 1</span></span>;\n" +
                 "  int[] <span class=\"f\"><span class=\"f\"><a name=\"m74\">t</a> </span>=<span class=\"f\"><span class=\"p\"><span class=\"f\"> <a href=\"#m59\">s</a> </span><a title=\"true\">==</a><span class=\"f\"> 1 </span></span>?<span class=\"f\">{<span class=\"f\">4i</span>}</span>:<span class=\"n\">{<span class=\"n\">6i</span>}</span></span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m74\">t</a></span>.<span class=\"f\"><b>clone</b>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage324Test() {
@@ -12526,7 +12526,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m144\">CST</a></span>;\n" +
                 " }\n" +
@@ -12534,7 +12534,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m107\">pkg.ExTwo</a> {\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage325Test() {
@@ -12555,7 +12555,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class [<span class=\"i\">static pkg.ExTwo.CST</span>;] <a name=\"m37\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m65\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m144\">CST</a></span>;\n" +
                 " }\n" +
@@ -12563,7 +12563,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m107\">pkg.ExTwo</a> {\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m144\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m154\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage326Test() {
@@ -12584,7 +12584,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.CST2</span>;] <a name=\"m38\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class [<span class=\"i\">static pkg.ExTwo.CST2</span>;] <a name=\"m38\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m66\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><a title=\"pkg.ExTwo.CST2\" href=\"#m156\">CST2</a></span>;\n" +
                 " }\n" +
@@ -12592,7 +12592,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m109\">pkg.ExTwo</a> {\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m146\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m156\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage327Test() {
@@ -12613,7 +12613,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class [<span class=\"i\">static pkg.ExTwo.*</span>;] <a name=\"m35\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class [<span class=\"i\">static pkg.ExTwo.*</span>;] <a name=\"m35\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m63\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.CST\" href=\"#m149\">CST</a> </span>+<span class=\"f\"> <a title=\"pkg.ExTwo.CST2\" href=\"#m159\">CST2</a></span></span>;\n" +
                 " }\n" +
@@ -12621,7 +12621,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m112\">pkg.ExTwo</a> {\n" +
                 " public static final int <span class=\"g\"><span class=\"g\"><span class=\"g\"><a name=\"m149\">CST</a> </span>=<span class=\"g\"> 15</span></span>,<span class=\"g\"><span class=\"g\"><a name=\"m159\"> CST</a>2 </span>=<span class=\"g\"> 30</span></span></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage328Test() {
@@ -12650,7 +12650,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.ExEnum</a> {\n" +
                 "<a name=\"m27\">ONE</a>,<a name=\"m31\">TWO</a>{}\n" +
                 "}\n" +
                 "$public $class <a name=\"m54\">pkg.Ex</a> {\n" +
@@ -12666,7 +12666,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m102\">o</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage329Test() {
@@ -12688,7 +12688,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Content\" href=\"#m137\">Content</a> <span class=\"f\"><span class=\"f\"><a name=\"m61\">c</a> </span>=<span class=\"f\"> null</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m61\">c</a></span><a title=\"null\">?</a>.<span class=\"f\"><a title=\"pkg.Content.content\" href=\"#m162\">$lambda</a>(<a title=\"pkg.Content\" href=\"#m137\">Content</a>,,content)</span></span>.<span class=\"f\"><b>call</b>()</span></span>+<span class=\"f\">1</span></span>;\n" +
@@ -12697,7 +12697,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m137\">pkg.Content</a>{\n" +
                 " public int <span class=\"n\"><a name=\"m162\">content</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage330Test() {
@@ -12719,7 +12719,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  <a title=\"pkg.Content\" href=\"#m146\">Content</a> <span class=\"f\"><span class=\"f\"><a name=\"m61\">c</a> </span>=<span class=\"f\"> new <a title=\"pkg.Content\" href=\"#m146\">Content</a>()</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"p\"><a href=\"#m61\">c</a></span><a title=\"not null\">?</a>.<span class=\"f\"><a title=\"pkg.Content.content\" href=\"#m171\">$lambda</a>(<a title=\"pkg.Content\" href=\"#m146\">Content</a>,,content)</span></span>.<span class=\"f\"><b>call</b>()</span></span>+<span class=\"f\">1</span></span>;\n" +
@@ -12728,7 +12728,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "public class <a name=\"m146\">pkg.Content</a>{\n" +
                 " public int <span class=\"f\"><a name=\"m171\">content</a></span>;\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -12758,7 +12758,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a>&lt;<a name=\"m22\">T</a>&gt; {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a>&lt;<a name=\"m22\">T</a>&gt; {\n" +
                 " $public <a href=\"#m22\">T</a> <span class=\"f\"><a name=\"m38\">field</a></span>;\n" +
                 " $operator<a name=\"m55\">+</a> $staticCall <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;(<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt; <a name=\"m81\">a</a>,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt; <a name=\"m89\">b</a>) {\n" +
                 "  <b title=\"pkg.Ex&lt;#T&gt;\">$var</b> <span class=\"f\"><span class=\"f\"><a name=\"m101\">o</a> </span>=<span class=\"f\"> $new <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;()</span></span>;\n" +
@@ -12773,7 +12773,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"$staticCall +(pkg.Ex&lt;#T&gt;,pkg.Ex&lt;#T&gt;)\" href=\"#m55\">$lambda</a>($operator,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;$int&gt;,+,$id,$staticCall,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;,<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&lt;<a href=\"#m22\">T</a>&gt;)</span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m228\">one</a></span>,<span class=\"f\"><a href=\"#m262\">two</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -12819,7 +12819,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -12853,7 +12853,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m620\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -12899,7 +12899,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
@@ -12933,7 +12933,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m621\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -12983,7 +12983,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
@@ -13019,7 +13019,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m713\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13065,7 +13065,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m188\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m214\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -13099,7 +13099,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m620\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13145,7 +13145,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m189\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m215\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
@@ -13179,7 +13179,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m621\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13229,7 +13229,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m277\">new</a> <a title=\"pkg.ExClass\" href=\"#m241\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
@@ -13265,7 +13265,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m713\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13311,7 +13311,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -13345,7 +13345,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m623\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13391,7 +13391,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
@@ -13425,7 +13425,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m624\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13471,7 +13471,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m191\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m217\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -13505,7 +13505,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a href=\"#m623\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13551,7 +13551,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m192\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m218\">field</a></span></span>=<span class=\"f\">10</span></span>;\n" +
@@ -13585,7 +13585,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m624\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13636,7 +13636,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
@@ -13673,7 +13673,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m734\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13724,7 +13724,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m66\">out</a> </span>=<span class=\"f\"> <span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (<a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a> <a name=\"m91\">e</a></span>:<span class=\"f\">{<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\">10</span>)</span>,<span class=\"f\"> <a title=\"pkg.ExClass.pkg.ExClass(int)\" href=\"#m298\">new</a> <a title=\"pkg.ExClass\" href=\"#m262\">ExClass</a>(<span class=\"f\">1</span>)</span>}</span>){\n" +
@@ -13761,7 +13761,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a href=\"#m734\">e</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13788,7 +13788,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  Object <span class=\"f\"><a name=\"m63\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m63\">t</a></span>=<span class=\"f\"><span class=\"s\">\"8\"</span></span></span>;\n" +
@@ -13801,7 +13801,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span><i>+</i><span class=\"f\"><a href=\"#m63\">t</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13828,7 +13828,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  Object <span class=\"f\"><a name=\"m63\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m63\">t</a></span>=<span class=\"f\">8</span></span>;\n" +
@@ -13841,7 +13841,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span><i>+</i><span class=\"f\"><a href=\"#m63\">t</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13872,7 +13872,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  Object <span class=\"f\"><a name=\"m63\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m63\">t</a></span>=<span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"#m204\">ExTwo</a>()</span></span>;\n" +
@@ -13889,7 +13889,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public class <a name=\"m231\">pkg.ExThree</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13917,7 +13917,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m63\">o</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (Object <a name=\"m83\">t</a></span>:<span class=\"f\">{<span class=\"f\"><span class=\"s\">\"8\"</span></span>,<span class=\"f\">8</span>,<span class=\"f\">null</span>}</span>){\n" +
@@ -13931,7 +13931,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m63\">o</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -13961,7 +13961,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m63\">o</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (Object <a name=\"m83\">t</a></span>:<span class=\"f\">{<span class=\"f\"><span class=\"s\">\"8\"</span></span>,<span class=\"f\">8</span>,<span class=\"f\">null</span>}</span>){\n" +
@@ -13977,7 +13977,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m63\">o</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14005,7 +14005,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static String <a name=\"m44\">exmeth</a>(){\n" +
                 "  String <span class=\"f\"><span class=\"f\"><a name=\"m63\">o</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
                 "  <span class=\"f\">for (Number <a name=\"m83\">t</a></span>:<span class=\"f\">{<span class=\"f\">8.0</span>,<span class=\"f\">8</span>}</span>){\n" +
@@ -14019,7 +14019,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m63\">o</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14049,7 +14049,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14065,7 +14065,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m283\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14095,7 +14095,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m147\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14111,7 +14111,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m283\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m173\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14141,7 +14141,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14157,7 +14157,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m289\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14187,7 +14187,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m153\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14203,7 +14203,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m289\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m179\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14233,7 +14233,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m169\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m169\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m195\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14249,7 +14249,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m305\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m195\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14279,7 +14279,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m169\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m169\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m195\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14295,7 +14295,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m305\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m195\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14325,7 +14325,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14341,7 +14341,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m306\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span><a title=\"false\">!=</a><span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14371,7 +14371,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14387,7 +14387,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"p\"><span class=\"f\"><span class=\"f\"><a href=\"#m306\">i</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span><a title=\"true\">!=</a><span class=\"f\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage358Test() {
@@ -14405,12 +14405,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">true </span>?<span class=\"f\"> 1 </span>:<span class=\"n\"> 0</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage359Test() {
@@ -14428,12 +14428,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">false </span>?<span class=\"n\"> 1 </span>:<span class=\"f\"> 0</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage360Test() {
@@ -14452,13 +14452,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">&amp;</a>&amp;<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage361Test() {
@@ -14477,13 +14477,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">&amp;</a>&amp;<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage362Test() {
@@ -14502,13 +14502,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">|</a>|<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage363Test() {
@@ -14527,13 +14527,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">|</a>|<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage364Test() {
@@ -14552,13 +14552,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">&amp;</a>&amp;=<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage365Test() {
@@ -14577,13 +14577,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">&amp;</a>&amp;=<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage366Test() {
@@ -14602,13 +14602,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> true</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"true\">|</a>|=<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage367Test() {
@@ -14627,13 +14627,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  boolean <span class=\"f\"><span class=\"f\"><a name=\"m65\">v</a> </span>=<span class=\"f\"> false</span></span>;\n" +
                 "  return <span class=\"p\"><span class=\"p\"><a href=\"#m65\">v</a> </span><a title=\"false\">|</a>|=<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage368Test() {
@@ -14651,12 +14651,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">true </span>&amp;&amp;<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage369Test() {
@@ -14674,12 +14674,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">false </span>&amp;&amp;<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage370Test() {
@@ -14697,12 +14697,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">true </span>||<span class=\"n\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage371Test() {
@@ -14720,12 +14720,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static boolean <a name=\"m45\">exmeth</a>(){\n" +
                 "  return <span class=\"f\"><span class=\"f\">false </span>||<span class=\"f\"> false</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14758,7 +14758,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14777,7 +14777,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m306\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14810,7 +14810,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m170\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14829,7 +14829,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m306\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m196\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14864,7 +14864,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m204\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m204\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m230\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14885,7 +14885,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m340\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m230\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14920,7 +14920,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m204\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m204\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m230\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -14941,7 +14941,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m340\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m230\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -14974,7 +14974,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -14993,7 +14993,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m309\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15026,7 +15026,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -15045,7 +15045,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m309\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15078,7 +15078,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m175\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m175\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m201\">field</a></span></span>=<span class=\"f\">0</span></span>;\n" +
@@ -15097,7 +15097,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m311\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m201\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15130,7 +15130,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m175\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m175\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m201\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -15149,7 +15149,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m311\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m201\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15182,7 +15182,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>=<span class=\"f\">1</span></span>;\n" +
@@ -15201,7 +15201,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m309\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15234,7 +15234,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Apply</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static String <a name=\"m47\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m67\">e</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m173\">ExClass</a>()</span></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m67\">e</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>=<span class=\"f\">2</span></span>;\n" +
@@ -15253,7 +15253,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m309\">i</a></span>.<span class=\"n\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a></span></span>!=<span class=\"n\">1</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15293,7 +15293,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">S</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">S</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">S</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">S</a>&gt;{\n" +
                 " $intern{getter(<a href=\"#m20\">S</a>):<a title=\"pkg.Ex.getter(#S)\" href=\"#m278\">getter</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,<a href=\"#m20\">S</a>)|<a title=\"pkg.ExTwo.getter(#T)\" href=\"ExTwo.html#m81\">getter</a>(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>,<a href=\"ExTwo.html#m23\">T</a>)};\n" +
                 " public <a href=\"#m20\">S</a> <span class=\"f\"><span class=\"f\"><a name=\"m98\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">S</a>)<span class=\"f\">2i</span></span></span>;\n" +
                 " <a name=\"m111\">public (</a><a href=\"#m20\">S</a> <a name=\"m121\">i</a>){\n" +
@@ -15308,7 +15308,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m98\">inst</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15355,7 +15355,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
                 " $intern{getter():<a title=\"pkg.Ex.getter()\" href=\"#m273\">getter</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)|<a title=\"pkg.ExTwo.getter()\" href=\"ExTwo.html#m84\">getter</a>(<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">ExTwo</a>);getter2():<a title=\"pkg.Ex.getter2()\" href=\"#m313\">getter2</a>(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>)};\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m111\">inst</a></span>=<span class=\"f\">2i</span></span>;\n" +
                 " <a name=\"m121\">public (</a>int <a name=\"m133\">i</a>){\n" +
@@ -15374,7 +15374,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m111\">inst</a></span>*<span class=\"n\">2</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -15421,7 +15421,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
                 " public <a href=\"#m20\">V</a> <span class=\"f\"><span class=\"f\"><a name=\"m50\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">2i</span></span></span>;\n" +
                 " <a name=\"m63\">public (</a><a href=\"#m20\">V</a> <a name=\"m73\">i</a>){\n" +
                 "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(#T,#U)\" href=\"ExTwo.html#m60\">super</a>(<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">16i</span></span>,<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">20i</span></span>)</span>;\n" +
@@ -15438,8 +15438,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\">(<a href=\"#m20\">V</a>)<span class=\"n\">(<span class=\"n\"><span class=\"n\">(int)<span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>*<span class=\"n\">(int)<span class=\"n\"><a href=\"#m298\">v</a></span></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
                 " public <a href=\"#m23\">T</a> <span class=\"f\"><a name=\"m40\">sec</a></span>;\n" +
                 " public <a href=\"#m25\">U</a> <span class=\"f\"><a name=\"m55\">th</a></span>;\n" +
                 " <a name=\"m60\">package (</a><a href=\"#m23\">T</a> <a name=\"m71\">i</a>,<a href=\"#m25\">U</a> <a name=\"m75\">j</a>){\n" +
@@ -15453,7 +15453,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(1));
+                "</span></pre></body></html>", filesExp_.getValue(1));
     }
 
     @Test
@@ -15500,7 +15500,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">V</a>&gt; :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>&lt;<a href=\"#m20\">V</a>,<a href=\"#m20\">V</a>&gt;{\n" +
                 " public <a href=\"#m20\">V</a> <span class=\"f\"><span class=\"f\"><a name=\"m50\">inst</a></span>=<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">2i</span></span></span>;\n" +
                 " <a name=\"m63\">public (</a><a href=\"#m20\">V</a> <a name=\"m73\">i</a>){\n" +
                 "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(#T,#U)\" href=\"ExTwo.html#m60\">super</a>(<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">16i</span></span>,<span class=\"f\">(<a href=\"#m20\">V</a>)<span class=\"f\">20i</span></span>)</span>;\n" +
@@ -15517,8 +15517,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\">(<a href=\"#m20\">V</a>)<span class=\"n\">(<span class=\"n\"><span class=\"n\">(int)<span class=\"n\"><a title=\"pkg.Ex.inst\" href=\"#m50\">inst</a></span></span>*<span class=\"n\">(int)<span class=\"n\"><a href=\"#m311\">v</a></span></span></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a>&lt;<a name=\"m23\">T</a>,<a name=\"m25\">U</a>&gt; {\n" +
                 " public <a href=\"#m23\">T</a> <span class=\"f\"><a name=\"m40\">sec</a></span>;\n" +
                 " public <a href=\"#m25\">U</a> <span class=\"f\"><a name=\"m55\">th</a></span>;\n" +
                 " <a name=\"m60\">package (</a><a href=\"#m23\">T</a> <a name=\"m71\">i</a>,<a href=\"#m25\">U</a> <a name=\"m75\">j</a>){\n" +
@@ -15532,7 +15532,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"n\"><a title=\"pkg.ExTwo.th\" href=\"#m55\">th</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(1));
+                "</span></pre></body></html>", filesExp_.getValue(1));
     }
 
     @Test
@@ -15572,7 +15572,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.Ex</a> :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> :<a title=\"pkg.ExTwo\" href=\"ExTwo.html#m13\">pkg.ExTwo</a>{\n" +
                 " public int <span class=\"f\"><span class=\"f\"><a name=\"m44\">inst</a></span>=<span class=\"f\">2i</span></span>;\n" +
                 " <a name=\"m54\">public (</a>int <a name=\"m66\">i</a>){\n" +
                 "  <span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(int)\" href=\"ExTwo.html#m43\">super</a>(<span class=\"f\">16i</span>)</span>;\n" +
@@ -15587,8 +15587,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a title=\"pkg.Ex.inst\" href=\"#m44\">inst</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>public class <a name=\"m13\">pkg.ExTwo</a> {\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.ExTwo</a> {\n" +
                 " public int <span class=\"f\"><a name=\"m37\">sec</a></span>;\n" +
                 " <a name=\"m43\">package (</a>int <a name=\"m56\">i</a>){\n" +
                 "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m37\">sec</a></span>=<span class=\"f\"><a href=\"#m56\">i</a></span></span>;\n" +
@@ -15597,7 +15597,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><a title=\"pkg.ExTwo.sec\" href=\"#m37\">sec</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.getValue(1));
+                "</span></pre></body></html>", filesExp_.getValue(1));
     }
     @Test
     public void coverage387Test() {
@@ -15619,7 +15619,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $class <a name=\"m40\">Inner</a> {\n" +
                 "  <a name=\"m50\">$public Inner(</a>){\n" +
                 "  }\n" +
@@ -15628,7 +15628,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">$new{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner()\" href=\"#m50\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage388Test() {
@@ -15652,7 +15652,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $class <a name=\"m40\">Inner</a> {\n" +
                 "  <a name=\"m50\">$public Inner(</a>$int <a name=\"m69\">p</a>){\n" +
                 "  }\n" +
@@ -15663,7 +15663,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m81\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner($int)\" href=\"#m50\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>(<span class=\"f\">1</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage389Test() {
@@ -15685,7 +15685,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $class <a name=\"m40\">Inner</a>&lt;<a name=\"m46\">T</a>&gt; {\n" +
                 "  <a name=\"m53\">$public Inner(</a>){\n" +
                 "  }\n" +
@@ -15694,7 +15694,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">$new{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>()</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner()\" href=\"#m53\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>&lt;<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&gt;()</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage390Test() {
@@ -15718,7 +15718,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $class <a name=\"m40\">Inner</a>&lt;<a name=\"m46\">T</a>&gt; {\n" +
                 "  <a name=\"m53\">$public Inner(</a>$int <a name=\"m72\">p</a>){\n" +
                 "  }\n" +
@@ -15729,7 +15729,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\"><a title=\"pkg.Ex.pkg.Ex($int)\" href=\"#m84\">$new</a>{} <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>(<span class=\"f\">0</span>)</span>.<span class=\"f\"><a title=\"pkg.Ex..Inner.pkg.Ex..Inner($int)\" href=\"#m53\">$new</a>{} <a title=\"pkg.Ex..Inner\" href=\"#m40\">Inner</a>&lt;<a title=\"pkg.Ex\" href=\"#m15\">Ex</a>&gt;(<span class=\"f\">1</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage391Test() {
@@ -15758,7 +15758,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
                 " void <a name=\"m37\">m</a>(){\n" +
                 "  class <a name=\"m50\">Loc</a>{\n" +
@@ -15774,7 +15774,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m157\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage392Test() {
@@ -15812,7 +15812,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
                 " void <a name=\"m37\">m</a>(){\n" +
                 "  interface <a name=\"m54\">Super</a>{\n" +
@@ -15837,7 +15837,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m316\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ext.extField\" href=\"#m21\">extField</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage393Test() {
@@ -15866,7 +15866,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
                 "}\n" +
@@ -15882,7 +15882,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage394Test() {
@@ -15911,7 +15911,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
                 "}\n" +
@@ -15927,7 +15927,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage395Test() {
@@ -15956,7 +15956,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
                 "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
                 "}\n" +
@@ -15972,7 +15972,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  return <span class=\"f\">0i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage396Test() {
@@ -15999,7 +15999,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
                 "$public $annotation <a name=\"m56\">pkg.MyAnnotTwo</a> {\n" +
                 "}\n" +
@@ -16013,7 +16013,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\">0</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage397Test() {
@@ -16045,7 +16045,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " int <span class=\"f\"><a name=\"m21\">extField</a></span>;\n" +
                 " void <a name=\"m37\">m</a>(){\n" +
                 "  @<a title=\"pkg.MyAnnot\" href=\"#m236\">MyAnnot</a>\n" +
@@ -16064,7 +16064,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "public annotation <a name=\"m236\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverage398Test() {
@@ -16082,12 +16082,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static <a title=\"pkg.Ex\" href=\"#m15\">Ex</a> <a name=\"m44\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">( <a title=\"pkg.Ex\" href=\"#m15\">Ex</a>)<span class=\"f\">$null</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment1Test() {
@@ -16106,13 +16106,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <span class=\"c\">\\\\comment</span>\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment2Test() {
@@ -16131,13 +16131,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  <span class=\"c\">\\*comment*\\</span>\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment3Test() {
@@ -16156,13 +16156,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"c\">\\\\comment</span>\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"c\">\\\\comment</span>\n" +
                 "$public $class <a name=\"m25\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m56\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment4Test() {
@@ -16181,13 +16181,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"c\">\\*comment*\\</span>\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"c\">\\*comment*\\</span>\n" +
                 "$public $class <a name=\"m27\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m58\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment5Test() {
@@ -16206,13 +16206,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "<span class=\"c\">\\\\comment</span>\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment6Test() {
@@ -16231,13 +16231,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "<span class=\"c\">\\*comment*\\</span>\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment7Test() {
@@ -16256,13 +16256,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "<span class=\"c\">\\\\</span>" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment8Test() {
@@ -16281,13 +16281,13 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return <span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "<span class=\"c\">\\*comment</span>" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment9Test() {
@@ -16313,7 +16313,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16326,7 +16326,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment10Test() {
@@ -16352,7 +16352,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16365,7 +16365,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment11Test() {
@@ -16391,7 +16391,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16404,7 +16404,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment12Test() {
@@ -16430,7 +16430,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16443,7 +16443,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment13Test() {
@@ -16469,7 +16469,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16482,7 +16482,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment14Test() {
@@ -16508,7 +16508,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $long <span class=\"f\"><a name=\"m64\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m64\">t</a></span>=<span class=\"f\">10</span></span>;\n" +
@@ -16521,7 +16521,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><span class=\"f\">1i</span>+<span class=\"f\">$($int)<span class=\"f\"><a href=\"#m64\">t</a></span></span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment15Test() {
@@ -16548,7 +16548,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static String <a name=\"m48\">exmeth</a>(){\n" +
                 "  String <span class=\"f\"><a name=\"m67\">t</a></span>;\n" +
                 "  <span class=\"f\"><span class=\"f\"><a href=\"#m67\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\\\\\"</span></span></span>;\n" +
@@ -16562,7 +16562,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "  $return <span class=\"f\"><a href=\"#m67\">t</a></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageComment16Test() {
@@ -16580,12 +16580,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $int <a name=\"m46\">exmeth</a>(){\n" +
                 "  $return<span class=\"c\">\\*comment*\\</span><span class=\"f\">1i</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void coverageFailTest() {

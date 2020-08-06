@@ -44,12 +44,13 @@ public final class LinkageUtil {
             String cssPart_ = "<head>" +
                     "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
                     "</head>";
-            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre>"+xml_+"</pre></body></html>");
+            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
         }
         String cssContent_ = ".e{background-color:red;}\n";
         cssContent_ += ".s{color:blue;}\n";
         cssContent_ += ".c{color:grey;}\n";
         cssContent_ += ".i{color:red;}\n";
+        cssContent_ += ".t{background-color:white;}\n";
         files_.addEntry("css/style.css",cssContent_);
         return files_;
     }
@@ -99,7 +100,7 @@ public final class LinkageUtil {
             String cssPart_ = "<head>" +
                     "<link href=\""+rel_+"\" rel=\"stylesheet\" type=\"text/css\"/>" +
                     "</head>";
-            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre>"+xml_+"</pre></body></html>");
+            files_.addEntry(fileExp_,"<html>"+cssPart_+"<body><pre><span class=\"t\">"+xml_+"</span></pre></body></html>");
         }
         String cssContent_ = ".f{background-color:green;}\n";
         cssContent_ += ".g{background-color:lightgreen;}\n";

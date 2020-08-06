@@ -33,7 +33,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m42\">pkg.Ext</a> {\n" +
@@ -45,7 +45,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  return <a href=\"#m97\">l</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -72,7 +72,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a> = 15;\n" +
                 "}\n" +
                 "class <a name=\"m41\">pkg.Ext</a> {\n" +
@@ -87,7 +87,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 2;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report650Test() {
@@ -116,7 +116,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static int <a name=\"m28\">stfield</a>;\n" +
                 " int <a name=\"m42\" title=\"A throw block or a return block is missing for the method field().\" class=\"e\">field</a>();\n" +
                 " static {\n" +
@@ -134,7 +134,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  return <a href=\"#m118\">l</a>.<a title=\"pkg.Int.field()\" href=\"#m42\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report651Test() {
@@ -172,7 +172,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m41\">pkg.Ext</a> {\n" +
@@ -199,7 +199,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m238\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report652Test() {
@@ -233,7 +233,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "enum <a name=\"m41\">pkg.Ext</a> {\n" +
@@ -256,7 +256,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.ONE\" href=\"#m52\">ONE</a>.<a title=\"pkg.Ext.inner\" href=\"#m203\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report653Test() {
@@ -283,7 +283,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>interface <a name=\"m10\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
                 "class <a name=\"m42\">pkg.Ext</a> {\n" +
@@ -299,7 +299,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> <a title=\"pkg.Ext.inner\" href=\"#m64\">inner</a>.<a title=\"pkg.Int.field()\" href=\"#m25\">field</a>();\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report654Test() {
@@ -326,7 +326,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
                 "class <a name=\"m38\">pkg.Ext</a> {\n" +
@@ -344,7 +344,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -389,7 +389,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
                 "class <a name=\"m38\">pkg.Ext</a> {\n" +
@@ -424,7 +424,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 
     @Test
@@ -488,7 +488,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
                 "class <a name=\"m38\">pkg.Ext</a> {\n" +
@@ -542,7 +542,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "The type int cannot be implicitly cast to $core.String\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report657Test() {
@@ -579,7 +579,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Init</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
                 " int <a name=\"m22\">field</a> = 2;\n" +
                 "}\n" +
                 "class <a name=\"m41\">pkg.Until</a> {\n" +
@@ -605,7 +605,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report658Test() {
@@ -642,7 +642,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Init</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
                 " int <a name=\"m22\">field</a> = 2;\n" +
                 "}\n" +
                 "class <a name=\"m41\">pkg.Until</a> {\n" +
@@ -668,7 +668,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  <a title=\"The code is unreachable in the function static m()\" class=\"e\">return</a> 0;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report659Test() {
@@ -692,7 +692,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Int</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">CST</a> = 1;\n" +
                 "}\n" +
                 "class <a name=\"m38\">pkg.Ext</a> {\n" +
@@ -705,7 +705,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  return <a href=\"#m77\">res</a>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report660Test() {
@@ -723,14 +723,14 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new Enum&lt;<a title=\"pkg.Ext..MyEnum\" href=\"#m67\">MyEnum</a>&gt;()<span class=\"t\"><a name=\"m54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
                 " }\n" +
                 " enum <a name=\"m67\">MyEnum</a>{\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report661Test() {
@@ -748,14 +748,14 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new $en()<span class=\"t\"><a name=\"m45\" title=\"The type pkg.Ext..$en*1 cannot have explicitly the type $core.$en as super type because $core.$en is reserved.\" class=\"e\">{</a>}</span>;\n" +
                 " }\n" +
                 " enum <a name=\"m58\">MyEnum</a>{\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report662Test() {
@@ -767,9 +767,9 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>$operator+ pkg.MySub() {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator+ pkg.MySub() {\n" +
                 " $int i<a title=\"Bad index by parsing.\" class=\"e\">\n" +
-                "</a></pre></body></html>", filesExp_.firstValue());
+                "</a></span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
     public void report663Test() {
@@ -784,11 +784,11 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre>class <a name=\"m6\">pkg.Ext</a> {\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  <a title=\"The type $core.CharSequence is not resolved for instancing.\" class=\"e\">new</a> CharSequence()<span class=\"t\"><a name=\"m54\">{</a>int nonSeen;}</span>;\n" +
                 " }\n" +
                 "}\n" +
-                "</pre></body></html>", filesExp_.firstValue());
+                "</span></pre></body></html>", filesExp_.firstValue());
     }
 }
