@@ -2,17 +2,17 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneType;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -25,14 +25,21 @@ import code.formathtml.stacks.RendSwitchBlockStack;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendCaseCondition extends RendParentBlock implements RendBuildableElMethod {
+public final class RendCaseCondition extends RendSwitchPartCondition implements RendBuildableElMethod {
 
     private final String value;
     private CustList<RendDynOperationNode> opValue;
 
+    private final int classNameOffset;
+    private final String className;
+    private final int variableOffset;
     private int valueOffset;
-    RendCaseCondition(OffsetStringInfo _value, OffsetsBlock _offset) {
+    RendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable,OffsetStringInfo _value, OffsetsBlock _offset) {
         super(_offset);
+        classNameOffset = _className.getOffset();
+        className = _className.getInfo();
+        variableOffset = _variable.getOffset();
+        setVariableName(_variable.getInfo());
         value = _value.getInfo();
         valueOffset = _value.getOffset();
     }
@@ -67,6 +74,29 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             return;
         }
         RendSwitchBlock sw_ = (RendSwitchBlock) par_;
+        if (!sw_.getInstanceTest().isEmpty()) {
+            if (StringList.quickEq(value, _cont.getContext().getKeyWords().getKeyWordNull())) {
+                setImportedClassName("");
+                return;
+            }
+            page_.setGlobalOffset(classNameOffset);
+            setImportedClassName(ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className));
+            TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(), getVariableName());
+            if (res_.isError()) {
+                FoundErrorInterpret d_ = new FoundErrorInterpret();
+                d_.setFileName(_cont.getCurrentFileName());
+                d_.setIndexFile(variableOffset);
+                //variable name
+                d_.setBuiltError(res_.getMessage());
+                _cont.addError(d_);
+                return;
+            }
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(getImportedClassName());
+            lv_.setConstType(ConstType.FIX_VAR);
+            _cont.getAnalyzing().getInfosVars().put(getVariableName(), lv_);
+            return;
+        }
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
@@ -188,6 +218,23 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
             first_ = first_.getNextSibling();
         }
     }
+
+    @Override
+    public void removeAllVars(AnalyzedPageEl _ip) {
+        super.removeAllVars(_ip);
+        if (!getVariableName().isEmpty()) {
+            _ip.getInfosVars().removeKey(getVariableName());
+        }
+    }
+
+    @Override
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
+        if (!getVariableName().isEmpty()) {
+            _ip.getValueVars().removeKey(getVariableName());
+        }
+    }
+
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
@@ -211,4 +258,5 @@ public final class RendCaseCondition extends RendParentBlock implements RendBuil
     public CustList<RendDynOperationNode> getOpValue() {
         return opValue;
     }
+
 }

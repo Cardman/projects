@@ -766,6 +766,241 @@ public final class RenderSwitchTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process45Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process46Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSubTwo()'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case><c:default var='v'>{v.v} Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>10 Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process47Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSubTwo()'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process48Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$(pkg.ExAbs)$null'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process49Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$(pkg.ExAbs)$null'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process50Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$(pkg.ExAbs)$null'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case><c:case value='$null'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process51Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub[1]'><c:case className='pkg.ExSub[]' var='v'>{v.length}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process52Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSubTwo()'><c:case value='$null'></c:case>\n<c:default var='v'>{v.v} Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>10 Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
+    public void process53Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v'>{v.v}</c:case><c:case className='pkg.ExAbs' var='v'>-{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+
+    @Test
     public void process0FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
@@ -1044,7 +1279,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process14FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='$new pkg.ExCl()'><c:case value='$null'>Text</c:case></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='$new pkg.ExCl()'><c:case value='$null'>Text</c:case></c:switch><c:case value='$null'>Text</c:case></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExCl{");
         enum_.append("}");
@@ -1063,7 +1298,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process15FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='pkg.ExCl.res()'><c:case value='$null'>Text</c:case></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='pkg.ExCl.res()'><c:case value='$null'>Text</c:case></c:switch><c:case value='$null'>Text</c:case></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExCl{");
         enum_.append("$public $static $void res(){");
@@ -1100,6 +1335,49 @@ public final class RenderSwitchTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:continue/></body></html>";
         Configuration conf_ = contextElFive();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process18FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:default var='1'></c:default><c:case className='pkg.ExSub' var='1'></c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExSub:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $class pkg.ExSubTwo:ExAbs{");
+        enum_.append("}");
+        enum_.append("$public $abstract $class pkg.ExAbs{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(!conf_.isEmptyErrors());
+    }
+    @Test
+    public void process19FailTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:switch value='$new java.lang.StringBuilder()'><c:case value='$null'>Text</c:case></c:switch><c:case value='$null'>Text</c:case></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.ExCl{");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);

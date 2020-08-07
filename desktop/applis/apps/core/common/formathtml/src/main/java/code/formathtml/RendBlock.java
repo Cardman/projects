@@ -441,11 +441,14 @@ public abstract class RendBlock implements AnalyzedBlock {
                     new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordCase()))) {
-            return new RendCaseCondition(newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
+            return new RendCaseCondition(newOffsetStringInfo(elt_, rendKeyWords_.getAttrClassName(), attr_),
+                    newOffsetStringInfo(elt_, rendKeyWords_.getAttrVar(), attr_),
+                    newOffsetStringInfo(elt_,rendKeyWords_.getAttrValue(), attr_),
                     new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordDefault()))) {
-            return new RendDefaultCondition(new OffsetsBlock(_begin,_begin));
+            return new RendDefaultCondition(newOffsetStringInfo(elt_, rendKeyWords_.getAttrVar(), attr_),
+                    new OffsetsBlock(_begin,_begin));
         }
         if (StringList.quickEq(tagName_,StringList.concat(_prefix,rendKeyWords_.getKeyWordImport()))) {
             return new RendImport(elt_,newOffsetStringInfo(elt_,rendKeyWords_.getAttrPage(), attr_),new OffsetsBlock(_begin,_begin));

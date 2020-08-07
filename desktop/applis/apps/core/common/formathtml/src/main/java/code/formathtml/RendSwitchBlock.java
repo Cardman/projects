@@ -1,12 +1,18 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecEnumBlock;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -28,6 +34,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     private CustList<RendDynOperationNode> opValue;
 
     private boolean enumTest;
+    private String instanceTest = "";
 
     RendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, OffsetsBlock _offset) {
         super(_offset);
@@ -65,15 +72,26 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             _cont.addError(un_);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
+            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(_cont.getContext(),id_);
+            boolean final_ = true;
+            if (classBody_ != null) {
+                final_ = ContextUtil.isFinalType(classBody_);
+            } else if (type_.startsWith("[")) {
+                final_ = false;
+            }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont.getContext())) {
                 if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
-                    if (!(_cont.getContext().getAnalyzing().getAnaClassBody(id_) instanceof EnumBlock)) {
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
-                        un_.setIndexFile(valueOffset);
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
-                                id_);
-                        _cont.addError(un_);
+                    if (!(classBody_ instanceof EnumBlock)) {
+                        if (!final_) {
+                            instanceTest = type_;
+                        } else {
+                            FoundErrorInterpret un_ = new FoundErrorInterpret();
+                            un_.setFileName(_cont.getCurrentFileName());
+                            un_.setIndexFile(valueOffset);
+                            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                                    id_);
+                            _cont.addError(un_);
+                        }
                     } else {
                         enumTest = true;
                     }
@@ -133,6 +151,58 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         if (_cont.getContext().hasException()) {
             return;
         }
+        if (!instanceTest.isEmpty()) {
+            RendSwitchBlockStack if_ = new RendSwitchBlockStack();
+            RendBlock n_ = getFirstChild();
+            CustList<RendParentBlock> children_;
+            children_ = new CustList<RendParentBlock>();
+            while (n_ != null) {
+                if (n_ instanceof RendParentBlock) {
+                    children_.add((RendParentBlock)n_);
+                }
+                n_ = n_.getNextSibling();
+            }
+            if_.setBlock(this);
+            RendParentBlock found_ = null;
+            if (arg_.isNull()) {
+                for (RendParentBlock b: children_) {
+                    if (b instanceof RendCaseCondition) {
+                        RendCaseCondition c_ = (RendCaseCondition) b;
+                        if (c_.getImportedClassName().isEmpty()) {
+                            if_.setLastVisitedBlock(b);
+                            found_ = b;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                for (RendParentBlock b: children_) {
+                    if (b instanceof RendCaseCondition) {
+                        RendCaseCondition c_ = (RendCaseCondition) b;
+                        if (!c_.getImportedClassName().isEmpty()) {
+                            RendCaseCondition b_ = (RendCaseCondition) b;
+                            found_ = fetch(_cont,if_,arg_,found_,b_);
+                        }
+                    }
+                }
+            }
+            if (found_ == null) {
+                for (RendParentBlock b: children_) {
+                    if (b instanceof RendDefaultCondition) {
+                        RendDefaultCondition b_ = (RendDefaultCondition) b;
+                        found_ = fetch(_cont,if_,arg_,found_,b_);
+                    }
+                }
+            }
+            if (found_ == null) {
+                if_.setCurrentVisitedBlock(this);
+            } else {
+                rw_.setRead(found_);
+                if_.setCurrentVisitedBlock(found_);
+            }
+            ip_.addBlock(if_);
+            return;
+        }
         RendSwitchBlockStack if_ = new RendSwitchBlockStack();
         RendBlock n_ = getFirstChild();
         CustList<RendParentBlock> children_;
@@ -145,12 +215,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             n_ = n_.getNextSibling();
         }
         if_.setBlock(this);
-        RendParentBlock def_ = null;
         RendParentBlock found_ = null;
         if (arg_.isNull()) {
             for (RendParentBlock b: children_) {
                 if (!(b instanceof RendCaseCondition)) {
-                    def_ = b;
+                    found_ = b;
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
@@ -167,7 +236,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             EnumerableStruct en_ = (EnumerableStruct) arg_.getStruct();
             for (RendParentBlock b: children_) {
                 if (!(b instanceof RendCaseCondition)) {
-                    def_ = b;
+                    found_ = b;
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
@@ -183,7 +252,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         } else {
             for (RendParentBlock b: children_) {
                 if (!(b instanceof RendCaseCondition)) {
-                    def_ = b;
+                    found_ = b;
                     continue;
                 }
                 RendCaseCondition c_ = (RendCaseCondition) b;
@@ -195,20 +264,33 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             }
         }
         if (found_ == null) {
-            if (def_ != null) {
-                rw_.setRead(def_);
-                if_.setCurrentVisitedBlock(def_);
-            } else {
-                if_.setCurrentVisitedBlock(this);
-            }
+            if_.setCurrentVisitedBlock(this);
         } else {
             rw_.setRead(found_);
             if_.setCurrentVisitedBlock(found_);
         }
         ip_.addBlock(if_);
     }
-
+    private static RendParentBlock fetch(Configuration _cont, RendSwitchBlockStack if_, Argument arg_,
+                                         RendParentBlock _found, RendSwitchPartCondition _s) {
+        if (_found != null) {
+            return _found;
+        }
+        String type_ = _s.getImportedClassName();
+        ImportingPage ip_ = _cont.getLastPage();
+        if (ExecTemplates.safeObject(type_, arg_, _cont.getContext()) == ErrorType.NOTHING) {
+            String var_ = _s.getVariableName();
+            ip_.putValueVar(var_,LocalVariable.newLocalVariable(arg_.getStruct(),type_));
+            if_.setLastVisitedBlock(_s);
+            return _s;
+        }
+        return null;
+    }
     public CustList<RendDynOperationNode> getOpValue() {
         return opValue;
+    }
+
+    public String getInstanceTest() {
+        return instanceTest;
     }
 }
