@@ -8,8 +8,14 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardClass;
+import code.expressionlanguage.stds.StandardInterface;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
@@ -39,6 +45,7 @@ public final class Classes {
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
     private CustList<ExecOperatorBlock> operators;
+    private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
 
     public Classes(){
         classesBodies = new StringMap<ExecRootBlock>();
@@ -65,10 +72,19 @@ public final class Classes {
             //all errors are logged here
             return messages_;
         }
+        forwardAndClear(_context);
         _context.setNullAnalyzing();
         tryInitStaticlyTypes(_context);
         return messages_;
     }
+
+    public static void forwardAndClear(ContextEl _context) {
+        for (ClassMetaInfo c: _context.getAnalyzing().getClassMetaInfos()) {
+            _context.getClasses().getClassMetaInfos().add(c);
+        }
+        _context.getAnalyzing().getClassMetaInfos().clear();
+    }
+
     public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
         if (!_context.isEmptyStdError() || !_context.isEmptyMessageError()) {
             //all standards errors are logged here
@@ -86,6 +102,10 @@ public final class Classes {
 
     public static void tryInitStaticlyTypes(ContextEl _context) {
         Classes cl_ = _context.getClasses();
+        for (ClassMetaInfo c: cl_.getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
+        }
         DefaultLockingClass dl_ = cl_.getLocks();
         dl_.init(_context);
         for (ExecRootBlock c: cl_.getClassBodies()) {
@@ -344,4 +364,7 @@ public final class Classes {
         return classesBodies;
     }
 
+    public CustList<ClassMetaInfo> getClassMetaInfos() {
+        return classMetaInfos;
+    }
 }

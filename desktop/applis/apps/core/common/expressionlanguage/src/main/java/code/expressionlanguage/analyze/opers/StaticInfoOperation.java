@@ -10,6 +10,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -55,7 +56,17 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
             return;
         }
         Argument a_ = new Argument();
-        a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf,_className));
+        ClassMetaInfo candidate_ = new ClassMetaInfo(_className);
+        CustList<ClassMetaInfo> classMetaInfos_ = _conf.getAnalyzing().getClassMetaInfos();
+        for (ClassMetaInfo c: classMetaInfos_) {
+            if (c.sameReference(candidate_)) {
+                a_.setStruct(c);
+                _current.setSimpleArgumentAna(a_, _conf);
+                return;
+            }
+        }
+        classMetaInfos_.add(candidate_);
+        a_.setStruct(candidate_);
         _current.setSimpleArgumentAna(a_, _conf);
     }
 

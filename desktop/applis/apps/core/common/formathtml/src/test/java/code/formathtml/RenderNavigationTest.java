@@ -6267,7 +6267,7 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.setSession(conf_);
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
-        initSession(nav_);
+        initFailSession(nav_);
         assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
@@ -6482,6 +6482,13 @@ public final class RenderNavigationTest extends CommonRender {
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
         _nav.initializeRendSession();
+    }
+    private static void initFailSession(Navigation _nav) {
+        _nav.setLanguages(new StringList(_nav.getLanguage()));
+        setupAna(_nav.getSession());
+        _nav.initInstancesPattern();
+        _nav.setupRenders();
+        assertTrue(!_nav.setupRendClassesInit());
     }
     private static void initSessionFail(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));

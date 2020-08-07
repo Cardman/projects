@@ -1972,6 +1972,30 @@ public final class RenderTextTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process50Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{$class(java.lang.$math).getDeclaredMethods(&quot;mod&quot;,$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        Configuration conf_ = contextElFive();
+
+        conf_.setMessagesFolder(folder_);
+        conf_.setFirstUrl("page1.html");
+
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        conf_.setNavigation(new StringMap<StringMap<String>>());
+        conf_.getAnalyzingDoc().setFiles(files_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+    }
+    @Test
     public void process0FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

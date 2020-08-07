@@ -47,10 +47,9 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
-        conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
@@ -84,7 +83,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
@@ -122,10 +121,9 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
-        conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertEq(10,((NumberStruct)value_).intStruct());
     }
@@ -159,7 +157,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 0);
@@ -200,10 +198,9 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
-        conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
@@ -240,7 +237,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
@@ -280,10 +277,9 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
-        conf_.getContext().setGlobalClass(conf_.getLastPage().getGlobalClass());
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
         assertEq(20,((NumberStruct)value_).intStruct());
     }
@@ -320,7 +316,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         Struct value_ = RendRequestUtil.redirect(conf_, new Argument(build_), 1);
@@ -358,7 +354,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(build_), 0);
@@ -394,7 +390,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(build_), 0);
@@ -430,7 +426,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(build_), 0);
@@ -472,7 +468,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(2));
@@ -514,7 +510,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.getAnalyzingDoc().setFiles(files_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_, conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_, nCont_,new IntStruct(2));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
@@ -557,7 +553,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(9));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
@@ -610,7 +606,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
-        addImportingPage(conf_);
+        addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(9));
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");

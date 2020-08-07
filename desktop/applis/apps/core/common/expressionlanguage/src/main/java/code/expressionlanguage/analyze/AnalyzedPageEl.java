@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.types.*;
 import code.util.*;
 
@@ -112,6 +113,7 @@ public final class AnalyzedPageEl {
     private String refFileName = "";
     private int indexBlock;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
+    private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -742,5 +744,9 @@ public final class AnalyzedPageEl {
 
     public CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>> getMapAnonymous() {
         return mapAnonymous;
+    }
+
+    public CustList<ClassMetaInfo> getClassMetaInfos() {
+        return classMetaInfos;
     }
 }

@@ -450,6 +450,51 @@ public final class RenderInitNavTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
+    public void process8Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><a c:command=\"page2.html\"/>{$class(java.lang.$math).getDeclaredMethods(&quot;mod&quot;,$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)}</body></html>";
+        String htmlTwo_ = "<html><body>Next</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String click($int p){");
+        file_.append("  $return $bool(p>2,\"val1\",\"val2\");");
+        file_.append(" }");
+        file_.append("}");
+        files_.put("my_file",file_.toString());
+        file_ = new StringBuilder();
+        file_.append("my_file");
+        files_.put("conf",file_.toString());
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c");
+        ContextEl cont_ = buildStdThree();
+        conf_.setContext(cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
+        conf_.setFirstUrl("page1.html");
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        conf_.setFilesConfName("conf");
+        conf_.getRenderFiles().add("page1.html");
+        conf_.getRenderFiles().add("page2.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        conf_.getBeansInfos().addEntry("bean_one",i_);
+        conf_.init();
+        Navigation n_ = new Navigation();
+        n_.setSession(conf_);
+        n_.setFiles(files_);
+        assertTrue(n_.setupRendClassesInit());
+        n_.initializeRendSession();
+        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
+    }
+    @Test
     public void process1FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

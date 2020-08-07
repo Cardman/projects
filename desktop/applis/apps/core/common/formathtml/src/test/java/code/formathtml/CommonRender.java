@@ -9,11 +9,13 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
@@ -37,8 +39,11 @@ import static org.junit.Assert.assertTrue;
 public abstract class CommonRender {
 
     protected static void addImportingPage(Configuration _conf) {
+        addInnerPage(_conf);
+    }
+
+    protected static void addInnerPage(Configuration _conf) {
         _conf.addPage(new ImportingPage());
-        setupAna(_conf);
     }
 
     protected static void setLocale(String _locale, Configuration _conf) {
@@ -143,7 +148,6 @@ public abstract class CommonRender {
         setupAna(context_);
         rendDocumentBlock_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
-        addImportingPage(context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
         context_.getBuiltBeans().addEntry("bean_one", bean_);
         context_.clearPages();
@@ -184,7 +188,6 @@ public abstract class CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
-        addImportingPage(context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
         context_.getBuiltBeans().addEntry("bean_one", bean_);
         context_.clearPages();
@@ -220,7 +223,6 @@ public abstract class CommonRender {
         rendDocumentBlock_.buildFctInstructions(context_);
         rendDocumentBlockSec_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
-        addImportingPage(context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
         context_.getBuiltBeans().addEntry("bean_one", bean_);
         bean_ = RenderExpUtil.calculateReuse(ops2_, context_).getStruct();
@@ -263,7 +265,6 @@ public abstract class CommonRender {
         rendDocumentBlockSec_.buildFctInstructions(context_);
         rendDocumentBlockThird_.buildFctInstructions(context_);
         tryInitStaticlyTypes(context_);
-        addImportingPage(context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
         context_.getBuiltBeans().addEntry("bean_one", bean_);
         bean_ = RenderExpUtil.calculateReuse(ops2_, context_).getStruct();
@@ -277,9 +278,11 @@ public abstract class CommonRender {
 
     protected static void tryInitStaticlyTypes(Configuration _context) {
         if (_context.isEmptyErrors()) {
+            Classes.forwardAndClear(_context.getContext());
+            _context.getContext().setNullAnalyzing();
             Classes.tryInitStaticlyTypes(_context.getContext());
-            assertTrue(_context.isEmptyErrors());
         }
+        addInnerPage(_context);
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
@@ -312,7 +315,12 @@ public abstract class CommonRender {
             context_.setNullAnalyzing();
             return Argument.createVoid();
         }
+        Classes.forwardAndClear(context_);
         context_.setNullAnalyzing();
+        for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
+        }
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _conf);
     }

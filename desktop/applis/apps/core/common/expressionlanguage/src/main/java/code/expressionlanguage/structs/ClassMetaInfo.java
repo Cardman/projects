@@ -24,13 +24,13 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     private final String name;
 
-    private final String superClass;
+    private String superClass = EMPTY_STRING;
 
     private final StringList superInterfaces = new StringList();
     private final StringList memberTypes = new StringList();
     private final StringList upperBounds = new StringList();
     private final StringList lowerBounds = new StringList();
-    private final String typeOwner;
+    private String typeOwner = EMPTY_STRING;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
     private final ObjectMap<MethodId, MethodMetaInfo> explicitsInfos;
@@ -42,17 +42,28 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
 
-    private final ClassCategory category;
+    private ClassCategory category;
 
-    private final boolean abstractType;
+    private boolean abstractType;
 
-    private final boolean finalType;
-    private final boolean staticType;
+    private boolean finalType;
+    private boolean staticType;
 
     private final String variableOwner;
-    private final AccessEnum access;
+    private AccessEnum access;
     private String fileName = EMPTY_STRING;
     private ExecAnnotableBlock annotableBlock;
+    public ClassMetaInfo(String _name) {
+        name = _name;
+        variableOwner = "";
+        fieldsInfos = new StringMap<FieldMetaInfo>();
+        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+    }
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
         variableOwner = _variableOwner;
@@ -192,6 +203,27 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         staticType = _staticType;
         finalType = false;
         access = _access;
+    }
+    public static void forward(ClassMetaInfo _src, ClassMetaInfo _dest) {
+        _dest.category = _src.category;
+        _dest.access = _src.access;
+        _dest.abstractType = _src.abstractType;
+        _dest.finalType = _src.finalType;
+        _dest.staticType = _src.staticType;
+        _dest.superClass = _src.superClass;
+        _dest.superInterfaces.addAllElts(_src.superInterfaces);
+        _dest.memberTypes.addAllElts(_src.memberTypes);
+        _dest.typeOwner = _src.typeOwner;
+        _dest.fieldsInfos.putAllMap(_src.fieldsInfos);
+        _dest.methodsInfos.putAllMap(_src.methodsInfos);
+        _dest.constructorsInfos.putAllMap(_src.constructorsInfos);
+        _dest.falsesInfos.putAllMap(_src.falsesInfos);
+        _dest.truesInfos.putAllMap(_src.truesInfos);
+        _dest.implicitsInfos.putAllMap(_src.implicitsInfos);
+        _dest.explicitsInfos.putAllMap(_src.explicitsInfos);
+        _dest.fileName = _src.fileName;
+        _dest.annotableBlock = _src.annotableBlock;
+        _dest.blocsInfos.putAllMap(_src.blocsInfos);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {

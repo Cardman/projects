@@ -862,6 +862,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
+        Classes.forwardAndClear(_conf.getContext());
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext());
