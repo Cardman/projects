@@ -103,16 +103,9 @@ public final class Navigation {
         }
         String currentUrl_ = session.getFirstUrl();
         session.setCurrentUrl(currentUrl_);
-        String realFilePath_ = RendExtractFromResources.getRealFilePath(language, currentUrl_);
         String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = session.getRenders().getVal(realFilePath_);
+        RendDocumentBlock rendDocumentBlock_ = session.getRendDocumentBlock();
         if (rendDocumentBlock_ == null) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(session.getCurrentFileName());
-            badEl_.setIndexFile(session.getCurrentLocationIndex());
-            badEl_.buildError(session.getRendAnalysisMessages().getInexistantFile(),
-                    realFilePath_);
-            session.addError(badEl_);
             return;
         }
         htmlText = RendBlock.getRes(rendDocumentBlock_,session);

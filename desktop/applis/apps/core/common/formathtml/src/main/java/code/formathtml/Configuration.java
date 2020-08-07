@@ -110,6 +110,7 @@ public final class Configuration {
     private final StdErrorList stdErrorDet = new StdErrorList();
     private final ErrorList errorsDet = new ErrorList();
     private final WarningList warningsDet = new WarningList();
+    private RendDocumentBlock rendDocumentBlock;
 
     public ArrayStruct newStackTraceElementArray() {
         int count_ = importing.size();
@@ -170,6 +171,17 @@ public final class Configuration {
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
             d.getValue().buildFctInstructions(this);
+        }
+        String currentUrl_ = getFirstUrl();
+        String realFilePath_ = RendExtractFromResources.getRealFilePath(currentLanguage, currentUrl_);
+        rendDocumentBlock = getRenders().getVal(realFilePath_);
+        if (rendDocumentBlock == null) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFileName(getCurrentFileName());
+            badEl_.setIndexFile(getCurrentLocationIndex());
+            badEl_.buildError(getRendAnalysisMessages().getInexistantFile(),
+                    realFilePath_);
+            addError(badEl_);
         }
     }
     public void initForms() {
@@ -704,5 +716,9 @@ public final class Configuration {
 
     public void buildCurrentConstraintsFull() {
         context.getAnalyzing().getAvailableVariables().clear();
+    }
+
+    public RendDocumentBlock getRendDocumentBlock() {
+        return rendDocumentBlock;
     }
 }
