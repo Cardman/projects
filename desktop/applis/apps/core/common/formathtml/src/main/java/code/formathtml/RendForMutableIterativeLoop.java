@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -9,6 +10,8 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
@@ -162,15 +165,28 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
             LgNames stds_ = _cont.getStandards();
-            if (!elCondition_.getResultClass().isBoolType(_cont.getContext())) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
-                un_.setIndexFile(expressionOffset);
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
-                        StringList.join(elCondition_.getResultClass().getNames(),AND_ERR));
-                _cont.addError(un_);
+            ClassArgumentMatching exp_ = elCondition_.getResultClass();
+            if (!exp_.isBoolType(_cont.getContext())) {
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
+                if (res_.isFoundMethod()) {
+                    ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    exp_.getImplicits().add(cl_);
+                } else {
+                    ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont.getContext(), exp_);
+                    if (trueOp_.isFoundMethod()) {
+                        ClassMethodId cl_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
+                        exp_.getImplicitsTest().add(cl_);
+                    } else {
+                        FoundErrorInterpret un_ = new FoundErrorInterpret();
+                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setIndexFile(expressionOffset);
+                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                                StringList.join(exp_.getNames(),AND_ERR));
+                        _cont.addError(un_);
+                    }
+                }
             }
-            elCondition_.getResultClass().setUnwrapObject(stds_.getAliasPrimBoolean());
+            exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
         }
     }
 

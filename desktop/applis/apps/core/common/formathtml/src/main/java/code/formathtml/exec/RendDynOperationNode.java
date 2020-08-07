@@ -603,7 +603,7 @@ public abstract class RendDynOperationNode {
             Struct nRes_ = Argument.getNull(res_.getStruct());
             pair_.setArgumentTest(BooleanStruct.isTrue(nRes_));
             RendMethodOperation parent_ = getParent();
-            if (parent_ instanceof RendTernaryOperation) {
+            if (parent_ == null || parent_ instanceof RendTernaryOperation) {
                 calcArg(_nodes,new Argument(nRes_));
                 return;
             }

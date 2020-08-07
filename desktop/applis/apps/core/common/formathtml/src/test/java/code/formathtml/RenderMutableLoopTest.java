@@ -329,6 +329,45 @@ public final class RenderMutableLoopTest extends CommonRender {
         assertNull(getException(context_));
     }
     @Test
+    public void process31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{");
+        xml_.append(" $public $int v = 1;");
+        xml_.append(" $public $static $boolean $(Ex e){");
+        xml_.append("  $return e.v <= 4;");
+        xml_.append(" }");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration context_ = contextElFive(files_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i\" step=\"i.v++\">{i.v}-</c:for></html>";
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
+        assertTrue(context_.isEmptyErrors());
+        assertEq("<html>1-2-3-4-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(getException(context_));
+    }
+    @Test
+    public void process32Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{");
+        xml_.append(" $public $int v = 1;");
+        xml_.append(" $public $static $boolean $true(Ex e){");
+        xml_.append("  $return e.v <= 4;");
+        xml_.append(" }");
+        xml_.append(" $public $static $boolean $false(Ex e){");
+        xml_.append("  $return e.v > 4;");
+        xml_.append(" }");
+        xml_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration context_ = contextElFive(files_);
+        String html_ = "<html><c:for className=\"$var\" init=\"i=$new pkg.Ex()\" condition=\"i\" step=\"i.v++\">{i.v}-</c:for></html>";
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
+        assertTrue(context_.isEmptyErrors());
+        assertEq("<html>1-2-3-4-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
+        assertNull(getException(context_));
+    }
+    @Test
     public void process1FailTest() {
         Configuration context_ = contextElFive();
         String html_ = "<html><c:for className=\"$var\" init=\"i=0\" condition=\"i&lt;4\" step=\"i++\">{i}-<c:if condition=\"i%2==0\">Pair-<c:try>Cont-<c:continue label='label'/></c:try><c:finally>Finally-</c:finally></c:if>Impair-</c:for></html>";

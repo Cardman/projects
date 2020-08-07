@@ -310,6 +310,61 @@ public final class RenderIfTest extends CommonRender {
 
     }
     @Test
+    public void process19Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:if condition=\"$new pkg.Ex()\">ONE</c:if>\n<c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.Ex{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append(" $public $static $boolean $(Ex e){");
+        enum_.append("  $return e.v == 10;");
+        enum_.append(" }");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>ONE</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+
+    }
+    @Test
+    public void process20Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:if condition=\"$new pkg.Ex()\">ONE</c:if>\n<c:elseif condition=\"&quot;string&quot;.length()==2\">TWO</c:elseif>\n<c:elseif condition=\"!&quot;string&quot;.isEmpty()\">NOT EMPTY</c:elseif>\n<c:else>EMPTY</c:else></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $class pkg.Ex{");
+        enum_.append(" $public $int v = 10;");
+        enum_.append(" $public $static $boolean $true(Ex e){");
+        enum_.append("  $return e.v == 10;");
+        enum_.append(" }");
+        enum_.append(" $public $static $boolean $false(Ex e){");
+        enum_.append("  $return e.v != 10;");
+        enum_.append(" }");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        Configuration conf_ = contextElFive(files_);
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+
+
+        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        assertEq("<html><body>ONE</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
+        assertNull(getException(conf_));
+
+    }
+    @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
