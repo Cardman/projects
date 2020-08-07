@@ -99,9 +99,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             RendBlock n_ = en_.getFirstChild();
             if (en_ != root_) {
                 tryBuildExpressionLanguage(en_, _cont,this);
-                if (!(en_ instanceof RendForMutableIterativeLoop)) {
-                    reduce(en_,_cont);
-                }
+                reduce(en_,_cont);
             }
             if (n_ != null) {
                 en_ = n_;
@@ -118,10 +116,6 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 if (par_ == this) {
                     par_.removeAllVars(page_);
                     return;
-                }
-                if (par_ instanceof RendForMutableIterativeLoop) {
-                    ((RendForMutableIterativeLoop)par_).buildIncrementPart(_cont,this);
-                    reduce(par_,_cont);
                 }
                 parents_.removeLast();
                 if (par_ instanceof RendBreakableBlock) {

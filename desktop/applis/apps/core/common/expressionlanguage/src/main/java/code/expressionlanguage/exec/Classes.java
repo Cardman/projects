@@ -195,9 +195,6 @@ public final class Classes {
         return classesBodies.values();
     }
 
-    public StringMap<ExecRootBlock> getClassBodiesMap() {
-        return classesBodies;
-    }
     public ExecRootBlock getClassBody(String _className) {
         return classesBodies.getVal(_className);
     }

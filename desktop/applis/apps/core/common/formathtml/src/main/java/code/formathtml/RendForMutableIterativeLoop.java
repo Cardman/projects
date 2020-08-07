@@ -188,6 +188,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             }
             exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
         }
+        buildIncrementPart(_cont,_doc);
     }
 
     public String getImportedClassIndexName() {

@@ -393,7 +393,7 @@ public final class ClassesUtil {
         String fullName_ = _root.getFullName();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         boolean ok_ = _add;
-        if (_context.getClasses().getClassBodiesMap().contains(fullName_)) {
+        if (_context.getClasses().getClassesBodies().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
@@ -624,7 +624,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
         }
         if (_root instanceof ClassBlock) {
             ExecClassBlock e_ = new ExecClassBlock((ClassBlock) _root);
@@ -632,7 +632,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof EnumBlock) {
@@ -641,7 +641,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InterfaceBlock) {
@@ -650,7 +650,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof AnnotationBlock) {
@@ -659,7 +659,7 @@ public final class ClassesUtil {
             e_.setFile(_exFile);
             _root.setNumberAll(page_.getMapTypes().size());
             page_.getMapTypes().put(_root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
         if (_root instanceof InnerElementBlock) {
@@ -670,7 +670,7 @@ public final class ClassesUtil {
             page_.getMapTypes().put(_root, e_);
             ((InnerElementBlock) _root).setNumberInner(page_.getMapInnerEltTypes().size());
             page_.getMapInnerEltTypes().put((InnerElementBlock) _root, e_);
-            _context.getClasses().getClassBodiesMap().put(fullName_, e_);
+            _context.getClasses().getClassesBodies().put(fullName_, e_);
             appendType(_exFile, _outer, _root, e_);
         }
     }
