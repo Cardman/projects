@@ -136,8 +136,8 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
+        processFinalVars(_an, _anEl,allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an, _anEl,allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsWhile_.getFieldsRoot().putAllMap(fieldsAfter_);

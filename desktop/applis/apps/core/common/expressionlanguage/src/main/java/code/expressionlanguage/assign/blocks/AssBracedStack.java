@@ -87,7 +87,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
     }
 
-    protected void processFinalVars(ContextEl _an,
+    protected void processFinalVars(ContextEl _an, AssignedVariablesBlock _anEl,
                                     IdMap<AssBlock, AssignedVariables> _allDesc,
                                     AssignedVariables _root,
                                     CustList<StringMap<AssignmentBefore>> _fields) {
@@ -102,7 +102,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                if (!_an.isFinalLocalVar(key_,index_)) {
+                if (!_anEl.isFinalLocalVar(key_,index_)) {
                     continue;
                 }
                 processFinalVars(this, false, _an, _root, key_);
@@ -118,7 +118,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
 
     }
 
-    protected void processFinalMutableLoop(ContextEl _an,
+    protected void processFinalMutableLoop(ContextEl _an, AssignedVariablesBlock _anEl,
                                            IdMap<AssBlock, AssignedVariables> _allDesc,
                                            AssignedVariables _root,
                                            CustList<StringMap<AssignmentBefore>> _fields) {
@@ -133,7 +133,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
                     continue;
                 }
                 String key_ = e.getKey();
-                if (!_an.isFinalMutableLoopVar(key_,index_)) {
+                if (!_anEl.isFinalMutableLoopVar(key_,index_)) {
                     continue;
                 }
                 processFinalMutableLoop(this, false, _an, _root, key_);

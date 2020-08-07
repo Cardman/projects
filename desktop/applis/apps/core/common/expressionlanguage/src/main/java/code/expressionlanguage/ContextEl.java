@@ -292,10 +292,6 @@ public abstract class ContextEl {
         analyzing.setIndexChildType(_index);
     }
 
-    public boolean isFinalLocalVar(String _key, int _index) {
-        return analyzing.isFinalLocalVar(_key, _index);
-    }
-
     public AbstractFullStack getFullStack() {
         return fullStack;
     }
@@ -323,10 +319,6 @@ public abstract class ContextEl {
 
     public void setAssignedFields(boolean _assignedFields) {
         analyzing.setAssignedFields(_assignedFields);
-    }
-
-    public boolean isFinalMutableLoopVar(String _key, int _index) {
-        return analyzing.isFinalMutableLoopVar(_key,_index);
     }
 
     public String getIndexClassName() {

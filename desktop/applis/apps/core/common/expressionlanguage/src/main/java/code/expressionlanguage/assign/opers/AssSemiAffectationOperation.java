@@ -44,7 +44,7 @@ public final class AssSemiAffectationOperation extends AssMethodOperation {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.isFinalLocalVar(str_,index_)) {
+                            if (_a.isFinalLocalVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -77,7 +77,7 @@ public final class AssSemiAffectationOperation extends AssMethodOperation {
                 for (EntryCust<String, Assignment> e: s.entryList()) {
                     if (StringList.quickEq(str_, e.getKey())) {
                         if (!e.getValue().isUnassignedAfter()) {
-                            if (_conf.isFinalMutableLoopVar(str_,index_)) {
+                            if (_a.isFinalMutableLoopVar(str_,index_)) {
                                 //error
                                 firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();

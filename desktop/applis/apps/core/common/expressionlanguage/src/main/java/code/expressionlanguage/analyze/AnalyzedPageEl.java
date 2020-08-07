@@ -33,10 +33,6 @@ public final class AnalyzedPageEl {
     private RootBlock globalType;
     private RootBlock globalDirType;
 
-    private final CustList<StringMap<AnaLoopVariable>> mutableVars = new CustList<StringMap<AnaLoopVariable>>();
-
-    private final CustList<StringMap<AnaLocalVariable>> localVars = new CustList<StringMap<AnaLocalVariable>>();
-
     private final StringMap<AnaLocalVariable> infosVars = new StringMap<AnaLocalVariable>();
     private final StringMap<AnaLoopVariable> loopsVars = new StringMap<AnaLoopVariable>();
 
@@ -159,33 +155,9 @@ public final class AnalyzedPageEl {
         globalDirType = _globalDirType;
     }
 
-    public void initMutableLoopVars() {
-        mutableVars.add(new StringMap<AnaLoopVariable>());
-    }
-
-    public void removeMutableLoopVars() {
-        mutableVars.removeLast();
-    }
-
-    public void putMutableLoopVar(String _key, AnaLoopVariable _var) {
-        mutableVars.last().put(_key, _var);
-    }
-
-    public void initLocalVars() {
-        localVars.add(new StringMap<AnaLocalVariable>());
-    }
-
-    public void removeLocalVars() {
-        localVars.removeLast();
-    }
-
-    public void putLocalVar(String _key, AnaLocalVariable _var) {
-        localVars.last().put(_key, _var);
-    }
-
     public void clearAllLocalVars(AssignedVariablesBlock _a) {
-        localVars.clear();
-        mutableVars.clear();
+        _a.getLocalVars().clear();
+        _a.getMutableVars().clear();
         _a.getFinalVariablesGlobal().getVariables().clear();
         _a.getFinalVariablesGlobal().getVariablesRoot().clear();
         _a.getFinalVariablesGlobal().getVariablesRootBefore().clear();
@@ -194,19 +166,6 @@ public final class AnalyzedPageEl {
         _a.getFinalVariablesGlobal().getMutableLoopRoot().clear();
         _a.getFinalVariablesGlobal().getMutableLoopRootBefore().clear();
         _a.getFinalVariablesGlobal().getMutableLoopBefore().clear();
-    }
-
-    public void clearAllLocalVarsReadOnly() {
-        localVars.clear();
-        mutableVars.clear();
-    }
-
-    public boolean isFinalMutableLoopVar(String _key, int _index) {
-        return mutableVars.get(_index+1).getVal(_key).isFinalVariable();
-    }
-
-    public boolean isFinalLocalVar(String _key, int _index) {
-        return localVars.get(_index).getVal(_key).isFinalVariable();
     }
 
     public StringMap<Boolean> getDeclaredAssignments() {

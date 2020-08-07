@@ -46,7 +46,7 @@ public final class AssMutableLoopVariableOperation extends AssLeafOperation impl
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName("");
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
-            _conf.getAnalyzing().putMutableLoopVar(variableName, lv_);
+            _a.putMutableLoopVar(variableName, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(_conf.getStandards().getAliasObject());
             lInfo_.setConstType(ConstType.MUTABLE_LOOP_VAR);

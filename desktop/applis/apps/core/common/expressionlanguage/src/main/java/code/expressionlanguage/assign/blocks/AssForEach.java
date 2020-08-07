@@ -59,8 +59,8 @@ public final class AssForEach extends AssBracedStack implements AssLoop, AssBuil
         varsWhile_.getMutableLoopRootBefore().clear();
         varsWhile_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         processFinalFields(_an, allDesc_, varsWhile_, fieldsHypot_);
-        processFinalVars(_an, allDesc_, varsWhile_, varsHypot_);
-        processFinalMutableLoop(_an, allDesc_, varsWhile_, mutableHypot_);
+        processFinalVars(_an,_anEl, allDesc_, varsWhile_, varsHypot_);
+        processFinalMutableLoop(_an,_anEl, allDesc_, varsWhile_, mutableHypot_);
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;
         CustList<StringMap<SimpleAssignment>> mutableAfter_;

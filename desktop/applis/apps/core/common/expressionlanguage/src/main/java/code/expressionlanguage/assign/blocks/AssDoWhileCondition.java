@@ -41,8 +41,8 @@ public final class AssDoWhileCondition extends AssCondition {
         varsDo_.getMutableLoopRootBefore().clear();
         varsDo_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
         processFinalFields(_an, allDesc_, varsDo_, fieldsHypot_);
-        processFinalVars(_an, allDesc_, varsDo_, varsHypot_);
-        processFinalMutableLoop(_an, allDesc_, varsDo_, mutableHypot_);
+        processFinalVars(_an,_anEl, allDesc_, varsDo_, varsHypot_);
+        processFinalMutableLoop(_an,_anEl, allDesc_, varsDo_, mutableHypot_);
 
         StringMap<SimpleAssignment> fieldsAfter_;
         CustList<StringMap<SimpleAssignment>> varsAfter_;

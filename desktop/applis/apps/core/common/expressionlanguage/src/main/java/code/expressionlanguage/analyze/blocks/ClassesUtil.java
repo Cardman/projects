@@ -2113,7 +2113,6 @@ public final class ClassesUtil {
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
-                        page_.clearAllLocalVarsReadOnly();
                     }
                 }
 
@@ -2188,7 +2187,6 @@ public final class ClassesUtil {
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
-                        page_.clearAllLocalVarsReadOnly();
                     }
                 }
             }
@@ -2216,7 +2214,6 @@ public final class ClassesUtil {
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                        page_.clearAllLocalVarsReadOnly();
                     } else {
                         page_.setGlobalClass(c.getGenericString());
                         page_.setGlobalType(c);
@@ -2229,7 +2226,6 @@ public final class ClassesUtil {
                         page_.getMappingLocal().clear();
                         page_.getMappingLocal().putAllMap(method_.getMappings());
                         method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                        page_.clearAllLocalVarsReadOnly();
                     }
                 }
             }
@@ -2248,7 +2244,6 @@ public final class ClassesUtil {
                 page_.getMappingLocal().clear();
                 ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
                 o.buildFctInstructionsReadOnly(_context,value_);
-                page_.clearAllLocalVarsReadOnly();
             }
         }
         _context.setAnnotAnalysis(true);
