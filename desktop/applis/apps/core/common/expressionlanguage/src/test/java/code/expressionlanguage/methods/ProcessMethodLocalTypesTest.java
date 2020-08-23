@@ -935,4 +935,60 @@ public final class ProcessMethodLocalTypesTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
     }
+    @Test
+    public void calculate23() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<S> {\n");
+        xml_.append(" String extField=\"\";\n");
+        xml_.append(" void m(){\n");
+        xml_.append("  class Dual<T,U>{\n");
+        xml_.append("   T first;\n");
+        xml_.append("   U second;\n");
+        xml_.append("  }\n");
+        xml_.append("  class Super{\n");
+        xml_.append("   int superField;\n");
+        xml_.append("   Super(int p){\n");
+        xml_.append("    superField = p;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  class Loc:Super{\n");
+        xml_.append("   int field;\n");
+        xml_.append("   Loc(int p, int q){\n");
+        xml_.append("    super(p);\n");
+        xml_.append("    field = q;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  class LocTwo:Super{\n");
+        xml_.append("   int field;\n");
+        xml_.append("   LocTwo(int p, int q){\n");
+        xml_.append("    super(p);\n");
+        xml_.append("    field = q;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  Dual<Loc,LocTwo> arr = new Dual<>();\n");
+        xml_.append("  arr.first = new Loc(2,4);\n");
+        xml_.append("  arr.second = new LocTwo(6,8);\n");
+        xml_.append("  extField += \"Loc:\"+arr.first.field;\n");
+        xml_.append("  extField += \"\"+','+arr.first.superField+';';\n");
+        xml_.append("  extField += \"LocTwo:\"+arr.second.field;\n");
+        xml_.append("  extField += \"\"+','+arr.second.superField+';';\n");
+        xml_.append(" }\n");
+        xml_.append(" static String m(){\n");
+        xml_.append("  Ext<int> e = new Ext<>();\n");
+        xml_.append("  e.m();\n");
+        xml_.append("  return e.extField;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq("Loc:4,2;LocTwo:8,6;", getString(ret_));
+    }
 }

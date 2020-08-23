@@ -1015,8 +1015,8 @@ public final class ClassesUtil {
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             }
-                            StringMap<String> mappings_ = outerFuntion_.getMappings();
-                            String resolved_ = mappings_.getVal(s_);
+                            StringMap<MappingLocalType> mappings_ = outerFuntion_.getMappings();
+                            MappingLocalType resolved_ = mappings_.getVal(s_);
                             if (resolved_ != null) {
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                                 d_.setFileName(_r.getFile().getFileName());
@@ -1036,7 +1036,7 @@ public final class ClassesUtil {
                                     possibleParent_.getCounts().put(s_,val_+1);
                                     cur_.setSuffix("+"+(val_+1));
                                 }
-                                mappings_.put(s_, cur_.getFullName());
+                                mappings_.put(s_, new MappingLocalType(cur_.getFullName(),cur_.getSuffixedName(),possibleParent_,cur_));
 
                             }
 

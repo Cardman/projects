@@ -94,7 +94,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringMap<Integer> counts = new StringMap<Integer>();
     private StringMap<Integer> countsAnon = new StringMap<Integer>();
     private String suffix="";
-    private StringMap<String> mappings = new StringMap<String>();
+    private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private RootBlock parentType;
     private boolean added;
 
@@ -1978,7 +1978,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         this.suffix = suffix;
     }
 
-    public StringMap<String> getMappings() {
+    public StringMap<MappingLocalType> getMappings() {
         return mappings;
     }
 }

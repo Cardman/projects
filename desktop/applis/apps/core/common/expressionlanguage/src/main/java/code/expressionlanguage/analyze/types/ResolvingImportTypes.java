@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
@@ -313,10 +314,10 @@ public final class ResolvingImportTypes {
                 partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
                 return "";
             }
-            String resolved_ = _analyzable.getAnalyzing().getMappingLocal().getVal(base_);
+            MappingLocalType resolved_ = _analyzable.getAnalyzing().getMappingLocal().getVal(base_);
             if (resolved_ != null) {
-                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_,partOffsets_);
-                res_ = resolved_;
+                ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_.getFullName(),partOffsets_);
+                res_ = resolved_.getFullName();
             } else {
                 String id_ = lookupImportType(_analyzable,base_,r_, new AlwaysReadyTypes());
                 if (id_.isEmpty()) {

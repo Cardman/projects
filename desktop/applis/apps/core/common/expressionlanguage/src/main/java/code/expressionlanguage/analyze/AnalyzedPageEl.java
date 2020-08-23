@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
+import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -90,7 +91,7 @@ public final class AnalyzedPageEl {
     private MethodHeaders headers = new MethodHeaders();
     private final ReportedMessages messages = new ReportedMessages();
 
-    private StringMap<String> mappingLocal = new StringMap<String>();
+    private StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
     private AbstractHiddenTypes hiddenTypes;
     private AbstractCurrentConstraints currentConstraints;
@@ -552,7 +553,7 @@ public final class AnalyzedPageEl {
         return errors;
     }
 
-    public StringMap<String> getMappingLocal() {
+    public StringMap<MappingLocalType> getMappingLocal() {
         return mappingLocal;
     }
 

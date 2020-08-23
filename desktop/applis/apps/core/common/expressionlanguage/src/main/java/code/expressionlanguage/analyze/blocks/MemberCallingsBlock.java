@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -13,7 +14,7 @@ import code.util.StringMap;
 
 public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock,ReturnableWithSignature {
 
-    private StringMap<String> mappings = new StringMap<String>();
+    private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private CustList<RootBlock> reserved = new CustList<RootBlock>();
     private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private int numberFct;
@@ -247,7 +248,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public abstract  MethodAccessKind getStaticContext();
 
-    public StringMap<String> getMappings() {
+    public StringMap<MappingLocalType> getMappings() {
         return mappings;
     }
 
