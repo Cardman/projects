@@ -49,7 +49,8 @@ public final class ClassesUtil {
 
     public static void postValidation(ContextEl _context) {
         StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
                 String foundClass_ = resDyn_.getRealClass();
@@ -58,9 +59,26 @@ public final class ClassesUtil {
                 toStringMethodsToCall_.addEntry(e.getKey().getFullName(),methodId_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
+            RootBlock c = e.getKey();
+            page_.setGlobalClass(c.getGenericString());
+            page_.setGlobalType(c);
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            page_.getMappingLocal().clear();
+            page_.getMappingLocal().putAllMap(c.getMappings());
+            for (Block b: getDirectChildren(c)) {
+                if (b instanceof OverridableBlock) {
+                    page_.setCurrentAnaBlock(c);
+                    page_.setCurrentBlock(c);
+                    ((OverridableBlock)b).buildTypes(c,_context);
+                }
+            }
+        }
+        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = _context.getAnalyzing().getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
+            IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = page_.getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
             ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
             String fullName_ = root_.getFullName();
             for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
@@ -81,7 +99,7 @@ public final class ClassesUtil {
                 redirections_.add(override_);
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
             if (root_.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = root_.getAllGenericSuperTypesInfo();
@@ -90,7 +108,7 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = _context.getAnalyzing().getMapTypes().getValue(superBl_.getNumberAll());
+                            ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
                             ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
                             if (val_ == null) {
                                 FoundErrorInterpret err_;
@@ -117,7 +135,7 @@ public final class ClassesUtil {
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
-                            ExecRootBlock ex_ = _context.getAnalyzing().getMapTypes().getValue(superBl_.getNumberAll());
+                            ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
                             ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
                             if (val_ == null) {
                                 root_.getFunctional().add(new ClassMethodId(s.getFormatted(),m.getId()));
@@ -128,25 +146,25 @@ public final class ClassesUtil {
                 e.getValue().getFunctional().addAllElts(root_.getFunctional());
             }
         }
-        for (EntryCust<RootBlock,ExecRootBlock> e: _context.getAnalyzing().getMapTypes().entryList()) {
+        for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             RootBlock root_ = e.getKey();
-            Members valueMember_ = _context.getAnalyzing().getMapMembers().getValue(root_.getNumberAll());
+            Members valueMember_ = page_.getMapMembers().getValue(root_.getNumberAll());
             IdMap<MemberCallingsBlock, ExecMemberCallingsBlock> allFct_ = valueMember_.getAllFct();
             IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
             for (Block b: ClassesUtil.getDirectChildren(root_)) {
                 if (b instanceof MemberCallingsBlock) {
                     ExecMemberCallingsBlock value_ = allFct_.getValue(((MemberCallingsBlock) b).getNumberFct());
                     for (AnonymousTypeBlock a: ((MemberCallingsBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                        value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
                     }
                     for (RootBlock a: ((MemberCallingsBlock)b).getReserved()) {
-                        value_.getReserved().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                        value_.getReserved().add(page_.getMapTypes().getValue(a.getNumberAll()));
                     }
                 }
                 if (b instanceof InfoBlock) {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(_context.getAnalyzing().getMapTypes().getValue(a.getNumberAll()));
+                        value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
                     }
                 }
             }
@@ -1873,10 +1891,9 @@ public final class ClassesUtil {
             page_.getMappingLocal().putAllMap(c.getMappings());
             for (Block b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
+                    page_.setCurrentAnaBlock(c);
+                    page_.setCurrentBlock(c);
                     ((InternOverrideBlock)b).buildTypes(c,_context);
-                }
-                if (b instanceof OverridableBlock) {
-                    ((OverridableBlock)b).buildTypes(c,_context);
                 }
             }
         }
