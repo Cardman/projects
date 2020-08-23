@@ -12,9 +12,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
@@ -217,13 +215,6 @@ final class AnaNamePartType extends AnaLeafPartType {
                                           ReadyTypes _ready,
                                           AccessedBlock _local,
                                           AccessedBlock _rooted) {
-        String type_ = getTypeName().trim();
-        MappingLocalType resolved_ = _an.getAnalyzing().getMappingLocal().getVal(type_);
-        if (resolved_ != null) {
-            setAnalyzedType(resolved_.getFullName());
-            checkAccessLoop = true;
-            return;
-        }
         if (_local instanceof RootBlock) {
             if (skipImports(_an,_ready,(RootBlock)_local)) {
                 return;
@@ -237,22 +228,35 @@ final class AnaNamePartType extends AnaLeafPartType {
                                 RootBlock _local) {
         String type_ = getTypeName().trim();
         RootBlock p_ = _local;
-        StringList allAncestors_ = new StringList();
+        StringMap<ResultTypeAncestor> allAncestors_ = new StringMap<ResultTypeAncestor>();
+        MappingLocalType resolved_ = _an.getAnalyzing().getMappingLocal().getVal(type_);
+        if (resolved_ != null) {
+            ResultTypeAncestor res_ = new ResultTypeAncestor(true, resolved_.getSuffixedName());
+            res_.setResolvedType(resolved_.getType());
+            allAncestors_.addEntry(resolved_.getParentType().getFullName(), res_);
+        }
         while (p_ != null) {
-            allAncestors_.add(p_.getFullName());
+            allAncestors_.add(p_.getFullName(), new ResultTypeAncestor(false,type_));
             p_ = p_.getParentType();
         }
-        for (String a: allAncestors_) {
+        for (EntryCust<String,ResultTypeAncestor> e: allAncestors_.entryList()) {
+            String a = e.getKey();
             if (!_ready.isReady(a)) {
                 return true;
             }
-            StringList owners_ = AnaTypeUtil.getOwners(a, type_, _an);
-            if (owners_.isEmpty()) {
-                continue;
-            }
-            if (owners_.onlyOneElt()) {
-                String new_ = owners_.first();
-                setAnalyzedType(StringList.concat(new_,"..",type_));
+            if (!e.getValue().isLocal()) {
+                StringList owners_ = AnaTypeUtil.getOwners(a, type_, _an);
+                if (owners_.isEmpty()) {
+                    continue;
+                }
+                if (owners_.onlyOneElt()) {
+                    String new_ = owners_.first();
+                    setAnalyzedType(StringList.concat(new_,"..",type_));
+                    owner = a;
+                }
+            } else {
+                String resType_ = e.getValue().getSimpleName();
+                setAnalyzedType(StringList.concat(a,"..",resType_));
                 owner = a;
             }
             return true;
