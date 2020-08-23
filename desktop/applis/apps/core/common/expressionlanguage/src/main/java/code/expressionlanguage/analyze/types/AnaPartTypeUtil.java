@@ -546,7 +546,7 @@ public final class AnaPartTypeUtil {
             _offs.add(new PartOffset("</a>",_loc+_input.length()));
             return new AnaResultPartType("",null);
         }
-        AnalyzingType loc_ = ParserType.analyzeLocal(0, _input.trim(), indexes_);
+        AnalyzingType loc_ = ParserType.analyzeLocalId(0, _input.trim(), indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         AnaPartType root_ = AnaPartType.createPartType(_an,false, null, 0, 0, loc_, loc_.getValues());
@@ -556,7 +556,7 @@ public final class AnaPartTypeUtil {
         addValues(root_, dels_, loc_);
         AnaPartType current_ = root_;
         while (true) {
-            AnaPartType child_ = createFirstChild(_an,false, current_, loc_, dels_);
+            AnaPartType child_ = createFirstChildId(_an,false, current_, loc_, dels_);
             if (child_ != null) {
                 addIfLeaf(child_,l_);
                 ((AnaParentPartType)current_).appendChild(child_);
@@ -571,7 +571,7 @@ public final class AnaPartTypeUtil {
                 } else {
                     processLeafOffsets(_an, _rooted, current_);
                 }
-                AnaPartType next_ = createNextSibling(_an,false, current_, loc_, dels_);
+                AnaPartType next_ = createNextSiblingId(_an,false, current_, loc_, dels_);
                 AnaParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     addIfLeaf(next_,l_);
@@ -783,6 +783,21 @@ public final class AnaPartTypeUtil {
         addValues(p_, _dels, an_);
         return p_;
     }
+    private static AnaPartType createFirstChildId(ContextEl _an, boolean _rootName,AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+        if (!(_parent instanceof AnaParentPartType)) {
+            return null;
+        }
+        AnaParentPartType par_ = (AnaParentPartType) _parent;
+        int off_ = par_.getIndexInType() + _dels.last().firstKey();
+        IntTreeMap< String> last_ = _dels.last();
+        String v_ = last_.firstValue();
+        off_ += StringList.getFirstPrintableCharIndex(v_);
+        AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _analyze.getIndexes());
+        AnaPartType p_ = AnaPartType.createPartType(_an,_rootName, par_, 0, off_, an_, last_);
+        p_.setLength(v_.trim().length());
+        addValues(p_, _dels, an_);
+        return p_;
+    }
 
     private static AnaPartType createNextSibling(AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         AnaParentPartType par_ = _parent.getParent();
@@ -830,6 +845,28 @@ public final class AnaPartTypeUtil {
         String v_ = last_.getValue(indexNext_);
         off_ += StringList.getFirstPrintableCharIndex(v_);
         AnalyzingType an_ = ParserType.analyzeLocal(off_, v_.trim(), _analyze.getIndexes());
+        AnaPartType p_ = AnaPartType.createPartType(_an,_rootName,b_,indexNext_, off_, an_, last_);
+        p_.setPreviousSibling(_parent);
+        p_.setLength(v_.trim().length());
+        addValues(p_, _dels, an_);
+        return p_;
+    }
+    private static AnaPartType createNextSiblingId(ContextEl _an,boolean _rootName, AnaPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+        AnaParentPartType par_ = _parent.getParent();
+        if (!(par_ instanceof AnaBinaryType)) {
+            return null;
+        }
+        AnaBinaryType b_ = (AnaBinaryType) par_;
+        int indexCur_ = _parent.getIndex();
+        int indexNext_ = indexCur_ + 1;
+        IntTreeMap< String> last_ = _dels.last();
+        if (last_.size() <= indexNext_) {
+            return null;
+        }
+        int off_ = par_.getIndexInType() + _dels.last().getKey(indexNext_);
+        String v_ = last_.getValue(indexNext_);
+        off_ += StringList.getFirstPrintableCharIndex(v_);
+        AnalyzingType an_ = ParserType.analyzeLocalId(off_, v_.trim(), _analyze.getIndexes());
         AnaPartType p_ = AnaPartType.createPartType(_an,_rootName,b_,indexNext_, off_, an_, last_);
         p_.setPreviousSibling(_parent);
         p_.setLength(v_.trim().length());

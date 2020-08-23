@@ -1,7 +1,6 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.util.CustList;
@@ -139,11 +138,6 @@ public final class ParserType {
     public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
-        if (_string.trim().isEmpty()) {
-            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
-            a_.setError(true);
-            return a_;
-        }
         if (StringExpUtil.isVar(_string)) {
             a_.setKind(KindPartType.VARIABLE);
             a_.setupValue(_string);
@@ -154,26 +148,51 @@ public final class ParserType {
             a_.setupValue(_string);
             return a_;
         }
-        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
-            a_.setKind(KindPartType.EMPTY_WILD_CARD);
+        return analyzeOther(_offset, _string, _indexes, a_);
+    }
+
+    public static AnalyzingType analyzeLocalId(int _offset, String _string, Ints _indexes) {
+        AnalyzingType a_ = new AnalyzingType();
+        a_.getIndexes().addAllElts(_indexes);
+        if (StringExpUtil.isVar(_string)) {
+            a_.setKind(KindPartType.VARIABLE);
             a_.setupValue(_string);
             return a_;
         }
-        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
-            a_.setPrio(WILD_CARD_PRIO);
-            a_.setupWildCardValues(Templates.SUB_TYPE, _string);
+        if (StringExpUtil.isTypeLeafPartExec(_string.trim())) {
+            a_.setKind(KindPartType.TYPE_NAME);
+            a_.setupValue(_string);
             return a_;
+        }
+        return analyzeOther(_offset, _string, _indexes, a_);
+    }
+
+    public static AnalyzingType analyzeOther(int _offset, String _string, Ints _indexes, AnalyzingType _a) {
+        if (_string.trim().isEmpty()) {
+            _a.getValues().put((int)CustList.FIRST_INDEX, _string);
+            _a.setError(true);
+            return _a;
+        }
+        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+            _a.setKind(KindPartType.EMPTY_WILD_CARD);
+            _a.setupValue(_string);
+            return _a;
+        }
+        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+            _a.setPrio(WILD_CARD_PRIO);
+            _a.setupWildCardValues(Templates.SUB_TYPE, _string);
+            return _a;
         }
         if (_string.trim().startsWith(Templates.SUP_TYPE)) {
             if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
-                a_.setError(true);
+                _a.setError(true);
             }
-            a_.setPrio(WILD_CARD_PRIO);
-            a_.setupWildCardValues(Templates.SUP_TYPE, _string);
-            return a_;
+            _a.setPrio(WILD_CARD_PRIO);
+            _a.setupWildCardValues(Templates.SUP_TYPE, _string);
+            return _a;
         }
-        if (tryGetArray(a_, _string)) {
-            return a_;
+        if (tryGetArray(_a, _string)) {
+            return _a;
         }
         int count_ = 0;
         int len_ = _string.length();
@@ -220,15 +239,15 @@ public final class ParserType {
         }
         if (operators_.isEmpty()) {
             if (StringExpUtil.isTypeLeaf(_string)) {
-                a_.setKind(KindPartType.TYPE_NAME);
-                a_.setupValue(_string);
-                return a_;
+                _a.setKind(KindPartType.TYPE_NAME);
+                _a.setupValue(_string);
+                return _a;
             }
         }
-        a_.getOperators().putAllMap(operators_);
-        a_.setPrio(prio_);
-        a_.setupValues(_string);
-        return a_;
+        _a.getOperators().putAllMap(operators_);
+        _a.setPrio(prio_);
+        _a.setupValues(_string);
+        return _a;
     }
 
     public static AnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
