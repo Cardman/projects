@@ -61,6 +61,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private CustList<PartOffset> partOffsetsEnd = new CustList<PartOffset>();
     private int rootNumber = -1;
     private int memberNumber = -1;
+    private int operatorNumber = -1;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -1727,6 +1728,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             fileName = id_.getFileName();
             rootNumber = id_.getRootNumber();
             memberNumber = id_.getMemberNumber();
+            operatorNumber = id_.getMemberNumber();
             String foundClass_ = id_.getRealClass();
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
             foundClass = id_.getId().getClassName();
@@ -1761,6 +1763,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fileName = id_.getFileName();
         rootNumber = id_.getRootNumber();
         memberNumber = id_.getMemberNumber();
+        operatorNumber = id_.getMemberNumber();
         returnFieldType = id_.getOriginalReturnType();
         String foundClass_ = id_.getRealClass();
         foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
@@ -2132,6 +2135,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public int getRootNumber() {
         return rootNumber;
+    }
+
+    public int getOperatorNumber() {
+        return operatorNumber;
     }
 
     public int getMemberNumber() {

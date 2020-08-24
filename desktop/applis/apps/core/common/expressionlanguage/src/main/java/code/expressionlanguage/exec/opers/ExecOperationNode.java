@@ -98,8 +98,10 @@ public abstract class ExecOperationNode {
             if (_cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllNamed().getKeys().isValidIndex(_l.getMemberNumber())) {
                 return _cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllNamed().getValue(_l.getMemberNumber());
             }
-        } else if (_cont.getAnalyzing().getMapOperators().getKeys().isValidIndex(_l.getMemberNumber())) {
-            return _cont.getAnalyzing().getMapOperators().getValue(_l.getMemberNumber());
+            return null;
+        }
+        if (_cont.getAnalyzing().getMapOperators().getKeys().isValidIndex(_l.getOperatorNumber())) {
+            return _cont.getAnalyzing().getMapOperators().getValue(_l.getOperatorNumber());
         }
         return null;
     }
