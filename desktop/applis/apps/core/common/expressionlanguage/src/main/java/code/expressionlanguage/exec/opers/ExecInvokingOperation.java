@@ -414,6 +414,18 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             boolean invoke_ = StringList.quickEq(aliasInvoke_, _methodId.getName());
             boolean invokeDirect_ = StringList.quickEq(aliasInvokeDirect_, _methodId.getName());
+            if (invoke_ || invokeDirect_) {
+                MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
+                if (m_.isInvokable()) {
+                    String className_ = m_.getClassName();
+                    className_ = StringExpUtil.getIdFromAllTypes(className_);
+                    ExecRootBlock e_ = classes_.getClassBody(className_);
+                    if (e_ == null) {
+                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _previous, _firstArgs, false));
+                        return new Argument();
+                    }
+                }
+            }
             if (invoke_) {
                 MethodMetaInfo m_ = NumParsers.getMethod(_previous.getStruct());
                 if (!m_.isInvokable()) {

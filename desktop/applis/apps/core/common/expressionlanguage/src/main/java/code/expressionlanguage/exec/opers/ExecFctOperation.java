@@ -79,10 +79,6 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             if (_conf.callsOrException()) {
                 return new Argument();
             }
-            if (prev_.getStruct() instanceof ArrayStruct) {
-                firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-                return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
-            }
             String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
             if (staticChoiceMethod) {
                 String argClassName_ = prev_.getObjectClassName(_conf);

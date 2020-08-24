@@ -14,7 +14,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
+public final class ChoiceFctOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallFctOperation {
 
     private String methodName;
 

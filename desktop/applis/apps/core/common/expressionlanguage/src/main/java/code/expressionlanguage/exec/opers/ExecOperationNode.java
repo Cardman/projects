@@ -142,6 +142,24 @@ public abstract class ExecOperationNode {
             AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
             return new ExecAnnotationInstanceOperation(n_);
         }
+        if (_anaNode instanceof FctOperation) {
+            FctOperation f_ = (FctOperation) _anaNode;
+            if (f_.isClonedMethod()) {
+                return new ExecCloneOperation(f_);
+            }
+        }
+        if (_anaNode instanceof InvokingOperation && _anaNode instanceof AbstractCallFctOperation) {
+            InvokingOperation i_ = (InvokingOperation) _anaNode;
+            AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
+            ClassMethodId classMethodId_ = a_.getClassMethodId();
+            if (classMethodId_ != null) {
+                String className_ = classMethodId_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                if (_cont.getAnalyzing().getAnaClassBody(className_) == null) {
+                    return new ExecStdFctOperation(i_,a_);
+                }
+            }
+        }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor n_ = (InterfaceFctConstructor) _anaNode;
             return new ExecInterfaceFctConstructor(n_);

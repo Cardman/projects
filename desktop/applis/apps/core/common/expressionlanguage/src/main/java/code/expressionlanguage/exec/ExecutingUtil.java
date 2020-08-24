@@ -330,6 +330,8 @@ public final class ExecutingUtil {
             pageLoc_ = new CastRefectMethodPageEl(false);
         } else if (_reflect == ReflectingType.CAST_DIRECT) {
             pageLoc_ = new CastRefectMethodPageEl(true);
+        } else if (_reflect == ReflectingType.STD_FCT) {
+            pageLoc_ = new DirectStdRefectMethodPageEl();
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {
             pageLoc_ = new ReflectConstructorPageEl();
         } else if (_reflect == ReflectingType.GET_FIELD) {

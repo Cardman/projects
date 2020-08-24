@@ -3080,7 +3080,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStdFctOperation fct_ = getStdFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("java.lang.CharSequence", cid_.getClassName());
@@ -3377,7 +3377,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStdFctOperation fct_ = getStdFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("java.lang.CharSequence", cid_.getClassName());
@@ -3415,7 +3415,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStdFctOperation fct_ = getStdFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("java.lang.CharSequence", cid_.getClassName());
@@ -4830,6 +4830,14 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {
                 return (ExecFctOperation) o;
+            }
+        }
+        return null;
+    }
+    private static ExecStdFctOperation getStdFct(CustList<ExecOperationNode> _f) {
+        for (ExecOperationNode o: _f) {
+            if (o instanceof ExecStdFctOperation) {
+                return (ExecStdFctOperation) o;
             }
         }
         return null;

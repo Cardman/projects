@@ -1591,6 +1591,29 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
     }
     @Test
+    public void calculate79Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $static $int[] field;\n");
+        xml_.append(" $static $int[] other;\n");
+        xml_.append(" $static{\n");
+        xml_.append("  other = field.clone();\n");
+        xml_.append("  other[0]+=2;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+    }
+    @Test
     public void calculateFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
