@@ -1184,54 +1184,28 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
-        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
-        CustList<Argument> firstArgs_;
+        ContextEl ctx_ = _conf.getContext();
         MethodId methodId_ = _rend.getClassMethodId().getConstraints();
         String lastType_ = _rend.getLastType();
-        int naturalVararg_ = _rend.getNaturalVararg();
         String classNameFound_;
         Argument prev_ = new Argument();
         if (!_rend.isStaticMethod()) {
             classNameFound_ = _rend.getClassMethodId().getClassName();
-            prev_.setStruct(ExecTemplates.getParent(_rend.getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
-            if (_conf.getContext().hasException()) {
-                Argument a_ = new Argument();
-                return a_;
-            }
-            if (prev_.getStruct() instanceof ArrayStruct) {
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-                return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
-            }
-            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
-            if (_rend.isStaticChoiceMethod()) {
-                String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-                methodId_ = _rend.getClassMethodId().getConstraints();
-            } else {
-                Struct previous_ = prev_.getStruct();
-                ContextEl context_ = _conf.getContext();
-                ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, _rend.getClassMethodId());
-                String argClassName_ = stds_.getStructClassName(previous_, context_);
-                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
-                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-                methodId_ = methodToCall_.getConstraints();
-                classNameFound_ = methodToCall_.getClassName();
-            }
-        } else {
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            classNameFound_ = _rend.getClassMethodId().getClassName();
-            if (_conf.hasToExit(classNameFound_)) {
-                return Argument.createVoid();
+            Struct argPrev_ = _previous.getStruct();
+            prev_.setStruct(ExecTemplates.getParent(0, classNameFound_, argPrev_, ctx_));
+            if (ctx_.hasException()) {
+                return new Argument();
             }
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
+        classNameFound_ = _rend.getClassMethodId().getClassName();
+        classNameFound_ = _rend.getClassMethodId().formatType(classNameFound_,ctx_);
+        lastType_ = _rend.getClassMethodId().formatType(classNameFound_,lastType_,ctx_);
+        CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
+        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, _rend.getNaturalVararg(), lastType_, _arguments);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),ctx_, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     private void forwardMap(Struct _map, Struct _to, Struct _key, Configuration _conf) {

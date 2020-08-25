@@ -1996,6 +1996,20 @@ public final class RenderTextTest extends CommonRender {
         assertNull(getException(conf_));
     }
     @Test
+    public void process51Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"StringBuilder\" value=\"arg\"/>{arg.append(0)}</body></html>";
+        Configuration conf_ = contextElFive();
+        conf_.setMessagesFolder(folder_);
+        conf_.setProperties(new StringMap<String>());
+        conf_.getProperties().put("msg_example", relative_);
+        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
+        assertTrue(conf_.isEmptyErrors());
+        RendBlock.getRes(rendDocumentBlock_,conf_);
+        assertNotNull(getException(conf_));
+    }
+    @Test
     public void process0FailTest() {
         String locale_ = "en";
         String folder_ = "messages";

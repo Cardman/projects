@@ -186,7 +186,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonFctArgument(RendFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);

@@ -1,12 +1,22 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendFctOperation extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
 
@@ -53,7 +63,49 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     }
 
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return _conf.getAdvStandards().getCommonFctArgument(this,_previous,_arguments,_conf);
+        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
+        int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
+        setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
+        LgNames stds_ = _conf.getStandards();
+        CustList<Argument> firstArgs_;
+        MethodId methodId_ = getClassMethodId().getConstraints();
+        String lastType_ = getLastType();
+        int naturalVararg_ = getNaturalVararg();
+        String classNameFound_;
+        Argument prev_ = new Argument();
+        if (!isStaticMethod()) {
+            classNameFound_ = getClassMethodId().getClassName();
+            prev_.setStruct(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
+            if (_conf.getContext().hasException()) {
+                Argument a_ = new Argument();
+                return a_;
+            }
+            String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+            if (isStaticChoiceMethod()) {
+                String argClassName_ = prev_.getObjectClassName(_conf.getContext());
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+                methodId_ = getClassMethodId().getConstraints();
+            } else {
+                Struct previous_ = prev_.getStruct();
+                ContextEl context_ = _conf.getContext();
+                ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, getClassMethodId());
+                String argClassName_ = stds_.getStructClassName(previous_, context_);
+                String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
+                lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+                firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+                methodId_ = methodToCall_.getConstraints();
+                classNameFound_ = methodToCall_.getClassName();
+            }
+        } else {
+            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            classNameFound_ = getClassMethodId().getClassName();
+            if (_conf.hasToExit(classNameFound_)) {
+                return Argument.createVoid();
+            }
+        }
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     public ClassMethodId getClassMethodId() {

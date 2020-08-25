@@ -43,10 +43,8 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
         String classNameFound_;
@@ -62,7 +60,8 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         classNameFound_ = classMethodId.getClassName();
         classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
         lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
-        firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments);
+        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments);
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 

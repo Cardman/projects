@@ -2,6 +2,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -141,6 +142,24 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof ConstantOperation) {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new RendConstantOperation(c_);
+        }
+        if (_anaNode instanceof FctOperation) {
+            FctOperation f_ = (FctOperation) _anaNode;
+            if (f_.isClonedMethod()) {
+                return new RendCloneOperation(f_);
+            }
+        }
+        if (_anaNode instanceof InvokingOperation && _anaNode instanceof AbstractCallFctOperation) {
+            InvokingOperation i_ = (InvokingOperation) _anaNode;
+            AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
+            ClassMethodId classMethodId_ = a_.getClassMethodId();
+            if (classMethodId_ != null) {
+                String className_ = classMethodId_.getClassName();
+                className_ = StringExpUtil.getIdFromAllTypes(className_);
+                if (_cont.getAnalyzing().getAnaClassBody(className_) == null) {
+                    return new RendStdFctOperation(i_,a_);
+                }
+            }
         }
         if (_anaNode instanceof CallDynMethodOperation) {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _anaNode;

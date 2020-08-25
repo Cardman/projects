@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -20,16 +19,10 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
 
     private ClassMethodId classMethodId;
 
-    private String lastType;
-
-    private int naturalVararg;
-
     protected ExecCloneOperation(FctOperation _fct) {
         super(_fct);
         methodName = _fct.getMethodName();
         classMethodId = _fct.getClassMethodId();
-        lastType = _fct.getLastType();
-        naturalVararg = _fct.getNaturalVararg();
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
@@ -40,21 +33,23 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
     }
 
     Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_;
-        MethodId methodId_ = classMethodId.getConstraints();
-        String lastType_ = lastType;
+        return cloneArray(_previous, _arguments, _conf, classMethodId);
+    }
+
+    public static Argument cloneArray(Argument _previous, CustList<Argument> _arguments, ContextEl _conf, ClassMethodId _classMethodId) {
+        MethodId methodId_ = _classMethodId.getConstraints();
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = _classMethodId.getClassName();
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(ExecTemplates.getParent(0, classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments);
+        CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
+        CustList<Argument> firstArgs_ = listArguments(chidren_, -1, "", _arguments);
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
