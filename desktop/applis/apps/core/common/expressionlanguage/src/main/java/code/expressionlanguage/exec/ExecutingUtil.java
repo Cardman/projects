@@ -332,6 +332,10 @@ public final class ExecutingUtil {
             pageLoc_ = new CastRefectMethodPageEl(true);
         } else if (_reflect == ReflectingType.STD_FCT) {
             pageLoc_ = new DirectStdRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.CLONE_FCT) {
+            pageLoc_ = new DirectCloneRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.ANNOT_FCT) {
+            pageLoc_ = new DirectAnnotationRefectMethodPageEl();
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {
             pageLoc_ = new ReflectConstructorPageEl();
         } else if (_reflect == ReflectingType.GET_FIELD) {

@@ -1,6 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.AnnotationBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -156,8 +158,12 @@ public abstract class RendDynOperationNode {
             if (classMethodId_ != null) {
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
-                if (_cont.getAnalyzing().getAnaClassBody(className_) == null) {
+                RootBlock classBody_ = _cont.getAnalyzing().getAnaClassBody(className_);
+                if (classBody_ == null) {
                     return new RendStdFctOperation(i_,a_);
+                }
+                if (classBody_ instanceof AnnotationBlock) {
+                    return new RendAnnotationMethodOperation(i_,a_);
                 }
             }
         }

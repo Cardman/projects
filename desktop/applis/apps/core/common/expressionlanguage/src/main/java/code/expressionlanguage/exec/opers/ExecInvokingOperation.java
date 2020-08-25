@@ -202,30 +202,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasAnnotated_ = stds_.getAliasAnnotated();
         String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
         String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
-        if (!_methodId.isStaticMethod()) {
-            String clName_ = _previous.getObjectClassName(_cont);
-            Struct prev_ =_previous.getStruct();
-            if (prev_ instanceof ArrayStruct) {
-                //clone object
-                Argument a_ = new Argument();
-                ArrayStruct arr_ = (ArrayStruct) prev_;
-                ArrayStruct copy_ = arr_.swallowCopy();
-                _cont.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
-                a_.setStruct(copy_);
-                return a_;
-            }
-            if (prev_ instanceof AnnotationStruct) {
-                Struct ret_ = getInstanceField(clName_, _methodId.getName(),_previous,_cont).getStruct();
-                Argument a_ = new Argument();
-                if (ret_ instanceof ArrayStruct) {
-                    ArrayStruct orig_ = (ArrayStruct) ret_;
-                    a_.setStruct(orig_.swallowCopy());
-                } else {
-                    a_.setStruct(ret_);
-                }
-                return a_;
-            }
-        }
         if (StringList.quickEq(aliasAnnotated_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
@@ -420,8 +396,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     String className_ = m_.getClassName();
                     className_ = StringExpUtil.getIdFromAllTypes(className_);
                     ExecRootBlock e_ = classes_.getClassBody(className_);
-                    if (e_ == null) {
-                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _previous, _firstArgs, false));
+                    if (e_ == null&&!FunctionIdUtil.isOperatorName(m_.getFid())) {
+                        if (_cont.getStandards().getStandards().getVal(className_) != null) {
+                            _cont.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _previous, _firstArgs, false));
+                            return new Argument();
+                        }
+                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _previous, _firstArgs, false));
+                        return new Argument();
+                    }
+                    if (e_ instanceof ExecAnnotationBlock) {
+                        _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _previous, _firstArgs, false));
                         return new Argument();
                     }
                 }
@@ -604,7 +588,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return "";
     }
 
-    private static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
+    public static String checkParams(ContextEl _conf, String _classNameFound, Identifiable _methodId,
                                       Argument _previous, CustList<Argument> _firstArgs,
                                       Argument _right) {
         LgNames stds_ = _conf.getStandards();
@@ -897,6 +881,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return new Argument();
             }
             _conf.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _pr, _nList, true));
+            return new Argument();
+        }
+        MethodMetaInfo m_ = NumParsers.getMethod(_l.getMetaInfo());
+        String className_ = m_.getClassName();
+        className_ = StringExpUtil.getIdFromAllTypes(className_);
+        ExecRootBlock e_ = _conf.getClasses().getClassBody(className_);
+        if (e_ == null) {
+            if (_conf.getStandards().getStandards().getVal(className_) != null) {
+                _conf.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _pr, _nList, false));
+                return new Argument();
+            }
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _pr, _nList, false));
+            return new Argument();
+        }
+        if (e_ instanceof ExecAnnotationBlock) {
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _pr, _nList, false));
             return new Argument();
         }
         if (!_l.isPolymorph()) {

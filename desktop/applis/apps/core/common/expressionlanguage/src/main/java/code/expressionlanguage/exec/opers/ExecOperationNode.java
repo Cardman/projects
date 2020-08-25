@@ -3,6 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.blocks.AnnotationBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecInfoBlock;
@@ -155,8 +157,12 @@ public abstract class ExecOperationNode {
             if (classMethodId_ != null) {
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
-                if (_cont.getAnalyzing().getAnaClassBody(className_) == null) {
+                RootBlock classBody_ = _cont.getAnalyzing().getAnaClassBody(className_);
+                if (classBody_ == null) {
                     return new ExecStdFctOperation(i_,a_);
+                }
+                if (classBody_ instanceof AnnotationBlock) {
+                    return new ExecAnnotationMethodOperation(i_,a_);
                 }
             }
         }

@@ -14,7 +14,11 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecTypeVar;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -46,6 +50,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextUtil.isFinalField(cont_,new ClassField("",""));
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
+        ExecInvokingOperation.polymorph(cont_,NullStruct.NULL_VALUE,new ClassMethodId("", new MethodId(MethodAccessKind.INSTANCE,"", new StringList())));
     }
 
     @Test

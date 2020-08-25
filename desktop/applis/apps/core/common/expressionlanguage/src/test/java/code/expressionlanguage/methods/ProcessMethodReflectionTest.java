@@ -6670,6 +6670,63 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         calculateError("pkg.Apply", id_, args_, cont_);
     }
     @Test
+    public void calculateArgument502Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoInt()1i;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr[0i];\n");
+        xml_.append("  $if ($class(MyAnnot).getDeclaredMethods()[0].invoke(a) != 1i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument503Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $annotation pkg.MyAnnot {\n");
+        xml_.append(" $int infoInt()1i;\n");
+        xml_.append("}\n");
+        xml_.append("$public $annotation pkg.MyAnnot2 {\n");
+        xml_.append(" $int infoInt()1i;\n");
+        xml_.append("}\n");
+        xml_.append("@MyAnnot\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $Annotation[] arr = $class(Ex).getAnnotations();\n");
+        xml_.append("  MyAnnot a = $(MyAnnot)arr[0i];\n");
+        xml_.append("  $if ($class(MyAnnot2).getDeclaredMethods()[0].invoke(a) != 1i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
     public void processEl_1Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
