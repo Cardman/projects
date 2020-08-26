@@ -18,7 +18,7 @@ public final class ExecEnumValueOfOperation extends ExecAbstractUnaryOperation {
         super(_e);
         className = _e.getClassName();
         argOffset = _e.getArgOffset();
-        rootBlock = fetchType(_e,_cont);
+        rootBlock = fetchType(_cont, _e.getNumberEnum());
     }
 
     @Override

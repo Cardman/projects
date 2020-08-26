@@ -26,10 +26,6 @@ public final class StandardConstructor extends StandardNamedFunction implements 
         return new ConstructorId(name_, pTypes_, isVarargs());
     }
 
-    public String getDeclaringType() {
-        return getOwner().getFullName();
-    }
-
     @Override
     public ConstructorId getId() {
         StandardType clBlock_ = getOwner();

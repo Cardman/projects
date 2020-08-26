@@ -5,10 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
-import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -347,11 +344,11 @@ public final class ExecTemplates {
             arr_[i] = _args.get(i).getStruct();
         }
     }
-    public static Struct okArgsEx(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    public static Struct okArgsEx(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof MethodId) {
-            hasFormat_ = ((MethodId)_id).canAccessParamTypes() || _format;
+            hasFormat_ = ((MethodId) _id).canAccessParamTypes();
         } else {
             hasFormat_ = true;
         }
@@ -407,26 +404,91 @@ public final class ExecTemplates {
                 for (Struct s: arr_.getInstance()) {
                     ErrorType state_ = checkElement(arr_, s, _conf);
                     if (state_ != ErrorType.NOTHING) {
-                        LgNames stds_ = _conf.getStandards();
-                        if (state_ == ErrorType.NPE) {
-                            String npe_ = stds_.getAliasNullPe();
-                            return new ErrorStruct(_conf,npe_);
-                        } else {
-                            String arrType_ = arr_.getClassName();
-                            String param_ = StringExpUtil.getQuickComponentType(arrType_);
-                            String arg_ = stds_.getStructClassName(s, _conf);
-                            String cast_ = stds_.getAliasStore();
-                            StringBuilder mess_ = new StringBuilder();
-                            mess_.append(arg_);
-                            mess_.append("!=");
-                            mess_.append(param_);
-                            return new ErrorStruct(_conf,mess_.toString(),cast_);
-                        }
+                        return processError(_conf, arr_, s, state_);
                     }
                 }
             }
         }
-        if (_id instanceof MethodId) {
+        return null;
+    }
+    public static Struct okArgsEx(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        StringList params_ = new StringList();
+        boolean hasFormat_;
+        if (_id instanceof GeneMethod) {
+            hasFormat_ = ((GeneMethod)_id).getId().canAccessParamTypes() || _format;
+        } else {
+            hasFormat_ = true;
+        }
+        if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
+            LgNames stds_ = _conf.getStandards();
+            String npe_ = stds_.getAliasIllegalArg();
+            return new ErrorStruct(_conf,npe_);
+        }
+        if (_id == null) {
+            if (_firstArgs.size() != params_.size()) {
+                LgNames stds_ = _conf.getStandards();
+                String cast_ = stds_.getAliasBadIndex();
+                StringBuilder mess_ = new StringBuilder();
+                mess_.append(_firstArgs.size());
+                mess_.append(">=");
+                mess_.append(params_.size());
+                return new ErrorStruct(_conf,mess_.toString(),cast_);
+            }
+            return null;
+        }
+        if (hasFormat_) {
+            int i_ = 0;
+            for (String c: _id.getImportedParametersTypes()) {
+                String c_ = c;
+                c_ = quickFormat(_classNameFound, c_, _conf);
+                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
+                    c_ = StringExpUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        } else {
+            int i_ = 0;
+            for (String c: _id.getImportedParametersTypes()) {
+                String c_ = c;
+                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
+                    c_ = StringExpUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        }
+        if (_firstArgs.size() != params_.size()) {
+            LgNames stds_ = _conf.getStandards();
+            String cast_ = stds_.getAliasBadIndex();
+            StringBuilder mess_ = new StringBuilder();
+            mess_.append(_firstArgs.size());
+            mess_.append(">=");
+            mess_.append(params_.size());
+            return new ErrorStruct(_conf,mess_.toString(),cast_);
+        }
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _firstArgs) {
+            String param_ = params_.get(i_);
+            Struct ex_ = checkObjectEx(param_, a, _conf);
+            if (ex_ != null) {
+                return ex_;
+            }
+            i_++;
+        }
+        if (_id.isVarargs()) {
+            Struct str_ = _firstArgs.last().getStruct();
+            if (str_ instanceof ArrayStruct) {
+                ArrayStruct arr_ = (ArrayStruct) str_;
+                for (Struct s: arr_.getInstance()) {
+                    ErrorType state_ = checkElement(arr_, s, _conf);
+                    if (state_ != ErrorType.NOTHING) {
+                        return processError(_conf, arr_, s, state_);
+                    }
+                }
+            }
+        }
+        if (_id instanceof GeneMethod) {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
                 String id_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
@@ -434,7 +496,7 @@ public final class ExecTemplates {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }
-                    if(!g.getId().eqPartial((MethodId) _id)) {
+                    if(!g.getId().eqPartial(((GeneMethod) _id).getId())) {
                         continue;
                     }
                     String type_ = g.getImportedReturnType();
@@ -448,11 +510,41 @@ public final class ExecTemplates {
         }
         return null;
     }
-    public static boolean okArgs(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+
+    private static Struct processError(ContextEl _conf, ArrayStruct arr_, Struct s, ErrorType state_) {
+        LgNames stds_ = _conf.getStandards();
+        if (state_ == ErrorType.NPE) {
+            String npe_ = stds_.getAliasNullPe();
+            return new ErrorStruct(_conf,npe_);
+        } else {
+            String arrType_ = arr_.getClassName();
+            String param_ = StringExpUtil.getQuickComponentType(arrType_);
+            String arg_ = stds_.getStructClassName(s, _conf);
+            String cast_ = stds_.getAliasStore();
+            StringBuilder mess_ = new StringBuilder();
+            mess_.append(arg_);
+            mess_.append("!=");
+            mess_.append(param_);
+            return new ErrorStruct(_conf,mess_.toString(),cast_);
+        }
+    }
+
+    public static boolean okArgs(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Struct ex_ = okArgsSet(_id, _classNameFound, _firstArgs, _conf, _right);
+        return ex_ == null;
+    }
+    public static boolean okArgs(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsSet(_id, _format, _classNameFound, _firstArgs, _conf, _right);
         return ex_ == null;
     }
-    public static Struct okArgsSet(Identifiable _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _right);
+        if (ex_ != null) {
+            _conf.setException(ex_);
+        }
+        return ex_;
+    }
+    public static Struct okArgsSet(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsEx(_id, _format, _classNameFound, _firstArgs, _conf, _right);
         if (ex_ != null) {
             _conf.setException(ex_);

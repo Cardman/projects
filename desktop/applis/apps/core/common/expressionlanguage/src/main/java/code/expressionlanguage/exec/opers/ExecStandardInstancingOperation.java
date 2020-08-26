@@ -4,6 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -28,7 +30,9 @@ public final class ExecStandardInstancingOperation extends
     private int naturalVararg;
 
     private String lastType;
-    public ExecStandardInstancingOperation(StandardInstancingOperation _s) {
+    private ExecRootBlock rootBlock;
+    private ExecNamedFunctionBlock ctor;
+    public ExecStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
         super(_s);
         methodName = _s.getMethodName();
         constId = _s.getConstId();
@@ -37,6 +41,8 @@ public final class ExecStandardInstancingOperation extends
         blockIndex = _s.getBlockIndex();
         naturalVararg = _s.getNaturalVararg();
         lastType = _s.getLastType();
+        rootBlock = _rootBlock;
+        ctor = _ctor;
     }
 
     @Override
@@ -69,7 +75,7 @@ public final class ExecStandardInstancingOperation extends
         }
         String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
-        return instancePrepareFormat(_conf.getLastPage(),_conf, className_, constId, _previous, firstArgs_, fieldName, blockIndex);
+        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
     }
 
     public ConstructorId getConstId() {

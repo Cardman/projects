@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -30,6 +31,7 @@ public final class MethodInfo implements Parametrable {
     private boolean varArgWrap;
     private boolean abstractMethod;
     private InvocationMethod invocation;
+    private StandardMethod standardMethod;
     private CustList<CustList<ClassMethodId>> implicits = new CustList<CustList<ClassMethodId>>();
 
     public MethodId getConstraints() {
@@ -200,4 +202,13 @@ public final class MethodInfo implements Parametrable {
     public void setRootNumber(int rootNumber) {
         this.rootNumber = rootNumber;
     }
+
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
+    }
+
+    public void setStandardMethod(StandardMethod standardMethod) {
+        this.standardMethod = standardMethod;
+    }
+
 }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 
 public final class CallConstructor {
@@ -7,7 +8,7 @@ public final class CallConstructor {
     private String fieldName;
     private int childIndex;
 
-    private ConstructorId id;
+    private ExecNamedFunctionBlock id;
 
     private Argument argument;
 
@@ -27,11 +28,11 @@ public final class CallConstructor {
         childIndex = _childIndex;
     }
 
-    public ConstructorId getId() {
+    public ExecNamedFunctionBlock getId() {
         return id;
     }
 
-    public void setId(ConstructorId _id) {
+    public void setId(ExecNamedFunctionBlock _id) {
         id = _id;
     }
 

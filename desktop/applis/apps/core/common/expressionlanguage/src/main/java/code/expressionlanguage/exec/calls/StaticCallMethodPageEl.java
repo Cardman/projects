@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
@@ -36,9 +37,9 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return Argument.createVoid();
         }
-        return prepareStaticCall(_mid,_args,res_,_context.getLastPage(),_context);
+        return prepareStaticCall(getMethodToCallBody(),_args,res_,_context.getLastPage(),_context);
     }
-    private static Argument prepareStaticCall(MethodId _castOpId, CustList<Argument> _arguments, String _className,
+    private static Argument prepareStaticCall(ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments, String _className,
                                               PageEl _page, ContextEl _conf) {
         if (!ExplicitOperation.customCast(_className)) {
             LgNames stds_ = _conf.getStandards();
@@ -50,7 +51,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         return checkStaticCall(_castOpId, _arguments, _className, _page, _conf);
     }
 
-    private static Argument checkStaticCall(MethodId _castOpId, CustList<Argument> _arguments,
+    private static Argument checkStaticCall(ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments,
                                             String _className, PageEl _page, ContextEl _conf) {
         String paramName_ = _page.formatVarType(_className, _conf);
         if (!ExecTemplates.okArgs(_castOpId,true, paramName_,_arguments, _conf, null)) {

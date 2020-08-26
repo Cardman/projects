@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
@@ -18,6 +20,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     private ClassMethodId converterFrom;
     private ClassMethodId converterTo;
 
@@ -68,9 +72,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodId cl_ = getIncrDecrOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
+        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
         if (cl_ != null) {
-            classMethodId = cl_;
+            String foundClass_ = cl_.getRealClass();
+            MethodId id_ = cl_.getRealId();
+            rootNumber = cl_.getRootNumber();
+            memberNumber = cl_.getMemberNumber();
+            classMethodId = new ClassMethodId(foundClass_,id_);
             return;
         }
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
@@ -125,5 +133,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public SettableElResult getSettable() {
         return settable;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

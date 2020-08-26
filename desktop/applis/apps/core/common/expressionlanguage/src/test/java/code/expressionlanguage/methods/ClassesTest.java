@@ -50,7 +50,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextUtil.isFinalField(cont_,new ClassField("",""));
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
-        ExecInvokingOperation.polymorph(cont_,NullStruct.NULL_VALUE,new ClassMethodId("", new MethodId(MethodAccessKind.INSTANCE,"", new StringList())));
     }
 
     @Test

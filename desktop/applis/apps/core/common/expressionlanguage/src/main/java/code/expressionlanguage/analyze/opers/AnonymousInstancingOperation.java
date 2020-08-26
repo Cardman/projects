@@ -23,6 +23,8 @@ public final class AnonymousInstancingOperation extends
     private String glClass;
     private String base;
     private int index;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public AnonymousInstancingOperation(int _index, int _indexChild,
                                         MethodOperation _m, OperationsSequence _op, AnonymousTypeBlock _block) {
@@ -174,6 +176,8 @@ public final class AnonymousInstancingOperation extends
         if (ctorRes_.getRealId() == null) {
             return;
         }
+        rootNumber = ctorRes_.getRootNumber();
+        memberNumber = ctorRes_.getMemberNumber();
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
         if (ctorRes_.isVarArgToCall()) {
@@ -197,5 +201,13 @@ public final class AnonymousInstancingOperation extends
 
     public int getIndex() {
         return index;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

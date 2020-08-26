@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
@@ -26,7 +27,8 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
 
     private int naturalVararg = -1;
     private int anc;
-    public RendSuperFctOperation(SuperFctOperation _s) {
+    private ExecNamedFunctionBlock named;
+    public RendSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named) {
         super(_s);
         methodName = _s.getMethodName();
         classMethodId = _s.getClassMethodId();
@@ -34,6 +36,7 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();
+        named = _named;
     }
 
     @Override
@@ -75,6 +78,6 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
                 return Argument.createVoid();
             }
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null,named);
     }
 }

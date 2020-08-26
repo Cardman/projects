@@ -2,6 +2,8 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -28,7 +30,9 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     private int naturalVararg = -1;
 
     private String lastType = EMPTY_STRING;
-    public RendStandardInstancingOperation(StandardInstancingOperation _s) {
+    private ExecRootBlock rootBlock;
+    private ExecNamedFunctionBlock ctor;
+    public RendStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
         super(_s);
         methodName = _s.getMethodName();
         constId = _s.getConstId();
@@ -37,14 +41,17 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         blockIndex = _s.getBlockIndex();
         naturalVararg = _s.getNaturalVararg();
         lastType = _s.getLastType();
+        rootBlock = _rootBlock;
+        ctor = _ctor;
     }
 
     public RendStandardInstancingOperation(ClassArgumentMatching _res,
-                                 ConstructorId _constId) {
+                                 ConstructorId _constId, ExecRootBlock _rootBlock) {
         super(0,_res,0,false,null);
         constId = _constId;
         className = constId.getName();
         methodName = constId.getName();
+        rootBlock = _rootBlock;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -73,10 +80,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         }
         String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf.getContext());
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
-        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_, getConstId(), _previous, firstArgs_, fieldName, blockIndex);
+        return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
     }
 
-    public ConstructorId getConstId() {
-        return constId;
-    }
 }

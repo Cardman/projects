@@ -1,23 +1,30 @@
 package code.expressionlanguage.functionid;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.util.StringMap;
 
 public class ClassMethodIdOverride {
-    private final ClassMethodId analyzedMethod;
-    private StringMap<ClassMethodId> redirections = new StringMap<ClassMethodId>();
+    private final ExecNamedFunctionBlock analyzedMethod;
+    private StringMap<ExecOverrideInfo> redirections = new StringMap<ExecOverrideInfo>();
 
-    public ClassMethodIdOverride(ClassMethodId analyzedMethod) {
+    public ClassMethodIdOverride(ExecNamedFunctionBlock analyzedMethod) {
         this.analyzedMethod = analyzedMethod;
     }
 
-    public ClassMethodId getAnalyzedMethod() {
+    public ExecNamedFunctionBlock getAnalyzedMethod() {
         return analyzedMethod;
     }
 
-    public ClassMethodId getVal(String _cl) {
+    public ExecOverrideInfo getVal(String _cl) {
         return redirections.getVal(_cl);
     }
-    public void put(String _cl, ClassMethodId _dest) {
-        redirections.put(_cl,_dest);
+
+    public void put(ContextEl _context, String _cl, ClassMethodId _dest) {
+        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(_context, StringExpUtil.getIdFromAllTypes(_dest.getClassName()), _dest.getConstraints()).first();
+        redirections.put(_cl, new ExecOverrideInfo(_dest.getClassName(),first_));
     }
 }

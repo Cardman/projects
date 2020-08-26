@@ -2,6 +2,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.QuickOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -13,11 +15,13 @@ import code.util.IdMap;
 public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,CallExecSimpleOperation {
 
     private ClassMethodId classMethodId;
-    private ClassMethodId converter;
-    public ExecQuickOperation(QuickOperation _q) {
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converter;
+    public ExecQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
         classMethodId = _q.getClassMethodId();
-        converter = _q.getConverter();
+        named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
+        converter = fetchImplicits(_context,_q.getConverter());
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -34,7 +38,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, named,Argument.createVoid(), firstArgs_);
             return;
         }
         Argument f_ = getArgument(_nodes,first_);
@@ -60,7 +64,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl(),_conf);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicitsCompound();
+        ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
             pair_.setIndexImplicitCompound(processConverter(_conf, _right, implicits_, indexImplicit_));
@@ -69,7 +73,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         setSimpleArgument(_right,_conf,_nodes);
     }
 
-    public ClassMethodId getConverter() {
+    public ImplicitMethods getConverter() {
         return converter;
     }
 

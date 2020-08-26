@@ -1,6 +1,8 @@
 package code.expressionlanguage.functionid;
 
 
+import code.expressionlanguage.stds.StandardMethod;
+
 public final class ClassMethodIdReturn {
 
     private final boolean foundMethod;
@@ -19,6 +21,8 @@ public final class ClassMethodIdReturn {
     private String fileName;
     private int rootNumber = -1;
     private int memberNumber = -1;
+    private StandardMethod standardMethod;
+
     public ClassMethodIdReturn(boolean _foundMethod) {
         foundMethod = _foundMethod;
     }
@@ -122,4 +126,13 @@ public final class ClassMethodIdReturn {
     public void setRootNumber(int rootNumber) {
         this.rootNumber = rootNumber;
     }
+
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
+    }
+
+    public void setStandardMethod(StandardMethod standardMethod) {
+        this.standardMethod = standardMethod;
+    }
+
 }

@@ -4,7 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -32,8 +35,10 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     private int naturalVararg;
 
     private int anc;
+    private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
 
-    protected ExecFctOperation(FctOperation _fct) {
+    protected ExecFctOperation(FctOperation _fct, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_fct);
         methodName = _fct.getMethodName();
         classMethodId = _fct.getClassMethodId();
@@ -42,16 +47,20 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         anc = _fct.getAnc();
+        named = _named;
+        rootBlock = _rootBlock;
     }
 
     public ExecFctOperation(ClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
-                            int _child, int _order) {
+                            int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_child,_res,_order,true,null);
         classMethodId = _classMethodId;
         methodName = classMethodId.getConstraints().getName();
         naturalVararg = -1;
         lastType = "";
+        named = _named;
+        rootBlock = _rootBlock;
     }
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
@@ -72,6 +81,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
+        ExecNamedFunctionBlock fct_ = named;
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             Struct argPrev_ = _previous.getStruct();
@@ -88,13 +98,14 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                 methodId_ = classMethodId.getConstraints();
             } else {
                 Struct previous_ = prev_.getStruct();
-                ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
+                ExecOverrideInfo polymorph_ = polymorph(_conf, previous_, rootBlock, named);
+                fct_ = polymorph_.getOverridableBlock();
                 String argClassName_ = stds_.getStructClassName(previous_, _conf);
                 String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
                 lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
                 firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-                methodId_ = methodToCall_.getConstraints();
-                classNameFound_ = methodToCall_.getClassName();
+                methodId_ = classMethodId.getConstraints();
+                classNameFound_ = polymorph_.getClassName();
             }
         } else {
             classNameFound_ = classMethodId.getClassName();
@@ -105,7 +116,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
                 return Argument.createVoid();
             }
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null,fct_);
     }
 
     public ClassMethodId getClassMethodId() {

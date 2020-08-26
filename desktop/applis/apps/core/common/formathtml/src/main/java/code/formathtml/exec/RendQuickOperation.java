@@ -1,6 +1,10 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.QuickOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -14,11 +18,13 @@ import code.util.IdMap;
 public abstract class RendQuickOperation extends RendMethodOperation implements RendCalculableOperation,RendCallable {
 
     private ClassMethodId classMethodId;
-    private ClassMethodId converter;
-    public RendQuickOperation(QuickOperation _q) {
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converter;
+    public RendQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
         classMethodId = _q.getClassMethodId();
-        converter = _q.getConverter();
+        named = ExecOperationNode.fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
+        converter = ExecOperationNode.fetchImplicits(_context,_q.getConverter());
     }
 
     @Override
@@ -38,7 +44,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
             CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument argres_ = processCall(this, this, Argument.createVoid(), firstArgs_, _conf, null);
             if (converter != null) {
-                Argument res_ = tryConvert(converter, argres_, _conf);
+                Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _conf);
                 if (res_ == null) {
                     return;
                 }
@@ -59,7 +65,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
         return Argument.createVoid();
     }
     public abstract boolean match(Struct _struct);

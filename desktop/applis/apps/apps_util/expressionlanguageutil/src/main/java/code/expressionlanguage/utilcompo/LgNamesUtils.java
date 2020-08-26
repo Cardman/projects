@@ -11,9 +11,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
-import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -1892,9 +1890,9 @@ public class LgNamesUtils extends LgNames {
             if (StringList.quickEq(type_, aliasObject_)) {
                 ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_)));
                 String className_ = polymorph_.getClassName();
-                MethodId ct_ = polymorph_.getConstraints();
+                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_))).first();
                 Argument arg_ = new Argument(_args[0]);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_),null));
                 return;
             }
         }
@@ -1904,10 +1902,10 @@ public class LgNamesUtils extends LgNames {
             String aliasObject_ = stds_.getAliasObject();
             ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true));
             String className_ = polymorph_.getClassName();
-            MethodId ct_ = polymorph_.getConstraints();
+            ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true)).first();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_,argArr_),null));
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_,argArr_),null));
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

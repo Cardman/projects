@@ -4,6 +4,8 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -3334,7 +3336,8 @@ public class LgNamesGui extends LgNamesUtils {
                 String className_ = polymorph_.getClassName();
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_,new CustList<Argument>(arg_),null));
+                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_),null));
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4175,7 +4178,8 @@ public class LgNamesGui extends LgNamesUtils {
                     MethodId ct_ = polymorph_.getConstraints();
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
+                    ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
+                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4188,7 +4192,8 @@ public class LgNamesGui extends LgNamesUtils {
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
+                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4215,7 +4220,8 @@ public class LgNamesGui extends LgNamesUtils {
             CustList<Argument> args_ = new CustList<Argument>(arg_);
             args_.add(new Argument(_args[0]));
             args_.add(new Argument(_args[1]));
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,ct_, args_,null));
+            ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
             return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {

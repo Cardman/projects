@@ -1,5 +1,7 @@
 package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.CustList;
 
@@ -10,11 +12,11 @@ public class ArgumentsPair {
     private boolean argumentTest;
     private boolean calcArgumentTest;
     private Argument previousArgument;
-    private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
-    private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
-    private CustList<ClassMethodId> implicitsCompound = new CustList<ClassMethodId>();
-    private CustList<ClassMethodId> implicitsSemiFrom = new CustList<ClassMethodId>();
-    private CustList<ClassMethodId> implicitsSemiTo = new CustList<ClassMethodId>();
+    private ImplicitMethods implicits = new ImplicitMethods();
+    private ImplicitMethods implicitsTest = new ImplicitMethods();
+    private ImplicitMethods implicitsCompound = new ImplicitMethods();
+    private ImplicitMethods implicitsSemiFrom = new ImplicitMethods();
+    private ImplicitMethods implicitsSemiTo = new ImplicitMethods();
     private int indexImplicit;
     private int indexImplicitTest;
     private int indexImplicitCompound;
@@ -67,43 +69,43 @@ public class ArgumentsPair {
         this.endCalculate = endCalculate;
     }
 
-    public CustList<ClassMethodId> getImplicits() {
+    public ImplicitMethods getImplicits() {
         return implicits;
     }
 
-    public void setImplicits(CustList<ClassMethodId> implicits) {
+    public void setImplicits(ImplicitMethods implicits) {
         this.implicits = implicits;
     }
 
-    public CustList<ClassMethodId> getImplicitsTest() {
+    public ImplicitMethods getImplicitsTest() {
         return implicitsTest;
     }
 
-    public void setImplicitsTest(CustList<ClassMethodId> implicitsTest) {
+    public void setImplicitsTest(ImplicitMethods implicitsTest) {
         this.implicitsTest = implicitsTest;
     }
 
-    public CustList<ClassMethodId> getImplicitsCompound() {
+    public ImplicitMethods getImplicitsCompound() {
         return implicitsCompound;
     }
 
-    public void setImplicitsCompound(CustList<ClassMethodId> implicitsCompound) {
+    public void setImplicitsCompound(ImplicitMethods implicitsCompound) {
         this.implicitsCompound = implicitsCompound;
     }
 
-    public CustList<ClassMethodId> getImplicitsSemiFrom() {
+    public ImplicitMethods getImplicitsSemiFrom() {
         return implicitsSemiFrom;
     }
 
-    public void setImplicitsSemiFrom(CustList<ClassMethodId> implicitsSemiFrom) {
+    public void setImplicitsSemiFrom(ImplicitMethods implicitsSemiFrom) {
         this.implicitsSemiFrom = implicitsSemiFrom;
     }
 
-    public CustList<ClassMethodId> getImplicitsSemiTo() {
+    public ImplicitMethods getImplicitsSemiTo() {
         return implicitsSemiTo;
     }
 
-    public void setImplicitsSemiTo(CustList<ClassMethodId> implicitsSemiTo) {
+    public void setImplicitsSemiTo(ImplicitMethods implicitsSemiTo) {
         this.implicitsSemiTo = implicitsSemiTo;
     }
 

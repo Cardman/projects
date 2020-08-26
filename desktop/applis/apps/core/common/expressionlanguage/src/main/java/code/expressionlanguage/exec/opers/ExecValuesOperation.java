@@ -19,7 +19,7 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
         super(_v);
         className = _v.getClassName();
         argOffset = _v.getArgOffset();
-        rootBlock = fetchType(_v,_cont);
+        rootBlock = fetchType(_cont, _v.getNumberEnum());
     }
 
 

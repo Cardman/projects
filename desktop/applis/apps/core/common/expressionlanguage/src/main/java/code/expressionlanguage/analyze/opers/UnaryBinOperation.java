@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -18,6 +19,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     private ClassMethodId classMethodId;
     private int opOffset;
     private boolean okNum;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public UnaryBinOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -32,10 +35,12 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         ClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        ClassMethodId clId_ = getUnaryOperatorOrMethod(this,child_.getResultClass(), oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_.getResultClass(), oper_, _conf);
         if (clId_ != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(clId_.getClassName(),_conf)) {
-                classMethodId = clId_;
+            if (!PrimitiveTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),_conf)) {
+                classMethodId = clId_.getSymbol();
+                rootNumber = clId_.getRootNumber();
+                memberNumber = clId_.getMemberNumber();
             }
             return;
         }
@@ -102,5 +107,15 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
     @Override
     public boolean isOkNum() {
         return okNum;
+    }
+
+    @Override
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    @Override
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

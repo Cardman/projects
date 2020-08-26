@@ -63,7 +63,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
@@ -91,7 +90,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
@@ -119,7 +117,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -152,7 +149,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -220,7 +216,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -247,7 +242,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -277,7 +271,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
@@ -308,7 +301,6 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));

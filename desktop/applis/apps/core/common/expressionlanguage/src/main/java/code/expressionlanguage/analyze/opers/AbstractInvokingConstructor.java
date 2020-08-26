@@ -4,10 +4,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
-import code.expressionlanguage.analyze.opers.util.ParametersGroup;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -34,6 +30,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private int offsetOper;
     private ClassArgumentMatching from;
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     public AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -90,6 +88,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             checkPositionBasis(_conf);
             return;
         }
+        rootNumber = ctorRes_.getRootNumber();
+        memberNumber = ctorRes_.getMemberNumber();
         constId = ctorRes_.getRealId();
         checkPositionBasis(_conf);
         postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
@@ -176,5 +176,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     public CustList<ConstructorInfo> getCtors() {
         return ctors;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

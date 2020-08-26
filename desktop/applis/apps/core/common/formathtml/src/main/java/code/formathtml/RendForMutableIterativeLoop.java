@@ -187,6 +187,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                 }
             }
             exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
+            RenderExpUtil.setImplicits(elCondition_,_cont.getContext());
         }
         buildIncrementPart(_cont,_doc);
     }

@@ -34,10 +34,6 @@ public final class StandardMethod extends StandardNamedFunction implements GeneC
         return modifier == MethodModifier.STATIC;
     }
 
-    public String getDeclaringType() {
-        return getOwner().getFullName();
-    }
-
     public MethodModifier getModifier() {
         return modifier;
     }

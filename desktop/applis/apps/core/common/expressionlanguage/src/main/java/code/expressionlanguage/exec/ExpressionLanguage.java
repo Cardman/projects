@@ -3,9 +3,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -138,28 +138,28 @@ public final class ExpressionLanguage {
             } else {
                 a_ = new TwoStepsArgumentsPair();
             }
-            a_.setImplicits(o.getResultClass().getImplicits());
-            a_.setImplicitsTest(o.getResultClass().getImplicitsTest());
+            a_.setImplicits(o.getImplicits());
+            a_.setImplicitsTest(o.getImplicitsTest());
             if (o instanceof ExecCompoundAffectationOperation) {
-                ClassMethodId conv_ = ((ExecCompoundAffectationOperation) o).getConverter();
+                ImplicitMethods conv_ = ((ExecCompoundAffectationOperation) o).getConverter();
                 if (conv_ != null) {
-                    a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
+                    a_.setImplicitsCompound(conv_);
                 }
             }
             if (o instanceof ExecQuickOperation) {
-                ClassMethodId conv_ = ((ExecQuickOperation) o).getConverter();
+                ImplicitMethods conv_ = ((ExecQuickOperation) o).getConverter();
                 if (conv_ != null) {
-                    a_.setImplicitsCompound(new CustList<ClassMethodId>(conv_));
+                    a_.setImplicitsCompound(conv_);
                 }
             }
             if (o instanceof ExecSemiAffectationOperation) {
-                ClassMethodId conv_ = ((ExecSemiAffectationOperation) o).getConverterFrom();
+                ImplicitMethods conv_ = ((ExecSemiAffectationOperation) o).getConverterFrom();
                 if (conv_ != null) {
-                    a_.setImplicitsSemiFrom(new CustList<ClassMethodId>(conv_));
+                    a_.setImplicitsSemiFrom(conv_);
                 }
                 conv_ = ((ExecSemiAffectationOperation) o).getConverterTo();
                 if (conv_ != null) {
-                    a_.setImplicitsSemiTo(new CustList<ClassMethodId>(conv_));
+                    a_.setImplicitsSemiTo(conv_);
                 }
             }
             a_.setArgument(o.getArgument());

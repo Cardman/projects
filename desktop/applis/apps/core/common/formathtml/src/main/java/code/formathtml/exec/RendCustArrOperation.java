@@ -3,7 +3,10 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -37,8 +40,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     private boolean staticChoiceMethod;
     private ClassArgumentMatching previous;
+    private ExecNamedFunctionBlock get;
+    private ExecNamedFunctionBlock set;
+    private ExecRootBlock rootBlock;
 
-    public RendCustArrOperation(ArrOperation _arr) {
+    public RendCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
@@ -48,6 +54,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
         previous = _arr.getPreviousResultClass();
+        get = _get;
+        set = _set;
+        rootBlock = _rootBlock;
     }
     public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
                             boolean _intermediate, Argument _previousArgument) {
@@ -59,6 +68,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         anc = _arr.anc;
         staticChoiceMethod = _arr.staticChoiceMethod;
         variable = true;
+        get = _arr.get;
+        set = _arr.set;
+        rootBlock = _arr.rootBlock;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -144,6 +156,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+        ExecNamedFunctionBlock fct_;
+        if (_right != null) {
+            fct_ = set;
+        } else {
+            fct_ = get;
+        }
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
             classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
@@ -161,18 +179,19 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         } else {
             Struct previous_ = prev_.getStruct();
             ContextEl context_ = _conf.getContext();
-            ClassMethodId methodToCall_ = ExecInvokingOperation.polymorph(context_, previous_, classMethodId);
+            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(context_, previous_, rootBlock, fct_);
+            fct_ = polymorph_.getOverridableBlock();
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            methodId_ = methodToCall_.getConstraints();
-            classNameFound_ = methodToCall_.getClassName();
+            methodId_ = classMethodId.getConstraints();
+            classNameFound_ = polymorph_.getClassName();
         }
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, _right);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, _right,fct_);
     }
 
     public ClassMethodId getClassMethodId() {

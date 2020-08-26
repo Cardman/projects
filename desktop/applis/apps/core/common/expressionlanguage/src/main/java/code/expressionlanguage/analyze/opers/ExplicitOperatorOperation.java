@@ -20,6 +20,8 @@ import code.util.StringMap;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
     private ClassMethodId classMethodId;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     private String methodName;
     private String lastType = EMPTY_STRING;
 
@@ -150,6 +152,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
             foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
         }
+        rootNumber = cust_.getRootNumber();
+        memberNumber = cust_.getMemberNumber();
         classMethodId = new ClassMethodId(foundClass_, cust_.getRealId());
         if (cust_.isVarArgToCall()) {
             StringList paramtTypes_ = cust_.getRealId().getParametersTypes();
@@ -189,5 +193,13 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public CustList<CustList<MethodInfo>> getMethodInfos() {
         return methodInfos;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

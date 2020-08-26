@@ -6,6 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -84,7 +85,14 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 previous_ = args_.first();
                 args_ = args_.mid(1);
             }
-            Argument arg_ = ExecInvokingOperation.instancePrepare(_context, res_, mid_, previous_, args_);
+            Argument arg_;
+            String base_ = StringExpUtil.getIdFromAllTypes(res_);
+            ExecRootBlock execSuperClass_ = _context.getClasses().getClassBody(base_);
+            if (execSuperClass_ != null) {
+                arg_ = ExecInvokingOperation.instancePrepare(_context, res_, execSuperClass_,method_.getCallee(), previous_, args_);
+            } else {
+                arg_ = ExecInvokingOperation.instancePrepareStd(_context, res_, mid_, args_);
+            }
             if (_context.callsOrException()) {
                 setWrapException(_context.calls());
                 return false;

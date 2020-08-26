@@ -11,8 +11,8 @@ import code.util.CustList;
 
 public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    public ExecSuperInvokingConstructor(SuperInvokingConstructor _super) {
-        super(_super);
+    public ExecSuperInvokingConstructor(SuperInvokingConstructor _super, ContextEl _context) {
+        super(_super,_context);
     }
 
     @Override
@@ -29,10 +29,9 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
         calledCtorTemp_ = superClass_;
-        checkParametersCtors(_conf, calledCtorTemp_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, calledCtorTemp_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 

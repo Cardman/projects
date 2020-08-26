@@ -60,6 +60,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
             }
         }
         exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
+        RenderExpUtil.setImplicits(elCondition_,_cont.getContext());
     }
 
     @Override

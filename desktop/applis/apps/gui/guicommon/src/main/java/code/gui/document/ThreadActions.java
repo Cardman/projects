@@ -158,7 +158,7 @@ public final class ThreadActions implements Runnable {
                         ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, id_, args_, ctx_, null);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, methods_.first(), args_, ctx_, null);
                         if (ctx_.hasException()) {
                             afterAction();
                             return;

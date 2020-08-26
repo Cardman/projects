@@ -25,6 +25,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     private String op;
     private boolean okNum;
     private int opOffset;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -68,6 +70,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (cl_.getSymbol() != null) {
             if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
                 classMethodId = cl_.getSymbol();
+                rootNumber = cl_.getRootNumber();
+                memberNumber = cl_.getMemberNumber();
             }
             return;
         }
@@ -229,5 +233,15 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     @Override
     public int getOpOffset() {
         return opOffset;
+    }
+
+    @Override
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    @Override
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

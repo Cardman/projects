@@ -25,7 +25,11 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecFunctionalInfo;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.*;
@@ -49,14 +53,18 @@ public final class ClassesUtil {
 
     public static void postValidation(ContextEl _context) {
         StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
+        StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
                 String foundClass_ = resDyn_.getRealClass();
                 MethodId id_ = resDyn_.getRealId();
+                ExecRootBlock ex_ = ExecOperationNode.fetchType(_context,resDyn_.getRootNumber());
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(),_context);
                 ClassMethodId methodId_ = new ClassMethodId(foundClass_, id_);
                 toStringMethodsToCall_.addEntry(e.getKey().getFullName(),methodId_);
+                toStringMethodsToCallBodies_.addEntry(e.getKey().getFullName(),new PolymorphMethod(ex_,fct_));
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
@@ -90,11 +98,11 @@ public final class ClassesUtil {
                     continue;
                 }
                 MethodId id_ = key_.getId();
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(new ClassMethodId(fullName_, id_));
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(),_context));
                 StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
                 map_.putAllMap(key_.getOverrides());
                 for (EntryCust<String,ClassMethodId> g: map_.entryList()) {
-                    override_.put(g.getKey(),g.getValue());
+                    override_.put(_context,g.getKey(),g.getValue());
                 }
                 redirections_.add(override_);
             }
@@ -109,7 +117,7 @@ public final class ClassesUtil {
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(),_context), root_.getFullName());
                             if (val_ == null) {
                                 FoundErrorInterpret err_;
                                 err_ = new FoundErrorInterpret();
@@ -131,19 +139,23 @@ public final class ClassesUtil {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_,root_.getGenericString()));
                 allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
                 for (AnaFormattedRootBlock s: allSuperClass_) {
-                    String base_ = StringExpUtil.getIdFromAllTypes(s.getFormatted());
                     RootBlock superBl_ = s.getRootBlock();
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ClassMethodId val_ = ex_.getRedirections().getVal(new ClassMethodId(base_, m.getId()), root_.getFullName());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(),_context), root_.getFullName());
                             if (val_ == null) {
                                 root_.getFunctional().add(new ClassMethodId(s.getFormatted(),m.getId()));
                             }
                         }
                     }
                 }
-                e.getValue().getFunctional().addAllElts(root_.getFunctional());
+                for (ClassMethodId c: root_.getFunctional()) {
+                    CustList<ExecOverridableBlock> list_ = ExecBlock.getDeepMethodBodiesById(_context, StringExpUtil.getIdFromAllTypes(c.getClassName()), c.getConstraints());
+                    for (ExecOverridableBlock d: list_) {
+                        e.getValue().getFunctionalBodies().add(new ExecFunctionalInfo(c.getClassName(),d));
+                    }
+                }
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
@@ -195,6 +207,9 @@ public final class ClassesUtil {
         res_.setRealClass(baseClassName_);
         res_.setReturnType(m_.getReturnType());
         res_.setAncestor(m_.getAncestor());
+        res_.setStandardMethod(m_.getStandardMethod());
+        res_.setRootNumber(m_.getRootNumber());
+        res_.setMemberNumber(m_.getMemberNumber());
         res_.setAbstractMethod(m_.isAbstractMethod());
         res_.setStaticMethod(m_.isStatic());
         return res_;
@@ -267,6 +282,8 @@ public final class ClassesUtil {
         ParametersGroup p_ = new ParametersGroup();
         MethodId id_ = _m.getId();
         MethodInfo mloc_ = new MethodInfo();
+        mloc_.setRootNumber(_m.getNumberRoot());
+        mloc_.setMemberNumber(_m.getNumberAll());
         mloc_.setClassName(_formattedClass);
         mloc_.setStaticMethod(id_.getKind());
         mloc_.setAbstractMethod(_m.isAbstractMethod());
@@ -387,14 +404,13 @@ public final class ClassesUtil {
                     }
                     _context.getAnalyzing().setGlobalClass(e.getKey().getGlClass());
                     e.getKey().postAnalyze(_context);
-                    e.getValue().setExecAnonymousInstancingOperation(e.getKey());
+                    e.getValue().setExecAnonymousInstancingOperation(e.getKey(),_context);
                 }
             }
             _context.getAnalyzing().getMapAnonymous().clear();
             validateEl(_context);
             AnaTypeUtil.checkInterfaces(_context);
         }
-        ValidatorStandard.buildIterable(_context);
 
     }
 

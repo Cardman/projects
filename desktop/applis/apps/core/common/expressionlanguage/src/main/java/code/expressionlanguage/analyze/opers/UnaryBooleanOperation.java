@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ClassMethodIdReturn;
@@ -17,6 +18,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     private ClassMethodId classMethodId;
     private int opOffset;
     private boolean okNum;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public UnaryBooleanOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -33,9 +36,11 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        ClassMethodId clId_ = getUnaryOperatorOrMethod(this,clMatch_, oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,clMatch_, oper_, _conf);
         if (clId_ != null) {
-            classMethodId = clId_;
+            classMethodId = clId_.getSymbol();
+            rootNumber = clId_.getRootNumber();
+            memberNumber = clId_.getMemberNumber();
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
@@ -94,5 +99,15 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     @Override
     public boolean isOkNum() {
         return okNum;
+    }
+
+    @Override
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    @Override
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

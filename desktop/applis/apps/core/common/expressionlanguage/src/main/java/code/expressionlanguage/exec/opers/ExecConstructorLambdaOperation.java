@@ -8,6 +8,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -18,13 +19,13 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
 
     private ConstructorId realId;
     private ExecAnnotableParametersBlock functionBlock;
-    private ExecMemberCallingsBlock function;
+    private ExecNamedFunctionBlock function;
 
     public ExecConstructorLambdaOperation(LambdaOperation _l, ContextEl _cont) {
         super(_l);
         realId = _l.getRealId();
-        functionBlock = fetchFunction(_l, _cont);
-        function = fetchFunction(_l, _cont);
+        functionBlock = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+        function = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
     }
 
     @Override
@@ -45,7 +46,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
         return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecMemberCallingsBlock function) {
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecNamedFunctionBlock function) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);

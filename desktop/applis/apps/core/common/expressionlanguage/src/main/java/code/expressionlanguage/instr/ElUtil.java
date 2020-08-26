@@ -13,6 +13,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
@@ -20,6 +21,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecPossibleIntermediateDotted;
 import code.expressionlanguage.exec.opers.ExecSemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -625,12 +627,14 @@ public final class ElUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an);
+        setImplicits(exp_,_an);
         _an.getAnalyzing().setCurrentRoot(root_);
         _an.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
+                setImplicits(loc_,_an);
                 _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
@@ -651,6 +655,7 @@ public final class ElUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
+                    setImplicits(loc_,_an);
                     _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
@@ -686,6 +691,17 @@ public final class ElUtil {
             }
         }
         return out_;
+    }
+    public static void setImplicits(ExecOperationNode _ex, ContextEl _context){
+        ClassArgumentMatching resultClass_ = _ex.getResultClass();
+        for (ClassMethodId c: resultClass_.getImplicits()) {
+            _ex.getImplicits().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
+            _ex.getImplicits().setOwnerClass(c.getClassName());
+        }
+        for (ClassMethodId c: resultClass_.getImplicitsTest()) {
+            _ex.getImplicitsTest().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
+            _ex.getImplicitsTest().setOwnerClass(c.getClassName());
+        }
     }
 
     public static int getNextIndex(OperationNode _operation, Struct _value) {

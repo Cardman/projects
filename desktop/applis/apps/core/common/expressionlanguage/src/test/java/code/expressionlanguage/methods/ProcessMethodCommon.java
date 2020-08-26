@@ -57,7 +57,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
+        ProcessMethod.calculateArgument(argGlLoc_, _class, method_, _args, _cont, null);
         Struct exc_ = getException(_cont);
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -70,7 +70,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, fct_, _args, _cont, null);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, method_, _args, _cont, null);
         assertNull(getException(_cont));
         return arg_;
     }
@@ -92,7 +92,7 @@ public abstract class ProcessMethodCommon {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, tryGet(_class, _cont, id_), _args, _cont);
         assertNotNull(getException(_cont));
         return arg_;
     }
@@ -105,10 +105,19 @@ public abstract class ProcessMethodCommon {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, id_, _args, _cont);
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, tryGet(_class, _cont, id_), _args, _cont);
         assertNull(getException(_cont));
         return arg_;
     }
+
+    private static ExecConstructorBlock tryGet(String _class, ContextEl _cont, ConstructorId id_) {
+        CustList<ExecConstructorBlock> list_ = ExecBlock.getConstructorBodiesById(_cont, _class, id_);
+        if (list_.isEmpty()) {
+            return null;
+        }
+        return list_.first();
+    }
+
     protected static ConstructorId getConstructorId(String _name, String..._classNames) {
         StringList cl_ = new StringList();
         for (String c: _classNames) {
@@ -362,7 +371,6 @@ public abstract class ProcessMethodCommon {
         LgNames stds_ = _context.getStandards();
         StringMap<String> files_ = stds_.buildFiles(_context);
         builtTypes(files_, _context, true);
-        ValidatorStandard.buildIterable(_context);
     }
 
     public static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {

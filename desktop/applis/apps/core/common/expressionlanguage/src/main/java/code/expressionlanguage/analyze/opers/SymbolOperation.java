@@ -9,4 +9,6 @@ public interface SymbolOperation {
     ClassMethodId getClassMethodId();
 
     boolean isOkNum();
+    int getRootNumber();
+    int getMemberNumber();
 }

@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
-import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
@@ -14,6 +12,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -37,7 +36,9 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     private String typeInfer = EMPTY_STRING;
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
-
+    private StandardMethod standardMethod;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -158,6 +159,8 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
                 setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
                 return;
             }
+            rootNumber = clMeth_.getRootNumber();
+            memberNumber = clMeth_.getMemberNumber();
             trueFalse = true;
             String foundClass_ = clMeth_.getRealClass();
             MethodId id_ = clMeth_.getRealId();
@@ -174,6 +177,9 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
+        standardMethod = clMeth_.getStandardMethod();
+        rootNumber = clMeth_.getRootNumber();
+        memberNumber = clMeth_.getMemberNumber();
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
@@ -257,4 +263,20 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     public boolean isTrueFalse() {
         return trueFalse;
     }
+
+    @Override
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
+    }
+
+    @Override
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    @Override
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
 }

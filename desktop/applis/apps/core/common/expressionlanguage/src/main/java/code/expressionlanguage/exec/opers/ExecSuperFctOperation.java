@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
@@ -24,10 +25,10 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
 
     private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
     private int anc;
-    private int delta;
-    public ExecSuperFctOperation(SuperFctOperation _s) {
+    private ExecNamedFunctionBlock named;
+    public ExecSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named) {
         super(_s);
         methodName = _s.getMethodName();
         classMethodId = _s.getClassMethodId();
@@ -35,7 +36,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();
-        delta = _s.getDelta();
+        named = _named;
     }
 
     @Override
@@ -78,7 +79,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
                 return Argument.createVoid();
             }
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null,named);
     }
 
     public ClassMethodId getClassMethodId() {

@@ -10,8 +10,8 @@ import code.util.CustList;
 
 public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    protected ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int) {
-        super(_int);
+    protected ExecInterfaceInvokingConstructor(InterfaceInvokingConstructor _int, ContextEl _context) {
+        super(_int,_context);
     }
 
     @Override
@@ -26,9 +26,8 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
-        checkParametersCtors(_conf, superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 

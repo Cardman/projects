@@ -1033,6 +1033,7 @@ public final class AliasReflection {
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
                         met_.setCallee(o);
+                        met_.setCalleeInv(o);
                         operators_.add(met_);
                     }
                     operators_.sortElts(new OperatorCmp());
@@ -1060,6 +1061,7 @@ public final class AliasReflection {
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
                         met_.setCallee(o);
+                        met_.setCalleeInv(o);
                         candidates_.add(met_);
                     }
                 }

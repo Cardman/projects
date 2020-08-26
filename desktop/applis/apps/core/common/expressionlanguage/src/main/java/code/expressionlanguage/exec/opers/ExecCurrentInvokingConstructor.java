@@ -5,13 +5,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.analyze.opers.CurrentInvokingConstructor;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 
 public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingConstructor {
 
-    public ExecCurrentInvokingConstructor(CurrentInvokingConstructor _current) {
-        super(_current);
+    public ExecCurrentInvokingConstructor(CurrentInvokingConstructor _current, ContextEl _context) {
+        super(_current,_context);
     }
 
     @Override
@@ -27,9 +26,8 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         String lastType_ = getLastType();
         lastType_ = page_.formatVarType(lastType_, _conf);
         int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
-        checkParametersCtors(_conf, gl_, ctorId_, arg_, firstArgs_, InstancingStep.USING_THIS,null);
+        checkParametersCtors(_conf, gl_, getRootBlock(),getCtor(), arg_, firstArgs_, InstancingStep.USING_THIS,null);
         return Argument.createVoid();
     }
 

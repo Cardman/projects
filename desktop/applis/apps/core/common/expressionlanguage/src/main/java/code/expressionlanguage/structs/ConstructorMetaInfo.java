@@ -5,6 +5,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
@@ -21,7 +22,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private final boolean invokable;
     private String fileName = EMPTY_STRING;
     private ExecAnnotableParametersBlock annotableBlock;
-    private ExecMemberCallingsBlock callee;
+    private ExecNamedFunctionBlock callee;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -55,11 +56,11 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
         this.annotableBlock = annotableBlock;
     }
 
-    public ExecMemberCallingsBlock getCallee() {
+    public ExecNamedFunctionBlock getCallee() {
         return callee;
     }
 
-    public void setCallee(ExecMemberCallingsBlock callee) {
+    public void setCallee(ExecNamedFunctionBlock callee) {
         this.callee = callee;
     }
     @Override

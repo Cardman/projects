@@ -11,6 +11,9 @@ import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.stds.ErrorCat;
 import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecDotOperation;
 import code.expressionlanguage.exec.opers.ExecFctOperation;
 import code.expressionlanguage.exec.opers.ExecInternVariableOperation;
@@ -573,56 +576,70 @@ public final class ValidatorStandard {
         String iterator_ = stds_.getAliasIterator();
         cl_.setExpsIteratorCust(newCall(cl_.getIteratorVarCust(),StringList.concat(stds_.getAliasIterable(),"<?>"),
                 new ClassMethodId(stds_.getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,iterator_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorType(),"<?>")));
+                StringList.concat(stds_.getAliasIteratorType(),"<?>"),_context));
         locName_ = tr(l_,_context);
         cl_.setHasNextVarCust(locName_);
         cl_.setExpsHasNextCust(newCall(cl_.getHasNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
                 new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_, new StringList())),
-                stds_.getAliasPrimBoolean()));
+                stds_.getAliasPrimBoolean(),_context));
         locName_ = tr(l_,_context);
         cl_.setNextVarCust(locName_);
         cl_.setExpsNextCust(newCall(cl_.getNextVarCust(),StringList.concat(stds_.getAliasIteratorType(),"<?>"),
                 new ClassMethodId(stds_.getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_, new StringList())),
-                stds_.getAliasObject()));
+                stds_.getAliasObject(),_context));
 
         cl_.setIteratorTableVarCust(locName_);
         String iteratorTable_ = stds_.getAliasIteratorTable();
         cl_.setExpsIteratorTableCust(newCall(cl_.getIteratorTableVarCust(),StringList.concat(stds_.getAliasIterableTable(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_, new StringList())),
-                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>")));
+                StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),_context));
         locName_ = tr(l_,_context);
         cl_.setHasNextPairVarCust(locName_);
         cl_.setExpsHasNextPairCust(newCall(cl_.getHasNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_, new StringList())),
-                stds_.getAliasPrimBoolean()));
+                stds_.getAliasPrimBoolean(),_context));
         locName_ = tr(l_,_context);
         cl_.setNextPairVarCust(locName_);
         cl_.setExpsNextPairCust(newCall(cl_.getNextPairVarCust(),StringList.concat(stds_.getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_, new StringList())),
-                StringList.concat(stds_.getAliasPairType(),"<?,?>")));
+                StringList.concat(stds_.getAliasPairType(),"<?,?>"),_context));
         locName_ = tr(l_,_context);
         cl_.setFirstVarCust(locName_);
         String first_ = stds_.getAliasGetFirst();
         cl_.setExpsFirstCust(newCall(cl_.getFirstVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_, new StringList())),
-                stds_.getAliasObject()));
+                stds_.getAliasObject(),_context));
         locName_ = tr(l_,_context);
         cl_.setSecondVarCust(locName_);
         String second_ = stds_.getAliasGetSecond();
         cl_.setExpsSecondCust(newCall(cl_.getSecondVarCust(),StringList.concat(stds_.getAliasPairType(),"<?,?>"),
                 new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
-                stds_.getAliasObject()));
+                stds_.getAliasObject(),_context));
+        String id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedDoubleGenerator());
+        cl_.setSeedDoubleGenerator(cl_.getClassBody(id_));
+        String nameToCall_ = stds_.getAliasSeedGet();
+        MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
+        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_context, id_, idMet_).first();
+        cl_.setSeedDoublePick(fct_);
+        id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedGenerator());
+        cl_.setSeedGenerator(cl_.getClassBody(id_));
+        idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getAliasPrimLong()));
+        fct_ = ExecBlock.getMethodBodiesById(_context, id_, idMet_).first();
+        cl_.setSeedPick(fct_);
     }
 
     private static CustList<ExecOperationNode> newCall(String _varPrevious, String _previous,
                                                        ClassMethodId _id,
-                                                       String _res) {
+                                                       String _res, ContextEl _context) {
         CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
         ExecDotOperation dot_ = new ExecDotOperation(0,new ClassArgumentMatching(_res),2);
         ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
-        ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1);
+        String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
+        ExecRootBlock classBody_ = _context.getClasses().getClassBody(id_);
+        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_context, id_, _id.getConstraints()).first();
+        ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
         dot_.appendChild(f_);
         r_.setSiblingSet(f_);
         ops_.add(f_);

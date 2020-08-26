@@ -7,11 +7,13 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardInterface;
@@ -26,6 +28,7 @@ public final class Classes {
 
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<ClassMethodId> toStringMethodsToCall = new StringMap<ClassMethodId>();
+    private final StringMap<PolymorphMethod> toStringMethodsToCallBodies = new StringMap<PolymorphMethod>();
 
     private DefaultLockingClass locks;
     private String iteratorVarCust;
@@ -45,6 +48,10 @@ public final class Classes {
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
     private CustList<ExecOperatorBlock> operators;
+    private ExecRootBlock seedDoubleGenerator;
+    private ExecNamedFunctionBlock seedDoublePick;
+    private ExecRootBlock seedGenerator;
+    private ExecNamedFunctionBlock seedPick;
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
 
     public Classes(){
@@ -95,6 +102,7 @@ public final class Classes {
         _context.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
+        ValidatorStandard.buildIterable(_context);
         if (_context.isGettingErrors()) {
             _context.getOptions().setErrors(ExecFileBlock.errors(_context));
         }
@@ -357,11 +365,47 @@ public final class Classes {
         return toStringMethodsToCall;
     }
 
+    public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {
+        return toStringMethodsToCallBodies;
+    }
+
     public StringMap<ExecRootBlock> getClassesBodies() {
         return classesBodies;
     }
 
     public CustList<ClassMetaInfo> getClassMetaInfos() {
         return classMetaInfos;
+    }
+
+    public ExecNamedFunctionBlock getSeedDoublePick() {
+        return seedDoublePick;
+    }
+
+    public void setSeedDoublePick(ExecNamedFunctionBlock seedDoublePick) {
+        this.seedDoublePick = seedDoublePick;
+    }
+
+    public ExecNamedFunctionBlock getSeedPick() {
+        return seedPick;
+    }
+
+    public void setSeedPick(ExecNamedFunctionBlock seedPick) {
+        this.seedPick = seedPick;
+    }
+
+    public ExecRootBlock getSeedDoubleGenerator() {
+        return seedDoubleGenerator;
+    }
+
+    public void setSeedDoubleGenerator(ExecRootBlock seedDoubleGenerator) {
+        this.seedDoubleGenerator = seedDoubleGenerator;
+    }
+
+    public ExecRootBlock getSeedGenerator() {
+        return seedGenerator;
+    }
+
+    public void setSeedGenerator(ExecRootBlock seedGenerator) {
+        this.seedGenerator = seedGenerator;
     }
 }

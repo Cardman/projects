@@ -252,7 +252,11 @@ public final class Coverage {
         if (!_context.isCovering()) {
             return;
         }
-        calls.getVal(_type).set((NamedFunctionBlock)mappingBlocks.getVal(_block),true);
+        IdMap<NamedFunctionBlock, Boolean> val_ = calls.getVal(_type);
+        if (val_ == null) {
+            val_ = calls.getVal("");
+        }
+        val_.set((NamedFunctionBlock)mappingBlocks.getVal(_block),true);
     }
     public void passCatches(ContextEl _context, ExecBlock _block) {
         if (!_context.isCovering()) {

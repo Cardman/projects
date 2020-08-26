@@ -68,7 +68,7 @@ public final class ReturnMethod extends AbruptBlock {
             getErrorsBlock().add(page_.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        checkTypes(_cont, retType_, op_.last().getResultClass());
+        checkTypes(_cont, retType_, op_.last());
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
         root = page_.getCurrentRoot();
         exec_.setFile(page_.getBlockToWrite().getFile());
@@ -97,12 +97,13 @@ public final class ReturnMethod extends AbruptBlock {
         }
         return retType_;
     }
-    private void checkTypes(ContextEl _cont, String _retType, ClassArgumentMatching _ret) {
+    private void checkTypes(ContextEl _cont, String _retType, ExecOperationNode _ret) {
+        ClassArgumentMatching ret_ = _ret.getResultClass();
         LgNames stds_ = _cont.getStandards();
         StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        mapping_.setArg(_ret);
+        mapping_.setArg(ret_);
         mapping_.setParam(_retType);
         if (StringList.quickEq(_retType, stds_.getAliasVoid())) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -118,17 +119,17 @@ public final class ReturnMethod extends AbruptBlock {
         }
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
             //look for implicit casts
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, _ret);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _retType, ret_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                _ret.getImplicits().add(cl_);
+                ret_.getImplicits().add(cl_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                        StringList.join(_ret.getNames(), "&"),
+                        StringList.join(ret_.getNames(), "&"),
                         _retType);
                 _cont.addError(cast_);
                 setReachableError(true);
@@ -137,8 +138,9 @@ public final class ReturnMethod extends AbruptBlock {
 
         }
         if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
-            _ret.setUnwrapObject(_retType);
+            ret_.setUnwrapObject(_retType);
         }
+        ElUtil.setImplicits(_ret,_cont);
     }
 
 

@@ -6,14 +6,13 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConstructor {
     private String className;
-    public ExecInterfaceFctConstructor(InterfaceFctConstructor _abs) {
-        super(_abs);
+    public ExecInterfaceFctConstructor(InterfaceFctConstructor _abs, ContextEl _context) {
+        super(_abs,_context);
         className = _abs.getClassName();
     }
 
@@ -59,9 +58,8 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
         int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
-        checkParametersCtors(_conf, superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
 }

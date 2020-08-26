@@ -773,7 +773,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         _context.addError(badMeth_);
                         m_.addNameErrors(badMeth_);
                     } else {
-                        ToStringMethodHeader t_ = new ToStringMethodHeader(m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
+                        ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(),m_.getNameNumber(),m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
                         _context.getAnalyzing().getToStringMethods().addEntry(getFullName(), t_);
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {

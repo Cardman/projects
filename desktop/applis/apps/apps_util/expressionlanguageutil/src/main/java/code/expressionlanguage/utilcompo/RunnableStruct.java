@@ -6,8 +6,10 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -105,16 +107,21 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         }
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
         ExecRootBlock ex_ = (ExecRootBlock) type_;
-        ClassMethodId mId_ = ex_.getRedirections().getVal(new ClassMethodId(idType_,id_),base_);
+        ExecNamedFunctionBlock named_ = null;
+        CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(_r, idType_, id_);
+        if (!list_.isEmpty()) {
+            named_ = list_.first();
+        }
+        ExecOverrideInfo mId_ = ex_.getRedirections().getVal(named_,base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);
             return;
         }
         Argument arg_ = new Argument();
         arg_.setStruct(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getOverridableBlock(), _args, _r,null);
     }
-    public static Argument invoke(Argument _global, String _class, MethodId _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
+    public static Argument invoke(Argument _global, String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
         Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _method, _args, _cont, _right);
         _cont.getCustInit().prExc(_cont);
         return arg_;

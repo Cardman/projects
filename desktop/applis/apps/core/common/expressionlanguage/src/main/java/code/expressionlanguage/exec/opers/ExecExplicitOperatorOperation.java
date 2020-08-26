@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -16,10 +17,12 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
     private int naturalVararg;
 
     private ClassMethodId classMethodId;
+    private ExecNamedFunctionBlock named;
     private int offsetOper;
 
-    public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct) {
+    public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
         super(_fct);
+        named = fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
         classMethodId = _fct.getClassMethodId();
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
@@ -37,7 +40,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         String lastType_ = classMethodId.formatType(classNameFound_,lastType,_conf);
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, arguments_);
         Argument prev_ = new Argument();
-        checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, prev_,firstArgs_);
+        checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, named,prev_,firstArgs_);
     }
 
     public int getOffsetOper() {

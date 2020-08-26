@@ -60,7 +60,22 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         processEl("$true<$false", context_);
         assertTrue(!context_.isEmptyErrors());
     }
-
+    @Test
+    public void processEl20FailTest() {
+        Configuration context_ = getConfiguration4();
+        addImportingPage(context_);
+        String el_ = "\"\".$classchoice(Number)format(\"6\")";
+        processEl(el_, context_);
+        assertTrue(!context_.isEmptyErrors());
+    }
+    @Test
+    public void processEl21FailTest() {
+        Configuration context_ = getConfiguration4();
+        addImportingPage(context_);
+        String el_ = "\"\".$superaccess(Number)format(\"6\")";
+        processEl(el_, context_);
+        assertTrue(!context_.isEmptyErrors());
+    }
     @Test
     public void processEl24FailTest() {
         Configuration context_ = getConfiguration4();

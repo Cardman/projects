@@ -1,5 +1,7 @@
 package code.expressionlanguage.functionid;
 
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.util.CustList;
 
 public class ClassMethodIdOverrides {
@@ -7,9 +9,10 @@ public class ClassMethodIdOverrides {
     public void add(ClassMethodIdOverride _override) {
         overrides.add(_override);
     }
-    public ClassMethodId getVal(ClassMethodId _analyzed, String _type) {
+
+    public ExecOverrideInfo getVal(ExecNamedFunctionBlock _analyzed, String _type) {
         for (ClassMethodIdOverride c: overrides) {
-            if (_analyzed.eq(c.getAnalyzedMethod())) {
+            if (_analyzed == c.getAnalyzedMethod()) {
                 return c.getVal(_type);
             }
         }

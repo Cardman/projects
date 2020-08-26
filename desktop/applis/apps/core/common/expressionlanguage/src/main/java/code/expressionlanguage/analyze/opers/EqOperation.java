@@ -19,6 +19,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     private String oper;
     private ClassMethodId classMethodId;
     private int opOffset;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -54,6 +56,8 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, custOp_, _conf);
         if (cl_.getSymbol() != null) {
             classMethodId = cl_.getSymbol();
+            rootNumber = cl_.getRootNumber();
+            memberNumber = cl_.getMemberNumber();
             return;
         }
         LgNames stds_ = _conf.getStandards();
@@ -111,4 +115,13 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         return true;
     }
 
+    @Override
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    @Override
+    public int getMemberNumber() {
+        return memberNumber;
+    }
 }

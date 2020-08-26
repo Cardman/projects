@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
@@ -29,8 +30,9 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
     private int naturalVararg;
     private int anc;
+    private ExecNamedFunctionBlock named;
 
-    public ExecChoiceFctOperation(ChoiceFctOperation _choice) {
+    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named) {
         super(_choice);
         methodName = _choice.getMethodName();
         classMethodId = _choice.getClassMethodId();
@@ -39,6 +41,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
+        named = _named;
     }
 
     @Override
@@ -90,7 +93,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
                 return Argument.createVoid();
             }
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null,named);
     }
 
     public ClassMethodId getClassMethodId() {

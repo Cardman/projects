@@ -2,12 +2,11 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.StringList;
 
 
@@ -30,6 +29,9 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private boolean invokable;
     private ExecAnnotableParametersBlock annotableBlock;
     private ExecMemberCallingsBlock callee;
+    private ExecNamedFunctionBlock calleeInv;
+    private StandardMethod stdCallee;
+    private ExecRootBlock declaring;
 
     public MethodMetaInfo() {
         invokable = false;
@@ -74,6 +76,30 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public void setCallee(ExecMemberCallingsBlock callee) {
         this.callee = callee;
+    }
+
+    public ExecNamedFunctionBlock getCalleeInv() {
+        return calleeInv;
+    }
+
+    public void setCalleeInv(ExecNamedFunctionBlock calleeInv) {
+        this.calleeInv = calleeInv;
+    }
+
+    public StandardMethod getStdCallee() {
+        return stdCallee;
+    }
+
+    public void setStdCallee(StandardMethod stdCallee) {
+        this.stdCallee = stdCallee;
+    }
+
+    public ExecRootBlock getDeclaring() {
+        return declaring;
+    }
+
+    public void setDeclaring(ExecRootBlock declaring) {
+        this.declaring = declaring;
     }
 
     @Override

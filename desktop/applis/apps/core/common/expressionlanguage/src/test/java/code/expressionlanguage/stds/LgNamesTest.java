@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -1567,7 +1568,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", ExecBlock.getDeepMethodBodiesById(contextEl_,"pkg.Ex",fct_).first(), args_, contextEl_,null);
         assertNull(getException(contextEl_));
         assertEq(2, getNumber(ret_));
     }
@@ -1598,7 +1599,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", fct_, args_, contextEl_,null);
+        Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", ExecBlock.getDeepMethodBodiesById(contextEl_,"pkg.Ex",fct_).first(), args_, contextEl_,null);
         assertNull(getException(contextEl_));
         assertEq(2, getNumber(ret_));
     }

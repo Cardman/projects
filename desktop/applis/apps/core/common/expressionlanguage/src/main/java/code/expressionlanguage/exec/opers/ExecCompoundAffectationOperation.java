@@ -3,6 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -16,15 +18,17 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private ExecSettableElResult settable;
     private String oper;
     private ClassMethodId classMethodId;
-    private ClassMethodId converter;
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converter;
 
     private int opOffset;
 
-    public ExecCompoundAffectationOperation(CompoundAffectationOperation _c) {
+    public ExecCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
         super(_c);
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
-        converter = _c.getConverter();
+        named = fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
+        converter = fetchImplicits(_context,_c.getConverter());
         opOffset = _c.getOpOffset();
     }
 
@@ -62,7 +66,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             setSimpleArgument(arg_, _conf, _nodes);
             return;
         }
-        if (classMethodId != null) {
+        if (named != null) {
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
             chidren_.add(left_);
             chidren_.add(right_);
@@ -70,14 +74,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, named,Argument.createVoid(), firstArgs_);
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
-        CustList<ClassMethodId> implicits_ = pairBefore_.getImplicitsCompound();
+        ImplicitMethods implicits_ = pairBefore_.getImplicitsCompound();
         int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = converter.getConstraints().getParametersType(1);
+            String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
             Argument res_;
             res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
@@ -93,7 +97,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicitsCompound();
+        ImplicitMethods implicits_ = pair_.getImplicitsCompound();
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (implicits_.isValidIndex(indexImplicit_)) {
             pair_.setIndexImplicitCompound(processConverter(_conf, _right, implicits_, indexImplicit_));
@@ -116,7 +120,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         return oper;
     }
 
-    public ClassMethodId getConverter() {
+    public ImplicitMethods getConverter() {
         return converter;
     }
 }

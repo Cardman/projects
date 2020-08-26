@@ -24,6 +24,8 @@ public abstract class QuickOperation extends MethodOperation {
 
     private boolean okNum;
     private ClassMethodId classMethodId;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     private ClassMethodId test;
     private ClassMethodId converter;
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
@@ -81,6 +83,8 @@ public abstract class QuickOperation extends MethodOperation {
         if (opConv_.getSymbol() != null) {
             if (!PrimitiveTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(),_conf)) {
                 classMethodId = opConv_.getSymbol();
+                rootNumber = opConv_.getRootNumber();
+                memberNumber = opConv_.getMemberNumber();
             }
             okNum = true;
             ClassMethodId test_ = opConv_.getTest();
@@ -173,5 +177,13 @@ public abstract class QuickOperation extends MethodOperation {
 
     public ClassMethodId getConverter() {
         return converter;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

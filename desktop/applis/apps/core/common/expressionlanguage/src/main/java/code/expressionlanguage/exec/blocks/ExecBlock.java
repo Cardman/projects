@@ -246,24 +246,12 @@ public abstract class ExecBlock {
         }
         return methods_;
     }
-    public static CustList<ExecNamedFunctionBlock> getOperatorsBodiesById(ContextEl _context,MethodId _id) {
-        return filter(getOperatorsBodies(_context),_id);
-    }
-    private static CustList<ExecNamedFunctionBlock> getOperatorsBodies(ContextEl _context) {
-        CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
-        Classes classes_ = _context.getClasses();
-        for (ExecOperatorBlock m: classes_.getOperators()) {
-            methods_.add(m);
-        }
-        return methods_;
-    }
 
     private static CustList<ExecNamedFunctionBlock> filter(CustList<ExecNamedFunctionBlock> _methods,MethodId _id) {
         CustList<ExecNamedFunctionBlock> methods_ = new CustList<ExecNamedFunctionBlock>();
         for (ExecNamedFunctionBlock m: _methods) {
             if (((GeneMethod)m).getId().eq(_id)) {
                 methods_.add(m);
-                break;
             }
         }
         return methods_;
@@ -274,7 +262,6 @@ public abstract class ExecBlock {
         for (ExecOverridableBlock m: _methods) {
             if (((GeneMethod)m).getId().eq(_id)) {
                 methods_.add(m);
-                break;
             }
         }
         return methods_;

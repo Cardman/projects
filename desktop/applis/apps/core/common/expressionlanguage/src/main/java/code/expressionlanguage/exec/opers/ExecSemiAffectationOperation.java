@@ -3,6 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
@@ -18,17 +20,19 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
-    private ClassMethodId converterFrom;
-    private ClassMethodId converterTo;
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converterFrom;
+    private ImplicitMethods converterTo;
 
     private int opOffset;
-    public ExecSemiAffectationOperation(SemiAffectationOperation _s) {
+    public ExecSemiAffectationOperation(SemiAffectationOperation _s, ContextEl _context) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
-        converterFrom = _s.getConverterFrom();
-        converterTo = _s.getConverterTo();
+        named = fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
+        converterFrom = fetchImplicits(_context,_s.getConverterFrom());
+        converterTo = fetchImplicits(_context,_s.getConverterTo());
         opOffset = _s.getOpOffset();
     }
 
@@ -55,7 +59,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 return;
             }
         }
-        if (classMethodId != null) {
+        if (named != null) {
             CustList<ExecOperationNode> list_ = getChildrenNodes();
             ExecOperationNode left_ = list_.first();
             CustList<ExecOperationNode> chidren_ = new CustList<ExecOperationNode>();
@@ -64,11 +68,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             arguments_.add(leftArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,named, Argument.createVoid(), firstArgs_);
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);
-        CustList<ClassMethodId> implicits_ = pairBefore_.getImplicitsSemiFrom();
+        ImplicitMethods implicits_ = pairBefore_.getImplicitsSemiFrom();
         int indexImplicit_ = pairBefore_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
             CustList<ExecOperationNode> list_ = getChildrenNodes();
@@ -93,7 +97,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicitsSemiFrom();
+        ImplicitMethods implicits_ = pair_.getImplicitsSemiFrom();
         int indexImplicit_ = pair_.getIndexImplicitSemiFrom();
         if (implicits_.isValidIndex(indexImplicit_)) {
             CustList<ExecOperationNode> list_ = getChildrenNodes();
@@ -109,7 +113,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         implicits_ = pair_.getImplicitsSemiTo();
         indexImplicit_ = pair_.getIndexImplicitSemiTo();
         if (implicits_.isValidIndex(indexImplicit_)) {
-            String tres_ = converterFrom.getConstraints().getParametersType(0);
+            String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
             ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(_right, _conf, oper, cl_);
@@ -150,11 +154,11 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         return settable;
     }
 
-    public ClassMethodId getConverterFrom() {
+    public ImplicitMethods getConverterFrom() {
         return converterFrom;
     }
 
-    public ClassMethodId getConverterTo() {
+    public ImplicitMethods getConverterTo() {
         return converterTo;
     }
 }

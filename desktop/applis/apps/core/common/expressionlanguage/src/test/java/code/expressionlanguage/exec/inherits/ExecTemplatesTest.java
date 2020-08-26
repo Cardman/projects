@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -459,7 +461,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -472,7 +474,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -487,7 +489,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         args_.add(new Argument(arr_));
         arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -500,7 +502,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -515,7 +517,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"pkg.Ex",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -530,7 +532,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"pkg.Ex<$int>",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex<$int>",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -540,7 +542,63 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(NullStruct.NULL_VALUE));
-        assertTrue(!ExecTemplates.okArgs(id_,false,"",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(id_, "",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs8Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
+        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
+        Struct[] instance_ = new Struct[1];
+        instance_[0] = new StringStruct("");
+        ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(arr_));
+        assertTrue(!ExecTemplates.okArgs(ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
+        CustList<Argument> args_ = new CustList<Argument>();
+        assertTrue(!ExecTemplates.okArgs(ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(Argument.createVoid());
+        assertTrue(!ExecTemplates.okArgs(null,false,"pkg.Ex<$int>",args_, cont_,null));
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void okArgs11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        assertTrue(!ExecTemplates.okArgs(null,false,"pkg.Ex",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -636,6 +694,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         parseCustomFiles(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
+        assertTrue(cont_.isEmptyErrors());
+        return cont_;
+    }
+    private ContextEl fullValidateOverridingMethods(StringMap<String> _files) {
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateWithoutInit(_files,cont_);
         assertTrue(cont_.isEmptyErrors());
         return cont_;
     }

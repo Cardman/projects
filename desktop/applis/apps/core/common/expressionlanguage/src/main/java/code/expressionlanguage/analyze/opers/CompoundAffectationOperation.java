@@ -23,6 +23,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private SettableElResult settable;
     private String oper;
     private ClassMethodId classMethodId;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     private ClassMethodId converter;
     private ClassMethodId test;
 
@@ -100,6 +102,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
                 classMethodId = cl_.getSymbol();
+                rootNumber = cl_.getRootNumber();
+                memberNumber = cl_.getMemberNumber();
             }
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
@@ -315,5 +319,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public SettableElResult getSettable() {
         return settable;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

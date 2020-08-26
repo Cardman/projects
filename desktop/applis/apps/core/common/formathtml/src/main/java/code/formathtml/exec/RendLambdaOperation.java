@@ -2,19 +2,15 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
-import code.expressionlanguage.exec.opers.ExecConstructorLambdaOperation;
-import code.expressionlanguage.exec.opers.ExecFieldLambdaOperation;
-import code.expressionlanguage.exec.opers.ExecMethodLambdaOperation;
+import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.stds.StandardMethod;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -41,10 +37,13 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     private String fileName;
     private ExecAnnotableBlock annotableBlock;
     private ExecAnnotableParametersBlock functionBlock;
-    private ExecMemberCallingsBlock function;
+    private ExecNamedFunctionBlock function;
+    private StandardMethod standardMethod;
+    private ExecRootBlock declaring;
 
     public RendLambdaOperation(LambdaOperation _l,ContextEl _cont) {
         super(_l);
+        standardMethod = _l.getStandardMethod();
         intermediate = _l.isIntermediate();
         safeInstance = _l.isSafeInstance();
         previousArgument = _l.getPreviousArgument();
@@ -66,9 +65,10 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         if (method == null && realId == null) {
             annotableBlock = ExecAbstractLambdaOperation.fetchField(_l,_cont);
         } else {
-            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l,_cont);
-            function = ExecAbstractLambdaOperation.fetchFunction(_l,_cont);
+            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+            function = ExecAbstractLambdaOperation.fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
         }
+        declaring = ExecAbstractLambdaOperation.fetchType(_cont,_l.getRootNumber());
     }
 
     @Override
@@ -83,6 +83,11 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         String name_ = getResultClass().getName();
         PageEl pageEl_ = _conf.getPageEl();
         ContextEl context_ = _conf.getContext();
+        if (standardMethod != null) {
+            arg_.setStruct(ExecStdMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,
+                    shiftArgument,safeInstance, name_, pageEl_, standardMethod));
+            return arg_;
+        }
         if (method == null && realId == null) {
             arg_.setStruct(ExecFieldLambdaOperation.newLambda(_previous, context_,foundClass,returnFieldType,fieldId,ancestor,
                     affField,staticField,finalField,shiftArgument,safeInstance, name_, pageEl_, fileName,annotableBlock));
@@ -94,7 +99,7 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
             return arg_;
         }
         arg_.setStruct(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,
-                directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function));
+                directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function,declaring));
         return arg_;
     }
 

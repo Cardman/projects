@@ -7,7 +7,8 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
@@ -23,7 +24,8 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     private boolean directCast;
     private boolean expCast;
     private ExecAnnotableParametersBlock functionBlock;
-    private ExecMemberCallingsBlock function;
+    private ExecNamedFunctionBlock function;
+    private ExecRootBlock declaring;
 
     public ExecMethodLambdaOperation(LambdaOperation _l, ContextEl _cont) {
         super(_l);
@@ -32,8 +34,9 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         abstractMethod = _l.isAbstractMethod();
         directCast = _l.isDirectCast();
         expCast = _l.isExpCast();
-        functionBlock = fetchFunction(_l, _cont);
-        function = fetchFunction(_l, _cont);
+        functionBlock = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+        function = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+        declaring = fetchType(_cont,_l.getRootNumber());
     }
 
     @Override
@@ -51,10 +54,13 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph) {
-        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, abstractMethod, expCast, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function);
+        return newLambda(_previous, _conf, foundClass, method, returnFieldType, ancestor, directCast, polymorph, abstractMethod, expCast, isShiftArgument(), isSafeInstance(),
+                getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function,declaring);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph, boolean abstractMethod, boolean expCast, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecMemberCallingsBlock function) {
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType,
+                                   int ancestor, boolean directCast, boolean polymorph, boolean abstractMethod, boolean expCast, boolean shiftArgument, boolean safeInstance,
+                                   String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecNamedFunctionBlock function, ExecRootBlock _rootBlock) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);
@@ -94,6 +100,8 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             metaInfo_.setFileName(fileName);
             metaInfo_.setAnnotableBlock(functionBlock);
             metaInfo_.setCallee(function);
+            metaInfo_.setCalleeInv(function);
+            metaInfo_.setDeclaring(_rootBlock);
             l_.setMetaInfo(metaInfo_);
         }
         return l_;

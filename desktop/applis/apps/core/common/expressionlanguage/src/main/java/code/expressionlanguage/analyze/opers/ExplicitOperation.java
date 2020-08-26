@@ -26,6 +26,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     private CustList<PartOffset> partOffsets;
 
     private MethodId castOpId;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
     public ExplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         offset = getOperations().getOperators().firstKey();
@@ -99,6 +101,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
                 castOpId = resMethod_.getRealId();
+                rootNumber = resMethod_.getRootNumber();
+                memberNumber = resMethod_.getMemberNumber();
             }
             return;
         }
@@ -133,6 +137,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
                 castOpId = resMethod_.getRealId();
+                rootNumber = resMethod_.getRootNumber();
+                memberNumber = resMethod_.getMemberNumber();
                 setResultClass(virtual_);
                 return;
             }
@@ -147,6 +153,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (!resMethod_.isFoundMethod()) {
             return;
         }
+        rootNumber = resMethod_.getRootNumber();
+        memberNumber = resMethod_.getMemberNumber();
         classNameOwner = resMethod_.getRealClass();
         castOpId = resMethod_.getRealId();
     }
@@ -205,4 +213,11 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         return castOpId;
     }
 
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
 }

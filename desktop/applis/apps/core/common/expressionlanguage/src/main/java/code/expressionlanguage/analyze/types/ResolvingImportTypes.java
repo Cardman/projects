@@ -15,6 +15,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardField;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
@@ -591,6 +592,9 @@ public final class ResolvingImportTypes {
                 }
                 if (super_ instanceof RootBlock) {
                     value_.setRootNumber(((RootBlock)super_).getNumberAll());
+                }
+                if (e instanceof StandardMethod) {
+                    value_.setStandardMethod((StandardMethod)e);
                 }
                 addImportMethod(_methods, value_);
             }

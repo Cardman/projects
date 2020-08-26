@@ -19,6 +19,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     private String op;
     private int opOffset;
     private boolean okNum;
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -66,6 +68,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         if (cl_.getSymbol() != null) {
             if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
                 classMethodId = cl_.getSymbol();
+                rootNumber = cl_.getRootNumber();
+                memberNumber = cl_.getMemberNumber();
             }
             return;
         }
@@ -130,5 +134,13 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     @Override
     public boolean isOkNum() {
         return okNum;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }

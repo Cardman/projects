@@ -228,6 +228,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 getErrorsBlock().add(cast_.getBuiltError());
             }
         }
+        ElUtil.setImplicits(_stepEl,_cont);
     }
 
     private boolean processVariableNames(ContextEl _cont) {

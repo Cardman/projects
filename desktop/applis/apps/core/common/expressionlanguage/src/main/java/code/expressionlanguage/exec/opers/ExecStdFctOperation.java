@@ -62,7 +62,7 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         lastType_ = classMethodId.formatType(classNameFound_,lastType_,_conf);
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments);
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
+        return callStd(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 
     public ClassMethodId getClassMethodId() {

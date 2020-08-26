@@ -22,7 +22,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
         super(_v);
         className = _v.getClassName();
         argOffset = _v.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_v,_cont);
+        rootBlock = ExecOperationNode.fetchType(_cont, _v.getNumberEnum());
     }
 
     @Override

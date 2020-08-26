@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractReflectPageEl;
@@ -29,7 +30,8 @@ public final class ProcessMethod {
         ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class,null));
         _cont.getInit().loopCalling(_cont);
     }
-    public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ConstructorId _id, CustList<Argument> _args, ContextEl _cont) {
+
+    public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ExecNamedFunctionBlock _id, CustList<Argument> _args, ContextEl _cont) {
         CallConstructor call_ = new CallConstructor();
         call_.setArgument(_global);
         call_.setId(_id);
@@ -40,7 +42,7 @@ public final class ProcessMethod {
         return page_.getGlobalArgument();
     }
 
-    public static Argument calculateArgument(Argument _global, String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont, Argument _right) {
+    public static Argument calculateArgument(Argument _global, String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont, Argument _right) {
         MethodPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class, _method, _args,_right);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
@@ -54,7 +56,7 @@ public final class ProcessMethod {
         return page_.getReturnedArgument();
     }
 
-    public static Argument castArgument(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+    public static Argument castArgument(String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont) {
         CastPageEl page_ = ExecutingUtil.createCallingCast(_cont,_class, _method,_args);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);

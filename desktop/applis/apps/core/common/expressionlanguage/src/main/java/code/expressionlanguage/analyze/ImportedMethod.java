@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.stds.StandardMethod;
 
 public final class ImportedMethod {
     private String returnType;
@@ -8,6 +9,7 @@ public final class ImportedMethod {
     private ClassMethodId id;
     private int rootNumber;
     private int memberNumber;
+    private StandardMethod standardMethod;
 
     public ImportedMethod(String returnType, ClassMethodId id) {
         this.returnType = returnType;
@@ -44,5 +46,13 @@ public final class ImportedMethod {
 
     public void setRootNumber(int rootNumber) {
         this.rootNumber = rootNumber;
+    }
+
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
+    }
+
+    public void setStandardMethod(StandardMethod standardMethod) {
+        this.standardMethod = standardMethod;
     }
 }

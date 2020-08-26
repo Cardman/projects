@@ -1,8 +1,12 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.InterfaceFctConstructor;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
@@ -15,21 +19,23 @@ import code.util.IdMap;
 public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation,RendCallable {
     private String className;
 
-    private ConstructorId constId;
-
     private String lastType;
 
     private int naturalVararg;
     private int offsetOper;
     private String classFromName;
-    public RendInterfaceFctConstructor(InterfaceFctConstructor _abs) {
+    private ExecRootBlock rootBlock;
+    private ExecNamedFunctionBlock ctor;
+    public RendInterfaceFctConstructor(InterfaceFctConstructor _abs, ContextEl _context) {
         super(_abs);
         className = _abs.getClassName();
-        constId = _abs.getConstId();
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
         classFromName = _abs.getClassFromName();
+        rootBlock = ExecOperationNode.fetchType(_context,_abs.getRootNumber());
+        ctor = ExecOperationNode.fetchFunction(_context,_abs.getRootNumber(),_abs.getMemberNumber());
+
     }
 
     @Override
@@ -71,14 +77,9 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf.getContext());
         int natvararg_ = getNaturalVararg();
-        ConstructorId ctorId_ = getConstId();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
-        ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, ctorId_, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, rootBlock,ctor, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
-    }
-
-    public final ConstructorId getConstId() {
-        return constId;
     }
 
     public String getLastType() {

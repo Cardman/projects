@@ -27,6 +27,7 @@ import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -62,6 +63,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private int rootNumber = -1;
     private int memberNumber = -1;
     private int operatorNumber = -1;
+    private StandardMethod standardMethod;
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -533,6 +535,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
+            standardMethod = id_.getStandardMethod();
             returnFieldType = id_.getOriginalReturnType();
             fileName = id_.getFileName();
             rootNumber = id_.getRootNumber();
@@ -608,6 +611,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
                 return;
             }
+            standardMethod = id_.getStandardMethod();
             returnFieldType = id_.getOriginalReturnType();
             fileName = id_.getFileName();
             rootNumber = id_.getRootNumber();
@@ -821,6 +825,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
+        standardMethod = id_.getStandardMethod();
         returnFieldType = id_.getOriginalReturnType();
         fileName = id_.getFileName();
         rootNumber = id_.getRootNumber();
@@ -2143,5 +2148,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public int getMemberNumber() {
         return memberNumber;
+    }
+
+    public StandardMethod getStandardMethod() {
+        return standardMethod;
     }
 }

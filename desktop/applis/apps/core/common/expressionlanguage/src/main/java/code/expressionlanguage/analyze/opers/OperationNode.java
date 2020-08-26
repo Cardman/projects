@@ -30,6 +30,7 @@ import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 
@@ -747,6 +748,7 @@ public abstract class OperationNode {
                 out_ = new ConstrustorIdVarArg();
                 out_.setRealId(new ConstructorId(clCurName_, new StringList(),false));
                 out_.setConstId(out_.getRealId());
+                setupContainer(_type, out_);
                 return out_;
             }
         }
@@ -758,6 +760,9 @@ public abstract class OperationNode {
             }
             ParametersGroup pg_ = new ParametersGroup();
             ConstructorInfo mloc_ = new ConstructorInfo();
+            if (e instanceof NamedFunctionBlock) {
+                mloc_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
+            }
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
@@ -800,6 +805,8 @@ public abstract class OperationNode {
         }
         out_.setRealId(ctor_);
         out_.setConstId(cInfo_.getFormatted());
+        setupContainer(_type, out_);
+        out_.setMemberNumber(cInfo_.getMemberNumber());
         return out_;
     }
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
@@ -1117,6 +1124,7 @@ public abstract class OperationNode {
             res_.setFileName(m_.getFileName());
             res_.setMemberNumber(m_.getMemberNumber());
             res_.setRootNumber(m_.getRootNumber());
+            res_.setStandardMethod(m_.getStandardMethod());
             res_.setAncestor(m_.getAncestor());
             res_.setAbstractMethod(m_.isAbstractMethod());
             res_.setStaticMethod(m_.isStatic());
@@ -1154,6 +1162,7 @@ public abstract class OperationNode {
             res_.setFileName(m_.getFileName());
             res_.setMemberNumber(m_.getMemberNumber());
             res_.setRootNumber(m_.getRootNumber());
+            res_.setStandardMethod(m_.getStandardMethod());
             res_.setAncestor(m_.getAncestor());
             res_.setAbstractMethod(m_.isAbstractMethod());
             res_.setStaticMethod(m_.isStatic());
@@ -1205,7 +1214,7 @@ public abstract class OperationNode {
         return getCustCastResult(_conf, methods_, _arg);
     }
 
-    static ClassMethodId getUnaryOperatorOrMethod(MethodOperation _node,
+    static OperatorConverter getUnaryOperatorOrMethod(MethodOperation _node,
                                                   ClassArgumentMatching _operand,
                                                   String _op, ContextEl _cont) {
         if (isNativeUnaryOperator(_operand,_op,_cont)) {
@@ -1229,11 +1238,21 @@ public abstract class OperationNode {
             MethodId id_ = clMethImp_.getRealId();
             MethodId realId_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
+            OperatorConverter op_ = new OperatorConverter();
+            op_.setSymbol(new ClassMethodId(foundClass_, id_));
+            op_.setRootNumber(clMethImp_.getRootNumber());
+            op_.setMemberNumber(clMethImp_.getMemberNumber());
+            return op_;
         }
-        ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
+        ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
         if (clId_ != null) {
-            return clId_;
+            String foundClass_ = clId_.getRealClass();
+            MethodId id_ = clId_.getRealId();
+            OperatorConverter op_ = new OperatorConverter();
+            op_.setSymbol(new ClassMethodId(foundClass_, id_));
+            op_.setRootNumber(clId_.getRootNumber());
+            op_.setMemberNumber(clId_.getMemberNumber());
+            return op_;
         }
         CustList<StringList> groups_ = new CustList<StringList>();
         if (StringList.quickEq(_op,"+")
@@ -1281,13 +1300,17 @@ public abstract class OperationNode {
                 MethodId id_ = clMeth_.getRealId();
                 MethodId realId_ = clMeth_.getRealId();
                 InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-                return new ClassMethodId(foundClass_, id_);
+                OperatorConverter op_ = new OperatorConverter();
+                op_.setSymbol(new ClassMethodId(foundClass_, id_));
+                op_.setRootNumber(clMeth_.getRootNumber());
+                op_.setMemberNumber(clMeth_.getMemberNumber());
+                return op_;
             }
         }
         return null;
     }
 
-    static ClassMethodId getIncrDecrOperatorOrMethod(MethodOperation _node,
+    static ClassMethodIdReturn getIncrDecrOperatorOrMethod(MethodOperation _node,
                                                   ClassArgumentMatching _operand,
                                                   String _op, ContextEl _cont) {
         if (isNativeUnaryOperator(_operand,_op,_cont)) {
@@ -1307,11 +1330,9 @@ public abstract class OperationNode {
                 firstArgs_.add(o.getResultClass());
             }
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMethImp_.getReturnType()), _cont));
-            String foundClass_ = clMethImp_.getRealClass();
-            MethodId id_ = clMethImp_.getRealId();
             MethodId realId_ = clMethImp_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
+            return clMethImp_;
         }
         return getCustomIncrDecrOperatorOrMethod(_node,_operand,_op,_cont);
     }
@@ -1376,14 +1397,20 @@ public abstract class OperationNode {
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
             OperatorConverter op_ = new OperatorConverter();
             op_.setSymbol(new ClassMethodId(foundClass_, id_));
+            op_.setRootNumber(clMethImp_.getRootNumber());
+            op_.setMemberNumber(clMethImp_.getMemberNumber());
             op_.setTest(convert_);
             return op_;
         }
         if (!listsBinary_.isEmpty()) {
-            ClassMethodId clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
+            ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _cont);
             if (clId_ != null) {
                 OperatorConverter op_ = new OperatorConverter();
-                op_.setSymbol(clId_);
+                String foundClass_ = clId_.getRealClass();
+                MethodId id_ = clId_.getRealId();
+                op_.setSymbol(new ClassMethodId(foundClass_,id_));
+                op_.setRootNumber(clId_.getRootNumber());
+                op_.setMemberNumber(clId_.getMemberNumber());
                 op_.setTest(convert_);
                 return op_;
             }
@@ -1469,12 +1496,14 @@ public abstract class OperationNode {
                 InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
                 OperatorConverter op_ = new OperatorConverter();
                 op_.setSymbol(new ClassMethodId(foundClass_, id_));
+                op_.setRootNumber(clMeth_.getRootNumber());
+                op_.setMemberNumber(clMeth_.getMemberNumber());
                 return op_;
             }
         }
         return new OperatorConverter();
     }
-    private static ClassMethodId getCustomOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
+    private static ClassMethodIdReturn getCustomOperatorOrMethod(MethodOperation _node, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getAnalyzing().getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
         CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
@@ -1486,26 +1515,21 @@ public abstract class OperationNode {
                 "",toArgArray(firstArgs_));
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
-            String foundClass_ = clMeth_.getRealClass();
-            MethodId id_ = clMeth_.getRealId();
             MethodId realId_ = clMeth_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
+            return clMeth_;
         }
         //implicit use of operator key word
         ClassMethodIdReturn cust_ = getOperator(_cont, null, -1, true, _op, "", toArgArray(firstArgs_));
         if (cust_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
             MethodId realId_ = cust_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, firstArgs_, _cont);
-            return new ClassMethodId(foundClass_, id_);
+            return cust_;
         }
         return null;
     }
-    private static ClassMethodId getCustomIncrDecrOperatorOrMethod(MethodOperation _node, ClassArgumentMatching _arg, String _op, ContextEl _cont) {
+    private static ClassMethodIdReturn getCustomIncrDecrOperatorOrMethod(MethodOperation _node, ClassArgumentMatching _arg, String _op, ContextEl _cont) {
         StringList bounds_ = _cont.getAnalyzing().getTypesWithInnerOperators();
         CustList<OperationNode> chidren_ = _node.getChildrenNodes();
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustIncrDecrMethod(_cont,
@@ -1513,21 +1537,16 @@ public abstract class OperationNode {
                 _arg);
         if (clMeth_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()), _cont));
-            String foundClass_ = clMeth_.getRealClass();
-            MethodId id_ = clMeth_.getRealId();
             MethodId realId_ = clMeth_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, new CustList<ClassArgumentMatching>(_arg), _cont);
-            return new ClassMethodId(foundClass_, id_);
+            return clMeth_;
         }
         ClassMethodIdReturn cust_ = getIncrDecrOperator(_cont, _op, _arg);
         if (cust_.isFoundMethod()) {
             _node.setResultClass(voidToObject(new ClassArgumentMatching(cust_.getReturnType()), _cont));
-            String foundClass_ = cust_.getRealClass();
-            foundClass_ = StringExpUtil.getIdFromAllTypes(foundClass_);
-            MethodId id_ = cust_.getRealId();
             MethodId realId_ = cust_.getRealId();
             InvokingOperation.unwrapArgsFct(chidren_, realId_, -1, EMPTY_STRING, new CustList<ClassArgumentMatching>(_arg), _cont);
-            return new ClassMethodId(foundClass_, id_);
+            return cust_;
         }
         return null;
     }
@@ -1808,15 +1827,15 @@ public abstract class OperationNode {
             String di_ = StringExpUtil.getIdFromAllTypes(_first);
             RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(di_);
             if (r_ != null) {
-                StringList allClasses_ = new StringList(r_.getGenericString());
-                allClasses_.addAllElts(r_.getAllGenericSuperTypes());
-                for (String s: allClasses_) {
-                    String formatted_ = AnaTemplates.quickFormat(r_,_first,s,_conf);
+                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+                allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
+                for (AnaFormattedRootBlock s: allClasses_) {
+                    String formatted_ = AnaTemplates.quickFormat(r_,_first,s.getFormatted(),_conf);
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binaryFirst_ = _conf.getAnalyzing().getBinaryFirst().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _conf.getAnalyzing().getBinaryAll().getVal(supId_);
-                    fetchImproveOperators(_conf, methods_,formatted_, binaryFirst_);
-                    fetchImproveOperators(_conf, methods_,formatted_, binaryAll_);
+                    fetchImproveOperators(_conf, s.getRootBlock(),methods_,formatted_, binaryFirst_);
+                    fetchImproveOperators(_conf, s.getRootBlock(),methods_,formatted_, binaryAll_);
                 }
             }
         }
@@ -1824,15 +1843,15 @@ public abstract class OperationNode {
             String di_ = StringExpUtil.getIdFromAllTypes(_second);
             RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(di_);
             if (r_ != null) {
-                StringList allClasses_ = new StringList(r_.getGenericString());
-                allClasses_.addAllElts(r_.getAllGenericSuperTypes());
-                for (String s: allClasses_) {
-                    String formatted_ = AnaTemplates.quickFormat(r_,_second,s,_conf);
+                CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+                allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
+                for (AnaFormattedRootBlock s: allClasses_) {
+                    String formatted_ = AnaTemplates.quickFormat(r_,_second,s.getFormatted(),_conf);
                     String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
                     CustList<MethodHeaderInfo> binarySecond_ = _conf.getAnalyzing().getBinarySecond().getVal(supId_);
                     CustList<MethodHeaderInfo> binaryAll_ = _conf.getAnalyzing().getBinaryAll().getVal(supId_);
-                    fetchImproveOperators(_conf, methods_,formatted_, binarySecond_);
-                    fetchImproveOperators(_conf, methods_,formatted_, binaryAll_);
+                    fetchImproveOperators(_conf, s.getRootBlock(),methods_,formatted_, binarySecond_);
+                    fetchImproveOperators(_conf, s.getRootBlock(),methods_,formatted_, binaryAll_);
                 }
             }
         }
@@ -1846,13 +1865,13 @@ public abstract class OperationNode {
         if (r_ == null) {
             return;
         }
-        StringList allClasses_ = new StringList(r_.getGenericString());
-        allClasses_.addAllElts(r_.getAllGenericSuperTypes());
-        for (String s: allClasses_) {
-            String formatted_ = AnaTemplates.quickFormat(r_,_id,s,_conf);
+        CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_,r_.getGenericString()));
+        allClasses_.addAllElts(r_.getAllGenericSuperTypesInfo());
+        for (AnaFormattedRootBlock s: allClasses_) {
+            String formatted_ = AnaTemplates.quickFormat(r_,_id,s.getFormatted(),_conf);
             String supId_ = StringExpUtil.getIdFromAllTypes(formatted_);
             CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getUnary().getVal(supId_);
-            fetchImproveOperators(_conf, methods_,formatted_, castsFrom_);
+            fetchImproveOperators(_conf, s.getRootBlock(),methods_,formatted_, castsFrom_);
         }
     }
     public static ClassMethodIdReturn fetchTrueOperator(ContextEl _conf, ClassArgumentMatching _arg) {
@@ -1946,6 +1965,7 @@ public abstract class OperationNode {
                     mloc_.setFileName(e.getFileName());
                     mloc_.setRootNumber(e.getRootNumber());
                     mloc_.setMemberNumber(e.getMemberNumber());
+                    mloc_.setStandardMethod(e.getStandardMethod());
                     m_.add(mloc_);
                 }
                 methods_.add(m_);
@@ -2107,9 +2127,9 @@ public abstract class OperationNode {
         }
     }
 
-    private static void fetchImproveOperators(ContextEl _conf, CustList<MethodInfo> _methods, String _cl, CustList<MethodHeaderInfo> _casts) {
+    private static void fetchImproveOperators(ContextEl _conf, RootBlock _root, CustList<MethodInfo> _methods, String _cl, CustList<MethodHeaderInfo> _casts) {
         for (MethodHeaderInfo e: nullToEmpty(_casts)) {
-            MethodInfo stMeth_ = fetchedParamImproveOperator(e, _cl, _conf);
+            MethodInfo stMeth_ = fetchedParamImproveOperator(_root,e, _cl, _conf);
             _methods.add(stMeth_);
         }
     }
@@ -2211,9 +2231,9 @@ public abstract class OperationNode {
         return buildCastMethodInfo(_type,_m,_uniqueId, _conf, _returnType,_s);
     }
 
-    private static MethodInfo fetchedParamImproveOperator(MethodHeaderInfo _m, String _s,
+    private static MethodInfo fetchedParamImproveOperator(RootBlock _root,MethodHeaderInfo _m, String _s,
                                                           ContextEl _conf) {
-        return buildImproveOperatorInfo(_m, _conf, _s);
+        return buildImproveOperatorInfo(_root,_m, _conf, _s);
     }
 
     private static boolean cannotAccess(ContextEl _conf, String _base,AccessibleBlock _acc,
@@ -2236,6 +2256,9 @@ public abstract class OperationNode {
         if (_m instanceof NamedFunctionBlock) {
             mloc_.setFileName(((Block)_m).getFile().getFileName());
             mloc_.setMemberNumber(((NamedFunctionBlock)_m).getNameNumber());
+        }
+        if (_m instanceof StandardMethod) {
+            mloc_.setStandardMethod((StandardMethod)_m);
         }
         if (_r instanceof RootBlock) {
             mloc_.setRootNumber(((RootBlock)_r).getNumberAll());
@@ -2284,7 +2307,7 @@ public abstract class OperationNode {
         return mloc_;
     }
 
-    private static MethodInfo buildImproveOperatorInfo(MethodHeaderInfo _m, ContextEl _conf, String _formattedClass) {
+    private static MethodInfo buildImproveOperatorInfo(RootBlock _root,MethodHeaderInfo _m, ContextEl _conf, String _formattedClass) {
         String ret_ = _m.getImportedReturnType();
         ret_ = AnaTemplates.wildCardFormatReturn(_formattedClass, ret_, _conf);
         ParametersGroup p_ = new ParametersGroup();
@@ -2296,6 +2319,8 @@ public abstract class OperationNode {
         mloc_.setParameters(p_);
         mloc_.setReturnType(ret_);
         mloc_.setAncestor(0);
+        mloc_.setRootNumber(_root.getNumberAll());
+        mloc_.setMemberNumber(_m.getNameNumber());
         mloc_.format(false,_conf);
         return mloc_;
     }
@@ -2324,6 +2349,7 @@ public abstract class OperationNode {
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
+        mloc_.setRootNumber(r_.getNumberAll());
         methods_.add(mloc_);
         p_ = new ParametersGroup();
         String values_ = _conf.getStandards().getAliasEnumValues();
@@ -2339,6 +2365,7 @@ public abstract class OperationNode {
         mloc_.setReturnType(returnType_);
         mloc_.setOriginalReturnType(returnType_);
         mloc_.setAncestor(_ancestor);
+        mloc_.setRootNumber(r_.getNumberAll());
         methods_.add(mloc_);
         return methods_;
     }
@@ -2387,6 +2414,7 @@ public abstract class OperationNode {
         res_.setFileName(m_.getFileName());
         res_.setMemberNumber(m_.getMemberNumber());
         res_.setRootNumber(m_.getRootNumber());
+        res_.setStandardMethod(m_.getStandardMethod());
         res_.setAncestor(m_.getAncestor());
         res_.setAbstractMethod(m_.isAbstractMethod());
         res_.setStaticMethod(m_.isStatic());
@@ -2443,6 +2471,9 @@ public abstract class OperationNode {
         }
         res_.setRealId(constraints_);
         res_.setRealClass(baseClassName_);
+        res_.setStandardMethod(m_.getStandardMethod());
+        res_.setRootNumber(m_.getRootNumber());
+        res_.setMemberNumber(m_.getMemberNumber());
         res_.setReturnType(m_.getReturnType());
         res_.setAncestor(m_.getAncestor());
         res_.setAbstractMethod(m_.isAbstractMethod());
@@ -2491,6 +2522,9 @@ public abstract class OperationNode {
         res_.setRealClass(baseClassName_);
         res_.setReturnType(m_.getReturnType());
         res_.setAncestor(m_.getAncestor());
+        res_.setStandardMethod(m_.getStandardMethod());
+        res_.setRootNumber(m_.getRootNumber());
+        res_.setMemberNumber(m_.getMemberNumber());
         res_.setAbstractMethod(m_.isAbstractMethod());
         res_.setStaticMethod(m_.isStatic());
         return res_;
@@ -2801,6 +2835,7 @@ public abstract class OperationNode {
         res_.setFileName(m_.getFileName());
         res_.setMemberNumber(m_.getMemberNumber());
         res_.setRootNumber(m_.getRootNumber());
+        res_.setStandardMethod(m_.getStandardMethod());
         res_.setAncestor(m_.getAncestor());
         res_.setAbstractMethod(m_.isAbstractMethod());
         res_.setStaticMethod(m_.isStatic());

@@ -4,7 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -34,7 +37,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     private boolean staticChoiceMethod;
 
-    public ExecCustArrOperation(ArrOperation _arr) {
+    private ExecNamedFunctionBlock get;
+    private ExecNamedFunctionBlock set;
+    private ExecRootBlock rootBlock;
+
+    public ExecCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
@@ -43,6 +50,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
+        get = _get;
+        set = _set;
+        rootBlock = _rootBlock;
     }
 
     @Override
@@ -135,6 +145,12 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+        ExecNamedFunctionBlock fct_;
+        if (_right != null) {
+            fct_ = set;
+        } else {
+            fct_ = get;
+        }
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf);
             classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf);
@@ -151,18 +167,19 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
-            ClassMethodId methodToCall_ = polymorph(_conf, previous_, classMethodId);
+            ExecOverrideInfo polymorph_ = polymorph(_conf, previous_, rootBlock, fct_);
+            fct_ = polymorph_.getOverridableBlock();
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
-            methodId_ = methodToCall_.getConstraints();
-            classNameFound_ = methodToCall_.getClassName();
+            methodId_ = classMethodId.getConstraints();
+            classNameFound_ = polymorph_.getClassName();
         }
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, _right);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, _right,fct_);
     }
 
 }

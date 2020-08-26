@@ -8,10 +8,10 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.functionid.ClassMethodIdOverrides;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.util.*;
 
 public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType, ExecAnnotableBlock {
@@ -33,7 +33,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
-    private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
+    private final CustList<ExecFunctionalInfo> functionalBodies = new CustList<ExecFunctionalInfo>();
     private String importedDirectSuperClass = "";
     private StringList importedDirectSuperInterfaces = new StringList();
     private final StringList allSuperTypes = new StringList();
@@ -292,8 +292,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     }
 
 
-    public CustList<ClassMethodId> getFunctional() {
-        return functional;
+    public CustList<ExecFunctionalInfo> getFunctionalBodies() {
+        return functionalBodies;
     }
 
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {

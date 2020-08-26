@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 
@@ -9,13 +10,13 @@ public final class CustomFoundMethod implements CallingState {
 
     private final String className;
 
-    private final MethodId id;
+    private final ExecNamedFunctionBlock id;
 
     private final CustList<Argument> arguments;
 
     private final Argument right;
 
-    public CustomFoundMethod(Argument _gl,String _className, MethodId _id, CustList<Argument> _arguments, Argument _right) {
+    public CustomFoundMethod(Argument _gl, String _className, ExecNamedFunctionBlock _id, CustList<Argument> _arguments, Argument _right) {
         gl = _gl;
         className = _className;
         id = _id;
@@ -31,7 +32,7 @@ public final class CustomFoundMethod implements CallingState {
         return className;
     }
 
-    public MethodId getId() {
+    public ExecNamedFunctionBlock getId() {
         return id;
     }
 

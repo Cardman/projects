@@ -2,6 +2,8 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -71,7 +73,8 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
     private void invoke(GuiContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
         ClassMethodId mId_ = new ClassMethodId(_typeName,new MethodId(MethodAccessKind.STATIC,_methName,_argTypes));
         Argument arg_ = new Argument();
-        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getConstraints(), _args, _r,null);
+        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_r,mId_.getClassName(), mId_.getConstraints()).first();
+        RunnableStruct.invoke(arg_, mId_.getClassName(), fct_, _args, _r,null);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);

@@ -1,6 +1,10 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -17,13 +21,15 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private RendSettableElResult settable;
     private String oper;
     private ClassMethodId classMethodId;
-    private ClassMethodId converter;
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converter;
 
-    public RendCompoundAffectationOperation(CompoundAffectationOperation _c) {
+    public RendCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
         super(_c);
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
-        converter = _c.getConverter();
+        named = ExecOperationNode.fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
+        converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter());
     }
 
     public void setup() {
@@ -52,7 +58,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _conf,_nodes);
             return;
         }
-        if (classMethodId != null) {
+        if (named != null) {
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
             chidren_.add(left_);
             chidren_.add(right_);
@@ -63,7 +69,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
             if (converter != null) {
-                Argument conv_ = tryConvert(converter, res_, _conf);
+                Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _conf);
                 if (conv_ == null) {
                     return;
                 }
@@ -74,10 +80,10 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             return;
         }
         if (converter != null) {
-            String tres_ = converter.getConstraints().getParametersType(1);
+            String tres_ = converter.get(0).getImportedParametersTypes().get(0);
             Argument res_;
             res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
-            Argument conv_ = tryConvert(converter, res_, _conf);
+            Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
             }
@@ -96,7 +102,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
         return Argument.createVoid();
     }
 

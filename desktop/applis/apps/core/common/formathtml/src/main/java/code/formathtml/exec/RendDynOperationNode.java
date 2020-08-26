@@ -5,13 +5,13 @@ import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecTernaryOperation;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
@@ -19,7 +19,6 @@ import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -58,6 +57,8 @@ public abstract class RendDynOperationNode {
 
     private int indexBegin;
 
+    private ImplicitMethods implicits = new ImplicitMethods();
+    private ImplicitMethods implicitsTest = new ImplicitMethods();
     RendDynOperationNode(OperationNode _oper) {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
@@ -156,12 +157,12 @@ public abstract class RendDynOperationNode {
             AbstractCallFctOperation a_ = (AbstractCallFctOperation) _anaNode;
             ClassMethodId classMethodId_ = a_.getClassMethodId();
             if (classMethodId_ != null) {
+                if (a_.getStandardMethod() != null) {
+                    return new RendStdFctOperation(i_,a_);
+                }
                 String className_ = classMethodId_.getClassName();
                 className_ = StringExpUtil.getIdFromAllTypes(className_);
                 RootBlock classBody_ = _cont.getAnalyzing().getAnaClassBody(className_);
-                if (classBody_ == null) {
-                    return new RendStdFctOperation(i_,a_);
-                }
                 if (classBody_ instanceof AnnotationBlock) {
                     return new RendAnnotationMethodOperation(i_,a_);
                 }
@@ -185,16 +186,24 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            return new RendStandardInstancingOperation(s_);
+            ExecNamedFunctionBlock ctor_ = ExecOperationNode.fetchFunction(_cont, s_.getRootNumber(), s_.getMemberNumber());
+            ExecRootBlock rootBlock_ = ExecOperationNode.fetchType(_cont, s_.getRootNumber());
+            if (rootBlock_ == null) {
+                return new RendDirectStandardInstancingOperation(s_);
+            }
+            return new RendStandardInstancingOperation(s_,rootBlock_,ctor_);
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
-            return new RendInterfaceFctConstructor(s_);
+            return new RendInterfaceFctConstructor(s_,_cont);
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,a_.getRootNumber());
+            ExecNamedFunctionBlock get_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _cont);
+            ExecNamedFunctionBlock set_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _cont);
             if (a_.getClassMethodId() != null) {
-                return new RendCustArrOperation(a_);
+                return new RendCustArrOperation(a_,get_,set_,ex_);
             }
             return new RendArrOperation(a_);
         }
@@ -224,23 +233,35 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
             if (c_.isTrueFalse()) {
-                return new RendExplicitOperation(c_);
+                return new RendExplicitOperation(c_,ExecOperationNode.fetchFunction(c_.getRootNumber(),c_.getMemberNumber(),_cont));
             }
-            return new RendChoiceFctOperation(c_);
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,c_.getRootNumber());
+            if (ex_ != null) {
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(c_, _cont);
+                return new RendChoiceFctOperation(c_,fct_);
+            }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
             if (s_.isTrueFalse()) {
-                return new RendExplicitOperation(s_);
+                return new RendExplicitOperation(s_,ExecOperationNode.fetchFunction(s_.getRootNumber(),s_.getMemberNumber(),_cont));
             }
-            return new RendSuperFctOperation(s_);
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,s_.getRootNumber());
+            if (ex_ != null) {
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(s_, _cont);
+                return new RendSuperFctOperation(s_,fct_);
+            }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
             if (f_.isTrueFalse()) {
-                return new RendExplicitOperation(f_);
+                return new RendExplicitOperation(f_,ExecOperationNode.fetchFunction(f_.getRootNumber(),f_.getMemberNumber(),_cont));
             }
-            return new RendFctOperation(f_);
+            ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(f_, _cont);
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,f_.getRootNumber());
+            if (ex_ != null) {
+                return new RendFctOperation(f_,fct_,ex_);
+            }
         }
         if (_anaNode instanceof FirstOptOperation) {
             FirstOptOperation f_ = (FirstOptOperation) _anaNode;
@@ -319,11 +340,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ExplicitOperatorOperation) {
             ExplicitOperatorOperation m_ = (ExplicitOperatorOperation) _anaNode;
-            return new RendExplicitOperatorOperation(m_);
+            return new RendExplicitOperatorOperation(m_,_cont);
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation m_ = (SemiAffectationOperation) _anaNode;
-            return new RendSemiAffectationOperation(m_);
+            return new RendSemiAffectationOperation(m_,_cont);
         }
         if (_anaNode instanceof UnaryBooleanOperation) {
             UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
@@ -339,7 +360,7 @@ public abstract class RendDynOperationNode {
                 return new RendErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new RendCustNumericOperation(n_,_anaNode);
+                return new RendCustNumericOperation(n_,_anaNode,ExecOperationNode.fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()));
             }
         }
         if (_anaNode instanceof UnaryOperation) {
@@ -352,11 +373,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
-            return new RendExplicitOperation(m_);
+            return new RendExplicitOperation(m_,ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new RendImplicitOperation(m_);
+            return new RendImplicitOperation(m_,ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
@@ -426,15 +447,15 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation c_ = (AndOperation) _anaNode;
-            return new RendAndOperation(c_);
+            return new RendAndOperation(c_,_cont);
         }
         if (_anaNode instanceof OrOperation) {
             OrOperation c_ = (OrOperation) _anaNode;
-            return new RendOrOperation(c_);
+            return new RendOrOperation(c_,_cont);
         }
         if (_anaNode instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _anaNode;
-            return new RendCompoundAffectationOperation(c_);
+            return new RendCompoundAffectationOperation(c_,_cont);
         }
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
@@ -617,11 +638,11 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        CustList<ClassMethodId> implicits_ = pair_.getImplicits();
+        ImplicitMethods implicits_ = pair_.getImplicits();
         Argument out_ = _argument;
-        CustList<ClassMethodId> implicitsTest_ = pair_.getImplicitsTest();
+        ImplicitMethods implicitsTest_ = pair_.getImplicitsTest();
         if (!implicitsTest_.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest_.first(), out_, _conf);
+            Argument res_ = tryConvert(implicitsTest_.get(0),implicitsTest_.getOwnerClass(), out_, _conf);
             if (res_ == null) {
                 return;
             }
@@ -656,8 +677,8 @@ public abstract class RendDynOperationNode {
         }
         int s_ = implicits_.size();
         for (int i = 0; i < s_; i++) {
-            ClassMethodId c = implicits_.get(i);
-            Argument res_ = tryConvert(c, out_, _conf);
+            ExecNamedFunctionBlock c = implicits_.get(i);
+            Argument res_ = tryConvert(c, implicits_.getOwnerClass(), out_, _conf);
             if (res_ == null) {
                 return;
             }
@@ -681,11 +702,10 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(out_);
     }
 
-    static Argument tryConvert(ClassMethodId c, Argument _argument, Configuration _conf) {
+    static Argument tryConvert(ExecNamedFunctionBlock c, String _owner, Argument _argument, Configuration _conf) {
         CustList<Argument> args_ = new CustList<Argument>(_argument);
         PageEl last_ = _conf.getPageEl();
-        String cl_ = c.getClassName();
-        MethodId id_ = c.getConstraints();
+        String cl_ = _owner;
         String paramNameOwner_ = last_.formatVarType(cl_, _conf.getContext());
         if (_conf.hasToExit(paramNameOwner_)) {
             CallingState state_ = _conf.getContext().getCallingState();
@@ -695,13 +715,12 @@ public abstract class RendDynOperationNode {
             }
         }
         if (!_conf.getContext().hasException()) {
-            MethodId check_ = new MethodId(id_.getKind(),id_.getName(),id_.shiftFirst(),id_.isVararg());
-            ExecTemplates.okArgsSet(check_,true, paramNameOwner_,args_, _conf.getContext(), null);
+            ExecTemplates.okArgsSet(c,true, paramNameOwner_,args_, _conf.getContext(), null);
         }
         if (_conf.getContext().hasException()) {
             return null;
         }
-        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_, id_, args_);
+        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_, c, args_);
         _conf.getContext().setCallingState(c_);
         Argument out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getId(), c_.getArguments(), _conf.getContext());
         if (_conf.getContext().hasException()) {
@@ -747,4 +766,13 @@ public abstract class RendDynOperationNode {
     public void setOrder(int _order) {
         order = _order;
     }
+
+    public ImplicitMethods getImplicits() {
+        return implicits;
+    }
+
+    public ImplicitMethods getImplicitsTest() {
+        return implicitsTest;
+    }
+
 }

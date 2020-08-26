@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
@@ -29,7 +30,8 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
 
     private int naturalVararg = -1;
     private int anc;
-    public RendChoiceFctOperation(ChoiceFctOperation _choice) {
+    private ExecNamedFunctionBlock named;
+    public RendChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named) {
         super(_choice);
         methodName = _choice.getMethodName();
         classMethodId = _choice.getClassMethodId();
@@ -38,6 +40,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
+        named = _named;
     }
 
 
@@ -89,7 +92,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
                 return Argument.createVoid();
             }
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, null,named);
     }
 
 }

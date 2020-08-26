@@ -5,6 +5,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -75,15 +76,15 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                             }
                         }
                     }
-                    CustList<ClassMethodId> functional_ = r_.getFunctional();
+                    CustList<ExecFunctionalInfo> functional_ = r_.getFunctionalBodies();
                     if ((instEltCount_ == 0 || _full)&& functional_.size() == 1) {
-                        ClassMethodId clRealId_ = functional_.first();
-                        MethodId realId_ = clRealId_.getConstraints();
+                        ExecFunctionalInfo clRealId_ = functional_.first();
+                        MethodId realId_ = clRealId_.getOverridableBlock().getId();
                         String geneStr_ = r_.getGenericString();
                         MethodId idMeth_ = realId_.quickFormat(geneStr_, _conf);
                         String gene_ = clRealId_.getClassName();
                         String geneFor_ = ExecTemplates.quickFormat(_className,gene_,_conf);
-                        String ret_ = ExecBlock.getDeepMethodBodiesById(_conf,gene_, realId_).first().getImportedReturnType();
+                        String ret_ = clRealId_.getOverridableBlock().getImportedReturnType();
                         ret_ = ExecTemplates.quickFormat(geneStr_,ret_,_conf);
                         ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
                         parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));

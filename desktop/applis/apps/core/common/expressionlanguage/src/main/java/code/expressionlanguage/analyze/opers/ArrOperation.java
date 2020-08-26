@@ -3,8 +3,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -14,13 +12,11 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
 
@@ -41,6 +37,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private String nbErr = "";
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
+    private int rootNumber = -1;
+    private int memberNumber = -1;
+    private int memberNumberSet = -1;
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -120,7 +119,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             accessFromSuper_ = fwd_.isAccessFromSuper();
         }
         ClassMethodIdAncestor feed_ = null;
+        ClassMethodIdAncestor feedSet_ = null;
         String trimMeth_ = "[]";
+        String trimMethSet_ = "[]=";
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
@@ -128,6 +129,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             boolean vararg_ = mid_.isVararg();
             StringList params_ = mid_.getParametersTypes();
             feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
+            feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMethSet_, params_, vararg_)),idMethod_.getAncestor());
         }
         ClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";
@@ -147,9 +149,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
                 varargParam_, OperationNode.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
+                bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
+                varargParam_, OperationNode.toArgArray(firstArgs_));
         Argument arg_ = getPreviousArgument();
         checkNull(arg_,_conf);
         if (clMeth_.isFoundMethod()) {
+            rootNumber = clMeth_.getRootNumber();
+            memberNumber = clMeth_.getMemberNumber();
+            memberNumberSet = clMethSet_.getMemberNumber();
             if (staticChoiceMethod_) {
                 if (clMeth_.isAbstractMethod()) {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
@@ -329,5 +337,17 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public CustList<CustList<MethodInfo>> getMethodInfos() {
         return methodInfos;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public int getMemberNumberSet() {
+        return memberNumberSet;
     }
 }

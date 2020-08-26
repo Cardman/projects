@@ -5,8 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -21,6 +23,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
     private ClassMethodId methodToCall;
+    private ExecNamedFunctionBlock methodToCallBody;
     private boolean calledMethod;
     private boolean calledAfter;
     private CustList<Argument> args = new CustList<Argument>();
@@ -44,7 +47,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             }
         }
         setWrapException(false);
-        if (methodToCall == null) {
+        if (methodToCallBody == null) {
             if (!method_.isWideStatic()) {
                 Argument instance_ = getArguments().first();
                 if (instance_.isNull()) {
@@ -63,15 +66,17 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             String className_ = method_.getClassName();
             if (isPolymorph(_context)) {
                 Struct instance_ = getArguments().first().getStruct();
-                ClassMethodId clId_ = new ClassMethodId(className_, method_.getRealId());
-                methodToCall = ExecInvokingOperation.polymorph(_context, instance_, clId_);
+                ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, method_.getDeclaring(), method_.getCalleeInv());
+                methodToCall = new ClassMethodId(polymorph_.getClassName(),method_.getRealId());
+                methodToCallBody = polymorph_.getOverridableBlock();
             } else {
                 methodToCall = new ClassMethodId(className_, method_.getRealId());
+                methodToCallBody = method_.getCalleeInv();
             }
         }
         if (!calledMethod) {
             calledMethod = true;
-            MethodId mid_ = methodToCall.getConstraints();
+            MethodId mid_ = method_.getRealId();
             if (method_.isWideStatic()) {
                 instance = new Argument();
             } else {
@@ -117,7 +122,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         if (!calledAfter) {
             setWrapException(false);
             String className_ = methodToCall.getClassName();
-            MethodId mid_ = methodToCall.getConstraints();
+            MethodId mid_ = method_.getRealId();
             Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
             if (_context.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
@@ -134,7 +139,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className, _mid, _instance, _args, _right);
+        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className, _mid, _instance, _args, _right,methodToCallBody);
+    }
+
+    ExecNamedFunctionBlock getMethodToCallBody() {
+        return methodToCallBody;
     }
 
     abstract boolean initType(ContextEl _context);

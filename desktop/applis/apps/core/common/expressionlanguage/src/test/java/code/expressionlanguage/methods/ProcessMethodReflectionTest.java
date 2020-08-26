@@ -6727,6 +6727,135 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         calculateError("pkg.Ex", id_, args_, cont_);
     }
     @Test
+    public void calculateArgument504Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(MyEnum).getDeclaredMethods(\"values\",$true,$false)[0].invoke($null,0);\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculateArgument505Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(MyEnum).getDeclaredMethods(\"valueOf\",$true,$false,$class(String))[0].invoke($null);\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculateArgument506Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(MyEnum).getDeclaredMethods(\"valueOf\",$true,$false,$class(String))[0].invoke($null,0);\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculateArgument507Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int catching(){\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(Ex).getDeclaredMethods(\"catching\",$false,$false)[0].invoke(0);\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculateArgument508Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int catching(){\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(StringBuilder).getDeclaredConstructors($false,$class(String))[0].newInstance($new Ex());\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
+    public void calculateArgument509Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyEnum {\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int catching($int... v){\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $class(Ex).getDeclaredMethods(\"catching\",$false,$true,$class($int))[0].invoke($new Ex(),$new Object[]{$new Integer[]{$null}});\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateError("pkg.Ex", id_, args_, cont_);
+    }
+    @Test
     public void processEl_1Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();
@@ -6812,7 +6941,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         arr_[1] = new IntStruct(3);
         ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
         args_.add(new Argument(s_));
-        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.METHOD, false);
+        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.STD_FCT, false);
         assertNull(getException(cont_));
         assertEq(1, getNumber(out_));
     }
@@ -6830,7 +6959,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         arr_[1] = new IntStruct(3);
         ArrayStruct s_ = new ArrayStruct(arr_,"[java.lang.Object");
         args_.add(new Argument(s_));
-        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.DIRECT, false);
+        Argument out_ = ProcessMethod.reflectArgument(new Argument(m_), args_, cont_, ReflectingType.STD_FCT, false);
         assertNull(getException(cont_));
         assertEq(1, getNumber(out_));
     }

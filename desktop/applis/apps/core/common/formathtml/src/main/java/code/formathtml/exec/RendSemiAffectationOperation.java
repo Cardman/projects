@@ -1,7 +1,11 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -18,16 +22,18 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private boolean post;
     private String oper;
     private ClassMethodId classMethodId;
-    private ClassMethodId converterFrom;
-    private ClassMethodId converterTo;
+    private ExecNamedFunctionBlock named;
+    private ImplicitMethods converterFrom;
+    private ImplicitMethods converterTo;
 
-    public RendSemiAffectationOperation(SemiAffectationOperation _s) {
+    public RendSemiAffectationOperation(SemiAffectationOperation _s, ContextEl _context) {
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
-        converterFrom = _s.getConverterFrom();
-        converterTo = _s.getConverterTo();
+        named = ExecOperationNode.fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
+        converterFrom = ExecOperationNode.fetchImplicits(_context,_s.getConverterFrom());
+        converterTo = ExecOperationNode.fetchImplicits(_context,_s.getConverterTo());
     }
 
     public void setup() {
@@ -66,18 +72,18 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
         Argument before_ = stored_;
         if (converterFrom != null) {
-            Argument conv_ = tryConvert(converterFrom, leftStore_, _conf);
+            Argument conv_ = tryConvert(converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _conf);
             if (conv_ == null) {
                 return;
             }
             stored_ = conv_;
         }
         if (converterTo != null) {
-            String tres_ = converterTo.getConstraints().getParametersType(1);
+            String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
             ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(stored_, _conf.getContext(), oper, cl_);
-            Argument conv_ = tryConvert(converterTo, res_, _conf);
+            Argument conv_ = tryConvert(converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
             }
@@ -100,7 +106,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
         return Argument.createVoid();
     }
 }

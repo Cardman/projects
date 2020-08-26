@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -94,10 +96,12 @@ public final class RenderExpUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_,_cont);
+        setImplicits(exp_,_cont);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof RendMethodOperation&&op_ != null) {
                 RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
+                setImplicits(loc_,_cont);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -117,6 +121,7 @@ public final class RenderExpUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
+                    setImplicits(loc_,_cont);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
@@ -387,8 +392,8 @@ public final class RenderExpUtil {
         for (RendDynOperationNode o: _nodes) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
-            a_.setImplicits(o.getResultClass().getImplicits());
-            a_.setImplicitsTest(o.getResultClass().getImplicitsTest());
+            a_.setImplicits(o.getImplicits());
+            a_.setImplicitsTest(o.getImplicitsTest());
             if (o instanceof RendPossibleIntermediateDotted) {
                 a_.setPreviousArgument(((RendPossibleIntermediateDotted)o).getPreviousArgument());
             }
@@ -476,5 +481,17 @@ public final class RenderExpUtil {
             }
         }
         return out_;
+    }
+
+    public static void setImplicits(RendDynOperationNode _ex, ContextEl _context){
+        ClassArgumentMatching resultClass_ = _ex.getResultClass();
+        for (ClassMethodId c: resultClass_.getImplicits()) {
+            _ex.getImplicits().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
+            _ex.getImplicits().setOwnerClass(c.getClassName());
+        }
+        for (ClassMethodId c: resultClass_.getImplicitsTest()) {
+            _ex.getImplicitsTest().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
+            _ex.getImplicitsTest().setOwnerClass(c.getClassName());
+        }
     }
 }

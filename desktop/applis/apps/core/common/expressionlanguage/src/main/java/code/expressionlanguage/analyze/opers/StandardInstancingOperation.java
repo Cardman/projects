@@ -32,6 +32,8 @@ public final class StandardInstancingOperation extends
     private int blockIndex = -1;
 
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
+    private int rootNumber = -1;
+    private int memberNumber = -1;
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -261,6 +263,8 @@ public final class StandardInstancingOperation extends
         }
         setConstId(ctorRes_.getRealId());
         setClassName(ctorRes_.getConstId().getName());
+        rootNumber = ctorRes_.getRootNumber();
+        memberNumber = ctorRes_.getMemberNumber();
         if (ctorRes_.isVarArgToCall()) {
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
@@ -315,5 +319,13 @@ public final class StandardInstancingOperation extends
 
     public CustList<ConstructorInfo> getCtors() {
         return ctors;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
     }
 }
