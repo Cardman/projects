@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.CustList;
 import code.util.IdMap;
@@ -78,10 +79,11 @@ public final class ExecExplicitOperation extends ExecAbstractUnaryOperation {
         if (_exit.hasToExit(paramNameOwner_,_fwd)) {
             return true;
         }
-        if (!ExecTemplates.okArgs(_rootBlock,_castOpId,true, paramNameOwner_,_arguments, _conf, null)) {
+        Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _castOpId, true, paramNameOwner_, _arguments, _conf, null);
+        if (parameters_.getError() != null) {
             return true;
         }
-        _conf.setCallingState(new CustomFoundCast(paramNameOwner_,_rootBlock,_castOpId,_arguments));
+        _conf.setCallingState(new CustomFoundCast(paramNameOwner_,_rootBlock,_castOpId,parameters_));
         return false;
     }
 

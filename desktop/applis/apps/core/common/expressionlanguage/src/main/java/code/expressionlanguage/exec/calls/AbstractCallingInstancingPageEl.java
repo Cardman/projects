@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
@@ -68,7 +69,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                     if (!ctors_.isEmpty()) {
                         e_ = ctors_.first();
                     }
-                    _context.setCallingState(new CustomFoundConstructor(formatVarType(id_,_context), blockRootSuperType,EMPTY_STRING, -1, e_, global_, new CustList<Argument>(), InstancingStep.USING_SUPER_IMPL));
+                    _context.setCallingState(new CustomFoundConstructor(formatVarType(id_,_context), blockRootSuperType,EMPTY_STRING, -1, e_, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }
                 //the super constructor is called here

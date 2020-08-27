@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundCast;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -55,10 +56,11 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     private static Argument checkStaticCall(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _castOpId, CustList<Argument> _arguments,
                                             String _className, PageEl _page, ContextEl _conf) {
         String paramName_ = _page.formatVarType(_className, _conf);
-        if (!ExecTemplates.okArgs(_rootBlock,_castOpId,true, paramName_,_arguments, _conf, null)) {
+        Parameters parameters_ = ExecTemplates.okArgs(_rootBlock, _castOpId, true, paramName_, _arguments, _conf, null);
+        if (parameters_.getError() != null) {
             return Argument.createVoid();
         }
-        _conf.setCallingState(new CustomFoundCast(paramName_,_rootBlock,_castOpId,_arguments));
+        _conf.setCallingState(new CustomFoundCast(paramName_,_rootBlock,_castOpId,parameters_));
         return Argument.createVoid();
 
     }

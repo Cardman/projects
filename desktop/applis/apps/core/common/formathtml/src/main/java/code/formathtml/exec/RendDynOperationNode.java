@@ -1,16 +1,14 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AnnotationBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.*;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -109,7 +107,7 @@ public abstract class RendDynOperationNode {
             res_ = ProcessMethod.instanceArgument(ctor_.getClassName(),ctor_.getType(), ctor_.getCurrentObject(), ctor_.getId(), ctor_.getArguments(), _conf.getContext());
         } else if (callingState_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _conf.getContext(),method_.getRight());
+            res_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), _conf.getContext());
         } else if (callingState_ instanceof CustomReflectMethod) {
             CustomReflectMethod ref_ = (CustomReflectMethod) callingState_;
             res_ = ProcessMethod.reflectArgument(ref_.getGl(), ref_.getArguments(), _conf.getContext(), ref_.getReflect(), ref_.isLambda());
@@ -719,13 +717,14 @@ public abstract class RendDynOperationNode {
                 ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
             }
         }
+        Parameters parameters_ = new Parameters();
         if (!_conf.getContext().hasException()) {
-            ExecTemplates.okArgsSet(_rootBlock,c,true, paramNameOwner_,args_, _conf.getContext(), null);
+            parameters_ = ExecTemplates.okArgsSet(_rootBlock, c, true, paramNameOwner_, args_, _conf.getContext(), null);
         }
         if (_conf.getContext().hasException()) {
             return null;
         }
-        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_,_rootBlock, c, args_);
+        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_,_rootBlock, c, parameters_);
         _conf.getContext().setCallingState(c_);
         Argument out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getRootBlock(),c_.getId(), c_.getArguments(), _conf.getContext());
         if (_conf.getContext().hasException()) {
@@ -741,7 +740,7 @@ public abstract class RendDynOperationNode {
         boolean convert_ = false;
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), ctx_,method_.getRight());
+            out_ = ProcessMethod.calculateArgument(method_.getGl(), method_.getClassName(),method_.getRootBlock(), method_.getId(), method_.getArguments(), ctx_);
             convert_ = true;
         }
         if (ctx_.hasException()) {

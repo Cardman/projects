@@ -15,6 +15,8 @@ import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.files.FileResolver;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -24,7 +26,6 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
@@ -57,7 +58,15 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        ProcessMethod.calculateArgument(argGlLoc_, _class,_cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class)), method_, _args, _cont, null);
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        int i_ = CustList.FIRST_INDEX;
+        Parameters p_ = new Parameters();
+        for (Argument a: _args) {
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_cont);
+            p_.getParameters().addEntry(method_.getParametersNames().get(i_),lv_);
+            i_++;
+        }
+        ProcessMethod.calculateArgument(argGlLoc_, _class, classBody_, method_, p_, _cont);
         Struct exc_ = getException(_cont);
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -70,7 +79,15 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class,_cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class)), method_, _args, _cont, null);
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        int i_ = CustList.FIRST_INDEX;
+        Parameters p_ = new Parameters();
+        for (Argument a: _args) {
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_cont);
+            p_.getParameters().addEntry(method_.getParametersNames().get(i_),lv_);
+            i_++;
+        }
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, classBody_, method_, p_, _cont);
         assertNull(getException(_cont));
         return arg_;
     }
@@ -92,7 +109,17 @@ public abstract class ProcessMethodCommon {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, tryGet(_class, _cont, id_), _args, _cont);
+        ExecConstructorBlock ctor_ = tryGet(_class, _cont, id_);
+        int i_ = CustList.FIRST_INDEX;
+        Parameters p_ = new Parameters();
+        if (ctor_ != null) {
+            for (Argument a : _args) {
+                LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
+                p_.getParameters().addEntry(ctor_.getParametersNames().get(i_), lv_);
+                i_++;
+            }
+        }
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
         assertNotNull(getException(_cont));
         return arg_;
     }
@@ -105,7 +132,17 @@ public abstract class ProcessMethodCommon {
         }
         ConstructorId id_ = new ConstructorId(_id.getName(),constraints_, false);
         ExecRootBlock type_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
-        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, tryGet(_class, _cont, id_), _args, _cont);
+        ExecConstructorBlock ctor_ = tryGet(_class, _cont, id_);
+        int i_ = CustList.FIRST_INDEX;
+        Parameters p_ = new Parameters();
+        if (ctor_ != null) {
+            for (Argument a : _args) {
+                LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), _cont);
+                p_.getParameters().addEntry(ctor_.getParametersNames().get(i_), lv_);
+                i_++;
+            }
+        }
+        Argument arg_ = ProcessMethod.instanceArgument(_class, type_, _global, ctor_, p_, _cont);
         assertNull(getException(_cont));
         return arg_;
     }

@@ -6,17 +6,16 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.opers.*;
@@ -139,7 +138,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,new Parameters()));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -174,7 +173,8 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,argsToPass_,null));
+            Parameters parameters_ = ExecTemplates.quickWrap(meth_,argsToPass_,_cont);
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,parameters_));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

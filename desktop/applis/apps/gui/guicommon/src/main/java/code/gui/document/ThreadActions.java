@@ -10,6 +10,8 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -160,7 +162,9 @@ public final class ThreadActions implements Runnable {
                         ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, methods_.first(), args_, ctx_, null);
+                        ExecNamedFunctionBlock method_ = methods_.first();
+                        Parameters parameters_ = ExecTemplates.quickWrap(method_,args_,ctx_);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
                         if (ctx_.hasException()) {
                             afterAction();
                             return;

@@ -15,6 +15,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.options.KeyWords;
@@ -1892,7 +1895,9 @@ public class LgNamesUtils extends LgNames {
                 String className_ = polymorph_.getClassName();
                 ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_))).first();
                 Argument arg_ = new Argument(_args[0]);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(stds_.aliasFormatType),fct_,new CustList<Argument>(arg_),null));
+                ExecRootBlock classBody_ = _cont.getClasses().getClassBody(stds_.aliasFormatType);
+                Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_),_cont);
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
                 return;
             }
         }
@@ -1905,7 +1910,9 @@ public class LgNamesUtils extends LgNames {
             ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true)).first();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(stds_.aliasFormatType),fct_,new CustList<Argument>(arg_,argArr_),null));
+            ExecRootBlock classBody_ = _cont.getClasses().getClassBody(stds_.aliasFormatType);
+            Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_,argArr_),_cont);
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

@@ -398,7 +398,7 @@ public final class ExecTemplates {
         }
         return null;
     }
-    public static Struct okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    public static Parameters okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof GeneMethod) {
@@ -406,10 +406,12 @@ public final class ExecTemplates {
         } else {
             hasFormat_ = true;
         }
+        Parameters p_ = new Parameters();
         if (hasFormat_ && !correctNbParameters(_classNameFound,_conf)) {
             LgNames stds_ = _conf.getStandards();
             String npe_ = stds_.getAliasIllegalArg();
-            return new ErrorStruct(_conf,npe_);
+            p_.setError(new ErrorStruct(_conf,npe_));
+            return p_;
         }
         if (_id == null) {
             if (_firstArgs.size() != params_.size()) {
@@ -419,9 +421,10 @@ public final class ExecTemplates {
                 mess_.append(_firstArgs.size());
                 mess_.append(">=");
                 mess_.append(params_.size());
-                return new ErrorStruct(_conf,mess_.toString(),cast_);
+                p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
+                return p_;
             }
-            return null;
+            return p_;
         }
         if (hasFormat_) {
             int i_ = 0;
@@ -452,15 +455,19 @@ public final class ExecTemplates {
             mess_.append(_firstArgs.size());
             mess_.append(">=");
             mess_.append(params_.size());
-            return new ErrorStruct(_conf,mess_.toString(),cast_);
+            p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
+            return p_;
         }
         int i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
             Struct ex_ = checkObjectEx(param_, a, _conf);
             if (ex_ != null) {
-                return ex_;
+                p_.setError(ex_);
+                return p_;
             }
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_conf);
+            p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
             i_++;
         }
         if (_id.isVarargs()) {
@@ -470,7 +477,9 @@ public final class ExecTemplates {
                 for (Struct s: arr_.getInstance()) {
                     ErrorType state_ = checkElement(arr_, s, _conf);
                     if (state_ != ErrorType.NOTHING) {
-                        return processError(_conf, arr_, s, state_);
+                        Struct struct_ = processError(_conf, arr_, s, state_);
+                        p_.setError(struct_);
+                        return p_;
                     }
                 }
             }
@@ -489,14 +498,26 @@ public final class ExecTemplates {
                     type_ = quickFormat(_rootBlock,_classNameFound, type_);
                     Struct ex_ = checkObjectEx(type_, _right, _conf);
                     if (ex_ != null) {
-                        return ex_;
+                        p_.setError(ex_);
+                        return p_;
                     }
                 }
+                p_.setRight(_right);
             }
         }
-        return null;
+        return p_;
     }
 
+    public static Parameters quickWrap(ExecNamedFunctionBlock _id, CustList<Argument> _firstArgs, ContextEl _conf) {
+        Parameters p_ = new Parameters();
+        int i_ = CustList.FIRST_INDEX;
+        for (Argument a: _firstArgs) {
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_conf);
+            p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
+            i_++;
+        }
+        return p_;
+    }
     private static Struct processError(ContextEl _conf, ArrayStruct arr_, Struct s, ErrorType state_) {
         LgNames stds_ = _conf.getStandards();
         if (state_ == ErrorType.NPE) {
@@ -519,9 +540,8 @@ public final class ExecTemplates {
         Struct ex_ = okArgsSet(_id, _classNameFound, _firstArgs, _conf, _right);
         return ex_ == null;
     }
-    public static boolean okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsSet(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
-        return ex_ == null;
+    public static Parameters okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        return okArgsSet(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
     }
     public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _right);
@@ -530,10 +550,10 @@ public final class ExecTemplates {
         }
         return ex_;
     }
-    public static Struct okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
-        if (ex_ != null) {
-            _conf.setException(ex_);
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Parameters ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
+        if (ex_.getError() != null) {
+            _conf.setException(ex_.getError());
         }
         return ex_;
     }

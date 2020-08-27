@@ -559,7 +559,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -572,7 +572,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
-        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -585,7 +585,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex<$int>",args_, cont_,null));
+        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex<$int>",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -597,7 +597,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         CustList<Argument> args_ = new CustList<Argument>();
-        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex",args_, cont_,null));
+        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test

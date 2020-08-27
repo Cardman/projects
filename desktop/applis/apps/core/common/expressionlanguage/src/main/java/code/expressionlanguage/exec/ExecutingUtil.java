@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -18,7 +19,6 @@ import code.expressionlanguage.inherits.Templates;
 
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.*;
 
 public final class ExecutingUtil {
@@ -139,31 +139,30 @@ public final class ExecutingUtil {
     private static AbstractPageEl createCallingMethod(ContextEl _context,CustomFoundMethod _e) {
         String cl_ = _e.getClassName();
         ExecNamedFunctionBlock id_ = _e.getId();
-        CustList<Argument> args_ = _e.getArguments();
+        Parameters args_ = _e.getArguments();
         Argument gl_ = _e.getGl();
-        Argument right_ = _e.getRight();
         ExecRootBlock rootBlock_ = _e.getRootBlock();
-        return createCallingMethod(_context,gl_, cl_,rootBlock_, id_, args_, right_);
+        return createCallingMethod(_context,gl_, cl_,rootBlock_, id_, args_);
     }
-    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, CustList<Argument> _args, Argument _right) {
+    public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
         _context.getCoverage().passCalls(_context,idCl_,_method);
         String ret_ = _method.getImportedReturnType();
-        MethodPageEl pageLoc_ = new MethodPageEl(_context,ret_,_gl,_class,_right);
+        MethodPageEl pageLoc_ = new MethodPageEl(_context,ret_,_gl,_class,_args.getRight());
         pageLoc_.setBlockRootType(_rootBlock);
-        setMethodInfos(_context,pageLoc_,_method, _args);
+        setMethodInfos(pageLoc_,_method, _args);
         return pageLoc_;
     }
 
     private static AbstractPageEl createCallingCast(ContextEl _context,CustomFoundCast _e) {
         String cl_ = _e.getClassName();
         ExecNamedFunctionBlock id_ = _e.getId();
-        CustList<Argument> args_ = _e.getArguments();
+        Parameters args_ = _e.getArguments();
         ExecRootBlock rootBlock_ = _e.getRootBlock();
         return createCallingCast(_context,cl_,rootBlock_, id_, args_);
     }
-    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, CustList<Argument> _args) {
+    public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
         ExecNamedFunctionBlock methodLoc_;
         methodLoc_ = _method;
@@ -172,17 +171,11 @@ public final class ExecutingUtil {
         String ret_ = methodLoc_.getImportedReturnType();
         CastPageEl pageLoc_ = new CastPageEl(_context,ret_,Argument.createVoid(),_class);
         pageLoc_.setBlockRootType(_rootBlock);
-        setMethodInfos(_context,pageLoc_,methodLoc_, _args);
+        setMethodInfos(pageLoc_,methodLoc_, _args);
         return pageLoc_;
     }
-    private static void setMethodInfos(ContextEl _context,AbstractMethodPageEl _page, ExecNamedFunctionBlock _block, CustList<Argument> _args) {
-        StringList paramsLoc_ = _block.getParametersNames();
-        int lenLoc_ = paramsLoc_.size();
-        for (int i = CustList.FIRST_INDEX; i < lenLoc_; i++) {
-            String p_ = paramsLoc_.get(i);
-            LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),_context);
-            _page.getValueVars().put(p_, lv_);
-        }
+    private static void setMethodInfos(AbstractMethodPageEl _page, ExecNamedFunctionBlock _block, Parameters _args) {
+        _page.getValueVars().putAllMap(_args.getParameters());
         ReadWrite rwLoc_ = new ReadWrite();
         rwLoc_.setBlock(_block.getFirstChild());
         _page.setReadWrite(rwLoc_);
@@ -191,14 +184,14 @@ public final class ExecutingUtil {
     }
     private static AbstractPageEl createInstancing(ContextEl _context,CustomFoundConstructor _e) {
         String cl_ = _e.getClassName();
-        CustList<Argument> args_ = _e.getArguments();
+        Parameters args_ = _e.getArguments();
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
             return createInstancing(_context,cl_, _e.getType(),_e.getCall(), args_);
         }
         return createForwardingInstancing(_context,cl_, _e.getType(),_e.getCall(), args_);
     }
-    public static CallConstructorPageEl createInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, CustList<Argument> _args) {
+    public static CallConstructorPageEl createInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
         _context.setCallingState(null);
         CallConstructorPageEl page_;
         Argument global_ = _call.getArgument();
@@ -235,7 +228,7 @@ public final class ExecutingUtil {
         page_.setBlockRootTypes(_type);
         return page_;
     }
-    private static AbstractPageEl createForwardingInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, CustList<Argument> _args) {
+    private static AbstractPageEl createForwardingInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
         _context.setCallingState(null);
         CallConstructorPageEl page_ = new CallConstructorPageEl();
         Argument global_ = _call.getArgument();
@@ -246,7 +239,7 @@ public final class ExecutingUtil {
         setInstanciationInfos(_context,page_,_class,_type,_call,_args);
         return page_;
     }
-    private static void setInstanciationInfos(ContextEl _context,AbstractPageEl _page,String _class, ExecRootBlock _type,CallConstructor _call, CustList<Argument> _args) {
+    private static void setInstanciationInfos(ContextEl _context,AbstractPageEl _page,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
         ExecNamedFunctionBlock id_ = _call.getId();
         ExecFileBlock file_ = _type.getFile();
         ExecNamedFunctionBlock method_ = null;
@@ -256,13 +249,7 @@ public final class ExecutingUtil {
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
             method_ = id_;
             _context.getCoverage().passCalls(_context,idCl_,method_);
-            StringList params_ = method_.getParametersNames();
-            int len_ = params_.size();
-            for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-                String p_ = params_.get(i);
-                LocalVariable lv_ = LocalVariable.newLocalVariable(_args.get(i).getStruct(),_context);
-                _page.getValueVars().put(p_, lv_);
-            }
+            _page.getValueVars().putAllMap(_args.getParameters());
             ExecBlock firstChild_ = method_.getFirstChild();
             rw_.setBlock(firstChild_);
         }

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.calls.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 
@@ -17,14 +18,14 @@ public final class CustomFoundConstructor implements CallingState {
 
     private final Argument currentObject;
 
-    private final CustList<Argument> arguments;
+    private final Parameters arguments;
 
     private final InstancingStep instanceStep;
 
     public CustomFoundConstructor(String _className,
                                   ExecRootBlock _type,
                                   String _fieldName, int _childIndex,
-                                  ExecNamedFunctionBlock _id, Argument _currentObject, CustList<Argument> _arguments, InstancingStep _instance) {
+                                  ExecNamedFunctionBlock _id, Argument _currentObject, Parameters _arguments, InstancingStep _instance) {
         className = _className;
         type = _type;
         fieldName = _fieldName;
@@ -60,7 +61,7 @@ public final class CustomFoundConstructor implements CallingState {
         return currentObject;
     }
 
-    public CustList<Argument> getArguments() {
+    public Parameters getArguments() {
         return arguments;
     }
 

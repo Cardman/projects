@@ -81,7 +81,7 @@ public final class MultSelectEltListStruct extends MouseAdapter implements Index
         ClassMethodId mId_ = new ClassMethodId(_typeName,new MethodId(MethodAccessKind.STATIC,_methName,_argTypes));
         Argument arg_ = new Argument();
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_r,mId_.getClassName(), mId_.getConstraints()).first();
-        RunnableStruct.invoke(arg_, mId_.getClassName(),_r.getClasses().getClassBody(mId_.getClassName()), fct_, _args, _r,null);
+        RunnableStruct.invoke(arg_, mId_.getClassName(),_r.getClasses().getClassBody(mId_.getClassName()), fct_, _args, _r);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);
