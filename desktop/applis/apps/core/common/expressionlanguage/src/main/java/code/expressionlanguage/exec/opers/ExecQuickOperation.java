@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.QuickOperation;
@@ -16,11 +17,13 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
 
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
     public ExecQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
         classMethodId = _q.getClassMethodId();
         named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
+        rootBlock = fetchType(_context,_q.getRootNumber());
         converter = fetchImplicits(_context,_q.getConverter());
     }
     @Override
@@ -38,7 +41,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, named,Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock, named,Argument.createVoid(), firstArgs_);
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

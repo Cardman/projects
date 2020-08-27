@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
@@ -22,17 +23,20 @@ public final class RendSettableFieldOperation extends
     private int anc;
 
     private ClassArgumentMatching previous;
-    public RendSettableFieldOperation(SettableAbstractFieldOperation _s) {
+    private ExecRootBlock rootBlock;
+    public RendSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
         previous = _s.getPreviousResultClass();
+        rootBlock = _rootBlock;
     }
     public RendSettableFieldOperation(RendSettableFieldOperation _s,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
         super(_s.getPreviousArgument(),_indexChild,_res,_order,_int);
         variable = _s.variable;
+        rootBlock = _s.rootBlock;
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.catString;
         anc = _s.anc;
@@ -137,5 +141,9 @@ public final class RendSettableFieldOperation extends
             return getCommonSetting(_previous,_conf,_right);
         }
         return getCommonArgument(_previous,_conf);
+    }
+
+    public ExecRootBlock getRootBlock() {
+        return rootBlock;
     }
 }

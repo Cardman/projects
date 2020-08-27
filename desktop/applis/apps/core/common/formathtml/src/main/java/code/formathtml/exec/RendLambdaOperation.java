@@ -90,12 +90,12 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         }
         if (method == null && realId == null) {
             arg_.setStruct(ExecFieldLambdaOperation.newLambda(_previous, context_,foundClass,returnFieldType,fieldId,ancestor,
-                    affField,staticField,finalField,shiftArgument,safeInstance, name_, pageEl_, fileName,annotableBlock));
+                    affField,staticField,finalField,shiftArgument,safeInstance, name_, pageEl_, fileName,declaring,annotableBlock));
             return arg_;
         }
         if (method == null) {
             arg_.setStruct(ExecConstructorLambdaOperation.newLambda(_previous, context_,foundClass,realId,returnFieldType,
-                    shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function));
+                    shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,declaring,function));
             return arg_;
         }
         arg_.setStruct(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,

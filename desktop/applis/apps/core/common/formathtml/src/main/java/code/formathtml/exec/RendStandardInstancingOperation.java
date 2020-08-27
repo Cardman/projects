@@ -78,7 +78,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         if (_conf.hasToExit(base_)) {
             return Argument.createVoid();
         }
-        String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf.getContext());
+        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
         return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
     }

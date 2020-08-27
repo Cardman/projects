@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -22,6 +23,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     private String oper;
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
     public RendCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
@@ -29,6 +31,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
         named = ExecOperationNode.fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
+        rootBlock = ExecOperationNode.fetchType(_context,_c.getRootNumber());
         converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter());
     }
 
@@ -69,7 +72,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             Argument res_;
             res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
             if (converter != null) {
-                Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _conf);
+                Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
                 if (conv_ == null) {
                     return;
                 }
@@ -83,7 +86,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             String tres_ = converter.get(0).getImportedParametersTypes().get(0);
             Argument res_;
             res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
-            Argument conv_ = tryConvert(converter.get(0),converter.getOwnerClass(), res_, _conf);
+            Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
             }
@@ -102,7 +105,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
         return Argument.createVoid();
     }
 

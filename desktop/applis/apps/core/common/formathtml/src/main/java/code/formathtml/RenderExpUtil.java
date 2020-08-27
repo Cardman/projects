@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -488,10 +489,12 @@ public final class RenderExpUtil {
         for (ClassMethodId c: resultClass_.getImplicits()) {
             _ex.getImplicits().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
             _ex.getImplicits().setOwnerClass(c.getClassName());
+            _ex.getImplicits().setRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(c.getClassName())));
         }
         for (ClassMethodId c: resultClass_.getImplicitsTest()) {
             _ex.getImplicitsTest().getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context, c.getClassName(),c.getConstraints()));
             _ex.getImplicitsTest().setOwnerClass(c.getClassName());
+            _ex.getImplicitsTest().setRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(c.getClassName())));
         }
     }
 }

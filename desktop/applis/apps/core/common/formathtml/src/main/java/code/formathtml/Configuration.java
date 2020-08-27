@@ -578,7 +578,7 @@ public final class Configuration {
         if (c_ != null) {
             InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
-                getContext().setCallingState(new NotInitializedClass(idCl_, _arg));
+                getContext().setCallingState(new NotInitializedClass(idCl_,c_, _arg));
                 return true;
             }
             if (res_ == InitClassState.ERROR) {

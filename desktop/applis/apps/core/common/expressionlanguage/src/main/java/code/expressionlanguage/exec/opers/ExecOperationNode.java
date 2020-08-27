@@ -7,10 +7,7 @@ import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -84,6 +81,7 @@ public abstract class ExecOperationNode {
             ImplicitMethods converter = new ImplicitMethods();
             converter.getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context,converterClass,_clMet.getConstraints()));
             converter.setOwnerClass(converterClass);
+            converter.setRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(converterClass)));
             return converter;
         }
         return null;
@@ -134,7 +132,7 @@ public abstract class ExecOperationNode {
         DefaultExiting ex_ = new DefaultExiting(_conf);
         CustList<Argument> args_ = new CustList<Argument>(_right);
         AbstractPageEl last_ = _conf.getLastPage();
-        if (ExecExplicitOperation.checkCustomOper(ex_, c, args_, implicits_.getOwnerClass(), last_,_conf,_right)) {
+        if (ExecExplicitOperation.checkCustomOper(ex_,implicits_.getRootBlock(), c, args_, implicits_.getOwnerClass(), last_,_conf,_right)) {
             return indexImplicit_;
         }
         return indexImplicit_ +1;
@@ -162,7 +160,7 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof AnnotationInstanceOperation) {
             AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
-            return new ExecAnnotationInstanceOperation(n_);
+            return new ExecAnnotationInstanceOperation(n_,fetchType(_cont,n_.getRootNumber()));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
@@ -178,11 +176,18 @@ public abstract class ExecOperationNode {
                 if (a_.getStandardMethod() != null) {
                     return new ExecStdFctOperation(i_,a_);
                 }
-                String className_ = classMethodId_.getClassName();
-                className_ = StringExpUtil.getIdFromAllTypes(className_);
-                RootBlock classBody_ = _cont.getAnalyzing().getAnaClassBody(className_);
-                if (classBody_ instanceof AnnotationBlock) {
+                ExecRootBlock ex_ = fetchType(_cont,a_.getRootNumber());
+                if (ex_ instanceof ExecAnnotationBlock) {
                     return new ExecAnnotationMethodOperation(i_,a_);
+                }
+                if (a_.isTrueFalse()) {
+                    return new ExecExplicitOperation(i_,a_,
+                            fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
+                            fetchType(_cont,a_.getRootNumber()));
+                }
+                if (a_.isStaticMethod()) {
+                    ExecNamedFunctionBlock fct_ = fetchFunction(a_, _cont);
+                    return new ExecStaticFctOperation(i_,a_,fct_,ex_);
                 }
             }
         }
@@ -268,31 +273,22 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            if (c_.isTrueFalse()) {
-                return new ExecExplicitOperation(c_,fetchFunction(c_.getRootNumber(),c_.getMemberNumber(),_cont));
-            }
             ExecRootBlock ex_ = fetchType(_cont,c_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = fetchFunction(c_, _cont);
-                return new ExecChoiceFctOperation(c_,fct_);
+                return new ExecChoiceFctOperation(c_,fct_,ex_);
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            if (s_.isTrueFalse()) {
-                return new ExecExplicitOperation(s_,fetchFunction(s_.getRootNumber(),s_.getMemberNumber(),_cont));
-            }
             ExecRootBlock ex_ = fetchType(_cont,s_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = fetchFunction(s_, _cont);
-                return new ExecSuperFctOperation(s_,fct_);
+                return new ExecSuperFctOperation(s_,fct_,ex_);
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            if (f_.isTrueFalse()) {
-                return new ExecExplicitOperation(f_,fetchFunction(f_.getRootNumber(),f_.getMemberNumber(),_cont));
-            }
             ExecNamedFunctionBlock fct_ = fetchFunction(f_, _cont);
             ExecRootBlock ex_ = fetchType(_cont,f_.getRootNumber());
             if (ex_ != null) {
@@ -361,7 +357,7 @@ public abstract class ExecOperationNode {
             if (s_.getFieldId() == null) {
                 return new ExecErrorParentOperation(_anaNode);
             }
-            return new ExecSettableFieldOperation(s_);
+            return new ExecSettableFieldOperation(s_,fetchType(_cont,s_.getRootNumber()));
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -405,7 +401,7 @@ public abstract class ExecOperationNode {
                 return new ExecErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new ExecCustNumericOperation(n_,_anaNode,fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()));
+                return new ExecCustNumericOperation(n_,_anaNode,fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),fetchType(_cont,n_.getRootNumber()));
             }
         }
         if (_anaNode instanceof UnaryBooleanOperation) {
@@ -426,11 +422,15 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
-            return new ExecExplicitOperation(m_,fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont));
+            return new ExecExplicitOperation(m_,
+                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
+                    fetchType(_cont,m_.getRootNumber()));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
-            return new ExecImplicitOperation(m_,fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont));
+            return new ExecImplicitOperation(m_,
+                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
+                    fetchType(_cont,m_.getRootNumber()));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;
@@ -840,10 +840,12 @@ public abstract class ExecOperationNode {
         PolymorphMethod valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
         String clCall_ = "";
         ExecNamedFunctionBlock methodCallBody_ = null;
+        ExecRootBlock type_ = null;
         if (val_ != null) {
             ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_.getRootBlock(), valBody_.getNamed());
             methodCallBody_ = polymorphMethod_.getOverridableBlock();
             clCall_ = polymorphMethod_.getClassName();
+            type_ = polymorphMethod_.getRootBlock();
         } else {
             argClassName_ = " ";
         }
@@ -852,7 +854,7 @@ public abstract class ExecOperationNode {
             out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
             return out_;
         }
-        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,methodCallBody_,new CustList<Argument>(),null));
+        _conf.setCallingState(new CustomFoundMethod(out_,clCall_,type_,methodCallBody_,new CustList<Argument>(),null));
         return out_;
     }
 

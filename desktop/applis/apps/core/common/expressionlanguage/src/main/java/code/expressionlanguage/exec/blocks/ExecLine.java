@@ -80,7 +80,7 @@ public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotE
             if (!inst_.isFirstField() && initFields_) {
                 inst_.setFirstField(true);
                 Argument global_ = inst_.getGlobalArgument();
-                _cont.setCallingState(new NotInitializedFields(curClass_, global_));
+                _cont.setCallingState(new NotInitializedFields(curClass_,inst_.getBlockRootType(), global_));
                 return;
             }
             //fields of the current class are initialized if there is no other interface constructors to call

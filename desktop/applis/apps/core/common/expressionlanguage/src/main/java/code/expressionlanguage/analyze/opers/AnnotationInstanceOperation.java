@@ -32,6 +32,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
     private CustList<PartOffset> partOffsetsErr = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsets = new CustList<PartOffset>();
     private CustList<PartOffset> partOffsetsErrPar = new CustList<PartOffset>();
+    private int rootNumber = -1;
 
     public AnnotationInstanceOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -112,6 +113,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 setResultClass(new ClassArgumentMatching(realClassName_));
                 return;
             }
+            rootNumber = g_.getNumberAll();
             className = realClassName_;
         }
     }
@@ -440,5 +442,9 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
 
     public CustList<PartOffset> getPartOffsetsErrPar() {
         return partOffsetsErrPar;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

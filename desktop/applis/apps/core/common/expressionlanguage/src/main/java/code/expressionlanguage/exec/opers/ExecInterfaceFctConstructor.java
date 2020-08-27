@@ -56,7 +56,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
+        lastType_ = ExecTemplates.quickFormat(getRootBlock(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);

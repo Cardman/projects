@@ -24,7 +24,8 @@ public class ClassMethodIdOverride {
     }
 
     public void put(ContextEl _context, String _cl, ClassMethodId _dest) {
-        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(_context, StringExpUtil.getIdFromAllTypes(_dest.getClassName()), _dest.getConstraints()).first();
-        redirections.put(_cl, new ExecOverrideInfo(_dest.getClassName(),first_));
+        String id_ = StringExpUtil.getIdFromAllTypes(_dest.getClassName());
+        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(_context, id_, _dest.getConstraints()).first();
+        redirections.put(_cl, new ExecOverrideInfo(_dest.getClassName(),_context.getClasses().getClassBody(id_),first_));
     }
 }

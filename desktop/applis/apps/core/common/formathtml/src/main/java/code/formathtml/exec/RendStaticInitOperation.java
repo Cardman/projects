@@ -22,7 +22,7 @@ public final class RendStaticInitOperation extends RendLeafOperation implements 
         String className_ = getResultClass().getName();
         if (possibleInitClass && _conf.hasToExit(className_)) {
             NotInitializedClass statusInit_ = (NotInitializedClass) _conf.getContext().getCallingState();
-            ProcessMethod.initializeClass(statusInit_.getClassName(), _conf.getContext());
+            ProcessMethod.initializeClass(statusInit_.getClassName(),statusInit_.getRootBlock(), _conf.getContext());
         }
         setQuickNoConvertSimpleArgument(Argument.createVoid(), _conf,_nodes);
     }

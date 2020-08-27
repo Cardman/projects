@@ -357,27 +357,14 @@ public final class ExecTemplates {
             String npe_ = stds_.getAliasIllegalArg();
             return new ErrorStruct(_conf,npe_);
         }
-        if (hasFormat_) {
-            int i_ = 0;
-            for (String c: _id.getParametersTypes()) {
-                String c_ = c;
-                c_ = quickFormat(_classNameFound, c_, _conf);
-                if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
+        int i_ = 0;
+        for (String c: _id.getParametersTypes()) {
+            String c_ = c;
+            if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
+                c_ = StringExpUtil.getPrettyArrayType(c_);
             }
-        } else {
-            int i_ = 0;
-            for (String c: _id.getParametersTypes()) {
-                String c_ = c;
-                if (i_ + 1 == _id.getParametersTypes().size() && _id.isVararg()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
+            params_.add(c_);
+            i_++;
         }
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
@@ -388,7 +375,7 @@ public final class ExecTemplates {
             mess_.append(params_.size());
             return new ErrorStruct(_conf,mess_.toString(),cast_);
         }
-        int i_ = CustList.FIRST_INDEX;
+        i_ = CustList.FIRST_INDEX;
         for (Argument a: _firstArgs) {
             String param_ = params_.get(i_);
             Struct ex_ = checkObjectEx(param_, a, _conf);
@@ -411,7 +398,7 @@ public final class ExecTemplates {
         }
         return null;
     }
-    public static Struct okArgsEx(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+    public static Struct okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         StringList params_ = new StringList();
         boolean hasFormat_;
         if (_id instanceof GeneMethod) {
@@ -440,7 +427,7 @@ public final class ExecTemplates {
             int i_ = 0;
             for (String c: _id.getImportedParametersTypes()) {
                 String c_ = c;
-                c_ = quickFormat(_classNameFound, c_, _conf);
+                c_ = quickFormat(_rootBlock,_classNameFound, c_);
                 if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
                     c_ = StringExpUtil.getPrettyArrayType(c_);
                 }
@@ -491,8 +478,7 @@ public final class ExecTemplates {
         if (_id instanceof GeneMethod) {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
-                String id_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-                for (ExecOverridableBlock g: ExecBlock.getDeepMethodExecBlocks(_conf.getClasses().getClassBody(id_))) {
+                for (ExecOverridableBlock g: ExecBlock.getDeepMethodExecBlocks(_rootBlock)) {
                     if (!StringList.quickEq("[]",g.getId().getName())) {
                         continue;
                     }
@@ -500,7 +486,7 @@ public final class ExecTemplates {
                         continue;
                     }
                     String type_ = g.getImportedReturnType();
-                    type_ = quickFormat(_classNameFound, type_, _conf);
+                    type_ = quickFormat(_rootBlock,_classNameFound, type_);
                     Struct ex_ = checkObjectEx(type_, _right, _conf);
                     if (ex_ != null) {
                         return ex_;
@@ -533,8 +519,8 @@ public final class ExecTemplates {
         Struct ex_ = okArgsSet(_id, _classNameFound, _firstArgs, _conf, _right);
         return ex_ == null;
     }
-    public static boolean okArgs(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsSet(_id, _format, _classNameFound, _firstArgs, _conf, _right);
+    public static boolean okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Struct ex_ = okArgsSet(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
         return ex_ == null;
     }
     public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
@@ -544,8 +530,8 @@ public final class ExecTemplates {
         }
         return ex_;
     }
-    public static Struct okArgsSet(ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Struct ex_ = okArgsEx(_id, _format, _classNameFound, _firstArgs, _conf, _right);
+    public static Struct okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Struct ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
         if (ex_ != null) {
             _conf.setException(ex_);
         }
@@ -791,7 +777,7 @@ public final class ExecTemplates {
                 if (arg_.startsWith("!")) {
                     continue;
                 }
-                String param_ = format(formatted_, b, _context);
+                String param_ = format(root_,formatted_, b);
                 if (!isCorrectExecute(arg_,param_,_context)) {
                     return null;
                 }
@@ -835,7 +821,7 @@ public final class ExecTemplates {
         }
         GeneType classBody_ = _context.getClassBody(idArg_);
         generic_ = getSuperGeneric(classBody_, _context, 0, _classParam, _arg);
-        return quickFormat(_arg, generic_, _context);
+        return quickFormat(classBody_,_arg, generic_);
     }
     public static String getFullObject(String _subType, String _superType, ContextEl _context) {
         String idSuperType_ = StringExpUtil.getIdFromAllTypes(_superType);
@@ -854,7 +840,7 @@ public final class ExecTemplates {
         GeneType classBody_ = _context.getClassBody(baseArr_);
         String geneSubType_ = classBody_.getGenericString();
         String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_, geneSubType_);
-        return quickFormat(_subType, generic_, _context);
+        return quickFormat(classBody_,_subType, generic_);
     }
 
     public static String reflectFormat(String _first, String _second, ContextEl _context) {
@@ -987,7 +973,7 @@ public final class ExecTemplates {
         GeneType classBody_ = _context.getClassBody(baseArr_);
         String geneSubType_ = classBody_.getGenericString();
         String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_, geneSubType_);
-        return format(_subType, generic_, _context);
+        return format(classBody_,_subType, generic_);
     }
 
     public static String getOverridingFullTypeByBases(String _subType, String _superType, ContextEl _context) {
@@ -1002,7 +988,7 @@ public final class ExecTemplates {
         }
         String geneSubType_ = classBody_.getGenericString();
         String generic_ = getSuperGeneric(classBody_,_context, 0, idSuperType_, geneSubType_);
-        return quickFormat(_subType, generic_, _context);
+        return quickFormat(classBody_,_subType, generic_);
     }
 
     public static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam, String _geneSubType) {
@@ -1053,6 +1039,10 @@ public final class ExecTemplates {
         StringMap<String> varTypes_ = getVarTypes(_first, _context);
         return StringExpUtil.getFormattedType(_second, varTypes_);
     }
+    public static String format(GeneType _type, String _first, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_first, _type);
+        return StringExpUtil.getFormattedType(_second, varTypes_);
+    }
 
     /**Returns a formatted string (variables present in second type are defined in the scope of the first type id)<br/>
      Let this code:<br/>
@@ -1069,7 +1059,10 @@ public final class ExecTemplates {
      Sample 4: "my.pkg.MyThirdClass..Inner&lt;int&gt;" - "#V" => "int"<br/>
      */
     public static String quickFormat(String _first, String _second, ContextEl _context) {
-        StringMap<String> varTypes_ = getVarTypes(_first, _context);
+        return quickFormat(_context.getClassBody(StringExpUtil.getIdFromAllTypes(_first)),_first,_second);
+    }
+    public static String quickFormat(GeneType _type, String _first, String _second) {
+        StringMap<String> varTypes_ = getVarTypes(_first,_type);
         return StringExpUtil.getQuickFormattedType(_second, varTypes_);
     }
 
@@ -1091,17 +1084,25 @@ public final class ExecTemplates {
         StringList types_ = StringExpUtil.getAllTypes(_className);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
         GeneType root_ = _context.getClassBody(className_);
+        return getVarTypes(types_, root_);
+    }
+
+    private static StringMap<String> getVarTypes(String _className, GeneType _root) {
+        StringList types_ = StringExpUtil.getAllTypes(_className);
+        return getVarTypes(types_,_root);
+    }
+    private static StringMap<String> getVarTypes(StringList _types, GeneType _root) {
         StringMap<String> varTypes_ = new StringMap<String>();
-        if (root_ == null) {
+        if (_root == null) {
             return varTypes_;
         }
         int i_ = CustList.FIRST_INDEX;
-        for (String t: root_.getParamTypesValues()) {
+        for (String t: _root.getParamTypesValues()) {
             i_++;
-            if (!types_.isValidIndex(i_)) {
+            if (!_types.isValidIndex(i_)) {
                 return varTypes_;
             }
-            String arg_ = types_.get(i_);
+            String arg_ = _types.get(i_);
             varTypes_.put(t, arg_);
         }
         return varTypes_;

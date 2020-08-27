@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
@@ -21,6 +22,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
     private String oper;
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converterFrom;
     private ImplicitMethods converterTo;
 
@@ -31,6 +33,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
         named = fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
+        rootBlock = fetchType(_context, _s.getRootNumber());
         converterFrom = fetchImplicits(_context,_s.getConverterFrom());
         converterTo = fetchImplicits(_context,_s.getConverterTo());
         opOffset = _s.getOpOffset();
@@ -68,7 +71,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             arguments_.add(leftArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,named, Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock,named, Argument.createVoid(), firstArgs_);
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);

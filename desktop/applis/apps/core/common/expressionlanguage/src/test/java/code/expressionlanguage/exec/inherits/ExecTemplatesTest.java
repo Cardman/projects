@@ -51,8 +51,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
-        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
-        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",in_,c_);
         assertNotNull(getException(c_));
     }
@@ -67,9 +67,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
-        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex","",-1);
-        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner","",-1);
-        Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner","",-1);
+        Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
+        Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
+        Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",inTwo_,c_);
         assertNotNull(getException(c_));
     }
@@ -514,7 +514,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
-        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
         assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex",args_, cont_,null));
@@ -529,7 +529,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
-        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
+        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(atr_));
         assertTrue(!ExecTemplates.okArgs(id_, "pkg.Ex<$int>",args_, cont_,null));
@@ -554,13 +554,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
-        Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>", "", -1);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        assertTrue(!ExecTemplates.okArgs(ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -573,7 +572,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
-        assertTrue(!ExecTemplates.okArgs(ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -586,7 +585,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        assertTrue(!ExecTemplates.okArgs(null,false,"pkg.Ex<$int>",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex<$int>",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -598,7 +597,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         CustList<Argument> args_ = new CustList<Argument>();
-        assertTrue(!ExecTemplates.okArgs(null,false,"pkg.Ex",args_, cont_,null));
+        assertTrue(!ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex",args_, cont_,null));
         assertNotNull(getException(cont_));
     }
     @Test
@@ -643,7 +642,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage());
         assertNotNull(getException(cont_));
     }
@@ -657,7 +656,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getValue(cont_,"", cont_.getLastPage());
         assertNotNull(getException(cont_));
     }
@@ -671,7 +670,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null);
         assertNotNull(getException(cont_));
     }
@@ -685,7 +684,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
-        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,"pkg.Ex",null));
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
         assertNotNull(getException(cont_));
     }

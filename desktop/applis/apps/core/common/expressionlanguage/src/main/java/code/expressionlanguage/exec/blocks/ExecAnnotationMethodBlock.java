@@ -92,15 +92,15 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock impl
         ExecRootBlock r_ = (ExecRootBlock) getParent();
         String idCl_ = r_.getFullName();
         String ret_ = getImportedReturnType();
-        setValue(idCl_,name_,ret_,_cont,_arg);
+        setValue(r_,idCl_,name_,ret_,_cont,_arg);
     }
-    public static void setValue(String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
+    public static void setValue(ExecRootBlock _rootBlock,String _cl, String _name, String _returnType,ContextEl _cont, Argument _arg) {
         if (_cont.callsOrException()) {
             return;
         }
         AbstractPageEl ip_ = _cont.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
-        ExecInvokingOperation.setInstanceField(_cl, _name, _returnType, gl_, _arg, _cont);
+        ExecInvokingOperation.setInstanceField(_rootBlock,_cl, _name, _returnType, gl_, _arg, _cont);
     }
 
     public CustList<ExecOperationNode> getOpValue() {

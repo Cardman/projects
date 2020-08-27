@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
@@ -20,13 +21,15 @@ public final class ExecSettableFieldOperation extends
     private boolean catString;
 
     private int anc;
+    private ExecRootBlock rootBlock;
 
-    public ExecSettableFieldOperation(SettableAbstractFieldOperation _s) {
+    public ExecSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
         super(_s);
         variable = _s.isVariable();
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
+        rootBlock = _rootBlock;
     }
 
     public boolean resultCanBeSet() {
@@ -100,7 +103,7 @@ public final class ExecSettableFieldOperation extends
             return Argument.createVoid();
         }
         //Come from code directly so constant static fields can be initialized here
-        return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
+        return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
     private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
         Argument left_ = new Argument();

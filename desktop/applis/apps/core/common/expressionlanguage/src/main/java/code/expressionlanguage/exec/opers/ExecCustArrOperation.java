@@ -153,16 +153,8 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         }
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf);
-            classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf);
-            if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf)) {
-                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                String cast_;
-                cast_ = stds_.getAliasCastType();
-                _conf.setException(new ErrorStruct(_conf, StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                return new Argument();
-            }
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {
@@ -171,7 +163,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             fct_ = polymorph_.getOverridableBlock();
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf);
+            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
@@ -179,7 +171,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, _right,fct_);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, _right,fct_);
     }
 
 }

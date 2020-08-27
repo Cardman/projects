@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -23,6 +24,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private String oper;
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converterFrom;
     private ImplicitMethods converterTo;
 
@@ -32,6 +34,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         oper = _s.getOper();
         classMethodId = _s.getClassMethodId();
         named = ExecOperationNode.fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
+        rootBlock = ExecOperationNode.fetchType(_context,_s.getRootNumber());
         converterFrom = ExecOperationNode.fetchImplicits(_context,_s.getConverterFrom());
         converterTo = ExecOperationNode.fetchImplicits(_context,_s.getConverterTo());
     }
@@ -72,7 +75,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         Argument stored_ = getArgument(_nodes,(RendDynOperationNode) settable);
         Argument before_ = stored_;
         if (converterFrom != null) {
-            Argument conv_ = tryConvert(converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _conf);
+            Argument conv_ = tryConvert(converterFrom.getRootBlock(),converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _conf);
             if (conv_ == null) {
                 return;
             }
@@ -83,7 +86,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(stored_, _conf.getContext(), oper, cl_);
-            Argument conv_ = tryConvert(converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);
+            Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
             }
@@ -106,7 +109,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
         return Argument.createVoid();
     }
 }

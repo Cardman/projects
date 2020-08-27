@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -18,22 +17,18 @@ public final class StaticInitPageEl extends AbstractPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        Classes classes_ = _context.getClasses();
 
-        String curClass_ = getGlobalClass();
-        String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
-        ExecRootBlock root_ =  classes_.getClassBody(curClassBase_);
+        ExecBlock blockRoot_ = getBlockRoot();
         //Super interfaces have no super classes
-        if (root_ instanceof ExecUniqueRootedBlock) {
-            String gene_ = root_.getImportedDirectGenericSuperClass();
+        if (blockRoot_ instanceof ExecUniqueRootedBlock) {
+            ExecUniqueRootedBlock exUniq_ = (ExecUniqueRootedBlock)blockRoot_;
+            String gene_ = exUniq_.getImportedDirectGenericSuperClass();
             String superClass_ = StringExpUtil.getIdFromAllTypes(gene_);
-            if (classes_.getClassBody(superClass_) != null) {
-                //initialize the super class first
-                if (ExecutingUtil.hasToExit(_context,superClass_)) {
-                    return false;
-                }
+            //initialize the super class first
+            if (ExecutingUtil.hasToExit(_context,superClass_)) {
+                return false;
             }
-            for (String i: root_.getStaticInitImportedInterfaces()) {
+            for (String i: exUniq_.getStaticInitImportedInterfaces()) {
                 //then initialize the additional super interfaces (not provided by the super class)
                 if (ExecutingUtil.hasToExit(_context,i)) {
                     return false;
@@ -58,7 +53,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
         if (en_ instanceof ExecStaticBlock) {
             if (!processedBlocks.getVal((ExecInitBlock)en_)) {
                 processedBlocks.put((ExecInitBlock)en_, true);
-                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (ExecInitBlock)en_);
+                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(),getBlockRootType(), (ExecInitBlock)en_);
                 _context.setCallingState(cust_);
                 return;
             }

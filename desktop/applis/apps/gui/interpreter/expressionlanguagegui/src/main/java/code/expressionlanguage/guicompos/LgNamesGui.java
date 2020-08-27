@@ -3337,7 +3337,7 @@ public class LgNamesGui extends LgNamesUtils {
                 MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
                 ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_),null));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(className_),fct_,new CustList<Argument>(arg_),null));
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4179,7 +4179,7 @@ public class LgNamesGui extends LgNamesUtils {
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
                     ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
+                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(className_),fct_, args_,null));
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4193,7 +4193,7 @@ public class LgNamesGui extends LgNamesUtils {
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
                 ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(className_),fct_, args_,null));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4221,7 +4221,7 @@ public class LgNamesGui extends LgNamesUtils {
             args_.add(new Argument(_args[0]));
             args_.add(new Argument(_args[1]));
             ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_, args_,null));
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(className_),fct_, args_,null));
             return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {
@@ -4867,14 +4867,14 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl) {
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
         return new EventFunctionalInstance(_className,_functional,fs_, _contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl) {
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
         return new EventFunctionalInstance(_className,_functional,fs_, _contextEl);
     }
 

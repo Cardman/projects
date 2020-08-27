@@ -1,5 +1,6 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.StringList;
 import code.util.ints.Equallable;
@@ -22,9 +23,9 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
         return _type;
     }
 
-    public String formatType(String _owner, String _formatted,ContextEl _conf) {
+    public String formatType(ExecRootBlock _rootBlock, String _owner, String _formatted) {
         if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
-            return ExecTemplates.quickFormat(_owner, _formatted, _conf);
+            return ExecTemplates.quickFormat(_rootBlock,_owner, _formatted);
         }
         return _formatted;
     }

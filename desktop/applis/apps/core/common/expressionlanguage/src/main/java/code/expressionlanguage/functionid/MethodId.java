@@ -2,6 +2,7 @@ package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.CustList;
 import code.util.StringList;
@@ -119,8 +120,8 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return new MethodId(kind, name_, pTypes_, isVararg());
     }
     
-    public MethodId quickFormat(String _genericClass, ContextEl _context) {
-        StringList pTypes_ = getFormattedTypes(_genericClass, _context);
+    public MethodId quickFormat(ExecRootBlock _root, String _genericClass) {
+        StringList pTypes_ = getFormattedTypes(_root,_genericClass);
         return new MethodId(kind, name, pTypes_, isVararg());
     }
 
@@ -134,12 +135,12 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return new FormattedMethodId(name, pTypes_, isVararg());
     }
 
-    private StringList getFormattedTypes(String _genericClass, ContextEl _context) {
+    private StringList getFormattedTypes(ExecRootBlock _root, String _genericClass) {
         int len_ = classNames.size();
         StringList pTypes_ = new StringList();
         for (int i = CustList.FIRST_INDEX; i < len_; i++) {
             String n_ = classNames.get(i);
-            String formatted_ = ExecTemplates.quickFormat(_genericClass, n_, _context);
+            String formatted_ = ExecTemplates.quickFormat(_root,_genericClass, n_);
             pTypes_.add(formatted_);
         }
         return pTypes_;

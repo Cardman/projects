@@ -143,7 +143,7 @@ public final class Classes {
             for (String c: all_) {
                 _context.getInitializingTypeInfos().resetInitEnums(_context);
                 StringMap<StringMap<Struct>> bk_ = buildFieldValues(cl_.staticFields);
-                ProcessMethod.initializeClassPre(c, _context);
+                ProcessMethod.initializeClassPre(c,cl_.getClassBody(c), _context);
                 if (_context.isFailInit()) {
                     cl_.staticFields = bk_;
                 } else {
@@ -160,11 +160,12 @@ public final class Classes {
         dl_.initAlwaysSuccess();
         for (String t: _context.getOptions().getTypesInit()) {
             String res_ = StringExpUtil.removeDottedSpaces(t);
-            if (_context.getClasses().getClassBody(res_) == null) {
+            ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
+            if (classBody_ == null) {
                 continue;
             }
             _context.getInitializingTypeInfos().resetInitEnums(_context);
-            ProcessMethod.initializeClass(res_,_context);
+            ProcessMethod.initializeClass(res_,classBody_,_context);
         }
         _context.getInitializingTypeInfos().resetInitEnums(_context);
         StringList notInit_ = dl_.initAlwaysSuccess();

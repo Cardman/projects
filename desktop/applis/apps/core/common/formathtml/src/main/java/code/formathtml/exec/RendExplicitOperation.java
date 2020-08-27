@@ -1,12 +1,10 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
-import code.expressionlanguage.analyze.opers.FctOperation;
-import code.expressionlanguage.analyze.opers.SuperFctOperation;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.Configuration;
@@ -20,33 +18,23 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
     private String classNameOwner;
     private int offset;
     private ExecNamedFunctionBlock named;
-    public RendExplicitOperation(ExplicitOperation _a, ExecNamedFunctionBlock _named) {
+    private ExecRootBlock rootBlock;
+    public RendExplicitOperation(ExplicitOperation _a, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_a);
         className = _a.getClassName();
         classNameOwner = _a.getClassNameOwner();
         offset = _a.getOffset();
         named = _named;
+        rootBlock = _rootBlock;
     }
-    public RendExplicitOperation(FctOperation _a, ExecNamedFunctionBlock _named) {
-        super(_a);
+
+    public RendExplicitOperation(InvokingOperation _inv, AbstractCallFctOperation _a, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+        super(_inv);
         className = _a.getClassMethodId().getClassName();
         classNameOwner = _a.getClassMethodId().getClassName();
         offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
         named = _named;
-    }
-    public RendExplicitOperation(SuperFctOperation _a, ExecNamedFunctionBlock _named) {
-        super(_a);
-        className = _a.getClassMethodId().getClassName();
-        classNameOwner = _a.getClassMethodId().getClassName();
-        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
-        named = _named;
-    }
-    public RendExplicitOperation(ChoiceFctOperation _a, ExecNamedFunctionBlock _named) {
-        super(_a);
-        className = _a.getClassMethodId().getClassName();
-        classNameOwner = _a.getClassMethodId().getClassName();
-        offset = StringList.getFirstPrintableCharIndex(_a.getMethodName());
-        named = _named;
+        rootBlock = _rootBlock;
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
@@ -58,6 +46,6 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,named,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext());
+        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),rootBlock,false,named,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext());
     }
 }

@@ -36,7 +36,7 @@ public final class FieldInitPageEl extends AbstractPageEl {
         if (en_ instanceof ExecInstanceBlock) {
             if (!processedBlocks.getVal((ExecInitBlock)en_)) {
                 processedBlocks.put((ExecInitBlock)en_, true);
-                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(), (ExecInitBlock)en_);
+                CustomFoundBlock cust_ = new CustomFoundBlock(getGlobalClass(), getGlobalArgument(),getBlockRootType(), (ExecInitBlock)en_);
                 _context.setCallingState(cust_);
                 return;
             }

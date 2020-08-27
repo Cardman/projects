@@ -119,10 +119,10 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         }
         Argument arg_ = new Argument();
         arg_.setStruct(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getOverridableBlock(), _args, _r,null);
+        RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getRootBlock(), mId_.getOverridableBlock(), _args, _r,null);
     }
-    public static Argument invoke(Argument _global, String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class, _method, _args, _cont, _right);
+    public static Argument invoke(Argument _global, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont, Argument _right) {
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class,_rootBlock, _method, _args, _cont, _right);
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

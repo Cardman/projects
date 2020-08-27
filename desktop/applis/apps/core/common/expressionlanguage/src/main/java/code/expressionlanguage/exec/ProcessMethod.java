@@ -18,16 +18,16 @@ public final class ProcessMethod {
     private ProcessMethod() {
     }
 
-    public static void initializeClass(String _class, ContextEl _cont) {
+    public static void initializeClass(String _class, ExecRootBlock _rootBlock, ContextEl _cont) {
         if (_cont.getClasses().isSuccessfulInitialized(_class)) {
             return;
         }
         _cont.getClasses().getLocks().initClass(_class);
-        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class,null));
+        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_rootBlock,_class,null));
         _cont.getInit().loopCalling(_cont);
     }
-    public static void initializeClassPre(String _class, ContextEl _cont) {
-        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_class,null));
+    public static void initializeClassPre(String _class,ExecRootBlock _rootBlock, ContextEl _cont) {
+        ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_rootBlock,_class,null));
         _cont.getInit().loopCalling(_cont);
     }
 
@@ -42,8 +42,8 @@ public final class ProcessMethod {
         return page_.getGlobalArgument();
     }
 
-    public static Argument calculateArgument(Argument _global, String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont, Argument _right) {
-        MethodPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class, _method, _args,_right);
+    public static Argument calculateArgument(Argument _global, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont, Argument _right) {
+        MethodPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_global, _class,_rootBlock, _method, _args,_right);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();
@@ -56,8 +56,8 @@ public final class ProcessMethod {
         return page_.getReturnedArgument();
     }
 
-    public static Argument castArgument(String _class, ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont) {
-        CastPageEl page_ = ExecutingUtil.createCallingCast(_cont,_class, _method,_args);
+    public static Argument castArgument(String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, CustList<Argument> _args, ContextEl _cont) {
+        CastPageEl page_ = ExecutingUtil.createCallingCast(_cont,_class,_rootBlock, _method,_args);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getReturnedArgument();

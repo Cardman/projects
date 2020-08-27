@@ -2254,7 +2254,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -2300,7 +2300,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");

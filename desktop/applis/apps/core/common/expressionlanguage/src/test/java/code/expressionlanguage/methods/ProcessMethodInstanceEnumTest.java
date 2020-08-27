@@ -26,7 +26,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        ProcessMethod.initializeClass("pkg.Ex",cont_);
+        ProcessMethod.initializeClass("pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"),cont_);
     }
 
     @Test
@@ -1204,7 +1204,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         InitClassState state_ = cont_.getClasses().getLocks().getState("pkg.Ex");
         assertSame(InitClassState.NOT_YET, state_);
-        ProcessMethod.initializeClass("pkg.Ex", cont_);
+        ProcessMethod.initializeClass("pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), cont_);
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         state_ = cont_.getClasses().getLocks().getState("pkg.Ex");
         assertSame(InitClassState.ERROR, state_);

@@ -2,10 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.StringList;
 
@@ -23,6 +20,7 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     private String fileName = EMPTY_STRING;
     private ExecAnnotableParametersBlock annotableBlock;
     private ExecNamedFunctionBlock callee;
+    private ExecRootBlock declaring;
 
     public ConstructorMetaInfo(){
         invokable = false;
@@ -63,6 +61,15 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     public void setCallee(ExecNamedFunctionBlock callee) {
         this.callee = callee;
     }
+
+    public ExecRootBlock getDeclaring() {
+        return declaring;
+    }
+
+    public void setDeclaring(ExecRootBlock declaring) {
+        this.declaring = declaring;
+    }
+
     @Override
     public String getFileName() {
         return fileName;

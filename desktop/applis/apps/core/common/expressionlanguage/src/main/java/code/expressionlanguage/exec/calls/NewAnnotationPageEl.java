@@ -28,13 +28,13 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             if (i_.isWrap()) {
                 ArrayStruct a_ = new ArrayStruct(new Struct[1], t_);
                 ExecTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context);
-                ExecAnnotationMethodBlock.setValue(className_,name_,t_,_context,new Argument(a_));
+                ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(a_));
                 if (_context.callsOrException()) {
                     return;
                 }
                 continue;
             }
-            ExecAnnotationMethodBlock.setValue(className_,name_,t_,_context,value_);
+            ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,value_);
             if (_context.callsOrException()) {
                 return;
             }

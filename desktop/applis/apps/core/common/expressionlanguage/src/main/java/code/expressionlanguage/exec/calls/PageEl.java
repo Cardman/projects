@@ -1,6 +1,9 @@
 package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.ExecUniqueRootedBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -10,6 +13,8 @@ import code.util.StringMap;
 public abstract class PageEl {
 
     private String globalClass = "";
+
+    private ExecRootBlock blockRootType;
 
     private Argument globalArgument = Argument.createVoid();
 
@@ -30,7 +35,7 @@ public abstract class PageEl {
         if (globalArgument.isNull()) {
             return _varType;
         }
-        return ExecTemplates.quickFormat(globalClass, _varType, _cont);
+        return ExecTemplates.quickFormat(blockRootType,globalClass, _varType);
     }
 
     public Argument getGlobalArgument() {
@@ -68,5 +73,11 @@ public abstract class PageEl {
     public void removeLocalVar(String _key) {
         getValueVars().removeKey(_key);
     }
+    public ExecRootBlock getBlockRootType() {
+        return blockRootType;
+    }
 
+    public void setBlockRootType(ExecRootBlock _blockRootType) {
+        blockRootType = _blockRootType;
+    }
 }

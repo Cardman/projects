@@ -2,6 +2,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -19,11 +20,13 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
 
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
     public RendQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
         classMethodId = _q.getClassMethodId();
         named = ExecOperationNode.fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
+        rootBlock = ExecOperationNode.fetchType(_context,_q.getRootNumber());
         converter = ExecOperationNode.fetchImplicits(_context,_q.getConverter());
     }
 
@@ -44,7 +47,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
             CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument argres_ = processCall(this, this, Argument.createVoid(), firstArgs_, _conf, null);
             if (converter != null) {
-                Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _conf);
+                Argument res_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), argres_, _conf);
                 if (res_ == null) {
                     return;
                 }
@@ -65,7 +68,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
         return Argument.createVoid();
     }
     public abstract boolean match(Struct _struct);

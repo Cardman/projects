@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -117,6 +118,7 @@ public final class ApplyCoreMethodUtil {
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
         ExecNamedFunctionBlock named_ = null;
+        ExecRootBlock type_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
         if (seed_ != NullStruct.NULL_VALUE
@@ -126,6 +128,7 @@ public final class ApplyCoreMethodUtil {
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedDoubleGenerator(), classes_.getSeedDoublePick());
             named_ = polymorphMeth_.getOverridableBlock();
             String className_ = polymorphMeth_.getClassName();
+            type_ = polymorphMeth_.getRootBlock();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
         }
@@ -136,7 +139,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,meth_,argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
@@ -148,6 +151,7 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         Struct seed_ = _cont.getSeed();
         Argument argSeed_ = new Argument(seed_);
+        ExecRootBlock type_ = null;
         ExecNamedFunctionBlock named_ = null;
         CustList<Argument> argsToPass_ = new CustList<Argument>();
         String cl_ = "";
@@ -157,6 +161,7 @@ public final class ApplyCoreMethodUtil {
             Classes classes_ = _cont.getClasses();
             ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGenerator(), classes_.getSeedPick());
             named_ = polymorphMeth_.getOverridableBlock();
+            type_ = polymorphMeth_.getRootBlock();
             String className_ = polymorphMeth_.getClassName();
             className_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_, className_, _cont);
             cl_ = className_;
@@ -169,7 +174,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,meth_,argsToPass_,null));
+            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,argsToPass_,null));
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

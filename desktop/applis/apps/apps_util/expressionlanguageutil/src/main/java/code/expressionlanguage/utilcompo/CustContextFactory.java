@@ -74,7 +74,7 @@ public final class CustContextFactory {
         String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
         String infoTest_ = _definedLgNames.getAliasInfoTest();
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
-                NullStruct.NULL_VALUE, infoTest_, "", -1);
+                NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
                 aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
@@ -83,7 +83,7 @@ public final class CustContextFactory {
         new Thread(showUpdates_).start();
         ExecNamedFunctionBlock fctBody_ = ExecBlock.getMethodBodiesById(rCont_,_definedLgNames.getAliasExecute(),fct_).first();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                _definedLgNames.getAliasExecute(), fctBody_,
+                _definedLgNames.getAliasExecute(), rCont_.getClasses().getClassBody(_definedLgNames.getAliasExecute()), fctBody_,
                 new CustList<Argument>(argMethod_), rCont_, null);
         showUpdates_.stop();
         if (rCont_.isCovering()) {

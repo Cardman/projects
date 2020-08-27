@@ -8,4 +8,6 @@ public interface ExecUniqueRootedBlock extends GeneClass {
     String getImportedDirectGenericSuperClass();
 
     ExecFileBlock getFile();
+
+    StringList getStaticInitImportedInterfaces();
 }

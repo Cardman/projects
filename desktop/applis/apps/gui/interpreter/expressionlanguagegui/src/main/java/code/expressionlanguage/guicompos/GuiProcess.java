@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.Options;
@@ -127,15 +128,16 @@ public final class GuiProcess implements Runnable {
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
         CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(context, clName, id_);
         if (!methods_.isEmpty()) {
-            ProcessMethod.initializeClass(clName,context);
+            ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
+            ProcessMethod.initializeClass(clName, classBody_,context);
             if (context.hasException()) {
                 context.getCustInit().prExc(context);
                 return;
             }
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
-            ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(context,clName, id_).first();
-            RunnableStruct.invoke(arg_, clName, fct_, args_, context, null);
+            ExecNamedFunctionBlock fct_ = methods_.first();
+            RunnableStruct.invoke(arg_, clName, classBody_,fct_, args_, context, null);
         } else {
             context.getCustInit().removeThreadFromList(context);
         }

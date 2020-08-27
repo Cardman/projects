@@ -7,6 +7,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -138,7 +139,8 @@ public final class ThreadActions implements Runnable {
                     ContextEl ctx_ = conf_.getContext();
                     CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(ctx_, classDbName, id_);
                     if (!methods_.isEmpty()) {
-                        ProcessMethod.initializeClass(classDbName,ctx_);
+                        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
+                        ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
                         if (ctx_.hasException()) {
                             afterAction();
                             return;
@@ -158,7 +160,7 @@ public final class ThreadActions implements Runnable {
                         ArrayStruct arrContents_ = new ArrayStruct(contents_,arrStr_);
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
-                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName, methods_.first(), args_, ctx_, null);
+                        Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, methods_.first(), args_, ctx_, null);
                         if (ctx_.hasException()) {
                             afterAction();
                             return;

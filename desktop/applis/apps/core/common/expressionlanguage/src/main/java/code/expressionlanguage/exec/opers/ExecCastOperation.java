@@ -81,25 +81,25 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         ExecFunctionalInfo clRealId_ = functional_.first();
                         MethodId realId_ = clRealId_.getOverridableBlock().getId();
                         String geneStr_ = r_.getGenericString();
-                        MethodId idMeth_ = realId_.quickFormat(geneStr_, _conf);
+                        MethodId idMeth_ = realId_.quickFormat(r_,geneStr_);
                         String gene_ = clRealId_.getClassName();
-                        String geneFor_ = ExecTemplates.quickFormat(_className,gene_,_conf);
+                        String geneFor_ = ExecTemplates.quickFormat(r_,_className,gene_);
                         String ret_ = clRealId_.getOverridableBlock().getImportedReturnType();
-                        ret_ = ExecTemplates.quickFormat(geneStr_,ret_,_conf);
+                        ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
                         ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
                         parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));
                         parmMe_.setRealId(realId_);
                         parmMe_.setReturnType(ret_);
                         parmMe_.setRealClass(gene_);
                         String fctParam_ = formatReturn(EMPTY_STRING,_conf, parmMe_, false);
-                        fctParam_ = ExecTemplates.quickFormat(geneFor_,fctParam_,_conf);
+                        fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = _objArg.getObjectClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,(LambdaStruct) str_,_conf);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,r_,(LambdaStruct) str_,_conf);
                                 _objArg.setStruct(struct_);
                             } else {
-                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,(LambdaStruct) str_,_conf);
+                                AbstractFunctionalInstance struct_ = _conf.getStandards().newFunctionalInstance(_className,r_,(LambdaStruct) str_,_conf);
                                 _objArg.setStruct(struct_);
                             }
                         }

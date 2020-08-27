@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
@@ -21,10 +22,12 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
 
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private int offsetOper;
     public RendExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
         super(_fct);
         named = ExecOperationNode.fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
+        rootBlock = ExecOperationNode.fetchType(_context,_fct.getRootNumber());
         classMethodId = _fct.getClassMethodId();
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
@@ -43,7 +46,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, _arguments);
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), classMethodId,named, _previous,firstArgs_);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), classMethodId,rootBlock,named, _previous,firstArgs_);
         return Argument.createVoid();
     }
 }

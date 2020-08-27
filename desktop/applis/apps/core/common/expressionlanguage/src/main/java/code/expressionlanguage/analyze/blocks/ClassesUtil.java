@@ -1850,6 +1850,10 @@ public final class ClassesUtil {
             for (AnaFormattedRootBlock a: genericClasses_) {
                 i.getAllGenericClasses().add(a.getFormatted());
             }
+            ExecRootBlock value_ = _context.getAnalyzing().getMapTypes().getValue(i.getNumberAll());
+            if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
+                value_.setUniqueType(ExecOperationNode.fetchType(_context,genericClasses_.get(1).getRootBlock().getNumberAll()));
+            }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
         for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {

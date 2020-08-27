@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SymbolOperation;
@@ -16,10 +17,12 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
 
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
-    public RendCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named) {
+    private ExecRootBlock rootBlock;
+    public RendCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named,ExecRootBlock _rootBlock) {
         super(_n,_op);
         classMethodId = _n.getClassMethodId();
         named = _named;
+        rootBlock = _rootBlock;
     }
 
     @Override
@@ -34,7 +37,7 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,named,_previous,_arguments);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
         return Argument.createVoid();
     }
 }

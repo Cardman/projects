@@ -17,12 +17,6 @@ import code.util.StringList;
 
 public abstract class ExecBlock {
 
-    protected static final String VARARG = "...";
-
-    protected static final String DOT = ".";
-
-    protected static final String PAR_LEFT = "(";
-    protected static final String PAR_RIGHT = ")";
     protected static final String EMPTY_STRING = "";
 
     private ExecBracedBlock parent;

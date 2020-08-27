@@ -75,7 +75,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getPageEl().formatVarType(classFromName,_conf.getContext());
         String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf.getContext());
+        lastType_ = ExecTemplates.quickFormat(rootBlock,superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
         ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, rootBlock,ctor, arg_, firstArgs_, InstancingStep.USING_SUPER,null);

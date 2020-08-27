@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
@@ -19,6 +20,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     private String oper;
     private ClassMethodId classMethodId;
     private ExecNamedFunctionBlock named;
+    private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
 
     private int opOffset;
@@ -28,6 +30,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         oper = _c.getOper();
         classMethodId = _c.getClassMethodId();
         named = fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
+        rootBlock = fetchType(_context,_c.getRootNumber());
         converter = fetchImplicits(_context,_c.getConverter());
         opOffset = _c.getOpOffset();
     }
@@ -74,7 +77,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId, named,Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock, named,Argument.createVoid(), firstArgs_);
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);

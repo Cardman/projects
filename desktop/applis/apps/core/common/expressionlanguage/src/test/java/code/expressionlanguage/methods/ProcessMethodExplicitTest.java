@@ -2192,7 +2192,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(new IntStruct(5)));
         MethodId id_ = getMethodId("explicit","pkg.ExClass","int");
-        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass",ExecBlock.getDeepMethodBodiesById(cont_,"pkg.ExClass",id_).first(),args_,cont_);
+        Argument ret_ = ProcessMethod.castArgument("pkg.ExClass",cont_.getClasses().getClassBody("pkg.ExClass"),ExecBlock.getDeepMethodBodiesById(cont_,"pkg.ExClass",id_).first(),args_,cont_);
         assertNull(getException(cont_));
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));

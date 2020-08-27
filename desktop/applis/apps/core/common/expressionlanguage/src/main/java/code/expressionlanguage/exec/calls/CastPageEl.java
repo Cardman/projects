@@ -11,6 +11,6 @@ public final class CastPageEl extends AbstractMethodPageEl {
 
     @Override
     public String formatVarType(String _varType, ContextEl _cont) {
-        return ExecTemplates.quickFormat(getGlobalClass(),_varType,_cont);
+        return ExecTemplates.quickFormat(getBlockRootType(),getGlobalClass(),_varType);
     }
 }

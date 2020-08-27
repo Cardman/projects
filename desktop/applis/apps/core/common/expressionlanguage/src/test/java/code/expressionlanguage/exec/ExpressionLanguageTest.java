@@ -5961,7 +5961,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
         CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);
@@ -5982,7 +5982,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
         CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);
@@ -6003,7 +6003,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
         ContextEl cont_ = contextEl(files_);
-        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className, "", -1);
+        Struct fresh_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _className,cont_.getClasses().getClassBody(_className), "", -1);
         ExecFieldBlock f_ = (ExecFieldBlock)cont_.getClasses().getClassBody(_className).getFirstChild();
         CustList<ExecOperationNode> list_ = f_.getOpValue();
         addImportingPage(cont_);

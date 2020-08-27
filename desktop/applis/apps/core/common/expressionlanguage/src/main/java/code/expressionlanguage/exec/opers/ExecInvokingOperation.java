@@ -120,7 +120,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        if (!ExecTemplates.okArgs(_constId,false, _className,_arguments, _conf,null)) {
+        if (!ExecTemplates.okArgs(_root,_constId,false, _className,_arguments, _conf,null)) {
             return new Argument();
         }
         _conf.setCallingState(new CustomFoundConstructor(_className, _root, _fieldName, _blockIndex,_constId, needed_, _arguments, InstancingStep.NEWING));
@@ -150,10 +150,8 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         needed_.setStruct(_previous.getStruct());
     }
 
-    public static Argument instancePrepareAnnotation(ContextEl _conf, String _className, StringMap<AnnotationTypeInfo> _fieldNames, CustList<Argument> _arguments) {
-        String idClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock superClass_ = _conf.getClasses().getClassBody(idClass_);
-        _conf.setCallingState(new CustomFoundAnnotation(_className,superClass_, _fieldNames, _arguments));
+    public static Argument instancePrepareAnnotation(ContextEl _conf, String _className, ExecRootBlock _root, StringMap<AnnotationTypeInfo> _fieldNames, CustList<Argument> _arguments) {
+        _conf.setCallingState(new CustomFoundAnnotation(_className,_root, _fieldNames, _arguments));
         return Argument.createVoid();
     }
 
@@ -164,7 +162,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (res_ != null) {
             return res_;
         }
-        return new ExecOverrideInfo(_root.getGenericString(), _named);
+        return new ExecOverrideInfo(_root.getGenericString(),_root, _named);
     }
     public static Argument callStd(AbstractExiting _exit,ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right) {
         checkParameters(_cont, _classNameFound, _methodId, _previous, _firstArgs, _right);
@@ -280,20 +278,21 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 }
                 className_ = res_;
                 String first_;
-                CustList<GeneType> need_ = new CustList<GeneType>();
                 if (!(type_ instanceof ExecRootBlock)) {
                     return new Argument(ApplyCoreMethodUtil.defaultInstance(_cont,id_,_firstArgs));
                 }
+                ExecRootBlock root_ = (ExecRootBlock) type_;
                 CustList<ExecRootBlock> needRoot_;
-                needRoot_ = ((ExecRootBlock)type_).getSelfAndParentTypes();
+                needRoot_ = root_.getSelfAndParentTypes();
                 ExecRootBlock firstType_ = needRoot_.first();
                 first_ = firstType_.getFullName();
+                CustList<ExecRootBlock> need_ = new CustList<ExecRootBlock>();
                 for (ExecRootBlock r: needRoot_) {
                     need_.add(r);
                 }
                 if (!_firstArgs.isEmpty()) {
                     Struct par_ = _firstArgs.first().getStruct();
-                    if (type_.withoutInstance()) {
+                    if (root_.withoutInstance()) {
                         if (_exit.hasToExit(first_)) {
                             return Argument.createVoid();
                         }
@@ -315,16 +314,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                         }
                     }
                     Initializer in_ = _cont.getInit();
-                    String genStr_ = type_.getGenericString();
-                    String form_ = ExecTemplates.quickFormat(className_, genStr_, _cont);
-                    par_ = in_.processInit(_cont, par_, form_, EMPTY_STRING, 0);
+                    String genStr_ = root_.getGenericString();
+                    String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
+                    par_ = in_.processInit(_cont, par_, form_,root_, EMPTY_STRING, 0);
                     Argument a_ = new Argument();
                     a_.setStruct(par_);
                     return a_;
                 }
                 Struct parent_ = NullStruct.NULL_VALUE;
                 int start_ = 0;
-                if (type_.withoutInstance()) {
+                if (root_.withoutInstance()) {
                     if (_exit.hasToExit(first_)) {
                         return Argument.createVoid();
                     }
@@ -343,10 +342,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                     }
                 }
                 Initializer in_ = _cont.getInit();
-                for (GeneType r: need_.mid(start_)) {
+                for (ExecRootBlock r: need_.mid(start_)) {
                     String genStr_ = r.getGenericString();
-                    String form_ = ExecTemplates.quickFormat(className_, genStr_, _cont);
-                    parent_ = in_.processInit(_cont, parent_, form_, EMPTY_STRING, 0);
+                    String form_ = ExecTemplates.quickFormat(type_,className_, genStr_);
+                    parent_ = in_.processInit(_cont, parent_, form_,r, EMPTY_STRING, 0);
                 }
                 Argument a_ = new Argument();
                 a_.setStruct(parent_);
@@ -385,7 +384,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                         _cont.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _previous, _firstArgs, false));
                         return new Argument();
                     }
-                    ExecRootBlock e_ = classes_.getClassBody(className_);
+                    ExecRootBlock e_ = m_.getDeclaring();
                     if (e_ instanceof ExecAnnotationBlock) {
                         _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _previous, _firstArgs, false));
                         return new Argument();
@@ -497,24 +496,22 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return argRes_;
     }
 
-    public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
+    public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound,ExecRootBlock _rootBlock, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-        Classes classes_ = _cont.getClasses();
-        ExecRootBlock e_ = classes_.getClassBody(idClassNameFound_);
         if (!(_named instanceof ExecOverridableBlock)) {
             if (_named instanceof ExecOperatorBlock) {
-                String classFound_ = checkParameters(_cont, _classNameFound, null,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
+                String classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
                 if (_cont.callsOrException()) {
                     return Argument.createVoid();
                 }
-                _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _named, _firstArgs,null));
+                _cont.setCallingState(new CustomFoundMethod(_previous, classFound_,_rootBlock, _named, _firstArgs,null));
                 return Argument.createVoid();
             }
             //static enum methods
             LgNames stds_ = _cont.getStandards();
             if (_firstArgs.size() != 1) {
-                String className_ = e_.getWildCardElement();
-                return getEnumValues(_exit,className_,e_, _cont);
+                String className_ = _rootBlock.getWildCardElement();
+                return getEnumValues(_exit,className_,_rootBlock, _cont);
             }
             Argument arg_ = _firstArgs.first();
             Struct ex_ = ExecTemplates.checkObjectEx(stds_.getAliasString(), arg_, _cont);
@@ -522,17 +519,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _cont.setException(ex_);
                 return Argument.createVoid();
             }
-            return getEnumValue(_exit,idClassNameFound_,e_, arg_, _cont);
+            return getEnumValue(_exit,idClassNameFound_,_rootBlock, arg_, _cont);
         }
         if (FunctionIdUtil.isOperatorName(_methodId)) {
-            String classFound_ = checkParameters(_cont, _classNameFound, null,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
+            String classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
             if (_cont.callsOrException()) {
                 return Argument.createVoid();
             }
-            _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _named, _firstArgs,null));
+            _cont.setCallingState(new CustomFoundMethod(_previous, classFound_,_rootBlock, _named, _firstArgs,null));
             return Argument.createVoid();
         }
-        String classFound_ = checkParameters(_cont, _classNameFound, null,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
+        String classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
         if (_cont.callsOrException()) {
             return Argument.createVoid();
         }
@@ -545,10 +542,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
         }
         if (_methodId.getKind() == MethodAccessKind.STATIC_CALL) {
-            _cont.setCallingState(new CustomFoundCast(classFound_, _named, _firstArgs));
+            _cont.setCallingState(new CustomFoundCast(classFound_,_rootBlock, _named, _firstArgs));
             return Argument.createVoid();
         }
-        _cont.setCallingState(new CustomFoundMethod(_previous, classFound_, _named, _firstArgs, _right));
+        _cont.setCallingState(new CustomFoundMethod(_previous, classFound_,_rootBlock, _named, _firstArgs, _right));
         return Argument.createVoid();
     }
 
@@ -556,14 +553,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return r_ == null || !cl_.isTypeEnum();
     }
 
-    public static void checkParametersOperators(AbstractExiting _exit,ContextEl _conf, ClassMethodId _clMeth, ExecNamedFunctionBlock _named,
+    public static void checkParametersOperators(AbstractExiting _exit,ContextEl _conf, ClassMethodId _clMeth, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _named,
                                          Argument _previous, CustList<Argument> _firstArgs) {
         if (_exit.hasToExit(_clMeth.getClassName())) {
             return;
         }
         String classNameFound_ = _clMeth.getClassName();
         classNameFound_ = _clMeth.formatType(classNameFound_,_conf);
-        checkParameters(_conf, classNameFound_,null, _named, _previous, _firstArgs, CallPrepareState.OPERATOR,null, null);
+        checkParameters(_conf, classNameFound_,_rootBlock, _named, _previous, _firstArgs, CallPrepareState.OPERATOR,null, null);
     }
 
     private static String checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
@@ -581,7 +578,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                                           Argument _previous, CustList<Argument> _firstArgs,
                                           CallPrepareState _state,
                                           InstancingStep _kindCall, Argument _right) {
-        String classFormat_ = checkParams(_conf,_classNameFound,_methodId,_previous,_firstArgs,_right);
+        String classFormat_ = checkParams(_conf,_classNameFound,_rootBlock,_methodId,_previous,_firstArgs,_right);
         if (_conf.callsOrException()) {
             return classFormat_;
         }
@@ -593,10 +590,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return "";
         }
         if (StringList.quickEq(_classNameFound,_conf.getStandards().getAliasObject())) {
-            _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound, _methodId, _firstArgs, _right));
+            _conf.setCallingState(new CustomFoundMethod(Argument.createVoid(), _classNameFound,_rootBlock, _methodId, _firstArgs, _right));
             return "";
         }
-        _conf.setCallingState(new CustomFoundCast(_classNameFound,  _methodId, _firstArgs));
+        _conf.setCallingState(new CustomFoundCast(_classNameFound,_rootBlock,  _methodId, _firstArgs));
         return "";
     }
 
@@ -620,7 +617,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return classFormat_;
     }
-    public static String checkParams(ContextEl _conf, String _classNameFound, ExecNamedFunctionBlock _methodId,
+    public static String checkParams(ContextEl _conf, String _classNameFound, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _methodId,
                                      Argument _previous, CustList<Argument> _firstArgs,
                                      Argument _right) {
         LgNames stds_ = _conf.getStandards();
@@ -635,7 +632,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return "";
             }
         }
-        if (!ExecTemplates.okArgs(_methodId,false,classFormat_,_firstArgs, _conf, _right)) {
+        if (!ExecTemplates.okArgs(_rootBlock,_methodId,false,classFormat_,_firstArgs, _conf, _right)) {
             return "";
         }
         return classFormat_;
@@ -920,9 +917,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _pr, _nList, false));
             return new Argument();
         }
-        String className_ = m_.getClassName();
-        className_ = StringExpUtil.getIdFromAllTypes(className_);
-        ExecRootBlock e_ = _conf.getClasses().getClassBody(className_);
+        ExecRootBlock e_ = m_.getDeclaring();
         if (e_ == null &&!FunctionIdUtil.isOperatorName(m_.getFid())) {
             _conf.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _pr, _nList, false));
             return new Argument();
@@ -1065,9 +1060,9 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         boolean isStaticField_ = _meta.isStaticField();
         boolean isFinalField_ = _meta.isFinalField();
         String type_ = _meta.getType();
-        return setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
+        return setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),_meta.getDeclaring(),baseClass_, fieldName_, isStaticField_, isFinalField_, true, type_, _previous, _right, _conf, -1);
     }
-    public static Argument setField(AbstractSetOffset _setOffset,AbstractExiting _exit,String _className, String _fieldName,
+    public static Argument setField(AbstractSetOffset _setOffset,AbstractExiting _exit,ExecRootBlock _rootBlock,String _className, String _fieldName,
                                     boolean _isStaticField, boolean _finalField, boolean _failIfFinal,
                                     String _returnType, Argument _previous,
                                     Argument _right,ContextEl _conf, int _possibleOffset) {
@@ -1077,10 +1072,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_isStaticField) {
             return setStaticField(_exit,_className, _fieldName, _finalField, _failIfFinal, _returnType, _right, _conf);
         }
-        return setInstanceField(_className, _fieldName, _returnType, _previous, _right, _conf);
+        return setInstanceField(_rootBlock,_className, _fieldName, _returnType, _previous, _right, _conf);
     }
 
-    public static Argument setInstanceField(String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf) {
+    public static Argument setInstanceField(ExecRootBlock _rootBlock,String _className, String _fieldName, String _returnType, Argument _previous, Argument _right, ContextEl _conf) {
         ClassField fieldId_ = new ClassField(_className, _fieldName);
         LgNames stds_ = _conf.getStandards();
         Struct previous_ = _previous.getStruct();
@@ -1108,7 +1103,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         classNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, classNameFound_, _conf);
         String fieldType_;
         fieldType_ = _returnType;
-        fieldType_ = ExecTemplates.quickFormat(classNameFound_, fieldType_, _conf);
+        fieldType_ = ExecTemplates.quickFormat(_rootBlock,classNameFound_, fieldType_);
         if (!ExecTemplates.checkQuick(fieldType_, _right, _conf)) {
             return Argument.createVoid();
         }

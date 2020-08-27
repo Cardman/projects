@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.options.IterableAnalysisResult;
@@ -1019,11 +1020,11 @@ public abstract class LgNames {
         return files_;
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBock, LambdaStruct _functional, ContextEl _contextEl) {
         return new FunctionalInstance(_className,_functional);
     }
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional, ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, ExecRootBlock _rootBock, LambdaStruct _functional, ContextEl _contextEl) {
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBock);
         return new FullFunctionalInstance(_className,_functional,fs_);
     }
     public String getStructClassName(Struct _struct, ContextEl _context) {

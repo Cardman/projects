@@ -561,7 +561,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         xml_.append("  $try{\n");
         xml_.append("   ance=inst.$classchoice(pkg.ExTwo<!java.lang.Object>)get(8i,\"\");\n");
         xml_.append("  }\n");
-        xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
+        xml_.append("  $catch(Exception e){\n");
         xml_.append("   ance=2i;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
@@ -609,7 +609,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         xml_.append("  $try{\n");
         xml_.append("   ance=inst.$classchoice(pkg.ExTwo<!java.lang.Object>)get(8i,\"\");\n");
         xml_.append("  }\n");
-        xml_.append("  $catch(code.expressionlanguage.exceptions.DynamicCastClassException e){\n");
+        xml_.append("  $catch(Exception e){\n");
         xml_.append("   ance=2i;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");

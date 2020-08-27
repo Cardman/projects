@@ -386,7 +386,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "code.formathtml.classes.CompositeImported");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         CustList<ExecOperationNode> opers_ = f_.getExp();
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("code.formathtml.classes.CompositeImported", cid_.getClassName());
@@ -1042,7 +1042,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl1602Test() {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleEight(1)", "myvar", MY_CLASS, false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyIntOne", cid_.getClassName());
@@ -1058,7 +1058,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl1603Test() {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleNine(1)", "myvar", MY_CLASS, false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("myimpl.MyIntTwo", cid_.getClassName());
@@ -1579,7 +1579,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1605,7 +1605,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1641,7 +1641,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_, false);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1677,7 +1677,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1710,7 +1710,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_, false);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo..Inner");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo..Inner", cid_.getClassName());
@@ -1736,7 +1736,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1762,7 +1762,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExTwo,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString(), false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1790,7 +1790,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo");
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExPar,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString(), false);
-        ExecFctOperation fct_ = getFct(opers_);
+        ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExPar", cid_.getClassName());
@@ -1850,7 +1850,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_, false);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExTwo", cid_.getClassName());
@@ -1889,7 +1889,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExThree", cid_.getClassName());
@@ -2504,7 +2504,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2532,7 +2532,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2588,7 +2588,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2616,7 +2616,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2678,7 +2678,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2711,7 +2711,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -2743,7 +2743,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_, false);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExThree", cid_.getClassName());
@@ -2781,7 +2781,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ContextEl cont_ = contextEl(files_, false);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkgtwo.ExFour", cid_.getClassName());
@@ -3182,7 +3182,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -3210,7 +3210,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -3238,7 +3238,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -3266,7 +3266,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -3340,7 +3340,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
-        ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId id_ =fct_.getClassMethodId();
         MethodId m_  =id_.getConstraints();
@@ -3476,7 +3476,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
-        ExecFctOperation fct_ = getFct(f_.getExp());
+        ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
         assertEq("pkg.ExEnum", cid_.getClassName());
@@ -4830,6 +4830,14 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {
                 return (ExecFctOperation) o;
+            }
+        }
+        return null;
+    }
+    private static ExecStaticFctOperation getStaticFct(CustList<ExecOperationNode> _f) {
+        for (ExecOperationNode o: _f) {
+            if (o instanceof ExecStaticFctOperation) {
+                return (ExecStaticFctOperation) o;
             }
         }
         return null;

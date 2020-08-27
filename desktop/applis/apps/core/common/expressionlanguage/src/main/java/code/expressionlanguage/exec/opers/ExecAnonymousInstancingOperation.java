@@ -62,7 +62,7 @@ public final class ExecAnonymousInstancingOperation extends
         if (ExecutingUtil.hasToExit(_conf,base_)) {
             return Argument.createVoid();
         }
-        String lastType_ = ExecTemplates.quickFormat(className_, lastType, _conf);
+        String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
         return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,ctor, _previous, firstArgs_, "", -1);
     }

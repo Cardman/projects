@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
@@ -16,12 +17,14 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation impl
     private String classNameOwner;
     private int offset;
     private ExecNamedFunctionBlock named;
-    public RendImplicitOperation(ImplicitOperation _a, ExecNamedFunctionBlock _named) {
+    private ExecRootBlock rootBlock;
+    public RendImplicitOperation(ImplicitOperation _a, ExecNamedFunctionBlock _named,ExecRootBlock _rootBlock) {
         super(_a);
         className = _a.getClassName();
         classNameOwner = _a.getClassNameOwner();
         offset = _a.getOffset();
         named = _named;
+        rootBlock = _rootBlock;
     }
 
     @Override
@@ -34,6 +37,6 @@ public final class RendImplicitOperation extends RendAbstractUnaryOperation impl
 
     @Override
     public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),false,named,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext());
+        return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),rootBlock,false,named,_arguments,className,classNameOwner,_conf.getPageEl(),_conf.getContext());
     }
 }

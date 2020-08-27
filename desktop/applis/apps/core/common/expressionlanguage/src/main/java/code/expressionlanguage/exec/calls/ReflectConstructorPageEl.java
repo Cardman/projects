@@ -28,13 +28,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
         String className_ = method_.getClassName();
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _context.getClassBody(id_);
-        boolean static_ = type_.isStaticType();
         if (ExecutingUtil.isAbstractType(type_)) {
             String null_;
             null_ = stds_.getAliasIllegalArg();
             _context.setException(new ErrorStruct(_context,null_));
             return false;
         }
+        boolean static_ = type_.isStaticType();
         String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;
@@ -86,8 +86,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectPageEl {
                 args_ = args_.mid(1);
             }
             Argument arg_;
-            String base_ = StringExpUtil.getIdFromAllTypes(res_);
-            ExecRootBlock execSuperClass_ = _context.getClasses().getClassBody(base_);
+            ExecRootBlock execSuperClass_ = method_.getDeclaring();
             if (execSuperClass_ != null) {
                 arg_ = ExecInvokingOperation.instancePrepare(_context, res_, execSuperClass_,method_.getCallee(), previous_, args_);
             } else {

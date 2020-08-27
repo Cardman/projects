@@ -57,7 +57,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        ProcessMethod.calculateArgument(argGlLoc_, _class, method_, _args, _cont, null);
+        ProcessMethod.calculateArgument(argGlLoc_, _class,_cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class)), method_, _args, _cont, null);
         Struct exc_ = getException(_cont);
         assertNotNull(exc_);
         return new Argument(exc_);
@@ -70,7 +70,7 @@ public abstract class ProcessMethodCommon {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class, method_, _args, _cont, null);
+        Argument arg_ = ProcessMethod.calculateArgument(argGlLoc_, _class,_cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class)), method_, _args, _cont, null);
         assertNull(getException(_cont));
         return arg_;
     }

@@ -1892,7 +1892,7 @@ public class LgNamesUtils extends LgNames {
                 String className_ = polymorph_.getClassName();
                 ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_))).first();
                 Argument arg_ = new Argument(_args[0]);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_),null));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(stds_.aliasFormatType),fct_,new CustList<Argument>(arg_),null));
                 return;
             }
         }
@@ -1905,7 +1905,7 @@ public class LgNamesUtils extends LgNames {
             ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true)).first();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,fct_,new CustList<Argument>(arg_,argArr_),null));
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_,_cont.getClasses().getClassBody(stds_.aliasFormatType),fct_,new CustList<Argument>(arg_,argArr_),null));
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);
@@ -2210,14 +2210,14 @@ public class LgNamesUtils extends LgNames {
         ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
         return ref_;
     }
-    public AbstractFunctionalInstance newFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl){
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+    public AbstractFunctionalInstance newFunctionalInstance(String _className, ExecRootBlock _rootBlock,LambdaStruct _functional,ContextEl _contextEl){
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
         return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(String _className, LambdaStruct _functional,ContextEl _contextEl) {
-        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
+    public AbstractFunctionalInstance newFullFunctionalInstance(String _className,ExecRootBlock _rootBlock, LambdaStruct _functional,ContextEl _contextEl) {
+        CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBlock);
         return new RunnableFunctionalInstance(_className,_functional,fs_,_contextEl);
     }
 

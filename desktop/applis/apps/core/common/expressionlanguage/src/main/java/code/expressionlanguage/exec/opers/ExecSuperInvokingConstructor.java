@@ -27,7 +27,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         String calledCtorTemp_;
         String superClass_ = page_.formatVarType(getClassFromName(), _conf);
         String lastType_ = getLastType();
-        lastType_ = ExecTemplates.quickFormat(superClass_, lastType_, _conf);
+        lastType_ = ExecTemplates.quickFormat(getRootBlock(), superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
         calledCtorTemp_ = superClass_;

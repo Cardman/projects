@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
@@ -18,14 +19,16 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     private String className;
     private StringMap<AnnotationTypeInfo> fieldNames;
     private boolean array;
+    private ExecRootBlock rootBlock;
 
     protected ExecAnnotationInstanceOperation(
-            AnnotationInstanceOperation _ann) {
+            AnnotationInstanceOperation _ann, ExecRootBlock _rootBlock) {
         super(_ann);
         methodName = _ann.getMethodName();
         fieldNames = _ann.getFieldNames();
         className = _ann.getClassName();
         array = _ann.isArray();
+        rootBlock = _rootBlock;
     }
 
     @Override
@@ -57,7 +60,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         if (ExecutingUtil.hasToExit(_conf,base_)) {
             return Argument.createVoid();
         }
-        return instancePrepareAnnotation(_conf, className, fieldNames, _arguments);
+        return instancePrepareAnnotation(_conf, className,rootBlock, fieldNames, _arguments);
     }
 
 }

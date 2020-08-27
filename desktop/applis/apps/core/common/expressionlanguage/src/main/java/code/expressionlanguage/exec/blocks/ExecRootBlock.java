@@ -35,6 +35,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
     private final CustList<ExecFunctionalInfo> functionalBodies = new CustList<ExecFunctionalInfo>();
     private String importedDirectSuperClass = "";
+    private ExecRootBlock uniqueType;
     private StringList importedDirectSuperInterfaces = new StringList();
     private final StringList allSuperTypes = new StringList();
     private ExecRootBlock parentType;
@@ -354,5 +355,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public CustList<ExecInnerTypeOrElement> getEnumElements() {
         return enumElements;
+    }
+
+    public ExecRootBlock getUniqueType() {
+        return uniqueType;
+    }
+
+    public void setUniqueType(ExecRootBlock _uniqueType) {
+        uniqueType = _uniqueType;
     }
 }

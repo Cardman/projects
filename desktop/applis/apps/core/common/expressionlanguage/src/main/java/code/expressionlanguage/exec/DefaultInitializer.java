@@ -19,27 +19,24 @@ public class DefaultInitializer implements Initializer {
 
     @Override
     public final Struct processInit(ContextEl _context, Struct _parent,
-                                    String _className, String _fieldName, int _ordinal) {
-        CustList<ClassFieldStruct> fields_ = feedFields(_context, _className);
+                                    String _className, ExecRootBlock _rootBlock,String _fieldName, int _ordinal) {
+        CustList<ClassFieldStruct> fields_ = feedFields(_context, _className,_rootBlock);
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
 
-    public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className) {
-        Classes classes_ = _context.getClasses();
-        String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock class_ = classes_.getClassBody(baseClass_);
-        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(class_,class_.getGenericString());
+    public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className,ExecRootBlock _rootBlock) {
+        ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock,_rootBlock.getGenericString());
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
-        allClasses_.addAllElts(class_.getAllGenericSuperTypes());
+        allClasses_.addAllElts(_rootBlock.getAllGenericSuperTypes());
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
         for (ExecFormattedRootBlock c: allClasses_) {
             String preFormatted_ = c.getFormatted();
             String id_ = StringExpUtil.getIdFromAllTypes(preFormatted_);
-            String formatted_ = ExecTemplates.quickFormat(_className, preFormatted_,_context);
+            String formatted_ = ExecTemplates.quickFormat(_rootBlock,_className, preFormatted_);
             for (ExecFieldBlock b: c.getRootBlock().getInstanceFields()) {
                 String fieldDeclClass_ = b.getImportedClassName();
-                fieldDeclClass_ = ExecTemplates.quickFormat(formatted_,fieldDeclClass_,_context);
+                fieldDeclClass_ = ExecTemplates.quickFormat(c.getRootBlock(),formatted_,fieldDeclClass_);
                 for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
                     fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
@@ -51,13 +48,11 @@ public class DefaultInitializer implements Initializer {
 
     @Override
     public final Struct processInitAnnot(ContextEl _context,
-            String _className) {
-        Classes classes_ = _context.getClasses();
+            String _className,ExecRootBlock _rootBlock) {
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        ExecRootBlock class_ = classes_.getClassBody(baseClass_);
         CustList<ClassFieldStruct> fields_;
         fields_ = new CustList<ClassFieldStruct>();
-        for (ExecAnnotationMethodBlock b: class_.getAnnotationsFields()) {
+        for (ExecAnnotationMethodBlock b: _rootBlock.getAnnotationsFields()) {
             Struct str_ = b.getDefaultArgument();
             String fieldName_ = b.getName();
             String fieldDeclClass_ = b.getImportedReturnType();

@@ -37,6 +37,7 @@ public abstract class SettableAbstractFieldOperation extends
 
     private int anc;
     private int indexBlock;
+    private int rootNumber = -1;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -90,6 +91,7 @@ public abstract class SettableAbstractFieldOperation extends
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        rootNumber = r_.getRootNumber();
         e_ = r_.getId();
         valueOffset = e_.getValOffset();
         fieldMetaInfo = e_;
@@ -245,5 +247,9 @@ public abstract class SettableAbstractFieldOperation extends
 
     public int getIndexBlock() {
         return indexBlock;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
     }
 }

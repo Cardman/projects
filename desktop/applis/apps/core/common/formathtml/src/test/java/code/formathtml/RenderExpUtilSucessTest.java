@@ -141,7 +141,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
@@ -160,7 +160,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().getValueVars().put("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
         Argument arg_ = processElNormal("v.inst", context_);
@@ -752,7 +752,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
@@ -1583,7 +1583,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         Argument arg_ = processElNormal("$this.inst", context_);
@@ -3950,7 +3950,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3973,7 +3973,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration context_ = getConfiguration4(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
         context_.getLastPage().setGlobalArgumentStruct(str_,context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5136,7 +5136,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5173,7 +5173,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5209,7 +5209,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5242,7 +5242,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5274,7 +5274,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5306,7 +5306,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5338,7 +5338,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5370,7 +5370,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5409,7 +5409,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5448,7 +5448,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5492,7 +5492,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5536,7 +5536,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5580,7 +5580,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5625,7 +5625,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", "", -1);
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -5974,7 +5974,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite", "", -1);
+        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite",context_.getClasses().getClassBody("pkg.Composite"), "", -1);
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
@@ -6239,7 +6239,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite", "", -1);
+        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite",context_.getClasses().getClassBody("pkg.Composite"), "", -1);
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
@@ -6262,7 +6262,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite", "", -1);
+        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite",context_.getClasses().getClassBody("pkg.Composite"), "", -1);
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
@@ -6286,7 +6286,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite", "", -1);
+        Struct var_ = context_.getInit().processInit(context_, NullStruct.NULL_VALUE, "pkg.Composite",context_.getClasses().getClassBody("pkg.Composite"), "", -1);
         lv_.setStruct(var_);
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);

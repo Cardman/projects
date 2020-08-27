@@ -6,6 +6,7 @@ import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -24,6 +25,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private boolean initClass;
     private ClassMethodId methodToCall;
     private ExecNamedFunctionBlock methodToCallBody;
+    private ExecRootBlock methodToCallType;
     private boolean calledMethod;
     private boolean calledAfter;
     private CustList<Argument> args = new CustList<Argument>();
@@ -69,9 +71,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, method_.getDeclaring(), method_.getCalleeInv());
                 methodToCall = new ClassMethodId(polymorph_.getClassName(),method_.getRealId());
                 methodToCallBody = polymorph_.getOverridableBlock();
+                methodToCallType = polymorph_.getRootBlock();
             } else {
                 methodToCall = new ClassMethodId(className_, method_.getRealId());
                 methodToCallBody = method_.getCalleeInv();
+                methodToCallType = method_.getDeclaring();
             }
         }
         if (!calledMethod) {
@@ -139,11 +143,15 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className, _mid, _instance, _args, _right,methodToCallBody);
+        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _mid, _instance, _args, _right,methodToCallBody);
     }
 
     ExecNamedFunctionBlock getMethodToCallBody() {
         return methodToCallBody;
+    }
+
+    ExecRootBlock getMethodToCallType() {
+        return methodToCallType;
     }
 
     abstract boolean initType(ContextEl _context);

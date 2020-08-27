@@ -164,16 +164,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         }
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-            classNameFound_ = ExecTemplates.quickFormat(argClassName_, classNameFound_, _conf.getContext());
-            if (!ExecTemplates.isCorrectExecute(argClassName_, classNameFound_, _conf.getContext())) {
-                setRelativeOffsetPossibleLastPage(chidren_.last().getIndexInEl(), _conf);
-                String cast_;
-                cast_ = stds_.getAliasCastType();
-                _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argClassName_,RETURN_LINE,classNameFound_,RETURN_LINE),cast_));
-                return new Argument();
-            }
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
         } else {
@@ -183,7 +175,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             fct_ = polymorph_.getOverridableBlock();
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = ExecTemplates.quickFormat(fullClassNameFound_, lastType_, _conf.getContext());
+            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
@@ -191,7 +183,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         if (_right != null) {
             methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_, methodId_, prev_, firstArgs_, _right,fct_);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, methodId_, prev_, firstArgs_, _right,fct_);
     }
 
     public ClassMethodId getClassMethodId() {

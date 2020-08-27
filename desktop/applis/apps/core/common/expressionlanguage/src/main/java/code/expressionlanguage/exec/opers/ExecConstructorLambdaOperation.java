@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -19,12 +20,14 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
 
     private ConstructorId realId;
     private ExecAnnotableParametersBlock functionBlock;
+    private ExecRootBlock rootBlock;
     private ExecNamedFunctionBlock function;
 
     public ExecConstructorLambdaOperation(LambdaOperation _l, ContextEl _cont) {
         super(_l);
         realId = _l.getRealId();
         functionBlock = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+        rootBlock = fetchType(_cont,_l.getRootNumber());
         function = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
     }
 
@@ -43,10 +46,10 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType) {
-        return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,function);
+        return newLambda(_previous, _conf, foundClass, realId, returnFieldType, isShiftArgument(), isSafeInstance(), getResultClass().getName(), _conf.getLastPage(), getFileName(),functionBlock,rootBlock,function);
     }
 
-    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName,ExecAnnotableParametersBlock functionBlock, ExecNamedFunctionBlock function) {
+    public static Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType, boolean shiftArgument, boolean safeInstance, String name, PageEl lastPage, String fileName, ExecAnnotableParametersBlock functionBlock, ExecRootBlock _rootBlock, ExecNamedFunctionBlock function) {
         String clArg_ = name;
         String ownerType_ = foundClass;
         ownerType_ = lastPage.formatVarType(ownerType_, _conf);
@@ -61,6 +64,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
             met_.setFileName(fileName);
             met_.setAnnotableBlock(functionBlock);
             met_.setCallee(function);
+            met_.setDeclaring(_rootBlock);
             l_.setMetaInfo(met_);
         }
         return l_;
