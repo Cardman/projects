@@ -835,12 +835,11 @@ public abstract class ExecOperationNode {
         }
         String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        ClassMethodId val_ = _conf.getClasses().getToStringMethodsToCall().getVal(idCl_);
         PolymorphMethod valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
         String clCall_ = "";
         ExecNamedFunctionBlock methodCallBody_ = null;
         ExecRootBlock type_ = null;
-        if (val_ != null) {
+        if (valBody_ != null) {
             ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_.getRootBlock(), valBody_.getNamed());
             methodCallBody_ = polymorphMethod_.getOverridableBlock();
             clCall_ = polymorphMethod_.getClassName();

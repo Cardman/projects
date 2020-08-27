@@ -8,16 +8,9 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.PolymorphMethod;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.StandardClass;
-import code.expressionlanguage.stds.StandardInterface;
-import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
@@ -27,7 +20,6 @@ public final class Classes {
     private final StringMap<String> resources;
 
     private StringMap<StringMap<Struct>> staticFields;
-    private final StringMap<ClassMethodId> toStringMethodsToCall = new StringMap<ClassMethodId>();
     private final StringMap<PolymorphMethod> toStringMethodsToCallBodies = new StringMap<PolymorphMethod>();
 
     private DefaultLockingClass locks;
@@ -360,10 +352,6 @@ public final class Classes {
     }
     public void setExpsSecondCust(CustList<ExecOperationNode> _expsSecondCust) {
         expsSecondCust = _expsSecondCust;
-    }
-
-    public StringMap<ClassMethodId> getToStringMethodsToCall() {
-        return toStringMethodsToCall;
     }
 
     public StringMap<PolymorphMethod> getToStringMethodsToCallBodies() {

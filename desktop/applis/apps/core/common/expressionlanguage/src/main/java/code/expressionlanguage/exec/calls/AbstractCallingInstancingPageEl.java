@@ -45,11 +45,11 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     @Override
     public final boolean checkCondition(ContextEl _context) {
         boolean implicitConstr_ = false;
-        ExecConstructorBlock ctor_ = (ExecConstructorBlock) getBlockRoot();
-        if (ctor_ == null) {
+        ExecBlock blockRoot_ = getBlockRoot();
+        if (!(blockRoot_ instanceof ExecConstructorBlock)) {
             //No constructor found in the current class => call the super one
             implicitConstr_ = true;
-        } else if (ctor_.implicitConstr()) {
+        } else if (((ExecConstructorBlock)blockRoot_).implicitConstr()) {
             //Constructor found in the current class but no explicit call to super in the code => call the super one
             implicitConstr_ = true;
         }
@@ -76,8 +76,8 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             }
             boolean initFields_ = false;
             ExecBlock bl_ = null;
-            if (ctor_ != null) {
-                bl_ = ctor_.getFirstChild();
+            if (blockRoot_ != null) {
+                bl_ = blockRoot_.getFirstChild();
             }
             if (!(bl_ instanceof ExecLine)) {
                 initFields_ = true;

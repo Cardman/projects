@@ -21,8 +21,8 @@ public final class OverridesTypeUtil {
     private OverridesTypeUtil() {
     }
 
-    public static StringMap<ClassMethodId> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, ContextEl _conf) {
-        StringMap<ClassMethodId> eq_ = new StringMap<ClassMethodId>();
+    public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, ContextEl _conf) {
+        StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
         String baseClassFound_ = _type.getFullName();
         for (EntryCust<RootBlock, Members> e: _conf.getAnalyzing().getMapMembers().entryList()) {
             RootBlock c = e.getKey();
@@ -31,7 +31,7 @@ public final class OverridesTypeUtil {
             if (baseCond_.isEmpty()) {
                 continue;
             }
-            ClassMethodId f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _conf);
+            GeneStringOverridable f_ = tryGetUniqueId(baseClassFound_,_type, c, _realId, _conf);
             if (f_ != null) {
                 eq_.put(name_, f_);
                 continue;
@@ -74,7 +74,7 @@ public final class OverridesTypeUtil {
                 }
                 feedMehodsLists(finalMethods_, methods_, foundSuperClasses_);
             }
-            ClassMethodId id_ = filterUniqId(_conf, finalMethods_, methods_);
+            GeneStringOverridable id_ = filterUniqId(_conf, finalMethods_, methods_);
             if (id_ != null) {
                 eq_.put(name_, id_);
                 continue;
@@ -120,33 +120,33 @@ public final class OverridesTypeUtil {
             methods_.add(t);
         }
     }
-    private static ClassMethodId filterUniqId(ContextEl _conf, CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_) {
-        StringMap<MethodId> defs_ = new StringMap<MethodId>();
+    private static GeneStringOverridable filterUniqId(ContextEl _conf, CustList<GeneStringOverridable> finalMethods_, CustList<GeneStringOverridable> methods_) {
+        StringMap<GeneStringOverridable> defs_ = new StringMap<GeneStringOverridable>();
         StringList list_ = new StringList();
         for (GeneStringOverridable v: finalMethods_) {
-            defs_.put(v.getGeneString(), v.getBlock().getId());
+            defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }
         list_ = AnaTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-            return new ClassMethodId(class_, defs_.getVal(class_));
+            return defs_.getVal(class_);
         }
-        defs_ = new StringMap<MethodId>();
+        defs_ = new StringMap<GeneStringOverridable>();
         list_ = new StringList();
         for (GeneStringOverridable v: methods_) {
-            defs_.put(v.getGeneString(), v.getBlock().getId());
+            defs_.put(v.getGeneString(), v);
             list_.add(v.getGeneString());
         }
         list_ = AnaTypeUtil.getSubclasses(list_, _conf);
         if (list_.onlyOneElt()) {
             String class_ = list_.first();
-            return new ClassMethodId(class_, defs_.getVal(class_));
+            return defs_.getVal(class_);
         }
         return null;
     }
 
-    private static ClassMethodId tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, ContextEl _conf) {
+    private static GeneStringOverridable tryGetUniqueId(String _subTypeName, AnaGeneType _toFind, RootBlock _type, MethodId _realId, ContextEl _conf) {
         //c is a concrete sub type of type input
         for (AnaFormattedRootBlock s: _type.getAllGenericClassesInfo()) {
             RootBlock r_ = s.getRootBlock();
@@ -159,7 +159,7 @@ public final class OverridesTypeUtil {
             CustList<OverridingMethodDto> ov_ = r_.getAllOverridingMethods();
             //r_ inherit the formatted method
             boolean found_ = false;
-            TreeMap<String,OverridableBlock> tree_ = new TreeMap<String,OverridableBlock>(new ComparingByTypeList(r_.getAllGenericClasses()));
+            TreeMap<String,GeneStringOverridable> tree_ = new TreeMap<String,GeneStringOverridable>(new ComparingByTypeList(r_.getAllGenericClasses()));
             //if the overridden types contain the type input, then look for the "most sub typed" super class of r_
             for (GeneStringOverridable t: getList(ov_,l_)) {
                 String t_ = t.getGeneString();
@@ -170,22 +170,19 @@ public final class OverridesTypeUtil {
                 if (t.getType() instanceof InterfaceBlock) {
                     continue;
                 }
-                tree_.put(t_,t.getBlock());
+                tree_.put(t_,t);
             }
             if (!found_) {
                 continue;
             }
-            String classNameFound_;
-            MethodId realId_;
             if (tree_.isEmpty()) {
                 continue;
             }
-            classNameFound_ = tree_.firstKey();
-            realId_ = tree_.firstValue().getId();
-            if (tree_.firstValue().isAbstractMethod()) {
+            GeneStringOverridable gene_ = tree_.firstValue();
+            if (gene_.getBlock().isAbstractMethod()) {
                 continue;
             }
-            return new ClassMethodId(classNameFound_, realId_);
+            return gene_;
         }
         return null;
     }

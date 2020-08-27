@@ -1,9 +1,12 @@
 package code.expressionlanguage.functionid;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.util.StringMap;
 
@@ -23,9 +26,10 @@ public class ClassMethodIdOverride {
         return redirections.getVal(_cl);
     }
 
-    public void put(ContextEl _context, String _cl, ClassMethodId _dest) {
-        String id_ = StringExpUtil.getIdFromAllTypes(_dest.getClassName());
-        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(_context, id_, _dest.getConstraints()).first();
-        redirections.put(_cl, new ExecOverrideInfo(_dest.getClassName(),_context.getClasses().getClassBody(id_),first_));
+    public void put(ContextEl _context, String _cl, GeneStringOverridable _dest) {
+        int numberAll_ = _dest.getType().getNumberAll();
+        ExecRootBlock exec_ = ExecOperationNode.fetchType(_context, numberAll_);
+        ExecNamedFunctionBlock first_ = ExecOperationNode.fetchFunction(numberAll_, _dest.getBlock().getNameNumber(),_context);
+        redirections.put(_cl, new ExecOverrideInfo(_dest.getGeneString(),exec_,first_));
     }
 }

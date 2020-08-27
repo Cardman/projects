@@ -2195,7 +2195,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         MethodId id_ = getMethodId("explicit","pkg.ExClass","int");
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.ExClass");
-        ExecOverridableBlock method_ = ExecBlock.getDeepMethodBodiesById(cont_, "pkg.ExClass", id_).first();
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(cont_, "pkg.ExClass", id_).first();
         Parameters p_ = new Parameters();
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getParameters().addEntry(method_.getParametersNames().first(),lv_);

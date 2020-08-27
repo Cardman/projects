@@ -52,18 +52,13 @@ public final class ClassesUtil {
     }
 
     public static void postValidation(ContextEl _context) {
-        StringMap<ClassMethodId> toStringMethodsToCall_ = _context.getClasses().getToStringMethodsToCall();
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
-                String foundClass_ = resDyn_.getRealClass();
-                MethodId id_ = resDyn_.getRealId();
                 ExecRootBlock ex_ = ExecOperationNode.fetchType(_context,resDyn_.getRootNumber());
                 ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(),_context);
-                ClassMethodId methodId_ = new ClassMethodId(foundClass_, id_);
-                toStringMethodsToCall_.addEntry(e.getKey().getFullName(),methodId_);
                 toStringMethodsToCallBodies_.addEntry(e.getKey().getFullName(),new PolymorphMethod(ex_,fct_));
             }
         }
@@ -88,7 +83,6 @@ public final class ClassesUtil {
             RootBlock root_ = e.getKey();
             IdMap<OverridableBlock, ExecOverridableBlock> allMethods_ = page_.getMapMembers().getValue(root_.getNumberAll()).getAllMethods();
             ClassMethodIdOverrides redirections_ = e.getValue().getRedirections();
-            String fullName_ = root_.getFullName();
             for (EntryCust<OverridableBlock,ExecOverridableBlock> f: allMethods_.entryList()) {
                 OverridableBlock key_ = f.getKey();
                 if (key_.hiddenInstance()) {
@@ -99,9 +93,9 @@ public final class ClassesUtil {
                 }
                 MethodId id_ = key_.getId();
                 ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(),_context));
-                StringMap<ClassMethodId> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
+                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
                 map_.putAllMap(key_.getOverrides());
-                for (EntryCust<String,ClassMethodId> g: map_.entryList()) {
+                for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
                     override_.put(_context,g.getKey(),g.getValue());
                 }
                 redirections_.add(override_);
@@ -145,15 +139,10 @@ public final class ClassesUtil {
                             ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
                             ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(),_context), root_.getFullName());
                             if (val_ == null) {
-                                root_.getFunctional().add(new ClassMethodId(s.getFormatted(),m.getId()));
+                                ExecOverridableBlock value_ = page_.getMapMembers().getValue(superBl_.getNumberAll()).getAllMethods().getValue(m.getNameOverrideNumber());
+                                e.getValue().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
                             }
                         }
-                    }
-                }
-                for (ClassMethodId c: root_.getFunctional()) {
-                    CustList<ExecOverridableBlock> list_ = ExecBlock.getDeepMethodBodiesById(_context, StringExpUtil.getIdFromAllTypes(c.getClassName()), c.getConstraints());
-                    for (ExecOverridableBlock d: list_) {
-                        e.getValue().getFunctionalBodies().add(new ExecFunctionalInfo(c.getClassName(),d));
                     }
                 }
             }
@@ -802,6 +791,7 @@ public final class ClassesUtil {
                     ExecOverridableBlock val_ = new ExecOverridableBlock((OverridableBlock)b);
                     current_.appendChild(val_);
                     val_.setFile(current_.getFile());
+                    ((OverridableBlock) b).setNameOverrideNumber(mem_.getAllMethods().size());
                     mem_.getAllMethods().addEntry((OverridableBlock) b,val_);
                     mem_.getAllAnnotables().addEntry((OverridableBlock) b,val_);
                     ((OverridableBlock) b).setNameNumber(mem_.getAllNamed().size());

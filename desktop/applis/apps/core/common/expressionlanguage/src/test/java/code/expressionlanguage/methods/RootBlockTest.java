@@ -1195,11 +1195,11 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static StringMap<ClassMethodId> getConcreteMethodsToCall(ContextEl cont_, MethodId id_, RootBlock r_) {
-        StringMap<ClassMethodId> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(cont_.getAnalyzing().getAnaClassBody(r_.getFullName()), id_, cont_);
+        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(cont_.getAnalyzing().getAnaClassBody(r_.getFullName()), id_, cont_);
         StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
-        for (EntryCust<String,ClassMethodId> e: conc_.entryList()) {
-            ClassMethodId value_ = e.getValue();
-            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getClassName()),value_.getConstraints()));
+        for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
+            GeneStringOverridable value_ = e.getValue();
+            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getGeneString()),value_.getBlock().getId()));
         }
         return tr_;
     }

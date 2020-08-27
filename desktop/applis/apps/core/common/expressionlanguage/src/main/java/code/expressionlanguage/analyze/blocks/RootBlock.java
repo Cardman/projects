@@ -85,7 +85,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
     private final StringList allGenericClasses = new StringList();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
-    private final CustList<ClassMethodId> functional = new CustList<ClassMethodId>();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private int nbOperators;
     private int numberAll = -1;
@@ -96,7 +95,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private String suffix="";
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private RootBlock parentType;
-    private boolean added;
 
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -1948,10 +1946,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setNumberAll(int _number) {
         numberAll = _number;
-    }
-
-    public CustList<ClassMethodId> getFunctional() {
-        return functional;
     }
 
     public CustList<AnaFormattedRootBlock> getImportedDirectSuperTypesInfo() {

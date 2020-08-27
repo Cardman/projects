@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
+import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.GeneCustStaticMethod;
@@ -41,8 +42,8 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     private CustList<PartOffset> allInternParts = new CustList<PartOffset>();
     private String definition  = "";
     private int definitionOffset;
-    private StringMap<ClassMethodId> overrides = new StringMap<ClassMethodId>();
-
+    private StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
+    private int nameOverrideNumber;
     public OverridableBlock(ContextEl _importingPage,
                             OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -231,8 +232,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 continue;
             }
             CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
-            RootBlock rootSuper_ = analyzing_.getAnaClassBody(clDest_);
-            CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(rootSuper_);
+            CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(formattedDestType_);
             String formattedDeclaring_ = AnaTemplates.getOverridingFullTypeByBases(root_, _root.getFullName(), _context);
             if (!getId().quickOverrideFormat(_root,formattedDeclaring_,_context).eqPartial(MethodId.to(methodIdDest_.quickFormat(formattedDestType_,formattedDest_,_context)))) {
                 allInternParts.addAllElts(superPartOffsets_);
@@ -250,7 +250,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     StringList l_ = new StringList();
                     LinkageUtil.addParts(_context,analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                     partMethods_.addAllElts(partMethod_);
-                    overrides.put(clKey_,new ClassMethodId(formattedDest_,methodIdDest_));
+                    overrides.put(clKey_,new GeneStringOverridable(formattedDest_,formattedDestType_,m));
                     break;
                 }
             }
@@ -260,7 +260,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         }
     }
 
-    public StringMap<ClassMethodId> getOverrides() {
+    public StringMap<GeneStringOverridable> getOverrides() {
         return overrides;
     }
 
@@ -276,4 +276,11 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         kind = _kind;
     }
 
+    public int getNameOverrideNumber() {
+        return nameOverrideNumber;
+    }
+
+    public void setNameOverrideNumber(int nameOverrideNumber) {
+        this.nameOverrideNumber = nameOverrideNumber;
+    }
 }

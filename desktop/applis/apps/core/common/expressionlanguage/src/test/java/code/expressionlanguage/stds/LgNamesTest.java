@@ -1568,11 +1568,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_);
         ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>());
         assertTrue(contextEl_.isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = contextEl_.getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = ExecBlock.getDeepMethodBodiesById(contextEl_, "pkg.Ex", fct_).first();
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(contextEl_, "pkg.Ex", fct_).first();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", classBody_, method_, new Parameters(), contextEl_);
         assertNull(getException(contextEl_));
         assertEq(2, getNumber(ret_));
@@ -1601,11 +1600,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_);
         ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>());
         assertTrue(contextEl_.isEmptyErrors());
-        CustList<Argument> args_ = new CustList<Argument>();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = contextEl_.getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = ExecBlock.getDeepMethodBodiesById(contextEl_, "pkg.Ex", fct_).first();
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(contextEl_, "pkg.Ex", fct_).first();
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", classBody_, method_, new Parameters(), contextEl_);
         assertNull(getException(contextEl_));
         assertEq(2, getNumber(ret_));

@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.coverage.NullBooleanCoverageResult;
 import code.expressionlanguage.exec.coverage.NullCoverageResult;
 import code.expressionlanguage.exec.coverage.StandardCoverageResult;
+import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
@@ -3634,7 +3635,7 @@ public final class LinkageUtil {
             if (cl_ instanceof AnnotationBlock) {
                 continue;
             }
-            ClassMethodId val_ = _cont.getClasses().getToStringMethodsToCall().getVal(id_);
+            PolymorphMethod val_ = _cont.getClasses().getToStringMethodsToCallBodies().getVal(id_);
             if (val_ != null) {
                 return true;
             }

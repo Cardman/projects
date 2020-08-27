@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -625,5 +626,27 @@ public abstract class ProcessMethodCommon {
     }
     protected static char getChar(Argument _arg) {
         return ((CharStruct)_arg.getStruct()).getChar();
+    }
+    protected static CustList<ExecOverridableBlock> getDeepMethodBodiesById(ContextEl _context,String _genericClassName, MethodId _id) {
+        return filterDeep(getDeepMethodBodies(_context,_genericClassName),_id);
+    }
+    private static CustList<ExecOverridableBlock> getDeepMethodBodies(ContextEl _context,String _genericClassName) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
+        Classes classes_ = _context.getClasses();
+        ExecRootBlock r_ = classes_.getClassBody(base_);
+        for (ExecOverridableBlock m: ExecBlock.getDeepMethodExecBlocks(r_)) {
+            methods_.add(m);
+        }
+        return methods_;
+    }
+    private static CustList<ExecOverridableBlock> filterDeep(CustList<ExecOverridableBlock> _methods,MethodId _id) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        for (ExecOverridableBlock m: _methods) {
+            if (((GeneMethod)m).getId().eq(_id)) {
+                methods_.add(m);
+            }
+        }
+        return methods_;
     }
 }
