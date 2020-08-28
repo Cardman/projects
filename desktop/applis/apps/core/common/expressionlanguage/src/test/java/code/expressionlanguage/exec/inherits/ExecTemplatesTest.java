@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -559,7 +559,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        ExecTemplates.okArgs(classBody_,ExecBlock.getMethodBodiesById(classBody_,id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -572,7 +573,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = fullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
-        ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),ExecBlock.getMethodBodiesById(cont_,"pkg.Ex",id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        ExecTemplates.okArgs(classBody_,ExecBlock.getMethodBodiesById(classBody_,id_).first(),false,"pkg.Ex<$int>",args_, cont_,null);
         assertNotNull(getException(cont_));
     }
     @Test

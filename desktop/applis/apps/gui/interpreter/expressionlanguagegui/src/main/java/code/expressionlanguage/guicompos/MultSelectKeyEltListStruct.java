@@ -2,15 +2,9 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
 import code.gui.IndexableListener;
 import code.util.CustList;
-import code.util.StringList;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -52,11 +46,9 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
             grList.getSelectedIndexes().removeDuplicates();
         }
         GuiContextEl ctx_ = newCtx();
-        LgNamesGui stds_ = (LgNamesGui) original.getStandards();
-        StringList types_ = new StringList(stds_.getAliasGrList());
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(grList));
-        invoke(ctx_,stds_.getAliasPaint(),stds_.getAliasPaintRefresh(), types_, args_);
+        SimpleSelectEltListStruct.invokePaint(ctx_,args_);
         if (!sel_) {
             grList.setFirstIndex(0);
             grList.setLastIndex(max_);
@@ -70,12 +62,7 @@ public final class MultSelectKeyEltListStruct extends KeyAdapter implements Inde
         }
         SelectionStructUtil.selectEvent(0,max_,grList,false);
     }
-    private void invoke(GuiContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
-        ClassMethodId mId_ = new ClassMethodId(_typeName,new MethodId(MethodAccessKind.STATIC,_methName,_argTypes));
-        Argument arg_ = new Argument();
-        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_r,mId_.getClassName(), mId_.getConstraints()).first();
-        RunnableStruct.invoke(arg_, mId_.getClassName(),_r.getClasses().getClassBody(mId_.getClassName()), fct_, _args, _r);
-    }
+
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);
         RunnableStruct.setupThread(r_);

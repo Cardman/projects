@@ -7,13 +7,9 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
 
 public abstract class ExecBlock {
 
@@ -197,15 +193,12 @@ public abstract class ExecBlock {
         file = _file;
     }
 
-    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ContextEl _context, String _genericClassName, MethodId _id) {
-        return filter(getMethodBodies(_context,_genericClassName),_id);
+    public static CustList<ExecNamedFunctionBlock> getMethodBodiesById(ExecRootBlock _genericClassName, MethodId _id) {
+        return filter(getMethodBodies(_genericClassName),_id);
     }
 
-    private static CustList<ExecNamedFunctionBlock> getMethodBodies(ContextEl _context,String _genericClassName) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
-        Classes classes_ = _context.getClasses();
-        ExecRootBlock r_ = classes_.getClassBody(base_);
-        return getMethodExecBlocks(r_);
+    private static CustList<ExecNamedFunctionBlock> getMethodBodies(ExecRootBlock _genericClassName) {
+        return getMethodExecBlocks(_genericClassName);
     }
 
 
@@ -214,16 +207,6 @@ public abstract class ExecBlock {
         for (ExecBlock b: getDirectChildren(_element)) {
             if (b instanceof ExecOverridableBlock) {
                 methods_.add((ExecNamedFunctionBlock) b);
-            }
-        }
-        return methods_;
-    }
-
-    public static CustList<ExecOverridableBlock> getDeepMethodExecBlocks(ExecRootBlock _element) {
-        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
-        for (ExecBlock b: getDirectChildren(_element)) {
-            if (b instanceof ExecOverridableBlock) {
-                methods_.add((ExecOverridableBlock) b);
             }
         }
         return methods_;
@@ -239,28 +222,6 @@ public abstract class ExecBlock {
         return methods_;
     }
 
-    public static CustList<ExecConstructorBlock> getConstructorBodiesById(ContextEl _context,String _genericClassName, ConstructorId _id) {
-        CustList<ExecConstructorBlock> methods_ = new CustList<ExecConstructorBlock>();
-        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
-        Classes classes_ = _context.getClasses();
-        for (EntryCust<String, ExecRootBlock> c: classes_.getClassesBodies().entryList()) {
-            if (!StringList.quickEq(c.getKey(), base_)) {
-                continue;
-            }
-            CustList<ExecBlock> bl_ = getDirectChildren(c.getValue());
-            for (ExecBlock b: bl_) {
-                if (!(b instanceof ExecConstructorBlock)) {
-                    continue;
-                }
-                ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-                if (!method_.getId().eq(_id)) {
-                    continue;
-                }
-                methods_.add(method_);
-            }
-        }
-        return methods_;
-    }
     public final ExecBlock getPreviousSibling() {
         return previousSibling;
     }

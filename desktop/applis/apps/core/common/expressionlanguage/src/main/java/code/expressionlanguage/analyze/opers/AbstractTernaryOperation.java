@@ -80,11 +80,15 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
+                clMatch_.setRootNumber(res_.getRootNumber());
+                clMatch_.setMemberNumber(res_.getMemberNumber());
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_conf, clMatch_);
                 if (trueOp_.isFoundMethod()) {
                     ClassMethodId test_ = new ClassMethodId(trueOp_.getId().getClassName(),trueOp_.getRealId());
                     clMatch_.getImplicitsTest().add(test_);
+                    clMatch_.setRootNumberTest(trueOp_.getRootNumber());
+                    clMatch_.setMemberNumberTest(trueOp_.getMemberNumber());
                     test = test_;
                 } else {
                     setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);

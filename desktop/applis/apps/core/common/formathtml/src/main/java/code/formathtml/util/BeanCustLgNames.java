@@ -465,13 +465,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _context.getClasses().getClassBody(id_);
-        CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(_context.getContext(), id_, _id.getConstraints());
-        ExecNamedFunctionBlock fct_;
-        if (list_.isEmpty()) {
-            fct_ = null;
-        } else {
-            fct_ = list_.first();
-        }
+        CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
+        ExecNamedFunctionBlock fct_ = list_.first();
         RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
@@ -876,6 +871,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getAdvStandards().setReportedMessages(null);
         _conf.getAnalyzing().setHeaders(null);
         Classes.forwardAndClear(_conf.getContext());
+        buildIterables(_conf);
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext());
@@ -904,7 +900,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         //!classFiles_.isEmpty()
         Classes.validateWithoutInit(classFiles_, _conf.getContext());
         setReportedMessages(_conf.getContext().getAnalyzing().getMessages());
-        buildIterables(_conf);
     }
     @Override
     public void preInitBeans(Configuration _conf) {

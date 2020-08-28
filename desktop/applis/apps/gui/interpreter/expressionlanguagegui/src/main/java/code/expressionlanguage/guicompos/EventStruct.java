@@ -4,15 +4,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.utilcompo.LgNamesUtils;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 import code.util.CustList;
-import code.util.StringList;
 
 import javax.swing.event.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -95,19 +94,14 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         ActionEventStruct a_ = new ActionEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasActionPerformed();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasActionListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getActionListener(),r_.getActionPerformed(),args_);
     }
 
     @Override
     public void run() {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        LgNames stds_ = r_.getStandards();
-        String run_ = ((LgNamesUtils)stds_).getAliasRun();
-        String runnable_ = ((LgNamesUtils)stds_).getAliasRunnable();
-        invoke(r_,runnable_,run_,new StringList(),args_);
+        invoke(r_,r_.getRunnableType(),r_.getExecuteMethod(),args_);
     }
 
     @Override
@@ -116,9 +110,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseClicked();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseClicked(),args_);
     }
 
     @Override
@@ -127,9 +119,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMousePressed();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMousePressed(),args_);
     }
 
     @Override
@@ -138,9 +128,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseReleased();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseReleased(),args_);
     }
 
     @Override
@@ -149,9 +137,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseEntered();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseEntered(),args_);
     }
 
     @Override
@@ -160,9 +146,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseExited();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseExited(),args_);
     }
 
     @Override
@@ -171,9 +155,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseDragged();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseDragged(),args_);
    }
 
     @Override
@@ -182,9 +164,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseEventStruct a_ = new MouseEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasMouseMoved();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasMouseListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getMouseListener(),r_.getMouseMoved(),args_);
     }
 
     @Override
@@ -193,9 +173,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         MouseWheelEventStruct a_ = new MouseWheelEventStruct(e,actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWheelMove();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWheelListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWheelListener(),r_.getWheelMove(),args_);
     }
     @Override
     public void windowOpened(WindowEvent e) {
@@ -203,9 +181,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowOpened();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowOpened(),args_);
     }
 
     @Override
@@ -214,9 +190,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosing();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowClosing(),args_);
     }
 
     @Override
@@ -225,9 +199,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowClosed();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowClosed(),args_);
     }
 
     @Override
@@ -236,9 +208,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowIconified();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowIconified(),args_);
     }
 
     @Override
@@ -247,9 +217,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeiconified();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowDeiconified(),args_);
     }
 
     @Override
@@ -258,9 +226,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowActivated();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowActivated(),args_);
     }
 
     @Override
@@ -269,19 +235,14 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         WindowEventStruct a_ = new WindowEventStruct(actEv_);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasWindowDeactivated();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasWindowListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getWindowListener(),r_.getWindowDeactivated(),args_);
     }
 
     @Override
     public void valueChanged(SelectionInfo _e) {
-        String ind_ = original.getStandards().getAliasPrimInteger();
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasValueChanged();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasListSelection();
-        invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
+        invoke(r_,r_.getListSelection(),r_.getValueChanged(),args_);
     }
 
     @Override
@@ -290,9 +251,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyPressed();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getKeyListener(),r_.getKeyPressed(),args_);
     }
 
     @Override
@@ -301,9 +260,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyTyped();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getKeyListener(),r_.getKeyTyped(),args_);
     }
 
     @Override
@@ -312,23 +269,18 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         KeyEventStruct a_ = new KeyEventStruct(e,actEv_,e.getKeyChar(),e.getKeyCode());
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasKeyReleased();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasKeyListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getKeyListener(),r_.getKeyReleased(),args_);
     }
 
     @Override
     public void stateChanged(ChangeEvent e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasStateChanged();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasChangeListener();
-        invoke(r_,actList_,actPerf_,new StringList(),args_);
+        invoke(r_,r_.getChangeListener(),r_.getStateChanged(),args_);
     }
 
     @Override
     public void valueChanged(TreeSelectionEvent e) {
-        String actEv_ = ((LgNamesGui) original.getStandards()).getAliasTreeNode();
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         Object sel_ = e.getPath().getLastPathComponent();
@@ -338,22 +290,18 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         } else {
             args_.add(new Argument());
         }
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasTreeListenerValueChanged();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasTreeListener();
-        invoke(r_,actList_,actPerf_,new StringList(actEv_),args_);
+        invoke(r_,r_.getTreeListener(),r_.getTreeListenerValueChanged(),args_);
     }
 
     @Override
     public void valueChanged(ListSelectionEvent _e) {
-        String ind_ = original.getStandards().getAliasPrimInteger();
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(new IntStruct(_e.getFirstIndex())),new Argument(new IntStruct(_e.getLastIndex())));
-        String actPerf_ = ((LgNamesGui) original.getStandards()).getAliasTableValueTableChanged();
-        String actList_ = ((LgNamesGui) original.getStandards()).getAliasTableListener();
-        invoke(r_,actList_,actPerf_,new StringList(ind_,ind_),args_);
+        invoke(r_,r_.getTableListener(),r_.getTableValueTableChanged(),args_);
     }
-    private void invoke(RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
-        RunnableStruct.invoke(this,_r,_typeName,_methName,_argTypes,_args);
+
+    private void invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
+        RunnableStruct.invoke(this,_r,_typeName,_methName,_args);
     }
     private GuiContextEl newCtx() {
         GuiContextEl r_ = new GuiContextEl(original);

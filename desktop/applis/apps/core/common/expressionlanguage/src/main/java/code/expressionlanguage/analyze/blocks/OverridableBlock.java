@@ -44,6 +44,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     private int definitionOffset;
     private StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
     private int nameOverrideNumber;
+    private String returnTypeGet = "";
     public OverridableBlock(ContextEl _importingPage,
                             OffsetAccessInfo _access,
                             OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -282,5 +283,13 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
 
     public void setNameOverrideNumber(int nameOverrideNumber) {
         this.nameOverrideNumber = nameOverrideNumber;
+    }
+
+    public String getReturnTypeGet() {
+        return returnTypeGet;
+    }
+
+    public void setReturnTypeGet(String returnTypeGet) {
+        this.returnTypeGet = returnTypeGet;
     }
 }

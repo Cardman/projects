@@ -224,6 +224,8 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     argType_.getImplicits().add(cl_);
+                    argType_.setRootNumber(res_.getRootNumber());
+                    argType_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

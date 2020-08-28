@@ -21,7 +21,7 @@ public final class ConstructorInfo implements Parametrable {
     private boolean varArgWrap;
     private InvocationMethod invocation;
     private int memberNumber=-1;
-    private CustList<CustList<ClassMethodId>> implicits = new CustList<CustList<ClassMethodId>>();
+    private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
 
     public ConstructorId getConstraints() {
         return constraints;
@@ -107,7 +107,7 @@ public final class ConstructorInfo implements Parametrable {
     }
 
     @Override
-    public CustList<CustList<ClassMethodId>> getImplicits() {
+    public CustList<CustList<ImplicitInfos>> getImplicits() {
         return implicits;
     }
 

@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
+import code.expressionlanguage.structs.IntStruct;
 import code.formathtml.CommonRender;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableExUtil;
@@ -14,16 +15,11 @@ import code.formathtml.classes.BeanOne;
 import code.formathtml.classes.BeanTwo;
 import code.formathtml.classes.Composite;
 import code.formathtml.classes.CustBeanLgNames;
-import code.formathtml.classes.CustLgNames;
 import code.formathtml.classes.MyValidator;
-import code.formathtml.classes.StdStruct;
 import code.formathtml.structs.BeanInfo;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.bean.BeanStruct;
 import code.bean.nat.BeanNatLgNames;
 import code.formathtml.util.BeanLgNames;
@@ -45,33 +41,7 @@ import static org.junit.Assert.*;
 
 public final class NativeTest extends CommonRender {
     private static final String COMPOSITE = "code.expressionlanguage.classes.Composite";
-    private static final String ALIAS_BEAN_ONE = "code.expressionlanguage.classes.BeanOne";
-    @Test
-    public void processAffect2Test() {
-        Configuration context_ = contextEl();
-        CustLgNames custLgNames_ = (CustLgNames) context_.getContext().getStandards();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Composite c_ = new Composite();
-        lv_.setStruct(new StdStruct(c_, custLgNames_.getAliasComposite()));
-        lv_.setClassName("code.expressionlanguage.classes.Composite");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        assertEq(0, c_.getInteger());
-        processEl("v.integer=12i", context_);
-        assertEq(COMPOSITE, lv_.getClassName());
-        assertEq(12, c_.getInteger());
-    }
-    @Test
-    public void processEl9Test() {
-        Configuration context_ = contextEl();
-        addImportingPage(context_);
-        BeanOne b_ = new BeanOne();
-        addBean(context_, b_);
-        Argument arg_ = processEl("composite.integer", context_);
-        assertEq(0, ((NumberStruct)arg_.getStruct()).longStruct());
-    }
+
 
     @Test
     public void process0FailTest() {
@@ -95,6 +65,7 @@ public final class NativeTest extends CommonRender {
         context_.getProperties().put("msg_example", relative_);
         buildRendWithOneNativeBean(html_, bean_, context_);
         assertTrue(!context_.isEmptyErrors());
+        assertEq(0,(Integer)BeanNatLgNames.adaptedArg(new IntStruct(0)));
     }
     @Test
     public void process0Test() {
@@ -396,27 +367,6 @@ public final class NativeTest extends CommonRender {
     private static ContextEl getContextEl() {
         Options opt_ = new Options();
         return buildStdOne(opt_);
-    }
-
-    private static Argument processEl(String _el, Configuration _cont) {
-        if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
-        }
-        return processEl(_el, 0, _cont);
-    }
-    private static void addBean(Configuration _conf, Object _bean) {
-        _conf.getLastPage().setGlobalArgumentStruct(StdStruct.newInstance(_bean, NativeTest.ALIAS_BEAN_ONE),_conf);
-        _conf.getContext().setGlobalClass(NativeTest.ALIAS_BEAN_ONE);
-    }
-    private Configuration contextEl() {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        ContextEl cont_ = buildStdTwo(opt_);
-        assertTrue(cont_.isEmptyErrors());
-        conf_.setContext(cont_);
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        return conf_;
     }
 
     @Test
@@ -1445,7 +1395,6 @@ public final class NativeTest extends CommonRender {
         setupAna(_nav.getSession());
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        tryInitStaticlyTypes(_nav.getSession());
         _nav.initializeRendSession();
     }
 
@@ -1491,13 +1440,6 @@ public final class NativeTest extends CommonRender {
     private static ContextEl buildStdOne(Options _opt) {
         BeanLgNames lgNames_ = new CustBeanLgNames();
         basicStandards(lgNames_);
-        ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
-        return c_;
-    }
-    private static ContextEl buildStdTwo(Options _opt) {
-        BeanLgNames lgNames_ = new CustLgNames();
-        basicStandards(lgNames_);
-        lgNames_.setAliasMath("java.lang.$math");
         ContextEl c_ = InitializationLgNames.build(CustList.INDEX_NOT_FOUND_ELT, lgNames_, _opt);
         return c_;
     }

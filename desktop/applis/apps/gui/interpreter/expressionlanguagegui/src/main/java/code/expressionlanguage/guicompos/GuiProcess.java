@@ -126,9 +126,9 @@ public final class GuiProcess implements Runnable {
         String folder_ = executingOptions.getLogFolder();
         new File(folder_).mkdirs();
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, mName, new StringList());
-        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(context, clName, id_);
+        ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
+        CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
         if (!methods_.isEmpty()) {
-            ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
             ProcessMethod.initializeClass(clName, classBody_,context);
             if (context.hasException()) {
                 context.getCustInit().prExc(context);

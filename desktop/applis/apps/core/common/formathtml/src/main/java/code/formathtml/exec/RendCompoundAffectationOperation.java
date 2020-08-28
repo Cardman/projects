@@ -32,7 +32,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         classMethodId = _c.getClassMethodId();
         named = ExecOperationNode.fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
         rootBlock = ExecOperationNode.fetchType(_context,_c.getRootNumber());
-        converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter());
+        converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
     }
 
     public void setup() {

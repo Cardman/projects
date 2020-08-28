@@ -3333,13 +3333,10 @@ public class LgNamesGui extends LgNamesUtils {
                 return res_;
             }
             if (StringList.quickEq(name_, aliasComponentRepaint)) {
-                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintMethod,new StringList(aliasComponent)));
-                String className_ = polymorph_.getClassName();
-                MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
-                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                ExecRootBlock classBody_ = _cont.getClasses().getClassBody(className_);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_, ExecTemplates.quickWrap(fct_, new CustList<Argument>(arg_),_cont)));
+                ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
+                ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintMethod();
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, new CustList<Argument>(arg_),_cont)));
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4174,30 +4171,22 @@ public class LgNamesGui extends LgNamesUtils {
             if (StringList.quickEq(name_, aliasGrListSetSelectedIndexes)) {
                 inst_.setSelectedIndexes(_args[0]);
                 if (_args[0] instanceof ArrayStruct) {
-                    StringList params_ = new StringList(aliasGrList);
-                    ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintRefresh, params_));
-                    String className_ = polymorph_.getClassName();
-                    MethodId ct_ = polymorph_.getConstraints();
                     Argument arg_ = new Argument(inst_);
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
-                    ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                    ExecRootBlock classBody_ = _cont.getClasses().getClassBody(className_);
-                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+                    ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
+                    ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
+                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringList.quickEq(name_, aliasGrListClearSelection)) {
                 inst_.clearSelection();
-                StringList params_ = new StringList(aliasGrList);
-                ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintRefresh, params_));
-                String className_ = polymorph_.getClassName();
-                MethodId ct_ = polymorph_.getConstraints();
                 Argument arg_ = new Argument(inst_);
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
-                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-                ExecRootBlock classBody_ = _cont.getClasses().getClassBody(className_);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+                ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
+                ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4216,17 +4205,13 @@ public class LgNamesGui extends LgNamesUtils {
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
-            StringList params_ = new StringList(aliasGrList,getAliasPrimInteger(),getAliasObject());
-            ClassMethodId polymorph_ = new ClassMethodId(aliasPaint,new MethodId(MethodAccessKind.STATIC,aliasPaintAdd, params_));
-            String className_ = polymorph_.getClassName();
-            MethodId ct_ = polymorph_.getConstraints();
             Argument arg_ = new Argument(inst_);
             CustList<Argument> args_ = new CustList<Argument>(arg_);
             args_.add(new Argument(_args[0]));
             args_.add(new Argument(_args[1]));
-            ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,className_,ct_).first();
-            ExecRootBlock classBody_ = _cont.getClasses().getClassBody(className_);
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+            ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
+            ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintAdd();
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
             return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {

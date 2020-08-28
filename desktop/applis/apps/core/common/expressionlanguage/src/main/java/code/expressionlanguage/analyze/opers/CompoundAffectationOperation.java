@@ -26,6 +26,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
     private int rootNumber = -1;
     private int memberNumber = -1;
     private ClassMethodId converter;
+    private int rootNumberConv = -1;
+    private int memberNumberConv = -1;
     private ClassMethodId test;
 
     private int opOffset;
@@ -98,6 +100,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
                 clMatchLeft_.getImplicitsTest().add(test_);
+                clMatchLeft_.setRootNumberTest(cl_.getRootNumberTest());
+                clMatchLeft_.setMemberNumberTest(cl_.getMemberNumberTest());
                 test = test_;
             }
             if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
@@ -112,6 +116,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, elt_.getResultClass().getSingleNameOrEmpty(), getResultClass());
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    rootNumberConv = res_.getRootNumber();
+                    memberNumberConv = res_.getMemberNumber();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -261,6 +267,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 if (res_.isFoundMethod()) {
                     ClassMethodId clImpl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     clMatchRight_.getImplicits().add(clImpl_);
+                    clMatchRight_.setRootNumber(res_.getRootNumber());
+                    clMatchRight_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -327,5 +335,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     public int getMemberNumber() {
         return memberNumber;
+    }
+
+    public int getRootNumberConv() {
+        return rootNumberConv;
+    }
+
+    public int getMemberNumberConv() {
+        return memberNumberConv;
     }
 }

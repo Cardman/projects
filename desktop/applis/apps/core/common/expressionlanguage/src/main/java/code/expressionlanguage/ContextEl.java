@@ -15,6 +15,7 @@ import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.types.*;
@@ -219,7 +220,13 @@ public abstract class ContextEl {
         analyzing.setLocalizer(new DefaultLocalizer(this));
         analyzing.setTokenValidation(new DefaultTokenValidation(this));
     }
-
+    public void forwardAndClear() {
+        for (ClassMetaInfo c: getAnalyzing().getClassMetaInfos()) {
+            getClasses().getClassMetaInfos().add(c);
+        }
+        getAnalyzing().getClassMetaInfos().clear();
+        ValidatorStandard.buildIterable(this);
+    }
     public void setNullAnalyzing() {
         analyzing = null;
     }

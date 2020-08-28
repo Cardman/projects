@@ -5,11 +5,17 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.Initializer;
+import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.threads.Locking;
+import code.util.StringList;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -22,6 +28,13 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     private ThreadStruct thread;
     private String idDate;
+    private ExecRootBlock executeType;
+    private ExecNamedFunctionBlock executeMethod;
+    private ExecRootBlock formatType;
+    private ExecNamedFunctionBlock formatObject;
+    private ExecNamedFunctionBlock formatObjectTwo;
+    private ExecRootBlock runnableType;
+    private ExecNamedFunctionBlock runMethod;
 
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                       CustInitializer _init, Options _options, ExecutingOptions _exec,
@@ -47,8 +60,60 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setCoverage(_context.getCoverage());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
+        executeType = ((RunnableContextEl)_context).executeType;
+        executeMethod = ((RunnableContextEl)_context).executeMethod;
+        formatType = ((RunnableContextEl)_context).formatType;
+        formatObject = ((RunnableContextEl)_context).formatObject;
+        formatObjectTwo = ((RunnableContextEl)_context).formatObjectTwo;
+        runnableType = ((RunnableContextEl)_context).runnableType;
+        runMethod = ((RunnableContextEl)_context).runMethod;
         custInit = ((RunnableContextEl)_context).getCustInit();
         setThread();
+    }
+
+    @Override
+    public void forwardAndClear() {
+        super.forwardAndClear();
+        LgNamesUtils standards_ = (LgNamesUtils) getStandards();
+        String aliasExecute_ = standards_.getAliasExecute();
+        executeType = getClasses().getClassBody(aliasExecute_);
+        String infoTest_ = standards_.getAliasInfoTest();
+        MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
+                standards_.getAliasExecuteTests(),new StringList(infoTest_));
+        executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
+        formatType = getClasses().getClassBody(standards_.getAliasFormatType());
+        formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasObject()))).first();
+        formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasString(),standards_.getAliasObject()),true)).first();
+        runnableType = getClasses().getClassBody(standards_.getAliasRunnable());
+        runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getAliasRun(),new StringList())).first();
+    }
+
+    public ExecRootBlock getExecuteType() {
+        return executeType;
+    }
+
+    public ExecNamedFunctionBlock getExecuteMethod() {
+        return executeMethod;
+    }
+
+    public ExecRootBlock getFormatType() {
+        return formatType;
+    }
+
+    public ExecNamedFunctionBlock getFormatObject() {
+        return formatObject;
+    }
+
+    public ExecNamedFunctionBlock getFormatObjectTwo() {
+        return formatObjectTwo;
+    }
+
+    public ExecRootBlock getRunnableType() {
+        return runnableType;
+    }
+
+    public ExecNamedFunctionBlock getRunMethod() {
+        return runMethod;
     }
 
     @Override

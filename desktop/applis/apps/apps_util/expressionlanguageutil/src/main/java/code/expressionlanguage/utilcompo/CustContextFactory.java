@@ -2,7 +2,6 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -81,9 +80,9 @@ public final class CustContextFactory {
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
         new Thread(showUpdates_).start();
-        ExecNamedFunctionBlock fctBody_ = ExecBlock.getMethodBodiesById(rCont_,_definedLgNames.getAliasExecute(),fct_).first();
+        ExecNamedFunctionBlock fctBody_ = rCont_.getExecuteMethod();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
-                _definedLgNames.getAliasExecute(), rCont_.getClasses().getClassBody(_definedLgNames.getAliasExecute()), fctBody_,
+                _definedLgNames.getAliasExecute(), rCont_.getExecuteType(), fctBody_,
                 new CustList<Argument>(argMethod_), rCont_);
         showUpdates_.stop();
         if (rCont_.isCovering()) {

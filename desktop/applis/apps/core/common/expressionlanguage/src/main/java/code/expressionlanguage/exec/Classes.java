@@ -78,10 +78,7 @@ public final class Classes {
     }
 
     public static void forwardAndClear(ContextEl _context) {
-        for (ClassMetaInfo c: _context.getAnalyzing().getClassMetaInfos()) {
-            _context.getClasses().getClassMetaInfos().add(c);
-        }
-        _context.getAnalyzing().getClassMetaInfos().clear();
+        _context.forwardAndClear();
     }
 
     public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
@@ -94,7 +91,6 @@ public final class Classes {
         _context.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
-        ValidatorStandard.buildIterable(_context);
         if (_context.isGettingErrors()) {
             _context.getOptions().setErrors(ExecFileBlock.errors(_context));
         }

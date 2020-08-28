@@ -232,6 +232,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
+                indexClass_.setRootNumber(res_.getRootNumber());
+                indexClass_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

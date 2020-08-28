@@ -566,10 +566,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         checkParameters(_conf, classNameFound_,_rootBlock, _named, _previous, _firstArgs, CallPrepareState.OPERATOR,null, null);
     }
 
-    private static String checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
-                                          Argument _previous, CustList<Argument> _firstArgs,
-                                          Argument _right) {
-        return checkParams(_conf,_classNameFound,_methodId,_previous,_firstArgs,_right);
+    private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,
+                                        Argument _previous, CustList<Argument> _firstArgs,
+                                        Argument _right) {
+        checkParams(_conf, _classNameFound, _methodId, _previous, _firstArgs, _right);
     }
     public static void checkParametersCtors(ContextEl _conf, String _classNameFound,
                                               ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,

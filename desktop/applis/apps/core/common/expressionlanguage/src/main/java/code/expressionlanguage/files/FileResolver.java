@@ -1438,31 +1438,29 @@ public final class FileResolver {
         } else if (_currentChar != END_BLOCK) {
             Block bl_ = processInstructionBlock(_context,_offset, instructionLocation_, instructionRealLocation_, _i, currentParent_, trimmedInstruction_);
             if (bl_ == null) {
-                if (_declType || currentParent_ instanceof RootBlock) {
-                    //fields, constructors or methods
-                    if (_declType) {
-                        //Inner types
-                        boolean defStatic_;
-                        MemberCallingsBlock outerFuntion_ = Block.getOuterFuntionInType(currentParent_);
-                        if (outerFuntion_ != null) {
-                            defStatic_ = outerFuntion_.getStaticContext() != MethodAccessKind.INSTANCE;
-                        } else {
-                            defStatic_ = false;
-                        }
-                        RootBlock built_ = processTypeHeader(_context,_offset, _pkgName,defStatic_,
-                                instructionLocation_, instructionRealLocation_,
-                                found_,
-                                trimmedInstruction_,
-                                AccessEnum.PACKAGE);
-                        built_.setParentType(currentParent_.retrieveParentType());
-                        currentParent_.appendChild(built_);
-                        if (built_ instanceof EnumBlock) {
-                            enableByEndLine_ = true;
-                        }
-                        br_ = built_;
+                if (_declType) {
+                    //Inner types
+                    boolean defStatic_;
+                    MemberCallingsBlock outerFuntion_ = Block.getOuterFuntionInType(currentParent_);
+                    if (outerFuntion_ != null) {
+                        defStatic_ = outerFuntion_.getStaticContext() != MethodAccessKind.INSTANCE;
                     } else {
-                        br_ = processTypeMember(_context,_end, _instruction, instructionLocation_, _i, _offset, currentParent_);
+                        defStatic_ = false;
                     }
+                    RootBlock built_ = processTypeHeader(_context,_offset, _pkgName,defStatic_,
+                            instructionLocation_, instructionRealLocation_,
+                            found_,
+                            trimmedInstruction_,
+                            AccessEnum.PACKAGE);
+                    built_.setParentType(currentParent_.retrieveParentType());
+                    currentParent_.appendChild(built_);
+                    if (built_ instanceof EnumBlock) {
+                        enableByEndLine_ = true;
+                    }
+                    br_ = built_;
+                } else if (currentParent_ instanceof RootBlock) {
+                    //fields, constructors or methods
+                    br_ = processTypeMember(_context,_end, _instruction, instructionLocation_, _i, _offset, (RootBlock)currentParent_);
                 } else {
                     int affectOffset_;
                     int afterDeclareOffset_;
@@ -1757,7 +1755,7 @@ public final class FileResolver {
     }
 
     private static Block processTypeMember(ContextEl _context, char _end,
-                                           StringBuilder _instruction, int _instructionLocation, int _i, int _offset, BracedBlock _currentParent) {
+                                           StringBuilder _instruction, int _instructionLocation, int _i, int _offset, RootBlock _currentParent) {
         int instructionLocation_ = _instructionLocation;
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
@@ -2157,6 +2155,9 @@ public final class FileResolver {
                         new OffsetStringInfo(accessOffest_+_offset, EMPTY_STRING), parametersType_, offestsTypes_,
                         parametersName_, offestsParams_,leftPar_+_offset, new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
                 ((ConstructorBlock)br_).setCtorName(ctorName_);
+                if (parametersType_.isEmpty()) {
+                    _currentParent.setEmptyCtor((ConstructorBlock) br_);
+                }
             }
             if (!ok_) {
                 br_.getBadIndexes().add(_i+_offset);

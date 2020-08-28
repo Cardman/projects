@@ -128,6 +128,8 @@ public final class DimensionArrayInstancing extends
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     resCh_.getImplicits().add(cl_);
+                    resCh_.setRootNumber(res_.getRootNumber());
+                    resCh_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();

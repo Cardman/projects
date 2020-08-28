@@ -71,7 +71,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return args_;
     }
 
-    private static Object adaptedArg(Struct _args) {
+    public static Object adaptedArg(Struct _args) {
         if (_args instanceof NumberStruct) {
             if (_args instanceof ShortStruct) {
                 return ((ShortStruct) _args).shortStruct();

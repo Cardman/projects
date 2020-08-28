@@ -24,7 +24,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         classMethodId = _q.getClassMethodId();
         named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
         rootBlock = fetchType(_context,_q.getRootNumber());
-        converter = fetchImplicits(_context,_q.getConverter());
+        converter = fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
     }
     @Override
     public final void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,

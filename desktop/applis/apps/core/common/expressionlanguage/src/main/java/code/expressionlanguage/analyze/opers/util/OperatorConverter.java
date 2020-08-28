@@ -7,6 +7,8 @@ public final class OperatorConverter {
     private int rootNumber = -1;
     private int memberNumber = -1;
     private ClassMethodId test;
+    private int rootNumberTest = -1;
+    private int memberNumberTest = -1;
 
     public ClassMethodId getSymbol() {
         return symbol;
@@ -39,4 +41,21 @@ public final class OperatorConverter {
     public void setTest(ClassMethodId _test) {
         test = _test;
     }
+
+    public int getRootNumberTest() {
+        return rootNumberTest;
+    }
+
+    public void setRootNumberTest(int rootNumberTest) {
+        this.rootNumberTest = rootNumberTest;
+    }
+
+    public int getMemberNumberTest() {
+        return memberNumberTest;
+    }
+
+    public void setMemberNumberTest(int memberNumberTest) {
+        this.memberNumberTest = memberNumberTest;
+    }
+
 }

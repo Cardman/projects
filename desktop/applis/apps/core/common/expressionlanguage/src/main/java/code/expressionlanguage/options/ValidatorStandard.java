@@ -616,15 +616,17 @@ public final class ValidatorStandard {
                 new ClassMethodId(stds_.getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_, new StringList())),
                 stds_.getAliasObject(),_context));
         String id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedDoubleGenerator());
-        cl_.setSeedDoubleGenerator(cl_.getClassBody(id_));
+        ExecRootBlock classBody_ = cl_.getClassBody(id_);
+        cl_.setSeedDoubleGenerator(classBody_);
         String nameToCall_ = stds_.getAliasSeedGet();
         MethodId idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList());
-        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_context, id_, idMet_).first();
+        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
         cl_.setSeedDoublePick(fct_);
         id_ = StringExpUtil.getIdFromAllTypes(stds_.getAliasSeedGenerator());
-        cl_.setSeedGenerator(cl_.getClassBody(id_));
+        classBody_ = cl_.getClassBody(id_);
+        cl_.setSeedGenerator(classBody_);
         idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getAliasPrimLong()));
-        fct_ = ExecBlock.getMethodBodiesById(_context, id_, idMet_).first();
+        fct_ = ExecBlock.getMethodBodiesById(classBody_, idMet_).first();
         cl_.setSeedPick(fct_);
     }
 
@@ -638,7 +640,7 @@ public final class ValidatorStandard {
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _context.getClasses().getClassBody(id_);
-        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_context, id_, _id.getConstraints()).first();
+        ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
         dot_.appendChild(f_);
         r_.setSiblingSet(f_);

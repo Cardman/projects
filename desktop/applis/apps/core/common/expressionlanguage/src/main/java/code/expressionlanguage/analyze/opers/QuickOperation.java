@@ -28,6 +28,8 @@ public abstract class QuickOperation extends MethodOperation {
     private int memberNumber = -1;
     private ClassMethodId test;
     private ClassMethodId converter;
+    private int rootNumberConv = -1;
+    private int memberNumberConv = -1;
     private CustList<PartOffset> errFirst = new CustList<PartOffset>();
     private CustList<PartOffset> errSecond = new CustList<PartOffset>();
 
@@ -93,6 +95,8 @@ public abstract class QuickOperation extends MethodOperation {
             }
             test = test_;
             leftRes_.getImplicitsTest().add(test_);
+            leftRes_.setRootNumberTest(opConv_.getRootNumberTest());
+            leftRes_.setMemberNumberTest(opConv_.getMemberNumberTest());
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(leftRes_);
@@ -100,6 +104,8 @@ public abstract class QuickOperation extends MethodOperation {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, leftRes_.getSingleNameOrEmpty(), getResultClass());
                 if (res_.isFoundMethod()) {
                     converter = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                    rootNumberConv = res_.getRootNumber();
+                    memberNumberConv = res_.getMemberNumber();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -185,5 +191,13 @@ public abstract class QuickOperation extends MethodOperation {
 
     public int getMemberNumber() {
         return memberNumber;
+    }
+
+    public int getRootNumberConv() {
+        return rootNumberConv;
+    }
+
+    public int getMemberNumberConv() {
+        return memberNumberConv;
     }
 }

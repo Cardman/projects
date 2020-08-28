@@ -93,27 +93,12 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(original);
         setupThread(r_);
-        LgNames stds_ = r_.getStandards();
-        String run_ = ((LgNamesUtils)stds_).getAliasRun();
-        String runnable_ = ((LgNamesUtils)stds_).getAliasRunnable();
-        invoke(this,r_,runnable_,run_,new StringList(),new CustList<Argument>());
+        invoke(this,r_,r_.getRunnableType(),r_.getRunMethod(),new CustList<Argument>());
     }
-    public static void invoke(Struct _instance,RunnableContextEl _r, String _typeName, String _methName, StringList _argTypes, CustList<Argument> _args) {
-        MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _methName, _argTypes);
-        String idType_ = StringExpUtil.getIdFromAllTypes(_typeName);
-        GeneType type_ = _r.getClassBody(idType_);
-        if (!(type_ instanceof ExecRootBlock)) {
-            _r.getCustInit().removeThreadFromList(_r);
-            return;
-        }
+
+    public static void invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, CustList<Argument> _args) {
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
-        ExecRootBlock ex_ = (ExecRootBlock) type_;
-        ExecNamedFunctionBlock named_ = null;
-        CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(_r, idType_, id_);
-        if (!list_.isEmpty()) {
-            named_ = list_.first();
-        }
-        ExecOverrideInfo mId_ = ex_.getRedirections().getVal(named_,base_);
+        ExecOverrideInfo mId_ = _rootBlock.getRedirections().getVal(_method,base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);
             return;

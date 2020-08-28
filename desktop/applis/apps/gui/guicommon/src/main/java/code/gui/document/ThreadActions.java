@@ -139,9 +139,9 @@ public final class ThreadActions implements Runnable {
                     String arrStr_ = StringExpUtil.getPrettyArrayType(stds_.getAliasString());
                     MethodId id_ = new MethodId(MethodAccessKind.STATIC, methodName, new StringList(arrStr_,arrStr_));
                     ContextEl ctx_ = conf_.getContext();
-                    CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(ctx_, classDbName, id_);
+                    ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
+                    CustList<ExecNamedFunctionBlock> methods_ = ExecBlock.getMethodBodiesById(classBody_, id_);
                     if (!methods_.isEmpty()) {
-                        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(classDbName);
                         ProcessMethod.initializeClass(classDbName, classBody_,ctx_);
                         if (ctx_.hasException()) {
                             afterAction();

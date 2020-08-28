@@ -796,7 +796,12 @@ public abstract class OperationNode {
         ConstructorId ctor_ = cInfo_.getConstraints();
         int len_ = cInfo_.getImplicits().size();
         for (int i = 0; i < len_; i++) {
-            _args[i].getImplicits().addAllElts(cInfo_.getImplicits().get(i));
+            CustList<ImplicitInfos> implicitInfos_ = cInfo_.getImplicits().get(i);
+            for (ImplicitInfos j: implicitInfos_) {
+                _args[i].getImplicits().add(j.getIdMethod());
+                _args[i].setRootNumber(j.getRootNumber());
+                _args[i].setMemberNumber(j.getMemberNumber());
+            }
         }
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
@@ -1078,7 +1083,8 @@ public abstract class OperationNode {
             }
             ClassMethodId clFrom_ = new ClassMethodId(from_.getId().getClassName(),from_.getRealId());
             ClassMethodId clTo_ = new ClassMethodId(to_.getId().getClassName(),to_.getRealId());
-            return new ReversibleConversion(clFrom_,clTo_);
+            return new ReversibleConversion(clFrom_,from_.getRootNumber(),from_.getMemberNumber(),
+                    clTo_, to_.getRootNumber(), to_.getMemberNumber());
         }
         return null;
     }
@@ -1345,6 +1351,8 @@ public abstract class OperationNode {
         CustList<CustList<MethodInfo>> listsBinary_ = new CustList<CustList<MethodInfo>>();
         CustList<MethodInfo> listBinary_ = new CustList<MethodInfo>();
         ClassMethodId convert_ = null;
+        int rootTest_ = -1;
+        int memberTest_ = -1;
         if (StringList.quickEq(_op,"&&")) {
             CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
             for (String n:_left.getNames()) {
@@ -1352,6 +1360,8 @@ public abstract class OperationNode {
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
             if (clMethImp_.isFoundMethod()) {
+                rootTest_ = clMethImp_.getRootNumber();
+                memberTest_ = clMethImp_.getMemberNumber();
                 convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
                 for (String n:_left.getNames()) {
                     for (String o:_right.getNames()) {
@@ -1367,6 +1377,8 @@ public abstract class OperationNode {
             }
             ClassMethodIdReturn clMethImp_ = getCustCastResult(_cont, listTrue_,  _left);
             if (clMethImp_.isFoundMethod()) {
+                rootTest_ = clMethImp_.getRootNumber();
+                memberTest_ = clMethImp_.getMemberNumber();
                 convert_ = new ClassMethodId(clMethImp_.getId().getClassName(),clMethImp_.getRealId());
                 for (String n:_left.getNames()) {
                     for (String o:_right.getNames()) {
@@ -1400,6 +1412,8 @@ public abstract class OperationNode {
             op_.setRootNumber(clMethImp_.getRootNumber());
             op_.setMemberNumber(clMethImp_.getMemberNumber());
             op_.setTest(convert_);
+            op_.setRootNumberTest(rootTest_);
+            op_.setMemberNumberTest(memberTest_);
             return op_;
         }
         if (!listsBinary_.isEmpty()) {
@@ -1412,6 +1426,8 @@ public abstract class OperationNode {
                 op_.setRootNumber(clId_.getRootNumber());
                 op_.setMemberNumber(clId_.getMemberNumber());
                 op_.setTest(convert_);
+                op_.setRootNumberTest(rootTest_);
+                op_.setMemberNumberTest(memberTest_);
                 return op_;
             }
         }
@@ -2459,7 +2475,12 @@ public abstract class OperationNode {
         MethodInfo m_ = (MethodInfo) found_;
         int len_ = m_.getImplicits().size();
         for (int i = 0; i < len_; i++) {
-            _argsClass[i].getImplicits().addAllElts(m_.getImplicits().get(i));
+            CustList<ImplicitInfos> implicitInfos_ = m_.getImplicits().get(i);
+            for (ImplicitInfos j: implicitInfos_) {
+                _argsClass[i].getImplicits().add(j.getIdMethod());
+                _argsClass[i].setRootNumber(j.getRootNumber());
+                _argsClass[i].setMemberNumber(j.getMemberNumber());
+            }
         }
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
@@ -2636,7 +2657,7 @@ public abstract class OperationNode {
         for (int i = CustList.FIRST_INDEX; i < startOpt_; i++) {
             String wc_ = _id.getGeneFormatted().getParametersType(i);
 			wc_ = wrap(i,all_,vararg_,wc_);
-            CustList<ClassMethodId> l_ = new CustList<ClassMethodId>();
+            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
             _id.getImplicits().add(l_);
             if (_argsClass[i].isVariable()) {
                 if (PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
@@ -2656,8 +2677,12 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, arg_);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
+                    ImplicitInfos imp_ = new ImplicitInfos();
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    l_.add(cl_);
+                    imp_.setIdMethod(cl_);
+                    imp_.setRootNumber(res_.getRootNumber());
+                    imp_.setMemberNumber(res_.getMemberNumber());
+                    l_.add(imp_);
                     continue;
                 }
                 return false;
@@ -2688,7 +2713,7 @@ public abstract class OperationNode {
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
-            CustList<ClassMethodId> l_ = new CustList<ClassMethodId>();
+            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
             _id.getImplicits().add(l_);
             if (wc_.isEmpty()) {
                 if (arg_.isVariable()) {
@@ -2720,8 +2745,12 @@ public abstract class OperationNode {
             if (res_.isFoundMethod()) {
                 _id.setInvocation(InvocationMethod.ALL);
                 _id.setVarArgWrap(true);
+                ImplicitInfos imp_ = new ImplicitInfos();
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                l_.add(cl_);
+                imp_.setIdMethod(cl_);
+                imp_.setRootNumber(res_.getRootNumber());
+                imp_.setMemberNumber(res_.getMemberNumber());
+                l_.add(imp_);
                 return true;
             }
             return false;
@@ -2735,7 +2764,7 @@ public abstract class OperationNode {
         }
         map_.setParam(wc_);
         for (int i = startOpt_; i < nbDem_; i++) {
-            CustList<ClassMethodId> l_ = new CustList<ClassMethodId>();
+            CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
             _id.getImplicits().add(l_);
             ClassArgumentMatching a_ = _argsClass[i];
             map_.setArg(a_);
@@ -2743,8 +2772,12 @@ public abstract class OperationNode {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, a_);
                 if (res_.isFoundMethod()) {
                     implicit_ = true;
+                    ImplicitInfos imp_ = new ImplicitInfos();
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
-                    l_.add(cl_);
+                    imp_.setIdMethod(cl_);
+                    imp_.setRootNumber(res_.getRootNumber());
+                    imp_.setMemberNumber(res_.getMemberNumber());
+                    l_.add(imp_);
                     continue;
                 }
                 return false;

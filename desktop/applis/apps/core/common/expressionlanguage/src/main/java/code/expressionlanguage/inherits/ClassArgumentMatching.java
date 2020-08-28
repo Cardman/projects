@@ -20,6 +20,10 @@ public final class ClassArgumentMatching {
     private boolean convertToString;
     private CustList<ClassMethodId> implicits = new CustList<ClassMethodId>();
     private CustList<ClassMethodId> implicitsTest = new CustList<ClassMethodId>();
+    private int rootNumber = -1;
+    private int memberNumber = -1;
+    private int rootNumberTest = -1;
+    private int memberNumberTest = -1;
 
     public ClassArgumentMatching(String _className) {
         className.add(_className);
@@ -225,5 +229,37 @@ public final class ClassArgumentMatching {
 
     public CustList<ClassMethodId> getImplicitsTest() {
         return implicitsTest;
+    }
+
+    public int getRootNumber() {
+        return rootNumber;
+    }
+
+    public void setRootNumber(int rootNumber) {
+        this.rootNumber = rootNumber;
+    }
+
+    public int getMemberNumber() {
+        return memberNumber;
+    }
+
+    public void setMemberNumber(int memberNumber) {
+        this.memberNumber = memberNumber;
+    }
+
+    public int getRootNumberTest() {
+        return rootNumberTest;
+    }
+
+    public void setRootNumberTest(int rootNumberTest) {
+        this.rootNumberTest = rootNumberTest;
+    }
+
+    public int getMemberNumberTest() {
+        return memberNumberTest;
+    }
+
+    public void setMemberNumberTest(int memberNumberTest) {
+        this.memberNumberTest = memberNumberTest;
     }
 }

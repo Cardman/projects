@@ -1844,6 +1844,10 @@ public final class ClassesUtil {
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
                 value_.setUniqueType(ExecOperationNode.fetchType(_context,genericClasses_.get(1).getRootBlock().getNumberAll()));
             }
+            ConstructorBlock emptyCtor_ = i.getEmptyCtor();
+            if (emptyCtor_ != null) {
+                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(),_context));
+            }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }
         for (RootBlock i: _context.getAnalyzing().getFoundTypes()) {
@@ -2891,7 +2895,6 @@ public final class ClassesUtil {
                 }
             }
         }
-        page_.getAnonymousTypes().clear();
         while (true) {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: cstFields_.entryList()) {

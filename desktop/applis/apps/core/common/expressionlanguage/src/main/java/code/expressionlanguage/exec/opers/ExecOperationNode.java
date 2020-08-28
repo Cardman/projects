@@ -74,13 +74,14 @@ public abstract class ExecOperationNode {
         order = _order;
     }
 
-    public static ImplicitMethods fetchImplicits(ContextEl _context,ClassMethodId _clMet) {
+    public static ImplicitMethods fetchImplicits(ContextEl _context,ClassMethodId _clMet,int _root, int _member) {
         if (_clMet != null) {
             String converterClass = _clMet.getClassName();
             ImplicitMethods converter = new ImplicitMethods();
-            converter.getConverter().addAllElts(ExecBlock.getMethodBodiesById(_context,converterClass,_clMet.getConstraints()));
+            ExecRootBlock classBody_ = fetchType(_context,_root);
+            converter.getConverter().add(fetchFunction(_root,_member,_context));
             converter.setOwnerClass(converterClass);
-            converter.setRootBlock(_context.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(converterClass)));
+            converter.setRootBlock(classBody_);
             return converter;
         }
         return null;

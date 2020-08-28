@@ -32,7 +32,7 @@ public final class MethodInfo implements Parametrable {
     private boolean abstractMethod;
     private InvocationMethod invocation;
     private StandardMethod standardMethod;
-    private CustList<CustList<ClassMethodId>> implicits = new CustList<CustList<ClassMethodId>>();
+    private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
 
     public MethodId getConstraints() {
         return constraints;
@@ -183,7 +183,7 @@ public final class MethodInfo implements Parametrable {
     }
 
     @Override
-    public CustList<CustList<ClassMethodId>> getImplicits() {
+    public CustList<CustList<ImplicitInfos>> getImplicits() {
         return implicits;
     }
 

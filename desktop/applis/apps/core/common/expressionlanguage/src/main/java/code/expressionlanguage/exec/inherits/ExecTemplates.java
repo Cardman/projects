@@ -487,20 +487,12 @@ public final class ExecTemplates {
         if (_id instanceof GeneMethod) {
             String name_ = _id.getName();
             if (StringList.quickEq("[]=", name_)) {
-                for (ExecOverridableBlock g: ExecBlock.getDeepMethodExecBlocks(_rootBlock)) {
-                    if (!StringList.quickEq("[]",g.getId().getName())) {
-                        continue;
-                    }
-                    if(!g.getId().eqPartial(((GeneMethod) _id).getId())) {
-                        continue;
-                    }
-                    String type_ = g.getImportedReturnType();
-                    type_ = quickFormat(_rootBlock,_classNameFound, type_);
-                    Struct ex_ = checkObjectEx(type_, _right, _conf);
-                    if (ex_ != null) {
-                        p_.setError(ex_);
-                        return p_;
-                    }
+                String type_ = _id.getImportedReturnType();
+                type_ = quickFormat(_rootBlock,_classNameFound, type_);
+                Struct ex_ = checkObjectEx(type_, _right, _conf);
+                if (ex_ != null) {
+                    p_.setError(ex_);
+                    return p_;
                 }
                 p_.setRight(_right);
             }

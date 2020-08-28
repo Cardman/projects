@@ -44,6 +44,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecAnnotationMethodBlock> annotationsFields = new CustList<ExecAnnotationMethodBlock>();
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
     private String suffix;
+    private ExecNamedFunctionBlock emptyCtor;
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -308,6 +309,10 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         Members mem_ = _mapMembers.getVal(_key);
         for (EntryCust<OverridableBlock,ExecOverridableBlock> e: mem_.getAllMethods().entryList()) {
             e.getValue().buildImportedTypes(e.getKey());
+            String returnTypeGet_ = e.getKey().getReturnTypeGet();
+            if (!returnTypeGet_.isEmpty()) {
+                e.getValue().setImportedReturnType(returnTypeGet_);
+            }
         }
         for (EntryCust<ConstructorBlock,ExecConstructorBlock> e: mem_.getAllCtors().entryList()) {
             e.getValue().buildImportedTypes(e.getKey());
@@ -363,5 +368,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public void setUniqueType(ExecRootBlock _uniqueType) {
         uniqueType = _uniqueType;
+    }
+
+    public ExecNamedFunctionBlock getEmptyCtor() {
+        return emptyCtor;
+    }
+
+    public void setEmptyCtor(ExecNamedFunctionBlock _emptyCtor) {
+        emptyCtor = _emptyCtor;
     }
 }

@@ -95,6 +95,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private String suffix="";
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private RootBlock parentType;
+    private ConstructorBlock emptyCtor;
 
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -1092,6 +1093,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             for (OverridableBlock j: _indexersGet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
+                    i.setReturnTypeGet(j.getImportedReturnType());
                     ok_ = true;
                 }
             }
@@ -1974,5 +1976,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public StringMap<MappingLocalType> getMappings() {
         return mappings;
+    }
+
+    public ConstructorBlock getEmptyCtor() {
+        return emptyCtor;
+    }
+
+    public void setEmptyCtor(ConstructorBlock _emptyCtor) {
+        emptyCtor = _emptyCtor;
     }
 }

@@ -17,7 +17,6 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.options.KeyWords;
@@ -1891,11 +1890,10 @@ public class LgNamesUtils extends LgNames {
             LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
             String aliasObject_ = stds_.getAliasObject();
             if (StringList.quickEq(type_, aliasObject_)) {
-                ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_)));
-                String className_ = polymorph_.getClassName();
-                ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasObject_))).first();
+                String className_ = stds_.aliasFormatType;
+                ExecRootBlock classBody_ = _cont.getFormatType();
+                ExecNamedFunctionBlock fct_ = _cont.getFormatObject();
                 Argument arg_ = new Argument(_args[0]);
-                ExecRootBlock classBody_ = _cont.getClasses().getClassBody(stds_.aliasFormatType);
                 Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_),_cont);
                 _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
                 return;
@@ -1903,14 +1901,11 @@ public class LgNamesUtils extends LgNames {
         }
         if (_method.getConstraints().getParametersTypes().size() == 2) {
             LgNamesUtils stds_ = (LgNamesUtils) _cont.getStandards();
-            String aliasString_ = stds_.getAliasString();
-            String aliasObject_ = stds_.getAliasObject();
-            ClassMethodId polymorph_ = new ClassMethodId(stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true));
-            String className_ = polymorph_.getClassName();
-            ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(_cont,stds_.aliasFormatType,new MethodId(MethodAccessKind.STATIC,stds_.aliasPrint,new StringList(aliasString_,aliasObject_),true)).first();
+            String className_ = stds_.aliasFormatType;
+            ExecRootBlock classBody_ = _cont.getFormatType();
+            ExecNamedFunctionBlock fct_ = _cont.getFormatObjectTwo();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            ExecRootBlock classBody_ = _cont.getClasses().getClassBody(stds_.aliasFormatType);
             Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_,argArr_),_cont);
             _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
             return;

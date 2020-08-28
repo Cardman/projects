@@ -23,7 +23,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private int rootNumber = -1;
     private int memberNumber = -1;
     private ClassMethodId converterFrom;
+    private int rootNumberFrom = -1;
+    private int memberNumberFrom = -1;
     private ClassMethodId converterTo;
+    private int rootNumberTo = -1;
+    private int memberNumberTo = -1;
 
     private int opOffset;
 
@@ -87,7 +91,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             ReversibleConversion reversibleConversion_ = tryGetPair(_conf, clMatchLeft_);
             if (reversibleConversion_ != null) {
                 converterFrom = reversibleConversion_.getFrom();
+                rootNumberFrom = reversibleConversion_.getRootNumberFrom();
+                memberNumberFrom = reversibleConversion_.getMemberNumberFrom();
                 converterTo = reversibleConversion_.getTo();
+                rootNumberTo = reversibleConversion_.getRootNumberTo();
+                memberNumberTo = reversibleConversion_.getMemberNumberTo();
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
@@ -141,5 +149,21 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public int getRootNumber() {
         return rootNumber;
+    }
+
+    public int getRootNumberFrom() {
+        return rootNumberFrom;
+    }
+
+    public int getMemberNumberFrom() {
+        return memberNumberFrom;
+    }
+
+    public int getRootNumberTo() {
+        return rootNumberTo;
+    }
+
+    public int getMemberNumberTo() {
+        return memberNumberTo;
     }
 }

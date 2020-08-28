@@ -53,13 +53,13 @@ public abstract class ProcessMethodCommon {
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
-        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(_cont, _class, fct_).first();
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(classBody_, fct_).first();
         ExecBlock firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         int i_ = CustList.FIRST_INDEX;
         Parameters p_ = new Parameters();
         for (Argument a: _args) {
@@ -74,13 +74,13 @@ public abstract class ProcessMethodCommon {
     }
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         MethodId fct_ = new MethodId(_method.getKind(), _method.getName(),_method.getParametersTypes());
-        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(_cont, _class, fct_).first();
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecBlock.getMethodBodiesById(classBody_, fct_).first();
         ExecBlock firstChild_ = method_.getFirstChild();
         if (firstChild_ == null) {
             return new Argument();
         }
         Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         int i_ = CustList.FIRST_INDEX;
         Parameters p_ = new Parameters();
         for (Argument a: _args) {
@@ -149,7 +149,7 @@ public abstract class ProcessMethodCommon {
     }
 
     private static ExecConstructorBlock tryGet(String _class, ContextEl _cont, ConstructorId id_) {
-        CustList<ExecConstructorBlock> list_ = ExecBlock.getConstructorBodiesById(_cont, _class, id_);
+        CustList<ExecConstructorBlock> list_ = getConstructorBodiesById(_cont, _class, id_);
         if (list_.isEmpty()) {
             return null;
         }
@@ -430,6 +430,39 @@ public abstract class ProcessMethodCommon {
         ClassesUtil.parseFiles(_context,out_,outExec_);
     }
 
+    private static CustList<ExecConstructorBlock> getConstructorBodiesById(ContextEl _context, String _genericClassName, ConstructorId _id) {
+        CustList<ExecConstructorBlock> methods_ = new CustList<ExecConstructorBlock>();
+        String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
+        Classes classes_ = _context.getClasses();
+        for (EntryCust<String, ExecRootBlock> c: classes_.getClassesBodies().entryList()) {
+            if (!StringList.quickEq(c.getKey(), base_)) {
+                continue;
+            }
+            CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(c.getValue());
+            for (ExecBlock b: bl_) {
+                if (!(b instanceof ExecConstructorBlock)) {
+                    continue;
+                }
+                ExecConstructorBlock method_ = (ExecConstructorBlock) b;
+                if (!method_.getId().eq(_id)) {
+                    continue;
+                }
+                methods_.add(method_);
+            }
+        }
+        return methods_;
+    }
+
+    private static CustList<ExecOverridableBlock> getDeepMethodExecBlocks(ExecRootBlock _element) {
+        CustList<ExecOverridableBlock> methods_ = new CustList<ExecOverridableBlock>();
+        for (ExecBlock b: ExecBlock.getDirectChildren(_element)) {
+            if (b instanceof ExecOverridableBlock) {
+                methods_.add((ExecOverridableBlock) b);
+            }
+        }
+        return methods_;
+    }
+
     protected void failValidate(StringMap<String> _files) {
         Options opt_ = new Options();
 
@@ -635,7 +668,7 @@ public abstract class ProcessMethodCommon {
         String base_ = StringExpUtil.getIdFromAllTypes(_genericClassName);
         Classes classes_ = _context.getClasses();
         ExecRootBlock r_ = classes_.getClassBody(base_);
-        for (ExecOverridableBlock m: ExecBlock.getDeepMethodExecBlocks(r_)) {
+        for (ExecOverridableBlock m: getDeepMethodExecBlocks(r_)) {
             methods_.add(m);
         }
         return methods_;

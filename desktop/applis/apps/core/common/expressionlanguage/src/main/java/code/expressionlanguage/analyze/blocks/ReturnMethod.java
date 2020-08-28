@@ -123,6 +123,8 @@ public final class ReturnMethod extends AbruptBlock {
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 ret_.getImplicits().add(cl_);
+                ret_.setRootNumber(res_.getRootNumber());
+                ret_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());

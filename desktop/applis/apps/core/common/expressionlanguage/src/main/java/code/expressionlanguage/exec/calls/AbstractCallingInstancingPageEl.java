@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
@@ -10,9 +9,6 @@ import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.util.CustList;
-import code.util.StringList;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -59,16 +55,10 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
                 //class or enum (included inner enum)
                 ExecUniqueRootedBlock root_ = (ExecUniqueRootedBlock) getBlockRootType();
                 String id_ = root_.getImportedDirectGenericSuperClass();
-                String superClassBase_ = StringExpUtil.getIdFromAllTypes(id_);
                 if (!calledImplicitConstructor && blockRootSuperType != null) {
                     calledImplicitConstructor = true;
-                    ConstructorId super_ = new ConstructorId(superClassBase_, new StringList(), false);
                     Argument global_ = getGlobalArgument();
-                    CustList<ExecConstructorBlock> ctors_ = ExecBlock.getConstructorBodiesById(_context, superClassBase_, super_);
-                    ExecConstructorBlock e_ = null;
-                    if (!ctors_.isEmpty()) {
-                        e_ = ctors_.first();
-                    }
+                    ExecNamedFunctionBlock e_ = blockRootSuperType.getEmptyCtor();
                     _context.setCallingState(new CustomFoundConstructor(formatVarType(id_,_context), blockRootSuperType,EMPTY_STRING, -1, e_, global_, new Parameters(), InstancingStep.USING_SUPER_IMPL));
                     return false;
                 }

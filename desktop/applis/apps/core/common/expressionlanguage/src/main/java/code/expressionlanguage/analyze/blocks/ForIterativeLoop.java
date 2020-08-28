@@ -215,6 +215,8 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 arg_.getImplicits().add(cl_);
+                arg_.setRootNumber(res_.getRootNumber());
+                arg_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());

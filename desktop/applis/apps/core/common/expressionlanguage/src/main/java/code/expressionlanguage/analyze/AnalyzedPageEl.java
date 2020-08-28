@@ -103,7 +103,6 @@ public final class AnalyzedPageEl {
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
-    private CustList<AnonymousInstancingOperation> anonymousTypes = new CustList<AnonymousInstancingOperation>();
     private CustList<IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation>> mapAnonymous = new CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
@@ -696,10 +695,6 @@ public final class AnalyzedPageEl {
 
     public CustList<AnonymousResult> getAnonymousResults() {
         return anonymousResults;
-    }
-
-    public CustList<AnonymousInstancingOperation> getAnonymousTypes() {
-        return anonymousTypes;
     }
 
     public CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>> getMapAnonymous() {
