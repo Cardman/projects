@@ -65,6 +65,7 @@ final class AfterUnaryParts {
     private String fctName = EMPTY_STRING;
     private boolean enabledId;
     private boolean instance;
+    private boolean instanceStrict;
     private boolean errorDot;
     private final Ints laterIndexesDouble = new Ints();
     private final ExpPartDelimiters del;
@@ -126,6 +127,7 @@ final class AfterUnaryParts {
         String keyWordNew_ = keyWords_.getKeyWordNew();
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             instance = true;
+            instanceStrict = true;
         }
         if (_string.charAt(firstPrintChar_) == ANN_ARR_LEFT) {
             instance = true;
@@ -135,12 +137,14 @@ final class AfterUnaryParts {
         int firstPrintChar_ = del.getFirstPrintIndex();
         char curChar_ = _string.charAt(index);
         block =  null;
-        for (AnonymousResult a: anonymousResults) {
-            if (a.getIndex() == index + _offset) {
-                index = a.getUntil() - _offset + 1;
-                block = a.getType();
-                length = a.getLength();
-                return;
+        if (instanceStrict) {
+            for (AnonymousResult a: anonymousResults) {
+                if (a.getIndex() == index + _offset) {
+                    index = a.getUntil() - _offset + 1;
+                    block = a.getType();
+                    length = a.getLength();
+                    return;
+                }
             }
         }
         if (_d.getDimsAddonIndexes().containsObj(index+_offset)) {
@@ -160,6 +164,7 @@ final class AfterUnaryParts {
                     operators.put(index, String.valueOf(PAR_LEFT));
                 } else if (enabledId) {
                     instance = false;
+                    instanceStrict = false;
                     operators.clear();
                     errorDot = true;
                     operators.put(index, EMPTY_STRING);
@@ -175,6 +180,7 @@ final class AfterUnaryParts {
                     operators.clear();
                 }
                 instance = false;
+                instanceStrict = false;
                 enabledId = false;
                 enPars = false;
                 operators.put(index, String.valueOf(SEP_ARG));
@@ -242,6 +248,7 @@ final class AfterUnaryParts {
                             } else {
                                 fctName = EMPTY_STRING;
                                 instance = false;
+                                instanceStrict = false;
                                 operators.clear();
                                 operators.put(index, EMPTY_STRING);
                             }
@@ -550,6 +557,7 @@ final class AfterUnaryParts {
             leftParFirstOperator = false;
             fctName = EMPTY_STRING;
             instance = false;
+            instanceStrict = false;
             enPars = false;
             enabledId = false;
             operators.put(index,_op);

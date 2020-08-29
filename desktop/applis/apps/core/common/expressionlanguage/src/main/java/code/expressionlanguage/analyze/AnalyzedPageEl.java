@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
+import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.MappingLocalType;
@@ -17,6 +18,7 @@ import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
+import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
@@ -46,6 +48,7 @@ public final class AnalyzedPageEl {
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
+    private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
@@ -104,6 +107,7 @@ public final class AnalyzedPageEl {
     private AbstractTokenValidation tokenValidation;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<IdMap<AnonymousInstancingOperation,ExecAnonymousInstancingOperation>> mapAnonymous = new CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>>();
+    private CustList<IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation>> mapAnonymousLambda = new CustList<IdMap<AnonymousLambdaOperation,ExecAnonymousLambdaOperation>>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
     private int localInType = -1;
     private String refFileName = "";
@@ -699,6 +703,14 @@ public final class AnalyzedPageEl {
 
     public CustList<IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>> getMapAnonymous() {
         return mapAnonymous;
+    }
+
+    public CustList<IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>> getMapAnonymousLambda() {
+        return mapAnonymousLambda;
+    }
+
+    public IdMap<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
+        return mapAnonLambda;
     }
 
     public CustList<ClassMetaInfo> getClassMetaInfos() {

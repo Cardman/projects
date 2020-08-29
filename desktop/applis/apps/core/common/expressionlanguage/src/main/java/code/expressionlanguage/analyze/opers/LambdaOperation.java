@@ -1955,7 +1955,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String type_ = resolveSingleTypeExact(_an, _args, _type);
         return InvokingOperation.getBounds(type_, _an);
     }
-    private static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
+    static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();
         String returnType_ = _id.getReturnType();

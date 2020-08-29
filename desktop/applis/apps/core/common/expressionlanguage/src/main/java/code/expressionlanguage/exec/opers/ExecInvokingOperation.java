@@ -501,7 +501,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound,ExecRootBlock _rootBlock, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
         String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound);
-        if (!(_named instanceof ExecOverridableBlock)) {
+        if (!(_named instanceof ExecOverridableBlock)&&!(_named instanceof ExecAnonymousFunctionBlock)) {
             if (_named instanceof ExecOperatorBlock) {
                 FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous, _firstArgs, CallPrepareState.METHOD,null, _right);
                 if (_cont.callsOrException()) {
@@ -537,7 +537,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         Struct prev_ =_previous.getStruct();
-        if (prev_ instanceof AbstractFunctionalInstance) {
+        if (_named instanceof ExecOverridableBlock&&prev_ instanceof AbstractFunctionalInstance) {
             ExecOverridableBlock gene_ = (ExecOverridableBlock) _named;
             if (gene_.isAbstractMethod()) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)prev_).getFunctional());
@@ -922,16 +922,20 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         MethodMetaInfo m_ = NumParsers.getMethod(_l.getMetaInfo());
         if (m_.getStdCallee() != null) {
-            _conf.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _pr, _nList, false));
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _pr, _nList, true));
+            return new Argument();
+        }
+        if (m_.getCalleeInv() instanceof ExecAnonymousFunctionBlock) {
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _pr, _nList, true));
             return new Argument();
         }
         ExecRootBlock e_ = m_.getDeclaring();
         if (e_ == null &&!FunctionIdUtil.isOperatorName(m_.getFid())) {
-            _conf.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _pr, _nList, false));
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _pr, _nList, true));
             return new Argument();
         }
         if (e_ instanceof ExecAnnotationBlock) {
-            _conf.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _pr, _nList, false));
+            _conf.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _pr, _nList, true));
             return new Argument();
         }
         if (!_l.isPolymorph()) {

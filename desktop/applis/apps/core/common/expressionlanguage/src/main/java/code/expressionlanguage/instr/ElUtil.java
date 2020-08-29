@@ -167,6 +167,7 @@ public final class ElUtil {
         _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         _conf.getAnalyzing().getMapAnonymous().removeLast();
+        _conf.getAnalyzing().getMapAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();

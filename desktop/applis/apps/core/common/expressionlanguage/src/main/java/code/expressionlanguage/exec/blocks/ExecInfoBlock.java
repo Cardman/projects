@@ -14,4 +14,5 @@ public interface ExecInfoBlock extends WithNotEmptyEl, GeneField, ExecAnnotableB
 
     void buildImportedTypes(InfoBlock _key);
     CustList<ExecRootBlock> getAnonymous();
+    CustList<ExecAnonymousFunctionBlock> getAnonymousLambda();
 }

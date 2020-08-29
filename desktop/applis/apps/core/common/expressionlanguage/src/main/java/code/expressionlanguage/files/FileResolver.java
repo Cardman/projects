@@ -151,6 +151,7 @@ public final class FileResolver {
         }
         InputTypeCreation input_ = new InputTypeCreation();
         input_.setNextIndex(i_);
+        input_.setType(OuterBlockEnum.OUTER_TYPE);
         _block.getImports().addAllElts(importedTypes_);
         _block.getImportsOffset().addAllElts(offsetsImports_);
         input_.setFile(_block);
@@ -875,19 +876,31 @@ public final class FileResolver {
             int deltaType_ = 0;
             String trimType_ = afterAccessType_.trim();
             if (trimType_.isEmpty()) {
-                //AnonymousTypeBlock
-                RootBlock typeBlock_;
-                typeBlock_ = new AnonymousTypeBlock(beginType_+_offset, packageName_,
-                        new OffsetAccessInfo(beginType_+_offset, AccessEnum.PUBLIC), "", new IntMap<String>(),
-                        new OffsetsBlock(beginType_+_offset,beginType_+_offset));
-                typeBlock_.setBegin(beginType_+_offset);
-                typeBlock_.setNameLength(1);
-                typeBlock_.setLengthHeader(1);
-                typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
-                typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
-                typeBlock_.setFile(file_);
-                _out.setBlock(typeBlock_);
-                currentParent_ = typeBlock_;
+                if (_input.getType() == OuterBlockEnum.ANON_FCT) {
+                    AnonymousFunctionBlock typeBlock_;
+                    typeBlock_ = new AnonymousFunctionBlock(_context,_input.getNextIndexBef()+_offset,
+                            new OffsetsBlock(beginType_+_offset,beginType_+_offset));
+                    typeBlock_.setBegin(beginType_+_offset);
+                    typeBlock_.setLengthHeader(1);
+                    typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
+                    typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+                    typeBlock_.setFile(file_);
+                    _out.setBlock(typeBlock_);
+                    currentParent_ = typeBlock_;
+                } else {
+                    RootBlock typeBlock_;
+                    typeBlock_ = new AnonymousTypeBlock(beginType_+_offset, packageName_,
+                            new OffsetAccessInfo(beginType_+_offset, AccessEnum.PUBLIC), "", new IntMap<String>(),
+                            new OffsetsBlock(beginType_+_offset,beginType_+_offset));
+                    typeBlock_.setBegin(beginType_+_offset);
+                    typeBlock_.setNameLength(1);
+                    typeBlock_.setLengthHeader(1);
+                    typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
+                    typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
+                    typeBlock_.setFile(file_);
+                    _out.setBlock(typeBlock_);
+                    currentParent_ = typeBlock_;
+                }
             } else {
                 if (trimType_.charAt(0) == ANNOT) {
                     // accessOffesType_ == nextIndex_ == i_ + 1;
@@ -2003,73 +2016,17 @@ public final class FileResolver {
                 paramOffest_ += StringList.getFirstPrintableCharIndex(after_);
                 info_ = after_.trim();
             }
-            Ints offestsTypes_ = new Ints();
-            Ints offestsParams_ = new Ints();
-            StringList parametersType_ = new StringList();
-            StringList parametersName_ = new StringList();
-            CustList<Ints> annotationsIndexesParams_ = new CustList<Ints>();
-            CustList<StringList> annotationsParams_ = new CustList<StringList>();
-            boolean ok_ = true;
-            int offsetLast_ = paramOffest_;
-            while (true) {
-                if (info_.indexOf(END_CALLING) == 0) {
-                    info_ = info_.substring(1);
-                    offsetLast_++;
-                    offsetLast_ +=  StringList.getFirstPrintableCharIndex(info_);
-                    break;
-                }
-                Ints annotationsIndexesParam_ = new Ints();
-                StringList annotationsParam_ = new StringList();
-                if (info_.trim().charAt(0) == ANNOT) {
-                    ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_+_offset);
-                    par_.parse();
-                    annotationsIndexesParam_ = par_.getAnnotationsIndexes();
-                    annotationsParam_ = par_.getAnnotations();
-                    info_ = par_.getAfter();
-                    paramOffest_ = par_.getIndex()-_offset;
-                    paramOffest_ += StringList.getFirstPrintableCharIndex(info_);
-                }
-                annotationsIndexesParams_.add(annotationsIndexesParam_);
-                annotationsParams_.add(annotationsParam_);
-                offestsTypes_.add(paramOffest_+_offset);
-                String paramType_ = getFoundType(info_);
-                parametersType_.add(paramType_.trim());
-                String afterParamType_ = info_.substring(paramType_.length());
-                info_ = afterParamType_.trim();
-                int call_ = info_.indexOf(SEP_CALLING);
-                if (call_ < 0) {
-                    call_ = info_.indexOf(END_CALLING);
-                } else {
-                    call_ = Math.min(call_,info_.indexOf(END_CALLING));
-                }
-                int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
-                offestsParams_.add(paramOffest_ + paramType_.length() + off_+_offset);
-                offsetLast_ = paramOffest_ + paramType_.length() + off_;
-                if (call_ >= 0) {
-                    String paramName_ = info_.substring(0, call_);
-                    offsetLast_ += call_+1;
-                    parametersName_.add(paramName_.trim());
-                } else {
-                    ok_ = false;
-                    parametersName_.add(info_.trim());
-                }
-                String afterParamName_ = info_.substring(call_ + 1);
-                boolean exist_ = info_.startsWith(")",call_);
-                info_ = afterParamName_.trim();
-                if (exist_) {
-                    if (StringExpUtil.startsWithKeyWord(info_,keyWords_.getKeyWordIntern())) {
-                        offsetLast_ +=  StringList.getFirstPrintableCharIndex(afterParamName_);
-                        break;
-                    }
-                }
-                if (info_.isEmpty()) {
-                    break;
-                }
-                paramOffest_ += paramType_.length();
-                paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamType_);
-                paramOffest_ += call_ + 1;
-                paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
-            }
+            ParsedFctHeader parseHeader_ = new ParsedFctHeader();
+            parseHeader_.parse(paramOffest_,info_,_offset,_context);
+            info_ = parseHeader_.getInfo();
+            Ints offestsTypes_ = parseHeader_.getOffestsTypes();
+            Ints offestsParams_ = parseHeader_.getOffestsParams();
+            StringList parametersType_ = parseHeader_.getParametersType();
+            StringList parametersName_ = parseHeader_.getParametersName();
+            CustList<Ints> annotationsIndexesParams_ = parseHeader_.getAnnotationsIndexesParams();
+            CustList<StringList> annotationsParams_ = parseHeader_.getAnnotationsParams();
+            boolean ok_ = parseHeader_.isOk();
+            int offsetLast_ = parseHeader_.getOffsetLast();
             if (oper_) {
                 String retType_ = declaringType_.trim();
                 String trimMeth_ = methodName_.trim();
@@ -2919,7 +2876,7 @@ public final class FileResolver {
         return StringList.getFirstPrintableCharIndex(_label);
     }
 
-    private static String getFoundType(String _found) {
+    static String getFoundType(String _found) {
         ParsedType p_ = new ParsedType();
         p_.parse(_found);
         return p_.getInstruction().toString();

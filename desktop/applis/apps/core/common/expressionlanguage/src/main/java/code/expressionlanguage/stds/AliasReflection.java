@@ -46,6 +46,7 @@ public final class AliasReflection {
     private String aliasGetDeclaredConstructors;
     private String aliasGetDeclaredFields;
     private String aliasGetDeclaredBlocks;
+    private String aliasGetDeclaredAnonymousLambda;
     private String aliasGetDeclaredLocalTypes;
     private String aliasGetDeclaredAnonymousTypes;
     private String aliasGetSuperClass;
@@ -408,6 +409,12 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -454,6 +461,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasField, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
@@ -522,6 +535,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
@@ -639,6 +658,49 @@ public final class AliasReflection {
                     typeField_ = ExecTemplates.reflectFormat(owner_, typeField_, _cont);
                 }
                 result_.setResult(ExecutingUtil.getExtendedClassMetaInfo(_cont,typeField_,owner_));
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambda)) {
+                FieldMetaInfo field_ = NumParsers.getField(_struct);
+                String declaringClass_ = field_.getDeclaringClass();
+                ExecAnnotableBlock annotableBlock_ = field_.getAnnotableBlock();
+                CustList<MethodMetaInfo> candidates_;
+                candidates_ = new CustList<MethodMetaInfo>();
+                if (annotableBlock_ instanceof ExecInfoBlock) {
+                    ObjectMap<MethodId, MethodMetaInfo> methods_ = new ObjectMap<MethodId, MethodMetaInfo>();
+                    for (ExecAnonymousFunctionBlock f: ((ExecInfoBlock)annotableBlock_).getAnonymousLambda()) {
+                        MethodId id_ = f.getId();
+                        ExecRootBlock parType_ = f.getParentType();
+                        String ret_ = f.getImportedReturnType();
+                        MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                        String idType_ = parType_.getFullName();
+                        String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                        String idCl_ = parType_.getFullName();
+                        MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                        met_.setAnnotableBlock(f);
+                        met_.setCallee(f);
+                        met_.setCalleeInv(f);
+                        met_.setDeclaring(parType_);
+                        met_.setFileName(f.getFile().getFileName());
+                        methods_.addEntry(id_,met_);
+                    }
+                    if (args_.length == 0) {
+                        for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                            candidates_.add(e.getValue());
+                        }
+                    } else {
+                        filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
+                    }
+                }
+                String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+                Struct[] methodsArr_ = new Struct[candidates_.size()];
+                int index_ = 0;
+                for (MethodMetaInfo c: candidates_) {
+                    methodsArr_[index_] = c;
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
@@ -774,6 +836,14 @@ public final class AliasReflection {
                 }
                 ArrayStruct arr_ = new ArrayStruct(superInts_, className_);
                 result_.setResult(arr_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambda)) {
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                String declaringClass_ = method_.getDeclaringClass();
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                ArrayStruct str_ = fetchAnonLambdaCallee(_cont, args_, aliasMethod_, declaringClass_, callee_);
+                result_.setResult(str_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
@@ -1029,7 +1099,7 @@ public final class AliasReflection {
                         MethodId fid_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                        MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
                         met_.setCallee(o);
@@ -1057,7 +1127,7 @@ public final class AliasReflection {
                         MethodId fid_;
                         fid_ = id_;
                         String decl_ = o.getDeclaringType();
-                        MethodMetaInfo met_ = new MethodMetaInfo(acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
+                        MethodMetaInfo met_ = new MethodMetaInfo("",acc_, decl_, id_, o.getModifier(), ret_, fid_, decl_);
                         met_.setFileName(o.getFile().getFileName());
                         met_.setAnnotableBlock(o);
                         met_.setCallee(o);
@@ -1286,7 +1356,7 @@ public final class AliasReflection {
                         String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                         String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                         Struct[] methodsArr_ = new Struct[1];
-                        methodsArr_[0] = new MethodMetaInfo(acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
+                        methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                         ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                         result_.setResult(str_);
                         return result_;
@@ -1316,7 +1386,7 @@ public final class AliasReflection {
                     String idRealCl_ = StringExpUtil.getIdFromAllTypes(realInstClassName_);
                     String ret_ = getReturnTypeClone(_cont, instClassName_, idCl_);
                     Struct[] methodsArr_ = new Struct[1];
-                    methodsArr_[0] = new MethodMetaInfo(acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
+                    methodsArr_[0] = new MethodMetaInfo(instClassName_,acc_, idRealCl_, id_, MethodModifier.FINAL, ret_, id_, instClassName_);
                     ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
                     result_.setResult(str_);
                     return result_;
@@ -1324,21 +1394,7 @@ public final class AliasReflection {
                 CustList<MethodMetaInfo> candidates_;
                 candidates_ = new CustList<MethodMetaInfo>();
                 String instClassName_ = cl_.getName();
-                if (ExecTemplates.correctNbParameters(instClassName_,_cont)) {
-                    for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
-                        MethodId id_ = e.getKey();
-                        if (eq(id_.reflectFormat(instClassName_, _cont),args_[0],args_[1],args_[2],args_[3])) {
-                            candidates_.add(e.getValue());
-                        }
-                    }
-                } else {
-                    for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
-                        MethodId id_ = e.getKey();
-                        if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
-                            candidates_.add(e.getValue());
-                        }
-                    }
-                }
+                filterMethods(_cont, args_, instClassName_, candidates_, methods_);
                 Struct[] methodsArr_ = new Struct[candidates_.size()];
                 int index_ = 0;
                 for (MethodMetaInfo c: candidates_) {
@@ -1928,6 +1984,14 @@ public final class AliasReflection {
                 result_.setResult(new StringStruct(method_.getName()));
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambda)) {
+                ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
+                ExecMemberCallingsBlock callee_ = method_.getCallee();
+                String declaringClass_ = method_.getClassName();
+                ArrayStruct str_ = fetchAnonLambdaCallee(_cont, args_, aliasMethod_, declaringClass_, callee_);
+                result_.setResult(str_);
+                return result_;
+            }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
                 ConstructorMetaInfo method_ = NumParsers.getCtor(_struct);
                 StringList methods_;
@@ -1967,6 +2031,67 @@ public final class AliasReflection {
             return result_;
         }
         return result_;
+    }
+
+    private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, Struct[] args_, String aliasMethod_, String declaringClass_, ExecMemberCallingsBlock callee_) {
+        CustList<MethodMetaInfo> candidates_;
+        candidates_ = new CustList<MethodMetaInfo>();
+        if (callee_ != null) {
+            ObjectMap<MethodId, MethodMetaInfo> methods_ = new ObjectMap<MethodId, MethodMetaInfo>();
+            for (ExecAnonymousFunctionBlock f: callee_.getAnonymousLambda()) {
+                MethodId id_ = f.getId();
+                ExecRootBlock _type = f.getParentType();
+                String ret_ = f.getImportedReturnType();
+                boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
+                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                String idType_ = _type.getFullName();
+                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = _type.getFullName();
+                if (param_) {
+                    idCl_ = declaringClass_;
+                }
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setAnnotableBlock(f);
+                met_.setCallee(f);
+                met_.setCalleeInv(f);
+                met_.setDeclaring(_type);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.addEntry(id_,met_);
+            }
+            if (args_.length == 0) {
+                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                    candidates_.add(e.getValue());
+                }
+            } else {
+                filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
+            }
+        }
+        String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+        Struct[] methodsArr_ = new Struct[candidates_.size()];
+        int index_ = 0;
+        for (MethodMetaInfo c: candidates_) {
+            methodsArr_[index_] = c;
+            index_++;
+        }
+        return new ArrayStruct(methodsArr_, className_);
+    }
+
+    private static void filterMethods(ContextEl _cont, Struct[] args_, String declaringClass_, CustList<MethodMetaInfo> candidates_, ObjectMap<MethodId, MethodMetaInfo> methods_) {
+        if (ExecTemplates.correctNbParameters(declaringClass_,_cont)) {
+            for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                MethodId id_ = e.getKey();
+                if (eq(id_.reflectFormat(declaringClass_, _cont),args_[0],args_[1],args_[2],args_[3])) {
+                    candidates_.add(e.getValue());
+                }
+            }
+        } else {
+            for (EntryCust<MethodId, MethodMetaInfo> e : methods_.entryList()) {
+                MethodId id_ = e.getKey();
+                if (eq(id_,args_[0],args_[1],args_[2],args_[3])) {
+                    candidates_.add(e.getValue());
+                }
+            }
+        }
     }
 
     private static void fetchLocalTypes(StringList methods_, ExecMemberCallingsBlock callee_) {
@@ -2200,6 +2325,14 @@ public final class AliasReflection {
 
     public void setAliasGetDeclaredAnonymousTypes(String aliasGetDeclaredAnonymousTypes) {
         this.aliasGetDeclaredAnonymousTypes = aliasGetDeclaredAnonymousTypes;
+    }
+
+    public String getAliasGetDeclaredAnonymousLambda() {
+        return aliasGetDeclaredAnonymousLambda;
+    }
+
+    public void setAliasGetDeclaredAnonymousLambda(String aliasGetDeclaredAnonymousLambda) {
+        this.aliasGetDeclaredAnonymousLambda = aliasGetDeclaredAnonymousLambda;
     }
 
     public String getAliasGetDeclaredBlocks() {

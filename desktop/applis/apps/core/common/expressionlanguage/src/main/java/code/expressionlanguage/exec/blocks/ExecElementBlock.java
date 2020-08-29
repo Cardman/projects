@@ -25,6 +25,7 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
 
     private CustList<CustList<ExecOperationNode>> annotationsOps = new CustList<CustList<ExecOperationNode>>();
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
+    private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     public ExecElementBlock(ElementBlock _offset) {
         super(_offset.getOffset());
         fieldName = _offset.getUniqueFieldName();
@@ -131,5 +132,10 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     @Override
     public CustList<ExecRootBlock> getAnonymous() {
         return anonymous;
+    }
+
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        return anonymousLambda;
     }
 }

@@ -22,4 +22,5 @@ public interface InfoBlock extends GeneField, AnnotableBlock {
 
     AccessEnum getAccess();
     CustList<AnonymousTypeBlock> getAnonymous();
+    CustList<AnonymousFunctionBlock> getAnonymousFct();
 }

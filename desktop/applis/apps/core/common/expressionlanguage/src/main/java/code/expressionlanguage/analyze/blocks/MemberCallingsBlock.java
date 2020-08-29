@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
@@ -17,6 +18,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private CustList<RootBlock> reserved = new CustList<RootBlock>();
     private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
     private int numberFct;
     MemberCallingsBlock(OffsetsBlock _offset) {
         super(_offset);
@@ -63,7 +65,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setBlockToWrite(_mem);
         Block firstChild_ = getFirstChild();
         page_.setExecDeclareVariable(null);
-        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        page_.setCurrentBlock(this);
+        _cont.getAnalyzing().setCurrentFct(this);
+        StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_cont);
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
@@ -71,7 +75,6 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         anEl_.getMappingMembers().put(_mem,this);
         _cont.getCoverage().putBlockOperations(_cont,_mem,this);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
-        _cont.getAnalyzing().setCurrentFct(this);
         anEl_.setRoot(this);
         Block en_ = this;
         CustList<BracedBlock> parents_ = anEl_.getParents();
@@ -258,6 +261,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
 
     public CustList<AnonymousTypeBlock> getAnonymous() {
         return anonymous;
+    }
+
+    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+        return anonymousFct;
     }
 
     public int getNumberFct() {

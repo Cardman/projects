@@ -3939,6 +3939,7 @@ public class LgNamesUtils extends LgNames {
         setAliasGetDeclaredConstructors(get(_util,_cust, GET_DECLARED_CONSTRUCTORS));
         setAliasGetDeclaredFields(get(_util,_cust, GET_DECLARED_FIELDS));
         setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
+        setAliasGetDeclaredAnonymousLambda(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
         setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
         setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
         setAliasField(get(_util,_cust, FIELD));

@@ -4,6 +4,7 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.NumberInfos;
 import code.expressionlanguage.common.StringInfo;
+import code.expressionlanguage.files.ParsedFctHeader;
 import code.util.CustList;
 import code.util.*;
 import code.util.Ints;
@@ -42,6 +43,7 @@ public final class OperationsSequence {
     private int countArrays;
     private Ints errorParts = new Ints();
     private boolean instance;
+    private ParsedFctHeader results;
     private Block block;
     private int length;
     public void setValue(String _string, int _offset) {
@@ -378,6 +380,14 @@ public final class OperationsSequence {
 
     public void setErrorDot(boolean _errorDot) {
         errorDot = _errorDot;
+    }
+
+    public ParsedFctHeader getResults() {
+        return results;
+    }
+
+    public void setResults(ParsedFctHeader results) {
+        this.results = results;
     }
 
     public Block getBlock() {

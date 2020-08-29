@@ -371,6 +371,11 @@ public abstract class OperationNode {
         ConstType ct_ = _op.getConstType();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
+        Block block_ = _op.getBlock();
+        if (block_ instanceof AnonymousFunctionBlock) {
+            ((AnonymousFunctionBlock)block_).setIndexEnd(((AnonymousFunctionBlock)block_).getNameOffset()+_op.getLength());
+            return new AnonymousLambdaOperation(_index,_indexChild,_m,_op,(AnonymousFunctionBlock)block_,_op.getResults());
+        }
         if (ct_ == ConstType.CHARACTER) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }

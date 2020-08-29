@@ -23,6 +23,7 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
 
     private int trOffset;
     private CustList<ExecRootBlock> anonymous = new CustList<ExecRootBlock>();
+    private CustList<ExecAnonymousFunctionBlock> anonymousLambda = new CustList<ExecAnonymousFunctionBlock>();
     public ExecInnerElementBlock(InnerElementBlock _offset) {
         super(_offset);
         fieldName = _offset.getUniqueFieldName();
@@ -112,5 +113,10 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     @Override
     public CustList<ExecRootBlock> getAnonymous() {
         return anonymous;
+    }
+
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        return anonymousLambda;
     }
 }

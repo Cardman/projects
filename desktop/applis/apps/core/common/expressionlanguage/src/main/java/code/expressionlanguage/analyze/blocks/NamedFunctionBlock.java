@@ -26,7 +26,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private Ints annotationsIndexes = new Ints();
 
-    private final String name;
+    private String name;
 
     private int nameOffset;
 
@@ -34,7 +34,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private Ints parametersTypesOffset;
 
-    private final String returnType;
+    private String returnType;
 
     private String importedReturnType;
 
@@ -50,7 +50,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     private int accessOffset;
 
-    private final boolean varargs;
+    private boolean varargs;
     private CustList<StringList> annotationsParams = new CustList<StringList>();
     private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
 
@@ -74,6 +74,29 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         name = _fctName.getInfo();
         nameOffset = _fctName.getOffset();
         parametersTypes = new StringList();
+        parametersNames = new StringList();
+        varargs = setupParam(_paramTypes,_paramNames);
+        access = _access.getInfo();
+        accessOffset = _access.getOffset();
+        returnType = _retType.getInfo();
+        returnTypeOffset = _retType.getOffset();
+        parametersTypesOffset = _paramTypesOffset;
+        parametersNamesOffset = _paramNamesOffset;
+    }
+
+    public NamedFunctionBlock(ContextEl _importingPage,int _fctName,
+                              OffsetsBlock _offset) {
+        super(_offset);
+        importedParametersTypes = new StringList();
+        name = _importingPage.getKeyWords().getKeyWordLambda();
+        nameOffset = _fctName;
+        parametersTypes = new StringList();
+        access = AccessEnum.PUBLIC;
+        returnType = "";
+        parametersNames = new StringList();
+    }
+
+    public boolean setupParam(StringList _paramTypes,StringList _paramNames) {
         int i_ = CustList.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
@@ -91,22 +114,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             }
             i_++;
         }
-        varargs = varargs_;
-        access = _access.getInfo();
-        accessOffset = _access.getOffset();
-        returnType = _retType.getInfo();
-        returnTypeOffset = _retType.getOffset();
-        parametersNames = new StringList();
         i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
             parametersNames.add(_paramNames.get(i_));
             i_++;
         }
-        parametersTypesOffset = _paramTypesOffset;
-        parametersNamesOffset = _paramNamesOffset;
+        return varargs_;
     }
-
-
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {
         buildAnnotationsBasic(_context,_ex);
     }
@@ -186,17 +200,36 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return name;
     }
 
+    public void setIntenName(String name) {
+        this.name = StringList.concat(".",name);
+    }
+
     public final StringList getParametersTypes() {
         return new StringList(parametersTypes);
     }
 
+    public void setVarargs(StringList _paramTypes, Ints _paramTypesOffset,
+                           StringList _paramNames, Ints _paramNamesOffset,
+                           String _retType, int _retTypeOffset) {
+        varargs = setupParam(_paramTypes,_paramNames);
+        parametersTypesOffset = _paramTypesOffset;
+        parametersNamesOffset = _paramNamesOffset;
+        returnType = _retType;
+        returnTypeOffset = _retTypeOffset;
+    }
+
     public final void buildImportedTypes(ContextEl _stds) {
-        StringList params_ = new StringList();
-        int i_ = 0;
         AnalyzedPageEl page_ = _stds.getAnalyzing();
         page_.setCurrentBlock(this);
         page_.setCurrentAnaBlock(this);
         page_.setCurrentFct(this);
+        buildInternImportedTypes(_stds);
+    }
+
+    public final void buildInternImportedTypes(ContextEl _stds) {
+        AnalyzedPageEl page_ = _stds.getAnalyzing();
+        StringList params_ = new StringList();
+        int i_ = 0;
         for (String p: parametersTypes) {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             page_.setGlobalOffset(parametersTypesOffset.get(i_));
@@ -218,8 +251,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             return;
         }
         AnalyzedPageEl page_ = _stds.getAnalyzing();
-        page_.setCurrentBlock(this);
-        page_.setCurrentAnaBlock(this);
         page_.setGlobalOffset(returnTypeOffset);
         page_.setOffset(0);
         importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);

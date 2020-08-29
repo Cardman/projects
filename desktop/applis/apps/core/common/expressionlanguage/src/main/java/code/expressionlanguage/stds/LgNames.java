@@ -207,6 +207,7 @@ public abstract class LgNames {
     public static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
     public static final String GET_DECLARED_FIELDS = "GetDeclaredFields";
     public static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
+    public static final String GET_DECLARED_ANONYMOUS_LAMBDA = "GetDeclaredAnonymousLambda";
     public static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
     public static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
     public static final String FIELD = "Field";
@@ -470,6 +471,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_DECLARED_CONSTRUCTORS,getAliasGetDeclaredConstructors()),
                 new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,getAliasGetDeclaredLocalTypes()),
                 new KeyValueMemberName(GET_DECLARED_BLOCKS,getAliasGetDeclaredBlocks()),
                 new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
@@ -2217,6 +2219,13 @@ public abstract class LgNames {
         this.reflect.setAliasGetDeclaredAnonymousTypes(aliasGetDeclaredAnonymousTypes);
     }
 
+    public String getAliasGetDeclaredAnonymousLambda() {
+        return this.reflect.getAliasGetDeclaredAnonymousLambda();
+    }
+
+    public void setAliasGetDeclaredAnonymousLambda(String aliasGetDeclaredAnonymousLambda) {
+        this.reflect.setAliasGetDeclaredAnonymousLambda(aliasGetDeclaredAnonymousLambda);
+    }
     public String getAliasGetDeclaredBlocks() {
         return reflect.getAliasGetDeclaredBlocks();
     }

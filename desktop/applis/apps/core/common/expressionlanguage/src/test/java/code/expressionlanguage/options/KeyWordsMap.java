@@ -343,6 +343,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
+        _lgNames.setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");
@@ -647,6 +648,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasGetDeclaredConstructors("valConstructeursDeclares");
         _lgNames.setAliasGetDeclaredFields("valChampsDeclares");
         _lgNames.setAliasGetDeclaredAnonymousTypes("valTypesAnonymesDeclares");
+        _lgNames.setAliasGetDeclaredAnonymousLambda("valLambdaAnonymesDeclares");
         _lgNames.setAliasGetDeclaredBlocks("valBlocsDeclares");
         _lgNames.setAliasGetDeclaredLocalTypes("valLocalTypesDeclares");
         _lgNames.setAliasGetDeclaredMethods("valMethodsDeclares");

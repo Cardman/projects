@@ -62,7 +62,7 @@ public final class ExecStdMethodLambdaOperation extends ExecAbstractLambdaOperat
         String idCl_ = StringExpUtil.getIdFromAllTypes(ownerType_);
         String formCl_ = ExecutingUtil.tryFormatType(idCl_, ownerType_, _conf);
         MethodModifier met_ = function.getModifier();
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(AccessEnum.PUBLIC, from_, id_, met_, returnFieldType, fid_, formCl_);
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(ownerType_,AccessEnum.PUBLIC, from_, id_, met_, returnFieldType, fid_, formCl_);
         metaInfo_.setStdCallee(function);
         l_.setMetaInfo(metaInfo_);
         return l_;

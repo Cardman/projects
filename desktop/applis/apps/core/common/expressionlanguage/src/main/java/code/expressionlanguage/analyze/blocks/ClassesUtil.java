@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.FoundSuperType;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
+import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
@@ -25,6 +26,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
+import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
@@ -37,7 +39,6 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardMethod;
@@ -161,11 +162,17 @@ public final class ClassesUtil {
                     for (RootBlock a: ((MemberCallingsBlock)b).getReserved()) {
                         value_.getReserved().add(page_.getMapTypes().getValue(a.getNumberAll()));
                     }
+                    for (AnonymousFunctionBlock a: ((MemberCallingsBlock)b).getAnonymousFct()) {
+                        value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
+                    }
                 }
                 if (b instanceof InfoBlock) {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
                     for (AnonymousTypeBlock a: ((InfoBlock)b).getAnonymous()) {
                         value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
+                    }
+                    for (AnonymousFunctionBlock a: ((InfoBlock)b).getAnonymousFct()) {
+                        value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
                     }
                 }
             }
@@ -294,11 +301,13 @@ public final class ClassesUtil {
         AnaTypeUtil.checkInterfaces(_context);
         StringList basePkgFound_ = _context.getAnalyzing().getBasePackagesFound();
         StringList pkgFound_ = _context.getAnalyzing().getPackagesFound();
-        while (!_context.getAnalyzing().getMapAnonymous().isEmpty()) {
+        while (true) {
+            boolean contained_ = false;
             for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: _context.getAnalyzing().getMapAnonymous()) {
                 for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
                     AnonymousTypeBlock block_ = e.getKey().getBlock();
                     RootBlock parentType_ = block_.getParentType();
+                    contained_ = true;
                     if (parentType_ == null) {
                         continue;
                     }
@@ -312,6 +321,18 @@ public final class ClassesUtil {
                         block_.setSuffix("*"+(val_+1));
                     }
                 }
+            }
+            for (IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> m: _context.getAnalyzing().getMapAnonymousLambda()) {
+                for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: m.entryList()) {
+                    contained_ = true;
+                    AnonymousFunctionBlock block_ = e.getKey().getBlock();
+                    RootBlock parentType_ = block_.getParentType();
+                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct()+1);
+                    block_.setIntenName(Integer.toString(parentType_.getCountsAnonFct()));
+                }
+            }
+            if (!contained_) {
+                break;
             }
             for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: _context.getAnalyzing().getMapAnonymous()) {
                 for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
@@ -363,6 +384,22 @@ public final class ClassesUtil {
                     processType(_context,basePkgFound_,pkgFound_,outExec_.getValue(numberFile_), block_);
                 }
             }
+            IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock> retr_ = new IdMap<AnonymousFunctionBlock, ExecNamedFunctionBlock>();
+            for (IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> m: _context.getAnalyzing().getMapAnonymousLambda()) {
+                for (EntryCust<AnonymousLambdaOperation, ExecAnonymousLambdaOperation> e: m.entryList()) {
+                    AnonymousLambdaOperation key_ = e.getKey();
+                    e.getValue().setExecAnonymousLambdaOperation(key_,_context);
+                    AnonymousFunctionBlock method_ = key_.getBlock();
+                    retr_.addEntry(method_,e.getValue().getFunction());
+                }
+            }
+            for (EntryCust<AnonymousFunctionBlock, ExecNamedFunctionBlock> e: retr_.entryList()) {
+                AnonymousFunctionBlock block_ = e.getKey();
+                int numberFile_ = block_.getFile().getNumberFile();
+                ExecFileBlock value_ = outExec_.getValue(numberFile_);
+                e.getValue().setFile(value_);
+                processType(_context,basePkgFound_,pkgFound_, value_, block_);
+            }
             for (RootBlock r: _context.getAnalyzing().getFoundTypes()) {
                 for (Block b: getDirectChildren(r)) {
                     if (b instanceof MemberCallingsBlock) {
@@ -396,8 +433,27 @@ public final class ClassesUtil {
                     e.getValue().setExecAnonymousInstancingOperation(e.getKey(),_context);
                 }
             }
+
             _context.getAnalyzing().getMapAnonymous().clear();
+            _context.getAnalyzing().getMapAnonymousLambda().clear();
             validateEl(_context);
+            for (EntryCust<AnonymousFunctionBlock, ExecNamedFunctionBlock> e:retr_.entryList()) {
+                AnonymousFunctionBlock method_ = e.getKey();
+                RootBlock c_ = method_.getParentType();
+                _context.getAnalyzing().setImporting(c_);
+                _context.getAnalyzing().setImportingAcces(new TypeAccessor(c_.getFullName()));
+                _context.getAnalyzing().setImportingTypes(c_);
+                _context.getAnalyzing().setGlobalClass(c_.getGenericString());
+                _context.getAnalyzing().setGlobalType(c_);
+                _context.getAnalyzing().setGlobalDirType(c_);
+                _context.getCoverage().putCalls(_context,c_.getFullName(),method_);
+                StringList params_ = method_.getParametersNames();
+                StringList types_ = method_.getImportedParametersTypes();
+                prepareParams(_context.getAnalyzing(), method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                _context.getAnalyzing().getMappingLocal().clear();
+                _context.getAnalyzing().getMappingLocal().putAllMap(method_.getMappings());
+                method_.buildFctInstructionsReadOnly(_context,e.getValue());
+            }
             AnaTypeUtil.checkInterfaces(_context);
         }
 
@@ -412,7 +468,7 @@ public final class ClassesUtil {
         parseFiles(_context,out_, _outExec);
     }
 
-    public static void processBracedClass(boolean _add,ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ContextEl _context) {
+    public static void processBracedClass(boolean _add,ExecFileBlock _exFile, Block _outer, RootBlock _root, ContextEl _context) {
         String fullName_ = _root.getFullName();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         boolean ok_ = _add;
@@ -726,7 +782,7 @@ public final class ClassesUtil {
         return namesFromParent_;
     }
 
-    private static void appendType(ExecFileBlock _exFile, RootBlock _outer, RootBlock _root, ExecRootBlock e_) {
+    private static void appendType(ExecFileBlock _exFile, Block _outer, RootBlock _root, ExecRootBlock e_) {
         if (_outer == _root) {
             _exFile.appendChild(e_);
         }
@@ -956,27 +1012,35 @@ public final class ClassesUtil {
         }
     }
 
-    private static void processType(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, ExecFileBlock _exeFile, RootBlock _r) {
-        StringList allReservedInnersRoot_ = new StringList(_r.getAllReservedInners());
+    private static void processType(ContextEl _context, StringList _basePkgFound, StringList _pkgFound, ExecFileBlock _exeFile, Block _r) {
+        StringList allReservedInnersRoot_ = new StringList();
         boolean addPkg_ = true;
-        if (_r.getNameLength() != 0) {
-            String fullName_ = _r.getFullName();
-            for (String p: _pkgFound) {
-                if (!p.startsWith(fullName_)) {
-                    continue;
+        if (_r instanceof RootBlock) {
+            RootBlock r_ = (RootBlock) _r;
+            allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
+            if (r_.getNameLength() != 0) {
+                String fullName_ = r_.getFullName();
+                for (String p: _pkgFound) {
+                    if (!p.startsWith(fullName_)) {
+                        continue;
+                    }
+                    //ERROR
+                    FoundErrorInterpret d_ = new FoundErrorInterpret();
+                    d_.setFileName(_r.getFile().getFileName());
+                    d_.setIndexFile(r_.getIdRowCol());
+                    //original id len
+                    d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
+                            fullName_,
+                            p);
+                    _context.addError(d_);
+                    r_.addNameErrors(d_);
+                    addPkg_ = false;
                 }
-                //ERROR
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_r.getFile().getFileName());
-                d_.setIndexFile(_r.getIdRowCol());
-                //original id len
-                d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
-                        fullName_,
-                        p);
-                _context.addError(d_);
-                _r.addNameErrors(d_);
-                addPkg_ = false;
             }
+        }
+        if (_r instanceof AnonymousFunctionBlock) {
+            AnonymousFunctionBlock r_ = (AnonymousFunctionBlock) _r;
+            allReservedInnersRoot_.addAllElts(r_.getAllReservedInners());
         }
         Block c_ = _r;
         if (c_.getFirstChild() != null) {
@@ -1123,7 +1187,9 @@ public final class ClassesUtil {
                 }
             }
         } else {
-            ClassesUtil.processBracedClass(addPkg_, _exeFile, _r, _r, _context);
+            if (_r instanceof RootBlock) {
+                ClassesUtil.processBracedClass(addPkg_, _exeFile, _r, (RootBlock) _r, _context);
+            }
         }
     }
 

@@ -247,6 +247,7 @@ public final class InitializationLgNames {
         _lgNames.setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
+        _lgNames.setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
         _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");

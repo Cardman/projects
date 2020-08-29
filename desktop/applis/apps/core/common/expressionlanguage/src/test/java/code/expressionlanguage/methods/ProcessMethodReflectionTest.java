@@ -6933,7 +6933,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         Classes.validateAll(files_, cont_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
-        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
+        MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         Struct[] arr_ = new Struct[2];
@@ -6951,7 +6951,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         Classes.validateAll(files_, cont_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"mod",new StringList("$int","$int"));
-        MethodMetaInfo m_ = new MethodMetaInfo(AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
+        MethodMetaInfo m_ = new MethodMetaInfo("java.lang.$math",AccessEnum.PUBLIC,"java.lang.$math",id_,MethodModifier.STATIC,"$int",id_,"java.lang.$math");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         Struct[] arr_ = new Struct[2];

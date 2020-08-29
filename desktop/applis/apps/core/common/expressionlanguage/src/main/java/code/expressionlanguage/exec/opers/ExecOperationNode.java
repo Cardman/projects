@@ -323,6 +323,12 @@ public abstract class ExecOperationNode {
             IdFctOperation f_ = (IdFctOperation) _anaNode;
             return new ExecIdFctOperation(f_);
         }
+        if (_anaNode instanceof AnonymousLambdaOperation) {
+            AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
+            ExecAnonymousLambdaOperation exec_ = new ExecAnonymousLambdaOperation(s_);
+            _cont.getAnalyzing().getMapAnonymousLambda().last().addEntry(s_,exec_);
+            return exec_;
+        }
         if (_anaNode instanceof LambdaOperation) {
             LambdaOperation f_ = (LambdaOperation) _anaNode;
             if (f_.getStandardMethod() != null) {

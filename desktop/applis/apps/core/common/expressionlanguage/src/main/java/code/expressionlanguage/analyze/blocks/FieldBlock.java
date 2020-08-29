@@ -60,6 +60,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
     private final CustList<StringList> cstErrorsFields = new CustList<StringList>();
     private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
     private int fieldNumber;
     public FieldBlock(OffsetAccessInfo _access,
                       OffsetBooleanInfo _static, OffsetBooleanInfo _final,
@@ -329,5 +330,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     @Override
     public CustList<AnonymousTypeBlock> getAnonymous() {
         return anonymous;
+    }
+
+    @Override
+    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+        return anonymousFct;
     }
 }

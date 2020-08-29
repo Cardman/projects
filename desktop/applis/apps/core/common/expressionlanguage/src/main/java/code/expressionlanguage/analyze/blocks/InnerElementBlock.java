@@ -43,6 +43,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     private StringList fieldList = new StringList();
     private int numberInner = -1;
     private CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private CustList<AnonymousFunctionBlock> anonymousFct = new CustList<AnonymousFunctionBlock>();
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, OffsetsBlock _offset) {
@@ -244,5 +245,10 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
     @Override
     public CustList<AnonymousTypeBlock> getAnonymous() {
         return anonymous;
+    }
+
+    @Override
+    public CustList<AnonymousFunctionBlock> getAnonymousFct() {
+        return anonymousFct;
     }
 }

@@ -13,7 +13,7 @@ import code.util.StringList;
 public final class MethodMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
 
     private static final String EMPTY_STRING = "";
-
+    private final String declaringClass;
     private final String className;
     private final String formClassName;
 
@@ -34,6 +34,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private ExecRootBlock declaring;
 
     public MethodMetaInfo() {
+        declaringClass = "";
         invokable = false;
         className = "";
         formClassName = "";
@@ -43,8 +44,9 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         modifier = MethodModifier.NORMAL;
         returnType = "";
     }
-    public MethodMetaInfo(AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
+    public MethodMetaInfo(String _declaringClass,AccessEnum _access, String _className, MethodId _realId, MethodModifier _modifier, String _returnType,
                           MethodId _fid, String _formClassName) {
+        declaringClass = _declaringClass;
         invokable = true;
         access = _access;
         className = _className;
@@ -53,6 +55,10 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         returnType = _returnType;
         fid = _fid;
         formClassName = _formClassName;
+    }
+
+    public String getDeclaringClass() {
+        return declaringClass;
     }
 
     public void setInvokable(boolean invokable) {

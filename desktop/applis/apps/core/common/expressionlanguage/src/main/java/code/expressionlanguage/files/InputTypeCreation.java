@@ -6,7 +6,9 @@ import code.util.Ints;
 public final class InputTypeCreation {
 
     private int nextIndex;
+    private int nextIndexBef;
 
+    private OuterBlockEnum type;
     private FileBlock file;
     private Ints badIndexes = new Ints();
 
@@ -17,6 +19,23 @@ public final class InputTypeCreation {
     public void setNextIndex(int _nextIndex) {
         nextIndex = _nextIndex;
     }
+
+    public int getNextIndexBef() {
+        return nextIndexBef;
+    }
+
+    public void setNextIndexBef(int nextIndexBef) {
+        this.nextIndexBef = nextIndexBef;
+    }
+
+    public OuterBlockEnum getType() {
+        return type;
+    }
+
+    public void setType(OuterBlockEnum type) {
+        this.type = type;
+    }
+
     public FileBlock getFile() {
         return file;
     }

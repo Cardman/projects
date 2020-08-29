@@ -92,6 +92,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringList allReservedInners = new StringList();
     private StringMap<Integer> counts = new StringMap<Integer>();
     private StringMap<Integer> countsAnon = new StringMap<Integer>();
+    private int countsAnonFct;
     private String suffix="";
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private RootBlock parentType;
@@ -503,7 +504,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         bl_ = ClassesUtil.getDirectChildren(this);
         KeyWords keyWords_ = _context.getKeyWords();
         LgNames stds_ = _context.getStandards();
-        String keyWordValue_ = keyWords_.getKeyWordValue();
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 continue;
@@ -964,53 +964,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
                 idConstructors_.add(idCt_);
             }
-            StringList l_ = method_.getParametersNames();
-            StringList seen_ = new StringList();
-            int j_ = 0;
-            for (String v: l_) {
-                method_.addParamErrors();
-                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkToken(_context, v);
-                if (res_.isError()) {
-                    FoundErrorInterpret b_;
-                    b_ = new FoundErrorInterpret();
-                    b_.setFileName(getFile().getFileName());
-                    b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                    //param name len
-                    b_.setBuiltError(res_.getMessage());
-                    _context.addError(b_);
-                    method_.addParamErrors(j_,b_);
-                }
-                if (method_ instanceof OverridableBlock) {
-                    OverridableBlock i_ = (OverridableBlock) method_;
-                    if (i_.getKind() == MethodKind.SET_INDEX) {
-                        if (StringList.quickEq(v,keyWordValue_)) {
-                            FoundErrorInterpret b_;
-                            b_ = new FoundErrorInterpret();
-                            b_.setFileName(getFile().getFileName());
-                            b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                            //param name len
-                            b_.buildError(_context.getAnalysisMessages().getReservedParamName(),
-                                    v);
-                            _context.addError(b_);
-                            method_.addParamErrors(j_,b_);
-                        }
-                    }
-                }
-                if (StringList.contains(seen_, v)){
-                    FoundErrorInterpret b_;
-                    b_ = new FoundErrorInterpret();
-                    b_.setFileName(getFile().getFileName());
-                    b_.setIndexFile(method_.getOffset().getOffsetTrim());
-                    //param name len
-                    b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
-                            v);
-                    _context.addError(b_);
-                    method_.addParamErrors(j_,b_);
-                } else {
-                    seen_.add(v);
-                }
-                j_++;
-            }
+            validateParameters(_context, method_);
         }
         buildFieldInfos(_context, bl_);
         _context.getAnalyzing().getUnary().addEntry(getFullName(),unary_);
@@ -1026,6 +980,58 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         _context.getAnalyzing().getTrues().addEntry(getFullName(),true_);
         _context.getAnalyzing().getFalses().addEntry(getFullName(),false_);
         validateIndexers(_context, indexersGet_, indexersSet_);
+    }
+
+    public void validateParameters(ContextEl _context, NamedFunctionBlock _method) {
+        String keyWordValue_ = _context.getKeyWords().getKeyWordValue();
+        StringList l_ = _method.getParametersNames();
+        StringList seen_ = new StringList();
+        int j_ = 0;
+        for (String v: l_) {
+            _method.addParamErrors();
+            TokenErrorMessage res_ = ManageTokens.partParam(_context).checkToken(_context, v);
+            if (res_.isError()) {
+                FoundErrorInterpret b_;
+                b_ = new FoundErrorInterpret();
+                _context.getCurrentFileName();
+                b_.setFileName(getFile().getFileName());
+                b_.setIndexFile(_method.getOffset().getOffsetTrim());
+                //param name len
+                b_.setBuiltError(res_.getMessage());
+                _context.addError(b_);
+                _method.addParamErrors(j_,b_);
+            }
+            if (_method instanceof OverridableBlock) {
+                OverridableBlock i_ = (OverridableBlock) _method;
+                if (i_.getKind() == MethodKind.SET_INDEX) {
+                    if (StringList.quickEq(v, keyWordValue_)) {
+                        FoundErrorInterpret b_;
+                        b_ = new FoundErrorInterpret();
+                        b_.setFileName(getFile().getFileName());
+                        b_.setIndexFile(_method.getOffset().getOffsetTrim());
+                        //param name len
+                        b_.buildError(_context.getAnalysisMessages().getReservedParamName(),
+                                v);
+                        _context.addError(b_);
+                        _method.addParamErrors(j_,b_);
+                    }
+                }
+            }
+            if (StringList.contains(seen_, v)){
+                FoundErrorInterpret b_;
+                b_ = new FoundErrorInterpret();
+                b_.setFileName(getFile().getFileName());
+                b_.setIndexFile(_method.getOffset().getOffsetTrim());
+                //param name len
+                b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
+                        v);
+                _context.addError(b_);
+                _method.addParamErrors(j_,b_);
+            } else {
+                seen_.add(v);
+            }
+            j_++;
+        }
     }
 
     private static void buildFieldInfos(ContextEl _context, CustList<Block> _bl) {
@@ -1984,5 +1990,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setEmptyCtor(ConstructorBlock _emptyCtor) {
         emptyCtor = _emptyCtor;
+    }
+
+    public int getCountsAnonFct() {
+        return countsAnonFct;
+    }
+
+    public void setCountsAnonFct(int countsAnonFct) {
+        this.countsAnonFct = countsAnonFct;
     }
 }

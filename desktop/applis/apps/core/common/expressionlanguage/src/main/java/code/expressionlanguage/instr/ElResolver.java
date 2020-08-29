@@ -3,15 +3,14 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
-import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
+import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
-import code.expressionlanguage.files.FileResolver;
-import code.expressionlanguage.files.InputTypeCreation;
-import code.expressionlanguage.files.ResultCreation;
+import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
+import code.expressionlanguage.files.*;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.options.KeyWords;
@@ -108,6 +107,7 @@ public final class ElResolver {
         d_.setPartOfString(true);
         AnalyzedPageEl ana_ = _conf.getAnalyzing();
         ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        ana_.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
         return commonCheck(_string, _conf, _minIndex, ret_, d_);
     }
@@ -117,6 +117,7 @@ public final class ElResolver {
         d_.setLength(_string.length());
         AnalyzedPageEl ana_ = _conf.getAnalyzing();
         ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        ana_.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
         return commonCheck(_string, _conf, _elOffest, ret_, d_);
     }
@@ -1426,6 +1427,49 @@ public final class ElResolver {
             return;
         }
         if (curChar_ == PAR_LEFT) {
+            RootBlock globalType_ = _conf.getAnalyzing().getGlobalDirType();
+            if (globalType_ != null) {
+                int rightPar_ = _string.indexOf(')', i_);
+                if (rightPar_ > -1) {
+                    String substring_ = _string.substring(i_+1,rightPar_+1);
+                    if (substring_.indexOf('(') < 0) {
+                        String info_ = _string.substring(rightPar_+1);
+                        String tr_ = info_.trim();
+                        int off_ = StringList.getFirstPrintableCharIndex(info_);
+                        if (tr_.startsWith("->")) {
+                            String afterArrow_ = tr_.substring("->".length());
+                            String after_ = afterArrow_.trim();
+                            int deltaArr_ = off_;
+                            off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                            if (after_.startsWith("{")) {
+                                ParsedFctHeader parse_ = new ParsedFctHeader();
+                                String packageName_ = globalType_.getPackageName();
+                                int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                                parse_.parseAnonymous(i_+1, substring_, instrLoc_,':');
+                                int j_ = i_+1 + substring_.length()+off_+2;
+                                int jBef_ = i_+1 + substring_.length()+deltaArr_;
+                                InputTypeCreation input_ = new InputTypeCreation();
+                                input_.setType(OuterBlockEnum.ANON_FCT);
+                                input_.setFile(globalType_.getFile());
+                                input_.setNextIndex(j_);
+                                input_.setNextIndexBef(jBef_);
+                                ResultCreation res_ = FileResolver.processOuterTypeBody(_conf, input_, packageName_, instrLoc_, _string);
+                                Block block_ = res_.getBlock();
+                                int k_ = res_.getNextIndex() - 1;
+                                AnonymousResult anonymous_ = new AnonymousResult();
+                                anonymous_.setResults(parse_);
+                                anonymous_.setIndex(i_);
+                                anonymous_.setUntil(k_);
+                                anonymous_.setLength(k_-i_+1);
+                                anonymous_.setType(block_);
+                                _conf.getAnalyzing().getAnonymousResults().add(anonymous_);
+                                doubleDotted_.setNextIndex(k_+1);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             int j_ = indexAfterPossibleCast(_conf, _string, i_, _dout);
             if (j_ > i_) {
                 i_ = j_;
@@ -1450,7 +1494,6 @@ public final class ElResolver {
             parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == ANN_ARR_LEFT) {
-            parsBrackets_.put(i_, curChar_);
             int bk_ = getBackPrintChar(_string, i_);
             if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
                 if (_dout.getIndexesNewEnd().containsObj(bk_)) {
@@ -1459,6 +1502,7 @@ public final class ElResolver {
                         int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
                         String packageName_ = globalType_.getPackageName();
                         InputTypeCreation input_ = new InputTypeCreation();
+                        input_.setType(OuterBlockEnum.ANON_TYPE);
                         input_.setFile(globalType_.getFile());
                         input_.setNextIndex(i_);
                         ResultCreation res_ = FileResolver.processOuterTypeBody(_conf, input_, packageName_, instrLoc_, _string);
@@ -1470,12 +1514,12 @@ public final class ElResolver {
                         anonymous_.setLength(j_-i_+1);
                         anonymous_.setType(block_);
                         _conf.getAnalyzing().getAnonymousResults().add(anonymous_);
-                        _dout.getAllowedOperatorsIndexes().add(i_);
-                        doubleDotted_.setNextIndex(j_);
+                        doubleDotted_.setNextIndex(j_+1);
                         return;
                     }
                 }
             }
+            parsBrackets_.put(i_, curChar_);
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -2495,6 +2539,24 @@ public final class ElResolver {
             op_.setOperators(new IntTreeMap< String>());
             op_.setValue(v.getName(), firstPrintChar_);
             op_.setDelimiter(_d);
+            return op_;
+        }
+        for (AnonymousResult a: _conf.getAnalyzing().getAnonymousResults()) {
+            if (a.getIndex() != firstPrintChar_ + _offset) {
+                continue;
+            }
+            int to_ = a.getUntil() - _offset;
+            if (to_ != lastPrintChar_) {
+                break;
+            }
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.ANON_FCT);
+            op_.setOperators(new IntTreeMap< String>());
+            op_.setValue(_string, firstPrintChar_);
+            op_.setDelimiter(_d);
+            op_.setBlock(a.getType());
+            op_.setResults(a.getResults());
+            op_.setLength(a.getLength());
             return op_;
         }
         int begin_;

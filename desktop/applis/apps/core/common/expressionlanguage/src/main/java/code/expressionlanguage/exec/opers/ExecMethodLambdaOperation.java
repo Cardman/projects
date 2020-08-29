@@ -95,7 +95,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             } else {
                 met_ = MethodModifier.NORMAL;
             }
-            MethodMetaInfo metaInfo_ = new MethodMetaInfo(AccessEnum.PUBLIC, from_, id_, met_, returnFieldType, fid_, formCl_);
+            MethodMetaInfo metaInfo_ = new MethodMetaInfo(ownerType_,AccessEnum.PUBLIC, from_, id_, met_, returnFieldType, fid_, formCl_);
             metaInfo_.setExpCast(expCast);
             metaInfo_.setFileName(fileName);
             metaInfo_.setAnnotableBlock(functionBlock);

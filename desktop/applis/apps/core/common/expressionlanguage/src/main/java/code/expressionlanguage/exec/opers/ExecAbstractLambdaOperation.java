@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.LambdaOperation;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.ClassField;
@@ -35,6 +36,13 @@ public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation impl
         foundClass = _l.getFoundClass();
         ancestor = _l.getAncestor();
         shiftArgument = _l.isShiftArgument();
+        returnFieldType = _l.getReturnFieldType();
+        fileName = _l.getFileName();
+    }
+
+    public ExecAbstractLambdaOperation(AnonymousLambdaOperation _l) {
+        super(_l);
+        foundClass = _l.getFoundClass();
         returnFieldType = _l.getReturnFieldType();
         fileName = _l.getFileName();
     }

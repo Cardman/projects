@@ -1,12 +1,22 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.Block;
+import code.expressionlanguage.files.ParsedFctHeader;
 
 public final class AnonymousResult {
+    private ParsedFctHeader results;
     private int index;
     private int until;
     private int length;
     private Block type;
+
+    public ParsedFctHeader getResults() {
+        return results;
+    }
+
+    public void setResults(ParsedFctHeader results) {
+        this.results = results;
+    }
 
     public int getIndex() {
         return index;
