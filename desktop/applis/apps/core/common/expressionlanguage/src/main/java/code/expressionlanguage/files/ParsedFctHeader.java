@@ -102,7 +102,7 @@ public final class ParsedFctHeader {
         paramOffest = _paramOffest;
         offsetLast = _paramOffest;
         while (true) {
-            if (info_.indexOf(_sepRet) == 0) {
+            if (info_.indexOf(_sepRet) == 0||info_.indexOf(END_CALLING) == 0) {
                 info_ = info_.substring(1);
                 offsetLast++;
                 offsetLast +=  StringList.getFirstPrintableCharIndex(info_);
@@ -114,16 +114,51 @@ public final class ParsedFctHeader {
             annotationsIndexesParams.add(annotationsIndexesParam_);
             annotationsParams.add(annotationsParam_);
             offestsTypes.add(paramOffest+_offset);
-            String paramType_ = FileResolver.getFoundType(info_);
+            int implCall_ = info_.indexOf(SEP_CALLING);
+            int implStopInd_ = info_.indexOf(_sepRet);
+            int implStopRightPar_ = info_.indexOf(END_CALLING);
+            if (implCall_ < 0) {
+                if (implStopInd_ >= 0) {
+                    implCall_ = implStopInd_;
+                } else {
+                    implCall_ = implStopRightPar_;
+                }
+            } else {
+                if (implStopInd_ >= 0) {
+                    implCall_ = Math.min(implCall_,implStopInd_);
+                } else {
+                    implCall_ = Math.min(implCall_,implStopRightPar_);
+                }
+            }
+            String paramType_;
+            if (implCall_ >= 0) {
+                String parName_ = info_.substring(0, implCall_).trim();
+                if (StringExpUtil.isTypeLeafPart(parName_)) {
+                    paramType_ = "";
+                } else {
+                    paramType_ = FileResolver.getFoundType(info_);
+                }
+            } else {
+                paramType_ = FileResolver.getFoundType(info_);
+            }
             parametersType.add(paramType_.trim());
             String afterParamType_ = info_.substring(paramType_.length());
             info_ = afterParamType_.trim();
             int call_ = info_.indexOf(SEP_CALLING);
             int stopInd_ = info_.indexOf(_sepRet);
+            int stopRightPar_ = info_.indexOf(END_CALLING);
             if (call_ < 0) {
-                call_ = stopInd_;
+                if (stopInd_ >= 0) {
+                    call_ = stopInd_;
+                } else {
+                    call_ = stopRightPar_;
+                }
             } else {
-                call_ = Math.min(call_,info_.indexOf(_sepRet));
+                if (stopInd_ >= 0) {
+                    call_ = Math.min(call_,stopInd_);
+                } else {
+                    call_ = Math.min(call_,stopRightPar_);
+                }
             }
             int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
             offestsParams.add(paramOffest + paramType_.length() + off_+_offset);
@@ -135,6 +170,7 @@ public final class ParsedFctHeader {
             } else {
                 ok = false;
                 parametersName.add(info_.trim());
+                info_ = "";
             }
             String afterParamName_ = info_.substring(call_ + 1);
             info_ = afterParamName_.trim();
@@ -146,6 +182,7 @@ public final class ParsedFctHeader {
                 break;
             }
             if (noAddedInfo(info_, lenInfo_)) {
+                ok = false;
                 break;
             }
         }

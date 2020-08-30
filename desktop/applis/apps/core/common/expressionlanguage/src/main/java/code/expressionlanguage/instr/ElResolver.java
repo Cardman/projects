@@ -1328,6 +1328,45 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
+        RootBlock globalType_ = _an.getAnalyzing().getGlobalDirType();
+        if (globalType_ != null) {
+            int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
+            if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
+                String afterArrow_ = _string.substring(dash_+"->".length());
+                String after_ = afterArrow_.trim();
+                int off_ = 0;
+                int deltaArr_ = off_;
+                off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                if (after_.startsWith("{")) {
+                    ParsedFctHeader parse_ = new ParsedFctHeader();
+                    String packageName_ = globalType_.getPackageName();
+                    int instrLoc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    parse_.getOffestsParams().add(beginWord_+instrLoc_);
+                    parse_.getOffestsTypes().add(beginWord_+instrLoc_);
+                    parse_.getParametersName().add(word_);
+                    parse_.getParametersType().add("");
+                    int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
+                    int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
+                    InputTypeCreation input_ = new InputTypeCreation();
+                    input_.setType(OuterBlockEnum.ANON_FCT);
+                    input_.setFile(globalType_.getFile());
+                    input_.setNextIndex(j_);
+                    input_.setNextIndexBef(jBef_);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(_an, input_, packageName_, instrLoc_, _string);
+                    Block block_ = res_.getBlock();
+                    int k_ = res_.getNextIndex() - 1;
+                    AnonymousResult anonymous_ = new AnonymousResult();
+                    anonymous_.setResults(parse_);
+                    anonymous_.setIndex(beginWord_);
+                    anonymous_.setUntil(k_);
+                    anonymous_.setLength(k_-beginWord_+1);
+                    anonymous_.setType(block_);
+                    _an.getAnalyzing().getAnonymousResults().add(anonymous_);
+                    _out.setNextIndex(k_+1);
+                    return;
+                }
+            }
+        }
         i_ = _ret.processFieldsStaticAccess(ctorCall_,beginWord_,word_,i_);
         _out.setNextIndex(i_);
     }

@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -1481,6 +1480,257 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 " int <span class=\"f\"><span class=\"f\"><a name=\"m233\">value</a> </span>=<span class=\"f\"> 5</span></span>;\n" +
                 " void <a name=\"m250\">incr</a>(){\n" +
                 "  <span class=\"f\"><span class=\"f\"><a title=\"pkg.Content.value\" href=\"#m233\">value</a></span>++</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage427Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((a:int)->{return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m88\">m</a>(<span class=\"f\"><span class=\"t\">(<a name=\"m45\">a</a>:int)<a name=\"m51\">-&gt;</a>{return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m45\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m88\">m</a>(Fct&lt;int,int&gt; <a name=\"m103\">fct</a>,int <a name=\"m111\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m103\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m111\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage428Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((a:)->{return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m85\">m</a>(<span class=\"f\"><span class=\"t\">(<a name=\"m45\">a</a>:)<a name=\"m48\">-&gt;</a>{return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m45\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m85\">m</a>(Fct&lt;int,int&gt; <a name=\"m100\">fct</a>,int <a name=\"m108\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m100\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m108\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage429Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a)->{return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m88\">m</a>(<span class=\"f\"><span class=\"t\">(int <a name=\"m49\">a</a>)<a name=\"m51\">-&gt;</a>{return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m49\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m88\">m</a>(Fct&lt;int,int&gt; <a name=\"m103\">fct</a>,int <a name=\"m111\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m103\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m111\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage430Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((a)->{return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m84\">m</a>(<span class=\"f\"><span class=\"t\">(<a name=\"m45\">a</a>)<a name=\"m47\">-&gt;</a>{return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m45\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m84\">m</a>(Fct&lt;int,int&gt; <a name=\"m99\">fct</a>,int <a name=\"m107\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m99\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m107\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage431Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m();\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall T m(){\n");
+        xml_.append("  return staticCall(ExtOther<T>).m((T a)->{return (T)(2 * (int)a);},(T)3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.ExtOther<S> {\n");
+        xml_.append(" staticCall S m(Fct<S,S> fct,S a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " static int <a name=\"m31\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;)</span>.<span class=\"f\"><a title=\"pkg.Ext.staticCall m()\" href=\"#m88\">m</a>()</span></span>;\n" +
+                " }\n" +
+                " staticCall <a href=\"#m14\">T</a> <a name=\"m88\">m</a>(){\n" +
+                "  return <span class=\"f\"><span class=\"f\">staticCall(<a title=\"pkg.ExtOther\" href=\"#m179\">ExtOther</a>&lt;<a href=\"#m14\">T</a>&gt;)</span>.<span class=\"f\"><a title=\"pkg.ExtOther.staticCall m($core.Fct&lt;#S,#S&gt;,#S)\" href=\"#m211\">m</a>(<span class=\"f\"><span class=\"t\">(<a href=\"#m14\">T</a> <a name=\"m131\">a</a>)<a name=\"m133\">-&gt;</a>{return <span class=\"f\">(<a href=\"#m14\">T</a>)<span class=\"f\">(<span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> (int)<span class=\"f\"><a href=\"#m131\">a</a></span></span></span>)</span></span>;}</span></span>,<span class=\"f\">(<a href=\"#m14\">T</a>)<span class=\"f\">3</span></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "class <a name=\"m179\">pkg.ExtOther</a>&lt;<a name=\"m192\">S</a>&gt; {\n" +
+                " staticCall <a href=\"#m192\">S</a> <a name=\"m211\">m</a>(Fct&lt;<a href=\"#m192\">S</a>,<a href=\"#m192\">S</a>&gt; <a name=\"m222\">fct</a>,<a href=\"#m192\">S</a> <a name=\"m228\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m222\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m228\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage432Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a:int) -> {return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m94\">m</a>(<span class=\"f\"><span class=\"t\">(int <a name=\"m49\">a</a>:int) <a name=\"m56\">-&gt;</a> {return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m49\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m94\">m</a>(Fct&lt;int,int&gt; <a name=\"m109\">fct</a>,int <a name=\"m117\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m109\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m117\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage433Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(a->{return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m82\">m</a>(<span class=\"f\"><span class=\"t\"><a name=\"m44\">a</a><a name=\"m45\">-&gt;</a>{return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m44\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m82\">m</a>(Fct&lt;int,int&gt; <a name=\"m97\">fct</a>,int <a name=\"m105\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m97\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m105\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage434Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(a -> {return 2 * a;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;int,int&gt;,int)\" href=\"#m84\">m</a>(<span class=\"f\"><span class=\"t\"><a name=\"m44\">a</a> <a name=\"m46\">-&gt;</a> {return <span class=\"f\"><span class=\"f\">2 </span>*<span class=\"f\"> <a href=\"#m44\">a</a></span></span>;}</span></span>,<span class=\"f\">3</span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m84\">m</a>(Fct&lt;int,int&gt; <a name=\"m99\">fct</a>,int <a name=\"m107\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m99\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m107\">a</a></span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

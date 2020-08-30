@@ -227,21 +227,26 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public final void buildInternImportedTypes(ContextEl _stds) {
-        AnalyzedPageEl page_ = _stds.getAnalyzing();
         StringList params_ = new StringList();
         int i_ = 0;
         for (String p: parametersTypes) {
-            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            page_.setGlobalOffset(parametersTypesOffset.get(i_));
-            page_.setOffset(0);
-            params_.add(ResolvingImportTypes.resolveCorrectType(_stds,p));
-            partOffsets_.addAllElts(_stds.getAnalyzing().getCurrentParts());
-            partOffsetsParams.add(partOffsets_);
+            String res_ = buildInternParam(_stds, parametersTypesOffset.get(i_), p);
+            params_.add(res_);
             i_++;
         }
         importedParametersTypes.clear();
         importedParametersTypes.addAllElts(params_);
         buildImportedReturnTypes(_stds);
+    }
+    public final String buildInternParam(ContextEl _stds,int _offset, String _param) {
+        AnalyzedPageEl page_ = _stds.getAnalyzing();
+        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
+        page_.setGlobalOffset(_offset);
+        page_.setOffset(0);
+        String res_ = ResolvingImportTypes.resolveCorrectType(_stds, _param);
+        partOffsets_.addAllElts(_stds.getAnalyzing().getCurrentParts());
+        partOffsetsParams.add(partOffsets_);
+        return res_;
     }
 
     public void buildImportedReturnTypes(ContextEl _stds) {
@@ -250,11 +255,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             importedReturnType = void_;
             return;
         }
+        importedReturnType = buildInternRet(_stds,returnTypeOffset,returnType);
+    }
+    public final String buildInternRet(ContextEl _stds,int _offset, String _param) {
         AnalyzedPageEl page_ = _stds.getAnalyzing();
-        page_.setGlobalOffset(returnTypeOffset);
+        page_.setGlobalOffset(_offset);
         page_.setOffset(0);
-        importedReturnType = ResolvingImportTypes.resolveCorrectType(_stds,returnType);
+        String res_ = ResolvingImportTypes.resolveCorrectType(_stds, _param);
         partOffsetsReturn.addAllElts(_stds.getAnalyzing().getCurrentParts());
+        return res_;
     }
     public String getReturnType() {
         return returnType;

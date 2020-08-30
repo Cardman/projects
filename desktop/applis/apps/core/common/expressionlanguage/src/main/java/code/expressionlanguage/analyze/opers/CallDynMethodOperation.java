@@ -145,7 +145,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 m_.setArg(a_);
                 m_.setParam(p_);
                 m_.setMapping(map_);
-                if (!AnaTemplates.isCorrectOrNumbers(m_, _conf)) {
+                if (!StringList.quickEq("?",pa_)&&!AnaTemplates.isCorrectOrNumbers(m_, _conf)) {
                     ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_conf, pa_, a_);
                     if (res_.isFoundMethod()) {
                         ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
