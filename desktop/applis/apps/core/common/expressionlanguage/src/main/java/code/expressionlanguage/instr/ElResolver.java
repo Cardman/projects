@@ -3,8 +3,7 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
-import code.expressionlanguage.analyze.blocks.Block;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.common.*;
@@ -12,7 +11,6 @@ import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.files.*;
 import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
@@ -343,6 +341,563 @@ public final class ElResolver {
         return _d;
     }
 
+    private static int stack(String _string, ContextEl _conf, int _from, RootBlock _globalDirType) {
+        boolean constString_ = false;
+        boolean constChar_ = false;
+        boolean constText_ = false;
+        Ints indexesNew_ = new Ints();
+        Ints indexesNewEnd_ = new Ints();
+        IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
+        char prevOp_ = ' ';
+        int from_ = _from;
+        int len_ = _string.length();
+        while (from_ < len_) {
+            char curChar_ = _string.charAt(from_);
+            if (constString_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_STRING) {
+                    constString_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constChar_) {
+                if (curChar_ == ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == DELIMITER_CHAR) {
+                    constChar_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constText_) {
+                if (curChar_ == DELIMITER_TEXT) {
+                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != DELIMITER_TEXT) {
+                        constText_ = false;
+                        from_++;
+                        continue;
+                    }
+                    from_++;
+                }
+                from_++;
+                continue;
+            }
+            if (curChar_ == DELIMITER_STRING) {
+                constString_ = true;
+                from_++;
+                continue;
+            }
+            if (curChar_ == DELIMITER_CHAR) {
+                constChar_ = true;
+                from_++;
+                continue;
+            }
+            if (curChar_ == DELIMITER_TEXT) {
+                constText_ = true;
+                from_++;
+                continue;
+            }
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,indexesNew_, _conf);
+            if (next_ > from_) {
+                from_ = next_;
+                continue;
+            }
+            if (StringExpUtil.isTypeLeafChar(curChar_)) {
+                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,_conf, _globalDirType);
+                from_ = next_;
+                continue;
+            }
+            if (prevOp_ != '.' && curChar_ == DOT_VAR) {
+                int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
+                if (isDigitOrDot(_string,n_)) {
+                    KeyWords keyWords_ = _conf.getKeyWords();
+                    NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
+                    from_ = res_.getNextIndex();
+                    continue;
+                }
+            }
+            next_ = processOperatorsQuick(parsBrackets_,indexesNew_,indexesNewEnd_,from_,curChar_, _string,_conf, _globalDirType);
+            if (next_ < 0) {
+                break;
+            }
+            if (!Character.isWhitespace(curChar_)) {
+                prevOp_ = curChar_;
+            }
+            from_ = next_;
+        }
+        return from_;
+    }
+    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _indexesNew, ContextEl _conf) {
+        int len_ = _string.length();
+        int i_ = _i;
+        KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordNew_ = keyWords_.getKeyWordNew();
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
+            int next_ = i_ + keyWordInstanceof_.length();
+            while (next_ < len_) {
+                char curLoc_ = _string.charAt(next_);
+                if (StringExpUtil.isTypeLeafChar(curLoc_)) {
+                    next_++;
+                    continue;
+                }
+                if (curLoc_ == DOT_VAR) {
+                    next_++;
+                    continue;
+                }
+                if (Character.isWhitespace(curLoc_)) {
+                    next_++;
+                    continue;
+                }
+                break;
+            }
+            if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
+                int nbOpened_ = 1;
+                next_++;
+                while (next_ < len_) {
+                    char curLoc_ = _string.charAt(next_);
+                    if (curLoc_ == LOWER_CHAR) {
+                        nbOpened_++;
+                        next_++;
+                        continue;
+                    }
+                    if (curLoc_ == GREATER_CHAR) {
+                        nbOpened_--;
+                        next_++;
+                        if (nbOpened_ == 0) {
+                            String substring_ = _string.substring(next_);
+                            if (substring_.trim().startsWith(".")) {
+                                int nextPr_ = adjustDoubleDot(substring_);
+                                next_ += nextPr_+1;
+                                next_ += StringList.getFirstPrintableCharIndex(substring_.substring(nextPr_+1));
+                                while (next_ < len_) {
+                                    char curLocAft_ = _string.charAt(next_);
+                                    if (StringExpUtil.isTypeLeafChar(curLocAft_)) {
+                                        next_++;
+                                        continue;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        continue;
+                    }
+                    if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
+                        break;
+                    }
+                    next_++;
+                }
+            }
+            if (next_ < len_) {
+                char curLoc_ = _string.charAt(next_);
+                if (curLoc_ == ARR_LEFT) {
+                    while (next_ < len_) {
+                        curLoc_ = _string.charAt(next_);
+                        if (Character.isWhitespace(curLoc_)) {
+                            next_++;
+                            continue;
+                        }
+                        if (curLoc_ == ARR_LEFT) {
+                            next_++;
+                            continue;
+                        }
+                        if (curLoc_ == ARR_RIGHT) {
+                            next_++;
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+            i_ = next_;
+            return i_;
+        }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
+            int j_ = i_+keyWordNew_.length();
+            int l_ = j_;
+
+            int count_ = 0;
+            boolean foundLeftPar_ = false;
+            boolean foundLeft_ = false;
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    if (curLoc_ == ANN_ARR_LEFT) {
+                        foundLeft_ = true;
+                        l_++;
+                    }
+                    if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
+                        foundLeftPar_ = true;
+                    }
+                    j_++;
+                    break;
+                }
+                l_++;
+                j_++;
+            }
+            if (foundLeftPar_) {
+                i_ = j_-1;
+                _indexesNew.add(i_);
+                return i_;
+            }
+            boolean found_ = false;
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    if (curLoc_ == ANN_ARR_RIGHT) {
+                        l_++;
+                        j_++;
+                        found_ = true;
+                    }
+                    break;
+                }
+                l_++;
+                j_++;
+            }
+            if (foundLeft_ && !found_) {
+                return j_;
+            }
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (!Character.isWhitespace(curLoc_)) {
+                    break;
+                }
+                l_++;
+                j_++;
+            }
+            if (StringExpUtil.startsWithKeyWord(_string,l_, keyWordInterfaces_)) {
+                int k_ = _string.indexOf(PAR_LEFT, l_);
+                if (k_ < 0) {
+                    return j_;
+                }
+                k_ = _string.indexOf(PAR_RIGHT, k_);
+                if (k_ < 0) {
+                    return j_;
+                }
+                j_ = k_;
+            }
+            while (j_ < len_) {
+                char curLoc_ = _string.charAt(j_);
+                if (curLoc_ == Templates.LT) {
+                    count_++;
+                    j_++;
+                    continue;
+                }
+                if (curLoc_ == Templates.GT) {
+                    count_--;
+                    j_++;
+                    continue;
+                }
+                if (curLoc_ == PAR_LEFT) {
+                    break;
+                }
+                if (curLoc_ == ANN_ARR_LEFT) {
+                    break;
+                }
+                if (curLoc_ == ARR_LEFT && count_ == 0) {
+                    break;
+                }
+                j_++;
+            }
+            _indexesNew.add(j_);
+            return j_;
+        }
+        return i_;
+    }
+
+    private static int adjustDoubleDot(String substring_) {
+        int nextPr_ = substring_.indexOf('.');
+        if (StringExpUtil.nextCharIs(substring_,nextPr_+1,substring_.length(),'.')) {
+            nextPr_++;
+        }
+        return nextPr_;
+    }
+
+    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, ContextEl _an, RootBlock _globalDirType) {
+        int len_ = _string.length();
+        int i_ = _i;
+        KeyWords keyWords_ = _an.getKeyWords();
+        if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
+            NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
+            return res_.getNextIndex();
+        }
+        int beginWord_ = i_;
+        while (i_ < len_) {
+            char locChar_ = _string.charAt(i_);
+            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
+                break;
+            }
+            i_++;
+        }
+        String word_ = _string.substring(beginWord_, i_);
+        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
+        if (nextPar_ > -1) {
+            return i_;
+        }
+        int bk_ = getBackPrintChar(_string, beginWord_);
+        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
+            return i_;
+        }
+        int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
+        if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
+            String afterArrow_ = _string.substring(dash_+"->".length());
+            String after_ = afterArrow_.trim();
+            int off_ = 0;
+            int deltaArr_ = off_;
+            off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+            if (after_.startsWith("{")) {
+                String packageName_ = _globalDirType.getPackageName();
+                int instrLoc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
+                int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
+                InputTypeCreation input_ = new InputTypeCreation();
+                input_.setType(OuterBlockEnum.ANON_FCT);
+                input_.setFile(_globalDirType.getFile());
+                input_.setNextIndex(j_);
+                input_.setNextIndexBef(jBef_);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(_an, input_, packageName_, instrLoc_, _string);
+                int k_ = res_.getNextIndex() - 1;
+                return k_+1;
+            }
+        }
+        return i_;
+    }
+    private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, Ints _indexesNew, Ints _indexesNewEnd, int _i, char _curChar, String _string,
+                                             ContextEl _conf, RootBlock _globalDirType) {
+        IntTreeMap<Character> parsBrackets_;
+        parsBrackets_ = _parsBrackets;
+
+        int len_ = _string.length();
+        int i_ = _i;
+        ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
+        resKeyWords_.setNextIndex(i_);
+        ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
+        resWords_.setNextIndex(i_);
+        resWords_.setLastDoubleDot(i_);
+        if (_curChar == PAR_LEFT) {
+            int rightPar_ = _string.indexOf(')', i_);
+            if (rightPar_ > -1) {
+                String substring_ = _string.substring(i_+1,rightPar_+1);
+                if (substring_.indexOf('(') < 0) {
+                    String info_ = _string.substring(rightPar_+1);
+                    String tr_ = info_.trim();
+                    int off_ = StringList.getFirstPrintableCharIndex(info_);
+                    if (tr_.startsWith("->")) {
+                        String afterArrow_ = tr_.substring("->".length());
+                        String after_ = afterArrow_.trim();
+                        int deltaArr_ = off_;
+                        off_ += StringList.getFirstPrintableCharIndex(afterArrow_);
+                        if (after_.startsWith("{")) {
+                            String packageName_ = _globalDirType.getPackageName();
+                            int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                            int j_ = i_+1 + substring_.length()+off_+2;
+                            int jBef_ = i_+1 + substring_.length()+deltaArr_;
+                            InputTypeCreation input_ = new InputTypeCreation();
+                            input_.setType(OuterBlockEnum.ANON_FCT);
+                            input_.setFile(_globalDirType.getFile());
+                            input_.setNextIndex(j_);
+                            input_.setNextIndexBef(jBef_);
+                            ResultCreation res_ = FileResolver.processOuterTypeBody(_conf, input_, packageName_, instrLoc_, _string);
+                            int k_ = res_.getNextIndex() - 1;
+                            return k_+1;
+                        }
+                    }
+                }
+            }
+            parsBrackets_.put(i_, _curChar);
+        }
+        if (_curChar == PAR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            if (_indexesNew.containsObj(parsBrackets_.lastKey())) {
+                _indexesNewEnd.add(i_);
+            }
+            parsBrackets_.removeKey(parsBrackets_.lastKey());
+        }
+        if (_curChar == ANN_ARR_LEFT) {
+            int bk_ = getBackPrintChar(_string, i_);
+            if (StringExpUtil.nextCharIs(_string,bk_,len_,PAR_RIGHT)) {
+                if (_indexesNewEnd.containsObj(bk_)) {
+                    int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    String packageName_ = _globalDirType.getPackageName();
+                    InputTypeCreation input_ = new InputTypeCreation();
+                    input_.setType(OuterBlockEnum.ANON_TYPE);
+                    input_.setFile(_globalDirType.getFile());
+                    input_.setNextIndex(i_);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(_conf, input_, packageName_, instrLoc_, _string);
+                    int j_ = res_.getNextIndex() - 1;
+                    return j_+1;
+                }
+            }
+            parsBrackets_.put(i_, _curChar);
+        }
+        if (_curChar == ANN_ARR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeKey(parsBrackets_.lastKey());
+        }
+        if (_curChar == ARR_LEFT) {
+            int j_ = i_ + 1;
+            SkipArPart s_ = new SkipArPart();
+            s_.skip(j_,_string);
+            j_ = s_.getIndex();
+            boolean skip_ = s_.isSkip();
+            if (skip_) {
+                return j_ + 1;
+            }
+            parsBrackets_.put(i_, _curChar);
+        }
+        if (_curChar == ARR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeKey(parsBrackets_.lastKey());
+        }
+        if (_curChar == BEGIN_TERNARY) {
+            boolean ternary_ = false;
+            if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
+                int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
+                if (isDigitOrDot(_string,n_)) {
+                    ternary_ = true;
+                }
+            } else {
+                if (!StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)
+                        &&!StringExpUtil.nextCharIs(_string, i_ + 1, len_, ARR_LEFT)) {
+                    ternary_ = true;
+                }
+            }
+            if (ternary_) {
+                parsBrackets_.put(i_, _curChar);
+            }
+        }
+        if (_curChar == END_TERNARY) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeKey(parsBrackets_.lastKey());
+        }
+        if (_curChar == SEP_ARG && parsBrackets_.isEmpty()) {
+            return -1;
+        }
+        boolean escapeOpers_ = false;
+        boolean andOr_ = false;
+        boolean nullSafe_ = false;
+        boolean ltGt_ = false;
+        if (_curChar == MULT_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == MOD_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == DIV_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == PLUS_CHAR){
+            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != PLUS_CHAR) {
+                escapeOpers_ = true;
+            }
+        }
+        if (_curChar == MINUS_CHAR){
+            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != MINUS_CHAR) {
+                escapeOpers_ = true;
+            }
+        }
+        if (_curChar == AND_CHAR) {
+            andOr_ = true;
+            escapeOpers_ = true;
+        }
+        if (_curChar == OR_CHAR) {
+            andOr_ = true;
+            escapeOpers_ = true;
+        }
+        if (_curChar == LOWER_CHAR) {
+            escapeOpers_ = true;
+            ltGt_ = true;
+        }
+        if (_curChar == XOR_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == BEGIN_TERNARY) {
+            escapeOpers_ = true;
+            nullSafe_ = true;
+        }
+        if (_curChar == END_TERNARY) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == GREATER_CHAR) {
+            escapeOpers_ = true;
+            ltGt_ = true;
+        }
+        if (_curChar == EQ_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == NEG_BOOL_CHAR) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == ANN_ARR_LEFT) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == ARR_LEFT) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == PAR_LEFT) {
+            escapeOpers_ = true;
+        }
+        if (_curChar == SEP_ARG) {
+            escapeOpers_ = true;
+        }
+        if (escapeOpers_) {
+            int j_ = i_ + 1;
+            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                j_++;
+            }
+            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                j_++;
+            }
+            if (ltGt_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                j_++;
+            }
+            if (andOr_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                j_++;
+            }
+            if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
+                int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
+                if (!isDigitOrDot(_string,n_)) {
+                    j_++;
+                }
+            }
+            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == _curChar) {
+                j_++;
+            }
+            if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
+                j_++;
+            }
+            return j_;
+        }
+        if (_curChar == PLUS_CHAR){
+            i_++;
+            i_++;
+            return i_;
+        }
+        if (_curChar == MINUS_CHAR){
+            i_++;
+            i_++;
+            return i_;
+        }
+        i_++;
+        return i_;
+    }
+
     private static int getBackPrintChar(String _string, int _i) {
         int bk_ = _i - 1;
         while (bk_ > 0) {
@@ -506,7 +1061,6 @@ public final class ElResolver {
             if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
                 int nbOpened_ = 1;
                 next_++;
-                boolean exitWhenNoSpace_ = false;
                 while (next_ < len_) {
                     char curLoc_ = _string.charAt(next_);
                     if (curLoc_ == LOWER_CHAR) {
@@ -517,12 +1071,25 @@ public final class ElResolver {
                     if (curLoc_ == GREATER_CHAR) {
                         nbOpened_--;
                         next_++;
-                        if (nbOpened_ == 0 && !_string.substring(next_).trim().startsWith(".")) {
-                            exitWhenNoSpace_ = true;
+                        if (nbOpened_ == 0) {
+                            String substring_ = _string.substring(next_);
+                            if (substring_.trim().startsWith(".")) {
+                                int nextPr_ = adjustDoubleDot(substring_);
+                                next_ += nextPr_+1;
+                                next_ += StringList.getFirstPrintableCharIndex(substring_.substring(nextPr_+1));
+                                while (next_ < len_) {
+                                    char curLocAft_ = _string.charAt(next_);
+                                    if (StringExpUtil.isTypeLeafChar(curLocAft_)) {
+                                        next_++;
+                                        continue;
+                                    }
+                                    break;
+                                }
+                            }
                         }
                         continue;
                     }
-                    if (nbOpened_ == 0 && exitWhenNoSpace_ && !Character.isWhitespace(curLoc_)) {
+                    if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
                         break;
                     }
                     next_++;
@@ -1359,12 +1926,38 @@ public final class ElResolver {
                     anonymous_.setResults(parse_);
                     anonymous_.setIndex(beginWord_);
                     anonymous_.setUntil(k_);
-                    anonymous_.setLength(k_-beginWord_+1);
+                    anonymous_.setLength(k_-jBef_+1);
                     anonymous_.setType(block_);
                     _an.getAnalyzing().getAnonymousResults().add(anonymous_);
                     _out.setNextIndex(k_+1);
                     return;
                 }
+                ParsedFctHeader parse_ = new ParsedFctHeader();
+                int instrLoc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                parse_.getOffestsParams().add(beginWord_+instrLoc_);
+                parse_.getOffestsTypes().add(beginWord_+instrLoc_);
+                parse_.getParametersName().add(word_);
+                parse_.getParametersType().add("");
+                int j_ = beginWord_+word_.length()+(dash_-i_) + off_+2;
+                int jBef_ = beginWord_+word_.length()+(dash_-i_) + deltaArr_;
+                int k_ = stack(_string, _an, j_, globalType_);
+                String part_ = _string.substring(j_,k_);
+                AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(_an,jBef_+instrLoc_,new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                block_.setBegin(j_+instrLoc_);
+                block_.setLengthHeader(1);
+                block_.setFile(globalType_.getFile());
+                String tr_ = part_.trim();
+                ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(j_+instrLoc_, tr_),new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                block_.appendChild(ret_);
+                AnonymousResult anonymous_ = new AnonymousResult();
+                anonymous_.setResults(parse_);
+                anonymous_.setIndex(beginWord_);
+                anonymous_.setUntil(k_-(part_.length() - tr_.length())-1);
+                anonymous_.setLength(k_-(part_.length() - tr_.length())-jBef_);
+                anonymous_.setType(block_);
+                _an.getAnalyzing().getAnonymousResults().add(anonymous_);
+                _out.setNextIndex(k_);
+                return;
             }
         }
         i_ = _ret.processFieldsStaticAccess(ctorCall_,beginWord_,word_,i_);
@@ -1499,12 +2092,35 @@ public final class ElResolver {
                                 anonymous_.setResults(parse_);
                                 anonymous_.setIndex(i_);
                                 anonymous_.setUntil(k_);
-                                anonymous_.setLength(k_-i_+1);
+                                anonymous_.setLength(k_-jBef_+1);
                                 anonymous_.setType(block_);
                                 _conf.getAnalyzing().getAnonymousResults().add(anonymous_);
                                 doubleDotted_.setNextIndex(k_+1);
                                 return;
                             }
+                            ParsedFctHeader parse_ = new ParsedFctHeader();
+                            int j_ = i_+1 + substring_.length()+off_+2;
+                            int jBef_ = i_+1 + substring_.length()+deltaArr_;
+                            int instrLoc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                            parse_.parseAnonymous(i_+1, substring_, instrLoc_,':');
+                            int k_ = stack(_string, _conf, j_, globalType_);
+                            String part_ = _string.substring(j_,k_);
+                            AnonymousFunctionBlock block_ = new AnonymousFunctionBlock(_conf,jBef_+instrLoc_,new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                            block_.setBegin(j_+instrLoc_);
+                            block_.setLengthHeader(1);
+                            block_.setFile(globalType_.getFile());
+                            String trim_ = part_.trim();
+                            ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(j_+instrLoc_, trim_),new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                            block_.appendChild(ret_);
+                            AnonymousResult anonymous_ = new AnonymousResult();
+                            anonymous_.setResults(parse_);
+                            anonymous_.setIndex(i_);
+                            anonymous_.setUntil(k_-(part_.length() - trim_.length())-1);
+                            anonymous_.setLength(k_-(part_.length() - trim_.length())-jBef_);
+                            anonymous_.setType(block_);
+                            _conf.getAnalyzing().getAnonymousResults().add(anonymous_);
+                            doubleDotted_.setNextIndex(k_);
+                            return;
                         }
                     }
                 }
@@ -1580,18 +2196,10 @@ public final class ElResolver {
         }
         if (curChar_ == ARR_LEFT) {
             int j_ = i_ + 1;
-            boolean skip_ = false;
-            while (j_ < len_) {
-                char nextChar_ = _string.charAt(j_);
-                if (Character.isWhitespace(nextChar_)) {
-                    j_++;
-                    continue;
-                }
-                if (nextChar_ == ARR_RIGHT) {
-                    skip_ = true;
-                }
-                break;
-            }
+            SkipArPart s_ = new SkipArPart();
+            s_.skip(j_,_string);
+            j_ = s_.getIndex();
+            boolean skip_ = s_.isSkip();
             if (skip_) {
                 _dout.getDimsAddonIndexes().add(i_);
                 _dout.getDimsAddonIndexes().add(j_);
