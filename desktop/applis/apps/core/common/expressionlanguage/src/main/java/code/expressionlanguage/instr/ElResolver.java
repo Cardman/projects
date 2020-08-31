@@ -443,22 +443,7 @@ public final class ElResolver {
         String keyWordNew_ = keyWords_.getKeyWordNew();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            while (next_ < len_) {
-                char curLoc_ = _string.charAt(next_);
-                if (StringExpUtil.isTypeLeafChar(curLoc_)) {
-                    next_++;
-                    continue;
-                }
-                if (curLoc_ == DOT_VAR) {
-                    next_++;
-                    continue;
-                }
-                if (Character.isWhitespace(curLoc_)) {
-                    next_++;
-                    continue;
-                }
-                break;
-            }
+            next_ = incrType(next_,_string);
             if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
                 int nbOpened_ = 1;
                 next_++;
@@ -475,17 +460,7 @@ public final class ElResolver {
                         if (nbOpened_ == 0) {
                             String substring_ = _string.substring(next_);
                             if (substring_.trim().startsWith(".")) {
-                                int nextPr_ = adjustDoubleDot(substring_);
-                                next_ += nextPr_+1;
-                                next_ += StringList.getFirstPrintableCharIndex(substring_.substring(nextPr_+1));
-                                while (next_ < len_) {
-                                    char curLocAft_ = _string.charAt(next_);
-                                    if (StringExpUtil.isTypeLeafChar(curLocAft_)) {
-                                        next_++;
-                                        continue;
-                                    }
-                                    break;
-                                }
+                                next_ = incrType(next_,_string);
                             }
                         }
                         continue;
@@ -611,14 +586,6 @@ public final class ElResolver {
             return j_;
         }
         return i_;
-    }
-
-    private static int adjustDoubleDot(String substring_) {
-        int nextPr_ = substring_.indexOf('.');
-        if (StringExpUtil.nextCharIs(substring_,nextPr_+1,substring_.length(),'.')) {
-            nextPr_++;
-        }
-        return nextPr_;
     }
 
     private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, ContextEl _an, RootBlock _globalDirType) {
@@ -1042,22 +1009,7 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            while (next_ < len_) {
-                char curLoc_ = _string.charAt(next_);
-                if (StringExpUtil.isTypeLeafChar(curLoc_)) {
-                    next_++;
-                    continue;
-                }
-                if (curLoc_ == DOT_VAR) {
-                    next_++;
-                    continue;
-                }
-                if (Character.isWhitespace(curLoc_)) {
-                    next_++;
-                    continue;
-                }
-                break;
-            }
+            next_ = incrType(next_,_string);
             if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
                 int nbOpened_ = 1;
                 next_++;
@@ -1074,17 +1026,7 @@ public final class ElResolver {
                         if (nbOpened_ == 0) {
                             String substring_ = _string.substring(next_);
                             if (substring_.trim().startsWith(".")) {
-                                int nextPr_ = adjustDoubleDot(substring_);
-                                next_ += nextPr_+1;
-                                next_ += StringList.getFirstPrintableCharIndex(substring_.substring(nextPr_+1));
-                                while (next_ < len_) {
-                                    char curLocAft_ = _string.charAt(next_);
-                                    if (StringExpUtil.isTypeLeafChar(curLocAft_)) {
-                                        next_++;
-                                        continue;
-                                    }
-                                    break;
-                                }
+                                next_ = incrType(next_,_string);
                             }
                         }
                         continue;
@@ -1836,6 +1778,27 @@ public final class ElResolver {
         _conf.getAnalyzing().getProcessKeyWord().processInternKeyWord(_string, i_, _out);
     }
 
+    private static int incrType(int _i, String _string) {
+        int next_ = _i;
+        int len_ = _string.length();
+        while (next_ < len_) {
+            char curLoc_ = _string.charAt(next_);
+            if (StringExpUtil.isTypeLeafChar(curLoc_)) {
+                next_++;
+                continue;
+            }
+            if (curLoc_ == DOT_VAR) {
+                next_++;
+                continue;
+            }
+            if (Character.isWhitespace(curLoc_)) {
+                next_++;
+                continue;
+            }
+            break;
+        }
+        return next_;
+    }
     private static boolean followedByParLeft(String _string, int len_, int afterSuper_) {
         return afterSuper_ < len_ && _string.charAt(afterSuper_) == PAR_LEFT;
     }
@@ -3482,7 +3445,7 @@ public final class ElResolver {
                 "*=","/=","%=",
                 "^=","&=","|=",
                 "||","&&","?",
-                "<",">",",",
+                "<",">",",","->",
                 "!=","=",")","]","}")) {
             if (_string.startsWith(s,next_)) {
                 return _from;
