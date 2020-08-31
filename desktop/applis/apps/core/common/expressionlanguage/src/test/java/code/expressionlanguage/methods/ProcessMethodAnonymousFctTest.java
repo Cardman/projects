@@ -3562,6 +3562,142 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
     }
+
+    @Test
+    public void calculate136() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a:int)->{\n");
+        xml_.append("  int w = 0;\n");
+        xml_.append("  switch(a){\n");
+        xml_.append("   case 3:\n");
+        xml_.append("    w = 4;\n");
+        xml_.append("    break;\n");
+        xml_.append("   default:\n");
+        xml_.append("    w = 5;\n");
+        xml_.append("    break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 2 * w;},3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate137() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a:int)->{\n");
+        xml_.append("  int w = 0;\n");
+        xml_.append("  switch(a){\n");
+        xml_.append("   case 3:\n");
+        xml_.append("    w = 4;\n");
+        xml_.append("    break;\n");
+        xml_.append("   default:\n");
+        xml_.append("    w = 5;\n");
+        xml_.append("    break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 2 * w;},4);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate138() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a:int)->{\n");
+        xml_.append("  int w = 0;\n");
+        xml_.append("  switch(a){\n");
+        xml_.append("   case 3:\n");
+        xml_.append("    w = 4;\n");
+        xml_.append("    return 2 * w;\n");
+        xml_.append("   default:\n");
+        xml_.append("    w = 5;\n");
+        xml_.append("    return 2 * w;\n");
+        xml_.append("  }\n");
+        xml_.append("  },3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(8, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate139() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m((int a:int)->{\n");
+        xml_.append("  int w = 0;\n");
+        xml_.append("  switch(a){\n");
+        xml_.append("   case 3:\n");
+        xml_.append("    w = 4;\n");
+        xml_.append("    return 2 * w;\n");
+        xml_.append("   default:\n");
+        xml_.append("    w = 5;\n");
+        xml_.append("    return 2 * w;\n");
+        xml_.append("  }\n");
+        xml_.append("  },4);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
     @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
