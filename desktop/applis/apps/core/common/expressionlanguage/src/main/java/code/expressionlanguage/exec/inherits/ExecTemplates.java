@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
@@ -516,17 +517,25 @@ public final class ExecTemplates {
         return params_;
     }
 
-    public static Parameters quickWrap(ExecNamedFunctionBlock _id, ExecRootBlock _root, String _formatted, CustList<Argument> _firstArgs, ContextEl _conf) {
+    public static Parameters wrapAndCall(ExecNamedFunctionBlock _id, ExecRootBlock _root, String _formatted, Argument _previous, CustList<Argument> _firstArgs, ContextEl _conf) {
         Parameters p_ = new Parameters();
         int i_ = CustList.FIRST_INDEX;
         StringList params_ = fetchParamTypes(_root, _id, _formatted, true);
         for (Argument a: _firstArgs) {
-            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),params_.get(i_));
+            String param_ = params_.get(i_);
+            Struct ex_ = checkObjectEx(param_, a, _conf);
+            if (ex_ != null) {
+                _conf.setException(ex_);
+                return p_;
+            }
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(), param_);
             p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
             i_++;
         }
+        _conf.setCallingState(new CustomFoundMethod(_previous,_formatted,_root,_id,p_));
         return p_;
     }
+
     private static Struct processError(ContextEl _conf, ArrayStruct arr_, Struct s, ErrorType state_) {
         LgNames stds_ = _conf.getStandards();
         if (state_ == ErrorType.NPE) {

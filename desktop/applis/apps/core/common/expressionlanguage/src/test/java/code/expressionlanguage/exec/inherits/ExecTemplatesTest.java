@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
@@ -842,6 +843,24 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage());
         assertNull(getException(cont_));
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar"))));
+    }
+    @Test
+    public void wrapAndCall() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $static $void m($int p){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
+        ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
+        ExecTemplates.wrapAndCall(first_,classBody_,"pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
+        assertNotNull(getException(cont_));
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();

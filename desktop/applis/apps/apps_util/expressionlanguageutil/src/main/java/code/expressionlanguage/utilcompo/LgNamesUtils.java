@@ -1894,8 +1894,7 @@ public class LgNamesUtils extends LgNames {
                 ExecRootBlock classBody_ = _cont.getFormatType();
                 ExecNamedFunctionBlock fct_ = _cont.getFormatObject();
                 Argument arg_ = new Argument(_args[0]);
-                Parameters parameters_ = ExecTemplates.quickWrap(fct_,classBody_,className_,new CustList<Argument>(arg_),_cont);
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
+                ExecTemplates.wrapAndCall(fct_,classBody_,className_,Argument.createVoid(),new CustList<Argument>(arg_),_cont);
                 return;
             }
         }
@@ -1906,8 +1905,7 @@ public class LgNamesUtils extends LgNames {
             ExecNamedFunctionBlock fct_ = _cont.getFormatObjectTwo();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            Parameters parameters_ = ExecTemplates.quickWrap(fct_,classBody_,className_,new CustList<Argument>(arg_,argArr_),_cont);
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
+            ExecTemplates.wrapAndCall(fct_,classBody_,className_,Argument.createVoid(),new CustList<Argument>(arg_,argArr_),_cont);
             return;
         }
         String stringAppFile_ = buildLog(_cont, _args);

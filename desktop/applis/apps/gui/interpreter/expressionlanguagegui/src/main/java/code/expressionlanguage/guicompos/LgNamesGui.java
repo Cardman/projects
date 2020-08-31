@@ -3336,7 +3336,8 @@ public class LgNamesGui extends LgNamesUtils {
                 Argument arg_ = new Argument(inst_);
                 ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                 ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintMethod();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, new CustList<Argument>(arg_),_cont)));
+                CustList<Argument> args_ = new CustList<Argument>(arg_);
+                wrapAndCall(_cont, classBody_, fct_, args_);
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4175,7 +4176,7 @@ public class LgNamesGui extends LgNamesUtils {
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
                     ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                     ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
-                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
+                    wrapAndCall(_cont, classBody_, fct_, args_);
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4186,7 +4187,7 @@ public class LgNamesGui extends LgNamesUtils {
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
                 ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                 ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
+                wrapAndCall(_cont, classBody_, fct_, args_);
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4211,7 +4212,7 @@ public class LgNamesGui extends LgNamesUtils {
             args_.add(new Argument(_args[1]));
             ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
             ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintAdd();
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
+            wrapAndCall(_cont, classBody_, fct_, args_);
             return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {
@@ -4606,6 +4607,11 @@ public class LgNamesGui extends LgNamesUtils {
         }
         return super.getOtherResult(_cont,_instance,_method,_args);
     }
+
+    private void wrapAndCall(ContextEl _cont, ExecRootBlock classBody_, ExecNamedFunctionBlock fct_, CustList<Argument> args_) {
+        ExecTemplates.wrapAndCall(fct_,classBody_,aliasPaint,Argument.createVoid(), args_,_cont);
+    }
+
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);

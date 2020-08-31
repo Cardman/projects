@@ -163,7 +163,7 @@ public final class ThreadActions implements Runnable {
                         args_.add(new Argument(arrNames_));
                         args_.add(new Argument(arrContents_));
                         ExecNamedFunctionBlock method_ = methods_.first();
-                        Parameters parameters_ = ExecTemplates.quickWrap(method_,classBody_,classDbName,args_,ctx_);
+                        Parameters parameters_ = ExecTemplates.wrapAndCall(method_,classBody_,classDbName,arg_,args_,ctx_);
                         Argument out_ = ProcessMethod.calculateArgument(arg_, classDbName,classBody_, method_, parameters_, ctx_);
                         if (ctx_.hasException()) {
                             afterAction();

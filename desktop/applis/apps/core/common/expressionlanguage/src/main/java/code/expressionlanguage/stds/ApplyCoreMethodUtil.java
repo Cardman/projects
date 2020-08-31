@@ -173,8 +173,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            Parameters parameters_ = ExecTemplates.quickWrap(meth_,type_,cl_,argsToPass_,_cont);
-            _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,parameters_));
+            ExecTemplates.wrapAndCall(meth_,type_,cl_,argSeed_,argsToPass_,_cont);
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();

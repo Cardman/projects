@@ -6,7 +6,12 @@ import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
-import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundCast;
+import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -724,9 +729,7 @@ public abstract class RendDynOperationNode {
         if (_conf.getContext().hasException()) {
             return null;
         }
-        CustomFoundCast c_ = new CustomFoundCast(paramNameOwner_,_rootBlock, c, parameters_);
-        _conf.getContext().setCallingState(c_);
-        Argument out_ = ProcessMethod.castArgument(c_.getClassName(),c_.getRootBlock(),c_.getId(), c_.getArguments(), _conf.getContext());
+        Argument out_ = ProcessMethod.castArgument(paramNameOwner_,_rootBlock,c, parameters_, _conf.getContext());
         if (_conf.getContext().hasException()) {
             return null;
         }
