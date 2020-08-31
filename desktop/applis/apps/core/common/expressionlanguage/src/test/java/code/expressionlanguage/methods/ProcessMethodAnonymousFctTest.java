@@ -3698,6 +3698,204 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(10, getNumber(ret_));
     }
+
+    @Test
+    public void calculate140() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static double m(){\n");
+        xml_.append("  return m(3.0,a -> (double).5 * a);\n");
+        xml_.append(" }\n");
+        xml_.append(" static double m(double a,Fct<double,double> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1.5, getDouble(ret_));
+    }
+
+    @Test
+    public void calculate141() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(\"4\",a -> (\"hello\"+a).length());\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(String a,Fct<String,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate142() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(4,a -> bool(a%2==0,6,7));\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,Fct<int,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate143() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(3,a -> bool(a%2==0,6,7));\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,Fct<int,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate144() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Super {\n");
+        xml_.append(" int field=7;\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext:Super {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(new Ext(),a -> a.super.field);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Ext a,Fct<Ext,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate145() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(3,a -> a * static(Ext).m(2, b -> b));\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,Fct<int,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate146() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Super {\n");
+        xml_.append(" int field=7;\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext:Super {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(new Ext(),a -> a.classchoice(Super)field);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Ext a,Fct<Ext,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate147() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return m(3,a -> a * classchoice(Ext)m(2, b -> b));\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,Fct<int,int> fct){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
     @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
@@ -3833,6 +4031,10 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("  a=x -> new interfaces(];\n");
         xml_.append("  a=x -> new interfaces;\n");
         xml_.append("  a=x -> new {];\n");
+        xml_.append("  a=x -> static (];\n");
+        xml_.append("  a=x -> static [];\n");
+        xml_.append("  a=x -> interfaces (];\n");
+        xml_.append("  a=x -> interfaces [];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex3", xml_.toString());

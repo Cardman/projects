@@ -733,9 +733,13 @@ public final class StringExpUtil {
     }
 
     public static int nextPrintChar(int _j, int _len, String _string) {
+        if (_j < 0) {
+            return _j;
+        }
         int j_ = _j;
         while (j_ < _len) {
-            if (!Character.isWhitespace(_string.charAt(j_))) {
+            char ch_ = _string.charAt(j_);
+            if (!Character.isWhitespace(ch_)) {
                 break;
             }
             j_++;

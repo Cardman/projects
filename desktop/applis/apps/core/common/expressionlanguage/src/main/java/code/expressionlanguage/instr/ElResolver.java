@@ -345,6 +345,7 @@ public final class ElResolver {
         boolean constString_ = false;
         boolean constChar_ = false;
         boolean constText_ = false;
+        Ints callings_ = new Ints();
         Ints indexesNew_ = new Ints();
         Ints indexesNewEnd_ = new Ints();
         IntTreeMap<Character> parsBrackets_ = new IntTreeMap<Character>();
@@ -404,13 +405,13 @@ public final class ElResolver {
                 from_++;
                 continue;
             }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,indexesNew_, _conf);
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,callings_,indexesNew_, _conf);
             if (next_ > from_) {
                 from_ = next_;
                 continue;
             }
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,_conf, _globalDirType);
+                next_ = processWordsQuick(_string,from_,prevOp_,curChar_,callings_,_conf, _globalDirType);
                 from_ = next_;
                 continue;
             }
@@ -423,7 +424,7 @@ public final class ElResolver {
                     continue;
                 }
             }
-            next_ = processOperatorsQuick(parsBrackets_,indexesNew_,indexesNewEnd_,from_,curChar_, _string,_conf, _globalDirType);
+            next_ = processOperatorsQuick(parsBrackets_,callings_,indexesNew_,indexesNewEnd_,from_,curChar_, _string,_conf, _globalDirType);
             if (next_ < 0) {
                 break;
             }
@@ -434,13 +435,37 @@ public final class ElResolver {
         }
         return from_;
     }
-    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _indexesNew, ContextEl _conf) {
+    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _callings, Ints _indexesNew, ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _conf.getKeyWords();
+        String keyWordBool_ = keyWords_.getKeyWordBool();
+        String keyWordCast_ = keyWords_.getKeyWordCast();
+        String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
+        String keyWordClass_ = keyWords_.getKeyWordClass();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordFalse_ = keyWords_.getKeyWordFalse();
+        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
+        String keyWordId_ = keyWords_.getKeyWordId();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordLambda_ = keyWords_.getKeyWordLambda();
         String keyWordNew_ = keyWords_.getKeyWordNew();
+        String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
+        String keyWordTrue_ = keyWords_.getKeyWordTrue();
+        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+        String keyWordValues_ = keyWords_.getKeyWordValues();
+        String keyWordVararg_ = keyWords_.getKeyWordVararg();
+        String keyWordDefault_ = keyWords_.getKeyWordDefaultValue();
+        String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
+        //
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
             next_ = incrType(next_,_string);
@@ -572,6 +597,7 @@ public final class ElResolver {
                     continue;
                 }
                 if (curLoc_ == PAR_LEFT) {
+                    _callings.add(j_);
                     break;
                 }
                 if (curLoc_ == ANN_ARR_LEFT) {
@@ -585,10 +611,97 @@ public final class ElResolver {
             _indexesNew.add(j_);
             return j_;
         }
+        for (String s: StringList.wrapStringArray(
+                keyWordClasschoice_,
+                keyWordSuperaccess_,keyWordThisaccess_,keyWordInterfaces_,keyWordOperator_)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
+                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
+                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
+                    return i_+s.length();
+                }
+                _callings.add(pr_);
+                int indexParRight_ = _string.indexOf(PAR_RIGHT,pr_+1);
+                if (indexParRight_ < 0) {
+                    return i_+s.length();
+                }
+                int indexSecParLeft_ = _string.indexOf(PAR_LEFT,indexParRight_+1);
+                if (indexSecParLeft_ < 0) {
+                    return indexParRight_+1;
+                }
+                _callings.add(indexSecParLeft_);
+                return indexSecParLeft_;
+            }
+        }
+        for (String s: StringList.wrapStringArray(keyWordCast_,keyWordExplicit_,
+                keyWordVararg_,keyWordDefaultValue_,keyWordClass_,keyWordLambda_,
+                keyWordId_,keyWordStatic_,keyWordStaticCall_,
+                keyWordValues_)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
+                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
+                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
+                    return i_+s.length();
+                }
+                _callings.add(pr_);
+                int indexParRight_ = _string.indexOf(PAR_RIGHT,pr_+1);
+                if (indexParRight_ < 0) {
+                    return i_;
+                }
+                return indexParRight_+1;
+            }
+        }
+        for (String s: StringList.wrapStringArray(keyWordBool_,keyWordFalse_,keyWordFirstopt_,
+                keyWordSuper_,keyWordThis_,keyWordValueOf_,keyWordThat_,keyWordTrue_,keyWordDefault_)) {
+            if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
+                int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
+                if (!StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
+                    return i_+s.length();
+                }
+                _callings.add(pr_);
+                i_ = pr_;
+                break;
+            }
+        }
         return i_;
     }
 
-    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, ContextEl _an, RootBlock _globalDirType) {
+    private static int indexAfterPossibleCastQuick(ContextEl _conf, String _string, int _from, Ints _callings) {
+        int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
+        if (indexParRight_ < 0) {
+            return _from;
+        }
+        if (_callings.containsObj(_from)) {
+            return _from;
+        }
+
+        String sub_ = _string.substring(_from + 1, indexParRight_);
+        int off_ = StringList.getFirstPrintableCharIndex(sub_);
+        String subTrim_ = sub_.trim();
+        int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
+        for (String s: StringList.wrapStringArray("+=","-=",
+                "*=","/=","%=",
+                "^=","&=","|=",
+                "||","&&","?",
+                "<",">",",","->",
+                "!=","=",")","]","}")) {
+            if (_string.startsWith(s,next_)) {
+                return _from;
+            }
+        }
+        if (_string.startsWith(".",next_)) {
+            int n_ = StringExpUtil.nextPrintChar(next_ + 1, _string.length(), _string);
+            if (!isDigitOrDot(_string,n_)) {
+                return _from;
+            }
+        }
+        CustList<PartOffset> curr_ = _conf.getAnalyzing().getCurrentParts();
+        String typeOut_ = ResolvingImportTypes.resolveCorrectTypeWithoutErrors(_conf,_from + 1 + off_, subTrim_, true, curr_);
+        curr_.clear();
+        if (!typeOut_.isEmpty()) {
+            return indexParRight_ + 1;
+        }
+        return _from;
+    }
+    private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, Ints _callings, ContextEl _an, RootBlock _globalDirType) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _an.getKeyWords();
@@ -607,6 +720,7 @@ public final class ElResolver {
         String word_ = _string.substring(beginWord_, i_);
         int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
         if (nextPar_ > -1) {
+            _callings.add(nextPar_);
             return i_;
         }
         int bk_ = getBackPrintChar(_string, beginWord_);
@@ -637,7 +751,7 @@ public final class ElResolver {
         }
         return i_;
     }
-    private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, Ints _indexesNew, Ints _indexesNewEnd, int _i, char _curChar, String _string,
+    private static int processOperatorsQuick(IntTreeMap<Character> _parsBrackets, Ints _callings, Ints _indexesNew, Ints _indexesNewEnd, int _i, char _curChar, String _string,
                                              ContextEl _conf, RootBlock _globalDirType) {
         IntTreeMap<Character> parsBrackets_;
         parsBrackets_ = _parsBrackets;
@@ -675,6 +789,11 @@ public final class ElResolver {
                     }
                 }
             }
+            int j_ = indexAfterPossibleCastQuick(_conf,_string,i_,_callings);
+            if (j_ > i_) {
+                return j_;
+            }
+            _callings.add(i_);
             parsBrackets_.put(i_, _curChar);
         }
         if (_curChar == PAR_RIGHT) {

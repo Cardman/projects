@@ -263,6 +263,10 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
         assertTrue(!StringExpUtil.nextCharIs("",-1,0,' '));
     }
     @Test
+    public void nextPrintCharTest(){
+        assertEq(-1,StringExpUtil.nextPrintChar(-1,0,""));
+    }
+    @Test
     public void tryToExtract1Test(){
         assertEq("",StringExpUtil.tryToExtract("",'(',')').getSecond());
     }
