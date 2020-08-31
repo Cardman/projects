@@ -719,7 +719,7 @@ public abstract class RendDynOperationNode {
         }
         Parameters parameters_ = new Parameters();
         if (!_conf.getContext().hasException()) {
-            parameters_ = ExecTemplates.okArgsSet(_rootBlock, c, true, paramNameOwner_, args_, _conf.getContext(), null);
+            parameters_ = ExecTemplates.okArgsSet(_rootBlock, c, true, paramNameOwner_,null, args_, _conf.getContext(), null);
         }
         if (_conf.getContext().hasException()) {
             return null;

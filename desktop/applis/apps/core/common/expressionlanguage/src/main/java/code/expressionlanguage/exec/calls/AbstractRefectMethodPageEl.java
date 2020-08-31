@@ -143,7 +143,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _mid, _instance, _args, _right,methodToCallBody);
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _mid, _instance,method_.getCache(), _args, _right,methodToCallBody);
     }
 
     ExecNamedFunctionBlock getMethodToCallBody() {

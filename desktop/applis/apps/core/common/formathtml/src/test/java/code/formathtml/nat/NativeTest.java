@@ -1611,6 +1611,8 @@ public final class NativeTest extends CommonRender {
         _lgNames.setAliasGetDeclaredFields("getDeclaredFields");
         _lgNames.setAliasGetDeclaredAnonymousTypes("getDeclaredAnonymousTypes");
         _lgNames.setAliasGetDeclaredAnonymousLambda("getDeclaredAnonymousLambda");
+        _lgNames.setAliasGetDeclaredAnonymousLambdaLocalVars("getDeclaredAnonymousLambdaLocVars");
+        _lgNames.setAliasGetDeclaredAnonymousLambdaLoopVars("getDeclaredAnonymousLambdaLoopVars");
         _lgNames.setAliasGetDeclaredBlocks("getDeclaredBlocks");
         _lgNames.setAliasGetDeclaredLocalTypes("getDeclaredLocalTypes");
         _lgNames.setAliasGetDeclaredMethods("getDeclaredMethods");

@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -32,6 +33,7 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
     private ExecNamedFunctionBlock calleeInv;
     private StandardMethod stdCallee;
     private ExecRootBlock declaring;
+    private Cache cache;
 
     public MethodMetaInfo() {
         declaringClass = "";
@@ -220,5 +222,13 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
 
     public boolean isExpCast() {
         return expCast;
+    }
+
+    public Cache getCache() {
+        return cache;
+    }
+
+    public void setCache(Cache cache) {
+        this.cache = cache;
     }
 }

@@ -458,6 +458,9 @@ public abstract class OperationNode {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
         AnaLocalVariable val_ = _an.getAnalyzing().getInfosVars().getVal(str_);
+        if (val_ == null) {
+            val_ = _an.getAnalyzing().getInfosCache().getVal(str_);
+        }
         if (val_ != null) {
             if (val_.getConstType() == ConstType.LOC_VAR) {
                 return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());

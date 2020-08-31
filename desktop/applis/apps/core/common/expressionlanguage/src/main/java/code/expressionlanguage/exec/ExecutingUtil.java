@@ -176,6 +176,7 @@ public final class ExecutingUtil {
     }
     private static void setMethodInfos(AbstractMethodPageEl _page, ExecNamedFunctionBlock _block, Parameters _args) {
         _page.getValueVars().putAllMap(_args.getParameters());
+        _page.setCache(_args.getCache());
         ReadWrite rwLoc_ = new ReadWrite();
         rwLoc_.setBlock(_block.getFirstChild());
         _page.setReadWrite(rwLoc_);

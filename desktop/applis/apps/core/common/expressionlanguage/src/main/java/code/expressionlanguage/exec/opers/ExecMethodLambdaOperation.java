@@ -7,9 +7,11 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
+import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -102,6 +104,9 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
             metaInfo_.setCallee(function);
             metaInfo_.setCalleeInv(function);
             metaInfo_.setDeclaring(_rootBlock);
+            if (function instanceof ExecAnonymousFunctionBlock) {
+                metaInfo_.setCache(new Cache(lastPage));
+            }
             l_.setMetaInfo(metaInfo_);
         }
         return l_;

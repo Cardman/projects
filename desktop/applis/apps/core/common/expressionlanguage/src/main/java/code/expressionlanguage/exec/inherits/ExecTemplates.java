@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -398,8 +399,7 @@ public final class ExecTemplates {
         }
         return null;
     }
-    public static Parameters okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        StringList params_ = new StringList();
+    public static Parameters okArgsEx(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound,Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         boolean hasFormat_;
         if (_id instanceof GeneMethod) {
             hasFormat_ = ((GeneMethod)_id).getId().canAccessParamTypes() || _format;
@@ -413,41 +413,29 @@ public final class ExecTemplates {
             p_.setError(new ErrorStruct(_conf,npe_));
             return p_;
         }
+        if (_cache != null) {
+            _cache.setCache(_rootBlock,_classNameFound);
+            p_.setCache(_cache);
+            Struct err_ = _cache.checkCache(_conf);
+            if (err_ != null){
+                p_.setError(err_);
+                return p_;
+            }
+        }
         if (_id == null) {
-            if (_firstArgs.size() != params_.size()) {
+            if (_firstArgs.size() != 0) {
                 LgNames stds_ = _conf.getStandards();
                 String cast_ = stds_.getAliasBadIndex();
                 StringBuilder mess_ = new StringBuilder();
                 mess_.append(_firstArgs.size());
                 mess_.append(">=");
-                mess_.append(params_.size());
+                mess_.append(0);
                 p_.setError(new ErrorStruct(_conf,mess_.toString(),cast_));
                 return p_;
             }
             return p_;
         }
-        if (hasFormat_) {
-            int i_ = 0;
-            for (String c: _id.getImportedParametersTypes()) {
-                String c_ = c;
-                c_ = quickFormat(_rootBlock,_classNameFound, c_);
-                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
-        } else {
-            int i_ = 0;
-            for (String c: _id.getImportedParametersTypes()) {
-                String c_ = c;
-                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
-                    c_ = StringExpUtil.getPrettyArrayType(c_);
-                }
-                params_.add(c_);
-                i_++;
-            }
-        }
+        StringList params_ = fetchParamTypes(_rootBlock, _id, _classNameFound, hasFormat_);
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getAliasBadIndex();
@@ -466,7 +454,8 @@ public final class ExecTemplates {
                 p_.setError(ex_);
                 return p_;
             }
-            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_conf);
+            Struct struct_ = a.getStruct();
+            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,param_);
             p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
             i_++;
         }
@@ -500,11 +489,39 @@ public final class ExecTemplates {
         return p_;
     }
 
-    public static Parameters quickWrap(ExecNamedFunctionBlock _id, CustList<Argument> _firstArgs, ContextEl _conf) {
+    private static StringList fetchParamTypes(ExecRootBlock _rootBlock, ExecNamedFunctionBlock _id, String _classNameFound, boolean _hasFormat) {
+        StringList params_ = new StringList();
+        if (_hasFormat) {
+            int i_ = 0;
+            for (String c: _id.getImportedParametersTypes()) {
+                String c_ = c;
+                c_ = quickFormat(_rootBlock,_classNameFound, c_);
+                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
+                    c_ = StringExpUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        } else {
+            int i_ = 0;
+            for (String c: _id.getImportedParametersTypes()) {
+                String c_ = c;
+                if (i_ + 1 == _id.getImportedParametersTypes().size() && _id.isVarargs()) {
+                    c_ = StringExpUtil.getPrettyArrayType(c_);
+                }
+                params_.add(c_);
+                i_++;
+            }
+        }
+        return params_;
+    }
+
+    public static Parameters quickWrap(ExecNamedFunctionBlock _id, ExecRootBlock _root, String _formatted, CustList<Argument> _firstArgs, ContextEl _conf) {
         Parameters p_ = new Parameters();
         int i_ = CustList.FIRST_INDEX;
+        StringList params_ = fetchParamTypes(_root, _id, _formatted, true);
         for (Argument a: _firstArgs) {
-            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),_conf);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(a.getStruct(),params_.get(i_));
             p_.getParameters().addEntry(_id.getParametersNames().get(i_),lv_);
             i_++;
         }
@@ -533,7 +550,10 @@ public final class ExecTemplates {
         return ex_ == null;
     }
     public static Parameters okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        return okArgsSet(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
+        return okArgs(_rootBlock,_id,_format,_classNameFound,null,_firstArgs,_conf,_right);
+    }
+    public static Parameters okArgs(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        return okArgsSet(_rootBlock,_id, _format, _classNameFound, _cache, _firstArgs, _conf, _right);
     }
     public static Struct okArgsSet(Identifiable _id, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
         Struct ex_ = okArgsEx(_id, _classNameFound, _firstArgs, _conf, _right);
@@ -542,8 +562,9 @@ public final class ExecTemplates {
         }
         return ex_;
     }
-    public static Parameters okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
-        Parameters ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound, _firstArgs, _conf, _right);
+
+    public static Parameters okArgsSet(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _id, boolean _format, String _classNameFound, Cache _cache, CustList<Argument> _firstArgs, ContextEl _conf, Argument _right) {
+        Parameters ex_ = okArgsEx(_rootBlock,_id, _format, _classNameFound,_cache, _firstArgs, _conf, _right);
         if (ex_.getError() != null) {
             _conf.setException(ex_.getError());
         }
@@ -875,6 +896,18 @@ public final class ExecTemplates {
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
+            Cache cache_ = _lastPage.getCache();
+            if (cache_ != null) {
+                LoopVariable loopVar_ = cache_.getLoopVar(_val);
+                if (loopVar_ != null) {
+                    Argument a_ = new Argument();
+                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
+                    LongStruct str_ = new LongStruct(loopVar_.getIndex());
+                    Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
+                    a_.setStruct(value_);
+                    return a_;
+                }
+            }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
@@ -894,6 +927,14 @@ public final class ExecTemplates {
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
+            Cache cache_ = _lastPage.getCache();
+            if (cache_ != null) {
+                LoopVariable loopVar_ = cache_.getLoopVar(_val);
+                if (loopVar_ != null) {
+                    loopVar_.setIndex(loopVar_.getIndex() + 1);
+                    return;
+                }
+            }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return;
@@ -905,6 +946,15 @@ public final class ExecTemplates {
         LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
+            Cache cache_ = _lastPage.getCache();
+            if (cache_ != null) {
+                LocalVariable loopVar_ = cache_.getLocalVar(_val);
+                if (loopVar_ != null) {
+                    Argument a_ = new Argument();
+                    a_.setStruct(loopVar_.getStruct());
+                    return a_;
+                }
+            }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();
@@ -921,6 +971,13 @@ public final class ExecTemplates {
         LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
+            Cache cache_ = _lastPage.getCache();
+            if (cache_ != null) {
+                LocalVariable loopVar_ = cache_.getLocalVar(_val);
+                if (loopVar_ != null) {
+                    return checkSet(_context,loopVar_,_value);
+                }
+            }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();

@@ -4,22 +4,35 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.blocks.AnonymousFunctionBlock;
 import code.expressionlanguage.analyze.blocks.MethodKind;
+import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.GeneCustModifierMethod;
+import code.expressionlanguage.exec.util.CacheInfo;
+import code.expressionlanguage.exec.util.NameAndType;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock implements GeneCustModifierMethod,ExecReturnableWithSignature {
 
     private final boolean staticMethod;
     private final boolean staticCallMethod;
     private ExecRootBlock parentType;
+    private final CacheInfo cacheInfo = new CacheInfo();
 
     public ExecAnonymousFunctionBlock(AnonymousFunctionBlock _offset) {
         super(_offset);
         staticMethod = _offset.isStaticMethod();
         staticCallMethod = _offset.isStaticCallMethod();
+        for (AnaNamedLocalVariable e: _offset.getCache().getLocalVariables()) {
+            cacheInfo.getCacheLocalNames().add(new NameAndType(e.getName(),e.getLocalVariable().getClassName()));
+        }
+        for (AnaNamedLoopVariable e: _offset.getCache().getLoopVariables()) {
+            cacheInfo.getCacheLoopNames().add(new NameAndType(e.getName(),e.getLocalVariable().getIndexClassName()));
+        }
     }
 
     @Override
@@ -59,5 +72,9 @@ public final class ExecAnonymousFunctionBlock extends ExecNamedFunctionBlock imp
 
     public void setParentType(ExecRootBlock parentType) {
         this.parentType = parentType;
+    }
+
+    public CacheInfo getCacheInfo() {
+        return cacheInfo;
     }
 }

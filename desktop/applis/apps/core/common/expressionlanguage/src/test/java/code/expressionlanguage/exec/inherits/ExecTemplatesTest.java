@@ -8,6 +8,10 @@ import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -649,6 +653,45 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertNotNull(getException(cont_));
     }
     @Test
+    public void getIndexLoop2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        instancingClass_.setCache(new Cache());
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void getIndexLoop3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        Cache cache_ = new Cache();
+        LoopVariable loopVariable = new LoopVariable();
+        loopVariable.setIndex(2);
+        loopVariable.setIndexClassName(cont_.getStandards().getAliasPrimInteger());
+        cache_.addLoop("myvar", loopVariable);
+        cache_.setClassLoopValue(-1,"");
+        instancingClass_.setCache(cache_);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", cont_.getLastPage());
+        assertNull(getException(cont_));
+        assertEq(2,getNumber(myvar_));
+    }
+    @Test
     public void getValue() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -661,6 +704,42 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getValue(cont_,"", cont_.getLastPage());
         assertNotNull(getException(cont_));
+    }
+    @Test
+    public void getValue2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        instancingClass_.setCache(new Cache());
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.getValue(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void getValue3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        Cache cache_ = new Cache();
+        cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
+        cache_.setClassLocalValue(-1,"");
+        instancingClass_.setCache(cache_);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", cont_.getLastPage());
+        assertNull(getException(cont_));
+        assertEq(2,getNumber(myvar_));
     }
     @Test
     public void setValue() {
@@ -677,6 +756,42 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertNotNull(getException(cont_));
     }
     @Test
+    public void setValue2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        instancingClass_.setCache(new Cache());
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null);
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void setValue3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        Cache cache_ = new Cache();
+        cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
+        instancingClass_.setCache(cache_);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", cont_.getLastPage(), new Argument(new IntStruct(4)));
+        assertNull(getException(cont_));
+        assertEq(4,getNumber(myvar_));
+        assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar"))));
+    }
+    @Test
     public void incrValue() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
@@ -689,6 +804,44 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
         assertNotNull(getException(cont_));
+    }
+    @Test
+    public void incrValue2() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        instancingClass_.setCache(new Cache());
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
+        assertNotNull(getException(cont_));
+    }
+    @Test
+    public void incrValue3() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        Cache cache_ = new Cache();
+        LoopVariable loopVariable = new LoopVariable();
+        loopVariable.setIndex(2);
+        loopVariable.setIndexClassName(cont_.getStandards().getAliasPrimInteger());
+        cache_.addLoop("myvar", loopVariable);
+        instancingClass_.setCache(cache_);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage());
+        assertNull(getException(cont_));
+        assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar"))));
     }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();

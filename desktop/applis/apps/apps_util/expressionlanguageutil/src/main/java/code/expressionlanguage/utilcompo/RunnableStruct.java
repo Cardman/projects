@@ -108,7 +108,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getRootBlock(), mId_.getOverridableBlock(), _args, _r);
     }
     public static Argument invoke(Argument _global, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont) {
-        Argument arg_ = ProcessMethod.calculateArgument(_global, _class,_rootBlock, _method, ExecTemplates.quickWrap(_method,_args,_cont), _cont);
+        Argument arg_ = ProcessMethod.calculateArgument(_global, _class,_rootBlock, _method, ExecTemplates.quickWrap(_method,_rootBlock,_class,_args,_cont), _cont);
         _cont.getCustInit().prExc(_cont);
         return arg_;
     }

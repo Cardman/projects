@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.OperatorCmp;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -47,6 +48,8 @@ public final class AliasReflection {
     private String aliasGetDeclaredFields;
     private String aliasGetDeclaredBlocks;
     private String aliasGetDeclaredAnonymousLambda;
+    private String aliasGetDeclaredAnonymousLambdaLocalVars;
+    private String aliasGetDeclaredAnonymousLambdaLoopVars;
     private String aliasGetDeclaredLocalTypes;
     private String aliasGetDeclaredAnonymousTypes;
     private String aliasGetSuperClass;
@@ -410,7 +413,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
@@ -463,7 +466,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
@@ -537,10 +540,28 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasObject_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, StringExpUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasObject_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, _stds.getAliasLong(), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, StringExpUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
@@ -677,6 +698,7 @@ public final class AliasReflection {
                         String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
                         String idCl_ = parType_.getFullName();
                         MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                        met_.setCache(new Cache(f));
                         met_.setAnnotableBlock(f);
                         met_.setCallee(f);
                         met_.setCalleeInv(f);
@@ -844,6 +866,82 @@ public final class AliasReflection {
                 ExecMemberCallingsBlock callee_ = method_.getCallee();
                 ArrayStruct str_ = fetchAnonLambdaCallee(_cont, args_, aliasMethod_, declaringClass_, callee_);
                 result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLocalVars)) {
+                if (args_.length == 2) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        cache_.putLocalValue(NumParsers.getString(args_[0]),args_[1]);
+                    }
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                if (args_.length == 1) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0])));
+                    } else {
+                        result_.setResult(NullStruct.NULL_VALUE);
+                    }
+                    return result_;
+                }
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                Cache cache_ = method_.getCache();
+                String arrStr_ = lgNames_.getAliasString();
+                arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
+                if (cache_ != null) {
+                    StringList localVars_ = cache_.getLocalVars();
+                    int size_ = localVars_.size();
+                    Struct[] arr_ = new Struct[size_];
+                    for (int i = 0; i < size_; i++) {
+                        arr_[i] = Argument.wrapStr(localVars_.get(i));
+                    }
+                    result_.setResult(new ArrayStruct(arr_,arrStr_));
+                    return result_;
+                }
+                result_.setResult(NullStruct.NULL_VALUE);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLoopVars)) {
+                if (args_.length == 2) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        if (args_[1] instanceof NumberStruct) {
+                            cache_.putLoopValue(NumParsers.getString(args_[0]),((NumberStruct)args_[1]).longStruct());
+                        }
+                    }
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
+                if (args_.length == 1) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0])));
+                    } else {
+                        result_.setResult(NullStruct.NULL_VALUE);
+                    }
+                    return result_;
+                }
+                MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                Cache cache_ = method_.getCache();
+                String arrStr_ = lgNames_.getAliasString();
+                arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
+                if (cache_ != null) {
+                    StringList localVars_ = cache_.getLoopVars();
+                    int size_ = localVars_.size();
+                    Struct[] arr_ = new Struct[size_];
+                    for (int i = 0; i < size_; i++) {
+                        arr_[i] = Argument.wrapStr(localVars_.get(i));
+                    }
+                    result_.setResult(new ArrayStruct(arr_,arrStr_));
+                    return result_;
+                }
+                result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
@@ -2051,6 +2149,7 @@ public final class AliasReflection {
                     idCl_ = declaringClass_;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f));
                 met_.setAnnotableBlock(f);
                 met_.setCallee(f);
                 met_.setCalleeInv(f);
@@ -2333,6 +2432,22 @@ public final class AliasReflection {
 
     public void setAliasGetDeclaredAnonymousLambda(String aliasGetDeclaredAnonymousLambda) {
         this.aliasGetDeclaredAnonymousLambda = aliasGetDeclaredAnonymousLambda;
+    }
+
+    public String getAliasGetDeclaredAnonymousLambdaLocalVars() {
+        return aliasGetDeclaredAnonymousLambdaLocalVars;
+    }
+
+    public void setAliasGetDeclaredAnonymousLambdaLocalVars(String aliasGetDeclaredAnonymousLambdaLocalVars) {
+        this.aliasGetDeclaredAnonymousLambdaLocalVars = aliasGetDeclaredAnonymousLambdaLocalVars;
+    }
+
+    public String getAliasGetDeclaredAnonymousLambdaLoopVars() {
+        return aliasGetDeclaredAnonymousLambdaLoopVars;
+    }
+
+    public void setAliasGetDeclaredAnonymousLambdaLoopVars(String aliasGetDeclaredAnonymousLambdaLoopVars) {
+        this.aliasGetDeclaredAnonymousLambdaLoopVars = aliasGetDeclaredAnonymousLambdaLoopVars;
     }
 
     public String getAliasGetDeclaredBlocks() {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.common.GeneCustStaticMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -18,6 +19,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     private final boolean staticMethod;
     private final boolean staticCallMethod;
     private int numberLambda;
+    private final AnaCache cache = new AnaCache();
 
     public AnonymousFunctionBlock(ContextEl _importingPage,
                             int _fctName,
@@ -126,5 +128,9 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
 
     public void setNumberLambda(int numberLambda) {
         this.numberLambda = numberLambda;
+    }
+
+    public AnaCache getCache() {
+        return cache;
     }
 }

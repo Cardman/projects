@@ -52,6 +52,9 @@ public final class FinalVariableOperation extends LeafOperation {
             return;
         }
         AnaLoopVariable val_ = _conf.getAnalyzing().getLoopsVars().getVal(str_);
+        if (val_ == null) {
+            val_ = _conf.getAnalyzing().getLoopsCache().getVal(str_);
+        }
         if (val_ != null) {
             ref = val_.getRef();
             variableName = str_;

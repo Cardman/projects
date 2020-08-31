@@ -3336,7 +3336,7 @@ public class LgNamesGui extends LgNamesUtils {
                 Argument arg_ = new Argument(inst_);
                 ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                 ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintMethod();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, new CustList<Argument>(arg_),_cont)));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, new CustList<Argument>(arg_),_cont)));
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
@@ -4175,7 +4175,7 @@ public class LgNamesGui extends LgNamesUtils {
                     CustList<Argument> args_ = new CustList<Argument>(arg_);
                     ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                     ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
-                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+                    _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
                 }
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
@@ -4186,7 +4186,7 @@ public class LgNamesGui extends LgNamesUtils {
                 CustList<Argument> args_ = new CustList<Argument>(arg_);
                 ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
                 ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintRefresh();
-                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+                _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -4211,7 +4211,7 @@ public class LgNamesGui extends LgNamesUtils {
             args_.add(new Argument(_args[1]));
             ExecRootBlock classBody_ = ((GuiContextEl)_cont).getPaint();
             ExecNamedFunctionBlock fct_ = ((GuiContextEl)_cont).getPaintAdd();
-            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_, args_,_cont)));
+            _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),aliasPaint, classBody_,fct_, ExecTemplates.quickWrap(fct_,classBody_,aliasPaint, args_,_cont)));
             return res_;
         }
         if (StringList.quickEq(type_, aliasCombo)) {

@@ -38,6 +38,9 @@ public final class FullFieldRetriever implements FieldRetriever {
     public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
         AnalyzedPageEl ana_ = context.getAnalyzing();
         AnaLocalVariable val_ = ana_.getInfosVars().getVal(_word);
+        if (val_ == null) {
+            val_ = ana_.getInfosCache().getVal(_word);
+        }
         if (val_ != null) {
             ConstType type_;
             type_ = val_.getConstType();

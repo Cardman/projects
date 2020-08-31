@@ -1726,6 +1726,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasGetDeclaredFields(get(_util,_cust, GET_DECLARED_FIELDS));
         setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
         setAliasGetDeclaredAnonymousLambda(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
+        setAliasGetDeclaredAnonymousLambdaLocalVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS));
+        setAliasGetDeclaredAnonymousLambdaLoopVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
         setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
         setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
         setAliasField(get(_util,_cust, FIELD));

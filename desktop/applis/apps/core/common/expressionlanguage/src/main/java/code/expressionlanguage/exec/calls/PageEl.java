@@ -5,6 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.blocks.ExecUniqueRootedBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -20,6 +21,7 @@ public abstract class PageEl {
 
     private StringMap<LoopVariable> vars;
     private StringMap<LocalVariable> valueVars = new StringMap<LocalVariable>();
+    private Cache cache;
     protected PageEl() {
         setVars(new StringMap<LoopVariable>());
     }
@@ -79,5 +81,13 @@ public abstract class PageEl {
 
     public void setBlockRootType(ExecRootBlock _blockRootType) {
         blockRootType = _blockRootType;
+    }
+
+    public Cache getCache() {
+        return cache;
+    }
+
+    public void setCache(Cache cache) {
+        this.cache = cache;
     }
 }

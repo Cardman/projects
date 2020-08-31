@@ -173,7 +173,7 @@ public final class ApplyCoreMethodUtil {
                 _result.setResult(ExecInvokingOperation.prepareCallDyn(fct_,argsToPass_,_cont).getStruct());
                 return _result;
             }
-            Parameters parameters_ = ExecTemplates.quickWrap(meth_,argsToPass_,_cont);
+            Parameters parameters_ = ExecTemplates.quickWrap(meth_,type_,cl_,argsToPass_,_cont);
             _cont.setCallingState(new CustomFoundMethod(argSeed_,cl_,type_,meth_,parameters_));
             return _result;
         }

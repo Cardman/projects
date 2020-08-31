@@ -1894,7 +1894,7 @@ public class LgNamesUtils extends LgNames {
                 ExecRootBlock classBody_ = _cont.getFormatType();
                 ExecNamedFunctionBlock fct_ = _cont.getFormatObject();
                 Argument arg_ = new Argument(_args[0]);
-                Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_),_cont);
+                Parameters parameters_ = ExecTemplates.quickWrap(fct_,classBody_,className_,new CustList<Argument>(arg_),_cont);
                 _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
                 return;
             }
@@ -1906,7 +1906,7 @@ public class LgNamesUtils extends LgNames {
             ExecNamedFunctionBlock fct_ = _cont.getFormatObjectTwo();
             Argument arg_ = new Argument(_args[0]);
             Argument argArr_ = new Argument(_args[1]);
-            Parameters parameters_ = ExecTemplates.quickWrap(fct_,new CustList<Argument>(arg_,argArr_),_cont);
+            Parameters parameters_ = ExecTemplates.quickWrap(fct_,classBody_,className_,new CustList<Argument>(arg_,argArr_),_cont);
             _cont.setCallingState(new CustomFoundMethod(Argument.createVoid(),className_, classBody_,fct_,parameters_));
             return;
         }
@@ -3940,6 +3940,8 @@ public class LgNamesUtils extends LgNames {
         setAliasGetDeclaredFields(get(_util,_cust, GET_DECLARED_FIELDS));
         setAliasGetDeclaredAnonymousTypes(get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
         setAliasGetDeclaredAnonymousLambda(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
+        setAliasGetDeclaredAnonymousLambdaLocalVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS));
+        setAliasGetDeclaredAnonymousLambdaLoopVars(get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
         setAliasGetDeclaredBlocks(get(_util,_cust, GET_DECLARED_BLOCKS));
         setAliasGetDeclaredLocalTypes(get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
         setAliasField(get(_util,_cust, FIELD));

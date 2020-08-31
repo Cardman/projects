@@ -6,10 +6,13 @@ import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.InaccessibleType;
+import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -38,6 +41,7 @@ public final class AnalyzedPageEl {
 
     private final StringMap<AnaLocalVariable> infosVars = new StringMap<AnaLocalVariable>();
     private final StringMap<AnaLoopVariable> loopsVars = new StringMap<AnaLoopVariable>();
+    private final AnaCache cache = new AnaCache();
 
     private MemberCallingsBlock currentFct;
     private AccessedBlock importing;
@@ -184,8 +188,37 @@ public final class AnalyzedPageEl {
         return infosVars;
     }
 
+    public StringMap<AnaLocalVariable> getInfosCache() {
+        StringMap<AnaLocalVariable> map_ = new StringMap<AnaLocalVariable>();
+        for (AnaNamedLocalVariable a: getCache().getLocalVariables()){
+            AnaLocalVariable v_ = new AnaLocalVariable();
+            v_.setRef(a.getRef());
+            v_.setConstType(a.getLocalVariable().getConstType());
+            v_.setFinalVariable(a.isFinalVariable());
+            v_.setClassName(a.getLocalVariable().getClassName());
+            map_.addEntry(a.getName(), v_);
+        }
+        return map_;
+    }
+
     public StringMap<AnaLoopVariable> getLoopsVars() {
         return loopsVars;
+    }
+
+    public StringMap<AnaLoopVariable> getLoopsCache() {
+        StringMap<AnaLoopVariable> map_ = new StringMap<AnaLoopVariable>();
+        for (AnaNamedLoopVariable a: getCache().getLoopVariables()){
+            AnaLoopVariable v_ = new AnaLoopVariable();
+            v_.setRef(a.getRef());
+            v_.setFinalVariable(a.isFinalVariable());
+            v_.setIndexClassName(a.getLocalVariable().getIndexClassName());
+            map_.addEntry(a.getName(), v_);
+        }
+        return map_;
+    }
+
+    public AnaCache getCache() {
+        return cache;
     }
 
     public int getOffset() {

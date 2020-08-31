@@ -300,21 +300,21 @@ public final class ResolvingImportTypes {
             partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+void_.length()));
             return "";
         }
+        if (tr_.isEmpty()) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(rc_);
+            //_in len
+            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            _analyzable.getAnalyzing().getLocalizer().addError(un_);
+            String err_ = un_.getBuiltError();
+            String pref_ = "<a title=\""+err_+"\" class=\"e\">";
+            partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
+            partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
+            return "";
+        }
         RootBlock b_ = _analyzable.getAnalyzing().getAnaClassBody(res_);
         if (b_ == null) {
-            if (tr_.isEmpty()) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_analyzable.getAnalyzing().getLocalizer().getCurrentFileName());
-                un_.setIndexFile(rc_);
-                //_in len
-                un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
-                _analyzable.getAnalyzing().getLocalizer().addError(un_);
-                String err_ = un_.getBuiltError();
-                String pref_ = "<a title=\""+err_+"\" class=\"e\">";
-                partOffsets_.add(new PartOffset(pref_,rc_+firstOff_+_loc));
-                partOffsets_.add(new PartOffset("</a>",rc_+firstOff_+_loc+1));
-                return "";
-            }
             MappingLocalType resolved_ = _analyzable.getAnalyzing().getMappingLocal().getVal(base_);
             if (resolved_ != null) {
                 ContextUtil.appendParts(_analyzable,firstOff_+_loc,firstOff_+_loc + base_.length(),resolved_.getFullName(),partOffsets_);

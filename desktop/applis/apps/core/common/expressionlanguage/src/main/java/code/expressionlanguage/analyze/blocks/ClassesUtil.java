@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
@@ -175,6 +176,19 @@ public final class ClassesUtil {
                         value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
                     }
                 }
+            }
+        }
+        for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: page_.getMapAnonLambda().entryList()) {
+            AnonymousFunctionBlock key_ = a.getKey();
+            ExecAnonymousFunctionBlock value_ = a.getValue();
+            for (AnonymousFunctionBlock e: key_.getAnonymousFct()) {
+                value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(e.getNumberLambda()));
+            }
+            for (AnonymousTypeBlock e: key_.getAnonymous()) {
+                value_.getAnonymous().add(page_.getMapTypes().getValue(e.getNumberAll()));
+            }
+            for (RootBlock e: key_.getReserved()) {
+                value_.getReserved().add(page_.getMapTypes().getValue(e.getNumberAll()));
             }
         }
     }
@@ -446,6 +460,10 @@ public final class ClassesUtil {
                 _context.getAnalyzing().setGlobalClass(c_.getGenericString());
                 _context.getAnalyzing().setGlobalType(c_);
                 _context.getAnalyzing().setGlobalDirType(c_);
+                _context.getAnalyzing().getCache().getLocalVariables().clear();
+                _context.getAnalyzing().getCache().getLoopVariables().clear();
+                _context.getAnalyzing().getCache().getLocalVariables().addAllElts(method_.getCache().getLocalVariables());
+                _context.getAnalyzing().getCache().getLoopVariables().addAllElts(method_.getCache().getLoopVariables());
                 _context.getCoverage().putCalls(_context,c_.getFullName(),method_);
                 StringList params_ = method_.getParametersNames();
                 StringList types_ = method_.getImportedParametersTypes();

@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -8,6 +9,7 @@ import code.util.StringMap;
 public final class Parameters {
     private Struct error;
     private final StringMap<LocalVariable> parameters = new StringMap<LocalVariable>();
+    private Cache cache;
     private Argument right;
 
     public Struct getError() {
@@ -20,6 +22,14 @@ public final class Parameters {
 
     public StringMap<LocalVariable> getParameters() {
         return parameters;
+    }
+
+    public Cache getCache() {
+        return cache;
+    }
+
+    public void setCache(Cache cache) {
+        this.cache = cache;
     }
 
     public Argument getRight() {

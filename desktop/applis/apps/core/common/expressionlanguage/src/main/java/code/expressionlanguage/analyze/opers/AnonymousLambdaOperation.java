@@ -9,6 +9,10 @@ import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -19,10 +23,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public final class AnonymousLambdaOperation extends
         LeafOperation {
@@ -46,6 +47,18 @@ public final class AnonymousLambdaOperation extends
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        for (EntryCust<String,AnaLocalVariable> e: _conf.getAnalyzing().getInfosVars().entryList()) {
+            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
+        }
+        for (EntryCust<String,AnaLocalVariable> e: _conf.getAnalyzing().getInfosCache().entryList()) {
+            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
+        }
+        for (EntryCust<String,AnaLoopVariable> e: _conf.getAnalyzing().getLoopsVars().entryList()) {
+            block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
+        }
+        for (EntryCust<String,AnaLoopVariable> e: _conf.getAnalyzing().getLoopsCache().entryList()) {
+            block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
+        }
         analyzeCtor(_conf);
     }
     private void analyzeCtor(ContextEl _conf) {
