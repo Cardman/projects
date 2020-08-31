@@ -644,16 +644,11 @@ public final class ElResolver {
 
         int len_ = _string.length();
         int i_ = _i;
-        ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
-        resKeyWords_.setNextIndex(i_);
-        ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
-        resWords_.setNextIndex(i_);
-        resWords_.setLastDoubleDot(i_);
         if (_curChar == PAR_LEFT) {
             int rightPar_ = _string.indexOf(')', i_);
             if (rightPar_ > -1) {
                 String substring_ = _string.substring(i_+1,rightPar_+1);
-                if (substring_.indexOf('(') < 0) {
+                if (noInternDelimiter(substring_)) {
                     String info_ = _string.substring(rightPar_+1);
                     String tr_ = info_.trim();
                     int off_ = StringList.getFirstPrintableCharIndex(info_);
@@ -676,6 +671,7 @@ public final class ElResolver {
                             int k_ = res_.getNextIndex() - 1;
                             return k_+1;
                         }
+                        return rightPar_+1;
                     }
                 }
             }
@@ -1946,11 +1942,6 @@ public final class ElResolver {
         int i_ = doubleDotted_.getNextIndex();
         KeyWords keyWords_ = _conf.getKeyWords();
         int nbChars_;
-        ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
-        resKeyWords_.setNextIndex(i_);
-        ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
-        resWords_.setNextIndex(i_);
-        resWords_.setLastDoubleDot(i_);
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
@@ -2027,7 +2018,7 @@ public final class ElResolver {
                 int rightPar_ = _string.indexOf(')', i_);
                 if (rightPar_ > -1) {
                     String substring_ = _string.substring(i_+1,rightPar_+1);
-                    if (substring_.indexOf('(') < 0) {
+                    if (noInternDelimiter(substring_)) {
                         String info_ = _string.substring(rightPar_+1);
                         String tr_ = info_.trim();
                         int off_ = StringList.getFirstPrintableCharIndex(info_);
@@ -2443,6 +2434,10 @@ public final class ElResolver {
         }
         i_++;
         doubleDotted_.setNextIndex(i_);
+    }
+
+    private static boolean noInternDelimiter(String _substring) {
+        return _substring.indexOf(PAR_LEFT) < 0 && _substring.indexOf(DELIMITER_CHAR) < 0 && _substring.indexOf(DELIMITER_STRING) < 0 && _substring.indexOf(DELIMITER_TEXT) < 0;
     }
 
     private static boolean isPossibleDigit(String _string, Delimiters _dout) {
