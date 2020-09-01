@@ -3960,7 +3960,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
         xml_.append("  return (int)v.invoke(null,2);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3984,7 +3984,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",\"3\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)\"3\");\n");
         xml_.append("  return (int)v.invoke(null,2);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4006,7 +4006,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append(" static int m(){\n");
         xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
         xml_.append("  return (int)v.getDeclaredAnonymousLambdaLocVars(\"a\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4030,7 +4030,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append(" static String m(){\n");
         xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLocVars()[0];\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4056,11 +4056,11 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
         xml_.append("  }\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",3);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"j\",3);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",\"3\");\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"i\",3);\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"j\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"j\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",(Object)\"3\");\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"i\",(Object)3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"j\",(Object)3);\n");
         xml_.append("  return (int)v.invoke(null,2);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4086,7 +4086,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
         xml_.append("  }\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4134,7 +4134,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static Long m(){\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4179,7 +4179,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static Object m(){\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"i\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"i\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"i\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4284,7 +4284,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
         xml_.append("  }\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"a\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4308,7 +4308,7 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         xml_.append(" static Object m(){\n");
         xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
         xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
-        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",3);\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",(Object)3);\n");
         xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"i\");\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -4377,6 +4377,254 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         Argument ret_ = new Argument();
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate167() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
+        xml_.append("  }\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"a\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(-1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate168() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"i\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+
+    @Test
+    public void calculate169() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
+        xml_.append("  }\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",1,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(-1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate170() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",1,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"a\",0);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+
+    @Test
+    public void calculate171() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
+        xml_.append("  }\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"i\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(-1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate172() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  Fct<int,Fct<int,int>> fct = a -> b -> a * b;\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"a\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+
+    @Test
+    public void calculate173() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
+        xml_.append("  }\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"a\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(-1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate174() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   Fct<int,int> fct = a -> a + ([i]) + i;\n");
+        xml_.append("  }\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0].getDeclaredAnonymousLambda()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"a\",0,(Object)\"3\");\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(-1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate175() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLocVars(\"a\",0,(Object)3);\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLocVars(\"a\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
+    }
+
+    @Test
+    public void calculate176() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Long m(){\n");
+        xml_.append("  var v = class(Ext).getDeclaredMethods()[0];\n");
+        xml_.append("  v.getDeclaredAnonymousLambdaLoopVars(\"a\",0,(Object)\"3\");\n");
+        xml_.append("  return v.getDeclaredAnonymousLambdaLoopVars(\"i\",1);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
     }
     @Test
     public void fail() {

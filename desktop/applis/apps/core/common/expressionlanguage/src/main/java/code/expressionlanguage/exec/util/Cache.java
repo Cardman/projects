@@ -25,14 +25,14 @@ public final class Cache {
 
     public Cache() {
     }
-    public Cache(ExecAnonymousFunctionBlock _fct) {
+    public Cache(ExecAnonymousFunctionBlock _fct, String _aliasObject) {
         for (NameAndType v: _fct.getCacheInfo().getCacheLocalNames()) {
-            addLocal(v.getName(),LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,""));
+            addLocal(v.getName(),LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,_aliasObject));
             cacheInfo.getCacheLocalNames().add(new NameAndType(v.getName(),v.getType()));
         }
         for (NameAndType v: _fct.getCacheInfo().getCacheLoopNames()) {
             LoopVariable l_ = new LoopVariable();
-            l_.setIndexClassName("");
+            l_.setIndexClassName(_aliasObject);
             l_.setIndex(-1);
             addLoop(v.getName(),l_);
             cacheInfo.getCacheLoopNames().add(new NameAndType(v.getName(),v.getType()));
@@ -97,17 +97,21 @@ public final class Cache {
         }
         return list_;
     }
-    public Struct getLocalValue(String _key) {
-        LocalVariable loc_ = getLocalVar(_key);
+    public Struct getLocalValue(String _key, long _var) {
+        LocalVariable loc_ = getLocalVar(_key,_var);
         if (loc_ != null) {
             return loc_.getStruct();
         }
         return NullStruct.NULL_VALUE;
     }
-    public LocalVariable getLocalVar(String _key) {
+    public LocalVariable getLocalVar(String _key, long _var) {
+        long index_ = 0;
         for (NamedLocalVariable n: localVariables) {
             if (StringList.quickEq(n.getName(),_key)) {
-                return n.getLocalVariable();
+                if (index_ == _var) {
+                    return n.getLocalVariable();
+                }
+                index_++;
             }
         }
         return null;
@@ -117,6 +121,18 @@ public final class Cache {
             if (StringList.quickEq(n.getName(),_key)) {
                 n.getLocalVariable().setStruct(_var);
                 break;
+            }
+        }
+    }
+    public void putLocalValue(String _key, long _index, Struct _var) {
+        long index_ = 0;
+        for (NamedLocalVariable n: localVariables) {
+            if (StringList.quickEq(n.getName(),_key)) {
+                if (index_ == _index) {
+                    n.getLocalVariable().setStruct(_var);
+                    break;
+                }
+                index_++;
             }
         }
     }
@@ -135,20 +151,36 @@ public final class Cache {
         }
         return list_;
     }
-    public Struct getLoopValue(String _key) {
-        LoopVariable loop_ = getLoopVar(_key);
+    public Struct getLoopValue(String _key, long _var) {
+        LoopVariable loop_ = getLoopVar(_key,_var);
         if (loop_ != null) {
             return new LongStruct(loop_.getIndex());
         }
         return new LongStruct(-1);
     }
-    public LoopVariable getLoopVar(String _key) {
+    public LoopVariable getLoopVar(String _key, long _var) {
+        long index_ = 0;
         for (NamedLoopVariable n: loopVariables) {
             if (StringList.quickEq(n.getName(),_key)) {
-                return n.getLocalVariable();
+                if (index_ == _var) {
+                    return n.getLocalVariable();
+                }
+                index_++;
             }
         }
         return null;
+    }
+    public void putLoopValue(String _key,long _index, long _var) {
+        long index_ = 0;
+        for (NamedLoopVariable n: loopVariables) {
+            if (StringList.quickEq(n.getName(),_key)) {
+                if (index_ == _index) {
+                    n.getLocalVariable().setIndex(_var);
+                    break;
+                }
+                index_++;
+            }
+        }
     }
     public void putLoopValue(String _key, long _var) {
         for (NamedLoopVariable n: loopVariables) {

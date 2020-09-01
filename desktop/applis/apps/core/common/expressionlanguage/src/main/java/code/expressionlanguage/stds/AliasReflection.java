@@ -545,6 +545,12 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,_stds.getAliasPrimLong(),aliasObject_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,_stds.getAliasPrimLong());
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, aliasObject_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasObject_);
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
@@ -553,6 +559,12 @@ public final class AliasReflection {
         methods_.put(method_.getId(), method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVars, params_, StringExpUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,_stds.getAliasPrimLong(),aliasObject_);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,_stds.getAliasPrimLong());
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, _stds.getAliasLong(), false, MethodModifier.FINAL, stdcl_);
         methods_.put(method_.getId(), method_);
         params_ = new StringList(aliasString_,aliasObject_);
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, aliasVoid_, false, MethodModifier.FINAL, stdcl_);
@@ -698,7 +710,7 @@ public final class AliasReflection {
                         String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
                         String idCl_ = parType_.getFullName();
                         MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                        met_.setCache(new Cache(f));
+                        met_.setCache(new Cache(f,lgNames_.getAliasObject()));
                         met_.setAnnotableBlock(f);
                         met_.setCallee(f);
                         met_.setCalleeInv(f);
@@ -869,9 +881,26 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLocalVars)) {
+                if (args_.length == 3) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        cache_.putLocalValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),args_[2]);
+                    }
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
                 if (args_.length == 2) {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
+                    if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
+                        if (cache_ != null) {
+                            result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                        } else {
+                            result_.setResult(NullStruct.NULL_VALUE);
+                        }
+                        return result_;
+                    }
                     if (cache_ != null) {
                         cache_.putLocalValue(NumParsers.getString(args_[0]),args_[1]);
                     }
@@ -882,7 +911,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0])));
+                        result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0]),0));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
@@ -906,9 +935,28 @@ public final class AliasReflection {
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambdaLoopVars)) {
+                if (args_.length == 3) {
+                    MethodMetaInfo method_ = NumParsers.getMethod(_struct);
+                    Cache cache_ = method_.getCache();
+                    if (cache_ != null) {
+                        if (args_[2] instanceof NumberStruct) {
+                            cache_.putLoopValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
+                        }
+                    }
+                    result_.setResult(NullStruct.NULL_VALUE);
+                    return result_;
+                }
                 if (args_.length == 2) {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
+                    if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
+                        if (cache_ != null) {
+                            result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                        } else {
+                            result_.setResult(NullStruct.NULL_VALUE);
+                        }
+                        return result_;
+                    }
                     if (cache_ != null) {
                         if (args_[1] instanceof NumberStruct) {
                             cache_.putLoopValue(NumParsers.getString(args_[0]),((NumberStruct)args_[1]).longStruct());
@@ -921,7 +969,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0])));
+                        result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0]),0));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
@@ -2134,6 +2182,7 @@ public final class AliasReflection {
     private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, Struct[] args_, String aliasMethod_, String declaringClass_, ExecMemberCallingsBlock callee_) {
         CustList<MethodMetaInfo> candidates_;
         candidates_ = new CustList<MethodMetaInfo>();
+        LgNames standards_ = _cont.getStandards();
         if (callee_ != null) {
             ObjectMap<MethodId, MethodMetaInfo> methods_ = new ObjectMap<MethodId, MethodMetaInfo>();
             for (ExecAnonymousFunctionBlock f: callee_.getAnonymousLambda()) {
@@ -2149,7 +2198,7 @@ public final class AliasReflection {
                     idCl_ = declaringClass_;
                 }
                 MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
-                met_.setCache(new Cache(f));
+                met_.setCache(new Cache(f,standards_.getAliasObject()));
                 met_.setAnnotableBlock(f);
                 met_.setCallee(f);
                 met_.setCalleeInv(f);

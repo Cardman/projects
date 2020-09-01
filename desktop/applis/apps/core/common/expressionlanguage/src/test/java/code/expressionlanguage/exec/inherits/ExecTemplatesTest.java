@@ -790,7 +790,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", cont_.getLastPage(), new Argument(new IntStruct(4)));
         assertNull(getException(cont_));
         assertEq(4,getNumber(myvar_));
-        assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar"))));
+        assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar",0))));
     }
     @Test
     public void incrValue() {
@@ -842,7 +842,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage());
         assertNull(getException(cont_));
-        assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar"))));
+        assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
     }
     @Test
     public void wrapAndCall() {

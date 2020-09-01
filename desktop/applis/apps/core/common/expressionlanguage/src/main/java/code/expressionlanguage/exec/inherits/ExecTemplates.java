@@ -907,7 +907,7 @@ public final class ExecTemplates {
         if (locVar_ == null) {
             Cache cache_ = _lastPage.getCache();
             if (cache_ != null) {
-                LoopVariable loopVar_ = cache_.getLoopVar(_val);
+                LoopVariable loopVar_ = cache_.getLoopVar(_val,0);
                 if (loopVar_ != null) {
                     Argument a_ = new Argument();
                     ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
@@ -938,7 +938,7 @@ public final class ExecTemplates {
         if (locVar_ == null) {
             Cache cache_ = _lastPage.getCache();
             if (cache_ != null) {
-                LoopVariable loopVar_ = cache_.getLoopVar(_val);
+                LoopVariable loopVar_ = cache_.getLoopVar(_val,0);
                 if (loopVar_ != null) {
                     loopVar_.setIndex(loopVar_.getIndex() + 1);
                     return;
@@ -957,7 +957,7 @@ public final class ExecTemplates {
         if (locVar_ == null) {
             Cache cache_ = _lastPage.getCache();
             if (cache_ != null) {
-                LocalVariable loopVar_ = cache_.getLocalVar(_val);
+                LocalVariable loopVar_ = cache_.getLocalVar(_val,0);
                 if (loopVar_ != null) {
                     Argument a_ = new Argument();
                     a_.setStruct(loopVar_.getStruct());
@@ -982,7 +982,7 @@ public final class ExecTemplates {
         if (locVar_ == null) {
             Cache cache_ = _lastPage.getCache();
             if (cache_ != null) {
-                LocalVariable loopVar_ = cache_.getLocalVar(_val);
+                LocalVariable loopVar_ = cache_.getLocalVar(_val,0);
                 if (loopVar_ != null) {
                     return checkSet(_context,loopVar_,_value);
                 }
