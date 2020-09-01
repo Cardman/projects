@@ -97,6 +97,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private RootBlock parentType;
     private ConstructorBlock emptyCtor;
+    private CustList<AnonymousTypeBlock> anonymousRoot = new CustList<AnonymousTypeBlock>();
+    private CustList<AnonymousFunctionBlock> anonymousRootFct = new CustList<AnonymousFunctionBlock>();
 
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
@@ -1998,5 +2000,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void setCountsAnonFct(int countsAnonFct) {
         this.countsAnonFct = countsAnonFct;
+    }
+
+    public CustList<AnonymousFunctionBlock> getAnonymousRootFct() {
+        return anonymousRootFct;
+    }
+
+    public CustList<AnonymousTypeBlock> getAnonymousRoot() {
+        return anonymousRoot;
     }
 }

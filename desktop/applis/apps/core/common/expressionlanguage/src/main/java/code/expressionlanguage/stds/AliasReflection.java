@@ -368,6 +368,15 @@ public final class AliasReflection {
         params_ = new StringList(aliasObject_,aliasPrimInt_,aliasObject_);
         method_ = new StandardMethod(aliasArraySet, params_, aliasVoid_, false, MethodModifier.STATIC, stdcl_);
         methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, stdcl_);
+        methods_.put(method_.getId(), method_);
         _stds.getStandards().put(aliasClassType, stdcl_);
         methods_ = new ObjectMap<MethodId, StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -2016,6 +2025,31 @@ public final class AliasReflection {
                 result_.setResult(NullStruct.NULL_VALUE);
                 return result_;
             }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousLambda)) {
+                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+                String declaringClass_ = cl_.getName();
+                ExecRootBlock callee_ = cl_.getRootBlock();
+                ArrayStruct str_ = fetchAnonLambdaCallee(_cont, args_, aliasMethod_, declaringClass_, callee_);
+                result_.setResult(str_);
+                return result_;
+            }
+            if (StringList.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
+                ClassMetaInfo cl_ = NumParsers.getClass(_struct);
+                StringList methods_;
+                methods_ = new StringList();
+                ExecRootBlock callee_ = cl_.getRootBlock();
+                fetchAnonymous(methods_, callee_);
+                String className_= StringExpUtil.getPrettyArrayType(aliasClass_);
+                Struct[] methodsArr_ = new Struct[methods_.size()];
+                int index_ = 0;
+                for (String t: methods_) {
+                    methodsArr_[index_] = ExecutingUtil.getExtendedClassMetaInfo(_cont,t,"");
+                    index_++;
+                }
+                ArrayStruct str_ = new ArrayStruct(methodsArr_, className_);
+                result_.setResult(str_);
+                return result_;
+            }
             ClassMetaInfo cl_ = NumParsers.getClass(_struct);
             StringList types_ = StringExpUtil.getAllTypes(cl_.getName());
             String owner_ = cl_.getName();
@@ -2224,6 +2258,46 @@ public final class AliasReflection {
         return new ArrayStruct(methodsArr_, className_);
     }
 
+    private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, Struct[] args_, String aliasMethod_, String declaringClass_, ExecRootBlock callee_) {
+        CustList<MethodMetaInfo> candidates_;
+        candidates_ = new CustList<MethodMetaInfo>();
+        LgNames standards_ = _cont.getStandards();
+        if (callee_ != null) {
+            ObjectMap<MethodId, MethodMetaInfo> methods_ = new ObjectMap<MethodId, MethodMetaInfo>();
+            for (ExecAnonymousFunctionBlock f: callee_.getAnonymousRootLambda()) {
+                MethodId id_ = f.getId();
+                ExecRootBlock _type = f.getParentType();
+                String ret_ = f.getImportedReturnType();
+                MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+                String idType_ = _type.getFullName();
+                String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+                String idCl_ = _type.getFullName();
+                MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+                met_.setCache(new Cache(f,standards_.getAliasObject()));
+                met_.setAnnotableBlock(f);
+                met_.setCallee(f);
+                met_.setCalleeInv(f);
+                met_.setDeclaring(_type);
+                met_.setFileName(f.getFile().getFileName());
+                methods_.addEntry(id_,met_);
+            }
+            if (args_.length == 0) {
+                for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
+                    candidates_.add(e.getValue());
+                }
+            } else {
+                filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
+            }
+        }
+        String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+        Struct[] methodsArr_ = new Struct[candidates_.size()];
+        int index_ = 0;
+        for (MethodMetaInfo c: candidates_) {
+            methodsArr_[index_] = c;
+            index_++;
+        }
+        return new ArrayStruct(methodsArr_, className_);
+    }
     private static void filterMethods(ContextEl _cont, Struct[] args_, String declaringClass_, CustList<MethodMetaInfo> candidates_, ObjectMap<MethodId, MethodMetaInfo> methods_) {
         if (ExecTemplates.correctNbParameters(declaringClass_,_cont)) {
             for (EntryCust<MethodId, MethodMetaInfo> e: methods_.entryList()) {
@@ -2258,6 +2332,13 @@ public final class AliasReflection {
         }
     }
 
+    private static void fetchAnonymous(StringList methods_, ExecRootBlock callee_) {
+        if (callee_ != null) {
+            for (ExecRootBlock c: callee_.getAnonymousRoot()) {
+                methods_.add(c.getFullName());
+            }
+        }
+    }
     private static String getReturnTypeClone(ContextEl _cont, String _instClass, String _idCl) {
         String ret_;
         if (ExecTemplates.correctNbParameters(_instClass, _cont)) {

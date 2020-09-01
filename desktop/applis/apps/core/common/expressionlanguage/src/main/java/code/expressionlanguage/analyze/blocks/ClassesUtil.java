@@ -156,16 +156,9 @@ public final class ClassesUtil {
             IdMap<InfoBlock, ExecInfoBlock> allFields_ = valueMember_.getAllFields();
             for (Block b: ClassesUtil.getDirectChildren(root_)) {
                 if (b instanceof MemberCallingsBlock) {
-                    ExecMemberCallingsBlock value_ = allFct_.getValue(((MemberCallingsBlock) b).getNumberFct());
-                    for (AnonymousTypeBlock a: ((MemberCallingsBlock)b).getAnonymous()) {
-                        value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
-                    }
-                    for (RootBlock a: ((MemberCallingsBlock)b).getReserved()) {
-                        value_.getReserved().add(page_.getMapTypes().getValue(a.getNumberAll()));
-                    }
-                    for (AnonymousFunctionBlock a: ((MemberCallingsBlock)b).getAnonymousFct()) {
-                        value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
-                    }
+                    MemberCallingsBlock b1_ = (MemberCallingsBlock) b;
+                    ExecMemberCallingsBlock value_ = allFct_.getValue(b1_.getNumberFct());
+                    feedFct(page_, b1_, value_);
                 }
                 if (b instanceof InfoBlock) {
                     ExecInfoBlock value_ = allFields_.getValue(((InfoBlock)b).getFieldNumber());
@@ -177,19 +170,30 @@ public final class ClassesUtil {
                     }
                 }
             }
+            ExecRootBlock value_ = e.getValue();
+            for (AnonymousFunctionBlock a: root_.getAnonymousRootFct()) {
+                value_.getAnonymousRootLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
+            }
+            for (AnonymousTypeBlock a: root_.getAnonymousRoot()) {
+                value_.getAnonymousRoot().add(page_.getMapTypes().getValue(a.getNumberAll()));
+            }
         }
         for (EntryCust<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> a: page_.getMapAnonLambda().entryList()) {
             AnonymousFunctionBlock key_ = a.getKey();
             ExecAnonymousFunctionBlock value_ = a.getValue();
-            for (AnonymousFunctionBlock e: key_.getAnonymousFct()) {
-                value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(e.getNumberLambda()));
-            }
-            for (AnonymousTypeBlock e: key_.getAnonymous()) {
-                value_.getAnonymous().add(page_.getMapTypes().getValue(e.getNumberAll()));
-            }
-            for (RootBlock e: key_.getReserved()) {
-                value_.getReserved().add(page_.getMapTypes().getValue(e.getNumberAll()));
-            }
+            feedFct(page_, key_, value_);
+        }
+    }
+
+    private static void feedFct(AnalyzedPageEl page_, MemberCallingsBlock b1_, ExecMemberCallingsBlock value_) {
+        for (AnonymousFunctionBlock a: b1_.getAnonymousFct()) {
+            value_.getAnonymousLambda().add(page_.getMapAnonLambda().getValue(a.getNumberLambda()));
+        }
+        for (AnonymousTypeBlock a: b1_.getAnonymous()) {
+            value_.getAnonymous().add(page_.getMapTypes().getValue(a.getNumberAll()));
+        }
+        for (RootBlock a: b1_.getReserved()) {
+            value_.getReserved().add(page_.getMapTypes().getValue(a.getNumberAll()));
         }
     }
 

@@ -2653,6 +2653,84 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage458Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("@Annot(field=(:int)->{return Int.FIELD;}.call())\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"t\">(:int)<a name=\"m103\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span>.<b>call</b>())\n" +
+                "class <a name=\"m139\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m161\">m</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage459Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append("@Annot(field=(:int)->{return Int.FIELD;}.call())\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <span class=\"g\"><span class=\"g\"><a name=\"m34\">FIELD</a></span>=<span class=\"g\">1</span></span>;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<span class=\"t\">(:int)<a name=\"m119\">-&gt;</a>{return <span class=\"n\"><span class=\"n\"><a title=\"pkg.Int\" href=\"#m6\">Int</a></span>.<span class=\"n\"><a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a></span></span>;}</span>.<b>call</b>())\n" +
+                " static int <a name=\"m161\">m</a>(){\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

@@ -219,6 +219,10 @@ public final class AnonymousLambdaOperation extends
         Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
+        } else if (currentBlock_ instanceof MemberCallingsBlock) {
+            ((MemberCallingsBlock)currentBlock_).getAnonymousFct().add(block);
+        } else if (currentBlock_ instanceof RootBlock) {
+            ((RootBlock)currentBlock_).getAnonymousRootFct().add(block);
         }
         String importedReturnType_ = block.getImportedReturnType();
         ParametersGroup p_ = new ParametersGroup();

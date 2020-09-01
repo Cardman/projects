@@ -45,6 +45,8 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final CustList<ExecInnerTypeOrElement> enumElements = new CustList<ExecInnerTypeOrElement>();
     private String suffix;
     private ExecNamedFunctionBlock emptyCtor;
+    private CustList<ExecRootBlock> anonymousRoot = new CustList<ExecRootBlock>();
+    private CustList<ExecAnonymousFunctionBlock> anonymousRootLambda = new CustList<ExecAnonymousFunctionBlock>();
 
     ExecRootBlock(RootBlock _offset) {
         super(_offset.getOffset());
@@ -376,5 +378,13 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
 
     public void setEmptyCtor(ExecNamedFunctionBlock _emptyCtor) {
         emptyCtor = _emptyCtor;
+    }
+
+    public CustList<ExecRootBlock> getAnonymousRoot() {
+        return anonymousRoot;
+    }
+
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousRootLambda() {
+        return anonymousRootLambda;
     }
 }

@@ -157,6 +157,10 @@ public final class AnonymousInstancingOperation extends
         Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymous().add(block);
+        } else if (currentBlock_ instanceof MemberCallingsBlock) {
+            ((MemberCallingsBlock)currentBlock_).getAnonymous().add(block);
+        } else if (currentBlock_ instanceof RootBlock) {
+            ((RootBlock)currentBlock_).getAnonymousRoot().add(block);
         }
         block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());

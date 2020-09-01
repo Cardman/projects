@@ -53,6 +53,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private AccessEnum access;
     private String fileName = EMPTY_STRING;
     private ExecAnnotableBlock annotableBlock;
+    private ExecRootBlock rootBlock;
     public ClassMetaInfo(String _name) {
         name = _name;
         variableOwner = "";
@@ -223,6 +224,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         _dest.explicitsInfos.putAllMap(_src.explicitsInfos);
         _dest.fileName = _src.fileName;
         _dest.annotableBlock = _src.annotableBlock;
+        _dest.rootBlock = _src.rootBlock;
         _dest.blocsInfos.putAllMap(_src.blocsInfos);
     }
 
@@ -232,6 +234,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     public void setAnnotableBlock(ExecAnnotableBlock annotableBlock) {
         this.annotableBlock = annotableBlock;
+    }
+
+    public ExecRootBlock getRootBlock() {
+        return rootBlock;
+    }
+
+    public void setRootBlock(ExecRootBlock rootBlock) {
+        this.rootBlock = rootBlock;
     }
 
     @Override

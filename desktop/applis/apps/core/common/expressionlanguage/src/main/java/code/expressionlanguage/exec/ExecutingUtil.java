@@ -560,6 +560,7 @@ public final class ExecutingUtil {
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.INTERFACE, st_, acc_);
             cl_.setFileName(fileName_);
             cl_.setAnnotableBlock(_type);
+            cl_.setRootBlock(_type);
             cl_.getBlocsInfos().putAllMap(infosBlock_);
             return cl_;
         }
@@ -568,6 +569,7 @@ public final class ExecutingUtil {
                     infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, ClassCategory.ANNOTATION, st_, acc_);
             cl_.setFileName(fileName_);
             cl_.setAnnotableBlock(_type);
+            cl_.setRootBlock(_type);
             cl_.getBlocsInfos().putAllMap(infosBlock_);
             return cl_;
         }
@@ -587,6 +589,7 @@ public final class ExecutingUtil {
                 infosFields_, infosExplicits_,infosImplicits_,infosTrues_,infosFalses_,infos_, infosConst_, cat_, abs_, st_, final_, acc_);
         cl_.setFileName(fileName_);
         cl_.setAnnotableBlock(_type);
+        cl_.setRootBlock(_type);
         cl_.getBlocsInfos().putAllMap(infosBlock_);
         return cl_;
     }
