@@ -2383,23 +2383,27 @@ public final class ClassesUtil {
                 page_.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
                     _context.setAnnotAnalysisField(true);
+                    page_.setGlobalDirType(c);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_context,mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)));
                     _context.getCoverage().putBlockOperations(_context, mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
                     _context.setAnnotAnalysisField(false);
                 }
                 if (b instanceof RootBlock) {
                     _context.setAnnotAnalysisField(false);
+                    page_.setGlobalDirType(c);
                     _context.getCoverage().putBlockOperationsField(_context,b);
                     ((RootBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));
                 }
                 if (b instanceof NamedFunctionBlock) {
                     _context.setAnnotAnalysisField(false);
+                    page_.setGlobalDirType(c);
                     _context.getCoverage().putBlockOperationsField(_context,b);
                     ((NamedFunctionBlock)b).buildAnnotations(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
                 }
                 if (b instanceof InfoBlock) {
                     _context.setAnnotAnalysisField(false);
+                    page_.setGlobalDirType(c);
                     _context.getCoverage().putBlockOperationsField(_context,b);
                     _context.getCoverage().putBlockOperations(_context, (ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
                     ((InfoBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));

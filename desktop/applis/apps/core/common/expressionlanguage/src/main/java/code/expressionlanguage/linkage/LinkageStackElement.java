@@ -7,6 +7,8 @@ public final class LinkageStackElement {
     private Block block;
     private OperationNode current;
     private int indexLoop;
+    private int indexAnnotationGroup=-1;
+    private int indexAnnotation;
     private int indexEnd;
 
     public Block getBlock() {
@@ -31,6 +33,22 @@ public final class LinkageStackElement {
 
     public void setIndexLoop(int indexLoop) {
         this.indexLoop = indexLoop;
+    }
+
+    public int getIndexAnnotationGroup() {
+        return indexAnnotationGroup;
+    }
+
+    public void setIndexAnnotationGroup(int indexAnnotationGroup) {
+        this.indexAnnotationGroup = indexAnnotationGroup;
+    }
+
+    public int getIndexAnnotation() {
+        return indexAnnotation;
+    }
+
+    public void setIndexAnnotation(int indexAnnotation) {
+        this.indexAnnotation = indexAnnotation;
     }
 
     public int getIndexEnd() {

@@ -2065,7 +2065,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a name=\"m21\" title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -2079,7 +2079,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         validateAndCheckErrors(files_, cont_);
         StringMap<String> filesExp_ = getErrors(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int,$int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>,$int <a name=\"m28\" title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int,$int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

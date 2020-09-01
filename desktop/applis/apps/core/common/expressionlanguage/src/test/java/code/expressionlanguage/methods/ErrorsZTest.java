@@ -858,4 +858,731 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
 
+    @Test
+    public void report667Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static int <a name=\"m145\">extField</a>;\n" +
+                " static int <a name=\"m167\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report668Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" ONE;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "enum <a name=\"m89\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m133\">ONE</a>;\n" +
+                " static int <a name=\"m150\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report669Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" ONE{};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "enum <a name=\"m89\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m133\">ONE</a>{};\n" +
+                " static int <a name=\"m152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report670Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " int <a name=\"m106\">field</a>();\n" +
+                "}\n" +
+                "enum <a name=\"m122\">pkg.Ext</a> {\n" +
+                " <a name=\"m133\">ONE</a>{};\n" +
+                " static int <a name=\"m152\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage671Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" @Annot\n");
+        xml_.append(" int field()new Int(){}.FIELD;\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>\n" +
+                " int <a name=\"m81\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m97\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                "}\n" +
+                "enum <a name=\"m114\">pkg.Ext</a> {\n" +
+                " <a name=\"m125\">ONE</a>{};\n" +
+                " static int <a name=\"m144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage672Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" int field()new Int(){}.FIELD;\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.Ext {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m106\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m91\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " int <a name=\"m106\">field</a>()new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m122\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>;\n" +
+                "}\n" +
+                "enum <a name=\"m139\">pkg.Ext</a> {\n" +
+                " <a name=\"m150\">ONE</a>{};\n" +
+                " static int <a name=\"m169\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage673Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=Int.FIELD)\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m148\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static int <a name=\"m170\">extField</a>;\n" +
+                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage674Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" @Annot(field=Int.FIELD)\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=<a title=\"pkg.Int\" href=\"#m6\">Int</a>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static int <a name=\"m170\">extField</a>;\n" +
+                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage675Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m156\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static int <a name=\"m178\">extField</a>;\n" +
+                " static int <a name=\"m200\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage676Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" Ext(){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m134\">Ext(</a>){};\n" +
+                " static int <a name=\"m155\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage677Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" Ext(@Annot(field=new Int(){}.FIELD) int p){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>){};\n" +
+                " static int <a name=\"m192\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage678Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" Ext(@Annot(field=new Int(){}.FIELD)@Annot(field=new Int(){}.FIELD) int p){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m191\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m205\">p</a>){};\n" +
+                " static int <a name=\"m223\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage679Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" Ext(@Annot(field=new Int(){}.FIELD) int p, @Annot(field=new Int(){}.FIELD) int q){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " <a name=\"m134\">Ext(</a>@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m160\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m174\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m199\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m213\">q</a>){};\n" +
+                " static int <a name=\"m231\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage680Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static void l(){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static void <a name=\"m146\">l</a>(){};\n" +
+                " static int <a name=\"m165\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage681Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static void l(@Annot(field=new Int(){}.FIELD) int p){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){};\n" +
+                " static int <a name=\"m202\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage682Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static void l(@Annot(field=new Int(){}.FIELD)@Annot(field=new Int(){}.FIELD) int p){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m201\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m215\">p</a>){};\n" +
+                " static int <a name=\"m233\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage683Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" static void l(@Annot(field=new Int(){}.FIELD) int p, @Annot(field=new Int(){}.FIELD) int q){};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " static void <a name=\"m146\">l</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>, @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m223\">q</a>){};\n" +
+                " static int <a name=\"m241\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage684Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" void this(@Annot(field=new Int(){}.FIELD) int p){};\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" int this(@Annot(field=new Int(){}.FIELD) int p){return 0;};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " void <a name=\"m139\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m166\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m180\">p</a>){};\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m209\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " int <a name=\"m224\">this</a>(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m251\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m265\">p</a>){return 0;};\n" +
+                " static int <a name=\"m292\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage685Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" @Annot(field=new Int(){}.FIELD)\n");
+        xml_.append(" operator+ int(@Annot(field=new Int(){}.FIELD) int p){return 0;};\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "class <a name=\"m90\">pkg.Ext</a> {\n" +
+                " @<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m123\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                " operator<a name=\"m142\">+</a> int(@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m170\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>) int <a name=\"m184\">p</a>){return 0;};\n" +
+                " static int <a name=\"m211\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage686Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Int {\n");
+        xml_.append(" static final int FIELD=1;\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("@Annot(field=new Int(){}.FIELD)\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
+                " static final int <a name=\"m34\">FIELD</a>=1;\n" +
+                "}\n" +
+                "annotation <a name=\"m56\">pkg.Annot</a> {\n" +
+                " int <a name=\"m73\">field</a>();\n" +
+                "}\n" +
+                "@<a title=\"pkg.Annot\" href=\"#m56\">Annot</a>(<a title=\"pkg.Annot.field()\" href=\"#m73\">field</a>=new <a title=\"pkg.Int\" href=\"#m6\">Int</a>()<span class=\"t\"><a name=\"m106\">{</a>}</span>.<a title=\"pkg.Int.FIELD\" href=\"#m34\">FIELD</a>)\n" +
+                "class <a name=\"m122\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m144\" title=\"A throw block or a return block is missing for the method static m().\" class=\"e\">m</a>(){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
