@@ -64,8 +64,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
     private ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l) {
         Struct strIter_ = _l.getStructIterator();
         String locName_ = getHasNextVar(_conf);
-        LocalVariable locVar_ = LocalVariable.newLocalVariable(strIter_,_conf);
-        _conf.getLastPage().getInternVars().put(locName_, locVar_);
+        _conf.getLastPage().putInternVars(locName_, strIter_,_conf);
         ExpressionLanguage dyn_ = _conf.getLastPage().getCurrentEl(_conf,this, CustList.FIRST_INDEX, 2);
         Argument arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         if (_conf.callsOrException()) {
@@ -89,8 +88,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         ExecOperationNode el_ = opList.last();
         if (!el_.getResultClass().isArray()) {
             String locName_ = getNextVar(_conf);
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(iterator_,_conf);
-            abs_.getInternVars().put(locName_, locVar_);
+            abs_.putInternVars(locName_, iterator_,_conf);
             ExpressionLanguage dyn_ = abs_.getCurrentEl(_conf,this, CustList.SECOND_INDEX, 3);
             arg_ = ExpressionLanguage.tryToCalculate(_conf,dyn_,0);
         } else {
@@ -214,8 +212,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
                 return;
             }
             String locName_ = getIteratorVar(_cont);
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(its_,_cont);
-            ip_.getInternVars().put(locName_, locVar_);
+            ip_.putInternVars(locName_, its_,_cont);
             ExpressionLanguage dyn_ = ip_.getCurrentEl(_cont,this, CustList.SECOND_INDEX,CustList.SECOND_INDEX);
             Argument arg_ = ExpressionLanguage.tryToCalculate(_cont,dyn_,0);
             if (_cont.callsOrException()) {

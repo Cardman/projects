@@ -97,10 +97,10 @@ public abstract class BeanLgNames extends LgNames {
             for (int i = 0; i < len_; i++) {
                 arr_.getInstance()[i] = new StringStruct(values_.get(i));
             }
-            return LocalVariable.newLocalVariable(arr_,_conf.getContext());
+            return LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasString()));
         }
         if (!values_.isEmpty()) {
-            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),_conf.getContext());
+            return LocalVariable.newLocalVariable(new StringStruct(values_.first()),getAliasString());
         }
         return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE,getAliasString());
     }

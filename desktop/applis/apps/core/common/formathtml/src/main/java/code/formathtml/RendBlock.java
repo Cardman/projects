@@ -724,6 +724,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             return Argument.createVoid();
         }
         CustList<Struct> obj_;
+        StringList objClasses_;
         Struct currentField_;
         long found_ = -1;
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
@@ -750,14 +751,17 @@ public abstract class RendBlock implements AnalyzedBlock {
             } else {
                 obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
             }
+            objClasses_ = new StringList(((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty());
             arg_ = pair_.getArgument();
         } else {
             ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
             obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
+            objClasses_ = new StringList(((RendMethodOperation) settable_).getResultClass().getSingleNameOrEmpty());
             arg_ = pair_.getArgument();
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
                 pair_ = args_.getValue(r.getOrder());
                 obj_.add(pair_.getArgument().getStruct());
+                objClasses_.add(r.getResultClass().getSingleNameOrEmpty());
             }
         }
         CustList<LongTreeMap<NodeContainer>> stack_ = _cont.getContainersMapStack();
@@ -789,6 +793,7 @@ public abstract class RendBlock implements AnalyzedBlock {
             nodeCont_.setVarName(strings_.last());
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setOpsConvert(_f.getOpsConverter());
+            nodeCont_.setObjectClasses(objClasses_);
             nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
             nodeCont_.setBean(_cont.getLastPage().getGlobalArgument().getStruct());

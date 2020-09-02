@@ -38,6 +38,9 @@ public final class LocalThrowing implements CallingFinally {
                             Argument arg_ = new Argument(custCause_);
                             if (ExecTemplates.safeObject(name_, arg_, _conf) == ErrorType.NOTHING) {
                                 catchElt_ = ca_;
+                                String var_ = ca_.getVariableName();
+                                LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,name_);
+                                bkIp_.getValueVars().put(var_, lv_);
                                 bl_.setCurrentVisitedBlock(ca_);
                                 break;
                             }
@@ -54,12 +57,6 @@ public final class LocalThrowing implements CallingFinally {
                     if (catchElt_ != null) {
                         _conf.getCoverage().passCatches(_conf,catchElt_);
                         ExecBlock childCatch_ = catchElt_.getFirstChild();
-                        if (catchElt_ instanceof ExecCatchEval) {
-                            ExecCatchEval c_ = (ExecCatchEval) catchElt_;
-                            String var_ = c_.getVariableName();
-                            LocalVariable lv_ = LocalVariable.newLocalVariable(custCause_,_conf);
-                            bkIp_.getValueVars().put(var_, lv_);
-                        }
                         bkIp_.getReadWrite().setBlock(childCatch_);
                         return;
                     }

@@ -1,5 +1,6 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -262,7 +263,17 @@ public final class ImportingPage {
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
     }
+    public void clearInternVars() {
+        internVars.clear();
+    }
 
+    public void putInternVars(String _key, Struct _struct, ContextEl _context) {
+        internVars.put(_key,LocalVariable.newLocalVariable(_struct,_context));
+    }
+
+    public void putInternVars(String _key, LocalVariable _loc) {
+        internVars.put(_key,_loc);
+    }
     public boolean isEnabledOp() {
         return enabledOp;
     }

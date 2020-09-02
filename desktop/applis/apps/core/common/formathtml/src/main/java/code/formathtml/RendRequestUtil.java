@@ -1,6 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -28,7 +31,7 @@ final class RendRequestUtil {
         ImportingPage ip_ = _conf.getLastPage();
         int s_ = varNames_.size();
         for (int i =0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))),_conf.getContext());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(Numbers.parseLongZero(args_.get(i))),_conf.getStandards().getAliasPrimLong());
             ip_.putLocalVar(varNames_.get(i), locVar_);
         }
         Argument arg_ = RenderExpUtil.calculateReuse(exps_,_conf,_bean);
@@ -54,16 +57,19 @@ final class RendRequestUtil {
         String prev_ = _nodeContainer.getVarPrevName();
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
         ImportingPage ip_ = _conf.getLastPage();
-        LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _conf.getContext());
+        LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _nodeContainer.getUpdatedClass());
         ip_.putLocalVar(prev_, lv_);
         int i_ = 0;
+        CustList<Struct> structParam_ = _nodeContainer.getStructParam();
+        CustList<String> structParamClass_ = _nodeContainer.getStructParamClass();
         for (String p: _nodeContainer.getVarParamName()) {
-            Struct arg_ = _nodeContainer.getStructParam().get(i_);
-            lv_ = LocalVariable.newLocalVariable(arg_, _conf.getContext());
+            Struct arg_ = structParam_.get(i_);
+            lv_ = LocalVariable.newLocalVariable(arg_, structParamClass_.get(i_));
             ip_.putLocalVar(p, lv_);
             i_++;
         }
-        lv_ = LocalVariable.newLocalVariable(_attribute,_conf.getContext());
+        String wrap_ = PrimitiveTypeUtil.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _conf.getStandards());
+        lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);
         ip_.removeLocalVar(prev_);

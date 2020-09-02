@@ -9,6 +9,7 @@ import code.util.StringList;
 public class NodeContainer {
 
     private CustList<Struct> object = new CustList<Struct>();
+    private StringList objectClasses = new StringList();
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
@@ -44,12 +45,22 @@ public class NodeContainer {
     public Struct getUpdated() {
         return object.first();
     }
+    public String getUpdatedClass() {
+        return objectClasses.first();
+    }
     public CustList<Struct> getStructParam() {
         return object.mid(1);
+    }
+    public CustList<String> getStructParamClass() {
+        return objectClasses.mid(1);
     }
 
     public void setStruct(CustList<Struct> _struct) {
         object = _struct;
+    }
+
+    public void setObjectClasses(StringList objectClasses) {
+        this.objectClasses = objectClasses;
     }
 
     public Struct getTypedStruct() {

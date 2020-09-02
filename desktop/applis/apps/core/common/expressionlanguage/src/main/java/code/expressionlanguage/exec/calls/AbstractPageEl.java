@@ -211,6 +211,9 @@ public abstract class AbstractPageEl extends PageEl {
     public StringMap<LocalVariable> getInternVars() {
         return internVars;
     }
+    public void putInternVars(String _key, Struct _struct, ContextEl _context) {
+        internVars.put(_key,LocalVariable.newLocalVariable(_struct,_context));
+    }
 
     public ExecFileBlock getFile() {
         return file;
