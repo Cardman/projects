@@ -4,17 +4,7 @@ public class AnaLoopVariable {
 
     private String indexClassName;
 
-    private boolean finalVariable;
-
     private int ref;
-
-    public boolean isFinalVariable() {
-        return finalVariable;
-    }
-
-    public void setFinalVariable(boolean _finalVariable) {
-        finalVariable = _finalVariable;
-    }
 
     public String getIndexClassName() {
         return indexClassName;

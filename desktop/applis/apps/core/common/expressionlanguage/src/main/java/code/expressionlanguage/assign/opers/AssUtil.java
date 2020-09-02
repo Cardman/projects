@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -20,16 +21,16 @@ import code.util.StringMap;
 public final class AssUtil {
     private AssUtil() {
     }
-    public static CustList<AssOperationNode> getExecutableNodes(CustList<ExecOperationNode> _list) {
-        if (_list == null||_list.isEmpty()) {
-            return new CustList<AssOperationNode>();
-        }
+
+    public static CustList<AssOperationNode> getExecutableNodes(OperationNode _root) {
         CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
-        ExecOperationNode root_ = _list.last();
-        ExecOperationNode current_ = root_;
+        if (_root == null) {
+            return out_;
+        }
+        OperationNode current_ = _root;
         AssOperationNode exp_ = AssOperationNode.createAssOperationNode(current_);
         while (current_ != null) {
-            ExecOperationNode op_ = current_.getFirstChild();
+            OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof AssMethodOperation && op_ != null) {
                 AssOperationNode loc_ = AssOperationNode.createAssOperationNode(op_);
                 ((AssMethodOperation)exp_).appendChild(loc_);
@@ -55,7 +56,7 @@ public final class AssUtil {
                     break;
                 }
                 AssMethodOperation par_ = exp_.getParent();
-                if (op_ == root_) {
+                if (op_ == _root) {
                     setup(par_);
                     out_.add(par_);
                     current_ = null;
@@ -199,54 +200,28 @@ public final class AssUtil {
     public static void setAssignments(AssOperationNode _current, AssBlock _ass, AssignedVariablesBlock _a) {
         Argument arg_ = _current.getArgument();
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(_current);
-        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(_current);
+        StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(_current);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(_current);
-        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
+        StringMap<Assignment> ass_ = new StringMap<Assignment>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
 
         if (arg_ != null&&arg_.getStruct() instanceof BooleanStruct) {
             //boolean constant assignment
-            for (StringMap<AssignmentBefore> s: assB_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    BooleanAssignment b_ = new BooleanAssignment();
-                    if (BooleanStruct.isTrue(arg_.getStruct())) {
-                        b_.setAssignedAfterWhenFalse(true);
-                        b_.setUnassignedAfterWhenFalse(true);
-                        b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                    } else {
-                        b_.setAssignedAfterWhenTrue(true);
-                        b_.setUnassignedAfterWhenTrue(true);
-                        b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                    }
-                    sm_.put(e.getKey(), b_);
+            for (EntryCust<String, AssignmentBefore> e: assB_.entryList()) {
+                AssignmentBefore bf_ = e.getValue();
+                BooleanAssignment b_ = new BooleanAssignment();
+                if (BooleanStruct.isTrue(arg_.getStruct())) {
+                    b_.setAssignedAfterWhenFalse(true);
+                    b_.setUnassignedAfterWhenFalse(true);
+                    b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
+                    b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
+                } else {
+                    b_.setAssignedAfterWhenTrue(true);
+                    b_.setUnassignedAfterWhenTrue(true);
+                    b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
+                    b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
                 }
-                ass_.add(sm_);
-            }
-            for (StringMap<AssignmentBefore> s: assM_) {
-                StringMap<Assignment> sm_ = new StringMap<Assignment>();
-                for (EntryCust<String, AssignmentBefore> e: s.entryList()) {
-                    AssignmentBefore bf_ = e.getValue();
-                    BooleanAssignment b_ = new BooleanAssignment();
-                    if (BooleanStruct.isTrue(arg_.getStruct())) {
-                        b_.setAssignedAfterWhenFalse(true);
-                        b_.setUnassignedAfterWhenFalse(true);
-                        b_.setAssignedAfterWhenTrue(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenTrue(bf_.isUnassignedBefore());
-                    } else {
-                        b_.setAssignedAfterWhenTrue(true);
-                        b_.setUnassignedAfterWhenTrue(true);
-                        b_.setAssignedAfterWhenFalse(bf_.isAssignedBefore());
-                        b_.setUnassignedAfterWhenFalse(bf_.isUnassignedBefore());
-                    }
-                    sm_.put(e.getKey(), b_);
-                }
-                assAfM_.add(sm_);
+                ass_.put(e.getKey(), b_);
             }
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 AssignmentBefore bf_ = e.getValue();
@@ -266,25 +241,13 @@ public final class AssUtil {
             }
         } else {
             //simple assignment
-            ass_.addAllElts(AssignmentsUtil.assignAfter(false,assB_));
-            assAfM_.addAllElts(AssignmentsUtil.assignAfter(false,assM_));
+            ass_.putAllMap(AssignmentsUtil.assignAfter(false,assB_));
             assA_.putAllMap(AssignmentsUtil.assignAfter(false,assF_));
         }
         vars_.getVariables().put(_current, ass_);
-        vars_.getMutableLoop().put(_current, assAfM_);
         vars_.getFields().put(_current, assA_);
     }
 
-    public static boolean isDeclaringLoopVariable(AssMutableLoopVariableOperation _var, ContextEl _an) {
-        if (!isDeclaringLoopVariable(_an)) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
-    }
-
-    static boolean isDeclaringLoopVariable(ContextEl _an) {
-        return _an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT;
-    }
     public static boolean isDeclaringVariable(AssOperationNode _var) {
         AssMethodOperation par_ = _var.getParent();
         if (par_ == null) {
@@ -304,11 +267,4 @@ public final class AssUtil {
         return false;
     }
 
-    public static CustList<AssOperationNode> filterInvoking(CustList<AssOperationNode> _list) {
-        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
-        for (AssOperationNode o: _list) {
-            out_.add(o);
-        }
-        return out_;
-    }
 }

@@ -1,12 +1,12 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public final class AssStdMethodOperation extends AssMultMethodOperation {
-    AssStdMethodOperation(ExecOperationNode _ex) {
+    AssStdMethodOperation(OperationNode _ex) {
         super(_ex);
     }
 

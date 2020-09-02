@@ -1,9 +1,9 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.exec.opers.ExecLeafOperation;
+import code.expressionlanguage.analyze.opers.LeafOperation;
 
 public final class AssThisOperation extends AssLeafOperation {
-    AssThisOperation(ExecLeafOperation _ex) {
+    AssThisOperation(LeafOperation _ex) {
         super(_ex);
     }
 }

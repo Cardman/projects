@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Throwing;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -9,9 +10,9 @@ import code.util.CustList;
 
 public final class AssThrowing extends AssAbruptBlock implements AssBuildableElMethod {
     private CustList<AssOperationNode> opList;
-    AssThrowing(boolean _completeNormally, boolean _completeNormallyGroup, ExecThrowing _th) {
+    AssThrowing(boolean _completeNormally, boolean _completeNormallyGroup, Throwing _th) {
         super(_completeNormally,_completeNormallyGroup);
-        opList = AssUtil.getExecutableNodes(_th.getOpThrow());
+        opList = AssUtil.getExecutableNodes(_th.getRoot());
     }
 
     @Override

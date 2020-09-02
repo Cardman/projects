@@ -18,8 +18,7 @@ public final class AssDoBlock extends AssBracedStack implements AssLoop {
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         IdMap<AssBlock, AssignedVariables> id_ = _a.getFinalVariables();
         assBl_.getFieldsRootBefore().putAllMap(buildAssListFieldBeforeIncrPart(_an, _a));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssListLocVarBeforeIncrPart(_an, _a));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssListMutableLoopBeforeIncrPart(_an, _a));
+        assBl_.getVariablesRootBefore().putAllMap(buildAssListLocVarBeforeIncrPart(_an, _a));
         id_.put(nextSibling_, assBl_);
     }
 

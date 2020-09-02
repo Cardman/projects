@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Condition;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedBooleanVariables;
@@ -12,9 +13,9 @@ import code.util.CustList;
 public abstract class AssCondition extends AssBracedStack implements AssBuildableElMethod {
 
     private CustList<AssOperationNode> opCondition;
-    AssCondition(boolean _completeNormally, boolean _completeNormallyGroup, ExecCondition _c) {
+    AssCondition(boolean _completeNormally, boolean _completeNormallyGroup, Condition _c) {
         super(_completeNormally, _completeNormallyGroup);
-        opCondition = AssUtil.getExecutableNodes(_c.getOpCondition());
+        opCondition = AssUtil.getExecutableNodes(_c.getRoot());
     }
 
     @Override

@@ -1,18 +1,13 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.util.IdList;
-import code.util.IdMap;
 import code.util.StringList;
 
 public final class BlocksLabels {
-    private IdMap<ExecBlock,Block> mapping = new IdMap<ExecBlock,Block>();
     private IdList<Block> blocks = new IdList<Block>();
     private StringList flags = new StringList();
-    public String getVal(ExecBlock _reach) {
-        return getVal(mapping.getVal(_reach));
-    }
+
     public String getVal(Block _reach) {
         int i_ = index(_reach);
         if (!flags.isValidIndex(i_)) {
@@ -34,7 +29,4 @@ public final class BlocksLabels {
         return blocks.indexOfObj(_bl);
     }
 
-    public void setMapping(IdMap<ExecBlock, Block> mapping) {
-        this.mapping = mapping;
-    }
 }

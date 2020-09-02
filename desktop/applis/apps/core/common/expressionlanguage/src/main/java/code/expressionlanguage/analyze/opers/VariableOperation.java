@@ -30,6 +30,7 @@ public final class VariableOperation extends LeafOperation implements
 
     private int ref;
     private boolean declare;
+    private boolean finalVariable;
     private int deep;
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -68,10 +69,11 @@ public final class VariableOperation extends LeafOperation implements
         if (ElUtil.isDeclaringVariable(this, _conf)) {
             declare = true;
             AnalyzedPageEl page_ = _conf.getAnalyzing();
-            TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
+            TokenErrorMessage res_ = page_.getTokenValidation().isValidSingleToken(str_);
             variableName = str_;
             realVariableName = str_;
             if (res_.isError()) {
+                page_.setVariableIssue(true);
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -96,6 +98,7 @@ public final class VariableOperation extends LeafOperation implements
             }
             lv_.setRef(ref);
             lv_.setConstType(ConstType.LOC_VAR);
+            finalVariable = _conf.getAnalyzing().isFinalVariable();
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.getInfosVars().put(str_, lv_);
             page_.getVariablesNames().add(str_);
@@ -137,6 +140,10 @@ public final class VariableOperation extends LeafOperation implements
 
     public int getRef() {
         return ref;
+    }
+
+    public boolean isFinalVariable() {
+        return finalVariable;
     }
 
     public int getDeep() {

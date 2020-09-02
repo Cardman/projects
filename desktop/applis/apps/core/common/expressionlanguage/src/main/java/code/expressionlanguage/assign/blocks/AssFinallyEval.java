@@ -32,16 +32,12 @@ public final class AssFinallyEval extends AssBracedStack implements AssEval,AssB
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
+        StringMap<SimpleAssignment> afterVars_;
         after_ = buildAssFieldsAfterFinally(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterFinally(prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterFinally(prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+        assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
 
     @Override

@@ -118,6 +118,7 @@ public final class AnalyzedPageEl {
     private int indexBlock;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
+    private boolean variableIssue;
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -165,15 +166,10 @@ public final class AnalyzedPageEl {
 
     public void clearAllLocalVars(AssignedVariablesBlock _a) {
         _a.getLocalVars().clear();
-        _a.getMutableVars().clear();
         _a.getFinalVariablesGlobal().getVariables().clear();
         _a.getFinalVariablesGlobal().getVariablesRoot().clear();
         _a.getFinalVariablesGlobal().getVariablesRootBefore().clear();
         _a.getFinalVariablesGlobal().getVariablesBefore().clear();
-        _a.getFinalVariablesGlobal().getMutableLoop().clear();
-        _a.getFinalVariablesGlobal().getMutableLoopRoot().clear();
-        _a.getFinalVariablesGlobal().getMutableLoopRootBefore().clear();
-        _a.getFinalVariablesGlobal().getMutableLoopBefore().clear();
     }
 
     public StringMap<Boolean> getDeclaredAssignments() {
@@ -723,5 +719,13 @@ public final class AnalyzedPageEl {
 
     public CustList<ClassMetaInfo> getClassMetaInfos() {
         return classMetaInfos;
+    }
+
+    public boolean isVariableIssue() {
+        return variableIssue;
+    }
+
+    public void setVariableIssue(boolean variableIssue) {
+        this.variableIssue = variableIssue;
     }
 }

@@ -39,13 +39,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateAll(files_, cont_);
         assertTrue(cont_.isEmptyErrors());
-        assertEq(0, AssignmentsUtil.getOrEmptyBefore(new CustList<StringMap<AssignmentBefore>>(),0).size());
-        assertEq(0, AssignmentsUtil.getOrEmpty(new CustList<StringMap<Assignment>>(),0).size());
-        assertEq(0, AssignmentsUtil.getOrEmptyBool(new CustList<StringMap<BooleanAssignment>>(),0).size());
-        assertEq(0, AssignmentsUtil.getOrEmptySimple(new CustList<StringMap<SimpleAssignment>>(),0).size());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
-        assertEq(0, new AssignedVariables().getLastMutableLoopOrEmpty().size());
         cont_.setAnalyzing();
         ContextUtil.isFinalField(cont_,new ClassField("",""));
         ClassesUtil.getDirectChildren(null);

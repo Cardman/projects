@@ -11,7 +11,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
-public abstract class ExecStdVariableOperation extends ExecLeafOperation implements
+public final class ExecStdVariableOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation,ExecSettableElResult {
 
     private boolean variable;
@@ -137,7 +137,4 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 
-    public String getVariableName() {
-        return variableName;
-    }
 }

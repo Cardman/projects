@@ -1,12 +1,13 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.DeclaringOperation;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.opers.ExecDeclaringOperation;
 
 public final class AssDeclaringOperation extends AssMultMethodOperation {
-    AssDeclaringOperation(ExecDeclaringOperation _ex) {
+    AssDeclaringOperation(DeclaringOperation _ex) {
         super(_ex);
     }
 

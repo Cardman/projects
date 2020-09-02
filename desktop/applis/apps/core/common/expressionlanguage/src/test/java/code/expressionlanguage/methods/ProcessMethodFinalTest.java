@@ -1223,4 +1223,68 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         Classes.validateAll(files_, cont_);
         assertTrue(!cont_.isEmptyErrors());
     }
+    @Test
+    public void instanceArgument9FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int inst=m(),ance;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $int loc=1i;\n");
+        xml_.append("  $if (loc==1i){\n");
+        xml_.append("   ance=0i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument10FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int inst=ance,ance;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $int loc=1i;\n");
+        xml_.append("  $if (loc==1i){\n");
+        xml_.append("   ance=0i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
+    @Test
+    public void instanceArgument11FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExThree {\n");
+        xml_.append(" $public $static $final $int inst=ance,ance,bis;\n");
+        xml_.append(" $public $static $final $int inst2=bis;\n");
+        xml_.append(" $static {\n");
+        xml_.append("  $int loc=1i;\n");
+        xml_.append("  $if (loc==1i){\n");
+        xml_.append("   ance=0i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $static $int m(){\n");
+        xml_.append("  $return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(!cont_.isEmptyErrors());
+    }
 }

@@ -148,7 +148,4 @@ public final class ExecSettableFieldOperation extends
         getCommonSetting(prev_,_conf,_right);
     }
 
-    public FieldInfo getFieldMetaInfo() {
-        return fieldMetaInfo;
-    }
 }

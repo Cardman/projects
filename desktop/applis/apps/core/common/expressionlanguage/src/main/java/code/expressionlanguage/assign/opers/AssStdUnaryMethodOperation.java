@@ -1,12 +1,12 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 public final class AssStdUnaryMethodOperation extends AssMethodOperation {
-    AssStdUnaryMethodOperation(ExecOperationNode _ex) {
+    AssStdUnaryMethodOperation(OperationNode _ex) {
         super(_ex);
     }
 

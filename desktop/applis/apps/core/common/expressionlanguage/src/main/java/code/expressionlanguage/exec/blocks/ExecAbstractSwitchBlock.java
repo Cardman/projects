@@ -60,7 +60,4 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
 
     protected abstract void processCase(ContextEl _cont,SwitchBlockStack if_, Argument arg_);
 
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
 }

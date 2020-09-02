@@ -63,6 +63,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setBlockToWrite(_mem);
+        page_.setVariableIssue(false);
         Block firstChild_ = getFirstChild();
         page_.setExecDeclareVariable(null);
         page_.setCurrentBlock(this);

@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.Condition;
 import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -12,7 +13,7 @@ import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.*;
 
 public final class AssDoWhileCondition extends AssCondition {
-    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, ExecCondition _c) {
+    AssDoWhileCondition(boolean _completeNormally, boolean _completeNormallyGroup, Condition _c) {
         super(_completeNormally, _completeNormallyGroup, _c);
     }
 
@@ -23,8 +24,7 @@ public final class AssDoWhileCondition extends AssCondition {
         //by do block
         AssDoBlock dBlock_ = (AssDoBlock) getPreviousSibling();
         StringMap<AssignmentBefore> fieldsHypot_;
-        CustList<StringMap<AssignmentBefore>> varsHypot_;
-        CustList<StringMap<AssignmentBefore>> mutableHypot_;
+        StringMap<AssignmentBefore> varsHypot_;
 
         AssignedVariablesDesc ass_ = new AssignedVariablesDesc(_an,dBlock_,_anEl);
         IdMap<AssBlock, AssignedVariables> allDesc_ = ass_.getAllDesc();
@@ -36,25 +36,17 @@ public final class AssDoWhileCondition extends AssCondition {
         varsDo_.getFieldsRootBefore().putAllMap(fieldsHypot_);
         varsHypot_ = buildAssListLocVarInvalHypot(_an,_anEl);
         varsDo_.getVariablesRootBefore().clear();
-        varsDo_.getVariablesRootBefore().addAllElts(varsHypot_);
-        mutableHypot_ = buildAssListMutableLoopInvalHypot(_an,_anEl);
-        varsDo_.getMutableLoopRootBefore().clear();
-        varsDo_.getMutableLoopRootBefore().addAllElts(mutableHypot_);
+        varsDo_.getVariablesRootBefore().putAllMap(varsHypot_);
         processFinalFields(_an, allDesc_, varsDo_, fieldsHypot_);
         processFinalVars(_an,_anEl, allDesc_, varsDo_, varsHypot_);
-        processFinalMutableLoop(_an,_anEl, allDesc_, varsDo_, mutableHypot_);
 
         StringMap<SimpleAssignment> fieldsAfter_;
-        CustList<StringMap<SimpleAssignment>> varsAfter_;
-        CustList<StringMap<SimpleAssignment>> mutableAfter_;
+        StringMap<SimpleAssignment> varsAfter_;
         fieldsAfter_= buildAssListFieldAfterLoop(_an, _anEl);
         varsDo_.getFieldsRoot().putAllMap(fieldsAfter_);
         varsAfter_ = buildAssListLocVarAfterLoop(_an, _anEl);
         varsWhile_.getVariablesRoot().clear();
-        varsWhile_.getVariablesRoot().addAllElts(varsAfter_);
-        mutableAfter_ = buildAssListMutableLoopAfterLoop(_an, _anEl);
-        varsWhile_.getMutableLoopRoot().clear();
-        varsWhile_.getMutableLoopRoot().addAllElts(mutableAfter_);
+        varsWhile_.getVariablesRoot().putAllMap(varsAfter_);
     }
 
     protected StringMap<AssignmentBefore> buildAssListFieldAfterInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
@@ -67,44 +59,24 @@ public final class AssDoWhileCondition extends AssCondition {
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getFieldsRootAfter();
         return invalidateHypothesis(list_, end_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListLocVarInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<AssignmentBefore>> varsList_;
-        varsList_ = new CustList<StringMap<AssignmentBefore>>();
+        StringMap<AssignmentBefore> varsList_;
+        varsList_ = new StringMap<AssignmentBefore>();
         AssDoBlock dBlock_ = (AssDoBlock) getPreviousSibling();
-        CustList<StringMap<AssignmentBefore>> list_;
+        StringMap<AssignmentBefore> list_;
         list_ = dBlock_.makeHypothesisVars(_an,_anEl);
         int loopLen_ = list_.size();
 
-        CustList<StringMap<BooleanAssignment>> end_;
+        StringMap<BooleanAssignment> end_;
         end_ = ((AssignedBooleanVariables) id_.getVal(this)).getVariablesRootAfter();
-        for (int i = 0; i < loopLen_; i++) {
-            StringMap<AssignmentBefore> cond_ = list_.get(i);
-            varsList_.add(invalidateHypothesis(cond_, end_.get(i)));
-        }
+        StringMap<AssignmentBefore> cond_ = list_;
+        varsList_=invalidateHypothesis(cond_, end_);
 
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopInvalHypot(ContextEl _an, AssignedVariablesBlock _anEl) {
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<AssignmentBefore>> varsList_;
-        varsList_ = new CustList<StringMap<AssignmentBefore>>();
-        AssDoBlock dBlock_ = (AssDoBlock) getPreviousSibling();
-        CustList<StringMap<AssignmentBefore>> list_;
-        list_ = dBlock_.makeHypothesisMutableLoop(_an,_anEl);
-        int loopLen_ = list_.size();
 
-        CustList<StringMap<BooleanAssignment>> end_;
-        end_ = ((AssignedBooleanVariables) id_.getVal(this)).getMutableLoopRootAfter();
-        for (int i = 0; i < loopLen_; i++) {
-            StringMap<AssignmentBefore> cond_ = list_.get(i);
-            varsList_.add(invalidateHypothesis(cond_, end_.get(i)));
-        }
-
-        return varsList_;
-    }
     private static StringMap<AssignmentBefore> invalidateHypothesis(StringMap<AssignmentBefore> _loop, StringMap<BooleanAssignment> _last) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
         for (EntryCust<String,AssignmentBefore> e: _loop.entryList()) {

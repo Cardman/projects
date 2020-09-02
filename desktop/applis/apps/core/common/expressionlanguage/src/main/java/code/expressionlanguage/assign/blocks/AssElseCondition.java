@@ -41,16 +41,12 @@ public final class AssElseCondition extends AssBracedStack implements AssBreakab
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
+        StringMap<SimpleAssignment> afterVars_;
         after_ = buildAssFieldsAfterIf(false, prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(false, prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterIf(false, prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+        assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
 
     @Override

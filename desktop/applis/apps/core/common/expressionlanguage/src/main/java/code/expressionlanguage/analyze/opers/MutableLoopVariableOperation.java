@@ -30,6 +30,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     private int ref;
     private boolean declare;
+    private boolean finalVariable;
     private int deep;
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -54,10 +55,11 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         if (ElUtil.isDeclaringLoopVariable(this, _conf)) {
             declare = true;
             AnalyzedPageEl page_ = _conf.getAnalyzing();
-            TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
+            TokenErrorMessage res_ = page_.getTokenValidation().isValidSingleToken(str_);
             variableName = str_;
             realVariableName = str_;
             if (res_.isError()) {
+                page_.setVariableIssue(true);
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -78,7 +80,6 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             String indexClassName_ = _conf.getAnalyzing().getLoopDeclaring().getIndexClassName();
             lv_.setRef(ref);
             lv_.setIndexClassName(indexClassName_);
-            lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.getLoopsVars().put(str_, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {
@@ -88,6 +89,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             }
             lInfo_.setRef(ref);
             lInfo_.setConstType(ConstType.MUTABLE_LOOP_VAR);
+            finalVariable = _conf.getAnalyzing().isFinalVariable();
             lInfo_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.getInfosVars().put(str_,lInfo_);
             page_.getVariablesNames().add(str_);
@@ -139,6 +141,10 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     public boolean isDeclare() {
         return declare;
+    }
+
+    public boolean isFinalVariable() {
+        return finalVariable;
     }
 
     public int getDeep() {

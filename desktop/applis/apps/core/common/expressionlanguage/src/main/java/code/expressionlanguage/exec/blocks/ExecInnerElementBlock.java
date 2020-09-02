@@ -41,11 +41,6 @@ public final class ExecInnerElementBlock extends ExecRootBlock implements ExecIn
     }
 
     @Override
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
-
-    @Override
     public void setTrOffset(int trOffset) {
         this.trOffset = trOffset;
     }

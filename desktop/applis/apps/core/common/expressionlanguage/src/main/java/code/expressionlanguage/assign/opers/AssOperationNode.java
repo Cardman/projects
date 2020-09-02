@@ -2,9 +2,9 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public abstract class AssOperationNode {
@@ -22,88 +22,92 @@ public abstract class AssOperationNode {
 
     private ClassArgumentMatching resultClass;
 
-    AssOperationNode(ExecOperationNode _ex) {
+    AssOperationNode(OperationNode _ex) {
         indexInEl = _ex.getIndexInEl();
         indexBegin = _ex.getIndexBegin();
         indexChild = _ex.getIndexChild();
         resultClass = _ex.getResultClass();
         argument = _ex.getArgument();
     }
-    public static AssOperationNode createAssOperationNode(ExecOperationNode _anaNode) {
-        if (_anaNode instanceof ExecConstantOperation) {
-            ExecConstantOperation c_ = (ExecConstantOperation) _anaNode;
+    public static AssOperationNode createAssOperationNode(OperationNode _anaNode) {
+        if (_anaNode instanceof ConstantOperation) {
+            ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new AssConstantOperation(c_);
         }
-        if (_anaNode instanceof ExecDeclaringOperation) {
-            ExecDeclaringOperation d_ = (ExecDeclaringOperation) _anaNode;
+        if (_anaNode instanceof DeclaringOperation) {
+            DeclaringOperation d_ = (DeclaringOperation) _anaNode;
             return new AssDeclaringOperation(d_);
         }
-        if (_anaNode instanceof ExecTernaryOperation) {
-            ExecTernaryOperation t_ = (ExecTernaryOperation) _anaNode;
+        if (_anaNode instanceof AbstractTernaryOperation) {
+            AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
             return new AssTernaryOperation(t_);
         }
-        if (_anaNode instanceof ExecAndOperation) {
-            ExecAndOperation t_ = (ExecAndOperation) _anaNode;
+        if (_anaNode instanceof AndOperation) {
+            AndOperation t_ = (AndOperation) _anaNode;
             return new AssAndOperation(t_);
         }
-        if (_anaNode instanceof ExecOrOperation) {
-            ExecOrOperation t_ = (ExecOrOperation) _anaNode;
+        if (_anaNode instanceof OrOperation) {
+            OrOperation t_ = (OrOperation) _anaNode;
             return new AssOrOperation(t_);
         }
-        if (_anaNode instanceof ExecStaticAccessOperation) {
-            ExecLeafOperation f_ = (ExecLeafOperation) _anaNode;
+        if (_anaNode instanceof StaticAccessOperation) {
+            StaticAccessOperation f_ = (StaticAccessOperation) _anaNode;
             return new AssStaticAccessOperation(f_);
         }
-        if (_anaNode instanceof ExecIdOperation) {
-            ExecIdOperation f_ = (ExecIdOperation) _anaNode;
-            return new AssIdOperation(f_);
+        if (_anaNode instanceof IdOperation) {
+            IdOperation f_ = (IdOperation) _anaNode;
+            if (f_.isStandard()) {
+                return new AssIdOperation(f_);
+            }
         }
-        if (_anaNode instanceof ExecThisOperation) {
-            ExecThisOperation f_ = (ExecThisOperation) _anaNode;
+        if (_anaNode instanceof ThisOperation) {
+            ThisOperation f_ = (ThisOperation) _anaNode;
             return new AssThisOperation(f_);
         }
-        if (_anaNode instanceof ExecSettableFieldOperation) {
-            ExecSettableFieldOperation s_ = (ExecSettableFieldOperation) _anaNode;
-            return new AssSettableFieldOperation(s_);
+        if (_anaNode instanceof SettableAbstractFieldOperation) {
+            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
+            if (s_.getFieldMetaInfo() != null) {
+                return new AssSettableFieldOperation(s_);
+            }
         }
-        if (_anaNode instanceof ExecMutableLoopVariableOperation) {
-            ExecMutableLoopVariableOperation m_ = (ExecMutableLoopVariableOperation) _anaNode;
-            return new AssMutableLoopVariableOperation(m_);
+        if (_anaNode instanceof VariableOperation) {
+            VariableOperation s_ = (VariableOperation) _anaNode;
+            return new AssStdVariableOperation(s_);
         }
-        if (_anaNode instanceof ExecVariableOperation) {
-            ExecVariableOperation m_ = (ExecVariableOperation) _anaNode;
-            return new AssVariableOperation(m_);
+        if (_anaNode instanceof MutableLoopVariableOperation) {
+            MutableLoopVariableOperation s_ = (MutableLoopVariableOperation) _anaNode;
+            return new AssStdVariableOperation(s_);
         }
-        if (_anaNode instanceof ExecDotOperation) {
-            ExecDotOperation m_ = (ExecDotOperation) _anaNode;
+        if (_anaNode instanceof DotOperation) {
+            DotOperation m_ = (DotOperation) _anaNode;
             return new AssDotOperation(m_);
         }
-        if (_anaNode instanceof ExecAffectationOperation) {
-            ExecAffectationOperation a_ = (ExecAffectationOperation) _anaNode;
+        if (_anaNode instanceof AffectationOperation) {
+            AffectationOperation a_ = (AffectationOperation) _anaNode;
             return new AssAffectationOperation(a_);
         }
-        if (_anaNode instanceof ExecSemiAffectationOperation) {
-            ExecSemiAffectationOperation a_ = (ExecSemiAffectationOperation) _anaNode;
+        if (_anaNode instanceof SemiAffectationOperation) {
+            SemiAffectationOperation a_ = (SemiAffectationOperation) _anaNode;
             return new AssSemiAffectationOperation(a_);
         }
-        if (_anaNode instanceof ExecCompoundAffectationOperation) {
-            ExecCompoundAffectationOperation a_ = (ExecCompoundAffectationOperation) _anaNode;
+        if (_anaNode instanceof CompoundAffectationOperation) {
+            CompoundAffectationOperation a_ = (CompoundAffectationOperation) _anaNode;
             return new AssCompoundAffectationOperation(a_);
         }
-        if (_anaNode instanceof ExecUnaryBooleanOperation) {
-            ExecUnaryBooleanOperation a_ = (ExecUnaryBooleanOperation) _anaNode;
+        if (_anaNode instanceof UnaryBooleanOperation) {
+            UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
             return new AssUnaryBooleanOperation(a_);
         }
-        if (_anaNode instanceof ExecCurrentInvokingConstructor) {
-            ExecCurrentInvokingConstructor a_ = (ExecCurrentInvokingConstructor) _anaNode;
+        if (_anaNode instanceof CurrentInvokingConstructor) {
+            CurrentInvokingConstructor a_ = (CurrentInvokingConstructor) _anaNode;
             return new AssCurrentInvokingConstructor(a_);
         }
-        if (_anaNode instanceof ExecMethodOperation) {
-            if (((ExecMethodOperation)_anaNode).getChildrenNodes().size() > 1) {
+        if (_anaNode instanceof MethodOperation) {
+            if (((MethodOperation)_anaNode).getChildrenNodes().size() > 1) {
                 return new AssStdMethodOperation(_anaNode);
             }
         }
-        if (_anaNode instanceof ExecLeafOperation) {
+        if (_anaNode instanceof LeafOperation) {
             return new AssStdLeafOperation(_anaNode);
         }
         return new AssStdUnaryMethodOperation(_anaNode);

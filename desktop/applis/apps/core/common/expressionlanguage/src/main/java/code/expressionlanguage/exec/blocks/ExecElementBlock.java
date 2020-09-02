@@ -49,11 +49,6 @@ public final class ExecElementBlock extends ExecLeaf implements ExecInnerTypeOrE
     }
 
     @Override
-    public CustList<ExecOperationNode> getOpValue() {
-        return opValue;
-    }
-
-    @Override
     public void setTrOffset(int trOffset) {
         this.trOffset = trOffset;
     }

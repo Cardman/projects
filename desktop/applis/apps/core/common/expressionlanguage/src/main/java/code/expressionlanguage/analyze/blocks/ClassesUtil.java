@@ -2486,7 +2486,7 @@ public final class ClassesUtil {
                     page_.getMappingLocal().putAllMap(c.getMappings());
                     ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, val_);
-                    AssInfoBlock aInfo_ = new AssElementBlock(val_);
+                    AssInfoBlock aInfo_ = new AssElementBlock(method_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -2509,7 +2509,7 @@ public final class ClassesUtil {
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, exp_);
                     AssInfoBlock aInfo_;
-                    aInfo_ = new AssFieldBlock(exp_);
+                    aInfo_ = new AssFieldBlock(method_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -2524,7 +2524,7 @@ public final class ClassesUtil {
                     page_.getMappingLocal().clear();
                     page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_),_context,pr_,assVars_);
-                    assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
+                    assAfter_.putAllMap(getFieldsRoot(assVars_, res_));
                     page_.clearAllLocalVars(assVars_);
                     pr_ = res_;
                 }
@@ -2613,7 +2613,7 @@ public final class ClassesUtil {
                     page_.getMappingLocal().putAllMap(c.getMappings());
                     ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
                     method_.buildExpressionLanguageReadOnly(_context, exp_);
-                    AssFieldBlock aInfo_ = new AssFieldBlock(exp_);
+                    AssFieldBlock aInfo_ = new AssFieldBlock(method_);
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
@@ -2628,7 +2628,7 @@ public final class ClassesUtil {
                     page_.getMappingLocal().clear();
                     page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_), _context,pr_, assVars_);
-                    assAfter_.putAllMap(assVars_.getFinalVariables().getVal(res_).getFieldsRoot());
+                    assAfter_.putAllMap(getFieldsRoot(assVars_, res_));
                     page_.clearAllLocalVars(assVars_);
                     pr_ = res_;
                 }
@@ -2677,9 +2677,8 @@ public final class ClassesUtil {
                     page_.getMappingLocal().clear();
                     page_.getMappingLocal().putAllMap(method_.getMappings());
                     AssMemberCallingsBlock met_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllCtors().getVal(method_), _context,null, assVars_);
-                    IdMap<AssBlock, AssignedVariables> id_ = assVars_.getFinalVariables();
-                    AssignedVariables assTar_ = id_.getVal(met_);
-                    for (EntryCust<String, SimpleAssignment> f: assTar_.getFieldsRoot().entryList()) {
+                    StringMap<SimpleAssignment> fieldsRoot_ = getFieldsRoot(assVars_,met_);
+                    for (EntryCust<String, SimpleAssignment> f: fieldsRoot_.entryList()) {
                         String fieldName_ = f.getKey();
                         ClassField key_ = new ClassField(fullName_, fieldName_);
                         if (!ContextUtil.isFinalField(_context,key_)) {
@@ -2764,6 +2763,14 @@ public final class ClassesUtil {
             AssBlockUtil.buildFctInstructions(o,value_,_context,null,assVars_);
             page_.clearAllLocalVars(assVars_);
         }
+    }
+
+    private static StringMap<SimpleAssignment> getFieldsRoot(AssignedVariablesBlock assVars_, AssMemberCallingsBlock res_) {
+        AssignedVariables val_ = assVars_.getFinalVariables().getVal(res_);
+        if (val_ == null) {
+            return new StringMap<SimpleAssignment>();
+        }
+        return val_.getFieldsRoot();
     }
 
     private static void putCallOperator(ContextEl _context) {

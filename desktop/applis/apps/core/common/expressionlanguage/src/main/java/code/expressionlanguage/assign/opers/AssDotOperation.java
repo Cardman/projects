@@ -1,12 +1,13 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.AbstractDotOperation;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.exec.opers.ExecAbstractDotOperation;
 
 public final class AssDotOperation extends AssMultMethodOperation {
-    AssDotOperation(ExecAbstractDotOperation _ex) {
+    AssDotOperation(AbstractDotOperation _ex) {
         super(_ex);
     }
 

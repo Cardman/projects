@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.SwitchBlock;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
@@ -17,10 +18,10 @@ import code.util.StringMap;
 public final class AssSwitchBlock extends AssBracedStack  implements AssBreakableBlock, AssBuildableElMethod{
     private String label;
     private CustList<AssOperationNode> opList;
-    AssSwitchBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecAbstractSwitchBlock _s) {
+    AssSwitchBlock(boolean _completeNormally, boolean _completeNormallyGroup, String _label, SwitchBlock _s) {
         super(_completeNormally,_completeNormallyGroup);
         label = _label;
-        opList = AssUtil.getExecutableNodes(_s.getOpValue());
+        opList = AssUtil.getExecutableNodes(_s.getRoot());
     }
 
     @Override
@@ -30,10 +31,7 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
         AssignedVariables parAss_ = id_.getVal(this);
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastFieldsOrEmpty()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastVariablesOrEmpty()));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBefore(parAss_.getLastMutableLoopOrEmpty()));
-        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
+        assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignBefore(parAss_.getLastVariablesOrEmpty()));
         id_.put(firstChild_, assBl_);
     }
 
@@ -51,16 +49,12 @@ public final class AssSwitchBlock extends AssBracedStack  implements AssBreakabl
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
+        StringMap<SimpleAssignment> afterVars_;
         after_ =buildAssFieldsAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterSwitch(def_, ch_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterSwitch(def_, ch_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+        assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
     private boolean hasDefaultCase() {
         AssBlock ch_ = getFirstChild();

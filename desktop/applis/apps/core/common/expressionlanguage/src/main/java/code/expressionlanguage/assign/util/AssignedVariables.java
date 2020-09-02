@@ -12,20 +12,16 @@ import code.util.StringMap;
 
 public class AssignedVariables {
 
-    private IdMap<AssOperationNode,CustList<StringMap<AssignmentBefore>>> variablesBefore = new IdMap<AssOperationNode,CustList<StringMap<AssignmentBefore>>>();
-    private IdMap<AssOperationNode,CustList<StringMap<AssignmentBefore>>> mutableLoopBefore = new IdMap<AssOperationNode,CustList<StringMap<AssignmentBefore>>>();
+    private IdMap<AssOperationNode,StringMap<AssignmentBefore>> variablesBefore = new IdMap<AssOperationNode,StringMap<AssignmentBefore>>();
     private IdMap<AssOperationNode,StringMap<AssignmentBefore>> fieldsBefore = new IdMap<AssOperationNode,StringMap<AssignmentBefore>>();
 
-    private IdMap<AssOperationNode,CustList<StringMap<Assignment>>> variables = new IdMap<AssOperationNode,CustList<StringMap<Assignment>>>();
-    private IdMap<AssOperationNode,CustList<StringMap<Assignment>>> mutableLoop = new IdMap<AssOperationNode,CustList<StringMap<Assignment>>>();
+    private IdMap<AssOperationNode,StringMap<Assignment>> variables = new IdMap<AssOperationNode,StringMap<Assignment>>();
     private IdMap<AssOperationNode,StringMap<Assignment>> fields = new IdMap<AssOperationNode,StringMap<Assignment>>();
 
-    private CustList<StringMap<AssignmentBefore>> variablesRootBefore = new CustList<StringMap<AssignmentBefore>>();
-    private CustList<StringMap<AssignmentBefore>> mutableLoopRootBefore = new CustList<StringMap<AssignmentBefore>>();
+    private StringMap<AssignmentBefore> variablesRootBefore = new StringMap<AssignmentBefore>();
     private StringMap<AssignmentBefore> fieldsRootBefore = new StringMap<AssignmentBefore>();
 
-    private CustList<StringMap<SimpleAssignment>> variablesRoot = new CustList<StringMap<SimpleAssignment>>();
-    private CustList<StringMap<SimpleAssignment>> mutableLoopRoot = new CustList<StringMap<SimpleAssignment>>();
+    private StringMap<SimpleAssignment> variablesRoot = new StringMap<SimpleAssignment>();
     private StringMap<SimpleAssignment> fieldsRoot = new StringMap<SimpleAssignment>();
 
     public IdList<AssAffectationOperation> getVariablesBefore(AssBlock _filter, boolean _all) {
@@ -34,10 +30,6 @@ public class AssignedVariables {
 
     public IdList<AssAffectationOperation> getFieldsBefore(AssBlock _filter, boolean _all) {
         return getList(_filter,_all,fieldsBefore.getKeys());
-    }
-
-    public IdList<AssAffectationOperation> getMutableLoopBefore(AssBlock _filter, boolean _all) {
-        return getList(_filter, _all, mutableLoopBefore.getKeys());
     }
 
     private IdList<AssAffectationOperation> getList(AssBlock _filter, boolean _all, CustList<AssOperationNode> _list) {
@@ -61,13 +53,13 @@ public class AssignedVariables {
         }
         return out_;
     }
-    public CustList<StringMap<Assignment>> getLastVariablesOrEmpty() {
+    public StringMap<Assignment> getLastVariablesOrEmpty() {
         if (variables.isEmpty()) {
-            return new CustList<StringMap<Assignment>>();
+            return new StringMap<Assignment>();
         }
         return variables.lastValue();
     }
-    public IdMap<AssOperationNode, CustList<StringMap<Assignment>>> getVariables() {
+    public IdMap<AssOperationNode, StringMap<Assignment>> getVariables() {
         return variables;
     }
     public StringMap<Assignment> getLastFieldsOrEmpty() {
@@ -79,40 +71,22 @@ public class AssignedVariables {
     public IdMap<AssOperationNode, StringMap<Assignment>> getFields() {
         return fields;
     }
-    public IdMap<AssOperationNode, CustList<StringMap<AssignmentBefore>>> getVariablesBefore() {
+    public IdMap<AssOperationNode, StringMap<AssignmentBefore>> getVariablesBefore() {
         return variablesBefore;
     }
     public IdMap<AssOperationNode, StringMap<AssignmentBefore>> getFieldsBefore() {
         return fieldsBefore;
     }
-    public CustList<StringMap<AssignmentBefore>> getVariablesRootBefore() {
+    public StringMap<AssignmentBefore> getVariablesRootBefore() {
         return variablesRootBefore;
     }
     public StringMap<AssignmentBefore> getFieldsRootBefore() {
         return fieldsRootBefore;
     }
-    public CustList<StringMap<SimpleAssignment>> getVariablesRoot() {
+    public StringMap<SimpleAssignment> getVariablesRoot() {
         return variablesRoot;
     }
     public StringMap<SimpleAssignment> getFieldsRoot() {
         return fieldsRoot;
-    }
-    public IdMap<AssOperationNode, CustList<StringMap<AssignmentBefore>>> getMutableLoopBefore() {
-        return mutableLoopBefore;
-    }
-    public CustList<StringMap<Assignment>> getLastMutableLoopOrEmpty() {
-        if (mutableLoop.isEmpty()) {
-            return new CustList<StringMap<Assignment>>();
-        }
-        return mutableLoop.lastValue();
-    }
-    public IdMap<AssOperationNode, CustList<StringMap<Assignment>>> getMutableLoop() {
-        return mutableLoop;
-    }
-    public CustList<StringMap<AssignmentBefore>> getMutableLoopRootBefore() {
-        return mutableLoopRootBefore;
-    }
-    public CustList<StringMap<SimpleAssignment>> getMutableLoopRoot() {
-        return mutableLoopRoot;
     }
 }

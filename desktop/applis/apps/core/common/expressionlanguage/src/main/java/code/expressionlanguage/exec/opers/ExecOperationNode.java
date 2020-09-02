@@ -371,11 +371,11 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new ExecMutableLoopVariableOperation(m_);
+            return new ExecStdVariableOperation(m_);
         }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
-            return new ExecVariableOperation(m_);
+            return new ExecStdVariableOperation(m_);
         }
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;

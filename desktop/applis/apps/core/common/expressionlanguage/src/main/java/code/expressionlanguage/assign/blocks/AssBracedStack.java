@@ -1,7 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.opers.*;
 import code.expressionlanguage.assign.util.*;
@@ -17,8 +16,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
     protected void buildConditions(ContextEl _cont, AssignedVariablesBlock _a) {
         AssignedBooleanVariables res_ = (AssignedBooleanVariables) _a.getFinalVariables().getVal(this);
         res_.getFieldsRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastFieldsOrEmpty()));
-        res_.getVariablesRootAfter().addAllElts(AssignmentsUtil.toBoolAssign(res_.getLastVariablesOrEmpty()));
-        res_.getMutableLoopRootAfter().addAllElts(AssignmentsUtil.toBoolAssign(res_.getLastMutableLoopOrEmpty()));
+        res_.getVariablesRootAfter().putAllMap(AssignmentsUtil.toBoolAssign(res_.getLastVariablesOrEmpty()));
     }
     protected void assignWhenFalse(boolean _add,ContextEl _an, AssignedVariablesBlock _anEl) {
         AssBlock firstChild_;
@@ -38,12 +36,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenFalse(abv_.getFieldsRootAfter()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenFalse(abv_.getVariablesRootAfter()));
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenFalse(abv_.getMutableLoopRootAfter()));
-        if (_add) {
-            assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-            assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
-        }
+        assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenFalse(abv_.getVariablesRootAfter()));
         id_.put(firstChild_, assBl_);
     }
     protected void assignWhenTrue(ContextEl _an, AssignedVariablesBlock _anEl) {
@@ -53,10 +46,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         AssignedVariables assBl_ = firstChild_.buildNewAssignedVariable();
         AssignedBooleanVariables abv_ = (AssignedBooleanVariables) parAss_;
         assBl_.getFieldsRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenTrue(abv_.getFieldsRootAfter()));
-        assBl_.getVariablesRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenTrue(abv_.getVariablesRootAfter()));
-        assBl_.getMutableLoopRootBefore().addAllElts(AssignmentsUtil.assignBoolWhenTrue(abv_.getMutableLoopRootAfter()));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
+        assBl_.getVariablesRootBefore().putAllMap(AssignmentsUtil.assignBoolWhenTrue(abv_.getVariablesRootAfter()));
         id_.put(firstChild_, assBl_);
     }
     protected void processFinalFields(ContextEl _an,
@@ -90,71 +80,37 @@ public abstract class AssBracedStack extends AssBracedBlock {
     protected void processFinalVars(ContextEl _an, AssignedVariablesBlock _anEl,
                                     IdMap<AssBlock, AssignedVariables> _allDesc,
                                     AssignedVariables _root,
-                                    CustList<StringMap<AssignmentBefore>> _fields) {
+                                    StringMap<AssignmentBefore> _fields) {
         AssignedVariables vars_;
-        int index_ = 0;
-        for (StringMap<AssignmentBefore> s: _fields) {
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                if (e.getValue().isUnassignedBefore()) {
-                    continue;
-                }
-                if (e.getValue().isAssignedBefore()) {
-                    continue;
-                }
-                String key_ = e.getKey();
-                if (!_anEl.isFinalLocalVar(key_,index_)) {
-                    continue;
-                }
-                processFinalVars(this, false, _an, _root, key_);
-                for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
-                    vars_ = d.getValue();
-                    AssBlock next_ = d.getKey();
-                    //next siblings of d
-                    processFinalVars(next_,true, _an, vars_, key_);
-                }
+        for (EntryCust<String,AssignmentBefore> e: _fields.entryList()) {
+            if (e.getValue().isUnassignedBefore()) {
+                continue;
             }
-            index_++;
+            if (e.getValue().isAssignedBefore()) {
+                continue;
+            }
+            String key_ = e.getKey();
+            if (!_anEl.isFinalLocalVar(key_)) {
+                continue;
+            }
+            processFinalVars(this, false, _an, _root, key_);
+            for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
+                vars_ = d.getValue();
+                AssBlock next_ = d.getKey();
+                //next siblings of d
+                processFinalVars(next_,true, _an, vars_, key_);
+            }
         }
 
     }
 
-    protected void processFinalMutableLoop(ContextEl _an, AssignedVariablesBlock _anEl,
-                                           IdMap<AssBlock, AssignedVariables> _allDesc,
-                                           AssignedVariables _root,
-                                           CustList<StringMap<AssignmentBefore>> _fields) {
-        AssignedVariables vars_;
-        int index_ = 0;
-        for (StringMap<AssignmentBefore> s: _fields) {
-            for (EntryCust<String,AssignmentBefore> e: s.entryList()) {
-                if (e.getValue().isUnassignedBefore()) {
-                    continue;
-                }
-                if (e.getValue().isAssignedBefore()) {
-                    continue;
-                }
-                String key_ = e.getKey();
-                if (!_anEl.isFinalMutableLoopVar(key_,index_)) {
-                    continue;
-                }
-                processFinalMutableLoop(this, false, _an, _root, key_);
-                for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
-                    vars_ = d.getValue();
-                    AssBlock next_ = d.getKey();
-                    //next siblings of d
-                    processFinalMutableLoop(next_, true, _an, vars_, key_);
-                }
-            }
-            index_++;
-        }
-
-    }
     protected static void processFinalVars(AssBlock _curBlock, boolean _all, ContextEl _an, AssignedVariables _vars, String _field) {
         for (AssAffectationOperation f: _vars.getVariablesBefore(_curBlock,_all)) {
             AssOperationNode set_ = f.getSettableOp();
-            if (!(set_ instanceof AssVariableOperation)) {
+            if (!(set_ instanceof AssStdVariableOperation)) {
                 continue;
             }
-            AssVariableOperation cst_ = (AssVariableOperation) set_;
+            AssStdVariableOperation cst_ = (AssStdVariableOperation) set_;
             String str_ = cst_.getVariableName();
             if (!StringList.quickEq(str_, _field)) {
                 continue;
@@ -168,26 +124,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
             _an.addError(un_);
         }
     }
-    protected static void processFinalMutableLoop(AssBlock _curBlock, boolean _all, ContextEl _an, AssignedVariables _vars, String _field) {
-        for (AssAffectationOperation f: _vars.getMutableLoopBefore(_curBlock,_all)) {
-            AssOperationNode set_ = f.getSettableOp();
-            if (!(set_ instanceof AssMutableLoopVariableOperation)) {
-                continue;
-            }
-            AssMutableLoopVariableOperation cst_ = (AssMutableLoopVariableOperation) set_;
-            String str_ = cst_.getVariableName();
-            if (!StringList.quickEq(str_, _field)) {
-                continue;
-            }
-            cst_.setRelativeOffsetPossibleAnalyzable(_an);
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_an.getCurrentLocationIndex());
-            un_.buildError(_an.getAnalysisMessages().getFinalField(),
-                    str_);
-            _an.addError(un_);
-        }
-    }
+
     protected static void processFinalFields(AssBlock _curBlock, boolean _all, ContextEl _an, AssignedVariables _vars, String _field) {
         for (AssAffectationOperation f: _vars.getFieldsBefore(_curBlock,_all)) {
             AssOperationNode set_ = f.getSettableOp();
@@ -235,7 +172,7 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return beforeIncrPart(list_, new StringMap<SimpleAssignment>(), breakAss_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListLocVarBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<AssignmentBefore> buildAssListLocVarBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {
         AssBlock last_ = getFirstChild();
         while (last_.getNextSibling() != null) {
             last_ = last_.getNextSibling();
@@ -243,68 +180,29 @@ public abstract class AssBracedStack extends AssBracedBlock {
         CustList<AssContinueBlock> continues_ = getContinuables();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<AssignmentBefore>> varsList_;
-        varsList_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<SimpleAssignment>> list_;
+        StringMap<AssignmentBefore> varsList_;
+        StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getVariablesRoot();
         int contLen_ = continues_.size();
-        int loopLen_ = list_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            CustList<StringMap<AssignmentBefore>> breakAss_;
-            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
-            for (int j = 0; j < contLen_; j++) {
-                AssContinueBlock br_ = continues_.get(j);
-                AssignedVariables ass_ = id_.getVal(br_);
-                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
-                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
-            }
-            StringMap<SimpleAssignment> cond_ = list_.get(i);
-            if (last_.isCompleteNormallyGroup()) {
-                AssignedVariables ass_ = id_.getVal(last_);
-                CustList<StringMap<SimpleAssignment>> v_ = ass_.getVariablesRoot();
-                varsList_.add(beforeIncrPart(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
-            } else {
-                varsList_.add(beforeIncrPart(cond_, new StringMap<SimpleAssignment>(), breakAss_));
-            }
+        CustList<StringMap<AssignmentBefore>> breakAss_;
+        breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+        for (int j = 0; j < contLen_; j++) {
+            AssContinueBlock br_ = continues_.get(j);
+            AssignedVariables ass_ = id_.getVal(br_);
+            StringMap<AssignmentBefore> vars_ = ass_.getVariablesRootBefore();
+            breakAss_.add(vars_);
+        }
+        if (last_.isCompleteNormallyGroup()) {
+            AssignedVariables ass_ = id_.getVal(last_);
+            StringMap<SimpleAssignment> v_ = ass_.getVariablesRoot();
+            varsList_=beforeIncrPart(list_, v_, breakAss_);
+        } else {
+            varsList_=beforeIncrPart(list_, new StringMap<SimpleAssignment>(), breakAss_);
         }
 
         return varsList_;
     }
-    protected CustList<StringMap<AssignmentBefore>> buildAssListMutableLoopBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {
-        AssBlock last_ = getFirstChild();
-        while (last_.getNextSibling() != null) {
-            last_ = last_.getNextSibling();
-        }
-        CustList<AssContinueBlock> continues_ = getContinuables();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<AssignmentBefore>> varsList_;
-        varsList_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<SimpleAssignment>> list_;
-        list_ = id_.getVal(this).getMutableLoopRoot();
-        int contLen_ = continues_.size();
-        int loopLen_ = list_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            CustList<StringMap<AssignmentBefore>> breakAss_;
-            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
-            for (int j = 0; j < contLen_; j++) {
-                AssContinueBlock br_ = continues_.get(j);
-                AssignedVariables ass_ = id_.getVal(br_);
-                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
-                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
-            }
-            StringMap<SimpleAssignment> cond_ = list_.get(i);
-            if (last_.isCompleteNormallyGroup()) {
-                AssignedVariables ass_ = id_.getVal(last_);
-                CustList<StringMap<SimpleAssignment>> v_ = ass_.getMutableLoopRoot();
-                varsList_.add(beforeIncrPart(cond_, AssignmentsUtil.getOrEmptySimple(v_,i), breakAss_));
-            } else {
-                varsList_.add(beforeIncrPart(cond_, new StringMap<SimpleAssignment>(), breakAss_));
-            }
-        }
 
-        return varsList_;
-    }
     private static StringMap<AssignmentBefore> beforeIncrPart(StringMap<SimpleAssignment> _loop, StringMap<SimpleAssignment> _last,
                                                               CustList<StringMap<AssignmentBefore>> _continuable) {
         StringMap<AssignmentBefore> out_ = new StringMap<AssignmentBefore>();
@@ -344,104 +242,50 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return out_;
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterIf(boolean _useBool,
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterIf(boolean _useBool,
                                                                              CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
-        CustList<StringMap<SimpleAssignment>> out_;
-        out_ = new CustList<StringMap<SimpleAssignment>>();
+
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         AssignedVariables idStdIf_;
         idStdIf_ = id_.getVal(this);
-        CustList<StringMap<SimpleAssignment>> list_;
+        StringMap<SimpleAssignment> list_;
         list_ = idStdIf_.getVariablesRoot();
-        int len_ = list_.size();
-        for (int i = 0; i < len_; i++) {
-            StringMap<BooleanAssignment> bool_;
-            if (_useBool) {
-                AssignedBooleanVariables idIf_;
-                idIf_ = (AssignedBooleanVariables) id_.getVal(this);
-                CustList<StringMap<BooleanAssignment>> bools_;
-                bools_ = idIf_.getVariablesRootAfter();
-                bool_ = AssignmentsUtil.getOrEmptyBool(bools_,i);
-            } else {
-                bool_ = new StringMap<BooleanAssignment>();
-            }
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            for (AssBlock c: _blocks) {
-                CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
-                CustList<StringMap<AssignmentBefore>> listBr_;
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getVariablesRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getVariablesRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
-            }
-            StringMap<SimpleAssignment> if_ = list_.get(i);
-            out_.add(buildAssAfterIf(if_, bool_, listBl_, listBrs_));
+        StringMap<BooleanAssignment> bool_;
+        if (_useBool) {
+            AssignedBooleanVariables idIf_;
+            idIf_ = (AssignedBooleanVariables) id_.getVal(this);
+            StringMap<BooleanAssignment> bools_;
+            bools_ = idIf_.getVariablesRootAfter();
+            bool_ = bools_;
+        } else {
+            bool_ = new StringMap<BooleanAssignment>();
         }
-        return out_;
-    }
-    protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterIf(boolean _useBool,
-                                                                               CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
-        CustList<StringMap<SimpleAssignment>> out_;
-        out_ = new CustList<StringMap<SimpleAssignment>>();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        AssignedVariables idStdIf_;
-        idStdIf_ = id_.getVal(this);
-        CustList<StringMap<SimpleAssignment>> list_;
-        list_ = idStdIf_.getMutableLoopRoot();
-        int len_ = list_.size();
-        for (int i = 0; i < len_; i++) {
-            StringMap<BooleanAssignment> bool_;
-            if (_useBool) {
-                AssignedBooleanVariables idIf_;
-                idIf_ = (AssignedBooleanVariables) id_.getVal(this);
-                CustList<StringMap<BooleanAssignment>> bools_;
-                bools_ = idIf_.getMutableLoopRootAfter();
-                bool_ = AssignmentsUtil.getOrEmptyBool(bools_,i);
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        for (AssBlock c: _blocks) {
+            CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (c.isCompleteNormally()) {
+                StringMap<SimpleAssignment> map_;
+                map_ = id_.getVal(c).getVariablesRoot();
+                listBl_.add(map_);
             } else {
-                bool_ = new StringMap<BooleanAssignment>();
+                listBl_.add(new StringMap<SimpleAssignment>());
             }
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            for (AssBlock c: _blocks) {
-                CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
-                CustList<StringMap<AssignmentBefore>> listBr_;
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getMutableLoopRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getMutableLoopRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
+            for (AssBreakBlock b: breaks_) {
+                StringMap<AssignmentBefore> map_;
+                map_ = id_.getVal(b).getVariablesRootBefore();
+                listBr_.add(map_);
             }
-            StringMap<SimpleAssignment> if_ = list_.get(i);
-            out_.add(buildAssAfterIf(if_, bool_, listBl_, listBrs_));
+            listBrs_.add(listBr_);
         }
-        return out_;
+        return buildAssAfterIf(list_, bool_, listBl_, listBrs_);
     }
+
     protected StringMap<SimpleAssignment> buildAssFieldsAfterIf(boolean _useBool,
                                                                 CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
@@ -532,72 +376,33 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return out_;
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterSwitch(
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterSwitch(
             boolean _default,
             AssBlock _last,
             ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<Assignment>> list_;
+        StringMap<Assignment> list_;
         list_ = id_.getVal(this).getLastVariablesOrEmpty();
-        int len_ = list_.size();
-        CustList<StringMap<SimpleAssignment>> out_;
-        out_ = new CustList<StringMap<SimpleAssignment>>();
-        for (int i = 0; i < len_; i++) {
-            StringMap<Assignment> switch_ = list_.get(i);
-            StringMap<SimpleAssignment> last_;
-            if (_last.isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_;
-                map_ = id_.getVal(_last).getVariablesRoot();
-                last_ = AssignmentsUtil.getOrEmptySimple(map_,i);
-            } else {
-                last_ = new StringMap<SimpleAssignment>();
-            }
-            CustList<AssBreakBlock> breaks_ = getBreakables();
-            CustList<StringMap<AssignmentBefore>> listBr_;
-            listBr_ = new CustList<StringMap<AssignmentBefore>>();
-            for (AssBreakBlock b: breaks_) {
-                CustList<StringMap<AssignmentBefore>> map_;
-                map_ = id_.getVal(b).getVariablesRootBefore();
-                listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-            }
-            out_.add(buildAssAfterSwitch(_default, switch_, last_, listBr_));
+        StringMap<SimpleAssignment> last_;
+        if (_last.isCompleteNormally()) {
+            StringMap<SimpleAssignment> map_;
+            map_ = id_.getVal(_last).getVariablesRoot();
+            last_ = map_;
+        } else {
+            last_ = new StringMap<SimpleAssignment>();
         }
-        return out_;
-    }
-    protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterSwitch(
-            boolean _default,
-            AssBlock _last,
-            ContextEl _an, AssignedVariablesBlock _anEl) {
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<Assignment>> list_;
-        list_ = id_.getVal(this).getLastMutableLoopOrEmpty();
-        int len_ = list_.size();
-        CustList<StringMap<SimpleAssignment>> out_;
-        out_ = new CustList<StringMap<SimpleAssignment>>();
-        for (int i = 0; i < len_; i++) {
-            StringMap<Assignment> switch_ = list_.get(i);
-            StringMap<SimpleAssignment> last_;
-            if (_last.isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_;
-                map_ = id_.getVal(_last).getMutableLoopRoot();
-                last_ = AssignmentsUtil.getOrEmptySimple(map_,i);
-            } else {
-                last_ = new StringMap<SimpleAssignment>();
-            }
-            CustList<AssBreakBlock> breaks_ = getBreakables();
-            CustList<StringMap<AssignmentBefore>> listBr_;
-            listBr_ = new CustList<StringMap<AssignmentBefore>>();
-            for (AssBreakBlock b: breaks_) {
-                CustList<StringMap<AssignmentBefore>> map_;
-                map_ = id_.getVal(b).getMutableLoopRootBefore();
-                listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-            }
-            out_.add(buildAssAfterSwitch(_default, switch_, last_, listBr_));
+        CustList<AssBreakBlock> breaks_ = getBreakables();
+        CustList<StringMap<AssignmentBefore>> listBr_;
+        listBr_ = new CustList<StringMap<AssignmentBefore>>();
+        for (AssBreakBlock b: breaks_) {
+            StringMap<AssignmentBefore> map_;
+            map_ = id_.getVal(b).getVariablesRootBefore();
+            listBr_.add(map_);
         }
-        return out_;
+        return buildAssAfterSwitch(_default, list_, last_, listBr_);
     }
+
     protected StringMap<SimpleAssignment> buildAssFieldsAfterSwitch(
             boolean _default,
             AssBlock _last,
@@ -680,54 +485,24 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
         return buildAssAfterLoop(list_, breakAss_);
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssListLocVarAfterLoop(ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssListLocVarAfterLoop(ContextEl _an, AssignedVariablesBlock _anEl) {
         CustList<AssBreakBlock> breaks_ = getBreakables();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> varsList_;
-        varsList_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<BooleanAssignment>> list_;
+        StringMap<BooleanAssignment> list_;
         list_ = ((AssignedBooleanVariables) id_.getVal(this)).getVariablesRootAfter();
         int breakLen_ = breaks_.size();
-        int loopLen_ = list_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            CustList<StringMap<AssignmentBefore>> breakAss_;
-            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
-            for (int j = 0; j < breakLen_; j++) {
-                AssBreakBlock br_ = breaks_.get(j);
-                AssignedVariables ass_ = id_.getVal(br_);
-                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getVariablesRootBefore();
-                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
-            }
-            StringMap<BooleanAssignment> cond_ = list_.get(i);
-            varsList_.add(buildAssAfterLoop(cond_, breakAss_));
+        CustList<StringMap<AssignmentBefore>> breakAss_;
+        breakAss_ = new CustList<StringMap<AssignmentBefore>>();
+        for (int j = 0; j < breakLen_; j++) {
+            AssBreakBlock br_ = breaks_.get(j);
+            AssignedVariables ass_ = id_.getVal(br_);
+            StringMap<AssignmentBefore> vars_ = ass_.getVariablesRootBefore();
+            breakAss_.add(vars_);
         }
-        return varsList_;
+        return buildAssAfterLoop(list_, breakAss_);
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssListMutableLoopAfterLoop(ContextEl _an, AssignedVariablesBlock _anEl) {
-        CustList<AssBreakBlock> breaks_ = getBreakables();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> varsList_;
-        varsList_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<BooleanAssignment>> list_;
-        list_ = ((AssignedBooleanVariables) id_.getVal(this)).getMutableLoopRootAfter();
-        int breakLen_ = breaks_.size();
-        int loopLen_ = list_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            CustList<StringMap<AssignmentBefore>> breakAss_;
-            breakAss_ = new CustList<StringMap<AssignmentBefore>>();
-            for (int j = 0; j < breakLen_; j++) {
-                AssBreakBlock br_ = breaks_.get(j);
-                AssignedVariables ass_ = id_.getVal(br_);
-                CustList<StringMap<AssignmentBefore>> vars_ = ass_.getMutableLoopRootBefore();
-                breakAss_.add(AssignmentsUtil.getOrEmptyBefore(vars_,i));
-            }
-            StringMap<BooleanAssignment> cond_ = list_.get(i);
-            varsList_.add(buildAssAfterLoop(cond_, breakAss_));
-        }
-        return varsList_;
-    }
+
     protected static StringMap<SimpleAssignment> buildAssAfterLoop(StringMap<BooleanAssignment> _loop, CustList<StringMap<AssignmentBefore>> _breakAss) {
         StringMap<SimpleAssignment> out_ = new StringMap<SimpleAssignment>();
         for (EntryCust<String,BooleanAssignment> e: _loop.entryList()) {
@@ -753,67 +528,60 @@ public abstract class AssBracedStack extends AssBracedBlock {
         return out_;
     }
 
-    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> list_;
+        StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getVariablesRoot();
-        int len_ = list_.size();
-        CustList<StringMap<SimpleAssignment>> outs_;
-        outs_ = new CustList<StringMap<SimpleAssignment>>();
-        for (int i = 0; i < len_; i++) {
-            StringMap<SimpleAssignment> out_;
-            out_ = new StringMap<SimpleAssignment>();
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<StringMap<SimpleAssignment>> listBlFin_;
-            listBlFin_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listSingBrs_;
-            listSingBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            CustList<AssBreakBlock> breaks_ = getBreakables();
-            CustList<StringMap<AssignmentBefore>> listBr_;
-            CustList<StringMap<AssignmentBefore>> listBrFin_;
-            listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
-            if (isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_;
-                map_ = id_.getVal(this).getVariablesRoot();
-                listBlFin_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
+        StringMap<SimpleAssignment> out_;
+        out_ = new StringMap<SimpleAssignment>();
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<StringMap<SimpleAssignment>> listBlFin_;
+        listBlFin_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listSingBrs_;
+        listSingBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        CustList<AssBreakBlock> breaks_ = getBreakables();
+        CustList<StringMap<AssignmentBefore>> listBr_;
+        CustList<StringMap<AssignmentBefore>> listBrFin_;
+        listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
+        if (isCompleteNormally()) {
+            StringMap<SimpleAssignment> map_;
+            map_ = id_.getVal(this).getVariablesRoot();
+            listBlFin_.add(map_);
+        } else {
+            listBlFin_.add(new StringMap<SimpleAssignment>());
+        }
+        for (AssBreakBlock b: breaks_) {
+            StringMap<AssignmentBefore> map_;
+            map_ = id_.getVal(b).getVariablesRootBefore();
+            listBrFin_.add(map_);
+        }
+        listSingBrs_.add(listBrFin_);
+        StringMap<SimpleAssignment> fin_ = buildAssAfterTry(list_, listBlFin_, listSingBrs_);
+
+        for (AssBlock c: _blocks) {
+            breaks_ = ((AssBracedStack)c).getBreakables();
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (c.isCompleteNormally()) {
+                StringMap<SimpleAssignment> map_;
+                map_ = id_.getVal(c).getVariablesRoot();
+                listBl_.add(map_);
             } else {
-                listBlFin_.add(new StringMap<SimpleAssignment>());
+                listBl_.add(new StringMap<SimpleAssignment>());
             }
             for (AssBreakBlock b: breaks_) {
-                CustList<StringMap<AssignmentBefore>> map_;
+                StringMap<AssignmentBefore> map_;
                 map_ = id_.getVal(b).getVariablesRootBefore();
-                listBrFin_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
+                listBr_.add(map_);
             }
-            listSingBrs_.add(listBrFin_);
-            StringMap<SimpleAssignment> try_ = list_.get(i);
-            StringMap<SimpleAssignment> fin_ = buildAssAfterTry(try_, listBlFin_, listSingBrs_);
-
-            for (AssBlock c: _blocks) {
-                breaks_ = ((AssBracedStack)c).getBreakables();
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getVariablesRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getVariablesRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
-            }
-            StringMap<SimpleAssignment> prev_ = buildAssAfterTry(try_, listBl_, listBrs_);
-            buildAssFinally(out_, fin_, prev_);
-            outs_.add(out_);
+            listBrs_.add(listBr_);
         }
-        return outs_;
+        StringMap<SimpleAssignment> prev_ = buildAssAfterTry(list_, listBl_, listBrs_);
+        buildAssFinally(out_, fin_, prev_);
+        return out_;
     }
 
     private static void buildAssFinally(StringMap<SimpleAssignment> _out, StringMap<SimpleAssignment> _fin, StringMap<SimpleAssignment> _prev) {
@@ -830,68 +598,6 @@ public abstract class AssBracedStack extends AssBracedBlock {
         }
     }
 
-    protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> list_;
-        list_ = id_.getVal(this).getMutableLoopRoot();
-        int len_ = list_.size();
-        CustList<StringMap<SimpleAssignment>> outs_;
-        outs_ = new CustList<StringMap<SimpleAssignment>>();
-        for (int i = 0; i < len_; i++) {
-            StringMap<SimpleAssignment> out_;
-            out_ = new StringMap<SimpleAssignment>();
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<StringMap<SimpleAssignment>> listBlFin_;
-            listBlFin_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listSingBrs_;
-            listSingBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            CustList<AssBreakBlock> breaks_ = getBreakables();
-            CustList<StringMap<AssignmentBefore>> listBr_;
-            CustList<StringMap<AssignmentBefore>> listBrFin_;
-            listBrFin_ = new CustList<StringMap<AssignmentBefore>>();
-            if (isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_;
-                map_ = id_.getVal(this).getMutableLoopRoot();
-                listBlFin_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-            } else {
-                listBlFin_.add(new StringMap<SimpleAssignment>());
-            }
-            for (AssBreakBlock b: breaks_) {
-                CustList<StringMap<AssignmentBefore>> map_;
-                map_ = id_.getVal(b).getMutableLoopRootBefore();
-                listBrFin_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-            }
-            listSingBrs_.add(listBrFin_);
-            StringMap<SimpleAssignment> try_ = list_.get(i);
-            StringMap<SimpleAssignment> fin_ = buildAssAfterTry(try_, listBlFin_, listSingBrs_);
-
-            for (AssBlock c: _blocks) {
-                breaks_ = ((AssBracedStack)c).getBreakables();
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getMutableLoopRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getMutableLoopRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
-            }
-            StringMap<SimpleAssignment> prev_ = buildAssAfterTry(try_, listBl_, listBrs_);
-            buildAssFinally(out_, fin_, prev_);
-            outs_.add(out_);
-        }
-        return outs_;
-    }
     protected StringMap<SimpleAssignment> buildAssFieldsAfterFinally(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -938,78 +644,39 @@ public abstract class AssBracedStack extends AssBracedBlock {
         buildAssFinally(out_, fin_, prev_);
         return out_;
     }
-    protected CustList<StringMap<SimpleAssignment>> buildAssVariablesAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
+    protected StringMap<SimpleAssignment> buildAssVariablesAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
         CustList<StringMap<SimpleAssignment>> out_;
         out_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> list_;
+        StringMap<SimpleAssignment> list_;
         list_ = id_.getVal(this).getVariablesRoot();
         int len_ = list_.size();
-        for (int i = 0; i < len_; i++) {
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            for (AssBlock c: _blocks) {
-                CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
-                CustList<StringMap<AssignmentBefore>> listBr_;
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getVariablesRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getVariablesRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
+        CustList<StringMap<SimpleAssignment>> listBl_;
+        listBl_ = new CustList<StringMap<SimpleAssignment>>();
+        CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
+        listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
+        for (AssBlock c: _blocks) {
+            CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
+            CustList<StringMap<AssignmentBefore>> listBr_;
+            listBr_ = new CustList<StringMap<AssignmentBefore>>();
+            if (c.isCompleteNormally()) {
+                StringMap<SimpleAssignment> map_;
+                map_ = id_.getVal(c).getVariablesRoot();
+                listBl_.add(map_);
+            } else {
+                listBl_.add(new StringMap<SimpleAssignment>());
             }
-            StringMap<SimpleAssignment> try_ = list_.get(i);
-            out_.add(buildAssAfterTry(try_, listBl_, listBrs_));
-        }
-        return out_;
-    }
-    protected CustList<StringMap<SimpleAssignment>> buildAssMutableLoopAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> out_;
-        out_ = new CustList<StringMap<SimpleAssignment>>();
-        CustList<StringMap<SimpleAssignment>> list_;
-        list_ = id_.getVal(this).getMutableLoopRoot();
-        int len_ = list_.size();
-        for (int i = 0; i < len_; i++) {
-            CustList<StringMap<SimpleAssignment>> listBl_;
-            listBl_ = new CustList<StringMap<SimpleAssignment>>();
-            CustList<CustList<StringMap<AssignmentBefore>>> listBrs_;
-            listBrs_ = new CustList<CustList<StringMap<AssignmentBefore>>>();
-            for (AssBlock c: _blocks) {
-                CustList<AssBreakBlock> breaks_ = ((AssBracedStack)c).getBreakables();
-                CustList<StringMap<AssignmentBefore>> listBr_;
-                listBr_ = new CustList<StringMap<AssignmentBefore>>();
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> map_;
-                    map_ = id_.getVal(c).getMutableLoopRoot();
-                    listBl_.add(AssignmentsUtil.getOrEmptySimple(map_,i));
-                } else {
-                    listBl_.add(new StringMap<SimpleAssignment>());
-                }
-                for (AssBreakBlock b: breaks_) {
-                    CustList<StringMap<AssignmentBefore>> map_;
-                    map_ = id_.getVal(b).getMutableLoopRootBefore();
-                    listBr_.add(AssignmentsUtil.getOrEmptyBefore(map_,i));
-                }
-                listBrs_.add(listBr_);
+            for (AssBreakBlock b: breaks_) {
+                StringMap<AssignmentBefore> map_;
+                map_ = id_.getVal(b).getVariablesRootBefore();
+                listBr_.add(map_);
             }
-            StringMap<SimpleAssignment> try_ = list_.get(i);
-            out_.add(buildAssAfterTry(try_, listBl_, listBrs_));
+            listBrs_.add(listBr_);
         }
-        return out_;
+        return buildAssAfterTry(list_, listBl_, listBrs_);
     }
+
     protected StringMap<SimpleAssignment> buildAssFieldsAfterTry(CustList<AssBlock> _blocks,ContextEl _an, AssignedVariablesBlock _anEl) {
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
@@ -1132,138 +799,69 @@ public abstract class AssBracedStack extends AssBracedBlock {
         StringMap<AssignmentBefore> tryBefore_ = id_.getVal(_try).getFieldsRootBefore();
         return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_, catchs_);
     }
-    protected static CustList<StringMap<AssignmentBefore>> buildAssVarsBefNextCatchFinally(AssTryEval _try, ContextEl _an, AssignedVariablesBlock _anEl,
+    protected static StringMap<AssignmentBefore> buildAssVarsBefNextCatchFinally(AssTryEval _try, ContextEl _an, AssignedVariablesBlock _anEl,
                                                                                            CustList<AssCatchEval> _catchs) {
         CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
         CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
         IdMap<AssBlock, AssignedVariables> id_;
         id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getVariablesRoot();
-        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getVariablesRootBefore();
-        int loopLen_ = tryAfters_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            StringMap<SimpleAssignment> tryAfter_;
-            if (_try.isCompleteNormally()) {
-                tryAfter_ = tryAfters_.get(i);
+        StringMap<SimpleAssignment> tryAfters_ = id_.getVal(_try).getVariablesRoot();
+        StringMap<AssignmentBefore> tryBefores_ = id_.getVal(_try).getVariablesRootBefore();
+        StringMap<SimpleAssignment> tryAfter_;
+        if (_try.isCompleteNormally()) {
+            tryAfter_ = tryAfters_;
+        } else {
+            tryAfter_ = new StringMap<SimpleAssignment>();
+        }
+        StringMap<AssignmentBefore> tryBefore_ = tryBefores_;
+        CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
+        CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
+        CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
+        for (AssAbruptBlock a: abr_) {
+            if (a instanceof AssReturnMethod) {
+                if (((AssReturnMethod)a).isEmpty()) {
+                    StringMap<AssignmentBefore> li_ = id_.getVal(a).getVariablesRootBefore();
+                    others_.add(li_);
+                } else {
+                    StringMap<Assignment> li_ = id_.getVal(a).getLastVariablesOrEmpty();
+                    throws_.add(li_);
+                }
+            } else if (a instanceof AssThrowing) {
+                StringMap<Assignment> li_ = id_.getVal(a).getLastVariablesOrEmpty();
+                throws_.add(li_);
             } else {
-                tryAfter_ = new StringMap<SimpleAssignment>();
+                StringMap<AssignmentBefore> li_ = id_.getVal(a).getVariablesRootBefore();
+                others_.add(li_);
             }
-            StringMap<AssignmentBefore> tryBefore_ = tryBefores_.get(i);
-            CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
-            CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
-            CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
-            for (AssAbruptBlock a: abr_) {
+        }
+        for (AssCatchEval c: _catchs) {
+            for (AssAbruptBlock a: c.getAbruptTry(_an, _anEl)) {
                 if (a instanceof AssReturnMethod) {
                     if (((AssReturnMethod)a).isEmpty()) {
-                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
-                        others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
+                        StringMap<AssignmentBefore> li_ = id_.getVal(a).getVariablesRootBefore();
+                        others_.add(li_);
                     } else {
-                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastVariablesOrEmpty();
-                        throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
+                        StringMap<Assignment> li_ = id_.getVal(a).getLastVariablesOrEmpty();
+                        throws_.add(li_);
                     }
                 } else if (a instanceof AssThrowing) {
-                    CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastVariablesOrEmpty();
-                    throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
+                    StringMap<Assignment> li_ = id_.getVal(a).getLastVariablesOrEmpty();
+                    throws_.add(li_);
                 } else {
-                    CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
-                    others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
+                    StringMap<AssignmentBefore> li_ = id_.getVal(a).getVariablesRootBefore();
+                    others_.add(li_);
                 }
             }
-            for (AssCatchEval c: _catchs) {
-                for (AssAbruptBlock a: c.getAbruptTry(_an, _anEl)) {
-                    if (a instanceof AssReturnMethod) {
-                        if (((AssReturnMethod)a).isEmpty()) {
-                            CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
-                            others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                        } else {
-                            CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastVariablesOrEmpty();
-                            throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                        }
-                    } else if (a instanceof AssThrowing) {
-                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastVariablesOrEmpty();
-                        throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                    } else {
-                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getVariablesRootBefore();
-                        others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                    }
-                }
-            }
-            for (AssCatchEval c: _catchs) {
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getVariablesRoot();
-                    catchs_.add(AssignmentsUtil.getOrEmptySimple(li_,i));
-                }
-            }
-            out_.add(buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_,catchs_));
         }
-        return out_;
-    }
-    protected static CustList<StringMap<AssignmentBefore>> buildAssMutableLoopBefNextCatchFinally(AssTryEval _try, ContextEl _an, AssignedVariablesBlock _anEl,
-                                                                                                  CustList<AssCatchEval> _catchs) {
-        CustList<AssAbruptBlock> abr_ = _try.getAbruptTry(_an, _anEl);
-        CustList<StringMap<AssignmentBefore>> out_ = new CustList<StringMap<AssignmentBefore>>();
-        IdMap<AssBlock, AssignedVariables> id_;
-        id_ = _anEl.getFinalVariables();
-        CustList<StringMap<SimpleAssignment>> tryAfters_ = id_.getVal(_try).getMutableLoopRoot();
-        CustList<StringMap<AssignmentBefore>> tryBefores_ = id_.getVal(_try).getMutableLoopRootBefore();
-        int loopLen_ = tryAfters_.size();
-        for (int i = 0; i < loopLen_; i++) {
-            StringMap<SimpleAssignment> tryAfter_;
-            if (_try.isCompleteNormally()) {
-                tryAfter_ = tryAfters_.get(i);
-            } else {
-                tryAfter_ = new StringMap<SimpleAssignment>();
+        for (AssCatchEval c: _catchs) {
+            if (c.isCompleteNormally()) {
+                StringMap<SimpleAssignment> li_ = id_.getVal(c).getVariablesRoot();
+                catchs_.add(li_);
             }
-            StringMap<AssignmentBefore> tryBefore_ = tryBefores_.get(i);
-            CustList<StringMap<Assignment>> throws_ = new CustList<StringMap<Assignment>>();
-            CustList<StringMap<AssignmentBefore>> others_ = new CustList<StringMap<AssignmentBefore>>();
-            CustList<StringMap<SimpleAssignment>> catchs_ = new CustList<StringMap<SimpleAssignment>>();
-            for (AssAbruptBlock a: abr_) {
-                if (a instanceof AssReturnMethod) {
-                    if (((AssReturnMethod)a).isEmpty()) {
-                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
-                        others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                    } else {
-                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastMutableLoopOrEmpty();
-                        throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                    }
-                } else if (a instanceof AssThrowing) {
-                    CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastMutableLoopOrEmpty();
-                    throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                } else {
-                    CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
-                    others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                }
-            }
-            for (AssCatchEval c: _catchs) {
-                for (AssAbruptBlock a: c.getAbruptTry(_an, _anEl)) {
-                    if (a instanceof AssReturnMethod) {
-                        if (((AssReturnMethod)a).isEmpty()) {
-                            CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
-                            others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                        } else {
-                            CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastMutableLoopOrEmpty();
-                            throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                        }
-                    } else if (a instanceof AssThrowing) {
-                        CustList<StringMap<Assignment>> li_ = id_.getVal(a).getLastMutableLoopOrEmpty();
-                        throws_.add(AssignmentsUtil.getOrEmpty(li_,i));
-                    } else {
-                        CustList<StringMap<AssignmentBefore>> li_ = id_.getVal(a).getMutableLoopRootBefore();
-                        others_.add(AssignmentsUtil.getOrEmptyBefore(li_,i));
-                    }
-                }
-            }
-            for (AssCatchEval c: _catchs) {
-                if (c.isCompleteNormally()) {
-                    CustList<StringMap<SimpleAssignment>> li_ = id_.getVal(c).getMutableLoopRoot();
-                    catchs_.add(AssignmentsUtil.getOrEmptySimple(li_,i));
-                }
-            }
-            out_.add(buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_,catchs_));
         }
-        return out_;
+        return buildAssBefNextCatchFinally(tryAfter_, tryBefore_, throws_, others_,catchs_);
     }
+
     protected static StringMap<AssignmentBefore> buildAssBefNextCatchFinally(StringMap<SimpleAssignment> _tryAfter,
                                                                              StringMap<AssignmentBefore> _tryBefore,CustList<StringMap<Assignment>> _throws,
                                                                              CustList<StringMap<AssignmentBefore>> _others, CustList<StringMap<SimpleAssignment>> _catchs) {

@@ -20,8 +20,7 @@ public final class AssTryEval extends AssBracedStack implements AssEval,AssBreak
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         CustList<AssCatchEval> catchs_ = new CustList<AssCatchEval>();
         assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(this,_an, _anEl,catchs_));
-        assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(this,_an, _anEl,catchs_));
-        assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(this,_an, _anEl,catchs_));
+        assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(this,_an, _anEl,catchs_));
         id_.put(nextSibling_, assBl_);
     }
 

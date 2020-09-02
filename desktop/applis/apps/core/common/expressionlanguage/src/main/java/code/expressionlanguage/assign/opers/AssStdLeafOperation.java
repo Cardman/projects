@@ -1,10 +1,10 @@
 package code.expressionlanguage.assign.opers;
 
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.analyze.opers.OperationNode;
 
 public final class AssStdLeafOperation extends AssLeafOperation {
 
-    AssStdLeafOperation(ExecOperationNode _ex) {
+    AssStdLeafOperation(OperationNode _ex) {
         super(_ex);
     }
 }

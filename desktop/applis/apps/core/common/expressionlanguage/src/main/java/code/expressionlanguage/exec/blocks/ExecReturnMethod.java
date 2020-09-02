@@ -88,7 +88,4 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
         return new ExpressionLanguage(opRet);
     }
 
-    public CustList<ExecOperationNode> getOpRet() {
-        return opRet;
-    }
 }

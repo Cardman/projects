@@ -1,11 +1,12 @@
 package code.expressionlanguage.assign.blocks;
 
+import code.expressionlanguage.analyze.blocks.ContinueBlock;
 import code.expressionlanguage.exec.blocks.ExecContinueBlock;
 import code.util.StringList;
 
 public final class AssContinueBlock extends AssAbruptBlock {
     private String label;
-    AssContinueBlock(boolean _completeNormally, boolean _completeNormallyGroup, ExecContinueBlock _c) {
+    AssContinueBlock(boolean _completeNormally, boolean _completeNormallyGroup, ContinueBlock _c) {
         super(_completeNormally,_completeNormallyGroup);
         label = _c.getLabel();
     }

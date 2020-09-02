@@ -66,7 +66,4 @@ public final class ExecBreakBlock extends ExecLeaf implements MethodCallingFinal
         removeBlockFinally(_cont);
     }
 
-    public String getLabel() {
-        return label;
-    }
 }

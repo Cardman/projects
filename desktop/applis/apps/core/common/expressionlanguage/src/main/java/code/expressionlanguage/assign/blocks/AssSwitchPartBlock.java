@@ -22,56 +22,26 @@ public final class AssSwitchPartBlock extends AssBracedStack {
         AssBlock nextSibling_ = getNextSibling();
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         assBl_.getFieldsRootBefore().putAllMap(buildFieldsSwitchPart(_an, _a));
-        assBl_.getVariablesRootBefore().addAllElts(buildVariablesSwitchPart(_an, _a));
-        assBl_.getVariablesRootBefore().add(new StringMap<AssignmentBefore>());
-        assBl_.getMutableLoopRootBefore().addAllElts(buildMutableLoopSwitchPart(_an, _a));
-        assBl_.getMutableLoopRootBefore().add(new StringMap<AssignmentBefore>());
+        assBl_.getVariablesRootBefore().putAllMap(buildVariablesSwitchPart(_an, _a));
         id_.put(nextSibling_, assBl_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildVariablesSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
+    protected StringMap<AssignmentBefore> buildVariablesSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
         AssBracedBlock br_ = getParent();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables parAss_ = id_.getVal(br_);
         AssignedVariables prevAss_ = id_.getVal(this);
-        CustList<StringMap<AssignmentBefore>> out_;
-        out_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getLastVariablesOrEmpty();
-        int len_ = assSwitchs_.size();
-        for (int i = 0; i < len_; i++) {
-            StringMap<Assignment> assSwitch_ = assSwitchs_.get(i);
-            StringMap<SimpleAssignment> current_;
-            if (isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getVariablesRoot();
-                current_ = AssignmentsUtil.getOrEmptySimple(map_,i);
-            } else {
-                current_ = new StringMap<SimpleAssignment>();
-            }
-            out_.add(buildSwitchPart(assSwitch_, current_));
+        StringMap<Assignment> assSwitchs_ = parAss_.getLastVariablesOrEmpty();
+        StringMap<Assignment> assSwitch_ = assSwitchs_;
+        StringMap<SimpleAssignment> current_;
+        if (isCompleteNormally()) {
+            StringMap<SimpleAssignment> map_ = prevAss_.getVariablesRoot();
+            current_ = map_;
+        } else {
+            current_ = new StringMap<SimpleAssignment>();
         }
-        return out_;
+        return buildSwitchPart(assSwitch_, current_);
     }
-    protected CustList<StringMap<AssignmentBefore>> buildMutableLoopSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
-        AssBracedBlock br_ = getParent();
-        IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
-        AssignedVariables parAss_ = id_.getVal(br_);
-        AssignedVariables prevAss_ = id_.getVal(this);
-        CustList<StringMap<AssignmentBefore>> out_;
-        out_ = new CustList<StringMap<AssignmentBefore>>();
-        CustList<StringMap<Assignment>> assSwitchs_ = parAss_.getLastMutableLoopOrEmpty();
-        int len_ = assSwitchs_.size();
-        for (int i = 0; i < len_; i++) {
-            StringMap<Assignment> assSwitch_ = assSwitchs_.get(i);
-            StringMap<SimpleAssignment> current_;
-            if (isCompleteNormally()) {
-                CustList<StringMap<SimpleAssignment>> map_ = prevAss_.getMutableLoopRoot();
-                current_ = AssignmentsUtil.getOrEmptySimple(map_,i);
-            } else {
-                current_ = new StringMap<SimpleAssignment>();
-            }
-            out_.add(buildSwitchPart(assSwitch_, current_));
-        }
-        return out_;
-    }
+
     protected StringMap<AssignmentBefore> buildFieldsSwitchPart(ContextEl _an, AssignedVariablesBlock _anEl){
         AssBracedBlock br_ = getParent();
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();

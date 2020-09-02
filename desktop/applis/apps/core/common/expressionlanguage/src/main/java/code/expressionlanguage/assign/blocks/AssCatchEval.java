@@ -38,12 +38,10 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
         AssignedVariables assBl_ = nextSibling_.buildNewAssignedVariable();
         if (finClause_) {
             assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
+            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, catch_));
         } else {
             assBl_.getFieldsRootBefore().putAllMap(buildAssFieldsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
-            assBl_.getVariablesRootBefore().addAllElts(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
-            assBl_.getMutableLoopRootBefore().addAllElts(buildAssMutableLoopBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
+            assBl_.getVariablesRootBefore().putAllMap(buildAssVarsBefNextCatchFinally(tryBl_,_an, _anEl, new CustList<AssCatchEval>()));
         }
         id_.put(nextSibling_, assBl_);
     }
@@ -70,16 +68,12 @@ public final class AssCatchEval extends AssBracedStack implements AssEval,AssBre
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedVariables assTar_ = id_.getVal(this);
         StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
+        StringMap<SimpleAssignment> afterVars_;
         after_ =buildAssFieldsAfterTry(prev_, _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterTry(prev_, _an, _anEl);
         assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        CustList<StringMap<SimpleAssignment>> afterMutable_;
-        afterMutable_ = buildAssMutableLoopAfterTry(prev_, _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(afterMutable_);
+        assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
 
     private boolean canBeIncrementedCurGroup() {

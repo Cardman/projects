@@ -36,11 +36,6 @@ public final class AnalyzingEl {
 
     public AnalyzingEl(Mapping _mapping) {
         mapping = _mapping;
-        canCompleteNormally.setMapping(mappingMembers);
-        canCompleteNormallyGroup.setMapping(mappingMembers);
-        reachable.setMapping(mappingMembers);
-        finals.setMapping(mappingMembers);
-        labelsMapping.setMapping(mappingMembers);
     }
 
     public boolean isReachable(Block _reach) {

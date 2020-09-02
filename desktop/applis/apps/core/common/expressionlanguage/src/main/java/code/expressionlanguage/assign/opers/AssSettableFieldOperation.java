@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -9,15 +10,13 @@ import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.opers.ExecSettableFieldOperation;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AssSettableFieldOperation extends AssLeafOperation implements AssSettableElResult {
     private FieldInfo fieldMetaInfo;
-    AssSettableFieldOperation(ExecSettableFieldOperation _ex) {
+    AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getFieldMetaInfo();
     }
@@ -26,20 +25,16 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
     public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
         Argument arg_ = getArgument();
         AssignedVariables vars_ = _a.getFinalVariables().getVal(_ass);
-        CustList<StringMap<AssignmentBefore>> assB_ = vars_.getVariablesBefore().getVal(this);
-        CustList<StringMap<AssignmentBefore>> assM_ = vars_.getMutableLoopBefore().getVal(this);
+        StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
-        CustList<StringMap<Assignment>> ass_ = new CustList<StringMap<Assignment>>();
-        CustList<StringMap<Assignment>> assAfM_ = new CustList<StringMap<Assignment>>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        if (arg_ != null) {
+        if (!AssUtil.isDeclaringField(this, _ass)&&arg_ != null) {
             AssUtil.setAssignments(this,_ass,_a);
             return;
         }
         boolean isBool_;
         isBool_ = getResultClass().isBoolType(_conf);
-        ass_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assB_));
-        assAfM_.addAllElts(AssignmentsUtil.assignAfter(isBool_,assM_));
+        StringMap<Assignment> ass_ =AssignmentsUtil.assignAfter(isBool_,assB_);
         boolean procField_ = isFromCurrentClass(_conf);
         ClassField cl_ = fieldMetaInfo.getClassField();
         AssMethodOperation par_ = getParent();
@@ -95,7 +90,6 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         }
         assA_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assF_));
         vars_.getVariables().put(this, ass_);
-        vars_.getMutableLoop().put(this, assAfM_);
         vars_.getFields().put(this, assA_);
     }
     public final boolean isFromCurrentClass(ContextEl _an) {

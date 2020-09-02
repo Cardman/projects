@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.InnerTypeOrElement;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
@@ -18,10 +19,10 @@ public final class AssElementBlock extends AssLeaf implements AssInfoBlock {
     private String fieldName;
     private CustList<AssOperationNode> opList;
 
-    public AssElementBlock(ExecInnerTypeOrElement _e) {
+    public AssElementBlock(InnerTypeOrElement _e) {
         super(true, true);
         fieldName = _e.getUniqueFieldName();
-        opList = AssUtil.getExecutableNodes(_e.getOpValue());
+        opList = AssUtil.getExecutableNodes(_e.getRoot());
     }
 
     @Override

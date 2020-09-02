@@ -60,7 +60,4 @@ public final class ExecContinueBlock extends ExecLeaf implements MethodCallingFi
         removeBlockFinally(_cont);
     }
 
-    public String getLabel() {
-        return label;
-    }
 }

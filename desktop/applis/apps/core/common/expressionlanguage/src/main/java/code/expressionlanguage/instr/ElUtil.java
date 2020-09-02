@@ -142,6 +142,7 @@ public final class ElUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
+            _conf.getAnalyzing().setCurrentRoot(e_);
             return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf));
         }
         OperationNode op_;

@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.IfCondition;
 import code.expressionlanguage.assign.util.AssignedBooleanVariables;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -12,7 +13,7 @@ import code.util.StringMap;
 
 public final class AssIfCondition extends AssCondition implements AssBreakableBlock {
     private String label;
-    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label, ExecIfCondition _c) {
+    AssIfCondition(boolean _completeNormally, boolean _completeNormallyGroup, String _label, IfCondition _c) {
         super(_completeNormally, _completeNormallyGroup,_c);
         label = _label;
     }
@@ -40,16 +41,12 @@ public final class AssIfCondition extends AssCondition implements AssBreakableBl
         IdMap<AssBlock, AssignedVariables> id_ = _anEl.getFinalVariables();
         AssignedBooleanVariables assTar_ = (AssignedBooleanVariables) id_.getVal(this);
         StringMap<SimpleAssignment> after_;
-        CustList<StringMap<SimpleAssignment>> afterVars_;
-        CustList<StringMap<SimpleAssignment>> mutableVars_;
+        StringMap<SimpleAssignment> afterVars_;
         after_ = buildAssFieldsAfterIf(true, new CustList<AssBlock>(this), _an, _anEl);
         assTar_.getFieldsRoot().putAllMap(after_);
         afterVars_ = buildAssVariablesAfterIf(true, new CustList<AssBlock>(this), _an, _anEl);
         assTar_.getVariablesRoot().clear();
-        assTar_.getVariablesRoot().addAllElts(afterVars_);
-        mutableVars_ = buildAssMutableLoopAfterIf(true, new CustList<AssBlock>(this), _an, _anEl);
-        assTar_.getMutableLoopRoot().clear();
-        assTar_.getMutableLoopRoot().addAllElts(mutableVars_);
+        assTar_.getVariablesRoot().putAllMap(afterVars_);
     }
 
     @Override

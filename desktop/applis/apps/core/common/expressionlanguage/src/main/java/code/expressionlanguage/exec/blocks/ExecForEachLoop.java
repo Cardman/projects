@@ -269,7 +269,4 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
         incrementLoop(_cont, _l);
     }
 
-    public CustList<ExecOperationNode> getOpList() {
-        return opList;
-    }
 }

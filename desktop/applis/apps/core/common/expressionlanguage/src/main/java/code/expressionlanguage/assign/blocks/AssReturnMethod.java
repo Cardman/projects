@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.opers.AssUtil;
 import code.expressionlanguage.assign.util.AssignedVariables;
@@ -13,9 +14,9 @@ import code.util.StringMap;
 
 public final class AssReturnMethod extends AssAbruptBlock implements AssBuildableElMethod {
     private CustList<AssOperationNode> opNode;
-    AssReturnMethod(boolean _completeNormally, boolean _completeNormallyGroup, ExecReturnMethod _empty) {
+    AssReturnMethod(boolean _completeNormally, boolean _completeNormallyGroup, ReturnMethod _empty) {
         super(_completeNormally,_completeNormallyGroup);
-        opNode = AssUtil.getExecutableNodes(_empty.getOpRet());
+        opNode = AssUtil.getExecutableNodes(_empty.getRoot());
     }
 
     public boolean isEmpty() {
