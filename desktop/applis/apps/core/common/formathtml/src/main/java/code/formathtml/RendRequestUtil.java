@@ -73,6 +73,9 @@ final class RendRequestUtil {
         ip_.putLocalVar(attrName_, lv_);
         RenderExpUtil.calculateReuse(wr_,_conf);
         ip_.removeLocalVar(prev_);
+        for (String p: _nodeContainer.getVarParamName()) {
+            ip_.removeLocalVar(p);
+        }
         ip_.removeLocalVar(attrName_);
     }
 }
