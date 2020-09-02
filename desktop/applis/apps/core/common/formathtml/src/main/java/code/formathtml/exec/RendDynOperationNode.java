@@ -322,11 +322,11 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof MutableLoopVariableOperation) {
             MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new RendMutableLoopVariableOperation(m_);
+            return new RendStdVariableOperation(m_);
         }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
-            return new RendVariableOperation(m_);
+            return new RendStdVariableOperation(m_);
         }
         if (_anaNode instanceof FinalVariableOperation) {
             FinalVariableOperation m_ = (FinalVariableOperation) _anaNode;

@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
-public abstract class RendStdVariableOperation  extends RendLeafOperation implements
+public final class RendStdVariableOperation  extends RendLeafOperation implements
         RendCalculableOperation,RendSettableElResult{
 
     private boolean variable;

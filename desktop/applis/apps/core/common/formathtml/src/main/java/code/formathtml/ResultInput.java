@@ -80,13 +80,13 @@ public final class ResultInput {
                     RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4);
                     ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
                     RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2);
-                    RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                    RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                     RendSettableFieldOperation rendField_ = new RendSettableFieldOperation((RendSettableFieldOperation) settable_, 1, clResField_, 1, true);
                     rendPrevVar_.setSiblingSet(rendField_);
                     rendDot_.appendChild(rendPrevVar_);
                     rendDot_.appendChild(rendField_);
                     rendAff_.appendChild(rendDot_);
-                    RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,3);
+                    RendStdVariableOperation rendVar_ = new RendStdVariableOperation(0, varLoc_, clResField_,3);
                     rendAff_.appendChild(rendVar_);
                     rendAff_.setup();
 
@@ -107,7 +107,7 @@ public final class ResultInput {
                         RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
                         ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
-                        RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                         RendArrOperation arr_ = new RendArrOperation((RendArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
                         int i_ = 1;
                         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
@@ -115,7 +115,7 @@ public final class ResultInput {
                         StringList typeNames_ = new StringList();
                         for (RendDynOperationNode o: childrenNodes_) {
                             String varParam_ = RendBlock.lookForVar(_cont, varNames_);
-                            RendVariableOperation rendVar_ = new RendVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
+                            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
                             arr_.appendChild(rendVar_);
                             list_.add(rendVar_);
                             varNames_.add(varParam_);
@@ -132,7 +132,7 @@ public final class ResultInput {
                         rendDot_.appendChild(rendPrevVar_);
                         rendDot_.appendChild(arr_);
                         rendAff_.appendChild(rendDot_);
-                        RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
+                        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
                         rendAff_.appendChild(rendVar_);
                         rendAff_.setup();
                         opsWrite.add(rendPrevVar_);
@@ -152,14 +152,14 @@ public final class ResultInput {
                         RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
                         ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
-                        RendVariableOperation rendPrevVar_ = new RendVariableOperation(0, varPrevLoc_,pr_,0);
+                        RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                         RendCustArrOperation arr_ = new RendCustArrOperation((RendCustArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
                         int i_ = 1;
                         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
                         StringList varParamNames_ = new StringList();
                         for (RendDynOperationNode o: childrenNodes_) {
                             String varParam_ = RendBlock.lookForVar(_cont, varNames_);
-                            RendVariableOperation rendVar_ = new RendVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
+                            RendStdVariableOperation rendVar_ = new RendStdVariableOperation(i_-1, varParam_, o.getResultClass(),i_);
                             arr_.appendChild(rendVar_);
                             list_.add(rendVar_);
                             varNames_.add(varParam_);
@@ -176,7 +176,7 @@ public final class ResultInput {
                         rendDot_.appendChild(rendPrevVar_);
                         rendDot_.appendChild(arr_);
                         rendAff_.appendChild(rendDot_);
-                        RendVariableOperation rendVar_ = new RendVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
+                        RendStdVariableOperation rendVar_ = new RendStdVariableOperation(0, varLoc_, clResField_,childrenNodes_.size() + 3);
                         rendAff_.appendChild(rendVar_);
                         rendAff_.setup();
                         opsWrite.add(rendPrevVar_);
