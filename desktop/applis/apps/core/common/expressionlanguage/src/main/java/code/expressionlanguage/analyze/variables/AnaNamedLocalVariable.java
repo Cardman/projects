@@ -4,7 +4,7 @@ public final class AnaNamedLocalVariable extends AnaNamedVariable {
     private final AnaLocalVariable localVariable;
 
     public AnaNamedLocalVariable(String name, AnaLocalVariable localVariable) {
-        super(name,localVariable.isFinalVariable(),localVariable.getRef());
+        super(name);
         this.localVariable = localVariable;
     }
 

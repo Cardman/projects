@@ -2073,12 +2073,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  <span class=\"f\">$foreach(java.lang.Number <a name=\"m230\">e</a></span>:<span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>){\n" +
                 "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>+=<span class=\"g\"><span class=\"g\"><a href=\"#m230\">e</a></span>.<span class=\"g\">intValue()</span></span></span>;\n" +
                 "  }\n" +
@@ -2119,12 +2119,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  <span class=\"p\">$foreach(java.lang.Number <a name=\"m230\">e</a></span>:<span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>){\n" +
                 "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>+=<span class=\"g\"><span class=\"g\"><a href=\"#m230\">e</a></span>.<span class=\"g\">intValue()</span></span></span>;\n" +
                 "   $break;\n" +
@@ -2162,7 +2162,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
                 "  <span class=\"p\">$foreach(java.lang.Number <a name=\"m182\">e</a></span>:<span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>){\n" +
@@ -2204,7 +2204,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
                 "  <span class=\"p\">$if</span> (<span class=\"q\"><span class=\"g\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a> </span><a title=\"true\">==</a><span class=\"g\"> 0</span></span>) {\n" +
@@ -3243,21 +3243,21 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustIter</a>&lt;<a name=\"m28\">#T</a>&gt; :$iterator&lt;<a href=\"#m28\">#T</a>&gt;{\n" +
-                " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">#T</a>&gt; <span class=\"g\"><a name=\"m75\">list</a></span>;\n" +
-                " $private $int <span class=\"g\"><a name=\"m96\">length</a></span>;\n" +
-                " $private $int <span class=\"g\"><a name=\"m119\">index</a></span>;\n" +
-                " <a name=\"m127\">$public (</a><a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">#T</a>&gt; <a name=\"m153\">i</a>){\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m75\">list</a></span>=<span class=\"g\"><a href=\"#m153\">i</a></span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.length\" href=\"#m96\">length</a></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m75\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.size()\" href=\"CustList.html#m468\">size</a>()</span></span></span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustIter</a>&lt;<a name=\"m28\">T</a>&gt; :$iterator&lt;<a href=\"#m28\">T</a>&gt;{\n" +
+                " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">T</a>&gt; <span class=\"g\"><a name=\"m72\">list</a></span>;\n" +
+                " $private $int <span class=\"g\"><a name=\"m93\">length</a></span>;\n" +
+                " $private $int <span class=\"g\"><a name=\"m116\">index</a></span>;\n" +
+                " <a name=\"m124\">$public (</a><a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;<a href=\"#m28\">T</a>&gt; <a name=\"m149\">i</a>){\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m72\">list</a></span>=<span class=\"g\"><a href=\"#m149\">i</a></span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.length\" href=\"#m93\">length</a></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m72\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.size()\" href=\"CustList.html#m460\">size</a>()</span></span></span>;\n" +
                 " }\n" +
-                " $public $normal <a href=\"#m28\">#T</a> <a name=\"m212\">next</a>(){\n" +
-                "  <a href=\"#m28\">#T</a> <span class=\"g\"><span class=\"g\"><a name=\"m225\">out</a></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m75\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.get($int)\" href=\"CustList.html#m517\">get</a>(<span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m119\">index</a></span>)</span></span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m119\">index</a></span>++</span>;\n" +
-                "  $return <span class=\"g\"><a href=\"#m225\">out</a></span>;\n" +
+                " $public $normal <a href=\"#m28\">T</a> <a name=\"m207\">next</a>(){\n" +
+                "  <a href=\"#m28\">T</a> <span class=\"g\"><span class=\"g\"><a name=\"m219\">out</a></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.list\" href=\"#m72\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.get($int)\" href=\"CustList.html#m508\">get</a>(<span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m116\">index</a></span>)</span></span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m116\">index</a></span>++</span>;\n" +
+                "  $return <span class=\"g\"><a href=\"#m219\">out</a></span>;\n" +
                 " }\n" +
-                " $public $normal $boolean <a name=\"m301\">hasNext</a>(){\n" +
-                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m119\">index</a></span>&lt;<span class=\"g\"><a title=\"pkg.CustIter.length\" href=\"#m96\">length</a></span></span>;\n" +
+                " $public $normal $boolean <a name=\"m295\">hasNext</a>(){\n" +
+                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustIter.index\" href=\"#m116\">index</a></span>&lt;<span class=\"g\"><a title=\"pkg.CustIter.length\" href=\"#m93\">length</a></span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.getValue(1));
@@ -3290,45 +3290,45 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustList</a>&lt;<a name=\"m28\">#U</a>&gt; :$iterable&lt;<a href=\"#m28\">#U</a>&gt;{\n" +
-                " $private <a href=\"#m28\">#U</a>[] <span class=\"g\"><a name=\"m63\">list</a></span>;\n" +
-                " $private $int <span class=\"g\"><a name=\"m84\">length</a></span>;\n" +
-                " <a name=\"m93\">$public (</a>){\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span>=<span class=\"g\">$new <a href=\"#m28\">#U</a>[<span class=\"g\">0i</span>]</span></span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustList</a>&lt;<a name=\"m28\">U</a>&gt; :$iterable&lt;<a href=\"#m28\">U</a>&gt;{\n" +
+                " $private <a href=\"#m28\">U</a>[] <span class=\"g\"><a name=\"m60\">list</a></span>;\n" +
+                " $private $int <span class=\"g\"><a name=\"m81\">length</a></span>;\n" +
+                " <a name=\"m90\">$public (</a>){\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span>=<span class=\"g\">$new <a href=\"#m28\">U</a>[<span class=\"g\">0i</span>]</span></span>;\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m151\">add</a>(<a href=\"#m28\">#U</a> <a name=\"m158\">elt</a>){\n" +
-                "  <span class=\"g\"><a title=\"pkg.CustList.add($int,#U)\" href=\"#m209\">add</a>(<span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>,<span class=\"g\"><a href=\"#m158\">elt</a></span>)</span>;\n" +
+                " $public $normal $void <a name=\"m147\">add</a>(<a href=\"#m28\">U</a> <a name=\"m153\">elt</a>){\n" +
+                "  <span class=\"g\"><a title=\"pkg.CustList.add($int,#U)\" href=\"#m204\">add</a>(<span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>,<span class=\"g\"><a href=\"#m153\">elt</a></span>)</span>;\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m209\">add</a>($int <a name=\"m218\">index</a>,<a href=\"#m28\">#U</a> <a name=\"m227\">elt</a>){\n" +
-                "  <a href=\"#m28\">#U</a>[] <span class=\"g\"><span class=\"g\"><a name=\"m240\">newlist</a></span>=<span class=\"g\">$new <a href=\"#m28\">#U</a>[<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>+<span class=\"g\">1i</span></span>]</span></span>;\n" +
-                "  <span class=\"f\">$iter</span>($int <a name=\"m281\">i</a>=<span class=\"g\">0i</span>;<span class=\"g\"><a href=\"#m218\">index</a></span>;<span class=\"g\">1i</span>){\n" +
-                "   <span class=\"g\"><span class=\"g\"><span class=\"g\"><a href=\"#m240\">newlist</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m281\">i</a></span>]</span></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m281\">i</a></span>]</span></span></span>;\n" +
+                " $public $normal $void <a name=\"m204\">add</a>($int <a name=\"m213\">index</a>,<a href=\"#m28\">U</a> <a name=\"m221\">elt</a>){\n" +
+                "  <a href=\"#m28\">U</a>[] <span class=\"g\"><span class=\"g\"><a name=\"m233\">newlist</a></span>=<span class=\"g\">$new <a href=\"#m28\">U</a>[<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>+<span class=\"g\">1i</span></span>]</span></span>;\n" +
+                "  <span class=\"f\">$iter</span>($int <a name=\"m273\">i</a>=<span class=\"g\">0i</span>;<span class=\"g\"><a href=\"#m213\">index</a></span>;<span class=\"g\">1i</span>){\n" +
+                "   <span class=\"g\"><span class=\"g\"><span class=\"g\"><a href=\"#m233\">newlist</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m273\">i</a></span>]</span></span>=<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m273\">i</a></span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  <span class=\"g\"><span class=\"g\"><span class=\"g\"><a href=\"#m240\">newlist</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m218\">index</a></span>]</span></span>=<span class=\"g\"><a href=\"#m227\">elt</a></span></span>;\n" +
-                "  <span class=\"p\">$iter</span>($int <a name=\"m359\">i</a>=<span class=\"g\"><span class=\"g\"><a href=\"#m218\">index</a></span>+<span class=\"g\">1i</span></span>;<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>+<span class=\"g\">1i</span></span>;<span class=\"g\">1i</span>){\n" +
-                "   <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m240\">newlist</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m359\">i</a></span>]</span></span>=<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a href=\"#m359\">i</a></span>-<span class=\"n\">1i</span></span>]</span></span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><span class=\"g\"><a href=\"#m233\">newlist</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m213\">index</a></span>]</span></span>=<span class=\"g\"><a href=\"#m221\">elt</a></span></span>;\n" +
+                "  <span class=\"p\">$iter</span>($int <a name=\"m351\">i</a>=<span class=\"g\"><span class=\"g\"><a href=\"#m213\">index</a></span>+<span class=\"g\">1i</span></span>;<span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>+<span class=\"g\">1i</span></span>;<span class=\"g\">1i</span>){\n" +
+                "   <span class=\"n\"><span class=\"n\"><span class=\"n\"><a href=\"#m233\">newlist</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m351\">i</a></span>]</span></span>=<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a href=\"#m351\">i</a></span>-<span class=\"n\">1i</span></span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>++</span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span>=<span class=\"g\"><a href=\"#m240\">newlist</a></span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>++</span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span>=<span class=\"g\"><a href=\"#m233\">newlist</a></span></span>;\n" +
                 " }\n" +
-                " $public $normal $int <a name=\"m468\">size</a>(){\n" +
-                "  $return <span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>;\n" +
+                " $public $normal $int <a name=\"m460\">size</a>(){\n" +
+                "  $return <span class=\"g\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>;\n" +
                 " }\n" +
-                " $public $normal <a href=\"#m28\">#U</a> <a name=\"m517\">get</a>($int <a name=\"m526\">index</a>){\n" +
-                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m526\">index</a></span>]</span></span>;\n" +
+                " $public $normal <a href=\"#m28\">U</a> <a name=\"m508\">get</a>($int <a name=\"m517\">index</a>){\n" +
+                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"g\">[<span class=\"g\"><a href=\"#m517\">index</a></span>]</span></span>;\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m583\">set</a>($int <a name=\"m592\">index</a>,<a href=\"#m28\">#U</a> <a name=\"m601\">elt</a>){\n" +
-                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m592\">index</a></span>]</span></span>=<span class=\"n\"><a href=\"#m601\">elt</a></span></span>;\n" +
+                " $public $normal $void <a name=\"m574\">set</a>($int <a name=\"m583\">index</a>,<a href=\"#m28\">U</a> <a name=\"m591\">elt</a>){\n" +
+                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m583\">index</a></span>]</span></span>=<span class=\"n\"><a href=\"#m591\">elt</a></span></span>;\n" +
                 " }\n" +
-                " $public $normal $void <a name=\"m652\">remove</a>($int <a name=\"m664\">index</a>){\n" +
-                "  <span class=\"n\">$iter</span>($int <a name=\"m685\">i</a>=<span class=\"n\"><a href=\"#m664\">index</a></span>;<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>-<span class=\"n\">1i</span></span>;<span class=\"n\">1i</span>){\n" +
-                "   <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m685\">i</a></span>]</span></span>=<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a href=\"#m685\">i</a></span>+<span class=\"n\">1i</span></span>]</span></span></span>;\n" +
+                " $public $normal $void <a name=\"m642\">remove</a>($int <a name=\"m654\">index</a>){\n" +
+                "  <span class=\"n\">$iter</span>($int <a name=\"m675\">i</a>=<span class=\"n\"><a href=\"#m654\">index</a></span>;<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>-<span class=\"n\">1i</span></span>;<span class=\"n\">1i</span>){\n" +
+                "   <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"n\">[<span class=\"n\"><a href=\"#m675\">i</a></span>]</span></span>=<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a href=\"#m675\">i</a></span>+<span class=\"n\">1i</span></span>]</span></span></span>;\n" +
                 "  }\n" +
-                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m63\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>-<span class=\"n\">1i</span></span>]</span></span>=<span class=\"n\">$null</span></span>;\n" +
-                "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m84\">length</a></span>--</span>;\n" +
+                "  <span class=\"n\"><span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.list\" href=\"#m60\">list</a></span><span class=\"n\">[<span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>-<span class=\"n\">1i</span></span>]</span></span>=<span class=\"n\">$null</span></span>;\n" +
+                "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.CustList.length\" href=\"#m81\">length</a></span>--</span>;\n" +
                 " }\n" +
-                " $public $normal $iterator&lt;<a href=\"#m28\">#U</a>&gt; <a name=\"m806\">iterator</a>(){\n" +
-                "  $return <span class=\"g\"><a title=\"pkg.CustIter.pkg.CustIter(pkg.CustList&lt;#T&gt;)\" href=\"CustIter.html#m127\">$new</a> <a title=\"pkg.CustIter\" href=\"CustIter.html#m15\">pkg.CustIter</a>&lt;<a href=\"#m28\">#U</a>&gt;(<span class=\"g\">$this</span>)</span>;\n" +
+                " $public $normal $iterator&lt;<a href=\"#m28\">U</a>&gt; <a name=\"m795\">iterator</a>(){\n" +
+                "  $return <span class=\"g\"><a title=\"pkg.CustIter.pkg.CustIter(pkg.CustList&lt;#T&gt;)\" href=\"CustIter.html#m124\">$new</a> <a title=\"pkg.CustIter\" href=\"CustIter.html#m15\">pkg.CustIter</a>&lt;<a href=\"#m28\">U</a>&gt;(<span class=\"g\">$this</span>)</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.getValue(2));
@@ -3417,19 +3417,19 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.CustTable</a>&lt;<a name=\"m29\">U</a>,<a name=\"m31\">V</a>&gt; :$iterableTable&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;{\n" +
                 " $private <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt; <span class=\"g\"><a name=\"m90\">list</a></span>;\n" +
                 " <a name=\"m97\">$public (</a>){\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt;()</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">CustList</a>&lt;<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;&gt;()</span></span>;\n" +
                 " }\n" +
                 " $public $void <a name=\"m166\">add</a>(<a href=\"#m29\">U</a> <a name=\"m172\">f</a>,<a href=\"#m31\">V</a> <a name=\"m176\">s</a>){\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\"><a title=\"pkg.CustPair.pkg.CustPair(#U,#V)\" href=\"CustPair.html#m110\">$new</a> <a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;(<span class=\"g\"><a href=\"#m172\">f</a></span>,<span class=\"g\"><a href=\"#m176\">s</a></span>)</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\"><a title=\"pkg.CustPair.pkg.CustPair(#U,#V)\" href=\"CustPair.html#m110\">$new</a> <a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;(<span class=\"g\"><a href=\"#m172\">f</a></span>,<span class=\"g\"><a href=\"#m176\">s</a></span>)</span>)</span></span>;\n" +
                 " }\n" +
                 " $public $void <a name=\"m235\">add</a>(<a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt; <a name=\"m253\">p</a>){\n" +
-                "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"n\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"n\"><a href=\"#m253\">p</a></span>)</span></span>;\n" +
+                "  <span class=\"n\"><span class=\"n\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"n\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"n\"><a href=\"#m253\">p</a></span>)</span></span>;\n" +
                 " }\n" +
                 " $public $int <a name=\"m289\">size</a>(){\n" +
-                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.size()\" href=\"CustList.html#m468\">size</a>()</span></span>;\n" +
+                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.size()\" href=\"CustList.html#m460\">size</a>()</span></span>;\n" +
                 " }\n" +
                 " $public <a title=\"pkg.CustPair\" href=\"CustPair.html#m15\">CustPair</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt; <a name=\"m346\">get</a>($int <a name=\"m355\">index</a>){\n" +
-                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.get($int)\" href=\"CustList.html#m517\">get</a>(<span class=\"g\"><a href=\"#m355\">index</a></span>)</span></span>;\n" +
+                "  $return <span class=\"g\"><span class=\"g\"><a title=\"pkg.CustTable.list\" href=\"#m90\">list</a></span>.<span class=\"g\"><a title=\"pkg.CustList.get($int)\" href=\"CustList.html#m508\">get</a>(<span class=\"g\"><a href=\"#m355\">index</a></span>)</span></span>;\n" +
                 " }\n" +
                 " $public $iteratorTable&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt; <a name=\"m422\">iteratorTable</a>(){\n" +
                 "  $return <span class=\"g\"><a title=\"pkg.CustIterTable.pkg.CustIterTable(pkg.CustTable&lt;#U,#V&gt;)\" href=\"CustIterTable.html#m137\">$new</a> <a title=\"pkg.CustIterTable\" href=\"CustIterTable.html#m15\">CustIterTable</a>&lt;<a href=\"#m29\">U</a>,<a href=\"#m31\">V</a>&gt;(<span class=\"g\">$this</span>)</span>;\n" +
@@ -4006,12 +4006,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  $iterable&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m232\">iter</a> </span>=<span class=\"g\"> <a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span></span>;\n" +
                 "  <b title=\"java.lang.$iterator&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m252\">it</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m232\">iter</a></span>.<span class=\"g\">iterator()</span></span></span>;\n" +
                 "  <span class=\"f\">$while</span>(<span class=\"g\"><span class=\"g\"><a href=\"#m252\">it</a></span>.<span class=\"g\">hasNext()</span></span>){\n" +
@@ -4057,14 +4057,14 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  <b title=\"pkg.CustList&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m209\">iter</a> </span>=<span class=\"g\"> <a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span></span>;\n" +
-                "  <b title=\"java.lang.$iterator&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m229\">it</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m209\">iter</a></span>.<span class=\"g\"><a title=\"pkg.CustList.iterator()\" href=\"CustList.html#m806\">iterator</a>()</span></span></span>;\n" +
+                "  <b title=\"java.lang.$iterator&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m229\">it</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m209\">iter</a></span>.<span class=\"g\"><a title=\"pkg.CustList.iterator()\" href=\"CustList.html#m795\">iterator</a>()</span></span></span>;\n" +
                 "  <span class=\"f\">$while</span>(<span class=\"g\"><span class=\"g\"><a href=\"#m229\">it</a></span>.<span class=\"g\">hasNext()</span></span>){\n" +
                 "   <b title=\"java.lang.Number\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m283\">l</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m229\">it</a></span>.<span class=\"g\">next()</span></span></span>;\n" +
                 "   <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.res\" href=\"#m138\">res</a></span>+=<span class=\"g\"><span class=\"g\"><a href=\"#m283\">l</a></span>.<span class=\"g\">intValue()</span></span></span>;\n" +
@@ -5799,12 +5799,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  $iterable&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m232\">iter</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a></span>.<span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span></span></span>;\n" +
                 "  <b title=\"java.lang.$iterator&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m255\">it</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m232\">iter</a></span>.<span class=\"g\">iterator()</span></span></span>;\n" +
                 "  <span class=\"f\">$while</span>(<span class=\"g\"><span class=\"g\"><a href=\"#m255\">it</a></span>.<span class=\"g\">hasNext()</span></span>){\n" +
@@ -5850,12 +5850,12 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
-                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m93\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
+                " $public $static <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m72\">inst</a></span>=<span class=\"g\"><a title=\"pkg.CustList.pkg.CustList()\" href=\"CustList.html#m90\">$new</a> <a title=\"pkg.CustList\" href=\"CustList.html#m15\">pkg.CustList</a>&lt;java.lang.Number&gt;()</span></span>;\n" +
                 " $public $static $int <span class=\"g\"><a name=\"m138\">res</a></span>;\n" +
                 " $static {\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
-                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m151\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">3i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">1i</span>)</span></span>;\n" +
+                "  <span class=\"g\"><span class=\"g\"><a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span>.<span class=\"g\"><a title=\"pkg.CustList.add(#U)\" href=\"CustList.html#m147\">add</a>(<span class=\"g\">2i</span>)</span></span>;\n" +
                 "  $iterable&lt;java.lang.Number&gt; <span class=\"g\"><span class=\"g\"><a name=\"m232\">iter</a> </span>=<span class=\"g\"><span class=\"g\"> <a title=\"pkg.Ex\" href=\"#m15\">Ex</a></span>.<span class=\"g\"> <a title=\"pkg.Ex.inst\" href=\"#m72\">inst</a></span></span></span>;\n" +
                 "  <b title=\"java.lang.$iterator&lt;java.lang.Number&gt;\">$var</b> <span class=\"g\"><span class=\"g\"><a name=\"m256\">it</a> </span>=<span class=\"g\"><span class=\"g\"> <a href=\"#m232\">iter</a></span>.<span class=\"g\">iterator()</span></span></span>;\n" +
                 "  <span class=\"f\">$while</span>(<span class=\"g\"><span class=\"g\"><a href=\"#m256\">it</a></span>.<span class=\"g\">hasNext()</span></span>){\n" +
@@ -6605,7 +6605,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
     @Test
     public void coverage155Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {\n");
+        xml_.append("public class pkg.Ex<T> {\n");
         xml_.append(" public static class ExTwo{}\n");
         xml_.append(" public static boolean exmeth(){\n");
         xml_.append("  return null instanceof Ex<ExTwo>;\n");
@@ -6619,10 +6619,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
-        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">#T</a>&gt; {\n" +
-                " public static class <a name=\"m47\">ExTwo</a>{}\n" +
-                " public static boolean <a name=\"m78\">exmeth</a>(){\n" +
-                "  return <span class=\"p\"><span class=\"f\">null </span>instanceof <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;<a title=\"pkg.Ex..ExTwo\" href=\"#m47\">ExTwo</a>&gt;</span>;\n" +
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a>&lt;<a name=\"m20\">T</a>&gt; {\n" +
+                " public static class <a name=\"m46\">ExTwo</a>{}\n" +
+                " public static boolean <a name=\"m77\">exmeth</a>(){\n" +
+                "  return <span class=\"p\"><span class=\"f\">null </span>instanceof <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>&lt;<a title=\"pkg.Ex..ExTwo\" href=\"#m46\">ExTwo</a>&gt;</span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -6832,7 +6832,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
         xml_.append(" public static int exmeth(){\n");
-        xml_.append("  return new ExTwo<Integer>().inst($id(ExTwo,#T),null);\n");
+        xml_.append("  return new ExTwo<Integer>().inst($id(ExTwo,T),null);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
@@ -6851,7 +6851,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static int <a name=\"m41\">exmeth</a>(){\n" +
-                "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>&lt;Integer&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExTwo.inst(#T)\" href=\"Ex2.html#m40\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>,<a href=\"Ex2.html#m23\">#T</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\">new <a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>&lt;Integer&gt;()</span>.<span class=\"f\"><a title=\"pkg.ExTwo.inst(#T)\" href=\"Ex2.html#m40\">inst</a>(<span class=\"f\">$id(<a title=\"pkg.ExTwo\" href=\"Ex2.html#m13\">ExTwo</a>,<a href=\"Ex2.html#m23\">T</a>)</span>,<span class=\"f\">null</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -8870,7 +8870,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  return explicit(ExClass<int>,#T)5;\n");
+        xml_.append("  return explicit(ExClass<int>,T)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -8890,16 +8890,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m178\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;int&gt;,<a href=\"#m130\">#T</a>)<span class=\"f\">5</span></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m177\">explicit</a>(<a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>&lt;int&gt;,<a href=\"#m129\">T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m118\">pkg.ExClass</a>&lt;<a name=\"m130\">T</a>&gt; {\n" +
-                " public <a href=\"#m130\">T</a> <span class=\"f\"><a name=\"m145\">field</a></span>;\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;<a href=\"#m130\">T</a>&gt; <a name=\"m178\">explicit</a>(<a href=\"#m130\">T</a> <a name=\"m189\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;<a href=\"#m130\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m206\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m118\">ExClass</a>&lt;<a href=\"#m130\">T</a>&gt;()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m206\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m145\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m189\">i</a></span></span>;\n" +
-                "  return <span class=\"f\"><a href=\"#m206\">out</a></span>;\n" +
+                "public class <a name=\"m117\">pkg.ExClass</a>&lt;<a name=\"m129\">T</a>&gt; {\n" +
+                " public <a href=\"#m129\">T</a> <span class=\"f\"><a name=\"m144\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>&lt;<a href=\"#m129\">T</a>&gt; <a name=\"m177\">explicit</a>(<a href=\"#m129\">T</a> <a name=\"m188\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>&lt;<a href=\"#m129\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m205\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m117\">ExClass</a>&lt;<a href=\"#m129\">T</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m205\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m144\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m188\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m205\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -9042,7 +9042,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  Fct<int,ExClass<int>> fct = $lambda(ExClass<int>,explicit,$id,#T);\n");
+        xml_.append("  Fct<int,ExClass<int>> fct = $lambda(ExClass<int>,explicit,$id,T);\n");
         xml_.append("  return fct.call(5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -9063,17 +9063,17 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m232\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;int&gt;,explicit,$id,<a href=\"#m184\">#T</a>)</span></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
+                "  Fct&lt;int,<a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;int&gt;&gt; <span class=\"f\"><span class=\"f\"><a name=\"m87\">fct</a> </span>=<span class=\"f\"> <a title=\"pkg.ExClass.static explicit(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m231\">$lambda</a>(<a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;int&gt;,explicit,$id,<a href=\"#m183\">T</a>)</span></span>;\n" +
                 "  return <span class=\"f\"><span class=\"f\"><a href=\"#m87\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">5</span>)</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m172\">pkg.ExClass</a>&lt;<a name=\"m184\">T</a>&gt; {\n" +
-                " public <a href=\"#m184\">T</a> <span class=\"f\"><a name=\"m199\">field</a></span>;\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;<a href=\"#m184\">T</a>&gt; <a name=\"m232\">explicit</a>(<a href=\"#m184\">T</a> <a name=\"m243\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;<a href=\"#m184\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m260\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m172\">ExClass</a>&lt;<a href=\"#m184\">T</a>&gt;()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m260\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m199\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m243\">i</a></span></span>;\n" +
-                "  return <span class=\"f\"><a href=\"#m260\">out</a></span>;\n" +
+                "public class <a name=\"m171\">pkg.ExClass</a>&lt;<a name=\"m183\">T</a>&gt; {\n" +
+                " public <a href=\"#m183\">T</a> <span class=\"f\"><a name=\"m198\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;<a href=\"#m183\">T</a>&gt; <a name=\"m231\">explicit</a>(<a href=\"#m183\">T</a> <a name=\"m242\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;<a href=\"#m183\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m259\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m171\">ExClass</a>&lt;<a href=\"#m183\">T</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m259\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m198\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m242\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m259\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -11414,7 +11414,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  return $(ExClass<int>,#T)5;\n");
+        xml_.append("  return $(ExClass<int>,T)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -11434,16 +11434,16 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         calculateNormal("pkg.Apply", id_, args_, cont_);
         StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
-                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m171\">$</a>(<a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;int&gt;,<a href=\"#m123\">#T</a>)<span class=\"f\">5</span></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m110\">ExClass</a>&lt;int&gt; <a name=\"m53\">method</a>(){\n" +
+                "  return <span class=\"f\"><a title=\"pkg.ExClass.static $(pkg.ExClass&lt;#T&gt;,#T)\" href=\"#m170\">$</a>(<a title=\"pkg.ExClass\" href=\"#m110\">ExClass</a>&lt;int&gt;,<a href=\"#m122\">T</a>)<span class=\"f\">5</span></span>;\n" +
                 " }\n" +
                 "}\n" +
-                "public class <a name=\"m111\">pkg.ExClass</a>&lt;<a name=\"m123\">T</a>&gt; {\n" +
-                " public <a href=\"#m123\">T</a> <span class=\"f\"><a name=\"m138\">field</a></span>;\n" +
-                " public static <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt; <a name=\"m171\">$</a>(<a href=\"#m123\">T</a> <a name=\"m175\">i</a>){\n" +
-                "  <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m192\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m111\">ExClass</a>&lt;<a href=\"#m123\">T</a>&gt;()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m192\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m138\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m175\">i</a></span></span>;\n" +
-                "  return <span class=\"f\"><a href=\"#m192\">out</a></span>;\n" +
+                "public class <a name=\"m110\">pkg.ExClass</a>&lt;<a name=\"m122\">T</a>&gt; {\n" +
+                " public <a href=\"#m122\">T</a> <span class=\"f\"><a name=\"m137\">field</a></span>;\n" +
+                " public static <a title=\"pkg.ExClass\" href=\"#m110\">ExClass</a>&lt;<a href=\"#m122\">T</a>&gt; <a name=\"m170\">$</a>(<a href=\"#m122\">T</a> <a name=\"m174\">i</a>){\n" +
+                "  <a title=\"pkg.ExClass\" href=\"#m110\">ExClass</a>&lt;<a href=\"#m122\">T</a>&gt; <span class=\"f\"><span class=\"f\"><a name=\"m191\">out</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m110\">ExClass</a>&lt;<a href=\"#m122\">T</a>&gt;()</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m191\">out</a></span>.<span class=\"f\"><a title=\"pkg.ExClass.field\" href=\"#m137\">field</a> </span></span>=<span class=\"f\"> <a href=\"#m174\">i</a></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m191\">out</a></span>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -16592,7 +16592,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static Object catching(){\n");
-        xml_.append("  $return $(#T)0;\n");
+        xml_.append("  $return $(T)0;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -16673,17 +16673,17 @@ public final class CoverageReportTest extends ProcessMethodCommon {
     }
     private static String getCustomList() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.CustList<#U> :$iterable<#U>{\n");
-        xml_.append(" $private #U[] list;\n");
+        xml_.append("$public $class pkg.CustList<U> :$iterable<U>{\n");
+        xml_.append(" $private U[] list;\n");
         xml_.append(" $private $int length;\n");
         xml_.append(" $public (){\n");
-        xml_.append("  list=$new #U[0i];\n");
+        xml_.append("  list=$new U[0i];\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $void add(#U elt){\n");
+        xml_.append(" $public $normal $void add(U elt){\n");
         xml_.append("  add(length,elt);\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $void add($int index,#U elt){\n");
-        xml_.append("  #U[] newlist=$new #U[length+1i];\n");
+        xml_.append(" $public $normal $void add($int index,U elt){\n");
+        xml_.append("  U[] newlist=$new U[length+1i];\n");
         xml_.append("  $iter($int i=0i;index;1i){\n");
         xml_.append("   newlist[i]=list[i];\n");
         xml_.append("  }\n");
@@ -16697,10 +16697,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $normal $int size(){\n");
         xml_.append("  $return length;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal #U get($int index){\n");
+        xml_.append(" $public $normal U get($int index){\n");
         xml_.append("  $return list[index];\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $void set($int index,#U elt){\n");
+        xml_.append(" $public $normal $void set($int index,U elt){\n");
         xml_.append("  list[index]=elt;\n");
         xml_.append(" }\n");
         xml_.append(" $public $normal $void remove($int index){\n");
@@ -16710,24 +16710,24 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("  list[length-1i]=$null;\n");
         xml_.append("  length--;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $iterator<#U> iterator(){\n");
-        xml_.append("  $return $new pkg.CustIter<#U>($this);\n");
+        xml_.append(" $public $normal $iterator<U> iterator(){\n");
+        xml_.append("  $return $new pkg.CustIter<U>($this);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         return xml_.toString();
     }
     private static String getCustomIterator() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.CustIter<#T> :$iterator<#T>{\n");
-        xml_.append(" $private pkg.CustList<#T> list;\n");
+        xml_.append("$public $class pkg.CustIter<T> :$iterator<T>{\n");
+        xml_.append(" $private pkg.CustList<T> list;\n");
         xml_.append(" $private $int length;\n");
         xml_.append(" $private $int index;\n");
-        xml_.append(" $public (pkg.CustList<#T> i){\n");
+        xml_.append(" $public (pkg.CustList<T> i){\n");
         xml_.append("  list=i;\n");
         xml_.append("  length=list.size();\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal #T next(){\n");
-        xml_.append("  #T out=list.get(index);\n");
+        xml_.append(" $public $normal T next(){\n");
+        xml_.append("  T out=list.get(index);\n");
         xml_.append("  index++;\n");
         xml_.append("  $return out;\n");
         xml_.append(" }\n");

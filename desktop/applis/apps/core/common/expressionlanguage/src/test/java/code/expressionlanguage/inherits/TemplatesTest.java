@@ -88,7 +88,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String>", context_));
@@ -98,7 +98,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
@@ -111,7 +111,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String[]>"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String[]>", context_));
@@ -121,7 +121,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
@@ -134,7 +134,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String>[]"),Templates.getAllInnerTypesSingleDotted("pkg.Ex<String>[]", context_));
@@ -144,7 +144,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
@@ -181,7 +181,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
@@ -194,7 +194,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
@@ -231,7 +231,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {\n");
+        xml_.append("public class pkg.Ex<T> {\n");
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -246,10 +246,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.ExTwo<#U> {}\n");
+        xml_.append("public class pkg.ExTwo<U> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExThree {}\n");
@@ -262,10 +262,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {}\n");
+        xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.ExTwo<#U> {\n");
+        xml_.append("public class pkg.ExTwo<U> {\n");
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
@@ -304,7 +304,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("public class pkg.Ex<#T> {\n");
+        xml_.append("public class pkg.Ex<T> {\n");
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
@@ -347,7 +347,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void quickFormat2Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -359,7 +359,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void quickFormat3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -371,7 +371,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void quickFormat4Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -390,7 +390,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format2Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:#U&#V,#U:#W,#V:#W,#W> {}\n");
+        xml_.append("$public $class pkg.Ex<T:U&V,U:W,V:W,W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -405,7 +405,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -418,7 +418,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format_3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -440,7 +440,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format5Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -453,7 +453,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format6Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#W> {}\n");
+        xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -516,7 +516,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format7Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -528,7 +528,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format8Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -540,7 +540,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format9Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -552,7 +552,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format10Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -564,7 +564,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format11Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -576,7 +576,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format12Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -588,7 +588,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format13Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -600,7 +600,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format14Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -612,7 +612,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format15Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -737,10 +737,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = ExecTemplates.getFullTypeByBases("pkg.ExTwo<#V>", "pkg.Ex", cont_);
@@ -752,7 +752,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Number>{}\n");
@@ -766,10 +766,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex<#V>", "pkg.Ex", cont_);
@@ -780,13 +780,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExThree<#X> {}\n");
+        xml_.append("$public $interface pkg.ExThree<X> {}\n");
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T>:pkg.ExThree<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExThree<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U> :pkg.Ex<#U>{}\n");
+        xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = ExecTemplates.getFullTypeByBases("pkg.Ex<#V>", "pkg.ExThree", cont_);
@@ -801,7 +801,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void correctNbParameters1Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#W> {$public $static $class Inner<#X> {}}\n");
+        xml_.append("$public $class pkg.Ex<W> {$public $static $class Inner<X> {}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -814,10 +814,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T>:pkg.ExTwo<#T[]> {}\n");
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#S>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
@@ -831,10 +831,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T>:pkg.ExTwo<#T[]> {}\n");
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#S>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
@@ -849,10 +849,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T>:pkg.ExTwo<#T[]> {}\n");
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#S>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
@@ -916,10 +916,10 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex<#E>");
+        String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex<E>");
         RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
         StringList superTypes_ = root_.getAllGenericSuperTypes();
         assertEq(0, superTypes_.size());
@@ -930,8 +930,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number> {}\n");
-        xml_.append("$public $class pkg.Ex<#E:java.lang.Number>:pkg.ExTwo<#E> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<E:java.lang.Number>:pkg.ExTwo<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex");

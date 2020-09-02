@@ -46,24 +46,22 @@ abstract class AnaPartType {
             if (_parent instanceof AnaInnerPartType && _index > 0) {
                 str_ = _parent.getOperators().getValue(_index - 1);
             }
-            if (_analyze.getKind() == KindPartType.TYPE_NAME) {
-                String type_ = _dels.getValue(_index);
-                type_ = StringExpUtil.removeDottedSpaces(type_);
-                boolean okVarType_ = false;
-                if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType) {
-                    okVarType_ = true;
-                } else if (_parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null) {
-                    okVarType_ = true;
-                }
-                if (_an.getAnalyzing().getAvailableVariables().contains(type_) && okVarType_) {
-                    return new AnaVariablePartType(_parent, _index, _indexInType, type_,str_);
-                }
-                return new AnaNamePartType(_parent, _index, _indexInType, type_,str_);
-            }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
                 return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
             }
-            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
+            String type_ = _dels.getValue(_index);
+            type_ = StringExpUtil.removeDottedSpaces(type_);
+            boolean okVarType_ = false;
+            if (_parent == null && !_rootName || _parent instanceof AnaArraryPartType || _parent instanceof AnaWildCardPartType) {
+                okVarType_ = true;
+            } else if (_parent instanceof AnaTemplatePartType && _parent.getFirstChild() != null) {
+                okVarType_ = true;
+            }
+            Integer val_ = _an.getAnalyzing().getAvailableVariables().getVal(type_);
+            if (val_ != null && okVarType_) {
+                return new AnaVariablePartType(_parent, _index, _indexInType, type_,str_,val_);
+            }
+            return new AnaNamePartType(_parent, _index, _indexInType, type_,str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);
@@ -86,14 +84,11 @@ abstract class AnaPartType {
             if (_parent instanceof AnaInnerPartType && _index > 0) {
                 str_ = _parent.getOperators().getValue(_index - 1);
             }
-            if (_analyze.getKind() == KindPartType.TYPE_NAME) {
-                String type_ = _dels.getValue(_index);
-                return new AnaNamePartType(_parent, _index, _indexInType, type_.trim(),str_);
-            }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
                 return new AnaEmptyWildCardPart(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
             }
-            return new AnaVariablePartType(_parent, _index, _indexInType, _dels.getValue(_index).trim(),str_);
+            String type_ = _dels.getValue(_index);
+            return new AnaNamePartType(_parent, _index, _indexInType, type_.trim(),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new AnaTemplatePartType(_parent, _index, _indexInType,operators_);

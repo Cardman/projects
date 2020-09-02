@@ -1585,4 +1585,266 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage687Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  return staticCall(Ext).m();\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall int m(){\n");
+        xml_.append("  return m(a -> a -> a * ##a,2,3);\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>).<a title=\"pkg.Ext.staticCall m()\" href=\"#m82\">m</a>();\n" +
+                " }\n" +
+                " staticCall int <a name=\"m82\">m</a>(){\n" +
+                "  return <a title=\"pkg.Ext.staticCall m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m141\">m</a>(<span class=\"t\"><a name=\"m98\">a</a> <a name=\"m100\">-&gt;</a> <span class=\"t\"><a name=\"m103\">a</a> <a name=\"m105\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m103\">a</a> <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a title=\"There is no accessible field named ##a from the type pkg.Ext in this context.\" class=\"e\">##a</a></span></span>,2,3);\n" +
+                " }\n" +
+                " staticCall int <a name=\"m141\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m165\">fct</a>,int <a name=\"m173\">a</a>,int <a name=\"m179\">b</a>){\n" +
+                "  return <a href=\"#m165\">fct</a>.<b>call</b>(<a href=\"#m173\">a</a>).<b>call</b>(<a href=\"#m179\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage688Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([##i]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m187\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ##i is undefined in this context.\" class=\"e\">##i</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m187\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m211\">fct</a>,int <a name=\"m219\">a</a>,int <a name=\"m225\">b</a>){\n" +
+                "  return <a href=\"#m211\">fct</a>.<b>call</b>(<a href=\"#m219\">a</a>).<b>call</b>(<a href=\"#m225\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage689Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([#a]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m186\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable #a is undefined in this context.\" class=\"e\">#a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m210\">fct</a>,int <a name=\"m218\">a</a>,int <a name=\"m224\">b</a>){\n" +
+                "  return <a href=\"#m210\">fct</a>.<b>call</b>(<a href=\"#m218\">a</a>).<b>call</b>(<a href=\"#m224\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage690Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([#]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m185\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable # is undefined in this context.\" class=\"e\">#</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m209\">fct</a>,int <a name=\"m217\">a</a>,int <a name=\"m223\">b</a>){\n" +
+                "  return <a href=\"#m209\">fct</a>.<b>call</b>(<a href=\"#m217\">a</a>).<b>call</b>(<a href=\"#m223\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage691Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([,]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m185\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable , is undefined in this context.\" class=\"e\">,</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m185\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m209\">fct</a>,int <a name=\"m217\">a</a>,int <a name=\"m223\">b</a>){\n" +
+                "  return <a href=\"#m209\">fct</a>.<b>call</b>(<a href=\"#m217\">a</a>).<b>call</b>(<a href=\"#m223\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage692Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([,a]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m186\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a is undefined in this context.\" class=\"e\">,a</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m186\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m210\">fct</a>,int <a name=\"m218\">a</a>,int <a name=\"m224\">b</a>){\n" +
+                "  return <a href=\"#m210\">fct</a>.<b>call</b>(<a href=\"#m218\">a</a>).<b>call</b>(<a href=\"#m224\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage693Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> sum2 + i + a + ([,a,b]) + #i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  int <a name=\"m54\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m75\">i</a> = 1; <a href=\"#m75\">i</a> &lt;= 9; <a href=\"#m75\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m188\">m</a>(<span class=\"t\"><a name=\"m110\">a</a> <a name=\"m112\">-&gt;</a> <span class=\"t\"><a name=\"m115\">i</a> <a name=\"m117\" title=\"The type $core.Number cannot be implicitly cast to int\" class=\"e\">-&gt;</a> <a href=\"#m54\">sum2</a> + <a href=\"#m115\">i</a> + <a href=\"#m110\">a</a> <a title=\"The operands types int;$core.Object for the operator + are unexpected.\" class=\"e\">+</a> ([<a title=\"The variable ,a,b is undefined in this context.\" class=\"e\">,a,b</a>]) <a title=\"The operands types $core.Number;int for the operator + are unexpected.\" class=\"e\">+</a> <a href=\"#m75\">#i</a></span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m188\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m212\">fct</a>,int <a name=\"m220\">a</a>,int <a name=\"m226\">b</a>){\n" +
+                "  return <a href=\"#m212\">fct</a>.<b>call</b>(<a href=\"#m220\">a</a>).<b>call</b>(<a href=\"#m226\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

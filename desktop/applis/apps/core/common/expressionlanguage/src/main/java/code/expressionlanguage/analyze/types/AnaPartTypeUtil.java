@@ -45,18 +45,6 @@ public final class AnaPartTypeUtil {
                         return false;
                     }
                 }
-                if (current_ instanceof AnaVariablePartType) {
-                    if (current_.getParent() instanceof AnaInnerPartType) {
-                        return false;
-                    }
-                    if (current_.getParent() instanceof AnaTemplatePartType && current_.getIndex() == 0) {
-                        return false;
-                    }
-                    String typeName_ = ((AnaLeafPartType) current_).getTypeName();
-                    if (isKoForWord(typeName_,_excludedWords)) {
-                        return false;
-                    }
-                }
                 if (current_ instanceof AnaEmptyWildCardPart
                         || current_ instanceof AnaWildCardPartType) {
                     if (!(current_.getParent() instanceof AnaTemplatePartType)) {
@@ -93,9 +81,9 @@ public final class AnaPartTypeUtil {
 
     static boolean isKoForWord(String _type, CustList<String> _excludedWords) {
         String typeName_ = _type.trim();
-        if (typeName_.startsWith("#")) {
-            typeName_ = typeName_.substring("#".length()).trim();
-        }
+//        if (typeName_.startsWith("#")) {
+//            typeName_ = typeName_.substring("#".length()).trim();
+//        }
         if (!StringExpUtil.isTypeLeafPart(typeName_)) {
             return true;
         }

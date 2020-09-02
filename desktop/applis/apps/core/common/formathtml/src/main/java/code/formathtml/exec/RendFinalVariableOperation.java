@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FinalVariableOperation;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.util.IdMap;
@@ -15,12 +14,14 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     private String variableName;
     private int off;
     private ConstType type;
+    private int deep;
 
     public RendFinalVariableOperation(FinalVariableOperation _f) {
         super(_f);
         off = _f.getOff();
         type = _f.getType();
         variableName = _f.getVariableName();
+        deep = _f.getDeep();
     }
 
     @Override
@@ -30,13 +31,12 @@ public final class RendFinalVariableOperation extends RendLeafOperation implemen
     }
 
     Argument getCommonArgument(Configuration _conf) {
-        Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         ImportingPage ip_ = _conf.getLastPage();
         if (type == ConstType.LOOP_INDEX) {
-            return ExecTemplates.getIndexLoop(_conf.getContext(),variableName, ip_.getPageEl());
+            return ExecTemplates.getIndexLoop(_conf.getContext(),variableName, ip_.getPageEl(),deep);
         }
-        return ExecTemplates.getValue(_conf.getContext(),variableName,ip_.getPageEl());
+        return ExecTemplates.getValue(_conf.getContext(),variableName,ip_.getPageEl(),deep);
     }
 
 }

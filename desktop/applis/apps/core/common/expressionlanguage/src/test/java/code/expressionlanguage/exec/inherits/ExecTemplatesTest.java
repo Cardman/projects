@@ -193,7 +193,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat1Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -204,7 +204,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat2Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -215,7 +215,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -226,7 +226,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat4Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -237,7 +237,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat5Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -248,7 +248,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat6Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -259,7 +259,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat7Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -270,7 +270,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat8Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -281,7 +281,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void reflectFormat9Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -515,7 +515,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
@@ -530,7 +530,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
@@ -650,7 +650,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage());
+        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage(),-1);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -666,7 +666,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage());
+        ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage(),0);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -688,7 +688,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.setClassLoopValue(-1,"");
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", cont_.getLastPage());
+        Argument myvar_ = ExecTemplates.getIndexLoop(cont_, "myvar", cont_.getLastPage(),0);
         assertNull(getException(cont_));
         assertEq(2,getNumber(myvar_));
     }
@@ -703,7 +703,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.getValue(cont_,"", cont_.getLastPage());
+        ExecTemplates.getValue(cont_,"", cont_.getLastPage(),-1);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -719,7 +719,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.getValue(cont_,"", cont_.getLastPage());
+        ExecTemplates.getValue(cont_,"", cont_.getLastPage(),0);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -738,7 +738,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.setClassLocalValue(-1,"");
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", cont_.getLastPage());
+        Argument myvar_ = ExecTemplates.getValue(cont_, "myvar", cont_.getLastPage(),0);
         assertNull(getException(cont_));
         assertEq(2,getNumber(myvar_));
     }
@@ -753,7 +753,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null);
+        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null,-1);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -769,7 +769,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null);
+        ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null,0);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -787,7 +787,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", cont_.getLastPage(), new Argument(new IntStruct(4)));
+        Argument myvar_ = ExecTemplates.setValue(cont_, "myvar", cont_.getLastPage(), new Argument(new IntStruct(4)),0);
         assertNull(getException(cont_));
         assertEq(4,getNumber(myvar_));
         assertEq(4,getNumber(new Argument(cache_.getLocalValue("myvar",0))));

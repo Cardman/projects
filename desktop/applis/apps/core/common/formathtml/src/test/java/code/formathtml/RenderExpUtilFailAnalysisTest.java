@@ -19,12 +19,12 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     @Test
     public void processEl448Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static Ex<String> inst=$new Ex<>();\n");
         xml_.append(" $static{\n");
         xml_.append("  ExThree.inst++;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -296,9 +296,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     @Test
     public void processEl455Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -306,15 +306,15 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,#S),15)", conf_);
+        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,S),15)", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl456Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -328,9 +328,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     @Test
     public void processEl457Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -344,9 +344,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     @Test
     public void processEl458Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -360,9 +360,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     @Test
     public void processEl459Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -377,9 +377,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     public void processEl461Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
-        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append("$public $static $class Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -388,16 +388,16 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration5(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Outer.Ex<$int>().res($id($void,#T),15)", conf_);
+        processEl("$new pkg.Outer.Ex<$int>().res($id($void,T),15)", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl462Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
-        xml_.append("$public $static $class Ex<#T> {\n");
+        xml_.append("$public $static $class Ex<T> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -406,16 +406,16 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
-        processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,#T),15)", conf_);
+        processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,T),15)", conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
     @Test
     public void processEl464Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Outer {\n");
-        xml_.append("$public $static $class Ex<#T:pkg.Outer> {\n");
+        xml_.append("$public $static $class Ex<T:pkg.Outer> {\n");
         xml_.append(" $public $static $int inst=14;\n");
-        xml_.append(" $public $int res(#T v){\n");
+        xml_.append(" $public $int res(T v){\n");
         xml_.append("  $return ($int)inst+($int)v;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

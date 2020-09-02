@@ -50,14 +50,14 @@ public final class AnonymousLambdaOperation extends
         for (EntryCust<String,AnaLocalVariable> e: _conf.getAnalyzing().getInfosVars().entryList()) {
             block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
         }
-        for (EntryCust<String,AnaLocalVariable> e: _conf.getAnalyzing().getInfosCache().entryList()) {
-            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(),e.getValue()));
+        for (AnaNamedLocalVariable e: _conf.getAnalyzing().getCache().getLocalVariables()) {
+            block.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getName(),e.getLocalVariable()));
         }
         for (EntryCust<String,AnaLoopVariable> e: _conf.getAnalyzing().getLoopsVars().entryList()) {
             block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
         }
-        for (EntryCust<String,AnaLoopVariable> e: _conf.getAnalyzing().getLoopsCache().entryList()) {
-            block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getKey(),e.getValue()));
+        for (AnaNamedLoopVariable e: _conf.getAnalyzing().getCache().getLoopVariables()) {
+            block.getCache().getLoopVariables().add(new AnaNamedLoopVariable(e.getName(),e.getLocalVariable()));
         }
         analyzeCtor(_conf);
     }

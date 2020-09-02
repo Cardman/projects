@@ -366,7 +366,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  return staticCall(ExClass<int>).myfct($id(ExClass,staticCall,#T),5);\n");
+        xml_.append("  return staticCall(ExClass<int>).myfct($id(ExClass,staticCall,T),5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");

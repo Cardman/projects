@@ -88,7 +88,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $class(pkg.Ex).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -109,9 +109,9 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $new pkg.Ex<java.lang.Integer>().exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(#T).getName();\n");
+        xml_.append("  $return $class(T).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -133,9 +133,9 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $new pkg.Ex<java.lang.Integer>().exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(pkg.Ex<#T>).getName();\n");
+        xml_.append("  $return $class(pkg.Ex<T>).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -215,9 +215,9 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(pkg.Ex<#T>).getName();\n");
+        xml_.append("  $return $class(pkg.Ex<T>).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -298,7 +298,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $class(pkg.Ex[]).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -319,7 +319,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $class(pkg.Ex<java.lang.Integer>[]).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
@@ -340,9 +340,9 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $new pkg.Ex<java.lang.Integer>().exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(#T[]).getName();\n");
+        xml_.append("  $return $class(T[]).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -364,9 +364,9 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $new pkg.Ex<java.lang.Integer>().exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return $class(pkg.Ex<#T[]>).getName();\n");
+        xml_.append("  $return $class(pkg.Ex<T[]>).getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -5764,7 +5764,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $class(pkg.Ex<Number>).getDeclaredConstructors()[0].getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $return 0i;\n");
         xml_.append(" }\n");
@@ -5788,7 +5788,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("  $return $class(pkg.Ex).getDeclaredConstructors()[0].getName();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int exmeth($int e){\n");
         xml_.append("  $return 0i;\n");
         xml_.append(" }\n");

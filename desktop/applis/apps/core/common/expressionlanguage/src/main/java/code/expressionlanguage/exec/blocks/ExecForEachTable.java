@@ -209,7 +209,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
             return;
         }
         if (call_.sizeEl() < 4) {
-            ExecTemplates.setValue(_conf,variableNameFirst,_conf.getLastPage(),arg_);
+            ExecTemplates.setValue(_conf,variableNameFirst,_conf.getLastPage(),arg_,-1);
             ExecTemplates.incrIndexLoop(_conf, variableNameFirst, _conf.getLastPage());
             if (_conf.callsOrException()) {
                 return;
@@ -224,7 +224,7 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
         if (_conf.callsOrException()) {
             return;
         }
-        ExecTemplates.setValue(_conf,variableNameSecond,_conf.getLastPage(),arg_);
+        ExecTemplates.setValue(_conf,variableNameSecond,_conf.getLastPage(),arg_,-1);
         ExecTemplates.incrIndexLoop(_conf, variableNameSecond, _conf.getLastPage());
         if (_conf.callsOrException()) {
             return;

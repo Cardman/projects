@@ -650,10 +650,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -669,10 +669,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -735,10 +735,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -765,10 +765,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -784,10 +784,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -827,10 +827,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -863,7 +863,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -885,7 +885,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -908,7 +908,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -930,7 +930,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -952,7 +952,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -974,7 +974,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -996,7 +996,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1018,7 +1018,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1040,7 +1040,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1062,7 +1062,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1084,7 +1084,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1106,7 +1106,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1181,7 +1181,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1204,8 +1204,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1227,8 +1227,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1250,8 +1250,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1273,8 +1273,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1296,8 +1296,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1319,8 +1319,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1342,8 +1342,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1365,8 +1365,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1388,8 +1388,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1473,8 +1473,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1509,8 +1509,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1675,10 +1675,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $class pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1693,10 +1693,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $class pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1711,10 +1711,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1729,10 +1729,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1747,10 +1747,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1771,8 +1771,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1787,10 +1787,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1806,10 +1806,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1833,8 +1833,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamTwo<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1849,10 +1849,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1868,10 +1868,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1886,10 +1886,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExTwo<#E> :pkg.Ex<#E>{}\n");
+        xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1904,7 +1904,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
@@ -1921,7 +1921,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#F> {}\n");
+        xml_.append("$public $interface pkg.Ex<F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
@@ -1939,13 +1939,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1959,13 +1959,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -1980,13 +1980,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2001,13 +2001,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2021,13 +2021,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U,#V:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2042,13 +2042,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U,#V:pkg.ExTwo<java.lang.Number>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2108,7 +2108,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E,#F> {}\n");
+        xml_.append("$public $class pkg.Ex<E,F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2121,13 +2121,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T> :pkg.Ex<#T>{}\n");
+        xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExThree<#U,#V:pkg.ExTwo<#U>>{}\n");
+        xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<U>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2211,7 +2211,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E> {}\n");
+        xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2236,7 +2236,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2251,7 +2251,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2266,7 +2266,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2281,7 +2281,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2296,8 +2296,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Param<#T>{}\n");
-        xml_.append("$public $class pkg.ParamSub<#S>:Param<#S>{}\n");
+        xml_.append("$public $class pkg.Param<T>{}\n");
+        xml_.append("$public $class pkg.ParamSub<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2313,10 +2313,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -2332,10 +2332,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T>:ExTwo<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#S> {}\n");
+        xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
@@ -4768,11 +4768,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("$public $interface pkg.ExFour<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
@@ -4801,11 +4801,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("$public $interface pkg.ExFour<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
@@ -4833,11 +4833,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFour<#T> {\n");
+        xml_.append("$public $interface pkg.ExFour<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.ExFive<#U> {\n");
+        xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
         ContextEl c_ = unfullValidateOverridingMethods(files_);
@@ -5050,7 +5050,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat2Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5062,7 +5062,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat3Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5074,7 +5074,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat4Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5087,7 +5087,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat5Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5099,7 +5099,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat6Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5111,7 +5111,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat7Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5123,7 +5123,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat8Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5136,7 +5136,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat9Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5148,7 +5148,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat10Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5160,7 +5160,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat11Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5172,7 +5172,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat12Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5184,7 +5184,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat13Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5196,7 +5196,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat14Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5208,7 +5208,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat15Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5220,7 +5220,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat16Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5231,11 +5231,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat17Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#E:java.lang.Number,#F> {}\n");
+        xml_.append("$public $class pkg.Ex<E:java.lang.Number,F> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#U> {}\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,U> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.ExTwo<java.lang.Number,java.lang.Number>";
@@ -5246,7 +5246,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat18Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5258,7 +5258,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat19Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5270,7 +5270,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat20Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5282,7 +5282,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat21Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5294,7 +5294,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat22Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5306,7 +5306,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat23Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5318,7 +5318,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat24Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5330,7 +5330,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat25Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5342,7 +5342,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat26Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5354,7 +5354,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat27Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5366,7 +5366,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat28Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5378,7 +5378,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat29Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5390,7 +5390,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat30Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5402,7 +5402,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat31Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5414,7 +5414,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat32Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5426,7 +5426,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat33Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5438,7 +5438,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat34Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5450,7 +5450,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat35Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5462,7 +5462,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat36Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5474,7 +5474,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat37Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5486,7 +5486,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat38Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5498,7 +5498,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat39Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5510,7 +5510,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat40Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5522,7 +5522,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat41Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5534,7 +5534,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat42Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5546,7 +5546,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat43Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5558,7 +5558,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat44Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5570,7 +5570,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat45Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5582,7 +5582,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat46Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5594,7 +5594,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat47Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5606,7 +5606,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat48Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5618,7 +5618,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat49Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5629,7 +5629,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat50Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5641,7 +5641,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat51Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5653,7 +5653,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat52Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T,#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
@@ -5665,7 +5665,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat53Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5677,7 +5677,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat54Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5689,7 +5689,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void wildCardFormat55Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateOverridingMethods(files_);
@@ -5808,7 +5808,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5820,7 +5820,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5832,7 +5832,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5844,7 +5844,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5856,12 +5856,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5869,12 +5869,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T> {}\n");
+        xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5882,12 +5882,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5895,12 +5895,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5908,12 +5908,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5921,12 +5921,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
-        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -5934,7 +5934,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5946,7 +5946,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5958,7 +5958,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5970,7 +5970,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5982,7 +5982,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -5994,7 +5994,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $class pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6005,7 +6005,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -6013,7 +6013,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6024,7 +6024,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -6032,7 +6032,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $class pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {}\n");
@@ -6043,7 +6043,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -6051,7 +6051,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {}\n");
@@ -6062,7 +6062,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>[]"));
+        assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
     }
 
     @Test
@@ -6070,7 +6070,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $class pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {}\n");
@@ -6088,7 +6088,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {}\n");
@@ -6106,8 +6106,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.ExTwo<U> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6119,8 +6119,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.ExTwo<U> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6152,7 +6152,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6164,7 +6164,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T:java.lang.Number> {}\n");
+        xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6176,7 +6176,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6187,8 +6187,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
-        xml_.append("$public $class pkg.ExTwo<#U,#S> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
+        xml_.append("$public $class pkg.ExTwo<U,S> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6199,8 +6199,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {}\n");
-        xml_.append("$public $class pkg.ExTwo<#U> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {}\n");
+        xml_.append("$public $class pkg.ExTwo<U> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
@@ -6211,7 +6211,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6229,7 +6229,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6247,7 +6247,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6265,7 +6265,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6283,7 +6283,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6294,7 +6294,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
     }
 
 
@@ -6318,7 +6318,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExThree> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExThree> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.ExThree{}\n");
@@ -6329,7 +6329,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
-        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<#E>"));
+        assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
     }
 
     private static boolean isCorrectTemplateAllExact(ContextEl cont_, StringMap<StringList> t_, String _className) {
@@ -6342,10 +6342,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Ex<#T:pkg.ExTwo<?#T>> {}\n");
+        xml_.append("$public $interface pkg.Ex<T:pkg.ExTwo<?T>> {}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#U>{}\n");
+        xml_.append("$public $class pkg.ExTwo<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();

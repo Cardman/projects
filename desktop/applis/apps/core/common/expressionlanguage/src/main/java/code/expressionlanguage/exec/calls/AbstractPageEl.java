@@ -36,8 +36,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     private Argument returnedArgument = Argument.createVoid();
 
-    private Argument rightArgument;
-
     private LoopBlockStack lastLoop;
     private IfBlockStack lastIf;
     private TryBlockStack lastTry;
@@ -228,14 +226,6 @@ public abstract class AbstractPageEl extends PageEl {
 
     public void setReturnedArgument(Argument _returnedArgument) {
         returnedArgument = _returnedArgument;
-    }
-
-    public Argument getRightArgument() {
-        return rightArgument;
-    }
-
-    protected void setRightArgument(Argument _rightArgument) {
-        rightArgument = _rightArgument;
     }
 
     public LoopBlockStack getLastLoop() {

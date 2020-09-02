@@ -26,6 +26,7 @@ public final class ReturnMethod extends AbruptBlock {
 
     private OperationNode root;
     private int expressionOffset;
+    private boolean implicit;
 
     public ReturnMethod(OffsetStringInfo _expression, OffsetsBlock _offset) {
         super(_offset);
@@ -182,5 +183,13 @@ public final class ReturnMethod extends AbruptBlock {
 
     public OperationNode getRoot() {
         return root;
+    }
+
+    public boolean isImplicit() {
+        return implicit;
+    }
+
+    public void setImplicit(boolean implicit) {
+        this.implicit = implicit;
     }
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
@@ -21,6 +22,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private boolean catString;
 
     private String variableName = EMPTY_STRING;
+    private String realVariableName = EMPTY_STRING;
     private int off;
     private String className;
 
@@ -28,18 +30,19 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     private int ref;
     private boolean declare;
-
+    private int deep;
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
-        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0);
+        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0,-1);
     }
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
-                                        MethodOperation _m, OperationsSequence _op, String _className, int _ref) {
+                                        MethodOperation _m, OperationsSequence _op, String _className, int _ref, int _deep) {
         super(_indexInEl, _indexChild, _m, _op);
         off = _op.getOffset();
         className = _className;
         ref = _ref;
+        deep = _deep;
     }
     @Override
     public void analyze(ContextEl _conf) {
@@ -53,6 +56,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             AnalyzedPageEl page_ = _conf.getAnalyzing();
             TokenErrorMessage res_ = _conf.getAnalyzing().getTokenValidation().isValidSingleToken(str_);
             variableName = str_;
+            realVariableName = str_;
             if (res_.isError()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -90,7 +94,8 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
             return;
         }
-        variableName = str_;
+        variableName = StringExpUtil.skipPrefix(str_);
+        realVariableName = str_;
         setResultClass(new ClassArgumentMatching(className));
     }
 
@@ -107,6 +112,11 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     public String getVariableName() {
         return variableName;
     }
+
+    public String getRealVariableName() {
+        return realVariableName;
+    }
+
     public int getOff() {
         return off;
     }
@@ -129,5 +139,9 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
 
     public boolean isDeclare() {
         return declare;
+    }
+
+    public int getDeep() {
+        return deep;
     }
 }

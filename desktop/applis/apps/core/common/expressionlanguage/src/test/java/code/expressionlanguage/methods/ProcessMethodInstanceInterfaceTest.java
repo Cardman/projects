@@ -3267,12 +3267,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int2 :pkg.Int3<java.lang.Integer>{}\n");
         files_.put("pkg/Int2", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $interface pkg.Int3<#T> {\n");
+        xml_.append("$public $interface pkg.Int3<T> {\n");
         xml_.append(" $public $int common=1i;\n");
         xml_.append(" $public $normal $int doubleValue(){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public (#T p){\n");
+        xml_.append(" $public (T p){\n");
         xml_.append("  common=$(java.lang.Integer)p;\n");
         xml_.append(" }\n");
         xml_.append("}\n");

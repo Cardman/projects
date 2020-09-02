@@ -170,7 +170,7 @@ public final class LinkageUtil {
             }
             if (vars_.getStack().last().getCurrent() == null) {
                 if (child_.isReachableError()) {
-                    if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)) {
+                    if (!(child_ instanceof Line)&&!(child_ instanceof DeclareVariable)&&!(child_ instanceof EmptyInstruction)&&!(child_ instanceof RootBlock)&&!isImplicitReturn(child_)) {
                         String err_ = StringList.join(child_.getErrorsBlock(),"\n\n");
                         int off_ = child_.getBegin();
                         int l_ = child_.getLengthHeader();
@@ -1702,7 +1702,12 @@ public final class LinkageUtil {
         _parts.add(new PartOffset("<span class=\"t\">", _begin));
         refParamsError(_vars,_cond,_cont, _parts);
         _parts.addAllElts(_cond.getPartOffsetsReturn());
-        addNameParts(_cond,_parts, begName_, 2);
+        StringList errs_ = new StringList();
+        Block child_ = _cond.getFirstChild();
+        if (isImplicitReturn(child_)){
+            errs_.addAllElts(child_.getErrorsBlock());
+        }
+        addNameParts(errs_,_cond,_parts, begName_, 2);
     }
 
     private static void processAnnotationMethodBlockReport(VariablesOffsets _vars,AnnotationMethodBlock _cond, ContextEl _cont, CustList<PartOffset> _parts) {
@@ -1760,7 +1765,11 @@ public final class LinkageUtil {
     }
 
     private static void addNameParts(NamedFunctionBlock _named,CustList<PartOffset> _parts, int begName_, int _len) {
-        StringList errs_ = _named.getNameErrors();
+        addNameParts(new StringList(),_named,_parts,begName_,_len);
+    }
+    private static void addNameParts(StringList _list,NamedFunctionBlock _named,CustList<PartOffset> _parts, int begName_, int _len) {
+        StringList errs_ = new StringList(_named.getNameErrors());
+        errs_.addAllElts(_list);
         if (errs_.isEmpty()) {
             int endName_ = begName_ + _len;
             _parts.add(new PartOffset("<a name=\"m"+begName_+"\">",begName_));
@@ -2506,7 +2515,6 @@ public final class LinkageUtil {
         processNamedFct(_cont,refFoundTypes_,refOperators_, currentFileName_, sum_, val_, _parts);
         processVariables(_cont, _vars,_offsetBlock, _block, sum_, val_, _parts);
         processConstants(sum_, val_, _parts);
-        processIndexerValue(_cont, sum_, val_, _parts);
         processAssociation(_cont, refFoundTypes_,refOperators_,sum_, val_, _parts, _currentFileName);
         processFields(_cont,refFoundTypes_,refOperators_, _block, sum_, val_, _parts, _currentFileName);
         processInstances(_cont,refFoundTypes_,refOperators_, currentFileName_, sum_, val_, _parts);
@@ -2572,7 +2580,6 @@ public final class LinkageUtil {
         processNamedFct(_cont, refFoundTypes_,refOperators_,currentFileName_, sum_, val_, _parts);
         processVariables(_cont, _vars,_offsetBlock, _block, sum_, val_, _parts);
         processConstants(sum_, val_, _parts);
-        processIndexerValue(_cont, sum_, val_, _parts);
         processAssociation(_cont, refFoundTypes_,refOperators_,sum_, val_, _parts, _currentFileName);
         processFields(_cont,refFoundTypes_,refOperators_, _block, sum_, val_, _parts, _currentFileName);
         processInstances(_cont, refFoundTypes_,refOperators_,currentFileName_, sum_, val_, _parts);
@@ -2744,16 +2751,6 @@ public final class LinkageUtil {
         }
     }
 
-    private static void processIndexerValue(ContextEl _cont, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
-        if (val_ instanceof ValueOperation) {
-            int delta_ = ((ValueOperation) val_).getOff();
-            String tag_ = "<b>";
-            _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
-            tag_ = "</b>";
-            _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordValue().length()));
-        }
-    }
-
     private static void processNamedFct(ContextEl _cont,CustList<RootBlock> _refFoundTypes,CustList<OperatorBlock> _refOperators, String currentFileName_, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof FctOperation||val_ instanceof ChoiceFctOperation ||val_ instanceof SuperFctOperation) {
             if (val_ instanceof FctOperation) {
@@ -2867,7 +2864,7 @@ public final class LinkageUtil {
 
     private static void processVariables(ContextEl _cont, VariablesOffsets _vars, int _offsetBlock, Block _block, int sum_, OperationNode val_, CustList<PartOffset> _parts) {
         if (val_ instanceof VariableOperation) {
-            String varName_ = ((VariableOperation) val_).getVariableName();
+            String varName_ = ((VariableOperation) val_).getRealVariableName();
             int delta_ = ((VariableOperation) val_).getOff();
             if (((VariableOperation) val_).isDeclare()) {
                 StringList errs_ = ((VariableOperation) val_).getNameErrors();
@@ -2894,7 +2891,7 @@ public final class LinkageUtil {
             }
         }
         if (val_ instanceof MutableLoopVariableOperation) {
-            String varName_ = ((MutableLoopVariableOperation) val_).getVariableName();
+            String varName_ = ((MutableLoopVariableOperation) val_).getRealVariableName();
             int delta_ = ((MutableLoopVariableOperation) val_).getOff();
             if (((MutableLoopVariableOperation) val_).isDeclare()) {
                 int id_ = ((MutableLoopVariableOperation) val_).getRef();
@@ -2921,7 +2918,7 @@ public final class LinkageUtil {
             }
         }
         if (val_ instanceof FinalVariableOperation) {
-            String varName_ = ((FinalVariableOperation) val_).getVariableName();
+            String varName_ = ((FinalVariableOperation) val_).getRealVariableName();
             int delta_ = ((FinalVariableOperation) val_).getOff();
             if (!val_.getErrs().isEmpty()) {
                 int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
@@ -2931,12 +2928,19 @@ public final class LinkageUtil {
                 tag_ = "</a>";
                 _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()+varName_.length()));
             } else {
-                int deltaLoc_ = ((FinalVariableOperation)val_).getDelta();
-                int id_ = ((FinalVariableOperation) val_).getRef();
-                String tag_ = "<a href=\"#m"+id_+"\">";
-                _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()));
-                tag_ = "</a>";
-                _parts.add(new PartOffset(tag_,deltaLoc_+delta_+sum_ + val_.getIndexInEl()+varName_.length()));
+                if (((FinalVariableOperation) val_).isKeyWord()) {
+                    String tag_ = "<b>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()));
+                    tag_ = "</b>";
+                    _parts.add(new PartOffset(tag_,delta_+sum_ + val_.getIndexInEl()+_cont.getKeyWords().getKeyWordValue().length()));
+                } else {
+                    int deltaLoc_ = ((FinalVariableOperation) val_).getDelta();
+                    int id_ = ((FinalVariableOperation) val_).getRef();
+                    String tag_ = "<a href=\"#m" + id_ + "\">";
+                    _parts.add(new PartOffset(tag_, deltaLoc_ + delta_ + sum_ + val_.getIndexInEl()));
+                    tag_ = "</a>";
+                    _parts.add(new PartOffset(tag_, deltaLoc_ + delta_ + sum_ + val_.getIndexInEl() + varName_.length()));
+                }
             }
         }
     }
@@ -4070,5 +4074,11 @@ public final class LinkageUtil {
             }
         }
         return methods_;
+    }
+    private static boolean isImplicitReturn(Block _ret) {
+        if (!(_ret instanceof ReturnMethod)) {
+            return false;
+        }
+        return ((ReturnMethod)_ret).isImplicit();
     }
 }

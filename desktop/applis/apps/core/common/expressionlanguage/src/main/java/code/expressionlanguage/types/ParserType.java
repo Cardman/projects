@@ -138,11 +138,6 @@ public final class ParserType {
     public static AnalyzingType analyzeLocal(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
-        if (StringExpUtil.isVar(_string)) {
-            a_.setKind(KindPartType.VARIABLE);
-            a_.setupValue(_string);
-            return a_;
-        }
         if (StringExpUtil.isTypeLeafPart(_string.trim())) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);
@@ -154,11 +149,6 @@ public final class ParserType {
     public static AnalyzingType analyzeLocalId(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
-        if (StringExpUtil.isVar(_string)) {
-            a_.setKind(KindPartType.VARIABLE);
-            a_.setupValue(_string);
-            return a_;
-        }
         if (StringExpUtil.isTypeLeafPartExec(_string.trim())) {
             a_.setKind(KindPartType.TYPE_NAME);
             a_.setupValue(_string);
@@ -238,7 +228,7 @@ public final class ParserType {
             i_++;
         }
         if (operators_.isEmpty()) {
-            if (StringExpUtil.isTypeLeaf(_string)) {
+            if (isTypeLeaf(_string)) {
                 _a.setKind(KindPartType.TYPE_NAME);
                 _a.setupValue(_string);
                 return _a;
@@ -249,18 +239,20 @@ public final class ParserType {
         _a.setupValues(_string);
         return _a;
     }
-
+    private static boolean isTypeLeaf(String _string) {
+        for (String p : StringList.splitChars(_string, Templates.SEP_CLASS_CHAR)) {
+            if (!StringExpUtil.isTypeLeafPart(p.trim())) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static AnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
         AnalyzingType a_ = new AnalyzingType();
         a_.getIndexes().addAllElts(_indexes);
         if (_string.trim().isEmpty()) {
             a_.getValues().put((int)CustList.FIRST_INDEX, _string);
             a_.setError(true);
-            return a_;
-        }
-        if (StringExpUtil.isVar(_string)) {
-            a_.setKind(KindPartType.VARIABLE);
-            a_.setupValueExec(_string);
             return a_;
         }
         if (StringExpUtil.isTypeLeafExec(_string)) {

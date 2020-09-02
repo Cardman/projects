@@ -188,33 +188,8 @@ public final class AnalyzedPageEl {
         return infosVars;
     }
 
-    public StringMap<AnaLocalVariable> getInfosCache() {
-        StringMap<AnaLocalVariable> map_ = new StringMap<AnaLocalVariable>();
-        for (AnaNamedLocalVariable a: getCache().getLocalVariables()){
-            AnaLocalVariable v_ = new AnaLocalVariable();
-            v_.setRef(a.getRef());
-            v_.setConstType(a.getLocalVariable().getConstType());
-            v_.setFinalVariable(a.isFinalVariable());
-            v_.setClassName(a.getLocalVariable().getClassName());
-            map_.addEntry(a.getName(), v_);
-        }
-        return map_;
-    }
-
     public StringMap<AnaLoopVariable> getLoopsVars() {
         return loopsVars;
-    }
-
-    public StringMap<AnaLoopVariable> getLoopsCache() {
-        StringMap<AnaLoopVariable> map_ = new StringMap<AnaLoopVariable>();
-        for (AnaNamedLoopVariable a: getCache().getLoopVariables()){
-            AnaLoopVariable v_ = new AnaLoopVariable();
-            v_.setRef(a.getRef());
-            v_.setFinalVariable(a.isFinalVariable());
-            v_.setIndexClassName(a.getLocalVariable().getIndexClassName());
-            map_.addEntry(a.getName(), v_);
-        }
-        return map_;
     }
 
     public AnaCache getCache() {

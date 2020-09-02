@@ -710,7 +710,7 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Fct<Integer[],Ex<Integer>> c = $lambda(Ex<Integer>,$new,$id,#T...);\n");
+        xml_.append("  $Fct<Integer[],Ex<Integer>> c = $lambda(Ex<Integer>,$new,$id,T...);\n");
         xml_.append("  Ex<Integer> instance = c.call($new Integer[]{5,8});\n");
         xml_.append("  $return instance.get();\n");
         xml_.append(" }\n");
@@ -746,7 +746,7 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<Integer>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<Integer>,$new,$id,#T,#U...);\n");
+        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<Integer>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<Integer>,$new,$id,T,U...);\n");
         xml_.append("  Ex<Integer>.Inner<Integer> instance = c.call(12,$new $int[]{5,8});\n");
         xml_.append("  $return instance.get();\n");
         xml_.append(" }\n");
@@ -1159,7 +1159,7 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<?>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<?>,$new,$id,#T,#U...);\n");
+        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<?>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<?>,$new,$id,T,U...);\n");
         xml_.append("  Ex<Integer>.Inner<?> instance = c.call(12,$new $int[]{5,8});\n");
         xml_.append("  $return instance.get();\n");
         xml_.append(" }\n");
@@ -1187,7 +1187,7 @@ public final class ProcessMethodReferenceBisTest extends ProcessMethodCommon {
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<Integer>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<Integer>,$new,$id,#T...,#U);\n");
+        xml_.append("  $Fct<Integer,Integer[],Ex<Integer>.Inner<Integer>> c = $new Ex<Integer>().$lambda(Ex<Integer>.Inner<Integer>,$new,$id,T...,U);\n");
         xml_.append("  Ex<Integer>.Inner<?> instance = c.call(12,$new $int[]{5,8});\n");
         xml_.append("  \"\".$lambda(Number,,$parent);\n");
         xml_.append("  $return instance.get();\n");

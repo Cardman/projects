@@ -22,12 +22,15 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
 
     private int off;
 
+    private int deep;
+
     public ExecStdVariableOperation(VariableOperation _v) {
         super(_v);
         variable = _v.isVariable();
         catString = _v.isCatString();
         variableName  = _v.getVariableName();
         off = _v.getOff();
+        deep = _v.getDeep();
     }
 
     public ExecStdVariableOperation(MutableLoopVariableOperation _v) {
@@ -36,6 +39,7 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
         catString = _v.isCatString();
         variableName  = _v.getVariableName();
         off = _v.getOff();
+        deep = _v.getDeep();
     }
 
     public boolean resultCanBeSet() {
@@ -59,7 +63,7 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        return ExecTemplates.getValue(_conf,variableName,ip_);
+        return ExecTemplates.getValue(_conf,variableName,ip_,deep);
     }
 
     @Override
@@ -91,7 +95,7 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        return ExecTemplates.setValue(_conf,variableName,ip_,_right);
+        return ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
     }
 
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
@@ -100,7 +104,7 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
         left_.setStruct(_store);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
-        setVar(_conf,variableName, ip_, res_);
+        setVar(_conf,variableName, ip_, res_,deep);
         return res_;
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
@@ -110,17 +114,17 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
-        setVar(_conf, variableName,ip_, res_);
+        setVar(_conf, variableName,ip_, res_,deep);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public static void setVar(ContextEl _conf, String _variableName,PageEl _var,Argument _value) {
-        ExecTemplates.setValue(_conf,_variableName,_var,_value);
+    public static void setVar(ContextEl _conf, String _variableName,PageEl _var,Argument _value,int _deep) {
+        ExecTemplates.setValue(_conf,_variableName,_var,_value,_deep);
     }
     @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf,variableName,ip_,_right);
+        ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
         return _right;
     }
 
@@ -129,7 +133,7 @@ public abstract class ExecStdVariableOperation extends ExecLeafOperation impleme
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right) {
         PageEl ip_ = _conf.getLastPage();
-        ExecTemplates.setValue(_conf,variableName,ip_,_right);
+        ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
     }
 

@@ -878,7 +878,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  return explicit(ExClass<int>,#T)5;\n");
+        xml_.append("  return explicit(ExClass<int>,T)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -906,7 +906,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<?> method(){\n");
-        xml_.append("  return explicit(ExClass<?>,#T)5;\n");
+        xml_.append("  return explicit(ExClass<?>,T)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -932,7 +932,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<?> method(){\n");
-        xml_.append("  return explicit(ExClass<!Object>,#T)5;\n");
+        xml_.append("  return explicit(ExClass<!Object>,T)5;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -1361,7 +1361,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<int> method(){\n");
-        xml_.append("  Fct<int,ExClass<int>> fct = $lambda(ExClass<int>,explicit,$id,#T);\n");
+        xml_.append("  Fct<int,ExClass<int>> fct = $lambda(ExClass<int>,explicit,$id,T);\n");
         xml_.append("  return fct.call(5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1770,7 +1770,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<?int> method(){\n");
-        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,ExClass<#T>).call(new ExClass<int>());\n");
+        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,ExClass<T>).call(new ExClass<int>());\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -1799,7 +1799,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static ExClass<?int> method(){\n");
-        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,#T).call(5);\n");
+        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,T).call(5);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -2336,7 +2336,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static Object method(){\n");
-        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,#T...,int);\n");
+        xml_.append("  return $lambda(ExClass<?int>,explicit,$id,T...,int);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");
@@ -2357,7 +2357,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Apply {\n");
         xml_.append(" public static Object method(){\n");
-        xml_.append("  return $lambda(ExClass<?int>,explicit,#T...,int);\n");
+        xml_.append("  return $lambda(ExClass<?int>,explicit,T...,int);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         xml_.append("public class pkg.ExClass<T> {\n");

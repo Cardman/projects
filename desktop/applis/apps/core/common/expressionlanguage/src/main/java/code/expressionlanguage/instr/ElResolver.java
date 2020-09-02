@@ -2026,6 +2026,9 @@ public final class ElResolver {
                 block_.setFile(globalType_.getFile());
                 String tr_ = part_.trim();
                 ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(j_+instrLoc_, tr_),new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                ret_.setImplicit(true);
+                ret_.setBegin(jBef_+instrLoc_);
+                ret_.setLengthHeader(2);
                 block_.appendChild(ret_);
                 AnonymousResult anonymous_ = new AnonymousResult();
                 anonymous_.setResults(parse_);
@@ -2184,6 +2187,9 @@ public final class ElResolver {
                             block_.setFile(globalType_.getFile());
                             String trim_ = part_.trim();
                             ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(j_+instrLoc_, trim_),new OffsetsBlock(j_+instrLoc_,j_+instrLoc_));
+                            ret_.setImplicit(true);
+                            ret_.setBegin(jBef_+instrLoc_);
+                            ret_.setLengthHeader(2);
                             block_.appendChild(ret_);
                             AnonymousResult anonymous_ = new AnonymousResult();
                             anonymous_.setResults(parse_);
@@ -3396,12 +3402,14 @@ public final class ElResolver {
         begin_ = _d.getDelLoopVars().indexOfObj(_offset + firstPrintChar_);
         end_ = _d.getDelLoopVars().indexOfObj(_offset + lastPrintChar_);
         if (delimits(begin_, end_)) {
-            StringList parts_ = StringList.getDollarWordSeparators(_string.substring(firstPrintChar_, lastPrintChar_));
-            String name_ = parts_.get(1);
+            int indexLeftArr_ = _string.indexOf(ARR_LEFT);
+            int indexRightArr_ = _string.lastIndexOf(ARR_RIGHT);
+            int delta_ = indexLeftArr_+1 - firstPrintChar_;
+            String name_ = _string.substring(indexLeftArr_+1, indexRightArr_);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LOOP_INDEX);
             op_.setOperators(new IntTreeMap< String>());
-            op_.setDelta(parts_.get(0).length());
+            op_.setDelta(delta_);
             op_.setValue(name_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
@@ -3549,7 +3557,7 @@ public final class ElResolver {
         int off_ = StringList.getFirstPrintableCharIndex(sub_);
         String subTrim_ = sub_.trim();
         int arrRight_ = subTrim_.indexOf(ARR_RIGHT);
-        if (subTrim_.startsWith(ARR) && arrRight_ > -1) {
+        if (noInternDelimiter(sub_)&&subTrim_.startsWith(ARR) && arrRight_ > -1) {
             _d.getDelLoopVars().add(_from);
             _d.getDelLoopVars().add(indexParRight_);
             return indexParRight_ + 1;

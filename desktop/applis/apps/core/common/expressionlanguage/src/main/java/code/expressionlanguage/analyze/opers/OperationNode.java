@@ -1,12 +1,14 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
@@ -457,30 +459,28 @@ public abstract class OperationNode {
         if (ct_ == ConstType.LOOP_INDEX) {
             return new FinalVariableOperation(_index, _indexChild, _m, _op);
         }
-        AnaLocalVariable val_ = _an.getAnalyzing().getInfosVars().getVal(str_);
+        AnalyzedPageEl analyzing_ = _an.getAnalyzing();
+        AnaLocalVariable val_ = analyzing_.getInfosVars().getVal(str_);
+        int deep_ = -1;
         if (val_ == null) {
-            val_ = _an.getAnalyzing().getInfosCache().getVal(str_);
+            String shortStr_ = StringExpUtil.skipPrefix(str_);
+            AnaLocalVariable loc_ = analyzing_.getInfosVars().getVal(shortStr_);
+            deep_ = StringExpUtil.countPrefix(str_);
+            if (loc_ != null) {
+                deep_--;
+            }
+            AnaCache cache_ = analyzing_.getCache();
+            val_ = cache_.getLocalVar(shortStr_,deep_);
+
         }
         if (val_ != null) {
             if (val_.getConstType() == ConstType.LOC_VAR) {
-                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
+                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_);
             }
             if (val_.getConstType() == ConstType.MUTABLE_LOOP_VAR) {
-                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef());
+                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_);
             }
-            if (val_.getConstType() == ConstType.PARAM) {
-                FunctionBlock fct_ = _an.getAnalyzing().getCurrentFct();
-                if (fct_ instanceof OverridableBlock) {
-                    OverridableBlock indexer_ = (OverridableBlock) fct_;
-                    if (indexer_.getKind() == MethodKind.SET_INDEX) {
-                        String keyWordValue_ = keyWords_.getKeyWordValue();
-                        if (StringList.quickEq(keyWordValue_, str_)) {
-                            return new ValueOperation(_index, _indexChild, _m, _op,val_.getClassName());
-                        }
-                    }
-                }
-            }
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef());
+            return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef(),deep_,val_.isKeyWord());
         }
         return new StandardFieldOperation(_index, _indexChild, _m, _op);
     }

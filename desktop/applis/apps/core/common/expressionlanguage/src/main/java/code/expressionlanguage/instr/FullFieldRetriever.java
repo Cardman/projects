@@ -39,7 +39,13 @@ public final class FullFieldRetriever implements FieldRetriever {
         AnalyzedPageEl ana_ = context.getAnalyzing();
         AnaLocalVariable val_ = ana_.getInfosVars().getVal(_word);
         if (val_ == null) {
-            val_ = ana_.getInfosCache().getVal(_word);
+            String sh_ = StringExpUtil.skipPrefix(_word);
+            AnaLocalVariable loc_ = ana_.getInfosVars().getVal(sh_);
+            int deep_ = StringExpUtil.countPrefix(_word);
+            if (loc_ != null) {
+                deep_--;
+            }
+            val_ = ana_.getCache().getLocalVar(sh_,deep_);
         }
         if (val_ != null) {
             ConstType type_;

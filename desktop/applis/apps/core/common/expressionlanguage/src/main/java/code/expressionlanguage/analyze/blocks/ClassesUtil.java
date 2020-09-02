@@ -19,7 +19,6 @@ import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
@@ -557,16 +556,9 @@ public final class ClassesUtil {
         int tempOff_ = _root.getTemplateDefOffset() + 1;
         for (String p: params_.mid(CustList.SECOND_INDEX)) {
             int delta_ = 0;
-            String name_;
-            if (p.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-                delta_++;
-                name_ = p.substring(AnaTemplates.PREFIX_VAR_TYPE.length());
-            } else {
-                name_ = p;
-            }
             TypeVar type_ = new TypeVar();
-            int indexDef_ = name_.indexOf(Templates.EXTENDS_DEF);
-            StringList parts_ = StringList.splitInTwo(name_, indexDef_);
+            int indexDef_ = p.indexOf(Templates.EXTENDS_DEF);
+            StringList parts_ = StringList.splitInTwo(p, indexDef_);
             String id_ = parts_.first();
             int offId_ = tempOff_ + StringList.getFirstPrintableCharIndex(p);
             if (id_.isEmpty()) {
@@ -2817,6 +2809,7 @@ public final class ClassesUtil {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 lv_.setConstType(ConstType.PARAM);
+                lv_.setKeyWord(true);
                 _page.getInfosVars().put(p_, lv_);
             }
         }

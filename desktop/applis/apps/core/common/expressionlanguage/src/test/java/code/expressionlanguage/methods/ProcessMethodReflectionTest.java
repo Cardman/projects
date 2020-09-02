@@ -797,9 +797,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl257Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append(" $public $normal $int exmeth(T e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $return 1i+$($int)t+$($int)e;\n");
@@ -842,12 +842,12 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl258Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t;\n");
@@ -890,13 +890,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl259Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -940,13 +940,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl260Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -991,16 +991,16 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl261Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=6i;\n");
         xml_.append(" $public $static $void set($int i){\n");
         xml_.append("  inst+=i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -1143,15 +1143,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl263Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
         xml_.append(" $public (){\n");
         xml_.append("  inst=0i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1448,15 +1448,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl269Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
-        xml_.append(" $public (#T e){\n");
+        xml_.append(" $public (T e){\n");
         xml_.append("  inst=$($int)e;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1500,17 +1500,17 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl270Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
-        xml_.append(" $public (#T... e){\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append(" $public (T... e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   inst+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1554,19 +1554,19 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl271Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
-        xml_.append(" $public (#T... e){\n");
+        xml_.append(" $public (T... e){\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    inst+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1610,17 +1610,17 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl272Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
-        xml_.append(" $public (#T... e){\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append(" $public (T... e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   inst+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1663,19 +1663,19 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl273Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $int inst;\n");
-        xml_.append(" $public (#T... e){\n");
+        xml_.append(" $public (T... e){\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    inst+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
-        xml_.append("  $foreach(#T i:e){\n");
+        xml_.append("  $foreach(T i:e){\n");
         xml_.append("   t+=$($int)i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t+inst;\n");
@@ -1718,13 +1718,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl274Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -1767,13 +1767,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl275Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -1821,13 +1821,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl276Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -1872,16 +1872,16 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl278Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $final $int inst;\n");
         xml_.append(" $static{\n");
         xml_.append("  inst=15i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -1924,13 +1924,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl279Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $final $int inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2220,13 +2220,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("  $return $static(pkg.ExTwo).exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2269,13 +2269,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl285Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2318,13 +2318,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl286Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static java.lang.Integer inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2369,13 +2369,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl287Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public java.lang.Integer inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2418,13 +2418,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl288Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public java.lang.Integer inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2467,13 +2467,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl2881Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public java.lang.Integer inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -2717,8 +2717,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl293Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public #T inst;\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T inst;\n");
         xml_.append(" $public $normal $int exmeth($int... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
@@ -2768,8 +2768,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl294Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
-        xml_.append(" $public #T inst;\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T inst;\n");
         xml_.append(" $public $normal $int exmeth($int... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
@@ -3387,13 +3387,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("  $return $static(pkg.ExTwo).exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -3443,13 +3443,13 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append("  $return $static(pkg.ExTwo).exmeth();\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst=15i;\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -3846,9 +3846,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl330Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append(" $public $normal $int exmeth(T e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $return 1i+$($int)t+$($int)e;\n");
@@ -3890,9 +3890,9 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl3300Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $normal $int exmeth(#T e){\n");
+        xml_.append(" $public $normal $int exmeth(T e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $return 1i+$($int)t+$($int)e;\n");
@@ -3963,27 +3963,27 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("public class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append("public class pkg.Outer<C>: OuterTwo<C> {\n");
         xml_.append(" public static int field = pkgtwo.OuterTwo.field++;\n");
         xml_.append(" public class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" public class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" public class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append("public class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
         xml_.append(" public static int field = 1;\n");
-        xml_.append(" public class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" public class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
         xml_.append(" }\n");
-        xml_.append(" public class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" public class InnerFour:InnerThree<B> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
-        xml_.append(" public class InnerFive<#E> {\n");
-        xml_.append("  public class InnerInner<#G> {\n");
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public class InnerFive<E> {\n");
+        xml_.append("  public class InnerInner<G> {\n");
         xml_.append("   public normal String get(){\n");
         xml_.append("    return static(OuterThree.InnerFive).this.getLoc();\n");
         xml_.append("   }\n");
@@ -4024,27 +4024,27 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("public class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append("public class pkg.Outer<C>: OuterTwo<C> {\n");
         xml_.append(" public static int field = pkgtwo.OuterTwo.field++;\n");
         xml_.append(" public class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" public class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" public class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
+        xml_.append("public class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
         xml_.append(" public static int field = 1;\n");
-        xml_.append(" public class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append(" public class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
         xml_.append(" }\n");
-        xml_.append(" public class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" public class InnerFour:InnerThree<B> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("public class pkgtwo.OuterThree<#A> {\n");
-        xml_.append(" public class InnerFive<#E> {\n");
-        xml_.append("  public class InnerInner<#G> {\n");
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public class InnerFive<E> {\n");
+        xml_.append("  public class InnerInner<G> {\n");
         xml_.append("   public normal String get(){\n");
         xml_.append("    return static(OuterThree.InnerFive).this.getLoc();\n");
         xml_.append("   }\n");
@@ -4082,16 +4082,16 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl335Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static java.lang.Integer inst=15i;\n");
         xml_.append(" $static{\n");
         xml_.append("  ExThree.inst++;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");
@@ -4126,16 +4126,16 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
     @Test
     public void processEl336Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<#T> {\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
         xml_.append(" $public $static java.lang.Integer inst=15i;\n");
         xml_.append(" $static{\n");
         xml_.append("  ExThree.inst++;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(#T... e){\n");
+        xml_.append(" $public $normal $int exmeth(T... e){\n");
         xml_.append("  $long t;\n");
         xml_.append("  t=8;\n");
         xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(#T i:e){\n");
+        xml_.append("   $foreach(T i:e){\n");
         xml_.append("    t+=$($int)i;\n");
         xml_.append("   }\n");
         xml_.append("  }\n");

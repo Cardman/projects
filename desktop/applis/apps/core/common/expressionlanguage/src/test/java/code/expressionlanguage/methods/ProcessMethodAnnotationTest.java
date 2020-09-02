@@ -1962,7 +1962,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $int infoInt()2i;\n");
         xml_.append(" $Class[] infoIntTwo(){$class(ExTwo<Ex>)};\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4i))\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -2003,7 +2003,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $int infoInt()2i;\n");
         xml_.append(" $char[] infoIntTwo(){45c};\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4i))\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -2044,7 +2044,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $int infoInt()2i;\n");
         xml_.append(" $boolean[] infoIntTwo(){$true};\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4i))\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -2564,7 +2564,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $int infoInt()2i;\n");
         xml_.append(" $boolean[] infoIntTwo(){$false};\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4i))\n");
         xml_.append("$public $class pkg.Ex {\n");
@@ -2605,7 +2605,7 @@ public final class ProcessMethodAnnotationTest extends ProcessMethodCommon {
         xml_.append(" $char infoInt()2c;\n");
         xml_.append(" $boolean[] infoIntTwo(){$false};\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo<#T> {\n");
+        xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         xml_.append("@MyAnnot(info=@MyAnnotTwo(infoInt=4c))\n");
         xml_.append("$public $class pkg.Ex {\n");

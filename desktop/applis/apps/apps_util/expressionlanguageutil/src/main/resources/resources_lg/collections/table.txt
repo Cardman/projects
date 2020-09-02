@@ -1,35 +1,35 @@
-{public} {class} {CustPair}<#{U},#{V}> :{Pair}<#{U},#{V}>'{'
- {private} #{U} {first}{endLine}
- {private} #{V} {second}{endLine}
+{public} {class} {CustPair}<{U},{V}> :{Pair}<{U},{V}>'{'
+ {private} {U} {first}{endLine}
+ {private} {V} {second}{endLine}
  {public} ()'{'
  '}'
- {public} (#{U} {f},#{V} {s})'{'
+ {public} ({U} {f},{V} {s})'{'
   {this}.{first} = {f}{param}{endLine}
   {this}.{second} = {s}{param}{endLine}
  '}'
- {public} #{U} {getFirst}()'{'
+ {public} {U} {getFirst}()'{'
   {return} {first}{endLine}
  '}'
- {public} #{V} {getSecond}()'{'
+ {public} {V} {getSecond}()'{'
   {return} {second}{endLine}
  '}'
- {public} {void} {setFirst}(#{U} {p})'{'
+ {public} {void} {setFirst}({U} {p})'{'
   {this}.{first} = {p}{param}{endLine}
  '}'
- {public} {void} {setSecond}(#{V} {p})'{'
+ {public} {void} {setSecond}({V} {p})'{'
   {this}.{second} = {p}{param}{endLine}
  '}'
 '}'
-{public} {class} {CustIterTable}<#{A},#{B}> :{IterTypeTable}<#{A},#{B}>'{'
- {private} {Table}<#{A},#{B}> {listItrTa}{endLine}
+{public} {class} {CustIterTable}<{A},{B}> :{IterTypeTable}<{A},{B}>'{'
+ {private} {Table}<{A},{B}> {listItrTa}{endLine}
  {private} {int} {lengthItrTa}{endLine}
  {private} {int} {indexItrTa}{endLine}
- {public} ({Table}<#{A},#{B}> {p})'{'
+ {public} ({Table}<{A},{B}> {p})'{'
   {this}.{listItrTa}={p}{param}{endLine}
   {this}.{lengthItrTa}={this}.{listItrTa}.{sizeTa}(){endLine}
  '}'
- {public} {CustPair}<#{A},#{B}> {nextPair}()'{'
-  {CustPair}<#{A},#{B}> {out}={this}.{listItrTa}.{getTa}({this}.{indexItrTa}){endLine}
+ {public} {CustPair}<{A},{B}> {nextPair}()'{'
+  {CustPair}<{A},{B}> {out}={this}.{listItrTa}.{getTa}({this}.{indexItrTa}){endLine}
   {this}.{indexItrTa}++{endLine}
   {return} {out}{local}{endLine}
  '}'
@@ -37,39 +37,39 @@
   {return} {indexItrTa}<{lengthItrTa}{endLine}
  '}'
 '}'
-{public} {class} {Table}<#{E},#{F}> :{iterableTable}<#{E},#{F}>'{'
- {private} {List}<{CustPair}<#{E},#{F}>> {listTa}{endLine}
+{public} {class} {Table}<{E},{F}> :{iterableTable}<{E},{F}>'{'
+ {private} {List}<{CustPair}<{E},{F}>> {listTa}{endLine}
  {public} ()'{'
-  {listTa}={new} {List}<{CustPair}<#{E},#{F}>>(){endLine}
+  {listTa}={new} {List}<{CustPair}<{E},{F}>>(){endLine}
  '}'
- {public} {void} {addTa}(#{E} {f},#{F} {s})'{'
-  {this}.{listTa}.{add}({new} {CustPair}<#{E},#{F}>({f}{param},{s}{param})){endLine}
+ {public} {void} {addTa}({E} {f},{F} {s})'{'
+  {this}.{listTa}.{add}({new} {CustPair}<{E},{F}>({f}{param},{s}{param})){endLine}
  '}'
- {public} {void} {addTa}({CustPair}<#{E},#{F}> {p})'{'
+ {public} {void} {addTa}({CustPair}<{E},{F}> {p})'{'
   {this}.{listTa}.{add}({p}{param}){endLine}
  '}'
  {public} {int} {sizeTa}()'{'
   {return} {listTa}.{sizeLi}(){endLine}
  '}'
- {public} {CustPair}<#{E},#{F}> {getTa}({int} {i})'{'
+ {public} {CustPair}<{E},{F}> {getTa}({int} {i})'{'
   {return} {this}.{listTa}[{i}{param}]{endLine}
  '}'
- {public} #{E} {getFirstTa}({int} {i})'{'
+ {public} {E} {getFirstTa}({int} {i})'{'
   {return} {this}.{listTa}[{i}{param}].{getFirst}(){endLine}
  '}'
- {public} #{F} {getSecondTa}({int} {i})'{'
+ {public} {F} {getSecondTa}({int} {i})'{'
   {return} {this}.{listTa}[{i}{param}].{getSecond}(){endLine}
  '}'
- {public} {void} {setFirstTa}({int} {i}, #{E} {p})'{'
+ {public} {void} {setFirstTa}({int} {i}, {E} {p})'{'
   {this}.{listTa}[{i}{param}].{setFirst}({p}{param}){endLine}
  '}'
- {public} {void} {setSecondTa}({int} {i}, #{F} {p})'{'
+ {public} {void} {setSecondTa}({int} {i}, {F} {p})'{'
   {this}.{listTa}[{i}{param}].{setSecond}({p}{param}){endLine}
  '}'
  {public} {void} {removeTa}({int} {i})'{'
   {this}.{listTa}.{remove}({i}{param}){endLine}
  '}'
- {public} {IterTypeTable}<#{E},#{F}> {iteratorTable}()'{'
-  {return} {new} {CustIterTable}<#{E},#{F}>({this}){endLine}
+ {public} {IterTypeTable}<{E},{F}> {iteratorTable}()'{'
+  {return} {new} {CustIterTable}<{E},{F}>({this}){endLine}
  '}'
 '}'

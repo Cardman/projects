@@ -28,13 +28,10 @@ abstract class ExecPartType {
             if (_parent instanceof ExecInnerPartType && _index > 0) {
                 str_ = ((ExecInnerPartType) _parent).getOperators().get(_index - 1);
             }
-            if (_analyze.getKind() == KindPartType.TYPE_NAME) {
-                return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_);
-            }
             if (_analyze.getKind() == KindPartType.EMPTY_WILD_CARD) {
                 return new ExecEmptyWildCardPart(_parent, _index, _dels.getValue(_index),str_);
             }
-            return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"");
+            return new ExecNamePartType(_parent, _index, _dels.getValue(_index),str_);
         }
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
             return new ExecTemplatePartType(_parent, _index);

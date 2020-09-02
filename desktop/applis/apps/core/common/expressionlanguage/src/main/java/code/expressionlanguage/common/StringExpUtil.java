@@ -17,7 +17,6 @@ public final class StringExpUtil {
     public static final String TEMPLATE_END = ">";
     public static final String TEMPLATE_BEGIN = "<";
     public static final char SEP_CLASS_CHAR = '.';
-    public static final String PREFIX_VAR_TYPE = "#";
     public static final char SUB_TYPE_CHAR = '?';
     public static final char SUP_TYPE_CHAR = '!';
     public static final String SUB_TYPE = "?";
@@ -828,6 +827,29 @@ public final class StringExpUtil {
         return StringList.quickEq(_op, "--");
     }
 
+    public static int countPrefix(String _varRef) {
+        int count_ = 0;
+        int len_ = _varRef.length();
+        for (int i = 0; i < len_; i++) {
+            if (_varRef.charAt(i) != '#') {
+                break;
+            }
+            count_++;
+        }
+        return count_;
+    }
+    public static String skipPrefix(String _varRef) {
+        int count_ = 0;
+        int len_ = _varRef.length();
+        for (int i = 0; i < len_; i++) {
+            if (_varRef.charAt(i) != '#') {
+                break;
+            }
+            count_++;
+        }
+        return _varRef.substring(count_);
+    }
+
     public static boolean startsWithKeyWord(String _found, String _keyWord) {
         return startsWithKeyWord(_found,0,_keyWord);
     }
@@ -842,25 +864,7 @@ public final class StringExpUtil {
         char first_ = _found.charAt(_keyWord.length()+_start);
         return !StringExpUtil.isTypeLeafChar(first_);
     }
-    public static boolean isVar(String _string) {
-        String tr_ = _string.trim();
-        if (!tr_.startsWith(PREFIX_VAR_TYPE)) {
-            return false;
-        }
-        tr_ = tr_.substring(PREFIX_VAR_TYPE.length());
-        return isTypeLeaf(tr_);
-    }
-    public static boolean isTypeLeaf(String _string) {
-        if (_string.trim().isEmpty()) {
-            return false;
-        }
-        for (String p : StringList.splitChars(_string, SEP_CLASS_CHAR)) {
-            if (!isTypeLeafPart(p.trim())) {
-                return false;
-            }
-        }
-        return true;
-    }
+
     public static boolean isTypeLeafExec(String _string) {
         for (String p : StringList.splitChars(_string, SEP_CLASS_CHAR)) {
             if (!isTypeLeafPartExec(p.trim())) {

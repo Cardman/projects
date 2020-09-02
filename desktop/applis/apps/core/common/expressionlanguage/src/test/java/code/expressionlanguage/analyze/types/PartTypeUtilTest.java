@@ -53,7 +53,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -81,11 +81,11 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
-        xml_.append("$public $class pkgtwo.OuterFive<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterFive<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -234,7 +234,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -254,7 +254,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree {\n");
@@ -262,7 +262,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -282,7 +282,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree<java.lang.String> {\n");
@@ -290,8 +290,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
-        xml_.append(" $public $class InnerThree<#V> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
+        xml_.append(" $public $class InnerThree<V> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<java.lang.String> {\n");
         xml_.append(" }\n");
@@ -310,7 +310,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree<java.lang.String> {\n");
@@ -318,8 +318,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
-        xml_.append(" $public $class InnerThree<#V> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
+        xml_.append(" $public $class InnerThree<V> {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree<java.lang.String> {\n");
         xml_.append(" }\n");
@@ -338,25 +338,25 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append("$public $class pkg.Outer<C>: OuterTwo<C> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" $public $class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" $public $class InnerFour:InnerThree<B> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
-        xml_.append(" $public $class InnerFive<#E> {\n");
-        xml_.append("  $public $class InnerInner<#G> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" $public $class InnerFive<E> {\n");
+        xml_.append("  $public $class InnerInner<G> {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -368,7 +368,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
-        String solved_ = processAnalyze("Outer<#D>.InnerThree<#H>.InnerInner<#I>", "",context_, root_);
+        String solved_ = processAnalyze("Outer<D>.InnerThree<H>.InnerInner<I>", "",context_, root_);
         assertEq("pkgtwo.OuterThree<#D>..InnerFive<#H>..InnerInner<#I>", solved_);
     }
     @Test
@@ -398,11 +398,11 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#S>: OuterTwo<#S> {\n");
+        xml_.append("$public $class pkg.Outer<S>: OuterTwo<S> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -419,25 +419,25 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#C>: OuterTwo<#C> {\n");
+        xml_.append("$public $class pkg.Outer<C>: OuterTwo<C> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" $public $class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" $public $class InnerFour:InnerThree<B> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
-        xml_.append(" $public $class InnerFive<#E> {\n");
-        xml_.append("  $public $class InnerInner<#G> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" $public $class InnerFive<E> {\n");
+        xml_.append("  $public $class InnerInner<G> {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -449,7 +449,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
-        String solved_ = processAnalyze("Outer<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
+        String solved_ = processAnalyze("Outer<D[]>.InnerThree<H[]>.InnerInner<I[]>[]", "",context_, root_);
         assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
     }
@@ -459,7 +459,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -486,7 +486,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -515,7 +515,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -544,7 +544,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -563,11 +563,11 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#S>: OuterTwo<#S> {\n");
+        xml_.append("$public $class pkg.Outer<S>: OuterTwo<S> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -594,7 +594,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -623,7 +623,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -642,7 +642,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -686,25 +686,25 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.D<#C>: OuterTwo<#C> {\n");
+        xml_.append("$public $class pkg.D<C>: OuterTwo<C> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerTwo:OuterTwo<#C>.InnerThree<#C> {\n");
+        xml_.append(" $public $class InnerTwo:OuterTwo<C>.InnerThree<C> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#B>:OuterThree<#B> {\n");
-        xml_.append(" $public $class InnerThree<#F>:OuterThree<#B>.InnerFive<#F> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<B>:OuterThree<B> {\n");
+        xml_.append(" $public $class InnerThree<F>:OuterThree<B>.InnerFive<F> {\n");
         xml_.append(" }\n");
-        xml_.append(" $public $class InnerFour:InnerThree<#B> {\n");
+        xml_.append(" $public $class InnerFour:InnerThree<B> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#A> {\n");
-        xml_.append(" $public $class InnerFive<#E> {\n");
-        xml_.append("  $public $class InnerInner<#G> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" $public $class InnerFive<E> {\n");
+        xml_.append("  $public $class InnerInner<G> {\n");
         xml_.append("  }\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -716,7 +716,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
         context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
-        String solved_ = processAnalyze("D<#D[]>.InnerThree<#H[]>.InnerInner<#I[]>[]", "",context_, root_);
+        String solved_ = processAnalyze("D<D[]>.InnerThree<H[]>.InnerInner<I[]>[]", "",context_, root_);
         assertTrue( context_.isEmptyErrors());
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
     }
@@ -753,7 +753,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo.InnerThree {\n");
@@ -761,7 +761,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $static $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -781,14 +781,14 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
-        xml_.append(" $public $class InnerThree<#S>:InnerFour {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
+        xml_.append(" $public $class InnerThree<S>:InnerFour {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour {\n");
         xml_.append(" $public $class InnerInnerThree {\n");
@@ -809,7 +809,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -825,7 +825,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -841,7 +841,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -857,7 +857,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#T> {\n");
+        xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         ContextEl context_ = unfullValidateInheritingClasses(files_);
@@ -873,7 +873,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree {\n");
@@ -881,7 +881,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -901,7 +901,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree {\n");
@@ -909,7 +909,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -929,7 +929,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo:OuterTwo<java.lang.Number>.InnerThree {\n");
@@ -937,7 +937,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append(" $public $class InnerThree {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour:InnerThree {\n");
@@ -957,7 +957,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -977,14 +977,14 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
-        xml_.append(" $public $class InnerThree<#S>:InnerFour {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
+        xml_.append(" $public $class InnerThree<S>:InnerFour {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour {\n");
         xml_.append(" $public $class InnerInnerThree {\n");
@@ -1005,14 +1005,14 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("pkgtwo.OuterTwo;\n");
-        xml_.append("$public $class pkg.Outer<#U>: OuterTwo<#U> {\n");
+        xml_.append("$public $class pkg.Outer<U>: OuterTwo<U> {\n");
         xml_.append(" $public $class Inner {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterTwo<#T> {\n");
-        xml_.append(" $public $class InnerThree<#S>:InnerFour {\n");
+        xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
+        xml_.append(" $public $class InnerThree<S>:InnerFour {\n");
         xml_.append(" }\n");
         xml_.append(" $public $class InnerFour {\n");
         xml_.append(" $public $class InnerInnerThree {\n");
@@ -1043,7 +1043,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
-        xml_.append("$public $class pkgtwo.OuterThree<#T> {\n");
+        xml_.append("$public $class pkgtwo.OuterThree<T> {\n");
         xml_.append("}\n");
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
@@ -1072,7 +1072,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgthree.OuterFour {\n");
-        xml_.append(" $public $static $class OuterThree<#T> {\n");
+        xml_.append(" $public $static $class OuterThree<T> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
@@ -1100,7 +1100,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgthree.OuterFour {\n");
-        xml_.append(" $public $static $class OuterThree<#T> {\n");
+        xml_.append(" $public $static $class OuterThree<T> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
@@ -1128,7 +1128,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgthree.OuterFour {\n");
-        xml_.append(" $public $static $class OuterThree<#T> {\n");
+        xml_.append(" $public $static $class OuterThree<T> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
@@ -1156,7 +1156,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkgthree.OuterFour {\n");
-        xml_.append(" $public $static $class OuterThree<#T> {\n");
+        xml_.append(" $public $static $class OuterThree<T> {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
@@ -1316,11 +1316,11 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void isCorrectType32Test() {
-        assertTrue(isCorrectType("a<#c,?b[]>"));
+        assertTrue(isCorrectType("a<c,?b[]>"));
     }
     @Test
     public void isCorrectType33Test() {
-        assertTrue(isCorrectType("a<#c,!b[]>"));
+        assertTrue(isCorrectType("a<c,!b[]>"));
     }
     @Test
     public void isCorrectType34Test() {
@@ -1328,7 +1328,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void isCorrectType35Test() {
-        assertTrue(!isCorrectType("#1"));
+        assertTrue(!isCorrectType("1"));
     }
     @Test
     public void isCorrectType36Test() {
@@ -1340,7 +1340,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void isCorrectType38Test() {
-        assertTrue(!isCorrectType("a<#b*c>"));
+        assertTrue(!isCorrectType("a<b*c>"));
     }
     @Test
     public void isCorrectType39Test() {
@@ -1368,7 +1368,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void isCorrectType45Test() {
-        assertTrue(isCorrectType("c<#a#>"));
+        assertTrue(isCorrectType("c<a#>"));
     }
     @Test
     public void isCorrectType46Test() {
@@ -1376,15 +1376,15 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     }
     @Test
     public void isCorrectType47Test() {
-        assertTrue(!isCorrectType("#a.b"));
+        assertTrue(isCorrectType("#a.b"));
     }
     @Test
     public void isCorrectType48Test() {
-        assertTrue(!isCorrectType("a.#b"));
+        assertTrue(isCorrectType("a.#b"));
     }
     @Test
     public void isCorrectType49Test() {
-        assertTrue(!isCorrectType("#a<b>"));
+        assertTrue(isCorrectType("#a<b>"));
     }
     @Test
     public void isCorrectType50Test() {

@@ -1091,11 +1091,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl162Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
+        xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $normal $int get(String i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append(" $public $normal $int get(T i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1117,11 +1117,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl163Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
+        xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
         xml_.append(" $public $normal $int get(String i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append(" $public $normal $int get(T i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1143,11 +1143,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl164Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
-        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
+        xml_.append(" $public $normal $int get(T... i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append(" $public $normal $int get(T i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -1411,11 +1411,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl173Test() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:Number> {\n");
-        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append("$public $class pkg.ExTwo<T:Number> {\n");
+        xml_.append(" $public $normal $int get(T i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append(" $public $normal $int get(T... i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -2165,7 +2165,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl199Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply {\n");
-        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<#T>),$null);}\n");
+        xml_.append(" $static {$new pkg.ExTwo<String>($id(pkg.ExTwo,pkg.ExTwo<T>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("  $public ExTwo(pkg.ExTwo<T> v){}\n");
@@ -3524,11 +3524,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl8FailTest() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
-        xml_.append(" $public $normal $int get(#V i){\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(V i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T i){\n");
+        xml_.append(" $public $normal $int get(T i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3538,11 +3538,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl9FailTest() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
-        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(V... i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append(" $public $normal $int get(T... i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3552,11 +3552,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl10FailTest() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
-        xml_.append(" $public $normal $int get(#V... i){\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,V:java.lang.Number> {\n");
+        xml_.append(" $public $normal $int get(V... i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
-        xml_.append(" $public $normal $int get(#T... i){\n");
+        xml_.append(" $public $normal $int get(T... i){\n");
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -3644,7 +3644,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl17FailTest() {
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo<#T:java.lang.Number,#V:java.lang.Number> {\n");
+        xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,V:java.lang.Number> {\n");
         xml_.append(" $public $normal $int get(Number i){\n");
         xml_.append("  $return 2i;\n");
         xml_.append(" }\n");
@@ -4179,7 +4179,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl143FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S),$null);}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,S),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4195,7 +4195,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl144FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S<Number>),$null);}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,S<Number>),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4211,7 +4211,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl145FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#S..Number),$null);}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,S..Number),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4339,7 +4339,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl153FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,#),$null);}\n");
+        xml_.append(" $static {$new pkg.ExTwo<Number>($id(pkg.ExTwo,),$null);}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4355,7 +4355,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl154FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#S..Number)$null;}\n");
+        xml_.append(" $static {$(S..Number)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4371,7 +4371,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl155FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#S<Number>)$null;}\n");
+        xml_.append(" $static {$(S<Number>)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -4387,7 +4387,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl156FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkgtwo.Apply<S> {\n");
-        xml_.append(" $static {$(#T)$null;}\n");
+        xml_.append(" $static {$(T)$null;}\n");
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append(" $public $class InnerTwo {\n");
@@ -5290,21 +5290,21 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         str_.append("    $static Object sampleEight($int p){$return 0;}\n");
         str_.append("    $static Number sampleNine($int p){$return 0;}\n");
         str_.append("}\n");
-        str_.append("$public $abstract $class myimpl.MyGeneClass<#T> : MyGeneIntOne<#T> : MyGeneIntTwo<#T> {\n");
+        str_.append("$public $abstract $class myimpl.MyGeneClass<T> : MyGeneIntOne<T> : MyGeneIntTwo<T> {\n");
         str_.append("\n");
         str_.append("}\n");
-        str_.append("$public $interface myimpl.MyGeneIntOne<#U> {\n");
-        str_.append("    $int sample(#U p);\n");
-        str_.append("    $long sampleTwo(#U p);\n");
-        str_.append("    $long sampleThree(#U p);\n");
-        str_.append("    $long sampleFour(#U... p);\n");
+        str_.append("$public $interface myimpl.MyGeneIntOne<U> {\n");
+        str_.append("    $int sample(U p);\n");
+        str_.append("    $long sampleTwo(U p);\n");
+        str_.append("    $long sampleThree(U p);\n");
+        str_.append("    $long sampleFour(U... p);\n");
         str_.append("    $long sampleThree(java.lang.Object p);\n");
         str_.append("}\n");
-        str_.append("$public $interface myimpl.MyGeneIntTwo<#V> {\n");
-        str_.append("    $int sample(#V p);\n");
-        str_.append("    $int sampleTwo(#V p);\n");
-        str_.append("    $long sampleThree(#V p);\n");
-        str_.append("    $long sampleFour(#V... p);\n");
+        str_.append("$public $interface myimpl.MyGeneIntTwo<V> {\n");
+        str_.append("    $int sample(V p);\n");
+        str_.append("    $int sampleTwo(V p);\n");
+        str_.append("    $long sampleThree(V p);\n");
+        str_.append("    $long sampleFour(V... p);\n");
         str_.append("    $long sampleThree(java.lang.Object p);\n");
         str_.append("}\n");
         return str_.toString();

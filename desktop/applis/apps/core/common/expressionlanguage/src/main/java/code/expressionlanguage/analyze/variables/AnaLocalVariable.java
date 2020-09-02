@@ -12,6 +12,8 @@ public class AnaLocalVariable {
 
     private int ref;
 
+    private boolean keyWord;
+
     public String getClassName() {
         return className;
     }
@@ -42,5 +44,13 @@ public class AnaLocalVariable {
 
     public void setRef(int _ref) {
         ref = _ref;
+    }
+
+    public boolean isKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(boolean keyWord) {
+        this.keyWord = keyWord;
     }
 }
