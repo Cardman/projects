@@ -43,7 +43,8 @@ public final class ParsedFctHeader {
             int lenInfo_ = info_.length();
             Ints annotationsIndexesParam_ = new Ints();
             StringList annotationsParam_ = new StringList();
-            if (info_.trim().charAt(0) == ANNOT) {
+            String trimBefAnn_ = info_.trim();
+            if (StringExpUtil.nextCharIs(trimBefAnn_,0,trimBefAnn_.length(), ANNOT)) {
                 ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest+_offset);
                 par_.parse();
                 annotationsIndexesParam_ = par_.getAnnotationsIndexes();

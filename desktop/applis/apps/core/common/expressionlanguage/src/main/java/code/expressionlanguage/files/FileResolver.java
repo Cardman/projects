@@ -959,61 +959,15 @@ public final class FileResolver {
                     paramOffest_ = afterTypeOff_ + typeOffset_ + declTypeLen_ + 1;
                     paramOffest_ += StringList.getFirstPrintableCharIndex(afterMethodName_);
                     info_ = afterMethodName_.trim();
-                    Ints offestsTypes_ = new Ints();
-                    Ints offestsParams_ = new Ints();
-                    StringList parametersType_ = new StringList();
-                    StringList parametersName_ = new StringList();
-                    CustList<Ints> annotationsIndexesParams_ = new CustList<Ints>();
-                    CustList<StringList> annotationsParams_ = new CustList<StringList>();
-                    boolean okOper_ = true;
-                    int bad_ = -1;
-                    while (true) {
-                        if (info_.indexOf(END_CALLING) == 0) {
-                            break;
-                        }
-                        Ints annotationsIndexesParam_ = new Ints();
-                        StringList annotationsParam_ = new StringList();
-                        String trim_ = info_.trim();
-                        if (trim_.indexOf(ANNOT) == 0) {
-                            ParsedAnnotations par_ = new ParsedAnnotations(info_, paramOffest_+_offset);
-                            par_.parse();
-                            annotationsIndexesParam_ = par_.getAnnotationsIndexes();
-                            annotationsParam_ = par_.getAnnotations();
-                            info_ = par_.getAfter();
-                            paramOffest_ = par_.getIndex() - _offset;
-                            paramOffest_ += StringList.getFirstPrintableCharIndex(info_);
-                        }
-                        annotationsIndexesParams_.add(annotationsIndexesParam_);
-                        annotationsParams_.add(annotationsParam_);
-                        offestsTypes_.add(paramOffest_+_offset);
-                        String paramType_ = getFoundType(info_);
-                        parametersType_.add(paramType_.trim());
-                        String afterParamType_ = info_.substring(paramType_.length());
-                        info_ = afterParamType_.trim();
-                        int call_ = info_.indexOf(SEP_CALLING);
-                        if (call_ < 0) {
-                            call_ = info_.indexOf(END_CALLING);
-                        }
-                        int off_ = StringList.getFirstPrintableCharIndex(afterParamType_);
-                        offestsParams_.add(paramOffest_ + paramType_.length() + off_+_offset);
-                        if (call_ < 0) {
-                            okOper_ = false;
-                            parametersName_.add(info_.trim());
-                            bad_ = nextIndex_;
-                        } else {
-                            String paramName_ = info_.substring(0, call_);
-                            parametersName_.add(paramName_.trim());
-                        }
-                        String afterParamName_ = info_.substring(call_ + 1);
-                        info_ = afterParamName_.trim();
-                        if (info_.isEmpty()) {
-                            break;
-                        }
-                        paramOffest_ += paramType_.length();
-                        paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamType_);
-                        paramOffest_ += call_ + 1;
-                        paramOffest_ += StringList.getFirstPrintableCharIndex(afterParamName_);
-                    }
+                    ParsedFctHeader parseHeader_ = new ParsedFctHeader();
+                    parseHeader_.parse(paramOffest_,info_,_offset,_context);
+                    Ints offestsTypes_ = parseHeader_.getOffestsTypes();
+                    Ints offestsParams_ = parseHeader_.getOffestsParams();
+                    StringList parametersType_ = parseHeader_.getParametersType();
+                    StringList parametersName_ = parseHeader_.getParametersName();
+                    CustList<Ints> annotationsIndexesParams_ = parseHeader_.getAnnotationsIndexesParams();
+                    CustList<StringList> annotationsParams_ = parseHeader_.getAnnotationsParams();
+                    boolean ok_ = parseHeader_.isOk();
                     currentParent_ = new OperatorBlock(new OffsetStringInfo(typeOffset_+_offset, declaringType_.trim()),
                             new OffsetStringInfo(symbolIndex_ + _offset, symbol_.toString().trim()), parametersType_,
                             offestsTypes_, parametersName_, offestsParams_, new OffsetsBlock(nextIndex_+_offset, nextIndex_+_offset));
@@ -1025,8 +979,8 @@ public final class FileResolver {
                     ((OperatorBlock)currentParent_).getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
                     currentParent_.setFile(file_);
                     _out.setBlock(currentParent_);
-                    if (!okOper_) {
-                        currentParent_.getBadIndexes().add(bad_);
+                    if (!ok_) {
+                        currentParent_.getBadIndexes().add(_i+_offset);
                     }
                 } else {
                     AccessEnum access_ = AccessEnum.PUBLIC;

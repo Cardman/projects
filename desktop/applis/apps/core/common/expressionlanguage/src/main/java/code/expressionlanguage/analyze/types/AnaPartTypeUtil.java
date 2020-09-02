@@ -81,9 +81,6 @@ public final class AnaPartTypeUtil {
 
     static boolean isKoForWord(String _type, CustList<String> _excludedWords) {
         String typeName_ = _type.trim();
-//        if (typeName_.startsWith("#")) {
-//            typeName_ = typeName_.substring("#".length()).trim();
-//        }
         if (!StringExpUtil.isTypeLeafPart(typeName_)) {
             return true;
         }
@@ -109,18 +106,12 @@ public final class AnaPartTypeUtil {
         }
         AnaPartType r_ = res_.getPartType();
         checkAccess(r_,_globalType,_an);
-        return new AnaResultPartType(analyzedType_,r_);
+        return res_;
     }
     public static AnaResultPartType processAccAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         _an.getAnalyzing().setLocalInType(_loc);
         _an.getAnalyzing().setRefFileName("");
-        AnaResultPartType res_ = processAccessAnalyze(_input, _rootName, _globalType, _an, _local, _rooted, _loc, _offs);
-        String analyzedType_ = res_.getResult();
-        if (analyzedType_.isEmpty()) {
-            return res_;
-        }
-        AnaPartType r_ = res_.getPartType();
-        return new AnaResultPartType(analyzedType_,r_);
+        return processAccessAnalyze(_input, _rootName, _globalType, _an, _local, _rooted, _loc, _offs);
     }
     public static AnaResultPartType processAnalyzeHeader(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         _an.getAnalyzing().setLocalInType(_loc);
@@ -133,7 +124,7 @@ public final class AnaPartTypeUtil {
         AnaPartType r_ = res_.getPartType();
         checkAccess(r_,_globalType,_an);
         appendParts(r_,_offs,_an);
-        return new AnaResultPartType(analyzedType_,r_);
+        return res_;
     }
     public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _an);
