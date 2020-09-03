@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.Classes;
@@ -13,12 +12,6 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -356,7 +349,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.Outer..Inner", types_.last());
     }
     @Test
     public void resolve12Test() {
@@ -370,7 +367,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.Outer..Inner", types_.last());
     }
     @Test
     public void resolve13Test() {
@@ -384,7 +385,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkg.Outer..Inner", types_.last());
     }
     @Test
     public void resolve14Test() {
@@ -407,7 +412,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve15Test() {
@@ -430,7 +439,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree", types_.last());
     }
 
     @Test
@@ -1354,7 +1367,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkgthree.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve81FailTest() {
@@ -1374,7 +1387,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkgthree.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve82FailTest() {
@@ -1394,7 +1407,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkgthree.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
 
     @Test
@@ -1419,7 +1432,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve38FailTest() {
@@ -1441,7 +1454,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve37FailTest() {
@@ -1465,7 +1478,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve36_Test() {
@@ -1511,7 +1524,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkgthree.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve35FailTest() {
@@ -1535,7 +1548,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve34FailTest() {
@@ -1559,7 +1572,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve33FailTest() {
@@ -1581,7 +1594,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve32FailTest() {
@@ -1603,7 +1616,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve1FailTest() {
@@ -1623,7 +1636,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T:ExFour<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve2FailTest() {
@@ -1643,7 +1656,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :ExFour<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve3FailTest() {
@@ -1663,7 +1676,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve4FailTest() {
@@ -1683,7 +1696,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve5FailTest() {
@@ -1703,7 +1716,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve6FailTest() {
@@ -1723,7 +1736,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<S,T:pkg.Ex<S>>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve7FailTest() {
@@ -1735,7 +1748,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve8FailTest() {
@@ -1752,7 +1765,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<?T>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve9FailTest() {
@@ -1769,7 +1782,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<?>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve10FailTest() {
@@ -1786,7 +1799,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<!T>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve11FailTest() {
@@ -1811,7 +1824,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve12FailTest() {
@@ -1834,7 +1847,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve13FailTest() {
@@ -1857,7 +1870,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        unfullValidateInheritingClasses(files_);
+        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
+        assertEq(2, types_.size());
+        assertEq("pkg.Outer..InnerTwo", types_.first());
+        assertEq("pkgtwo.OuterTwo..InnerThree", types_.last());
     }
     @Test
     public void resolve14FailTest() {
@@ -1880,7 +1897,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve15FailTest() {
@@ -1905,7 +1922,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve15__FailTest() {
@@ -1915,7 +1932,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer: CharSequence {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve16FailTest() {
@@ -1938,7 +1955,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve17FailTest() {
@@ -1963,7 +1980,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve18FailTest() {
@@ -1986,7 +2003,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve19FailTest() {
@@ -2011,7 +2028,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve20FailTest() {
@@ -2036,7 +2053,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve21FailTest() {
@@ -2061,7 +2078,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve22FailTest() {
@@ -2086,7 +2103,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve23FailTest() {
@@ -2111,7 +2128,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve24FailTest() {
@@ -2136,7 +2153,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve40FailTest() {
@@ -2161,7 +2178,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve41FailTest() {
@@ -2183,7 +2200,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClasses(files_);
+        assertTrue(failValidateInheritingClassesValue(files_));
     }
     @Test
     public void resolve42FailTest() {
@@ -2205,7 +2222,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve43FailTest() {
@@ -2227,7 +2244,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve43__FailTest() {
@@ -2249,7 +2266,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve44__FailTest() {
@@ -2273,7 +2290,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve44FailTest() {
@@ -2295,7 +2312,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve45FailTest() {
@@ -2319,7 +2336,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve46FailTest() {
@@ -2341,7 +2358,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve47FailTest() {
@@ -2363,7 +2380,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve48FailTest() {
@@ -2385,7 +2402,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve49FailTest() {
@@ -2405,7 +2422,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve50FailTest() {
@@ -2425,7 +2442,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve51FailTest() {
@@ -2450,7 +2467,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve52FailTest() {
@@ -2464,7 +2481,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Cl {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve53FailTest() {
@@ -2478,7 +2495,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Cl {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve54FailTest() {
@@ -2492,7 +2509,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Cl {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve55FailTest() {
@@ -2506,7 +2523,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Cl:Int {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve56FailTest() {
@@ -2524,7 +2541,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve57FailTest() {
@@ -2542,7 +2559,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve58FailTest() {
@@ -2562,7 +2579,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve59FailTest() {
@@ -2580,7 +2597,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve60FailTest() {
@@ -2598,7 +2615,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve61FailTest() {
@@ -2612,7 +2629,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkg.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve62FailTest() {
@@ -2626,7 +2643,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve63FailTest() {
@@ -2642,7 +2659,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve64FailTest() {
@@ -2654,7 +2671,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve65FailTest() {
@@ -2664,7 +2681,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.OuterOne<T:String&Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve67FailTest() {
@@ -2676,7 +2693,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.Abs {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve68FailTest() {
@@ -2690,7 +2707,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.AbsTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve69FailTest() {
@@ -2704,7 +2721,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $final $class pkg.ExFinal {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve70FailTest() {
@@ -2716,7 +2733,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFinal<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve71FailTest() {
@@ -2728,7 +2745,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.Annot<V> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve711FailTest() {
@@ -2740,7 +2757,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.Annot<V> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve72FailTest() {
@@ -2750,7 +2767,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.OuterOne<T:$void> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve73FailTest() {
@@ -2769,7 +2786,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve74FailTest() {
@@ -2779,7 +2796,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer: $Annotation {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve75FailTest() {
@@ -2795,7 +2812,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void resolve75_Test() {
@@ -2869,7 +2886,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.MyInterface{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failValidateInheritingClassesSingle(files_);
+        assertTrue(failValidateInheritingClassesSingleValue(files_));
     }
     @Test
     public void calculateStaticField1Test() {

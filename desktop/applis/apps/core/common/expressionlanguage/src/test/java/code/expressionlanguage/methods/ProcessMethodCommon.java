@@ -463,13 +463,14 @@ public abstract class ProcessMethodCommon {
         return methods_;
     }
 
-    protected void failValidate(StringMap<String> _files) {
+    protected boolean failValidateValue(StringMap<String> _files) {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         Classes.validateWithoutInit(_files, cont_);
         ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
-        assertTrue(headers_.displayErrors(), !cont_.isEmptyErrors());
+        headers_.displayErrors();
+        return !cont_.isEmptyErrors();
     }
     protected static ContextEl contextElSingleDotDefault(int... _m) {
         Options opt_ = new Options();
@@ -544,23 +545,23 @@ public abstract class ProcessMethodCommon {
         return cont_;
     }
 
-    protected void failValidateInheritingClasses(StringMap<String> _files) {
+    protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
         assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( !cont_.isEmptyErrors());
+        return !cont_.isEmptyErrors();
     }
 
-    protected void failValidateInheritingClassesSingle(StringMap<String> _files) {
+    protected boolean failValidateInheritingClassesSingleValue(StringMap<String> _files) {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
         assertTrue( cont_.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( !cont_.isEmptyErrors());
+        return !cont_.isEmptyErrors();
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {

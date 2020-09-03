@@ -7,7 +7,6 @@ import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -74,11 +73,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,4);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs2Test() {
@@ -141,11 +140,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs3Test() {
@@ -208,11 +207,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,3);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs4Test() {
@@ -275,11 +274,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs5Test() {
@@ -342,11 +341,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,4);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs6Test() {
@@ -418,11 +417,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs7Test() {
@@ -488,11 +487,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,0);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs8Test() {
@@ -564,11 +563,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,0);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs9Test() {
@@ -637,11 +636,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs10Test() {
@@ -710,11 +709,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs11Test() {
@@ -777,11 +776,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs12Test() {
@@ -844,11 +843,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs13Test() {
@@ -911,11 +910,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs14Test() {
@@ -978,11 +977,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs15Test() {
@@ -1045,11 +1044,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs16Test() {
@@ -1112,11 +1111,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs17Test() {
@@ -1179,11 +1178,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs18Test() {
@@ -1246,11 +1245,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs19Test() {
@@ -1319,11 +1318,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs20Test() {
@@ -1392,11 +1391,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs21Test() {
@@ -1465,11 +1464,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs22Test() {
@@ -1532,11 +1531,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs23Test() {
@@ -1599,11 +1598,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs24Test() {
@@ -1666,11 +1665,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_,next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs25Test() {
@@ -1739,11 +1738,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs26Test() {
@@ -1812,11 +1811,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,2);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs27Test() {
@@ -1876,11 +1875,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs28Test() {
@@ -1941,11 +1940,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        confidence(g_,3);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs29Test() {
@@ -2006,11 +2005,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,1);
-        confidence(g_,2);
-        confidence(g_,3);
-        notConfidence(g_,0);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 1));
+        assertTrue(confidenceValue(g_, 2));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 0));
     }
     @Test
     public void hypothesesRepartitionsJoueurs30Test() {
@@ -2071,11 +2070,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,3);
-        confidence(g_,4);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs31Test() {
@@ -2138,11 +2137,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,4);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
     }
     @Test
     public void hypothesesRepartitionsJoueurs32Test() {
@@ -2205,11 +2204,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs33Test() {
@@ -2272,11 +2271,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,3);
-        confidence(g_,4);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs34Test() {
@@ -2339,11 +2338,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        confidence(g_,3);
-        confidence(g_,4);
-        notConfidence(g_,0);
-        notConfidence(g_,2);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(confidenceValue(g_, 3));
+        assertTrue(confidenceValue(g_, 4));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 2));
     }
     @Test
     public void hypothesesRepartitionsJoueurs35Test() {
@@ -2406,11 +2405,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs36Test() {
@@ -2473,11 +2472,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs37Test() {
@@ -2540,11 +2539,11 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,1);
-        notConfidence(g_,2);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 2));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
     @Test
     public void hypothesesRepartitionsJoueurs38Test() {
@@ -2609,26 +2608,28 @@ public final class GameTarotTrickHypothesisTest extends CommonGameTarot {
         CustList<TrickTarot> tricks_ = g_.getTricks();
         tricks_.add(pr_);
         GameTarotTrickHypothesis.hypothesesRepartitionsJoueurs(team_,g_.getCalledCards(), tricks_, next_,poss_,sure_);
-        confidenceSelf(g_);
-        notConfidence(g_,0);
-        notConfidence(g_,1);
-        notConfidence(g_,3);
-        notConfidence(g_,4);
+        assertTrue(confidenceSelfValue(g_));
+        assertTrue(notConfidenceValue(g_, 0));
+        assertTrue(notConfidenceValue(g_, 1));
+        assertTrue(notConfidenceValue(g_, 3));
+        assertTrue(notConfidenceValue(g_, 4));
     }
 
-    private static void confidenceSelf(GameTarot _g) {
+    private static boolean confidenceSelfValue(GameTarot _g) {
         byte nbPl_ = _g.getNombreDeJoueurs();
         byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        assertTrue(_g.confiance(next_,next_));
+        return _g.confiance(next_,next_);
     }
-    private static void confidence(GameTarot _g, int _j) {
+
+    private static boolean confidenceValue(GameTarot _g, int _j) {
         byte nbPl_ = _g.getNombreDeJoueurs();
         byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        assertTrue(_g.confiance(next_,(byte)_j));
+        return _g.confiance(next_,(byte)_j);
     }
-    private static void notConfidence(GameTarot _g, int _j) {
+
+    private static boolean notConfidenceValue(GameTarot _g, int _j) {
         byte nbPl_ = _g.getNombreDeJoueurs();
         byte next_ = _g.getProgressingTrick().getNextPlayer(nbPl_);
-        assertTrue(!_g.confiance(next_,(byte)_j));
+        return !_g.confiance(next_, (byte) _j);
     }
 }

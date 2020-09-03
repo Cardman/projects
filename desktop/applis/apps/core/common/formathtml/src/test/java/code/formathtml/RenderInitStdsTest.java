@@ -14,6 +14,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class RenderInitStdsTest {
@@ -23,7 +24,7 @@ public final class RenderInitStdsTest {
         basicStandards(b_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords k_ = new KeyWords();
-        contextEl(b_,a_,k_);
+        assertTrue(contextEl(b_,a_,k_));
     }
     @Test
     public void process5Test() {
@@ -34,17 +35,18 @@ public final class RenderInitStdsTest {
         k_.setKeyWordIf("i");
         k_.setKeyWordElseif("m");
         k_.setKeyWordElse("indexe");
-        contextEl(b_,a_,k_);
+        assertTrue(contextEl(b_,a_,k_));
     }
     @Test
     public void process6Test() {
         RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
         doc_.buildExpressionLanguage(null,null);
+        assertNull(doc_.getFirstChild());
     }
-    private Configuration contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
+    private boolean contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw);
     }
-    private Configuration contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
+    private boolean contextEl(StringMap<String> _files,Options _opt, BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
         DefaultLockingClass lk_ = new DefaultLockingClass();
@@ -55,11 +57,10 @@ public final class RenderInitStdsTest {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         CommonRender.getHeaders(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
+        return cont_.isEmptyErrors();
     }
 
     private static void basicStandards(BeanLgNames _lgNames) {

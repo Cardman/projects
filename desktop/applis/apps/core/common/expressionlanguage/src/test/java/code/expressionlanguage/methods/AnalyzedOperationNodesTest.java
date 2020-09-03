@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecLine;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
@@ -14,7 +13,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -29,7 +27,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static final String MY_GENE_CLASS = "myimpl.MyGeneClass";
     @Test
     public void processEl37Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo($null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo($null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -44,7 +42,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl38Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo((java.lang.Object)$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo((java.lang.Object)$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -59,7 +57,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl40Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1L)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -75,7 +73,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl41Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -91,7 +89,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl42Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0D)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0D)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -107,7 +105,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl43Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0d)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0d)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -123,7 +121,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl44Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0F)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0F)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -139,7 +137,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl45Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0f)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0f)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -154,7 +152,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl111Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour($null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour($null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -169,7 +167,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl113Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1L)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -185,7 +183,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl114Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -201,7 +199,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl115Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1I)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1I)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -217,7 +215,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl116Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -233,7 +231,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl117Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1L)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -249,7 +247,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl118Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -264,7 +262,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl119Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -280,7 +278,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl120Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1L)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -296,7 +294,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl121Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1D)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1D)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -312,7 +310,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl122Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight(1,2)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -328,7 +326,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1221Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight1(1,2)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight1(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -344,7 +342,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1222Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight2(1,2)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight2(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -362,7 +360,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1223Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight3(1,2)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight3(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -382,7 +380,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     public void processEl1224Test() {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", file());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "code.formathtml.classes.CompositeImported");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         CustList<ExecOperationNode> opers_ = f_.getExp();
@@ -403,7 +401,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl123Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -419,7 +417,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl124Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -434,7 +432,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl125Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -450,7 +448,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl126Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -466,7 +464,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl127Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<java.lang.Integer>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -482,7 +480,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     
     @Test
     public void processEl128Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getSampleVararg($vararg($int))", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getSampleVararg($vararg($int))", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -499,7 +497,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl129Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -515,7 +513,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl130Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -531,7 +529,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl131Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -547,7 +545,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     @Test
     public void processEl132Test() {
         String g_ = StringList.concat(MY_GENE_CLASS,"<W>");
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -562,7 +560,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl133Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($int[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -579,7 +577,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     
     @Test
     public void processEl134Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($long[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -595,7 +593,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl135Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($int[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -611,7 +609,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl136Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($long[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -626,7 +624,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl137Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($int[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -643,7 +641,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl138Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($long[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -660,7 +658,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl139Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -676,7 +674,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl140Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -692,7 +690,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl141Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -708,7 +706,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl142Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -724,7 +722,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl143Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -740,7 +738,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl144Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -756,7 +754,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl145Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6l)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -773,7 +771,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl146Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -790,7 +788,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl147Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5l,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -806,7 +804,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl148Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -824,7 +822,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl149Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5l,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -841,7 +839,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl150Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4,5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -859,7 +857,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl151Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4l,5l,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4l,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -876,7 +874,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl152Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -893,7 +891,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl153Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5l,6)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -911,7 +909,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl154Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4,($int[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4,($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -929,7 +927,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     
     @Test
     public void processEl155Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4I,($long[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4I,($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -947,7 +945,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
     @Test
     public void processEl156Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleThree(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleThree(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -962,7 +960,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl157Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFour(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFour(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -977,7 +975,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl158Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFive(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFive(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -992,7 +990,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl159Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven((java.lang.Integer)4,(java.lang.Integer[])$null)", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven((java.lang.Integer)4,(java.lang.Integer[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1009,7 +1007,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl160Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSix(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSix(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1025,7 +1023,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1601Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSeven(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSeven(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1041,7 +1039,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1602Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleEight(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleEight(1)", "myvar", MY_CLASS);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1057,7 +1055,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1603Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleNine(1)", "myvar", MY_CLASS, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleNine(1)", "myvar", MY_CLASS);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1073,7 +1071,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl161Test() {
-        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE, false);
+        CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1100,7 +1098,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?>");
-        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), false);
+        CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
         ClassMethodId cid_ = fct_.getClassMethodId();
@@ -1638,7 +1636,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -1672,8 +1670,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -1707,7 +1704,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo..Inner");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -1847,7 +1844,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -1884,8 +1881,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -1945,7 +1941,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecSettableFieldOperation fct_ = getField(f_.getExp());
@@ -1968,7 +1964,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecSettableFieldOperation fct_ = getField(f_.getExp());
@@ -1989,7 +1985,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2015,7 +2011,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl194Test() {
@@ -2029,8 +2025,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2058,8 +2053,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2087,8 +2081,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2116,8 +2109,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2145,8 +2137,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2172,8 +2163,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2201,8 +2191,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2228,8 +2217,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2255,8 +2243,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2282,8 +2269,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2309,8 +2295,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2336,8 +2321,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2363,8 +2347,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2390,8 +2373,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2417,8 +2399,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2444,8 +2425,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2472,8 +2452,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2499,8 +2478,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2527,8 +2505,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2555,8 +2532,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -2583,8 +2559,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2611,8 +2586,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2639,8 +2613,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -2673,8 +2646,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2706,8 +2678,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2740,7 +2711,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2778,7 +2749,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2810,7 +2781,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecSettableFieldOperation fct_ = getField(f_.getExp());
@@ -2837,7 +2808,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecSettableFieldOperation fct_ = getField(f_.getExp());
@@ -2864,7 +2835,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecSettableFieldOperation fct_ = getField(f_.getExp());
@@ -2886,8 +2857,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2915,8 +2885,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2946,8 +2915,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -2977,8 +2945,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3008,8 +2975,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecOperatorBlock r_ = cont_.getClasses().getOperators().first();
         ExecLine f_ = (ExecLine) r_.getFirstChild();
@@ -3039,8 +3005,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecOperatorBlock r_ = cont_.getClasses().getOperators().first();
         ExecLine f_ = (ExecLine) r_.getFirstChild();
@@ -3063,8 +3028,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
     }
     @Test
@@ -3075,8 +3039,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -3103,7 +3066,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.ExClass");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         StringList names_ = f_.getFieldName();
@@ -3124,7 +3087,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.ExClass");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         StringList names_ = f_.getFieldName();
@@ -3141,7 +3104,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.ExClass");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         StringList names_ = f_.getFieldName();
@@ -3158,7 +3121,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl(files_, false);
+        ContextEl cont_ = getSuccessContextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Toto");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         StringList names_ = f_.getFieldName();
@@ -3166,6 +3129,13 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("myf", names_.first());
         assertEq("mys", names_.last());
     }
+
+    private static ContextEl getSuccessContextEl(StringMap<String> files_) {
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        assertTrue(cont_.isEmptyErrors());
+        return cont_;
+    }
+
     @Test
     public void processEl235Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3177,8 +3147,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3205,8 +3174,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3233,8 +3201,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3261,8 +3228,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3289,8 +3255,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3304,8 +3269,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3319,8 +3283,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3335,8 +3298,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -3360,8 +3322,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
     }
     @Test
@@ -3372,8 +3333,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -3398,8 +3358,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
     }
     @Test
@@ -3410,8 +3369,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
@@ -3444,8 +3402,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3471,8 +3428,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
@@ -3490,35 +3446,50 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
     @Test
     public void processEl1FailTest() {
-        analyzeIndirectLocalVars("composite.getOverridenOne($null)", "composite", COMPOSITE, true);
+        assertTrue(analyzeIndirectLocalVarsFailCallValue("composite.getOverridenOne($null)"));
     }
     @Test
     public void processEl2FailTest() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
-        analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_, true);
+        assertTrue(analyzeIndirectLocalVarsParamFailValue("myvar.sampleTwo((W)$null)"));
     }
 
     @Test
     public void processEl3FailTest() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
-        analyzeIndirectLocalVarsParam("myvar.sampleFour((W[])$null)", "W","myvar", g_, true);
+        assertTrue(analyzeIndirectLocalVarsParamFailValue("myvar.sampleFour((W[])$null)"));
     }
     @Test
     public void processEl4FailTest() {
-        String g_ = StringList.concat(MY_GENE_CLASS,"<?W>");
-        analyzeIndirectLocalVarsParam("myvar.sampleFour((W)$null,(W)$null)", "W","myvar", g_, true);
+        assertTrue(analyzeIndirectLocalVarsParamFailValue("myvar.sampleFour((W)$null,(W)$null)"));
     }
+
+    private static boolean analyzeIndirectLocalVarsParamFailValue(String s) {
+        String g_ = StringList.concat(MY_GENE_CLASS, "<?W>");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/ExTwo", addonFileStaticResult(s, g_, "W", "myvar"));
+        files_.put("pkg/Ex", file());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        return !cont_.isEmptyErrors();
+    }
+
     @Test
     public void processEl5FailTest() {
-        analyzeIndirectLocalVars("composite.getOvVarargEleven()", "composite", COMPOSITE, true);
+        assertTrue(analyzeIndirectLocalVarsFailCallValue("composite.getOvVarargEleven()"));
     }
     @Test
     public void processEl6FailTest() {
-        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer))", "composite", COMPOSITE, true);
+        assertTrue(analyzeIndirectLocalVarsFailCallValue("composite.getOvVarargEleven($vararg(java.lang.Integer))"));
     }
     @Test
     public void processEl7FailTest() {
-        analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),$firstopt(0i))", "composite", COMPOSITE, true);
+        assertTrue(analyzeIndirectLocalVarsFailCallValue("composite.getOvVarargEleven($vararg(java.lang.Integer),$firstopt(0i))"));
+    }
+
+    private static boolean analyzeIndirectLocalVarsFailCallValue(String s) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/ExTwo", addonFileStaticResult(s, COMPOSITE,"", "composite"));
+        files_.put("pkg/Ex", file());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        return !cont_.isEmptyErrors();
     }
 
     @Test
@@ -3533,7 +3504,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
-        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null)", g_));
     }
     @Test
     public void processEl9FailTest() {
@@ -3547,7 +3518,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
-        analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null)", g_));
     }
     @Test
     public void processEl10FailTest() {
@@ -3561,7 +3532,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExTwo<?,?>");
-        analyzeIndirectLocalVars("myvar.get($null,$null)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null,$null)", g_));
     }
     @Test
     public void processEl11FailTest() {
@@ -3576,7 +3547,12 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
+    }
+
+    private static boolean getFailedContextValue(StringMap<String> files_) {
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        return !cont_.isEmptyErrors();
     }
     @Test
     public void processEl12FailTest() {
@@ -3588,7 +3564,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl13FailTest() {
@@ -3600,7 +3576,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl14FailTest() {
@@ -3614,7 +3590,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl15FailTest() {
@@ -3627,7 +3603,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl16FailTest() {
@@ -3639,7 +3615,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl17FailTest() {
@@ -3652,15 +3628,24 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("  $return 1i;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
-        analyzeIndirectLocalVars("myvar.get($null)", "myvar", "pkg.ExTwo<?,?>", xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "myvar.get($null)", "pkg.ExTwo<?,?>"));
     }
     @Test
     public void processEl18FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append("}\n");
-        analyzeIndirectLocalVars("$new pkg.ExTwo($null)", "myvar", "pkg.ExTwo", xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsFileValue(xml_, "$new pkg.ExTwo($null)", "pkg.ExTwo"));
     }
+
+    private static boolean analyzeIndirectLocalVarsFileValue(StringBuilder xml_, String s, String s2) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/ExTwo", addonFileStaticResult(s, s2,"", "myvar"));
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        return !cont_.isEmptyErrors();
+    }
+
     @Test
     public void processEl19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
@@ -3671,7 +3656,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl110FailTest() {
@@ -3683,7 +3668,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl111FailTest() {
@@ -3696,7 +3681,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" $static $int call(){$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl112FailTest() {
@@ -3708,7 +3693,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl113FailTest() {
@@ -3720,7 +3705,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl114FailTest() {
@@ -3732,7 +3717,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl115FailTest() {
@@ -3744,7 +3729,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl116FailTest() {
@@ -3756,7 +3741,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl117FailTest() {
@@ -3774,7 +3759,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
-        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
     }
     @Test
     public void processEl119FailTest() {
@@ -3792,7 +3777,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
-        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
     @Test
@@ -3811,7 +3796,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo:ExThree {\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
-        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
     @Test
@@ -3830,7 +3815,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.ExFour:ExTwo {\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
-        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
     @Test
@@ -3849,7 +3834,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("$public $abstract $class pkg.ExFour:ExThree:ExTwo {\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExFour");
-        analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get(0)"));
 
     }
     @Test
@@ -3866,7 +3851,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl123FailTest() {
@@ -3880,7 +3865,15 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         String g_ = StringList.concat("pkg.ExThree");
-        analyzeIndirectLocalVarsParamFirst("myvar.get($null)", "myvar", g_, xml_.toString(), true);
+        assertTrue(analyzeIndirectLocalVarsParamFirstFailValue(xml_, g_, "myvar.get($null)"));
+    }
+
+    private static boolean analyzeIndirectLocalVarsParamFirstFailValue(StringBuilder xml_, String g_, String s) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/ExTwo", addonFileStaticResult(s, g_,"", "myvar"));
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        return !cont_.isEmptyErrors();
     }
 
     @Test
@@ -3896,7 +3889,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        contextEl(files_, true);
+        assertTrue(getFailedContextValue(files_));
     }
     @Test
     public void processEl125FailTest() {
@@ -3910,8 +3903,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3926,8 +3918,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3945,8 +3936,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3964,8 +3954,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3976,8 +3965,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -3988,8 +3976,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4002,8 +3989,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4017,8 +4003,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4032,8 +4017,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4047,8 +4031,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4063,8 +4046,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4080,8 +4062,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4111,8 +4092,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4127,8 +4107,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4141,8 +4120,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4155,8 +4133,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4171,8 +4148,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4187,8 +4163,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4203,8 +4178,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4219,8 +4193,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4235,8 +4208,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4251,8 +4223,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4267,8 +4238,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4283,8 +4253,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4299,8 +4268,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4315,8 +4283,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4331,8 +4298,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4347,8 +4313,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4363,8 +4328,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4379,8 +4343,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4395,8 +4358,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4411,8 +4373,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4427,8 +4388,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4443,8 +4403,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4459,8 +4418,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4475,8 +4433,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4491,8 +4448,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4507,8 +4463,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4523,8 +4478,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4539,8 +4493,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4555,8 +4508,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4571,8 +4523,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4587,8 +4538,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4603,8 +4553,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4619,8 +4568,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4635,8 +4583,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4651,8 +4598,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4667,8 +4613,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4686,8 +4631,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4701,8 +4645,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4719,8 +4662,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4737,8 +4679,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4755,8 +4696,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4774,8 +4714,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(cont_.isEmptyErrors());
     }
     @Test
@@ -4798,8 +4737,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     @Test
@@ -4822,8 +4760,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         assertTrue(!cont_.isEmptyErrors());
     }
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
@@ -4882,15 +4819,22 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         }
         return null;
     }
-    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, boolean _mustFail) {
-        return analyzeIndirectLocalVars(_el, _var, _className, file(), _mustFail);
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
+        files_.put("pkg/Ex", file());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        assertTrue(cont_.isEmptyErrors());
+        ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
+        ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
+        f_ = (ExecFieldBlock) f_.getNextSibling();
+        return f_.getOpValue();
     }
     private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParamFirst(String _el, String _var, String _className, String _file, boolean _mustFail) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
-        ContextEl cont_ = getSimpleContextEl();
-        validate(files_, cont_);
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
         if (_mustFail) {
             assertTrue(!cont_.isEmptyErrors());
         } else {
@@ -4909,24 +4853,22 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ClassesUtil.buildAllBracesBodies(_files,_context);
     }
 
-    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file, boolean _mustFail) {
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
-        ContextEl cont_ = contextEl(files_, _mustFail);
+        ContextEl cont_ = contextEl(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
         return f_.getOpValue();
     }
-    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, boolean _mustFail) {
-        return analyzeIndirectLocalVarsParam(_el, _param, _var, _className, file(), _mustFail);
-    }
-    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className, String _file, boolean _mustFail) {
+    private static CustList<ExecOperationNode> analyzeIndirectLocalVarsParam(String _el, String _param, String _var, String _className) {
         StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param,_var));
-        files_.put("pkg/Ex", _file);
-        ContextEl cont_ = contextEl(files_, _mustFail);
+        files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param, _var));
+        files_.put("pkg/Ex", file());
+        ContextEl cont_ = getSimpleValidatedContextEl(files_);
+        assertTrue(cont_.isEmptyErrors());
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
@@ -5309,14 +5251,15 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         str_.append("}\n");
         return str_.toString();
     }
-    private static ContextEl contextEl(StringMap<String> _files, boolean _mustFail) {
+    private static ContextEl contextEl(StringMap<String> _files) {
+        ContextEl cont_ = getSimpleValidatedContextEl(_files);
+        assertTrue(cont_.isEmptyErrors());
+        return cont_;
+    }
+
+    private static ContextEl getSimpleValidatedContextEl(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();
         validate(_files, cont_);
-        if (_mustFail) {
-            assertTrue(!cont_.isEmptyErrors());
-        } else {
-            assertTrue(cont_.isEmptyErrors());
-        }
         return cont_;
     }
 }

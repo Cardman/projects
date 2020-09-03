@@ -2179,6 +2179,7 @@ public class CheckerGameBeloteWithRulesTest {
         bid_.setCouleur(Suit.SPADE);
         game_.ajouterContrat(bid_, (byte) first_);
         CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
     }
 
     @Test
@@ -2191,17 +2192,8 @@ public class CheckerGameBeloteWithRulesTest {
         BidBeloteSuit bid_;
         bid_ = new BidBeloteSuit();
         game_.ajouterContrat(bid_, (byte) first_);
-        bid_ = new BidBeloteSuit();
-        game_.ajouterContrat(bid_, (byte) first_);
-        bid_ = new BidBeloteSuit();
-        game_.ajouterContrat(bid_, (byte) first_);
-        bid_ = new BidBeloteSuit();
-        game_.ajouterContrat(bid_, (byte) first_);
-        bid_ = new BidBeloteSuit();
-        bid_.setEnchere(BidBelote.OTHER_SUIT);
-        bid_.setCouleur(Suit.DIAMOND);
-        game_.ajouterContrat(bid_, (byte) first_);
         CheckerGameBeloteWithRules.check(game_);
+        assertTrue(game_.getError().isEmpty());
     }
 
     @Test

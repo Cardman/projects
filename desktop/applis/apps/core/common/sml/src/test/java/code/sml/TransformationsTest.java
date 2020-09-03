@@ -110,12 +110,12 @@ public class TransformationsTest {
     }
     @Test
     public void transformSpecialChars1FailTest() {
-        DocumentBuilder.transformSpecialChars("&#;");
+        assertEq("",DocumentBuilder.transformSpecialChars("&#;").trim());
     }
 
     @Test
     public void transformSpecialChars2FailTest() {
-        DocumentBuilder.transformSpecialChars("&#a;");
+        assertEq("1",DocumentBuilder.transformSpecialChars("&#a;"));
     }
 
     @Test

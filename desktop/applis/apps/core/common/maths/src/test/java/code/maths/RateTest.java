@@ -1782,6 +1782,7 @@ public class RateTest {
             }
             sumColumns_.add(rate_);
         }
+        assertEq(19, sumColumns_.size());
     }
     @Test
     public void evaluate1Test(){

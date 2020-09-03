@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -130,7 +131,11 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExFour :pkg.ExTwo<java.lang.Number>:pkg.ExThree<java.lang.String>{}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        failValidateOverridingMethods(files_);
+        ContextEl cont_ = getRootContextEl();
+        parseCustomFiles(files_, cont_);
+        assertTrue( cont_.isEmptyErrors());
+        ClassesUtil.validateInheritingClasses(cont_);
+        assertTrue( !cont_.isEmptyErrors());
     }
 
 
@@ -478,6 +483,13 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/Int2", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
+        CustList<TypeVar> types_ = cont_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
+        assertEq(1, types_.size());
+        assertEq("T", types_.first().getName());
+        assertEq(2, types_.first().getConstraints().size());
+        assertEq("pkg.Int<java.lang.String>", types_.first().getConstraints().first());
+        assertEq("pkg.Int2<java.lang.String>", types_.first().getConstraints().last());
+
     }
     @Test
     public void test9() {
@@ -636,7 +648,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
     @Test
     public void test13() {
@@ -653,7 +665,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test14() {
@@ -703,7 +715,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test16() {
@@ -1223,7 +1235,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
 
 
@@ -1302,7 +1314,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test2Fail() {
@@ -1323,7 +1335,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test3Fail() {
@@ -1344,7 +1356,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test4Fail() {
@@ -1369,7 +1381,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test5Fail() {
@@ -1388,7 +1400,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        checkErrors(cont_);
+        assertTrue(checkErrorsValue(cont_));
     }
     @Test
     public void test6Fail() {
@@ -1408,7 +1420,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.ExInt<T>:pkg.ExIntTwo<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
     @Test
     public void test7Fail() {
@@ -1426,7 +1438,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
     @Test
     public void test8Fail() {
@@ -1702,7 +1714,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
     @Test
     public void test20Fail() {
@@ -1720,7 +1732,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
     @Test
     public void test21Fail() {
@@ -1738,7 +1750,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        failOverrides(files_);
+        assertTrue(failOverridesValue(files_));
     }
 
 
@@ -1776,14 +1788,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
 
-    private static void failValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = getRootContextEl();
-        parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
-        ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( !cont_.isEmptyErrors());
-    }
-
     private static void checkOverrides(ContextEl _cont) {
         ClassesUtil.validateIds(_cont);
         assertTrue( _cont.isEmptyErrors());
@@ -1791,17 +1795,17 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue( _cont.isEmptyErrors());
     }
 
-    private void failOverrides(StringMap<String> _files) {
+    private boolean failOverridesValue(StringMap<String> _files) {
         ContextEl cont_ = unfullValidateOverridingMethods(_files);
-        checkErrors(cont_);
+        return checkErrorsValue(cont_);
     }
 
-    private static void checkErrors(ContextEl _cont) {
+    private static boolean checkErrorsValue(ContextEl _cont) {
         ClassesUtil.validateIds(_cont);
         assertTrue( _cont.isEmptyErrors());
         ClassesUtil.validateOverridingInherit(_cont);
         ClassesUtil.postValidation(_cont);
-        assertTrue(!_cont.isEmptyErrors());
+        return !_cont.isEmptyErrors();
     }
 
     private static ContextEl getContextEl(StringMap<String> _files) {
