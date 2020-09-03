@@ -34,13 +34,18 @@ public abstract class AssOperationNode {
             ConstantOperation c_ = (ConstantOperation) _anaNode;
             return new AssConstantOperation(c_);
         }
-        if (_anaNode instanceof DeclaringOperation) {
-            DeclaringOperation d_ = (DeclaringOperation) _anaNode;
-            return new AssDeclaringOperation(d_);
-        }
         if (_anaNode instanceof AbstractTernaryOperation) {
             AbstractTernaryOperation t_ = (AbstractTernaryOperation) _anaNode;
             return new AssTernaryOperation(t_);
+        }
+        if (_anaNode instanceof SymbolOperation) {
+            SymbolOperation n_ = (SymbolOperation) _anaNode;
+            if (n_.getClassMethodId() == null) {
+                if (_anaNode instanceof UnaryBooleanOperation) {
+                    UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
+                    return new AssUnaryBooleanOperation(a_);
+                }
+            }
         }
         if (_anaNode instanceof AndOperation) {
             AndOperation t_ = (AndOperation) _anaNode;
@@ -50,19 +55,14 @@ public abstract class AssOperationNode {
             OrOperation t_ = (OrOperation) _anaNode;
             return new AssOrOperation(t_);
         }
-        if (_anaNode instanceof StaticAccessOperation) {
-            StaticAccessOperation f_ = (StaticAccessOperation) _anaNode;
-            return new AssStaticAccessOperation(f_);
-        }
         if (_anaNode instanceof IdOperation) {
             IdOperation f_ = (IdOperation) _anaNode;
             if (f_.isStandard()) {
                 return new AssIdOperation(f_);
             }
         }
-        if (_anaNode instanceof ThisOperation) {
-            ThisOperation f_ = (ThisOperation) _anaNode;
-            return new AssThisOperation(f_);
+        if (_anaNode instanceof ThisOperation||_anaNode instanceof StaticAccessOperation) {
+            return new AssAccessorOperation((LeafOperation) _anaNode);
         }
         if (_anaNode instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
@@ -94,14 +94,6 @@ public abstract class AssOperationNode {
             CompoundAffectationOperation a_ = (CompoundAffectationOperation) _anaNode;
             return new AssCompoundAffectationOperation(a_);
         }
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation a_ = (UnaryBooleanOperation) _anaNode;
-            return new AssUnaryBooleanOperation(a_);
-        }
-        if (_anaNode instanceof CurrentInvokingConstructor) {
-            CurrentInvokingConstructor a_ = (CurrentInvokingConstructor) _anaNode;
-            return new AssCurrentInvokingConstructor(a_);
-        }
         if (_anaNode instanceof MethodOperation) {
             if (((MethodOperation)_anaNode).getChildrenNodes().size() > 1) {
                 return new AssStdMethodOperation(_anaNode);
@@ -111,6 +103,43 @@ public abstract class AssOperationNode {
             return new AssStdLeafOperation(_anaNode);
         }
         return new AssStdUnaryMethodOperation(_anaNode);
+    }
+    public static AssOperationNode createAssSimOperationNode(OperationNode _anaNode) {
+        if (_anaNode instanceof IdOperation) {
+            IdOperation f_ = (IdOperation) _anaNode;
+            if (f_.isStandard()) {
+                return new AssSimIdOperation(f_);
+            }
+        }
+        if (_anaNode instanceof VariableOperation) {
+            VariableOperation s_ = (VariableOperation) _anaNode;
+            return new AssSimStdVariableOperation(s_);
+        }
+        if (_anaNode instanceof MutableLoopVariableOperation) {
+            MutableLoopVariableOperation s_ = (MutableLoopVariableOperation) _anaNode;
+            return new AssSimStdVariableOperation(s_);
+        }
+        if (_anaNode instanceof AffectationOperation) {
+            AffectationOperation a_ = (AffectationOperation) _anaNode;
+            return new AssSimAffectationOperation(a_);
+        }
+        if (_anaNode instanceof SemiAffectationOperation) {
+            SemiAffectationOperation a_ = (SemiAffectationOperation) _anaNode;
+            return new AssSimReadWriteAffectationOperation(a_);
+        }
+        if (_anaNode instanceof CompoundAffectationOperation) {
+            CompoundAffectationOperation a_ = (CompoundAffectationOperation) _anaNode;
+            return new AssSimReadWriteAffectationOperation(a_);
+        }
+        if (_anaNode instanceof MethodOperation) {
+            if (((MethodOperation)_anaNode).getChildrenNodes().size() > 1) {
+                return new AssSimStdMethodOperation(_anaNode);
+            }
+        }
+        if (_anaNode instanceof LeafOperation) {
+            return new AssSimStdLeafOperation(_anaNode);
+        }
+        return new AssSimStdUnaryMethodOperation(_anaNode);
     }
     public final void setRelativeOffsetPossibleAnalyzable(ContextEl _cont) {
         _cont.getAnalyzing().setOffset(indexBegin+indexInEl);

@@ -1,7 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.assign.opers.AssCurrentInvokingConstructor;
 import code.expressionlanguage.assign.opers.AssOperationNode;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -40,11 +39,11 @@ public abstract class AssBlock {
         vars_.getFieldsBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getFieldsRootBefore()));
         vars_.getVariablesBefore().put(_root, AssignmentsUtil.copyBefore(vars_.getVariablesRootBefore()));
     }
-    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, AssOperationNode _root) {
+    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, boolean _callingThis) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));
-        if (_root instanceof AssCurrentInvokingConstructor) {
+        if (_callingThis) {
             for (EntryCust<String,SimpleAssignment> e: vars_.getFieldsRoot().entryList()) {
                 SimpleAssignment a_ = e.getValue();
                 a_.setAssignedAfter(true);

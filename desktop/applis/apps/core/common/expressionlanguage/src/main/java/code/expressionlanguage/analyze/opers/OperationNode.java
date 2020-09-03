@@ -475,10 +475,10 @@ public abstract class OperationNode {
         }
         if (val_ != null) {
             if (val_.getConstType() == ConstType.LOC_VAR) {
-                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_);
+                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
             }
             if (val_.getConstType() == ConstType.MUTABLE_LOOP_VAR) {
-                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_);
+                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
             }
             return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef(),deep_,val_.isKeyWord());
         }

@@ -107,6 +107,7 @@ public abstract class CommonRender {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
         Options opt_ = new Options();
+        opt_.setReadOnly(true);
         
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);

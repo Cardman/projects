@@ -22,14 +22,12 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
 
     private CustList<AssOperationNode> opStep;
     private String label;
-    private final boolean finalVar;
-    AssForMutableIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, boolean _final, String _label,ForMutableIterativeLoop _block) {
+    AssForMutableIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, String _label,ForMutableIterativeLoop _block) {
         super(_completeNormally,_completeNormallyGroup);
         opInit = AssUtil.getExecutableNodes(_block.getRootInit());
         opExp = AssUtil.getExecutableNodes(_block.getRootExp());
         opStep = AssUtil.getExecutableNodes(_block.getRootStep());
         label = _label;
-        finalVar = _final;
     }
     @Override
     protected AssignedVariables buildNewAssignedVariable() {
@@ -78,7 +76,7 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     }
 
     @Override
-    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, AssOperationNode _root) {
+    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, boolean _root) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         if (_an.getAnalyzing().getForLoopPartState() == ForLoopPart.INIT) {
             AssignedBooleanLoopVariables loop_ = (AssignedBooleanLoopVariables) vars_;
@@ -229,7 +227,6 @@ public final class AssForMutableIterativeLoop extends AssBracedStack implements 
     public void buildExpressionLanguage(ContextEl _cont, AssignedVariablesBlock _a) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setForLoopPartState(ForLoopPart.INIT);
-        page_.setFinalVariable(finalVar);
         if (!opInit.isEmpty()) {
             AssUtil.getSortedDescNodes(_a,opInit.last(),this,_cont);
         }

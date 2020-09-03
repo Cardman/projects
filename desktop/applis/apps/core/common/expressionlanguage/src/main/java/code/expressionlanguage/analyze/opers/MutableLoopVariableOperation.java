@@ -34,16 +34,17 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private int deep;
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
-        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0,-1);
+        this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0,-1,false);
     }
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
-                                        MethodOperation _m, OperationsSequence _op, String _className, int _ref, int _deep) {
+                                        MethodOperation _m, OperationsSequence _op, String _className, int _ref, int _deep, boolean _finalVariable) {
         super(_indexInEl, _indexChild, _m, _op);
         off = _op.getOffset();
         className = _className;
         ref = _ref;
         deep = _deep;
+        finalVariable = _finalVariable;
     }
     @Override
     public void analyze(ContextEl _conf) {

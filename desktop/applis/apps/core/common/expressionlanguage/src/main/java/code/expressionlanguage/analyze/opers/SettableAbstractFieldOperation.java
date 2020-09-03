@@ -38,6 +38,7 @@ public abstract class SettableAbstractFieldOperation extends
     private int anc;
     private int indexBlock;
     private int rootNumber = -1;
+    private boolean declare;
 
     public SettableAbstractFieldOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -51,6 +52,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (this instanceof StandardFieldOperation&&ElUtil.isDeclaringField(this,_conf)) {
             indexBlock = _conf.getAnalyzing().getIndexBlock();
             _conf.getAnalyzing().setIndexBlock(indexBlock+1);
+            declare = true;
         }
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
@@ -227,6 +229,11 @@ public abstract class SettableAbstractFieldOperation extends
             _oper.getParent().setSimpleArgumentAna(_arg,_conf);
         }
     }
+
+    public boolean isDeclare() {
+        return declare;
+    }
+
     public boolean isVariable() {
         return variable;
     }

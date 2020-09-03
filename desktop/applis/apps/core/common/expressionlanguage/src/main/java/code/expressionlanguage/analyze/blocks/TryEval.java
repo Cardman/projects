@@ -43,7 +43,6 @@ public final class TryEval extends BracedBlock implements Eval {
         ExecTryEval exec_ = new ExecTryEval(getOffset(),label,labelOffset);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }

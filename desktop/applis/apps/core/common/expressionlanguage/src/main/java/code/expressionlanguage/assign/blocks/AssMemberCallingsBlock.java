@@ -23,7 +23,6 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
                 en_.setAssignmentBefore(_cont, _a);
             }
             AssBlock n_ = en_.getFirstChild();
-            addParent(_cont,_a,en_,n_);
             if (en_ != this) {
                 tryBuildExpressionLanguage(en_, _cont, _a);
             }
@@ -53,10 +52,6 @@ public abstract class AssMemberCallingsBlock extends AssBracedBlock {
         }
     }
 
-    private static void addParent(ContextEl _cont, AssignedVariablesBlock _ass, AssBlock _en, AssBlock _n) {
-        if (_en instanceof AssBracedBlock && _n != null) {
-        }
-    }
     private boolean tryBuildExpressionLanguage(AssBlock en_, ContextEl cont, AssignedVariablesBlock a) {
         if (en_ instanceof AssBuildableElMethod) {
             ((AssBuildableElMethod)en_).buildExpressionLanguage(cont,a);

@@ -31,6 +31,7 @@ public final class AffectationOperation extends MethodOperation {
     private boolean synthetic;
 
     private int opOffset;
+    private int foundOffset;
 
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -136,6 +137,7 @@ public final class AffectationOperation extends MethodOperation {
                 return;
             }
         }
+
         setResultClass(ClassArgumentMatching.copy(elt_.getResultClass()));
         elt_.setVariable(true);
         ClassArgumentMatching clMatchRight_ = right_.getResultClass();
@@ -193,6 +195,10 @@ public final class AffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
             }
         }
+        setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
+        IntTreeMap< String> ops_ = getOperations().getOperators();
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
+        foundOffset = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
         if (PrimitiveTypeUtil.isPrimitive(clMatchLeft_, _conf)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_);
             right_.cancelArgument();
@@ -286,5 +292,9 @@ public final class AffectationOperation extends MethodOperation {
 
     public OperationNode getSettableOp() {
         return settableOp;
+    }
+
+    public int getFoundOffset() {
+        return foundOffset;
     }
 }

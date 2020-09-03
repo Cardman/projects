@@ -34,12 +34,12 @@ public final class VariableOperation extends LeafOperation implements
     private int deep;
     public VariableOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
-        this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0,-1);
+        this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0,-1,false);
     }
 
     public VariableOperation(int _indexInEl, int _indexChild,
                              MethodOperation _m, OperationsSequence _op,
-                             String _className, int _ref, int _deep) {
+                             String _className, int _ref, int _deep, boolean _finalVariable) {
         super(_indexInEl, _indexChild, _m, _op);
         int relativeOff_ = _op.getOffset();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
@@ -47,6 +47,7 @@ public final class VariableOperation extends LeafOperation implements
         className = _className;
         ref = _ref;
         deep = _deep;
+        finalVariable = _finalVariable;
     }
 
     @Override

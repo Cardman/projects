@@ -93,7 +93,6 @@ public final class CaseCondition extends SwitchPartBlock {
             ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
@@ -109,7 +108,6 @@ public final class CaseCondition extends SwitchPartBlock {
                 ExecNullInstanceCaseCondition exec_ = new ExecNullInstanceCaseCondition(getOffset(),valueOffset);
                 exec_.setFile(page_.getBlockToWrite().getFile());
                 page_.getBlockToWrite().appendChild(exec_);
-                page_.getAnalysisAss().getMappingMembers().put(exec_,this);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
                 _cont.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
@@ -117,7 +115,6 @@ public final class CaseCondition extends SwitchPartBlock {
             ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(),variableName, importedType,valueOffset);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
@@ -167,7 +164,6 @@ public final class CaseCondition extends SwitchPartBlock {
                 ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
                 exec_.setFile(page_.getBlockToWrite().getFile());
                 page_.getBlockToWrite().appendChild(exec_);
-                page_.getAnalysisAss().getMappingMembers().put(exec_,this);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
                 _cont.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
@@ -188,7 +184,6 @@ public final class CaseCondition extends SwitchPartBlock {
             ExecNullCaseCondition exec_ = new ExecNullCaseCondition(getOffset(),valueOffset);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
@@ -207,7 +202,6 @@ public final class CaseCondition extends SwitchPartBlock {
             ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
@@ -220,7 +214,6 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }

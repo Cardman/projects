@@ -55,6 +55,12 @@ public final class ClassesUtil {
     public static void postValidation(ContextEl _context) {
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         AnalyzedPageEl page_ = _context.getAnalyzing();
+        _context.setAnnotAnalysis(false);
+        if (!_context.getOptions().isReadOnly()) {
+            validateFinals(_context);
+        } else {
+            validateSimFinals(_context);
+        }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
@@ -2153,209 +2159,228 @@ public final class ClassesUtil {
                 c.getGlobalErrorsPars().add(g_);
             }
         }
-        if (!_context.getOptions().isReadOnly()) {
-            validateFinals(_context);
-        } else {
-            for (RootBlock c: page_.getFoundTypes()) {
-                Members mem_ = page_.getMapMembers().getVal(c);
-                page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-                page_.setImportingTypes(c);
-                page_.getInitFields().clear();
-                page_.getAssignedDeclaredFields().clear();
-                page_.getAllDeclaredFields().clear();
-                String fullName_ = c.getFullName();
-                CustList<Block> bl_ = getDirectChildren(c);
-                for (Block b: bl_) {
-                    if (!(b instanceof InfoBlock)) {
+        for (RootBlock c: page_.getFoundTypes()) {
+            Members mem_ = page_.getMapMembers().getVal(c);
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            page_.getInitFields().clear();
+            page_.getAssignedDeclaredFields().clear();
+            page_.getAllDeclaredFields().clear();
+            String fullName_ = c.getFullName();
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                if (!(b instanceof InfoBlock)) {
+                    continue;
+                }
+                InfoBlock f_ = (InfoBlock) b;
+                page_.getAllDeclaredFields().addAllElts(f_.getFieldName());
+                if (!f_.isStaticField()) {
+                    continue;
+                }
+                if (f_ instanceof FieldBlock) {
+                    page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
+                }
+                if (f_ instanceof InnerTypeOrElement) {
+                    page_.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
+                }
+                int v_ = 0;
+                for (String f: f_.getFieldName()) {
+                    StringList err_ = getErFields(f_, v_);
+                    checkConstField(_context, err_,c, fullName_, f);
+                    v_++;
+                }
+            }
+            for (Block b: bl_) {
+                if (b instanceof InnerTypeOrElement) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    page_.setCurrentFct(null);
+                    InnerTypeOrElement method_ = (InnerTypeOrElement) b;
+                    page_.setCurrentBlock(b);
+                    page_.setCurrentAnaBlock(b);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, val_);
+                    page_.getFieldsAssSt().addEntry(b,new AssElementBlock(method_));
+                }
+                if (b instanceof FieldBlock) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    FieldBlock method_ = (FieldBlock) b;
+                    if (!method_.isStaticField()) {
                         continue;
                     }
-                    InfoBlock f_ = (InfoBlock) b;
-                    page_.getAllDeclaredFields().addAllElts(f_.getFieldName());
-                    if (!f_.isStaticField()) {
+                    page_.setCurrentBlock(b);
+                    page_.setCurrentAnaBlock(b);
+                    page_.setCurrentFct(null);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, exp_);
+                    page_.getFieldsAssSt().addEntry(b,new AssFieldBlock(method_));
+                }
+                if (b instanceof StaticBlock) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    StaticBlock method_ = (StaticBlock) b;
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
+                    AnalyzingEl a_ = page_.getAnalysisAss();
+                    a_.setVariableIssue(page_.isVariableIssue());
+                    page_.getResultsAna().addEntry(method_,a_);
+                }
+            }
+        }
+        _context.setAssignedStaticFields(true);
+        for (RootBlock c: page_.getFoundTypes()) {
+            Members mem_ = page_.getMapMembers().getVal(c);
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            page_.getInitFields().clear();
+            page_.getAssignedDeclaredFields().clear();
+            page_.getAllDeclaredFields().clear();
+            String fullName_ = c.getFullName();
+            _context.getCoverage().putCalls(_context,fullName_);
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                if (b instanceof InfoBlock) {
+                    InfoBlock method_ = (InfoBlock) b;
+                    page_.getAllDeclaredFields().addAllElts(method_.getFieldName());
+                    if (method_.isStaticField()) {
+                        page_.getAssignedDeclaredFields().addAllElts(method_.getFieldName());
                         continue;
                     }
-                    if (f_ instanceof FieldBlock) {
-                        page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)f_).getAssignedDeclaredFields());
-                    }
-                    if (f_ instanceof InnerTypeOrElement) {
-                        page_.getAssignedDeclaredFields().addAllElts(f_.getFieldName());
-                    }
-                    int v_ = 0;
-                    for (String f: f_.getFieldName()) {
-                        StringList err_ = getErFields(f_, v_);
-                        checkConstField(_context, err_,c, fullName_, f);
-                        v_++;
-                    }
                 }
-                for (Block b: bl_) {
-                    if (b instanceof InnerTypeOrElement) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        page_.setCurrentFct(null);
-                        InnerTypeOrElement method_ = (InnerTypeOrElement) b;
-                        page_.setCurrentBlock(b);
-                        page_.setCurrentAnaBlock(b);
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(c.getMappings());
-                        method_.buildExpressionLanguageReadOnly(_context,mem_.getAllElementFields().getVal(method_));
-                    }
-                    if (b instanceof FieldBlock) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        FieldBlock method_ = (FieldBlock) b;
-                        if (!method_.isStaticField()) {
-                            continue;
-                        }
-                        page_.setCurrentBlock(b);
-                        page_.setCurrentAnaBlock(b);
-                        page_.setCurrentFct(null);
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(c.getMappings());
-                        method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
-                    }
-                    if (b instanceof StaticBlock) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        StaticBlock method_ = (StaticBlock) b;
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(method_.getMappings());
-                        method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
-                    }
-                }
-
-            }
-            _context.setAssignedStaticFields(true);
-            for (RootBlock c: page_.getFoundTypes()) {
-                page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-                page_.setImportingTypes(c);
-                Members mem_ = page_.getMapMembers().getVal(c);
-                page_.getInitFields().clear();
-                page_.getAssignedDeclaredFields().clear();
-                page_.getAllDeclaredFields().clear();
-                String fullName_ = c.getFullName();
-                _context.getCoverage().putCalls(_context,fullName_);
-                CustList<Block> bl_ = getDirectChildren(c);
-                for (Block b: bl_) {
-                    if (b instanceof InfoBlock) {
-                        InfoBlock method_ = (InfoBlock) b;
-                        page_.getAllDeclaredFields().addAllElts(method_.getFieldName());
-                        if (method_.isStaticField()) {
-                            page_.getAssignedDeclaredFields().addAllElts(method_.getFieldName());
-                            continue;
-                        }
-                    }
-                    if (b instanceof FieldBlock) {
-                        page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)b).getAssignedDeclaredFields());
-                    }
-                }
-                for (Block b: bl_) {
-                    if (b instanceof InfoBlock) {
-                        InfoBlock method_ = (InfoBlock) b;
-                        if (method_.isStaticField()) {
-                            continue;
-                        }
-                    }
-                    if (b instanceof FieldBlock) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        page_.setCurrentFct(null);
-                        FieldBlock method_ = (FieldBlock) b;
-                        page_.setCurrentBlock(b);
-                        page_.setCurrentAnaBlock(b);
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(c.getMappings());
-                        method_.buildExpressionLanguageReadOnly(_context,mem_.getAllExplicitFields().getVal(method_));
-                    }
-                    if (b instanceof InstanceBlock) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        InstanceBlock method_ = (InstanceBlock) b;
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(method_.getMappings());
-                        method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
-                    }
-                }
-                processInterfaceCtor(_context, c, fullName_, bl_);
-                for (Block b: bl_) {
-                    if (b instanceof ConstructorBlock) {
-                        page_.getInitFieldsCtors().clear();
-                        page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        ConstructorBlock method_ = (ConstructorBlock) b;
-                        _context.getCoverage().putCalls(_context,fullName_,method_);
-                        StringList params_ = method_.getParametersNames();
-                        StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(method_.getMappings());
-                        method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
-                    }
+                if (b instanceof FieldBlock) {
+                    page_.getAssignedDeclaredFields().addAllElts(((FieldBlock)b).getAssignedDeclaredFields());
                 }
             }
-            _context.setAssignedFields(true);
-            for (RootBlock c: page_.getFoundTypes()) {
-                page_.setImporting(c);
-                page_.setImportingAcces(new TypeAccessor(c.getFullName()));
-                page_.setImportingTypes(c);
-                Members mem_ = page_.getMapMembers().getVal(c);
-                String fullName_ = c.getFullName();
-                CustList<Block> bl_ = getDirectChildren(c);
-                for (Block b: bl_) {
-                    if (!(b instanceof OverridableBlock)) {
+            for (Block b: bl_) {
+                if (b instanceof InfoBlock) {
+                    InfoBlock method_ = (InfoBlock) b;
+                    if (method_.isStaticField()) {
                         continue;
                     }
-                    OverridableBlock method_ = (OverridableBlock) b;
-                    if (isStdOrExplicit(method_)) {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        _context.getCoverage().putCalls(_context,fullName_,method_);
-                        StringList params_ = method_.getParametersNames();
-                        StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(method_.getMappings());
-                        method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                    } else {
-                        page_.setGlobalClass(c.getGenericString());
-                        page_.setGlobalType(c);
-                        page_.setGlobalDirType(c);
-                        _context.getCoverage().putCalls(_context,fullName_,method_);
-                        StringList params_ = method_.getParametersNames();
-                        StringList types_ = method_.getImportedParametersTypes();
-                        prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                        processValueParam(_context, page_, c, method_);
-                        page_.getMappingLocal().clear();
-                        page_.getMappingLocal().putAllMap(method_.getMappings());
-                        method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
-                    }
+                }
+                if (b instanceof FieldBlock) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    FieldBlock method_ = (FieldBlock) b;
+                    page_.setCurrentBlock(b);
+                    page_.setCurrentAnaBlock(b);
+                    page_.setCurrentFct(null);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(c.getMappings());
+                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
+                    method_.buildExpressionLanguageReadOnly(_context, exp_);
+                    page_.getFieldsAss().addEntry(b,new AssFieldBlock(method_));
+                }
+                if (b instanceof InstanceBlock) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    InstanceBlock method_ = (InstanceBlock) b;
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllInits().getVal(method_));
+                    AnalyzingEl a_ = page_.getAnalysisAss();
+                    a_.setVariableIssue(page_.isVariableIssue());
+                    page_.getResultsAnaInst().addEntry(method_,a_);
                 }
             }
-            page_.setGlobalClass("");
-            page_.setGlobalType(null);
-            page_.setGlobalDirType(null);
-            putCallOperator(_context);
-            for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
-                page_.setImporting(o);
-                page_.setImportingAcces(new OperatorAccessor());
-                page_.setImportingTypes(o);
-                _context.getCoverage().putCalls(_context,"",o);
-                StringList params_ = o.getParametersNames();
-                StringList types_ = o.getImportedParametersTypes();
-                prepareParams(page_, o.getParametersNamesOffset(),o.getParamErrors(),params_, types_, o.isVarargs());
-                page_.getMappingLocal().clear();
-                ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
-                o.buildFctInstructionsReadOnly(_context,value_);
+            processInterfaceCtor(_context, c, fullName_, bl_);
+            for (Block b: bl_) {
+                if (b instanceof ConstructorBlock) {
+                    page_.getInitFieldsCtors().clear();
+                    page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    ConstructorBlock method_ = (ConstructorBlock) b;
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
+                    StringList params_ = method_.getParametersNames();
+                    StringList types_ = method_.getImportedParametersTypes();
+                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllCtors().getVal(method_));
+                    AnalyzingEl a_ = page_.getAnalysisAss();
+                    a_.setVariableIssue(page_.isVariableIssue());
+                    page_.getResultsAnaNamed().addEntry(method_,a_);
+                }
             }
+        }
+        _context.setAssignedFields(true);
+        for (RootBlock c: page_.getFoundTypes()) {
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            Members mem_ = page_.getMapMembers().getVal(c);
+            String fullName_ = c.getFullName();
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                if (!(b instanceof OverridableBlock)) {
+                    continue;
+                }
+                OverridableBlock method_ = (OverridableBlock) b;
+                if (isStdOrExplicit(method_)) {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
+                    StringList params_ = method_.getParametersNames();
+                    StringList types_ = method_.getImportedParametersTypes();
+                    prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
+                    AnalyzingEl a_ = page_.getAnalysisAss();
+                    a_.setVariableIssue(page_.isVariableIssue());
+                    page_.getResultsAnaMethod().addEntry(method_,a_);
+                } else {
+                    page_.setGlobalClass(c.getGenericString());
+                    page_.setGlobalType(c);
+                    page_.setGlobalDirType(c);
+                    _context.getCoverage().putCalls(_context,fullName_,method_);
+                    StringList params_ = method_.getParametersNames();
+                    StringList types_ = method_.getImportedParametersTypes();
+                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
+                    processValueParam(_context, page_, c, method_);
+                    page_.getMappingLocal().clear();
+                    page_.getMappingLocal().putAllMap(method_.getMappings());
+                    method_.buildFctInstructionsReadOnly(_context,mem_.getAllMethods().getVal(method_));
+                    AnalyzingEl a_ = page_.getAnalysisAss();
+                    a_.setVariableIssue(page_.isVariableIssue());
+                    page_.getResultsAnaMethod().addEntry(method_,a_);
+                }
+            }
+        }
+        page_.setGlobalClass("");
+        page_.setGlobalType(null);
+        page_.setGlobalDirType(null);
+        putCallOperator(_context);
+        for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
+            page_.setImporting(o);
+            page_.setImportingAcces(new OperatorAccessor());
+            page_.setImportingTypes(o);
+            _context.getCoverage().putCalls(_context,"",o);
+            StringList params_ = o.getParametersNames();
+            StringList types_ = o.getImportedParametersTypes();
+            ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
+            prepareParams(page_,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
+            page_.getMappingLocal().clear();
+            o.buildFctInstructionsReadOnly(_context,value_);
+            AnalyzingEl a_ = page_.getAnalysisAss();
+            a_.setVariableIssue(page_.isVariableIssue());
+            page_.getResultsAnaOperator().addEntry(o,a_);
         }
         _context.setAnnotAnalysis(true);
         for (RootBlock c: page_.getFoundTypes()) {
@@ -2433,11 +2458,13 @@ public final class ClassesUtil {
     private static void validateFinals(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
-        for (RootBlock c: page_.getFoundTypes()) {
-            Members mem_ = page_.getMapMembers().getVal(c);
+        _context.setAssignedStaticFields(false);
+        _context.setAssignedFields(false);
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
+            page_.setGlobalClass(c.getGenericString());
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
             page_.getAllDeclaredFields().clear();
@@ -2453,14 +2480,10 @@ public final class ClassesUtil {
                 if (!f_.isStaticField()) {
                     continue;
                 }
-                int v_ = 0;
                 for (String f: f_.getFieldName()) {
                     AssignmentBefore as_ = new AssignmentBefore();
-                    StringList err_ = getErFields(f_, v_);
-                    checkConstField(_context, err_,c, fullName_, f);
                     as_.setUnassignedBefore(true);
                     ass_.put(f, as_);
-                    v_++;
                 }
             }
             StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
@@ -2474,59 +2497,26 @@ public final class ClassesUtil {
             assAfter_ = new StringMap<SimpleAssignment>();
             AssBlock pr_ = null;
             for (Block b: bl_) {
-                if (b instanceof InnerTypeOrElement) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    page_.setCurrentFct(null);
-                    InnerTypeOrElement method_ = (InnerTypeOrElement) b;
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
-                    ExecInnerTypeOrElement val_ = mem_.getAllElementFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, val_);
-                    AssInfoBlock aInfo_ = new AssElementBlock(method_);
+                AssBlock val_ = page_.getFieldsAssSt().getVal(b);
+                if (val_ instanceof AssInfoBlock) {
+                    AssInfoBlock aInfo_ = (AssInfoBlock) val_;
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
                     assAfter_.putAllMap(assVars_.getFinalVariables().getVal((AssBlock) aInfo_).getFieldsRoot());
                     pr_ = (AssBlock) aInfo_;
                 }
-                if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    FieldBlock method_ = (FieldBlock) b;
-                    if (!method_.isStaticField()) {
-                        continue;
-                    }
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.setCurrentFct(null);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
-                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, exp_);
-                    AssInfoBlock aInfo_;
-                    aInfo_ = new AssFieldBlock(method_);
-                    aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
-                    aInfo_.buildExpressionLanguage(_context,assVars_);
-                    aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
-                    assAfter_.putAllMap(assVars_.getFinalVariables().getVal((AssBlock) aInfo_).getFieldsRoot());
-                    pr_ = (AssBlock) aInfo_;
+                AnalyzingEl anAss_ = null;
+                if (b instanceof MemberCallingsBlock) {
+                    anAss_ = page_.getResultsAna().getVal((MemberCallingsBlock) b);
                 }
-                if (b instanceof StaticBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    StaticBlock method_ = (StaticBlock) b;
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_),_context,pr_,assVars_);
-                    assAfter_.putAllMap(getFieldsRoot(assVars_, res_));
+                if (b instanceof MemberCallingsBlock && anAss_ != null) {
+                    MemberCallingsBlock m_ = (MemberCallingsBlock) b;
+                    AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
+                    tryAnalyseAssign(_context, assVars_, pr_, anAss_, assign_);
+                    assAfter_.putAllMap(getFieldsRoot(assVars_, assign_));
                     page_.clearAllLocalVars(assVars_);
-                    pr_ = res_;
+                    pr_ = assign_;
                 }
             }
             for (EntryCust<String, SimpleAssignment> a: assAfter_.entryList()) {
@@ -2548,16 +2538,15 @@ public final class ClassesUtil {
 
         }
         _context.setAssignedStaticFields(true);
-        for (RootBlock c: page_.getFoundTypes()) {
-            Members mem_ = page_.getMapMembers().getVal(c);
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
+            page_.setGlobalClass(c.getGenericString());
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
             page_.getInitFields().clear();
             page_.getAssignedDeclaredFields().clear();
             page_.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            _context.getCoverage().putCalls(_context,fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
             ass_ = new StringMap<AssignmentBefore>();
@@ -2601,36 +2590,26 @@ public final class ClassesUtil {
                         continue;
                     }
                 }
-                if (b instanceof FieldBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    FieldBlock method_ = (FieldBlock) b;
-                    page_.setCurrentBlock(b);
-                    page_.setCurrentAnaBlock(b);
-                    page_.setCurrentFct(null);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(c.getMappings());
-                    ExecFieldBlock exp_ = mem_.getAllExplicitFields().getVal(method_);
-                    method_.buildExpressionLanguageReadOnly(_context, exp_);
-                    AssFieldBlock aInfo_ = new AssFieldBlock(method_);
+                AssBlock val_ = page_.getFieldsAss().getVal(b);
+                if (val_ instanceof AssInfoBlock) {
+                    AssInfoBlock aInfo_ = (AssInfoBlock) val_;
                     aInfo_.setAssignmentBeforeAsLeaf(_context,assVars_,pr_);
                     aInfo_.buildExpressionLanguage(_context,assVars_);
                     aInfo_.setAssignmentAfterAsLeaf(_context,assVars_,pr_);
-                    assAfter_.putAllMap(assVars_.getFinalVariables().getVal(aInfo_).getFieldsRoot());
-                    pr_ = aInfo_;
+                    assAfter_.putAllMap(assVars_.getFinalVariables().getVal((AssBlock) aInfo_).getFieldsRoot());
+                    pr_ = (AssBlock) aInfo_;
                 }
-                if (b instanceof InstanceBlock) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    InstanceBlock method_ = (InstanceBlock) b;
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    AssMemberCallingsBlock res_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllInits().getVal(method_), _context,pr_, assVars_);
-                    assAfter_.putAllMap(getFieldsRoot(assVars_, res_));
+                AnalyzingEl anAss_ = null;
+                if (b instanceof MemberCallingsBlock) {
+                    anAss_ = page_.getResultsAnaInst().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof MemberCallingsBlock && anAss_ != null) {
+                    MemberCallingsBlock m_ = (MemberCallingsBlock) b;
+                    AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
+                    tryAnalyseAssign(_context, assVars_, pr_, anAss_, assign_);
+                    assAfter_.putAllMap(getFieldsRoot(assVars_, assign_));
                     page_.clearAllLocalVars(assVars_);
-                    pr_ = res_;
+                    pr_ = assign_;
                 }
             }
             b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
@@ -2661,23 +2640,16 @@ public final class ClassesUtil {
                 }
             }
             b_.putAllMap(AssignmentsUtil.assignSimpleBefore(assAfter_));
-            processInterfaceCtor(_context, c, fullName_, bl_);
             for (Block b: bl_) {
-                if (b instanceof ConstructorBlock) {
-                    page_.getInitFieldsCtors().clear();
-                    page_.getInitFieldsCtors().addAllElts(page_.getInitFields());
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    ConstructorBlock method_ = (ConstructorBlock) b;
-                    _context.getCoverage().putCalls(_context,fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    AssMemberCallingsBlock met_ = AssBlockUtil.buildFctInstructions(method_,mem_.getAllCtors().getVal(method_), _context,null, assVars_);
-                    StringMap<SimpleAssignment> fieldsRoot_ = getFieldsRoot(assVars_,met_);
+                AnalyzingEl anAss_ = null;
+                if (b instanceof NamedFunctionBlock) {
+                    anAss_ = page_.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof NamedFunctionBlock && anAss_ != null) {
+                    NamedFunctionBlock m_ = (NamedFunctionBlock) b;
+                    AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
+                    tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
+                    StringMap<SimpleAssignment> fieldsRoot_ = getFieldsRoot(assVars_, assign_);
                     for (EntryCust<String, SimpleAssignment> f: fieldsRoot_.entryList()) {
                         String fieldName_ = f.getKey();
                         ClassField key_ = new ClassField(fullName_, fieldName_);
@@ -2689,7 +2661,7 @@ public final class ClassesUtil {
                         }
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(c.getFile().getFileName());
-                        un_.setIndexFile(method_.getNameOffset());
+                        un_.setIndexFile(m_.getNameOffset());
                         un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
                                 fieldName_,fullName_);
                         _context.addError(un_);
@@ -2706,42 +2678,21 @@ public final class ClassesUtil {
         StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
         b_.clear();
 
-        for (RootBlock c: page_.getFoundTypes()) {
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
+            page_.setGlobalClass(c.getGenericString());
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
             page_.setImportingTypes(c);
-            Members mem_ = page_.getMapMembers().getVal(c);
-            String fullName_ = c.getFullName();
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
-                if (!(b instanceof OverridableBlock)) {
-                    continue;
+                AnalyzingEl anAss_ = null;
+                if (b instanceof NamedFunctionBlock) {
+                    anAss_ = page_.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
                 }
-                OverridableBlock method_ = (OverridableBlock) b;
-                if (isStdOrExplicit(method_)) {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    _context.getCoverage().putCalls(_context,fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
-                    page_.clearAllLocalVars(assVars_);
-                } else {
-                    page_.setGlobalClass(c.getGenericString());
-                    page_.setGlobalType(c);
-                    page_.setGlobalDirType(c);
-                    _context.getCoverage().putCalls(_context,fullName_,method_);
-                    StringList params_ = method_.getParametersNames();
-                    StringList types_ = method_.getImportedParametersTypes();
-                    prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
-                    processValueParam(_context, page_, c, method_);
-                    page_.getMappingLocal().clear();
-                    page_.getMappingLocal().putAllMap(method_.getMappings());
-                    AssBlockUtil.buildFctInstructions(method_,mem_.getAllMethods().getVal(method_),_context,null,assVars_);
+                if (b instanceof NamedFunctionBlock && anAss_ != null) {
+                    NamedFunctionBlock m_ = (NamedFunctionBlock) b;
+                    AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
+                    tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
                     page_.clearAllLocalVars(assVars_);
                 }
             }
@@ -2749,19 +2700,118 @@ public final class ClassesUtil {
         page_.setGlobalClass("");
         page_.setGlobalType(null);
         page_.setGlobalDirType(null);
-        putCallOperator(_context);
-        for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
-            page_.setImporting(o);
-            page_.setImportingAcces(new OperatorAccessor());
-            page_.setImportingTypes(o);
-            _context.getCoverage().putCalls(_context,"",o);
-            StringList params_ = o.getParametersNames();
-            StringList types_ = o.getImportedParametersTypes();
-            ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
-            prepareParams(page_,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
-            page_.getMappingLocal().clear();
-            AssBlockUtil.buildFctInstructions(o,value_,_context,null,assVars_);
+        for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
+            NamedFunctionBlock m_ = e.getKey();
+            AnalyzingEl anAss_ = e.getValue();
+            AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
+            tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
             page_.clearAllLocalVars(assVars_);
+        }
+    }
+
+    private static void tryAnalyseAssign(ContextEl _context, AssignedVariablesBlock assVars_, AssBlock pr_, AnalyzingEl anAss_, AssMemberCallingsBlock assign_) {
+        if (!anAss_.isVariableIssue()) {
+            assign_.buildFctInstructions(_context,pr_,assVars_);
+        }
+    }
+
+    private static void validateSimFinals(ContextEl _context) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
+        _context.setAssignedStaticFields(false);
+        _context.setAssignedFields(false);
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
+            page_.setImporting(c);
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            page_.setGlobalClass(c.getGenericString());
+            page_.getInitFields().clear();
+            page_.getAssignedDeclaredFields().clear();
+            page_.getAllDeclaredFields().clear();
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                AnalyzingEl anAss_ = null;
+                if (b instanceof MemberCallingsBlock) {
+                    anAss_ = page_.getResultsAna().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof MemberCallingsBlock && anAss_ != null) {
+                    MemberCallingsBlock m_ = (MemberCallingsBlock) b;
+                    AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
+                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+                    page_.clearAllLocalVars(assVars_);
+                }
+            }
+        }
+        _context.setAssignedStaticFields(true);
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
+            page_.setImporting(c);
+            page_.setGlobalClass(c.getGenericString());
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            page_.getInitFields().clear();
+            page_.getAssignedDeclaredFields().clear();
+            page_.getAllDeclaredFields().clear();
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                AnalyzingEl anAss_ = null;
+                if (b instanceof MemberCallingsBlock) {
+                    anAss_ = page_.getResultsAnaInst().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof MemberCallingsBlock && anAss_ != null) {
+                    MemberCallingsBlock m_ = (MemberCallingsBlock) b;
+                    AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
+                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+                    page_.clearAllLocalVars(assVars_);
+                }
+            }
+            for (Block b: bl_) {
+                AnalyzingEl anAss_ = null;
+                if (b instanceof NamedFunctionBlock) {
+                    anAss_ = page_.getResultsAnaNamed().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof NamedFunctionBlock && anAss_ != null) {
+                    NamedFunctionBlock m_ = (NamedFunctionBlock) b;
+                    AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
+                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+                    page_.clearAllLocalVars(assVars_);
+                }
+            }
+        }
+        _context.setAssignedFields(true);
+
+        for (RootBlock c: page_.getMapTypes().getKeys()) {
+            page_.setImporting(c);
+            page_.setGlobalClass(c.getGenericString());
+            page_.setImportingAcces(new TypeAccessor(c.getFullName()));
+            page_.setImportingTypes(c);
+            CustList<Block> bl_ = getDirectChildren(c);
+            for (Block b: bl_) {
+                AnalyzingEl anAss_ = null;
+                if (b instanceof NamedFunctionBlock) {
+                    anAss_ = page_.getResultsAnaMethod().getVal((MemberCallingsBlock) b);
+                }
+                if (b instanceof NamedFunctionBlock && anAss_ != null) {
+                    NamedFunctionBlock m_ = (NamedFunctionBlock) b;
+                    AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
+                    tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+                    page_.clearAllLocalVars(assVars_);
+                }
+            }
+        }
+        page_.setGlobalClass("");
+        page_.setGlobalType(null);
+        page_.setGlobalDirType(null);
+        for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
+            NamedFunctionBlock m_ = e.getKey();
+            AnalyzingEl anAss_ = e.getValue();
+            AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
+            tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+            page_.clearAllLocalVars(assVars_);
+        }
+    }
+    private static void tryAnalyseAssign(ContextEl _context, AssignedVariablesBlock assVars_, AnalyzingEl anAss_, AssSimStdMethodBlock assign_) {
+        if (!anAss_.isVariableIssue()) {
+            assign_.buildFctInstructions(_context,assVars_);
         }
     }
 

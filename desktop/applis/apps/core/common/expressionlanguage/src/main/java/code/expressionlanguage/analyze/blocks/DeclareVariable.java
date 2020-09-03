@@ -58,7 +58,6 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         page_.setExecDeclareVariable(exec_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
@@ -74,7 +73,6 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
             partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
         }
-        page_.getAnalysisAss().putFinal(this,finalVariable);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
         page_.setFinalVariable(finalVariable);

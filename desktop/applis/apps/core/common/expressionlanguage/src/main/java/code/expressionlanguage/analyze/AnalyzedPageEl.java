@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
+import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -53,6 +54,13 @@ public final class AnalyzedPageEl {
     private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<AnonymousFunctionBlock,ExecAnonymousFunctionBlock>();
+    private final IdMap<Block,AssBlock> fieldsAssSt = new IdMap<Block,AssBlock>();
+    private final IdMap<Block,AssBlock> fieldsAss = new IdMap<Block,AssBlock>();
+    private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAna = new IdMap<MemberCallingsBlock,AnalyzingEl>();
+    private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaInst = new IdMap<MemberCallingsBlock,AnalyzingEl>();
+    private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaNamed = new IdMap<MemberCallingsBlock,AnalyzingEl>();
+    private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaMethod = new IdMap<MemberCallingsBlock,AnalyzingEl>();
+    private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
     private final CustList<RootBlock> prevFoundTypes = new CustList<RootBlock>();
@@ -166,6 +174,7 @@ public final class AnalyzedPageEl {
 
     public void clearAllLocalVars(AssignedVariablesBlock _a) {
         _a.getLocalVars().clear();
+        _a.getVariables().clear();
         _a.getFinalVariablesGlobal().getVariables().clear();
         _a.getFinalVariablesGlobal().getVariablesRoot().clear();
         _a.getFinalVariablesGlobal().getVariablesRootBefore().clear();
@@ -715,6 +724,34 @@ public final class AnalyzedPageEl {
 
     public IdMap<AnonymousFunctionBlock, ExecAnonymousFunctionBlock> getMapAnonLambda() {
         return mapAnonLambda;
+    }
+
+    public IdMap<Block, AssBlock> getFieldsAssSt() {
+        return fieldsAssSt;
+    }
+
+    public IdMap<Block, AssBlock> getFieldsAss() {
+        return fieldsAss;
+    }
+
+    public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAna() {
+        return resultsAna;
+    }
+
+    public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAnaInst() {
+        return resultsAnaInst;
+    }
+
+    public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAnaNamed() {
+        return resultsAnaNamed;
+    }
+
+    public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAnaMethod() {
+        return resultsAnaMethod;
+    }
+
+    public IdMap<OperatorBlock, AnalyzingEl> getResultsAnaOperator() {
+        return resultsAnaOperator;
     }
 
     public CustList<ClassMetaInfo> getClassMetaInfos() {

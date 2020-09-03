@@ -104,6 +104,7 @@ public final class RenderInitNavTest extends CommonRender {
 
     private static ContextEl buildStdThree() {
         Options opt_ = new Options();
+        opt_.setReadOnly(true);
 
 
         return InitializationLgNames.buildStdThree(opt_);

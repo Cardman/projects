@@ -68,7 +68,7 @@ public final class AssForIterativeLoop extends AssBracedStack implements AssLoop
     }
 
     @Override
-    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, AssOperationNode _root) {
+    public void defaultAssignmentAfter(ContextEl _an, AssignedVariablesBlock _a, boolean _root) {
         AssignedVariables vars_ = _a.getFinalVariables().getVal(this);
         StringMap<Assignment> res_ = vars_.getLastFieldsOrEmpty();
         vars_.getFieldsRoot().putAllMap(AssignmentsUtil.assignClassic(res_));

@@ -56,7 +56,6 @@ public final class ReturnMethod extends AbruptBlock {
             ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getAnalysisAss().getMappingMembers().put(exec_,this);
             _cont.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
@@ -74,7 +73,6 @@ public final class ReturnMethod extends AbruptBlock {
         root = page_.getCurrentRoot();
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 

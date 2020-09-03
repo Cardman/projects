@@ -218,7 +218,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 init_,exp_,step_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getAnalysisAss().getMappingMembers().put(exec_,this);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
         _cont.getCoverage().putBlockOperations(_cont, exec_,this);
 
@@ -267,7 +266,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 partOffsets.addAllElts(_cont.getAnalyzing().getCurrentParts());
             }
             page_.setMerged(true);
-            page_.getAnalysisAss().putFinal(this,finalVariable);
             page_.setFinalVariable(finalVariable);
             page_.setCurrentVarSetting(importedClassName);
         } else {

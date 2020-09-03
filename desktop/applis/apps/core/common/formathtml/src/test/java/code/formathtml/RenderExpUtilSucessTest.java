@@ -6830,6 +6830,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     private static Configuration getConfiguration(StringMap<String> _files, boolean _init) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
+        opt_.setReadOnly(true);
         ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));

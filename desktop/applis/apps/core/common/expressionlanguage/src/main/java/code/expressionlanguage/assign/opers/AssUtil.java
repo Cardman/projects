@@ -6,12 +6,10 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
-import code.expressionlanguage.assign.blocks.AssFieldBlock;
 import code.expressionlanguage.assign.blocks.AssForMutableIterativeLoop;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -69,6 +67,52 @@ public final class AssUtil {
         return out_;
     }
 
+    public static CustList<AssOperationNode> getSimExecutableNodes(OperationNode _root) {
+        CustList<AssOperationNode> out_ = new CustList<AssOperationNode>();
+        if (_root == null) {
+            return out_;
+        }
+        OperationNode current_ = _root;
+        AssOperationNode exp_ = AssOperationNode.createAssSimOperationNode(current_);
+        while (current_ != null) {
+            OperationNode op_ = current_.getFirstChild();
+            if (exp_ instanceof AssMethodOperation && op_ != null) {
+                AssOperationNode loc_ = AssOperationNode.createAssSimOperationNode(op_);
+                ((AssMethodOperation)exp_).appendChild(loc_);
+                exp_ = loc_;
+                current_ = op_;
+                continue;
+            }
+            while (true) {
+                setupSim(exp_);
+                out_.add(exp_);
+                op_ = current_.getNextSibling();
+                if (op_ != null) {
+                    AssOperationNode loc_ = AssOperationNode.createAssSimOperationNode(op_);
+                    AssMethodOperation par_ = exp_.getParent();
+                    par_.appendChild(loc_);
+                    exp_ = loc_;
+                    current_ = op_;
+                    break;
+                }
+                op_ = current_.getParent();
+                if (op_ == null) {
+                    current_ = null;
+                    break;
+                }
+                AssMethodOperation par_ = exp_.getParent();
+                if (op_ == _root) {
+                    setupSim(par_);
+                    out_.add(par_);
+                    current_ = null;
+                    break;
+                }
+                current_ = op_;
+                exp_ = par_;
+            }
+        }
+        return out_;
+    }
     private static void setup(AssOperationNode exp_) {
         if (exp_ instanceof AssAffectationOperation) {
             ((AssAffectationOperation)exp_).setup();
@@ -80,16 +124,33 @@ public final class AssUtil {
             ((AssCompoundAffectationOperation)exp_).setup();
         }
     }
+    private static void setupSim(AssOperationNode exp_) {
+        if (exp_ instanceof AssSimAffectationOperation) {
+            ((AssSimAffectationOperation)exp_).setup();
+        }
+        if (exp_ instanceof AssSimReadWriteAffectationOperation) {
+            ((AssSimReadWriteAffectationOperation)exp_).setup();
+        }
+    }
 
     public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context) {
+        getSortedDescNodes(_a,_root,_b,_context,false);
+    }
+    public static void getSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context, boolean _callingThis) {
         _b.defaultAssignmentBefore(_context, _a,_root);
         AssOperationNode c_ = _root;
         while (true) {
             if (c_ == null) {
-                _b.defaultAssignmentAfter(_context,  _a,_root);
+                _b.defaultAssignmentAfter(_context,  _a,_callingThis);
                 break;
             }
             c_ = getAnalyzedNext(_a,_b,c_, _root, _context);
+        }
+    }
+    public static void getSimSortedDescNodes(AssignedVariablesBlock _a, AssOperationNode _root, AssBlock _b, ContextEl _context) {
+        AssOperationNode c_ = _root;
+        while (c_ != null) {
+            c_ = getSimAnalyzedNext(_a, _b, c_, _root, _context);
         }
     }
 
@@ -120,6 +181,32 @@ public final class AssUtil {
             current_ = par_;
         }
     }
+
+    private static AssOperationNode getSimAnalyzedNext(AssignedVariablesBlock _a, AssBlock _b,
+                                                    AssOperationNode _current, AssOperationNode _root, ContextEl _context) {
+
+        AssOperationNode next_ = _current.getFirstChild();
+        if (next_ != null) {
+            return next_;
+        }
+        AssOperationNode current_ = _current;
+        while (true) {
+            current_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+            next_ = current_.getNextSibling();
+            AssMethodOperation par_ = current_.getParent();
+            if (next_ != null) {
+                return next_;
+            }
+            if (par_ == _root) {
+                par_.tryAnalyzeAssignmentAfter(_context,_b,_a);
+                return null;
+            }
+            if (par_ == null) {
+                return null;
+            }
+            current_ = par_;
+        }
+    }
     public static boolean checkFinalField(ContextEl _conf, AssBlock _as,AssSettableFieldOperation _cst, StringMap<Assignment> _ass) {
         boolean fromCurClass_ = _cst.isFromCurrentClass(_conf);
         ClassField cl_ = _cst.getFieldId();
@@ -131,9 +218,9 @@ public final class AssUtil {
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
             ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
         }
-        return checkFinalReadOnly(_conf, _as,_cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_conf, cl_));
+        return checkFinalReadOnly(_conf, _cst, ass_, fromCurClass_, fieldName_, ContextUtil.getFieldInfo(_conf, cl_));
     }
-    private static boolean checkFinalReadOnly(ContextEl _conf, AssBlock _as, AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
+    private static boolean checkFinalReadOnly(ContextEl _conf, AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
         boolean checkFinal_;
         if (_conf.isAssignedFields()) {
             checkFinal_ = true;
@@ -143,7 +230,7 @@ public final class AssUtil {
             } else if (!_fromCurClass) {
                 checkFinal_ = true;
             } else {
-                if (isDeclaringField(_cst,_as)) {
+                if (_cst.isDeclare()) {
                     checkFinal_ = false;
                 } else {
                     checkFinal_ = false;
@@ -161,7 +248,7 @@ public final class AssUtil {
         } else if (!_fromCurClass) {
             checkFinal_ = true;
         } else {
-            if (isDeclaringField(_cst,_as)) {
+            if (_cst.isDeclare()) {
                 checkFinal_ = false;
             } else {
                 checkFinal_ = false;
@@ -179,12 +266,6 @@ public final class AssUtil {
         return checkFinal_;
     }
 
-    public static boolean isDeclaringField(AssOperationNode _var, AssBlock _as) {
-        if (!(_as instanceof AssFieldBlock)) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
-    }
     public static boolean checkFinalVar(ContextEl _conf, Assignment _ass, AssBlock _a) {
         if (!_ass.isUnassignedAfter()) {
             return true;
@@ -246,25 +327,6 @@ public final class AssUtil {
         }
         vars_.getVariables().put(_current, ass_);
         vars_.getFields().put(_current, assA_);
-    }
-
-    public static boolean isDeclaringVariable(AssOperationNode _var) {
-        AssMethodOperation par_ = _var.getParent();
-        if (par_ == null) {
-            return true;
-        }
-        if (par_ instanceof AssDeclaringOperation) {
-            return true;
-        }
-        if (par_ instanceof AssAffectationOperation) {
-            if (par_.getParent() == null) {
-                return _var == par_.getFirstChild();
-            }
-            if (par_.getParent() instanceof AssDeclaringOperation) {
-                return _var == par_.getFirstChild();
-            }
-        }
-        return false;
     }
 
 }

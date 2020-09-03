@@ -4,19 +4,16 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.util.*;
 
 public final class AnalyzingEl {
-    private IdMap<ExecBlock,Block> mappingMembers = new IdMap<ExecBlock,Block>();
     private IdMap<BracedBlock,ExecBracedBlock> mappingBracedMembers = new IdMap<BracedBlock,ExecBracedBlock>();
     private BlocksFlags canCompleteNormally = new BlocksFlags();
     private BlocksFlags canCompleteNormallyGroup = new BlocksFlags();
 
     private BlocksFlags reachable = new BlocksFlags();
-    private BlocksFlags finals = new BlocksFlags();
     private BlocksLabels labelsMapping = new BlocksLabels();
     private IdMap<BreakBlock, BreakableBlock> breakables = new IdMap<BreakBlock, BreakableBlock>();
     private IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>> breakablesAncestors = new IdMap<BreakBlock, IdMap<BreakableBlock, IdList<BracedBlock>>>();
@@ -33,6 +30,7 @@ public final class AnalyzingEl {
     private CustList<Eval> parentsReturnables = new CustList<Eval>();
     private Mapping mapping;
     private MemberCallingsBlock root;
+    private boolean variableIssue;
 
     public AnalyzingEl(Mapping _mapping) {
         mapping = _mapping;
@@ -68,24 +66,12 @@ public final class AnalyzingEl {
         labelsMapping.put(_reach,"");
     }
 
-    public void putFinal(Block _reach) {
-        finals.put(_reach,false);
-    }
-
     public void putLabel(Block _reach, String _label) {
         labelsMapping.put(_reach,_label);
     }
 
-    public void putFinal(Block _reach, boolean _label) {
-        finals.put(_reach,_label);
-    }
-
     public BlocksLabels getLabelsMapping() {
         return labelsMapping;
-    }
-
-    public BlocksFlags getFinals() {
-        return finals;
     }
 
     public void completeAbruptGroup(Block _reach) {
@@ -171,11 +157,16 @@ public final class AnalyzingEl {
         root = _root;
     }
 
-    public IdMap<ExecBlock, Block> getMappingMembers() {
-        return mappingMembers;
-    }
-
     public IdMap<BracedBlock, ExecBracedBlock> getMappingBracedMembers() {
         return mappingBracedMembers;
     }
+
+    public boolean isVariableIssue() {
+        return variableIssue;
+    }
+
+    public void setVariableIssue(boolean variableIssue) {
+        this.variableIssue = variableIssue;
+    }
+
 }

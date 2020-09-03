@@ -591,6 +591,31 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         assertEq("$core.Integer", field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
+
+    @Test
+    public void calculate35Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  (t)=0i;\n");
+        xml_.append("  $for($int i=4i;i>0i;i--){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElReadOnlyDef();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
     @Test
     public void fail9Test() {
         StringBuilder xml_ = new StringBuilder();

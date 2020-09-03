@@ -16,9 +16,11 @@ import code.util.StringMap;
 
 public final class AssSettableFieldOperation extends AssLeafOperation implements AssSettableElResult {
     private FieldInfo fieldMetaInfo;
+    private boolean declare;
     AssSettableFieldOperation(SettableAbstractFieldOperation _ex) {
         super(_ex);
         fieldMetaInfo = _ex.getFieldMetaInfo();
+        declare = _ex.isDeclare();
     }
 
     @Override
@@ -28,7 +30,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         StringMap<AssignmentBefore> assB_ = vars_.getVariablesBefore().getVal(this);
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
-        if (!AssUtil.isDeclaringField(this, _ass)&&arg_ != null) {
+        if (!declare&&arg_ != null) {
             AssUtil.setAssignments(this,_ass,_a);
             return;
         }
@@ -43,13 +45,11 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         } else {
             if (par_ instanceof AssDotOperation) {
                 boolean cancelCheck_ = false;
-                if (par_.getFirstChild() instanceof AssThisOperation) {
-                    cancelCheck_ = true;
-                } else if (par_.getFirstChild() instanceof AssStaticAccessOperation) {
+                if (par_.getFirstChild() instanceof AssAccessorOperation) {
                     cancelCheck_ = true;
                 } else if (par_.getFirstChild() instanceof AssDotOperation) {
                     AssOperationNode op_ = ((AssDotOperation)par_.getFirstChild()).getChildrenNodes().last();
-                    if (op_ instanceof AssThisOperation) {
+                    if (op_ instanceof AssAccessorOperation) {
                         cancelCheck_ = true;
                     }
                 }
@@ -61,8 +61,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
             }
         }
         if (_conf.isAssignedStaticFields()) {
-            FieldInfo meta_ = ContextUtil.getFieldInfo(_conf,cl_);
-            if (meta_.isStaticField()) {
+            if (fieldMetaInfo.isStaticField()) {
                 procField_ = false;
             }
         }
@@ -72,7 +71,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    if (ContextUtil.isFinalField(_conf,cl_) && !AssUtil.isDeclaringField(this, _ass)) {
+                    if (ContextUtil.isFinalField(_conf,cl_) && !declare) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -103,15 +102,12 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         if (!(par_ instanceof AssDotOperation)) {
             return false;
         }
-        if (par_.getFirstChild() instanceof AssThisOperation) {
-            return true;
-        }
-        if (par_.getFirstChild() instanceof AssStaticAccessOperation) {
+        if (par_.getFirstChild() instanceof AssAccessorOperation) {
             return true;
         }
         if (par_.getFirstChild() instanceof AssDotOperation) {
             AssOperationNode op_ = ((AssDotOperation)par_.getFirstChild()).getChildrenNodes().last();
-            return op_ instanceof AssThisOperation;
+            return op_ instanceof AssAccessorOperation;
         }
         return false;
     }
@@ -121,6 +117,10 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
         String gl_ = _an.getAnalyzing().getGlobalClass();
         String id_ = StringExpUtil.getIdFromAllTypes(gl_);
         return !StringList.quickEq(clField_.getClassName(), id_);
+    }
+
+    public boolean isDeclare() {
+        return declare;
     }
 
     public final ClassField getFieldId() {

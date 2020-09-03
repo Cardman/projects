@@ -1,0 +1,61 @@
+package code.expressionlanguage.assign.opers;
+
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.VariableOperation;
+import code.expressionlanguage.assign.blocks.AssBlock;
+import code.expressionlanguage.assign.blocks.AssSimDeclareVariable;
+import code.expressionlanguage.assign.blocks.AssSimForMutableIterativeLoop;
+import code.expressionlanguage.assign.util.*;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
+
+public final class AssSimStdVariableOperation extends AssLeafOperation implements AssSettableElResult {
+
+    private String variableName;
+    private boolean declare;
+    private boolean finalVariable;
+    private OperationNode analyzed;
+
+    AssSimStdVariableOperation(VariableOperation _ex) {
+        super(_ex);
+        variableName = _ex.getVariableName();
+        declare = _ex.isDeclare();
+        finalVariable = _ex.isFinalVariable();
+        analyzed = _ex;
+    }
+    AssSimStdVariableOperation(MutableLoopVariableOperation _ex) {
+        super(_ex);
+        variableName = _ex.getVariableName();
+        declare = _ex.isDeclare();
+        finalVariable = _ex.isFinalVariable();
+        analyzed = _ex;
+    }
+
+    @Override
+    public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
+        AssBlock pr_ = _ass.getPreviousSibling();
+        if (pr_ instanceof AssSimDeclareVariable) {
+            ((AssSimDeclareVariable)pr_).getAssignedVariables().add(variableName);
+        }
+        if (_ass instanceof AssSimForMutableIterativeLoop) {
+            ((AssSimForMutableIterativeLoop)_ass).getAssignedVariables().add(variableName);
+        }
+        if (declare) {
+            _a.getVariables().put(variableName,false);
+            _a.putLocalVar(variableName, finalVariable);
+        }
+
+    }
+
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public OperationNode getAnalyzed() {
+        return analyzed;
+    }
+}

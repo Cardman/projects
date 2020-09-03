@@ -1,30 +1,15 @@
 package code.expressionlanguage.assign.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.BlocksFlags;
 import code.expressionlanguage.analyze.BlocksLabels;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.exec.blocks.*;
 
 
 public final class AssBlockUtil {
     private AssBlockUtil() {
     }
 
-    public static AssMemberCallingsBlock buildFctInstructions(MemberCallingsBlock _mem, ExecMemberCallingsBlock _execMem, ContextEl _cont, AssBlock _prev, AssignedVariablesBlock _a) {
-        _mem.buildFctInstructionsReadOnly(_cont,_execMem);
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        AnalyzingEl a_ = page_.getAnalysisAss();
-        AssMemberCallingsBlock meth_ = AssBlockUtil.getExecutableNodes(a_.getCanCompleteNormally(), a_.getCanCompleteNormallyGroup(),a_.getFinals(),a_.getLabelsMapping(), _mem);
-        if (page_.isVariableIssue()) {
-            return meth_;
-        }
-        meth_.buildFctInstructions(_cont,_prev,_a);
-        return meth_;
-    }
-    public static AssMemberCallingsBlock getExecutableNodes(BlocksFlags _normal, BlocksFlags _group, BlocksFlags _finals, BlocksLabels _lab, MemberCallingsBlock _list) {
+    public static AssMemberCallingsBlock getExecutableNodes(BlocksFlags _normal, BlocksFlags _group, BlocksLabels _lab, MemberCallingsBlock _list) {
         AssMemberCallingsBlock m_ = getAssMemberCalling(_normal, _group, _list);
         if (_list.getFirstChild() == null) {
             return m_;
@@ -34,7 +19,7 @@ public final class AssBlockUtil {
         while (c_ != null) {
             Block f_ = c_.getFirstChild();
             if (!(c_ instanceof RootBlock)&&ac_ instanceof AssBracedBlock&&f_ != null) {
-                AssBlock af_ = createAssBlock(_normal, _group,_finals,_lab, f_);
+                AssBlock af_ = createAssBlock(_normal, _group, _lab, f_);
                 ((AssBracedBlock)ac_).appendChild(af_);
                 ac_ = af_;
                 c_ = f_;
@@ -43,7 +28,7 @@ public final class AssBlockUtil {
             while (true) {
                 Block n_ = c_.getNextSibling();
                 if (n_ != null) {
-                    AssBlock af_ = createAssBlock(_normal, _group,_finals,_lab, n_);
+                    AssBlock af_ = createAssBlock(_normal, _group, _lab, n_);
                     AssBracedBlock par_ = ac_.getParent();
                     par_.appendChild(af_);
                     ac_ = af_;
@@ -61,9 +46,47 @@ public final class AssBlockUtil {
         }
         return m_;
     }
-    public static AssBlock createAssBlock(BlocksFlags _normal, BlocksFlags _group, BlocksFlags _finals, BlocksLabels _lab, Block _anaNode) {
+
+    public static AssSimStdMethodBlock getSimExecutableNodes(BlocksFlags _normal, BlocksFlags _group, MemberCallingsBlock _list) {
+        AssSimStdMethodBlock m_ = getAssSimMemberCalling(_normal, _group, _list);
+        if (_list.getFirstChild() == null) {
+            return m_;
+        }
+        Block c_ = _list;
+        AssBlock ac_ = m_;
+        while (c_ != null) {
+            Block f_ = c_.getFirstChild();
+            if (!(c_ instanceof RootBlock)&&ac_ instanceof AssBracedBlock&&f_ != null) {
+                AssBlock af_ = createAssSimBlock(_normal, _group, f_);
+                ((AssBracedBlock)ac_).appendChild(af_);
+                ac_ = af_;
+                c_ = f_;
+                continue;
+            }
+            while (true) {
+                Block n_ = c_.getNextSibling();
+                if (n_ != null) {
+                    AssBlock af_ = createAssSimBlock(_normal, _group, n_);
+                    AssBracedBlock par_ = ac_.getParent();
+                    par_.appendChild(af_);
+                    ac_ = af_;
+                    c_ = n_;
+                    break;
+                }
+                BracedBlock p_ = c_.getParent();
+                if (p_ == _list) {
+                    c_ = null;
+                    break;
+                }
+                c_ = p_;
+                ac_ = ac_.getParent();
+            }
+        }
+        return m_;
+    }
+    public static AssBlock createAssBlock(BlocksFlags _normal, BlocksFlags _group, BlocksLabels _lab, Block _anaNode) {
         if (_anaNode instanceof ForMutableIterativeLoop) {
-            return new AssForMutableIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode), get(_finals,_anaNode),get(_lab,_anaNode),(ForMutableIterativeLoop) _anaNode);
+            return new AssForMutableIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode),get(_lab,_anaNode),(ForMutableIterativeLoop) _anaNode);
         }
         if (_anaNode instanceof BreakBlock) {
             return new AssBreakBlock(get(_normal,_anaNode), get(_group,_anaNode), (BreakBlock) _anaNode);
@@ -105,7 +128,7 @@ public final class AssBlockUtil {
             return new AssThrowing(get(_normal,_anaNode), get(_group,_anaNode), (Throwing) _anaNode);
         }
         if (_anaNode instanceof DeclareVariable) {
-            return new AssDeclareVariable(get(_normal,_anaNode), get(_group,_anaNode), get(_finals,_anaNode));
+            return new AssDeclareVariable(get(_normal,_anaNode), get(_group,_anaNode));
         }
         if (_anaNode instanceof Line) {
             return new AssLine(get(_normal,_anaNode), get(_group,_anaNode),(Line)_anaNode);
@@ -133,6 +156,39 @@ public final class AssBlockUtil {
         }
         return new AssUnclassedBracedBlock(get(_normal,_anaNode), get(_group,_anaNode));
     }
+    public static AssBlock createAssSimBlock(BlocksFlags _normal, BlocksFlags _group, Block _anaNode) {
+        if (_anaNode instanceof ForMutableIterativeLoop) {
+            return new AssSimForMutableIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode),(ForMutableIterativeLoop) _anaNode);
+        }
+        if (_anaNode instanceof DeclareVariable) {
+            return new AssSimDeclareVariable(get(_normal,_anaNode), get(_group,_anaNode));
+        }
+        if (_anaNode instanceof Line) {
+            return new AssSimLine(get(_normal,_anaNode), get(_group,_anaNode),(Line)_anaNode);
+        }
+        if (_anaNode instanceof ForIterativeLoop) {
+            return new AssSimForIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode),(ForIterativeLoop)_anaNode);
+        }
+        if (_anaNode instanceof Condition) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((Condition) _anaNode).getRoot());
+        }
+        if (_anaNode instanceof SwitchBlock) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((SwitchBlock) _anaNode).getRoot());
+        }
+        if (_anaNode instanceof ReturnMethod) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((ReturnMethod) _anaNode).getRoot());
+        }
+        if (_anaNode instanceof Throwing) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((Throwing) _anaNode).getRoot());
+        }
+        if (_anaNode instanceof ForEachLoop) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachLoop)_anaNode).getRoot());
+        }
+        if (_anaNode instanceof ForEachTable) {
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachTable)_anaNode).getRoot());
+        }
+        return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),null);
+    }
 
     private static AssMemberCallingsBlock getAssMemberCalling(BlocksFlags _normal, BlocksFlags _group, Block _anaNode) {
         if (_anaNode instanceof ConstructorBlock) {
@@ -142,6 +198,9 @@ public final class AssBlockUtil {
             return new AssInit(get(_normal,_anaNode),get(_group,_anaNode));
         }
         return new AssStdMethodBlock(get(_normal,_anaNode), get(_group,_anaNode));
+    }
+    private static AssSimStdMethodBlock getAssSimMemberCalling(BlocksFlags _normal, BlocksFlags _group, Block _anaNode) {
+        return new AssSimStdMethodBlock(get(_normal,_anaNode), get(_group,_anaNode));
     }
     private static boolean get(BlocksFlags _normal, Block _anaNode) {
         return _normal.getVal(_anaNode);
