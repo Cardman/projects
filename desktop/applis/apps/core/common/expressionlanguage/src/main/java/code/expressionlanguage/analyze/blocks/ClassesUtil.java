@@ -19,6 +19,7 @@ import code.expressionlanguage.analyze.opers.util.Parametrable;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.assign.blocks.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.*;
@@ -480,6 +481,9 @@ public final class ClassesUtil {
                 _context.getAnalyzing().getMappingLocal().clear();
                 _context.getAnalyzing().getMappingLocal().putAllMap(method_.getMappings());
                 method_.buildFctInstructionsReadOnly(_context,e.getValue());
+                AnalyzingEl a_ = _context.getAnalyzing().getAnalysisAss();
+                a_.setVariableIssue(_context.getAnalyzing().isVariableIssue());
+                _context.getAnalyzing().getResultsMethod().addEntry(method_,a_);
             }
             AnaTypeUtil.checkInterfaces(_context);
         }
@@ -2697,6 +2701,20 @@ public final class ClassesUtil {
                 }
             }
         }
+        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: page_.getResultsMethod().entryList()) {
+            AnonymousFunctionBlock method_ = e.getKey();
+            RootBlock c_ = method_.getParentType();
+            _context.getAnalyzing().setImporting(c_);
+            _context.getAnalyzing().setImportingAcces(new TypeAccessor(c_.getFullName()));
+            _context.getAnalyzing().setImportingTypes(c_);
+            _context.getAnalyzing().setGlobalClass(c_.getGenericString());
+            _context.getAnalyzing().setGlobalType(c_);
+            _context.getAnalyzing().setGlobalDirType(c_);
+            AnalyzingEl anAss_ = e.getValue();
+            AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), method_);
+            tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
+            page_.clearAllLocalVars(assVars_);
+        }
         page_.setGlobalClass("");
         page_.setGlobalType(null);
         page_.setGlobalDirType(null);
@@ -2797,6 +2815,21 @@ public final class ClassesUtil {
                     page_.clearAllLocalVars(assVars_);
                 }
             }
+        }
+
+        for (EntryCust<AnonymousFunctionBlock, AnalyzingEl> e: page_.getResultsMethod().entryList()) {
+            AnonymousFunctionBlock method_ = e.getKey();
+            RootBlock c_ = method_.getParentType();
+            _context.getAnalyzing().setImporting(c_);
+            _context.getAnalyzing().setImportingAcces(new TypeAccessor(c_.getFullName()));
+            _context.getAnalyzing().setImportingTypes(c_);
+            _context.getAnalyzing().setGlobalClass(c_.getGenericString());
+            _context.getAnalyzing().setGlobalType(c_);
+            _context.getAnalyzing().setGlobalDirType(c_);
+            AnalyzingEl anAss_ = e.getValue();
+            AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), method_);
+            tryAnalyseAssign(_context, assVars_, anAss_, assign_);
+            page_.clearAllLocalVars(assVars_);
         }
         page_.setGlobalClass("");
         page_.setGlobalType(null);

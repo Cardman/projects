@@ -60,6 +60,7 @@ public final class AnalyzedPageEl {
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaInst = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaNamed = new IdMap<MemberCallingsBlock,AnalyzingEl>();
     private final IdMap<MemberCallingsBlock,AnalyzingEl> resultsAnaMethod = new IdMap<MemberCallingsBlock,AnalyzingEl>();
+    private final IdMap<AnonymousFunctionBlock,AnalyzingEl> resultsMethod = new IdMap<AnonymousFunctionBlock,AnalyzingEl>();
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> foundOperators = new CustList<OperatorBlock>();
@@ -748,6 +749,10 @@ public final class AnalyzedPageEl {
 
     public IdMap<MemberCallingsBlock, AnalyzingEl> getResultsAnaMethod() {
         return resultsAnaMethod;
+    }
+
+    public IdMap<AnonymousFunctionBlock, AnalyzingEl> getResultsMethod() {
+        return resultsMethod;
     }
 
     public IdMap<OperatorBlock, AnalyzingEl> getResultsAnaOperator() {

@@ -1003,7 +1003,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage671Test() {
+    public void report671Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1039,7 +1039,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage672Test() {
+    public void report672Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1075,7 +1075,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage673Test() {
+    public void report673Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1113,7 +1113,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage674Test() {
+    public void report674Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1151,7 +1151,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage675Test() {
+    public void report675Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1189,7 +1189,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage676Test() {
+    public void report676Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1225,7 +1225,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage677Test() {
+    public void report677Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1261,7 +1261,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage678Test() {
+    public void report678Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1297,7 +1297,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage679Test() {
+    public void report679Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1333,7 +1333,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage680Test() {
+    public void report680Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1369,7 +1369,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage681Test() {
+    public void report681Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1405,7 +1405,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage682Test() {
+    public void report682Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1441,7 +1441,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage683Test() {
+    public void report683Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1477,7 +1477,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage684Test() {
+    public void report684Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1517,7 +1517,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage685Test() {
+    public void report685Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1553,7 +1553,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage686Test() {
+    public void report686Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1587,7 +1587,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage687Test() {
+    public void report687Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1621,7 +1621,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage688Test() {
+    public void report688Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1659,7 +1659,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage689Test() {
+    public void report689Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1697,7 +1697,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage690Test() {
+    public void report690Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1735,7 +1735,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage691Test() {
+    public void report691Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1773,7 +1773,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage692Test() {
+    public void report692Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -1811,7 +1811,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void coverage693Test() {
+    public void report693Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
         xml_ = new StringBuilder();
@@ -2063,4 +2063,47 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report702Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   b = 1;\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m218\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
+                "   <a href=\"#m137\">b</a> <a title=\"The field b is already assigned.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m218\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m242\">fct</a>,int <a name=\"m250\">a</a>,int <a name=\"m256\">b</a>){\n" +
+                "  return <a href=\"#m242\">fct</a>.<b>call</b>(<a href=\"#m250\">a</a>).<b>call</b>(<a href=\"#m256\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
 }
