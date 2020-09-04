@@ -3,6 +3,9 @@ import aiki.comments.Comment;
 import aiki.comparators.ComparatorGroundPlaceKey;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
+import aiki.fight.util.ListEffectCombo;
+import aiki.game.fight.util.ListActivityOfMove;
+import aiki.game.fight.util.ListActivityOfMoves;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
 import aiki.map.pokemon.PkTrainer;
@@ -13,9 +16,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EqList;
 import code.util.*;
-import code.util.*;
-import code.util.*;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -33,7 +33,7 @@ public final class Team {
     private static final String USE_ITEM = "useItem";
 
     /***/
-    private ObjectMap<StringList,ActivityOfMove> enabledMovesByGroup;
+    private ListActivityOfMoves enabledMovesByGroup;
 
     /***/
     private StringMap<ActivityOfMove> enabledMoves;
@@ -91,9 +91,9 @@ public final class Team {
             enabledMovesWhileSendingFoe.put(e,false);
             enabledMovesWhileSendingFoeUses.put(e,LgInt.zero());
         }
-        enabledMovesByGroup = new ObjectMap<StringList,ActivityOfMove>();
-        for(StringList c:_import.getCombos().getEffects().getKeys()){
-            enabledMovesByGroup.put(c,new ActivityOfMove());
+        enabledMovesByGroup = new ListActivityOfMoves();
+        for(ListEffectCombo c:_import.getCombos().getEffects()){
+            enabledMovesByGroup.add(new ListActivityOfMove(c.getList(),new ActivityOfMove()));
         }
         nbKoRound=0;
         nbKoPreviousRound=0;
@@ -452,10 +452,7 @@ public final class Team {
                 return false;
             }
         }
-        if (this.members.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !this.members.isEmpty();
     }
 
     void initRoundTeam() {
@@ -714,8 +711,8 @@ public final class Team {
         return list_;
     }
 
-    EqList<StringList> enabledTeamGroupMoves() {
-        EqList<StringList> list_ = new EqList<StringList>();
+    CustList<StringList> enabledTeamGroupMoves() {
+        CustList<StringList> list_ = new CustList<StringList>();
         for(StringList m:enabledMovesByGroup.getKeys()){
             if(!enabledMovesByGroup.getVal(m).isEnabled()){
                 continue;
@@ -747,11 +744,11 @@ public final class Team {
         comment = _comment;
     }
 
-    public ObjectMap<StringList,ActivityOfMove> getEnabledMovesByGroup() {
+    public ListActivityOfMoves getEnabledMovesByGroup() {
         return enabledMovesByGroup;
     }
 
-    public void setEnabledMovesByGroup(ObjectMap<StringList,ActivityOfMove> _enabledMoves) {
+    public void setEnabledMovesByGroup(ListActivityOfMoves _enabledMoves) {
         enabledMovesByGroup = _enabledMoves;
     }
 

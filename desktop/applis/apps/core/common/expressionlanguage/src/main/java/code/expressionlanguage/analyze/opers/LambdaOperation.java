@@ -1001,7 +1001,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
             }
             ConstrustorIdVarArg ctorRes_;
-            ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, vararg_, new ClassArgumentMatching(clFrom_), h_,feed_, OperationNode.toArgArray(_methodTypes));
+            ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, vararg_, new ClassArgumentMatching(clFrom_),id_, h_,feed_, OperationNode.toArgArray(_methodTypes));
             realId = ctorRes_.getRealId();
             if (realId == null) {
                 setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1172,7 +1172,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             return;
         }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, _vararg, new ClassArgumentMatching(_cl),h_, _feed, OperationNode.toArgArray(_methodTypes));
+        ctorRes_ = getDeclaredCustConstructorLambda(this,_conf, _vararg, new ClassArgumentMatching(_cl),id_,h_, _feed, OperationNode.toArgArray(_methodTypes));
         realId = ctorRes_.getRealId();
         if (realId == null) {
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));

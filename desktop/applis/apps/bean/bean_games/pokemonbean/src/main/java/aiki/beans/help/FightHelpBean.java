@@ -187,8 +187,8 @@ public class FightHelpBean extends CommonBean {
     private StringList abilitiesAllyMultStat;
     private StringList statusMultStat;
     private StringList abilitiesImmuMultStat;
-    private EqList<StringList> comboMultStat;
-    private EqList<StringList> comboEvtStat;
+    private CustList<StringList> comboMultStat;
+    private CustList<StringList> comboEvtStat;
     private StringList movesTypesDefItem;
     private StringList movesTypesDefWeather;
     private StringList abilitiesTypeDefMoves;
@@ -768,7 +768,7 @@ public class FightHelpBean extends CommonBean {
             abilitiesImmuMultStat.add(a);
         }
         abilitiesImmuMultStat.sortElts(new ComparatorTrStrings(translatedAbilities_));
-        comboMultStat = new EqList<StringList>();
+        comboMultStat = new CustList<StringList>();
         for (StringList g: data_.getCombos().getEffects().getKeys()) {
             EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
             if (!effect_.estActifEquipe()) {
@@ -800,7 +800,7 @@ public class FightHelpBean extends CommonBean {
 //            }
 //        });
         comboMultStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
-        comboEvtStat = new EqList<StringList>();
+        comboEvtStat = new CustList<StringList>();
         for (StringList g: data_.getCombos().getEffects().getKeys()) {
             EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
             if (effect_.getMultEvtRateSecEff().isZero()) {
@@ -2113,10 +2113,7 @@ public class FightHelpBean extends CommonBean {
         if (_st == Statistic.DEFENSE) {
             return true;
         }
-        if (_st == Statistic.SPECIAL_DEFENSE) {
-            return true;
-        }
-        return false;
+        return _st == Statistic.SPECIAL_DEFENSE;
     }
     public String getTrAbilitiesSentBegin(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -2502,10 +2499,7 @@ public class FightHelpBean extends CommonBean {
         String ab_ = itemsMultStat.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (hasNormalStat(i_.getMultStat().getKeys())) {
-            return true;
-        }
-        return false;
+        return hasNormalStat(i_.getMultStat().getKeys());
     }
     public boolean itemMultSpeedAny() {
         int len_;
@@ -2521,10 +2515,7 @@ public class FightHelpBean extends CommonBean {
         String ab_ = itemsMultStat.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStat().contains(Statistic.SPEED)) {
-            return true;
-        }
-        return false;
+        return i_.getMultStat().contains(Statistic.SPEED);
     }
     public boolean itemMultEvasinessAny() {
         int len_;
@@ -2540,10 +2531,7 @@ public class FightHelpBean extends CommonBean {
         String ab_ = itemsMultStat.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStat().contains(Statistic.EVASINESS)) {
-            return true;
-        }
-        return false;
+        return i_.getMultStat().contains(Statistic.EVASINESS);
     }
     public boolean itemMultAccuracyAny() {
         int len_;
@@ -2559,10 +2547,7 @@ public class FightHelpBean extends CommonBean {
         String ab_ = itemsMultStat.get(_index.intValue());
         DataBase data_ = (DataBase) getDataBase();
         ItemForBattle i_ = (ItemForBattle) data_.getItem(ab_);
-        if (i_.getMultStat().contains(Statistic.ACCURACY)) {
-            return true;
-        }
-        return false;
+        return i_.getMultStat().contains(Statistic.ACCURACY);
     }
     public String getTrItemsMultStat(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4296,9 +4281,7 @@ public class FightHelpBean extends CommonBean {
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
         if (s_.getLawForUsingAMove().events().isEmpty()) {
-            if (s_.getLawForUsingAMoveIfFoe().events().isEmpty()) {
-                return false;
-            }
+            return !s_.getLawForUsingAMoveIfFoe().events().isEmpty();
         }
         return true;
     }
@@ -4317,10 +4300,7 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = (DataBase) getDataBase();
         Status st_ = data_.getStatus(status_);
         StatusBeginRound s_ = (StatusBeginRound) st_;
-        if (s_.getLawForFullHealIfMove().events().isEmpty()) {
-            return false;
-        }
-        return true;
+        return !s_.getLawForFullHealIfMove().events().isEmpty();
     }
     public String getTrBeginRoundStatus(Long _index) {
         DataBase data_ = (DataBase) getDataBase();
@@ -4771,7 +4751,7 @@ public class FightHelpBean extends CommonBean {
         return abilitiesRateStatis;
     }
 
-    public EqList<StringList> getComboEvtStat() {
+    public CustList<StringList> getComboEvtStat() {
         return comboEvtStat;
     }
 
@@ -5091,7 +5071,7 @@ public class FightHelpBean extends CommonBean {
         return abilitiesImmuMultStat;
     }
 
-    public EqList<StringList> getComboMultStat() {
+    public CustList<StringList> getComboMultStat() {
         return comboMultStat;
     }
 

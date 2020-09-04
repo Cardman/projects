@@ -20,10 +20,10 @@ public final class GameProgression {
 
     private final boolean finishedGame;
     private final String nickname;
-    private final StringMap<EqList<StringList>> notAtAllFamiliesBase;
-    private final StringMap<EqList<StringList>> partialFamiliesBaseCaught;
-    private final StringMap<EqList<StringList>> partialFamiliesBaseNotCaught;
-    private final StringMap<EqList<StringList>> fullFamiliesBase;
+    private final StringMap<CustList<StringList>> notAtAllFamiliesBase;
+    private final StringMap<CustList<StringList>> partialFamiliesBaseCaught;
+    private final StringMap<CustList<StringList>> partialFamiliesBaseNotCaught;
+    private final StringMap<CustList<StringList>> fullFamiliesBase;
     private final CustList<TrainerPlaceNames> beatenImportantTrainers;
     private final CustList<TrainerPlaceNames> unBeatenImportantTrainers;
     private final ShortMap<Integer> remainingOtherTrainerPlaces;
@@ -40,13 +40,13 @@ public final class GameProgression {
         nickname = _game.getPlayer().getNickname();
         money = _game.getPlayer().getMoney();
         remainStepsRepel = _game.getPlayer().getRemainingRepelSteps();
-        notAtAllFamiliesBase = new StringMap<EqList<StringList>>();
-        partialFamiliesBaseCaught = new StringMap<EqList<StringList>>();
-        partialFamiliesBaseNotCaught = new StringMap<EqList<StringList>>();
-        fullFamiliesBase = new StringMap<EqList<StringList>>();
+        notAtAllFamiliesBase = new StringMap<CustList<StringList>>();
+        partialFamiliesBaseCaught = new StringMap<CustList<StringList>>();
+        partialFamiliesBaseNotCaught = new StringMap<CustList<StringList>>();
+        fullFamiliesBase = new StringMap<CustList<StringList>>();
         for (String b: _data.getFamilies().getKeys()) {
-            EqList<StringList> caughtPokemonStages_ = new EqList<StringList>();
-            EqList<StringList> uncaughtPokemonStages_ = new EqList<StringList>();
+            CustList<StringList> caughtPokemonStages_ = new CustList<StringList>();
+            CustList<StringList> uncaughtPokemonStages_ = new CustList<StringList>();
             StringList caughtPokemon_ = new StringList();
             StringList uncaughtPokemon_ = new StringList();
             for (StringList s: _data.getFamilies().getVal(b).getStages()) {
@@ -149,19 +149,19 @@ public final class GameProgression {
         return nickname;
     }
 
-    public StringMap<EqList<StringList>> getNotAtAllFamiliesBase() {
+    public StringMap<CustList<StringList>> getNotAtAllFamiliesBase() {
         return notAtAllFamiliesBase;
     }
 
-    public StringMap<EqList<StringList>> getPartialFamiliesBaseCaught() {
+    public StringMap<CustList<StringList>> getPartialFamiliesBaseCaught() {
         return partialFamiliesBaseCaught;
     }
 
-    public StringMap<EqList<StringList>> getPartialFamiliesBaseNotCaught() {
+    public StringMap<CustList<StringList>> getPartialFamiliesBaseNotCaught() {
         return partialFamiliesBaseNotCaught;
     }
 
-    public StringMap<EqList<StringList>> getFullFamiliesBase() {
+    public StringMap<CustList<StringList>> getFullFamiliesBase() {
         return fullFamiliesBase;
     }
 

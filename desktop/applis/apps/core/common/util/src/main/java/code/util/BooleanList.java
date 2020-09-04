@@ -1,8 +1,7 @@
 package code.util;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class BooleanList extends CustList<Boolean> implements Equallable<BooleanList> {
+public final class BooleanList extends CustList<Boolean> {
 
     public BooleanList() {
     }
@@ -30,7 +29,6 @@ public final class BooleanList extends CustList<Boolean> implements Equallable<B
         return INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
     public boolean eq(BooleanList _g) {
         int len_ = size();
         if (_g.size() != len_) {

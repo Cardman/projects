@@ -740,7 +740,7 @@ public abstract class OperationNode {
         _ancestors.addEntry(_cl,_res);
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(OperationNode _oper,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
-                                                          AnaGeneType _type,
+                                                          String _id,AnaGeneType _type,
                                                           ConstructorId _uniqueId, String _param, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
@@ -762,7 +762,7 @@ public abstract class OperationNode {
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId();
+            ConstructorId ctor_ = e.getId().copy(_id);
             if (exclude(_type,_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }
@@ -823,7 +823,7 @@ public abstract class OperationNode {
         return out_;
     }
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
-                                                                AnaGeneType _type,
+                                                                String _id,AnaGeneType _type,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
@@ -843,7 +843,7 @@ public abstract class OperationNode {
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId();
+            ConstructorId ctor_ = e.getId().copy(_id);
             if (exclude(_type,_conf,_uniqueId,varargOnly_, e)) {
                 continue;
             }

@@ -17,10 +17,10 @@ public class GameProgressionBean extends Bean {
     private String nickname;
     private boolean finishedGame;
     private String endGameImage;
-    private NatStringTreeMap<EqList<StringList>> notAtAllFamiliesBase;
-    private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseNotCaught;
-    private NatStringTreeMap<EqList<StringList>> partialFamiliesBaseCaught;
-    private NatStringTreeMap<EqList<StringList>> fullFamiliesBase;
+    private NatStringTreeMap<CustList<StringList>> notAtAllFamiliesBase;
+    private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseNotCaught;
+    private NatStringTreeMap<CustList<StringList>> partialFamiliesBaseCaught;
+    private NatStringTreeMap<CustList<StringList>> fullFamiliesBase;
     private CustList<TrainerPlaceNames> beatenImportantTrainers;
     private CustList<TrainerPlaceNames> unBeatenImportantTrainers;
     private TreeMap<Short,Integer> remainingOtherTrainerPlaces;
@@ -42,9 +42,9 @@ public class GameProgressionBean extends Bean {
         finishedGame = progression_.isFinishedGame();
         endGameImage = BaseSixtyFourUtil.getStringByImage(facade_.getData().getEndGameImage());
         nickname = progression_.getNickname();
-        notAtAllFamiliesBase = new NatStringTreeMap<EqList<StringList>>();
+        notAtAllFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
         for (String b: progression_.getNotAtAllFamiliesBase().getKeys()) {
-            EqList<StringList> lists_ = new EqList<StringList>();
+            CustList<StringList> lists_ = new CustList<StringList>();
             for (StringList l: progression_.getNotAtAllFamiliesBase().getVal(b)) {
                 StringList list_ = new StringList();
                 for (String e: l) {
@@ -55,9 +55,9 @@ public class GameProgressionBean extends Bean {
             }
             notAtAllFamiliesBase.put(facade_.translatePokemon(b), lists_);
         }
-        partialFamiliesBaseCaught = new NatStringTreeMap<EqList<StringList>>();
+        partialFamiliesBaseCaught = new NatStringTreeMap<CustList<StringList>>();
         for (String b: progression_.getPartialFamiliesBaseCaught().getKeys()) {
-            EqList<StringList> lists_ = new EqList<StringList>();
+            CustList<StringList> lists_ = new CustList<StringList>();
             for (StringList l: progression_.getPartialFamiliesBaseCaught().getVal(b)) {
                 StringList list_ = new StringList();
                 for (String e: l) {
@@ -68,9 +68,9 @@ public class GameProgressionBean extends Bean {
             }
             partialFamiliesBaseCaught.put(facade_.translatePokemon(b), lists_);
         }
-        partialFamiliesBaseNotCaught = new NatStringTreeMap<EqList<StringList>>();
+        partialFamiliesBaseNotCaught = new NatStringTreeMap<CustList<StringList>>();
         for (String b: progression_.getPartialFamiliesBaseNotCaught().getKeys()) {
-            EqList<StringList> lists_ = new EqList<StringList>();
+            CustList<StringList> lists_ = new CustList<StringList>();
             for (StringList l: progression_.getPartialFamiliesBaseNotCaught().getVal(b)) {
                 StringList list_ = new StringList();
                 for (String e: l) {
@@ -81,9 +81,9 @@ public class GameProgressionBean extends Bean {
             }
             partialFamiliesBaseNotCaught.put(facade_.translatePokemon(b), lists_);
         }
-        fullFamiliesBase = new NatStringTreeMap<EqList<StringList>>();
+        fullFamiliesBase = new NatStringTreeMap<CustList<StringList>>();
         for (String b: progression_.getFullFamiliesBase().getKeys()) {
-            EqList<StringList> lists_ = new EqList<StringList>();
+            CustList<StringList> lists_ = new CustList<StringList>();
             for (StringList l: progression_.getFullFamiliesBase().getVal(b)) {
                 StringList list_ = new StringList();
                 for (String e: l) {
@@ -149,20 +149,20 @@ public class GameProgressionBean extends Bean {
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
     public StringList getKeyPokemon(Long _key, Long _indexList) {
-        EqList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key.intValue());
+        CustList<StringList> values_ = partialFamiliesBaseCaught.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         return value_;
     }
 
-    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
-        EqList<StringList> values_ = _treeMap.getValue(_key.intValue());
+    private static String getTrPokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
+        CustList<StringList> values_ = _treeMap.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
         return _facade.translatePokemon(pkName_);
     }
 
-    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<EqList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
-        EqList<StringList> values_ = _treeMap.getValue(_key.intValue());
+    private static String getImagePokemon(FacadeGame _facade,NatStringTreeMap<CustList<StringList>> _treeMap, Long _key, Long _indexList, Long _indexElt) {
+        CustList<StringList> values_ = _treeMap.getValue(_key.intValue());
         StringList value_ = values_.get(_indexList.intValue());
         String pkName_ = value_.get(_indexElt.intValue());
         int[][] img_ = _facade.getData().getMaxiPkFront().getVal(pkName_);
@@ -229,15 +229,15 @@ public class GameProgressionBean extends Bean {
         return money;
     }
 
-    public NatStringTreeMap<EqList<StringList>> getFullFamiliesBase() {
+    public NatStringTreeMap<CustList<StringList>> getFullFamiliesBase() {
         return fullFamiliesBase;
     }
 
-    public NatStringTreeMap<EqList<StringList>> getNotAtAllFamiliesBase() {
+    public NatStringTreeMap<CustList<StringList>> getNotAtAllFamiliesBase() {
         return notAtAllFamiliesBase;
     }
 
-    public NatStringTreeMap<EqList<StringList>> getPartialFamiliesBaseNotCaught() {
+    public NatStringTreeMap<CustList<StringList>> getPartialFamiliesBaseNotCaught() {
         return partialFamiliesBaseNotCaught;
     }
 }

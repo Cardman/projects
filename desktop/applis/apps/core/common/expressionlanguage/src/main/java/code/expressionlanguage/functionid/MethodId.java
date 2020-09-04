@@ -6,9 +6,8 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class MethodId implements Equallable<MethodId>, Identifiable {
+public final class MethodId implements Identifiable {
 
     private static final String EMPTY = "";
     private static final String VARARG_DOTS = "...";
@@ -93,7 +92,6 @@ public final class MethodId implements Equallable<MethodId>, Identifiable {
         return StringList.concat(pref_,name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
-    @Override
     public boolean eq(MethodId _obj) {
         if (!StringList.quickEq(_obj.name, name)) {
             return false;

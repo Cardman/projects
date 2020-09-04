@@ -31,20 +31,20 @@ public final class AikiBeansFacadeMapDtoStd {
     }
     private static void buildPlaceIndex(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList< StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_PLACE_INDEX, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
         params_ = new StringList();
-        method_ = new StandardMethod(GET_PLACE,params_,PokemonStandards.TYPE_PLACE, false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_PLACE_INDEX, type_);
+        method_ = new StandardMethod(GET_PLACE,params_,PokemonStandards.TYPE_PLACE, false, MethodModifier.NORMAL);
+        methods_.add(method_);
+        _std.getStandards().addEntry(TYPE_PLACE_INDEX, type_);
     }
     public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

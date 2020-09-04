@@ -1,10 +1,9 @@
 package code.util;
 import code.util.ints.Comparing;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
 /** Not compared in tests */
-public final class EnumList<T> extends AbEqList<T> implements Equallable<EnumList<T>> {
+public final class EnumList<T> extends AbEqList<T> {
 
     public EnumList() {
     }
@@ -91,7 +90,6 @@ public final class EnumList<T> extends AbEqList<T> implements Equallable<EnumLis
         }
     }
 
-    @Override
     public boolean eq(EnumList<T> _g) {
         int len_ = size();
         if (_g.size() != len_) {

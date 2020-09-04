@@ -1,11 +1,11 @@
 package aiki.fight.pokemon;
 import aiki.db.DataBase;
-import code.util.EqList;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class PokemonFamily {
 
-    private final EqList<StringList> stages = new EqList<StringList>();
+    private final CustList<StringList> stages = new CustList<StringList>();
 
     public PokemonFamily(DataBase _data, String _pokemonBase) {
         stages.add(new StringList(_pokemonBase));
@@ -49,7 +49,7 @@ public final class PokemonFamily {
         }
     }
 
-    public EqList<StringList> getStages() {
+    public CustList<StringList> getStages() {
         return stages;
     }
 

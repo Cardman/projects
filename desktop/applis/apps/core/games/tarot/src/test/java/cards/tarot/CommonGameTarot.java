@@ -13,8 +13,8 @@ public abstract class CommonGameTarot {
                                                        int _dealer,
                                                        EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         int nbPl_ = _r.getRepartition().getNombreJoueurs();
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
-        EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < nbPl_; i++) {
             m_.add(new EnumList<Miseres>());
@@ -27,8 +27,8 @@ public abstract class CommonGameTarot {
                                               int _dealer,
                                               EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         int nbPl_ = _r.getRepartition().getNombreJoueurs();
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
-        EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < nbPl_; i++) {
             m_.add(new EnumList<Miseres>());
@@ -38,14 +38,14 @@ public abstract class CommonGameTarot {
         return newGameTarot(_r,_trs,_prog,m_,dh_,h_,_dealer,_bids,_calledCards,_call,_lastHand);
     }
     protected static GameTarot newGameTarot(HandTarot _currentHand,RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                            EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                            CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                             EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         GameTarot g_ = newGameTarot(_r,_trs,_prog,_m,_dh,_h,_dealer,_bids,_calledCards,_call,_lastHand);
         check(g_,_calledCards,_currentHand);
         return g_;
     }
     protected static GameTarot newGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,TrickTarot _prog,
-                                   EqList<EnumList<Miseres>> _m, EqList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                            CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                    EnumList<BidTarot> _bids, HandTarot _calledCards, int _call, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         deal_.add(_lastHand);

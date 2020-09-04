@@ -3,9 +3,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class ClassMethodId implements Equallable<ClassMethodId> {
+public final class ClassMethodId {
 
     private final String className;
 
@@ -38,7 +37,6 @@ public final class ClassMethodId implements Equallable<ClassMethodId> {
         return constraints;
     }
 
-    @Override
     public boolean eq(ClassMethodId _g) {
         if (!StringList.quickEq(className, _g.className)) {
             return false;

@@ -19,13 +19,13 @@ public final class AikiBeansFacadeSimulationEnumsStd {
     }
     private static void buildSimulationSteps(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_SIMULATION_STEPS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_SIMULATION_STEPS, type_);
+        _std.getStandards().addEntry(TYPE_SIMULATION_STEPS, type_);
     }
 }

@@ -2,6 +2,7 @@ package aiki.game.fight;
 import static org.junit.Assert.assertTrue;
 
 import aiki.db.DataBase;
+import aiki.game.fight.util.ListActivityOfMove;
 import code.maths.Rate;
 import org.junit.Before;
 import org.junit.Test;
@@ -307,28 +308,28 @@ public class TeamValidationTest extends InitializationDataBase {
     public void validate41Test(){
         Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
+        team_.getEnabledMovesByGroup().add(new ListActivityOfMove(new StringList(CHARGE), new ActivityOfMove(true)));
         assertTrue(!team_.validate(data, Fight.PLAYER, game_.getFight()));
     }
     @Test
     public void validate42Test(){
         Game game_ = newGameInFightTrainer2(Sex.BOY);
         Team team_ = game_.getFight().getUserTeam();
-        team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
+        team_.getEnabledMovesByGroup().add(new ListActivityOfMove(new StringList(CHARGE), new ActivityOfMove(true)));
         assertTrue(!team_.validate(data, Fight.PLAYER, game_.getFight()));
     }
     @Test
     public void validate43Test(){
         Game game_ = newGameInFightTrainer2(Sex.GIRL);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
+        team_.getEnabledMovesByGroup().add(new ListActivityOfMove(new StringList(CHARGE), new ActivityOfMove(true)));
         assertTrue(!team_.validate(data, Fight.FOE, game_.getFight()));
     }
     @Test
     public void validate44Test(){
         Game game_ = newGameInFightTrainer2(Sex.BOY);
         Team team_ = game_.getFight().getFoeTeam();
-        team_.getEnabledMovesByGroup().put(new StringList(CHARGE), new ActivityOfMove(true));
+        team_.getEnabledMovesByGroup().add(new ListActivityOfMove(new StringList(CHARGE), new ActivityOfMove(true)));
         assertTrue(!team_.validate(data, Fight.FOE, game_.getFight()));
     }
     @Test

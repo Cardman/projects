@@ -12,8 +12,8 @@ public final class StringListUtil {
     private StringListUtil() {
     }
 
-    public static EqList<StringList> commonLinesFiles(String _s, String _t) {
-        EqList<StringList> results_ = new EqList<StringList>();
+    public static CustList<StringList> commonLinesFiles(String _s, String _t) {
+        CustList<StringList> results_ = new CustList<StringList>();
         StringList s_ = StringList.splitChars(_s,LR,LF);
         StringList t_ = StringList.splitChars(_t,LR,LF);
         while (true) {

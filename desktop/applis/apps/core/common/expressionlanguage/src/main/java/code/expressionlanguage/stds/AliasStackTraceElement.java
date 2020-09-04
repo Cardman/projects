@@ -21,15 +21,15 @@ public final class AliasStackTraceElement {
     private String aliasCurrentFullStack;
 
     public void build(LgNames _stds) {
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         StringList params_;
         StandardMethod method_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardClass stdcl_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         String aliasObject_ = _stds.getAliasObject();
         String aliasString_ = _stds.getAliasString();
         String aliasToString_ = _stds.getAliasToStringMethod();
@@ -37,14 +37,14 @@ public final class AliasStackTraceElement {
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC, stdcl_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToString_, params_, aliasString_, false, MethodModifier.NORMAL, stdcl_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasToString_, params_, aliasString_, false, MethodModifier.NORMAL);
+        methods_.add( method_);
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
     }
 

@@ -5,7 +5,7 @@ import code.util.ints.Equallable;
 import code.util.ints.Listable;
 import code.util.ints.ListableEntries;
 
-public final class StringList extends CustList<String> implements Equallable<StringList>, Displayable {
+public final class StringList extends CustList<String> implements Displayable {
 
     public static final char LEFT_BRACE = '{';
 
@@ -2004,7 +2004,6 @@ public final class StringList extends CustList<String> implements Equallable<Str
         return INDEX_NOT_FOUND_ELT;
     }
 
-    @Override
     public boolean eq(StringList _g) {
         int len_ = size();
         if (_g.size() != len_) {

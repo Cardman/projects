@@ -219,10 +219,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
 //        if (!Pattern.matches(REG_EXP_INT, _string)) {
 //            return false;
 //        }
-        if (!matchesLgInt(_string)) {
-            return false;
-        }
-        return true;
+        return matchesLgInt(_string);
     }
 
     private static boolean matchesLgInt(String _input) {
@@ -369,9 +366,9 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
         TreeMap<SortableCustList<LgInt>,LgInt> loiProba_ = new TreeMap<SortableCustList<LgInt>,LgInt>(new ComparatorEvents());
         int i_ = CustList.FIRST_INDEX;
         int nbIterations_ = _repartitions.size();
-        EqList<SortableCustList<LgInt>> repartitionsPossibles_ = new EqList<SortableCustList<LgInt>>();
+        CustList<SortableCustList<LgInt>> repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>();
         repartitionsPossibles_.add(new SortableCustList<LgInt>());
-        EqList<SortableCustList<LgInt>> repartitionsPossiblesLoc_ = new EqList<SortableCustList<LgInt>>();
+        CustList<SortableCustList<LgInt>> repartitionsPossiblesLoc_ = new CustList<SortableCustList<LgInt>>();
         boolean modif_=true;
         while (modif_) {
             if (i_ >= nbIterations_) {
@@ -406,7 +403,7 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             }
             if (!repartitionsPossiblesLoc_.isEmpty()) {
                 modif_ = true;
-                repartitionsPossibles_ = new EqList<SortableCustList<LgInt>>(repartitionsPossiblesLoc_);
+                repartitionsPossibles_ = new CustList<SortableCustList<LgInt>>(repartitionsPossiblesLoc_);
             }
             i_++;
         }
@@ -1651,20 +1648,14 @@ public final class LgInt implements Cmp<LgInt>, Displayable {
             if (_max == null) {
                 return true;
             }
-            if (_max.cmp(this) < 0) {
-                return false;
-            }
-            return true;
+            return _max.cmp(this) >= 0;
         }
         if (_max != null) {
             if (_max.cmp(this) < 0) {
                 return false;
             }
         }
-        if (_min.cmp(this) > 0) {
-            return false;
-        }
-        return true;
+        return _min.cmp(this) <= 0;
     }
 
     @Override

@@ -299,14 +299,13 @@ public final class ContextUtil {
             return null;
         }
         if (cust_ instanceof StandardType) {
-            for (EntryCust<String, StandardField> f: ((StandardType)cust_).getFields().entryList()) {
-                StandardField f_ = f.getValue();
-                if (!StringList.contains(f_.getFieldName(), search_)) {
+            for (StandardField f: ((StandardType)cust_).getFields()) {
+                if (!StringList.contains(f.getFieldName(), search_)) {
                     continue;
                 }
-                String type_ = f_.getImportedClassName();
-                boolean final_ = f_.isFinalField();
-                boolean static_ = f_.isStaticField();
+                String type_ = f.getImportedClassName();
+                boolean final_ = f.isFinalField();
+                boolean static_ = f.isStaticField();
                 Accessed a_ = new Accessed(AccessEnum.PUBLIC,"","","");
                 return FieldInfo.newFieldMetaInfo(search_, cust_.getFullName(), type_, static_, final_, a_,-1);
             }

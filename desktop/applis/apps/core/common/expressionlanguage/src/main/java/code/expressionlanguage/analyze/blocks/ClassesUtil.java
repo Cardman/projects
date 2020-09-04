@@ -2107,7 +2107,7 @@ public final class ClassesUtil {
             }
         }
         if (_element instanceof StandardType) {
-            for (StandardMethod m : ((StandardType) _element).getMethods().values()) {
+            for (StandardMethod m : ((StandardType) _element).getMethods()) {
                 methods_.add(m);
             }
         }

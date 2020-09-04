@@ -10,6 +10,7 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
+import aiki.fight.util.ListEffectCombos;
 import aiki.fight.util.StatBaseEv;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.CheckNumericStringsFight;
@@ -2267,7 +2268,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate1Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2279,7 +2280,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate2Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         data_.completeMembers(PIKACHU,Instances.newPokemonData());
@@ -2292,7 +2293,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate3Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2313,7 +2314,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate4Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2339,7 +2340,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate5Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2364,7 +2365,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate6Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2388,7 +2389,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate7Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2408,7 +2409,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate8Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2423,7 +2424,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate9Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2438,7 +2439,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate10Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2453,7 +2454,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate11Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2468,7 +2469,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate12Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2483,7 +2484,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate13Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2498,7 +2499,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate14Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2527,7 +2528,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate15Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2557,7 +2558,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate16Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2606,7 +2607,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate17Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2655,7 +2656,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate18Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2703,7 +2704,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate19Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         initConstants(data_);
@@ -2717,7 +2718,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate20Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2789,7 +2790,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate21Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();
@@ -2839,7 +2840,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
     @Test
     public void validate22Test() {
         DataBase data_ =init();
-        data_.getCombos().setEffects(new ObjectMap<StringList, EffectCombo>());
+        data_.getCombos().setEffects(new ListEffectCombos());
         initPlaces(data_);
         data_.getMap().setMiniMap(new ObjectMap<MiniMapCoords, TileMiniMap>());
         PokemonData pokemon_ = Instances.newPokemonData();

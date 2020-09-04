@@ -1,8 +1,7 @@
 package code.expressionlanguage.common;
 import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class ClassField implements Equallable<ClassField> {
+public final class ClassField {
 
     private final String className;
 
@@ -13,7 +12,6 @@ public final class ClassField implements Equallable<ClassField> {
         fieldName = _fieldName;
     }
 
-    @Override
     public boolean eq(ClassField _obj) {
         if (!StringList.quickEq(className, _obj.className)) {
             return false;

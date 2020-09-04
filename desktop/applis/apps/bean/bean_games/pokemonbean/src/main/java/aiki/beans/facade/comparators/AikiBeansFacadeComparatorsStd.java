@@ -73,310 +73,310 @@ public final class AikiBeansFacadeComparatorsStd {
     }
     private static void buildComparatorCategoryMult(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_CATEGORY_MULT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_CATEGORY_MULT, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_CATEGORY_MULT, type_);
     }
     private static void buildComparatorDirection(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_DIRECTION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_DIRECTION, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_DIRECTION, type_);
     }
     private static void buildComparatorLanguageEnvType(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, type_);
     }
     private static void buildComparatorLanguageGender(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_GENDER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_GENDER, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_GENDER, type_);
     }
     private static void buildComparatorLanguageSelectedBoolean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, type_);
     }
     private static void buildComparatorLanguageStatisic(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_STATISIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_STATISIC, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_STATISIC, type_);
     }
     private static void buildComparatorLanguageString(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_STRING, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_STRING, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_STRING, type_);
     }
     private static void buildComparatorLanguageTargetChoice(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, type_);
     }
     private static void buildComparatorMiniMapCoords(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_MINI_MAP_COORDS, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_MINI_MAP_COORDS, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_MINI_MAP_COORDS, type_);
     }
     private static void buildComparatorMoves(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_MOVES, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_MOVES, type_);
     }
     private static void buildComparatorMoveTarget(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_MOVE_TARGET, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_MOVE_TARGET, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_MOVE_TARGET, type_);
     }
     private static void buildComparatorMoveTeamPosition(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_MOVE_TEAM_POSITION, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_MOVE_TEAM_POSITION, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_MOVE_TEAM_POSITION, type_);
     }
     private static void buildComparatorPlaceIndex(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_PLACE_INDEX, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_PLACE_INDEX, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_PLACE_INDEX, type_);
     }
     private static void buildComparatorPlaceNumber(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_PLACE_NUMBER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_PLACE_NUMBER, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_PLACE_NUMBER, type_);
     }
     private static void buildComparatorPoint(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_POINT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_POINT, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_POINT, type_);
     }
     private static void buildComparatorRadioLineMoves(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_RADIO_LINE_MOVES, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_RADIO_LINE_MOVES, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_RADIO_LINE_MOVES, type_);
     }
     private static void buildComparatorStatistic(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC, type_);
     }
     private static void buildComparatorStatisticCategory(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_CATEGORY, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_CATEGORY, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_CATEGORY, type_);
     }
     private static void buildComparatorStatisticInfo(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_INFO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_INFO, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_INFO, type_);
     }
     private static void buildComparatorStatisticInfoPkPlayer(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, type_);
     }
     private static void buildComparatorStatisticPokemon(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_POKEMON, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_POKEMON, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_POKEMON, type_);
     }
     private static void buildComparatorStatisticTr(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_TR, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_TR, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_TR, type_);
     }
     private static void buildComparatorStatisticType(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATISTIC_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATISTIC_TYPE, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATISTIC_TYPE, type_);
     }
     private static void buildComparatorStatusStatistic(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STATUS_STATISTIC, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STATUS_STATISTIC, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STATUS_STATISTIC, type_);
     }
     private static void buildComparatorStringList(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_STRING_LIST, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_STRING_LIST, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_STRING_LIST, type_);
     }
     private static void buildComparatorTypesDuo(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_TYPES_DUO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_TYPES_DUO, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_TYPES_DUO, type_);
     }
     private static void buildComparatorWeatherType(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_WEATHER_TYPE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_WEATHER_TYPE, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_WEATHER_TYPE, type_);
     }
     private static void buildComparatorWildPokemonDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMPARATOR_WILD_POKEMON_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMPARATOR_WILD_POKEMON_DTO, type_);
+        _std.getStandards().addEntry(TYPE_COMPARATOR_WILD_POKEMON_DTO, type_);
     }
 }

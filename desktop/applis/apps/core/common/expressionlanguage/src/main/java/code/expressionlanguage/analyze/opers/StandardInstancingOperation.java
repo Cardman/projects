@@ -256,7 +256,7 @@ public final class StandardInstancingOperation extends
             StringList params_ = id_.getConstraints().getParametersTypes();
             feed_ = new ConstructorId(idClass_, params_, vararg_);
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new ClassArgumentMatching(_realClassName),g_, feed_, _paramVargArg, OperationNode.toArgArray(_firstArgs));
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new ClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, OperationNode.toArgArray(_firstArgs));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(_realClassName));
             return;

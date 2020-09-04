@@ -37,51 +37,51 @@ public final class AikiBeansStd {
     }
     private static void buildCommonBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_COMMON_BEAN, fields_, constructors_, methods_, BeanNatLgNames.TYPE_BEAN, MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_COMMON_BEAN, type_);
+        _std.getStandards().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_WELCOME_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(CLICK_POKEDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(CLICK_POKEDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(CLICK_ITEMS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(CLICK_ITEMS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(SEE_ALL_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(SEE_ALL_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(SEE_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(SEE_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(SEE_NOT_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(SEE_NOT_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(CLICK_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(CLICK_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(CLICK_SIMULATION,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_WELCOME_BEAN, type_);
+        method_ = new StandardMethod(CLICK_SIMULATION,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         WelcomeBean instance_ = (WelcomeBean) ((RealInstanceStruct)_instance).getInstance();

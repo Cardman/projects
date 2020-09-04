@@ -707,7 +707,7 @@ public final class ResolvingImportTypes {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _analyzable.getAnalyzing().getAnaGeneType(_analyzable,s);
             if (super_ instanceof StandardType) {
-                for (StandardField m: ((StandardType)super_).getFields().values()) {
+                for (StandardField m: ((StandardType)super_).getFields()) {
                     int ind_ = notMatch(_method, m);
                     if (ind_ < 0) {
                         continue;

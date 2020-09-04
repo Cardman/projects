@@ -95,18 +95,7 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.EfficiencyRate;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticPokemon;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
 import aiki.game.NbFightCoords;
@@ -128,10 +117,7 @@ import aiki.game.fight.actions.ActionSimpleHeal;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
-import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.CopiedMove;
-import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.MovesAbilities;
+import aiki.game.fight.util.*;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Inventory;
 import aiki.game.player.Player;
@@ -206,7 +192,7 @@ public final class Instances {
     public static Combos newCombos() {
         Combos object_ = new Combos();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setEffects(new ObjectMap<StringList,EffectCombo>(cap_));
+        object_.setEffects(new ListEffectCombos(cap_));
         return object_;
     }
 
@@ -1225,7 +1211,7 @@ public final class Instances {
     public static Team newTeam() {
         Team object_ = new Team();
         CollCapacity cap_ = new CollCapacity(0);
-        object_.setEnabledMovesByGroup(new ObjectMap<StringList,ActivityOfMove>(cap_));
+        object_.setEnabledMovesByGroup(new ListActivityOfMoves(cap_));
         object_.setEnabledMoves(new StringMap<ActivityOfMove>(cap_));
         object_.setEnabledMovesWhileSendingFoe(new StringMap<Boolean>(cap_));
         object_.setEnabledMovesWhileSendingFoeUses(new StringMap<LgInt>(cap_));

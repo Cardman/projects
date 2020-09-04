@@ -9,7 +9,7 @@ import code.util.ints.Listable;
 /** Not compared in tests
     @author Cardman
  */
-public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implements Equallable<SortableCustList<T>> {
+public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> {
 
     /**
     */
@@ -34,7 +34,6 @@ public final class SortableCustList<T extends Cmp<T>> extends AbEqList<T> implem
         sortElts(new NatComparator<T>());
     }
 
-    @Override
     public boolean eq(SortableCustList<T> _b) {
         int len_ = size();
         if (_b.size() != len_) {

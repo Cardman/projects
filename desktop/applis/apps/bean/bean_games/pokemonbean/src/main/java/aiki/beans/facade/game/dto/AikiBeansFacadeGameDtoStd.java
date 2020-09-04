@@ -33,28 +33,28 @@ public final class AikiBeansFacadeGameDtoStd {
     }
     private static void buildStatisticInfoPkPlayer(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_STATISTIC_INFO_PK_PLAYER, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(GET_EV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(GET_IV,params_,_std.getAliasPrimShort(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
+        method_ = new StandardMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
     }
     public static ResultErrorStd invokeMethodStatisticInfoPkPlayer(ContextEl _cont, Struct _instance, ClassMethodId _method, Object... _args) {
         StatisticInfoPkPlayer instance_ = (StatisticInfoPkPlayer) ((RealInstanceStruct)_instance).getInstance();

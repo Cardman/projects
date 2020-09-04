@@ -18,9 +18,9 @@ public final class StandardClass extends StandardType implements GeneClass {
 
     private final boolean finalType;
     private final boolean abstractType;
-    public StandardClass(String _name,StringMap<StandardField> _fields,
+    public StandardClass(String _name,CustList<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
-            ObjectMap<MethodId, StandardMethod> _methods,
+                         CustList<StandardMethod> _methods,
             String _superClass, MethodModifier _modifier) {
         super(_name, _fields, _constructors, _methods);
         superClass = _superClass;

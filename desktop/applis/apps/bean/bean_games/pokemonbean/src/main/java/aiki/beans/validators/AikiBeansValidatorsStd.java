@@ -26,46 +26,46 @@ public final class AikiBeansValidatorsStd {
     }
     private static void buildPositiveRateValidator(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_POSITIVE_RATE_VALIDATOR, type_);
+        _std.getStandards().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
     }
     private static void buildRateValidator(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_RATE_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_RATE_VALIDATOR, type_);
+        _std.getStandards().addEntry(TYPE_RATE_VALIDATOR, type_);
     }
     private static void buildShortValidator(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_SHORT_VALIDATOR, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_SHORT_VALIDATOR, type_);
+        _std.getStandards().addEntry(TYPE_SHORT_VALIDATOR, type_);
     }
     private static void buildUnselectedRadio(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_UNSELECTED_RADIO, fields_, constructors_, methods_, BeanNatLgNames.TYPE_VALIDATOR, MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_UNSELECTED_RADIO, type_);
+        _std.getStandards().addEntry(TYPE_UNSELECTED_RADIO, type_);
     }
 }

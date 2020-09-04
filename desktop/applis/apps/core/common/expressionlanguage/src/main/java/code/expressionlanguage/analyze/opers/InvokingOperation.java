@@ -115,7 +115,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(_an,base_);
         CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(g_);
         for (GeneConstructor e: constructors_) {
-            ConstructorId ctor_ = e.getId();
+            ConstructorId ctor_ = e.getId().copy(base_);
             if (exclude(g_,_an,null,-1, e)) {
                 continue;
             }

@@ -32,20 +32,20 @@ public final class AikiBeansSolutionStd {
     }
     private static void buildSolutionBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_SOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(STEPS,new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.add(new StandardField(STEPS, BeanNatLgNames.TYPE_LIST,false,false,type_));
         params_ = new StringList(_std.getAliasLong(),_std.getAliasLong());
-        method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_SOLUTION_BEAN, type_);
+        method_ = new StandardMethod(GET_PLACE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add(method_);
+        _std.getStandards().addEntry(TYPE_SOLUTION_BEAN, type_);
     }
     public static ResultErrorStd getResultSolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         BeanLgNames std_ = (BeanLgNames) _cont.getStandards();

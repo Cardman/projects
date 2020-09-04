@@ -1,9 +1,11 @@
 package aiki.fight.util;
 
 import aiki.fight.enums.Statistic;
+import aiki.instances.Instances;
 import aiki.map.tree.util.Dims;
 import aiki.map.util.ScreenCoords;
 import code.maths.Rate;
+import code.util.StringList;
 import org.junit.Test;
 
 import static aiki.db.EquallablePkUtil.assertEq;
@@ -118,5 +120,21 @@ public final class RecordsTest {
     @Test
     public void test14() {
         assertEq("0;0",new ScreenCoords().display());
+    }
+    @Test
+    public void test15() {
+        assertEq(0,new ListEffectCombos().getVal(new StringList()).getEffectEndRound().size());
+    }
+    @Test
+    public void test16() {
+        ListEffectCombos l_ = new ListEffectCombos();
+        l_.add(new ListEffectCombo(new StringList(),Instances.newEffectCombo()));
+        assertEq(0, l_.getVal(new StringList()).getEffectEndRound().size());
+    }
+    @Test
+    public void test17() {
+        ListEffectCombos l_ = new ListEffectCombos();
+        l_.add(new ListEffectCombo(new StringList(""),Instances.newEffectCombo()));
+        assertEq(0, l_.getVal(new StringList()).getEffectEndRound().size());
     }
 }

@@ -41,63 +41,63 @@ public final class AikiBeansFacadeSimulationDtoStd {
     }
     private static void buildEvLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EV_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(EV,new StandardField(EV,_std.getAliasPrimShort(),false,false,type_));
-        _std.getStandards().put(TYPE_EV_LINE, type_);
+        fields_.add(new StandardField(EV,_std.getAliasPrimShort(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EV_LINE, type_);
     }
     private static void buildPokemonPlayerDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_POKEMON_PLAYER_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().put(TYPE_POKEMON_PLAYER_DTO, type_);
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_POKEMON_PLAYER_DTO, type_);
     }
     private static void buildPokemonTrainerDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_POKEMON_TRAINER_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().put(TYPE_POKEMON_TRAINER_DTO, type_);
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_POKEMON_TRAINER_DTO, type_);
     }
     private static void buildRadioLineMove(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_RADIO_LINE_MOVE, fields_, constructors_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE, MethodModifier.NORMAL);
-        fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().put(TYPE_RADIO_LINE_MOVE, type_);
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_RADIO_LINE_MOVE, type_);
     }
     private static void buildSelectLineMove(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_SELECT_LINE_MOVE, fields_, constructors_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE, MethodModifier.NORMAL);
-        fields_.put(SELECTED,new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false,type_));
-        _std.getStandards().put(TYPE_SELECT_LINE_MOVE, type_);
+        fields_.add(new StandardField(SELECTED,_std.getAliasPrimBoolean(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_SELECT_LINE_MOVE, type_);
     }
     public static ResultErrorStd getResultEvLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

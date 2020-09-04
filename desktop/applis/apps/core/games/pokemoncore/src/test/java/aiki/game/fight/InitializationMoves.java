@@ -53,6 +53,7 @@ import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.CategoryMult;
+import aiki.fight.util.ListEffectCombo;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import aiki.map.levels.enums.EnvironmentType;
@@ -7419,13 +7420,13 @@ final class InitializationMoves {
         effetCombinaison_.getEffectEndRound().add(effectEndRoundFoe_);
         effetCombinaison_.setRankIncrementNbRound((short)14);
         effetCombinaison_.getRepeatedRoundsLaw().addEvent(new Rate("3"), LgInt.one());
-        _data.getCombos().getEffects().addEntry(new StringList(AIRE_DE_FEU,AIRE_D_HERBE), effetCombinaison_);
+        _data.getCombos().getEffects().add(new ListEffectCombo(new StringList(AIRE_DE_FEU,AIRE_D_HERBE), effetCombinaison_));
         effetCombinaison_ = defaultEffetCombinaison();
         effetCombinaison_.setMultEvtRateSecEff(new Rate("2"));
         effetCombinaison_.setRankIncrementNbRound((short)14);
         effetCombinaison_.getRepeatedRoundsLaw().addEvent(new Rate("2"), LgInt.one());
         effetCombinaison_.getRepeatedRoundsLaw().addEvent(new Rate("3"), LgInt.one());
-        _data.getCombos().getEffects().addEntry(new StringList(AIRE_DE_FEU,AIRE_D_EAU), effetCombinaison_);
+        _data.getCombos().getEffects().add(new ListEffectCombo(new StringList(AIRE_DE_FEU,AIRE_D_EAU), effetCombinaison_));
         effetCombinaison_ = defaultEffetCombinaison();
         effetEquipe_ = defaultEffetEquipe();
         effetEquipe_.setTargetChoice(TargetChoice.LANCEUR);
@@ -7434,7 +7435,7 @@ final class InitializationMoves {
         effetCombinaison_.setMultEvtRateSecEff(new Rate("2"));
         effetCombinaison_.setRankIncrementNbRound((short)14);
         effetCombinaison_.getRepeatedRoundsLaw().addEvent(new Rate("3"), LgInt.one());
-        _data.getCombos().getEffects().addEntry(new StringList(AIRE_D_EAU,AIRE_D_HERBE), effetCombinaison_);
+        _data.getCombos().getEffects().add(new ListEffectCombo(new StringList(AIRE_D_EAU,AIRE_D_HERBE), effetCombinaison_));
         _data.completeMembersCombos();
     }
 

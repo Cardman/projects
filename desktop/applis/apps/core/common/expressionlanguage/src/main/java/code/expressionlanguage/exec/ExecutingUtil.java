@@ -351,22 +351,22 @@ public final class ExecutingUtil {
         return new ClassMetaInfo(_context.getStandards().getAliasVoid(),_context, ClassCategory.VOID,"");
     }
     public static ClassMetaInfo getCustomClassMetaInfo(ExecRootBlock _type,String _name, ContextEl _context) {
-        ObjectMap<MethodId, MethodMetaInfo> infos_;
-        infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosBlock_;
-        infosBlock_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
-        ObjectMap<MethodId, MethodMetaInfo> infosImplicits_;
-        ObjectMap<MethodId, MethodMetaInfo> infosTrues_;
-        ObjectMap<MethodId, MethodMetaInfo> infosFalses_;
-        infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        infosImplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        infosTrues_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        infosFalses_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        CustList<MethodMetaInfo> infos_;
+        infos_ = new CustList<MethodMetaInfo>();
+        CustList<MethodMetaInfo> infosBlock_;
+        infosBlock_ = new CustList<MethodMetaInfo>();
+        CustList<MethodMetaInfo> infosExplicits_;
+        CustList<MethodMetaInfo> infosImplicits_;
+        CustList<MethodMetaInfo> infosTrues_;
+        CustList<MethodMetaInfo> infosFalses_;
+        infosExplicits_ = new CustList<MethodMetaInfo>();
+        infosImplicits_ = new CustList<MethodMetaInfo>();
+        infosTrues_ = new CustList<MethodMetaInfo>();
+        infosFalses_ = new CustList<MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
-        ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-        infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        CustList<ConstructorMetaInfo> infosConst_;
+        infosConst_ = new CustList<ConstructorMetaInfo>();
         CustList<ExecBlock> bl_ = ExecBlock.getDirectChildren(_type);
         String fileName_ = _type.getFile().getFileName();
         StringList inners_ = new StringList();
@@ -410,7 +410,7 @@ public final class ExecutingUtil {
                 met_.setFileName(fileName_);
                 met_.setExpCast(method_.getKind() == MethodKind.EXPLICIT_CAST || method_.getKind() == MethodKind.IMPLICIT_CAST
                         || method_.getKind() == MethodKind.TRUE_OPERATOR  || method_.getKind() == MethodKind.FALSE_OPERATOR);
-                infos_.put(id_, met_);
+                infos_.add(met_);
                 if (method_.getKind() == MethodKind.EXPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
                     met_.setAnnotableBlock(method_);
@@ -419,7 +419,7 @@ public final class ExecutingUtil {
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
-                    infosExplicits_.put(id_, met_);
+                    infosExplicits_.add(met_);
                 }
                 if (method_.getKind() == MethodKind.IMPLICIT_CAST) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
@@ -429,7 +429,7 @@ public final class ExecutingUtil {
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
-                    infosImplicits_.put(id_, met_);
+                    infosImplicits_.add(met_);
                 }
                 if (method_.getKind() == MethodKind.TRUE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
@@ -439,7 +439,7 @@ public final class ExecutingUtil {
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
-                    infosTrues_.put(id_, met_);
+                    infosTrues_.add(met_);
                 }
                 if (method_.getKind() == MethodKind.FALSE_OPERATOR) {
                     met_ = new MethodMetaInfo(_name,method_.getAccess(), idCl_, id_, method_.getModifier(), ret_, fid_, formCl_);
@@ -449,7 +449,7 @@ public final class ExecutingUtil {
                     met_.setDeclaring(_type);
                     met_.setFileName(fileName_);
                     met_.setExpCast(true);
-                    infosFalses_.put(id_, met_);
+                    infosFalses_.add(met_);
                 }
             }
             if (b instanceof ExecInitBlock) {
@@ -471,13 +471,13 @@ public final class ExecutingUtil {
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                infos_.put(id_, met_);
+                infos_.add(met_);
                 met_ = new MethodMetaInfo(_name,AccessEnum.PRIVATE, idCl_, id_,mod_, ret_, fid_, formCl_);
                 met_.setInvokable(false);
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                infosBlock_.put(id_, met_);
+                infosBlock_.add(met_);
             }
             if (b instanceof ExecAnnotationMethodBlock) {
                 ExecAnnotationMethodBlock method_ = (ExecAnnotationMethodBlock) b;
@@ -492,7 +492,7 @@ public final class ExecutingUtil {
                 met_.setCalleeInv(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                infos_.put(id_, met_);
+                infos_.add(met_);
             }
             if (b instanceof ExecConstructorBlock) {
                 existCtor_ = true;
@@ -506,7 +506,7 @@ public final class ExecutingUtil {
                 met_.setCallee(method_);
                 met_.setDeclaring(_type);
                 met_.setFileName(fileName_);
-                infosConst_.put(id_, met_);
+                infosConst_.add(met_);
             }
         }
         if (!existCtor_) {
@@ -518,7 +518,7 @@ public final class ExecutingUtil {
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, acc_, id_, ret_, fid_, _name);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
-            infosConst_.put(id_, met_);
+            infosConst_.add(met_);
         }
         if (_type instanceof ExecEnumBlock) {
             String valueOf_ = _context.getStandards().getAliasEnumPredValueOf();
@@ -532,14 +532,14 @@ public final class ExecutingUtil {
             MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
-            infos_.put(id_, met_);
+            infos_.add(met_);
             id_ = new MethodId(MethodAccessKind.STATIC, values_, new StringList());
             ret_ = StringExpUtil.getPrettyArrayType(ret_);
             fid_ = id_;
             met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, MethodModifier.STATIC, ret_, fid_, decl_);
             met_.setFileName(fileName_);
             met_.setDeclaring(_type);
-            infos_.put(id_, met_);
+            infos_.add(met_);
         }
         ExecRootBlock par_ = _type.getParentType();
         String format_;
@@ -561,7 +561,7 @@ public final class ExecutingUtil {
             cl_.setFileName(fileName_);
             cl_.setAnnotableBlock(_type);
             cl_.setRootBlock(_type);
-            cl_.getBlocsInfos().putAllMap(infosBlock_);
+            cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
         if (_type instanceof ExecAnnotationBlock) {
@@ -570,7 +570,7 @@ public final class ExecutingUtil {
             cl_.setFileName(fileName_);
             cl_.setAnnotableBlock(_type);
             cl_.setRootBlock(_type);
-            cl_.getBlocsInfos().putAllMap(infosBlock_);
+            cl_.getBlocsInfos().addAllElts(infosBlock_);
             return cl_;
         }
         ClassCategory cat_ = ClassCategory.CLASS;
@@ -590,7 +590,7 @@ public final class ExecutingUtil {
         cl_.setFileName(fileName_);
         cl_.setAnnotableBlock(_type);
         cl_.setRootBlock(_type);
-        cl_.getBlocsInfos().putAllMap(infosBlock_);
+        cl_.getBlocsInfos().addAllElts(infosBlock_);
         return cl_;
     }
 
@@ -678,23 +678,23 @@ public final class ExecutingUtil {
     }
     public static ClassMetaInfo getClassMetaInfo(ContextEl _context,StandardType _type,String _name) {
         String k_ = _type.getFullName();
-        ObjectMap<MethodId, MethodMetaInfo> infos_;
-        infos_ = new ObjectMap<MethodId, MethodMetaInfo>();
+        CustList<MethodMetaInfo> infos_;
+        infos_ = new CustList<MethodMetaInfo>();
         StringMap<FieldMetaInfo> infosFields_;
         infosFields_ = new StringMap<FieldMetaInfo>();
-        ObjectMap<ConstructorId, ConstructorMetaInfo> infosConst_;
-        infosConst_ = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        CustList<ConstructorMetaInfo> infosConst_;
+        infosConst_ = new CustList<ConstructorMetaInfo>();
         StringList inners_ = new StringList();
         boolean existCtor_ = false;
-        ObjectMap<MethodId, MethodMetaInfo> infosExplicits_;
-        infosExplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosImplicits_;
-        infosImplicits_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosTrues_;
-        infosTrues_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        ObjectMap<MethodId, MethodMetaInfo> infosFalses_;
-        infosFalses_ = new ObjectMap<MethodId, MethodMetaInfo>();
-        for (StandardField f: _type.getFields().values()) {
+        CustList<MethodMetaInfo> infosExplicits_;
+        infosExplicits_ = new CustList<MethodMetaInfo>();
+        CustList<MethodMetaInfo> infosImplicits_;
+        infosImplicits_ = new CustList<MethodMetaInfo>();
+        CustList<MethodMetaInfo> infosTrues_;
+        infosTrues_ = new CustList<MethodMetaInfo>();
+        CustList<MethodMetaInfo> infosFalses_;
+        infosFalses_ = new CustList<MethodMetaInfo>();
+        for (StandardField f: _type.getFields()) {
             String ret_ = f.getImportedClassName();
             boolean staticElement_ = f.isStaticField();
             boolean finalElement_ = f.isFinalField();
@@ -703,21 +703,21 @@ public final class ExecutingUtil {
                 infosFields_.put(g, met_);
             }
         }
-        for (StandardMethod m: _type.getMethods().values()) {
+        for (StandardMethod m: _type.getMethods()) {
             MethodId id_ = m.getId();
             String ret_ = m.getImportedReturnType();
             String decl_ = _type.getFullName();
             MethodMetaInfo met_ = new MethodMetaInfo(_name,AccessEnum.PUBLIC,decl_, id_, m.getModifier(), ret_, id_, decl_);
             met_.setStdCallee(m);
-            infos_.put(id_, met_);
+            infos_.add(met_);
         }
         for (StandardConstructor d: _type.getConstructors()) {
             existCtor_ = true;
-            ConstructorId id_ = d.getGenericId();
+            ConstructorId id_ = new ConstructorId(_name, d.getImportedParametersTypes(), d.isVarargs());
             String decl_ = _type.getFullName();
             String ret_ = d.getImportedReturnType();
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, id_, decl_);
-            infosConst_.put(id_, met_);
+            infosConst_.add(met_);
         }
         if (!existCtor_) {
             ConstructorId id_ = new ConstructorId(_name, new StringList(), false);
@@ -725,7 +725,7 @@ public final class ExecutingUtil {
             String ret_ = _context.getStandards().getAliasVoid();
             fid_ = id_;
             ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, AccessEnum.PUBLIC, id_, ret_, fid_, _name);
-            infosConst_.put(id_, met_);
+            infosConst_.add(met_);
         }
         boolean st_ = _type.isStaticType();
         if (_type instanceof StandardInterface) {

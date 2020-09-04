@@ -197,32 +197,32 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public void buildOther() {
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         StringList params_;
         StandardMethod method_;
         StandardType std_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, getAliasObject(), MethodModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);
+        methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, std_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL, std_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasMessageFormat, params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL, std_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(getAliasString()), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL, std_);
-        methods_.put(method_.getId(), method_);
-        getStandards().put(aliasMessage, std_);
+        method_ = new StandardMethod(aliasMessageSetArgs, params_, getAliasVoid(), true, MethodModifier.NORMAL);
+        methods_.add( method_);
+        getStandards().addEntry(aliasMessage, std_);
     }
 
     public void buildIterables(Configuration _context) {

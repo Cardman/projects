@@ -17,13 +17,13 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     private final String packageName;
 
     private final CustList<StandardConstructor> constructors;
-    private final StringMap<StandardField> fields;
-    private final ObjectMap<MethodId, StandardMethod> methods;
+    private final CustList<StandardField> fields;
+    private final CustList<StandardMethod> methods;
 
     protected StandardType(String _name,
-            StringMap<StandardField> _fields,
+                           CustList<StandardField> _fields,
             CustList<StandardConstructor> _constructors,
-            ObjectMap<MethodId, StandardMethod> _methods) {
+                           CustList<StandardMethod> _methods) {
         name = getNamePart(_name);
         packageName = getPackagePart(_name);
         fields = _fields;
@@ -72,7 +72,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     public StringList getParamTypesValues() {
         return new StringList();
     }
-    public StringMap<StandardField> getFields() {
+    public CustList<StandardField> getFields() {
         return fields;
     }
 
@@ -101,7 +101,7 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
         return constructors;
     }
 
-    public ObjectMap<MethodId, StandardMethod> getMethods() {
+    public CustList<StandardMethod> getMethods() {
         return methods;
     }
 

@@ -107,18 +107,7 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.EfficiencyRate;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticPokemon;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
 import aiki.game.NbFightCoords;
@@ -142,10 +131,7 @@ import aiki.game.fight.actions.ActionSimpleHeal;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
-import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.CopiedMove;
-import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.MovesAbilities;
+import aiki.game.fight.util.*;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -8881,11 +8867,11 @@ public final class DocumentReaderAikiCoreUtil {
         }
         return map_;
     }
-    private static ObjectMap<StringList,EffectCombo> getMapStringListEffectCombo(Element _elt) {
+    private static ListEffectCombos getMapStringListEffectCombo(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StringList,EffectCombo> map_ = new ObjectMap<StringList,EffectCombo>(cap_);
+        ListEffectCombos map_ = new ListEffectCombos(cap_);
         CustList<StringList> keys_ = new CustList<StringList>(cap_);
         CustList<EffectCombo> values_ = new CustList<EffectCombo>(cap_);
         for (Element c: childElements_) {
@@ -8897,15 +8883,15 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.add(new ListEffectCombo(keys_.get(i), values_.get(i)));
         }
         return map_;
     }
-    private static ObjectMap<StringList,ActivityOfMove> getMapStringListActivityOfMove(Element _elt) {
+    private static ListActivityOfMoves getMapStringListActivityOfMove(Element _elt) {
         ElementList childElements_ = _elt.getChildElements();
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
-        ObjectMap<StringList,ActivityOfMove> map_ = new ObjectMap<StringList,ActivityOfMove>(cap_);
+        ListActivityOfMoves map_ = new ListActivityOfMoves(cap_);
         CustList<StringList> keys_ = new CustList<StringList>(cap_);
         CustList<ActivityOfMove> values_ = new CustList<ActivityOfMove>(cap_);
         for (Element c: childElements_) {
@@ -8917,7 +8903,7 @@ public final class DocumentReaderAikiCoreUtil {
         }
         int min_ = Math.min(keys_.size(), values_.size());
         for (int i = CustList.FIRST_INDEX; i < min_; i++) {
-            map_.put(keys_.get(i), values_.get(i));
+            map_.add(new ListActivityOfMove(keys_.get(i), values_.get(i)));
         }
         return map_;
     }

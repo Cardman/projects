@@ -33,14 +33,14 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     private String typeOwner = EMPTY_STRING;
 
     private final StringMap<FieldMetaInfo> fieldsInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> explicitsInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> implicitsInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> truesInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> falsesInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> methodsInfos;
-    private final ObjectMap<MethodId, MethodMetaInfo> blocsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
+    private final CustList<MethodMetaInfo> explicitsInfos;
+    private final CustList<MethodMetaInfo> implicitsInfos;
+    private final CustList<MethodMetaInfo> truesInfos;
+    private final CustList<MethodMetaInfo> falsesInfos;
+    private final CustList<MethodMetaInfo> methodsInfos;
+    private final CustList<MethodMetaInfo> blocsInfos = new CustList<MethodMetaInfo>();
 
-    private final ObjectMap<ConstructorId, ConstructorMetaInfo> constructorsInfos;
+    private final CustList<ConstructorMetaInfo> constructorsInfos;
 
     private ClassCategory category;
 
@@ -58,12 +58,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         name = _name;
         variableOwner = "";
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        explicitsInfos = new CustList<MethodMetaInfo>();
+        implicitsInfos = new CustList< MethodMetaInfo>();
+        truesInfos = new CustList<MethodMetaInfo>();
+        falsesInfos = new CustList<MethodMetaInfo>();
+        methodsInfos = new CustList<MethodMetaInfo>();
+        constructorsInfos = new CustList<ConstructorMetaInfo>();
     }
     public ClassMetaInfo(String _name, ContextEl _context, ClassCategory _cat, String _variableOwner) {
         name = _name;
@@ -93,12 +93,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             access = AccessEnum.PUBLIC;
         }
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        explicitsInfos = new CustList<MethodMetaInfo>();
+        implicitsInfos = new CustList<MethodMetaInfo>();
+        truesInfos = new CustList<MethodMetaInfo>();
+        falsesInfos = new CustList<MethodMetaInfo>();
+        methodsInfos = new CustList<MethodMetaInfo>();
+        constructorsInfos = new CustList<ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
     }
@@ -111,12 +111,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superClass = EMPTY_STRING;
         access = AccessEnum.PUBLIC;
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        explicitsInfos = new CustList<MethodMetaInfo>();
+        implicitsInfos = new CustList<MethodMetaInfo>();
+        truesInfos = new CustList<MethodMetaInfo>();
+        falsesInfos = new CustList<MethodMetaInfo>();
+        methodsInfos = new CustList<MethodMetaInfo>();
+        constructorsInfos = new CustList<ConstructorMetaInfo>();
         category = ClassCategory.VOID;
         finalType = true;
     }
@@ -130,12 +130,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         superClass = EMPTY_STRING;
         variableOwner = _variableOwner;
         fieldsInfos = new StringMap<FieldMetaInfo>();
-        explicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        implicitsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        truesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        falsesInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        methodsInfos = new ObjectMap<MethodId, MethodMetaInfo>();
-        constructorsInfos = new ObjectMap<ConstructorId, ConstructorMetaInfo>();
+        explicitsInfos = new CustList<MethodMetaInfo>();
+        implicitsInfos = new CustList<MethodMetaInfo>();
+        truesInfos = new CustList<MethodMetaInfo>();
+        falsesInfos = new CustList<MethodMetaInfo>();
+        methodsInfos = new CustList<MethodMetaInfo>();
+        constructorsInfos = new CustList<ConstructorMetaInfo>();
         category = _cat;
         finalType = true;
         staticType = true;
@@ -146,12 +146,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
             String _typeOwner,
             StringList _memberTypes,
             StringMap<FieldMetaInfo> _fields,
-                         ObjectMap<MethodId, MethodMetaInfo> _exlicits,
-                         ObjectMap<MethodId, MethodMetaInfo> _imlicits,
-                         ObjectMap<MethodId, MethodMetaInfo> _trues,
-                         ObjectMap<MethodId, MethodMetaInfo> _falses,
-                         ObjectMap<MethodId, MethodMetaInfo> _methods,
-                         ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
+                         CustList<MethodMetaInfo> _exlicits,
+                         CustList<MethodMetaInfo> _imlicits,
+                         CustList<MethodMetaInfo> _trues,
+                         CustList<MethodMetaInfo> _falses,
+                         CustList<MethodMetaInfo> _methods,
+                         CustList<ConstructorMetaInfo> _constructors,
             ClassCategory _category,
             boolean _abstractType,
             boolean _staticType,
@@ -179,12 +179,12 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public ClassMetaInfo(String _name,
             StringList _superInterfaces,String _typeOwner,
             StringList _memberTypes,StringMap<FieldMetaInfo> _fields,
-                         ObjectMap<MethodId, MethodMetaInfo> _exlicits,
-                         ObjectMap<MethodId, MethodMetaInfo> _imlicits,
-                         ObjectMap<MethodId, MethodMetaInfo> _trues,
-                         ObjectMap<MethodId, MethodMetaInfo> _falses,
-                         ObjectMap<MethodId, MethodMetaInfo> _methods,
-                         ObjectMap<ConstructorId, ConstructorMetaInfo> _constructors,
+                         CustList<MethodMetaInfo> _exlicits,
+                         CustList<MethodMetaInfo> _imlicits,
+                         CustList<MethodMetaInfo> _trues,
+                         CustList<MethodMetaInfo> _falses,
+                         CustList<MethodMetaInfo> _methods,
+                         CustList<ConstructorMetaInfo> _constructors,
             ClassCategory _category, boolean _staticType, AccessEnum _access) {
         variableOwner = "";
         typeOwner = _typeOwner;
@@ -216,16 +216,16 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         _dest.memberTypes.addAllElts(_src.memberTypes);
         _dest.typeOwner = _src.typeOwner;
         _dest.fieldsInfos.putAllMap(_src.fieldsInfos);
-        _dest.methodsInfos.putAllMap(_src.methodsInfos);
-        _dest.constructorsInfos.putAllMap(_src.constructorsInfos);
-        _dest.falsesInfos.putAllMap(_src.falsesInfos);
-        _dest.truesInfos.putAllMap(_src.truesInfos);
-        _dest.implicitsInfos.putAllMap(_src.implicitsInfos);
-        _dest.explicitsInfos.putAllMap(_src.explicitsInfos);
+        _dest.methodsInfos.addAllElts(_src.methodsInfos);
+        _dest.constructorsInfos.addAllElts(_src.constructorsInfos);
+        _dest.falsesInfos.addAllElts(_src.falsesInfos);
+        _dest.truesInfos.addAllElts(_src.truesInfos);
+        _dest.implicitsInfos.addAllElts(_src.implicitsInfos);
+        _dest.explicitsInfos.addAllElts(_src.explicitsInfos);
         _dest.fileName = _src.fileName;
         _dest.annotableBlock = _src.annotableBlock;
         _dest.rootBlock = _src.rootBlock;
-        _dest.blocsInfos.putAllMap(_src.blocsInfos);
+        _dest.blocsInfos.addAllElts(_src.blocsInfos);
     }
 
     public ExecAnnotableBlock getAnnotableBlock() {
@@ -368,27 +368,27 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return fieldsInfos;
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getExplicitsInfos() {
+    public CustList<MethodMetaInfo> getExplicitsInfos() {
         return explicitsInfos;
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getImplicitsInfos() {
+    public CustList<MethodMetaInfo> getImplicitsInfos() {
         return implicitsInfos;
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getTruesInfos() {
+    public CustList<MethodMetaInfo> getTruesInfos() {
         return truesInfos;
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getFalsesInfos() {
+    public CustList<MethodMetaInfo> getFalsesInfos() {
         return falsesInfos;
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getMethodsInfos() {
+    public CustList<MethodMetaInfo> getMethodsInfos() {
         return methodsInfos;
     }
 
-    public ObjectMap<ConstructorId, ConstructorMetaInfo> getConstructorsInfos() {
+    public CustList<ConstructorMetaInfo> getConstructorsInfos() {
         return constructorsInfos;
     }
 
@@ -431,7 +431,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return getDisplayedString();
     }
 
-    public ObjectMap<MethodId, MethodMetaInfo> getBlocsInfos() {
+    public CustList<MethodMetaInfo> getBlocsInfos() {
         return blocsInfos;
     }
 

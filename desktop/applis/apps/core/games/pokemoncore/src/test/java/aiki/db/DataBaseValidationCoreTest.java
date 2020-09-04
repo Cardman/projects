@@ -662,18 +662,18 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         effectCombo_.getRepeatedRoundsLaw().addEvent(Rate.newRate("-1"),LgInt.newLgInt("-1"));
         effectCombo_.getRepeatedRoundsLaw().addEvent(Rate.newRate("1/2"),LgInt.newLgInt("-1"));
         effectCombo_.setMultEvtRateSecEff(Rate.newRate("-1"));
-        data_.getCombos().getEffects().addEntry(new StringList(), effectCombo_);
+        data_.getCombos().getEffects().add(new ListEffectCombo(new StringList(), effectCombo_));
         effectCombo_ = Instances.newEffectCombo();
         effectCombo_.getRepeatedRoundsLaw().addEvent(Rate.newRate("0"),LgInt.newLgInt("-1"));
         effectCombo_.getRepeatedRoundsLaw().addEvent(Rate.newRate("1/2"),LgInt.newLgInt("-1"));
         effectCombo_.setMultEvtRateSecEff(Rate.newRate("-1"));
-        data_.getCombos().getEffects().addEntry(new StringList(ELECTRICK), effectCombo_);
+        data_.getCombos().getEffects().add(new ListEffectCombo(new StringList(ELECTRICK), effectCombo_));
         effectCombo_ = Instances.newEffectCombo();
         effectCombo_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         effectCombo_.getEffectEndRound().add(Instances.newEffectEndRoundFoe());
         effectCombo_.getTeamMove().add(Instances.newEffectTeam());
         effectCombo_.getTeamMove().add(Instances.newEffectTeam());
-        data_.getCombos().getEffects().addEntry(new StringList(TREMPETTE), effectCombo_);
+        data_.getCombos().getEffects().add(new ListEffectCombo(new StringList(TREMPETTE), effectCombo_));
         data_.validateCore(new PerCentImpl());
         assertTrue(data_.isError());
     }

@@ -103,18 +103,7 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.CategoryMult;
-import aiki.fight.util.EfficiencyRate;
-import aiki.fight.util.LevelMove;
-import aiki.fight.util.StatBaseEv;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticPokemon;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
 import aiki.game.NbFightCoords;
@@ -138,10 +127,7 @@ import aiki.game.fight.actions.ActionSimpleHeal;
 import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
-import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.CopiedMove;
-import aiki.game.fight.util.MoveTarget;
-import aiki.game.fight.util.MovesAbilities;
+import aiki.game.fight.util.*;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -4936,27 +4922,27 @@ public final class DocumentWriterAikiCoreUtil {
         return elt_;
     }
 
-    private static Element setMapStringListEffectCombo(ObjectMap<StringList,EffectCombo> _object, String _fieldName, Document _document) {
+    private static Element setMapStringListEffectCombo(CustList<ListEffectCombo> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StringList, EffectCombo> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setStringList(s.getKey(), EMPTY_STRING, _document);
+        for (ListEffectCombo s: _object) {
+            Element sub_ = DocumentWriterCoreUtil.setStringList(s.getList(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setEffectCombo(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setEffectCombo(s.getCombo(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;
     }
 
-    private static Element setMapStringListActivityOfMove(ObjectMap<StringList,ActivityOfMove> _object, String _fieldName, Document _document) {
+    private static Element setMapStringListActivityOfMove(CustList<ListActivityOfMove> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EntryCust<StringList, ActivityOfMove> s: _object.entryList()) {
-            Element sub_ = DocumentWriterCoreUtil.setStringList(s.getKey(), EMPTY_STRING, _document);
+        for (ListActivityOfMove s: _object) {
+            Element sub_ = DocumentWriterCoreUtil.setStringList(s.getList(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);
-            sub_ = setActivityOfMove(s.getValue(), EMPTY_STRING, _document);
+            sub_ = setActivityOfMove(s.getCombo(), EMPTY_STRING, _document);
             elt_.appendChild(sub_);
         }
         return elt_;

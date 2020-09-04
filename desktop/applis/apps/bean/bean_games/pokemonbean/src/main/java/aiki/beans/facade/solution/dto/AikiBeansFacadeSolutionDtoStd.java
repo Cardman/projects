@@ -40,49 +40,49 @@ public final class AikiBeansFacadeSolutionDtoStd {
     }
     private static void buildPlaceTrainerDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_PLACE_TRAINER_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(TRAINER,new StandardField(TRAINER,_std.getAliasString(),false,false,type_));
-        fields_.put(PLACE,new StandardField(PLACE,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_PLACE_TRAINER_DTO, type_);
+        fields_.add(new StandardField(TRAINER,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(PLACE,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_PLACE_TRAINER_DTO, type_);
     }
     private static void buildStepDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_STEP_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_POKEMON,params_, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(GET_POKEMON,params_, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_NAMES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_STEP_DTO, type_);
+        method_ = new StandardMethod(GET_NAMES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_STEP_DTO, type_);
     }
     private static void buildWildPokemonDto(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_WILD_POKEMON_DTO, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(IMAGE,new StandardField(IMAGE,_std.getAliasString(),false,false,type_));
-        fields_.put(NAME,new StandardField(NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(GENDER,new StandardField(GENDER,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_WILD_POKEMON_DTO, type_);
+        fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_WILD_POKEMON_DTO, type_);
     }
     public static ResultErrorStd getResultPlaceTrainerDto(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

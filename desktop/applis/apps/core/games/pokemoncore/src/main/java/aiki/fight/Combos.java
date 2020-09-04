@@ -1,14 +1,13 @@
 package aiki.fight;
 
 import aiki.db.DataBase;
-import aiki.fight.moves.effects.EffectCombo;
-import code.util.ObjectMap;
+import aiki.fight.util.ListEffectCombos;
 import code.util.StringList;
 
 
 public final class Combos {
 
-    private ObjectMap<StringList, EffectCombo> effects;
+    private ListEffectCombos effects;
 
     public void validate(DataBase _data) {
         for (StringList l : effects.getKeys()) {
@@ -22,11 +21,11 @@ public final class Combos {
         }
     }
 
-    public ObjectMap<StringList, EffectCombo> getEffects() {
+    public ListEffectCombos getEffects() {
         return effects;
     }
 
-    public void setEffects(ObjectMap<StringList, EffectCombo> _effects) {
+    public void setEffects(ListEffectCombos _effects) {
         effects = _effects;
     }
 

@@ -80,9 +80,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
         String clCurName_ = from.getName();
         classFromName = clCurName_;
-        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(clCurName_));
+        String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
+        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(id_);
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,id_,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);

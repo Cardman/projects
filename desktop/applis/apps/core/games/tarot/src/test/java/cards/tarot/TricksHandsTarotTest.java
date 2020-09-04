@@ -205,8 +205,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         small_.add(false);
         small_.add(false);
         small_.add(false);
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
-        EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < 3; i++) {
             m_.add(new EnumList<Miseres>());
@@ -567,8 +567,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         small_.add(false);
         small_.add(false);
         small_.add(false);
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
-        EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < 3; i++) {
             m_.add(new EnumList<Miseres>());
@@ -728,8 +728,8 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         small_.add(false);
         small_.add(false);
         small_.add(false);
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
-        EqList<EnumList<Handfuls>> dh_ = new EqList<EnumList<Handfuls>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
+        CustList<EnumList<Handfuls>> dh_ = new CustList<EnumList<Handfuls>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         for (int i = 0; i < 3; i++) {
             m_.add(new EnumList<Miseres>());
@@ -740,7 +740,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
     }
 
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,
-                                               EqList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                               CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>();
         byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();
@@ -750,7 +750,7 @@ public final class TricksHandsTarotTest extends CommonGameTarot {
         return newEndedGameTarot(_r,_trs,deal_,_m,_dh,_h,_dealer,_bids,_calledCards,_lastHand);
     }
     private static GameTarot newEndedGameTarot(RulesTarot _r, CustList<TrickTarot> _trs,CustList<HandTarot> _deal,
-                                               EqList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
+                                               CustList<EnumList<Miseres>> _m, CustList<EnumList<Handfuls>> _dh, CustList<HandTarot> _h, int _dealer,
                                                EnumList<BidTarot> _bids, HandTarot _calledCards, HandTarot _lastHand) {
         CustList<HandTarot> deal_ = new CustList<HandTarot>(_deal);
         byte nbPl_ = (byte) _r.getRepartition().getNombreJoueurs();

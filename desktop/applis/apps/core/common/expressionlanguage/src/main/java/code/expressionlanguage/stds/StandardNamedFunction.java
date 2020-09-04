@@ -12,19 +12,12 @@ public abstract class StandardNamedFunction {
 
     private final boolean varargs;
 
-    private final StandardType owner;
-
     protected StandardNamedFunction(String _name, StringList _parametersTypes,
-            String _returnType, boolean _varargs, StandardType _owner) {
+                                    String _returnType, boolean _varargs) {
         name = _name;
         parametersTypes = _parametersTypes;
         returnType = _returnType;
         varargs = _varargs;
-        owner = _owner;
-    }
-
-    public StandardType getOwner() {
-        return owner;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 package code.util.opers;
 import static code.util.EquallableExUtil.assertEq;
 
+import code.util.CustList;
 import org.junit.Test;
 
 import code.util.EqList;
@@ -135,7 +136,7 @@ public class StringListUtilTest {
     public void commonLinesFiles1(){
         String fileOne_ = "First line=Hello\nSecond line=World";
         String fileTwo_ = "Second line=World\nFirst line=Hello";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -144,7 +145,7 @@ public class StringListUtilTest {
     public void commonLinesFiles2(){
         String fileOne_ = "First line=Hell\nSecond line=World\nThird line=Word\nFourth line=Yes";
         String fileTwo_ = "First line=Hello\nSecond line=World\nThird line=We\nFourth line=Yes";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(2, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("Second line=World", common_.get(0).get(0));
@@ -155,7 +156,7 @@ public class StringListUtilTest {
     public void commonLinesFiles3(){
         String fileTwo_ = "First line=Hello\nSecond line=World";
         String fileOne_ = "Second line=World\nFirst line=Hello";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("Second line=World", common_.get(0).get(0));
@@ -164,7 +165,7 @@ public class StringListUtilTest {
     public void commonLinesFiles4(){
         String fileTwo_ = "First line=Hell\nSecond line=World\nThird line=Word\nFourth line=Yes";
         String fileOne_ = "First line=Hello\nSecond line=World\nThird line=We\nFourth line=Yes";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(2, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("Second line=World", common_.get(0).get(0));
@@ -175,7 +176,7 @@ public class StringListUtilTest {
     public void commonLinesFiles5(){
         String fileOne_ = "First line=Hello\nSecond line=World";
         String fileTwo_ = "First line=Hello\nSecond line=World\nThird line=We";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(2, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -185,7 +186,7 @@ public class StringListUtilTest {
     public void commonLinesFiles6(){
         String fileOne_ = "First line=Hello\nSecond line=World";
         String fileTwo_ = "First line=Hello\nSecond line=World\nThird line=We\nSecond line=World";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(2, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -195,7 +196,7 @@ public class StringListUtilTest {
     public void commonLinesFiles7(){
         String fileOne_ = "First line=Hello\nThird line=We\nSecond line=World";
         String fileTwo_ = "First line=Hello\nSecond line=World\nThird line=We\nSecond line=World";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(2, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -207,7 +208,7 @@ public class StringListUtilTest {
     public void commonLinesFiles8(){
         String fileTwo_ = "First line=Hello\nSecond line=World";
         String fileOne_ = "First line=Hello\nSecond line=World\nThird line=We";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(2, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -217,7 +218,7 @@ public class StringListUtilTest {
     public void commonLinesFiles9(){
         String fileTwo_ = "First line=Hello\nSecond line=World";
         String fileOne_ = "First line=Hello\nSecond line=World\nThird line=We\nSecond line=World";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(1, common_.size());
         assertEq(2, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));
@@ -227,7 +228,7 @@ public class StringListUtilTest {
     public void commonLinesFiles10(){
         String fileTwo_ = "First line=Hello\nThird line=We\nSecond line=World";
         String fileOne_ = "First line=Hello\nSecond line=World\nThird line=We\nSecond line=World";
-        EqList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
+        CustList<StringList> common_ = StringListUtil.commonLinesFiles(fileOne_, fileTwo_);
         assertEq(2, common_.size());
         assertEq(1, common_.get(0).size());
         assertEq("First line=Hello", common_.get(0).get(0));

@@ -53,90 +53,90 @@ public final class AikiBeansFacadeDtoStd {
     }
     private static void buildItemLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_ITEM_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(PRICE,new StandardField(PRICE,_std.getAliasPrimInteger(),false,false,type_));
-        fields_.put(DESCRIPTION_CLASS,new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_ITEM_LINE, type_);
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(PRICE,_std.getAliasPrimInteger(),false,false,type_));
+        fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_ITEM_LINE, type_);
     }
     private static void buildItemTypeLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_ITEM_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_ITEM_TYPE_LINE, type_);
+        _std.getStandards().addEntry(TYPE_ITEM_TYPE_LINE, type_);
     }
     private static void buildKeptMovesAfterFight(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
+        _std.getStandards().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
     }
     private static void buildMoveLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_MOVE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(PP,new StandardField(PP,_std.getAliasPrimShort(),false,false,type_));
-        fields_.put(CATEGORY,new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
-        fields_.put(PRIORITY,new StandardField(PRIORITY,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(PP,_std.getAliasPrimShort(),false,false,type_));
+        fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimShort(),false,false,type_));
         params_ = new StringList();
-        method_ = new StandardMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
+        method_ = new StandardMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_MOVE_LINE, type_);
+        method_ = new StandardMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_MOVE_LINE, type_);
     }
     private static void buildPokemonLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_POKEMON_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(TYPES,new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
-        fields_.put(EVOLUTIONS,new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
-        _std.getStandards().put(TYPE_POKEMON_LINE, type_);
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,type_));
+        fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_POKEMON_LINE, type_);
     }
     private static void buildWeatherTypeLine(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_WEATHER_TYPE_LINE, fields_, constructors_, methods_, _std.getAliasObject(), MethodModifier.NORMAL);
-        _std.getStandards().put(TYPE_WEATHER_TYPE_LINE, type_);
+        _std.getStandards().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
     public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

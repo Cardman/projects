@@ -50,6 +50,7 @@ import aiki.fight.pokemon.evolution.EvolutionMove;
 import aiki.fight.status.Status;
 import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
+import aiki.fight.util.ListEffectCombos;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.CheckNumericStringsFight;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -81,7 +82,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.EnumList;
 import code.util.EnumMap;
-import code.util.EqList;
 import code.util.NatStringTreeMap;
 import code.util.*;
 import code.util.ObjectMap;
@@ -863,7 +863,7 @@ public class DataBase {
             }
         }
         initFamilies();
-        EqList<StringList> lists_ = new EqList<StringList>();
+        CustList<StringList> lists_ = new CustList<StringList>();
         for (PokemonFamily f : families.values()) {
             lists_.add(f.getAllPokemon());
         }
@@ -2458,7 +2458,7 @@ public class DataBase {
 
     public void initCombosTest() {
         combos = new Combos();
-        combos.setEffects(new ObjectMap<StringList, EffectCombo>());
+        combos.setEffects(new ListEffectCombos());
     }
 
     public void completeMembersCombos() {

@@ -46,8 +46,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -110,8 +110,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -154,8 +154,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -211,8 +211,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -255,8 +255,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -299,8 +299,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -343,8 +343,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -411,8 +411,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(1, foeNumbers_.first().size());
@@ -467,8 +467,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(1, foeNumbers_.first().size());
@@ -503,8 +503,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(2, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -561,8 +561,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -602,8 +602,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -643,8 +643,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -684,8 +684,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -725,8 +725,8 @@ public class FightSimulationTest extends InitializationDataBase {
         CustList<CustList<PkTrainer>> foeNumbers_;
         Bytes mult_;
         Ints maxActions_;
-        EqList<StringList> objects_;
-        CustList<EqList<StringList>> usedStones_;
+        CustList<StringList> objects_;
+        CustList<CustList<StringList>> usedStones_;
         foeNumbers_ = fightSimulation_.getFoeTeams();
         assertEq(1, foeNumbers_.size());
         assertEq(2, foeNumbers_.first().size());
@@ -3129,7 +3129,7 @@ public class FightSimulationTest extends InitializationDataBase {
         nextKey_.setRound((byte) (nextKey_.getRound()+1));
         TreeMap<KeyFightRound, StringList> tree_;
         tree_ = fightSimulation_.getMoves().getVal((byte) 1);
-        EqList<StringList> list_ = fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(currentFight_);
+        CustList<StringList> list_ = fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(currentFight_);
         list_.add(new StringList(BALL_OMBRE,TUNNEL,BULLES_D_O,TONNERRE));
         //by evolving twice between fights
         fightSimulation_.validateKeptMoves(1, data, currentFight_, nextKey_, tree_);

@@ -4879,7 +4879,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         p_.ajouter(CardTarot.TRUMP_5);
         p_.ajouter(CardTarot.TRUMP_6);
         p_.ajouter(CardTarot.TRUMP_7);
-        EqList<EnumList<Miseres>> m_ = new EqList<EnumList<Miseres>>();
+        CustList<EnumList<Miseres>> m_ = new CustList<EnumList<Miseres>>();
         CustList<HandTarot> h_ = new CustList<HandTarot>();
         feedLength(m_,h_);
         Ints ls_ = new Ints();
@@ -4907,7 +4907,7 @@ public final class GameTarotCommonPlayingTest extends CommonGameTarot {
         assertEq(1, players_.size());
         assertTrue(players_.contains(3));
     }
-    private static void feedLength(EqList<EnumList<Miseres>> _m, CustList<HandTarot> _h) {
+    private static void feedLength(CustList<EnumList<Miseres>> _m, CustList<HandTarot> _h) {
         for (int i = 0; i < 5; i++) {
             _m.add(new EnumList<Miseres>());
             _h.add(new HandTarot());

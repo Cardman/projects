@@ -67,152 +67,152 @@ public final class AikiBeansPokemonEvolutionsStd {
     }
     private static void buildEvolutionBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_BEAN, fields_, constructors_, methods_, AikiBeansStd.TYPE_COMMON_BEAN, MethodModifier.NORMAL);
-        fields_.put(INDEX,new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
-        fields_.put(NAME,new StandardField(NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(BASE,new StandardField(BASE,_std.getAliasString(),false,false,type_));
-        fields_.put(DISPLAY_NAME,new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
-        fields_.put(DISPLAY_BASE,new StandardField(DISPLAY_BASE,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(INDEX,_std.getAliasPrimLong(),false,false,type_));
+        fields_.add(new StandardField(NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(BASE,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(DISPLAY_BASE,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(CLICK_EVO,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_EVOLUTION_BEAN, type_);
+        method_ = new StandardMethod(CLICK_EVO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }
     private static void buildEvolutionHappinessBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(MIN,new StandardField(MIN,_std.getAliasPrimLong(),false,false,type_));
-        _std.getStandards().put(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
+        fields_.add(new StandardField(MIN,_std.getAliasPrimLong(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
     }
     private static void buildEvolutionItemBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(ITEM,new StandardField(ITEM,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(ITEM,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_EVOLUTION_ITEM_BEAN, type_);
+        method_ = new StandardMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
     }
     private static void buildEvolutionLevelBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(LEVEL,new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
-        _std.getStandards().put(TYPE_EVOLUTION_LEVEL_BEAN, type_);
+        fields_.add(new StandardField(LEVEL,_std.getAliasPrimShort(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
     private static void buildEvolutionLevelGenderBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN, MethodModifier.NORMAL);
-        fields_.put(GENDER,new StandardField(GENDER,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
+        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
     }
     private static void buildEvolutionMoveBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(MOVE,new StandardField(MOVE,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_EVOLUTION_MOVE_BEAN, type_);
+        method_ = new StandardMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
     }
     private static void buildEvolutionMoveTypeBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(TYPE,new StandardField(TYPE,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
+        fields_.add(new StandardField(TYPE,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
     }
     private static void buildEvolutionStoneBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_STONE_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(STONE,new StandardField(STONE,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(STONE,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(CLICK_STONE,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_EVOLUTION_STONE_BEAN, type_);
+        method_ = new StandardMethod(CLICK_STONE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
     }
     private static void buildEvolutionStoneGenderBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        CustList<StandardMethod> methods_;
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN, MethodModifier.NORMAL);
-        fields_.put(GENDER,new StandardField(GENDER,_std.getAliasString(),false,false,type_));
-        _std.getStandards().put(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
+        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false,type_));
+        _std.getStandards().addEntry(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
     }
     private static void buildEvolutionTeamBean(BeanLgNames _std) {
         StandardClass type_;
-        StringMap<StandardField> fields_;
+        CustList<StandardField> fields_;
         CustList<StandardConstructor> constructors_;
-        ObjectMap<MethodId, StandardMethod> methods_;
+        CustList<StandardMethod> methods_;
         StandardMethod method_;
         StringList params_;
-        methods_ = new ObjectMap<MethodId, StandardMethod>();
+        methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
-        fields_ = new StringMap<StandardField>();
+        fields_ = new CustList<StandardField>();
         type_ = new StandardClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, constructors_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN, MethodModifier.NORMAL);
-        fields_.put(OTHER,new StandardField(OTHER,_std.getAliasString(),false,false,type_));
+        fields_.add(new StandardField(OTHER,_std.getAliasString(),false,false,type_));
         params_ = new StringList(_std.getAliasLong());
-        method_ = new StandardMethod(CLICK_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL,type_);
-        methods_.put(method_.getId(), method_);
-        _std.getStandards().put(TYPE_EVOLUTION_TEAM_BEAN, type_);
+        method_ = new StandardMethod(CLICK_TEAM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        _std.getStandards().addEntry(TYPE_EVOLUTION_TEAM_BEAN, type_);
     }
     public static ResultErrorStd getResultEvolutionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();

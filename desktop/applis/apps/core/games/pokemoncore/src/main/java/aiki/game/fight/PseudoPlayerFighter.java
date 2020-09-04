@@ -27,9 +27,9 @@ public class PseudoPlayerFighter extends PseudoFighter {
 
     private CustList<NameLevel> evoLevels;
 
-    private EqList<StringList> moves;
+    private CustList<StringList> moves;
 
-    private EqList<StringList> abilities;
+    private CustList<StringList> abilities;
 
     private ByteMap<String> evolutions;
 
@@ -43,8 +43,8 @@ public class PseudoPlayerFighter extends PseudoFighter {
         front = _front;
         foes = new Bytes();
         evoLevels = _evoLevels;
-        moves = new EqList<StringList>();
-        abilities = new EqList<StringList>();
+        moves = new CustList<StringList>();
+        abilities = new CustList<StringList>();
         evolutions = new ByteMap<String>();
         infosRealEvolutions = new CustList<NameLevel>();
     }
@@ -196,11 +196,11 @@ public class PseudoPlayerFighter extends PseudoFighter {
         return evoLevels;
     }
 
-    public EqList<StringList> getMoves() {
+    public CustList<StringList> getMoves() {
         return moves;
     }
 
-    public EqList<StringList> getAbilities() {
+    public CustList<StringList> getAbilities() {
         return abilities;
     }
 

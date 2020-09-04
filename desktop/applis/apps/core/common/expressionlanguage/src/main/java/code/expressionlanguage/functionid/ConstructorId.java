@@ -3,9 +3,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.ints.Equallable;
 
-public final class ConstructorId implements Equallable<ConstructorId>, Identifiable {
+public final class ConstructorId implements Identifiable {
 
     private static final String EMPTY = "";
     private static final String VARARG = "...";
@@ -40,6 +39,10 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         return new ConstructorId(_genericClass, pTypes_, isVararg());
     }
 
+    public ConstructorId copy(String _class) {
+        return new ConstructorId(_class, classNames, vararg);
+    }
+
     @Override
     public String getSignature(ContextEl _ana) {
         String suf_ = EMPTY;
@@ -49,7 +52,6 @@ public final class ConstructorId implements Equallable<ConstructorId>, Identifia
         return StringList.concat(name,LEFT, StringList.join(classNames, SEP_TYPE),suf_,RIGHT);
     }
 
-    @Override
     public boolean eq(ConstructorId _obj) {
         return IdentifiableUtil.eqPartial(this,_obj);
     }

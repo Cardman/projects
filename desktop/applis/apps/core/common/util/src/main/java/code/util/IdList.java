@@ -1,8 +1,7 @@
 package code.util;
-import code.util.ints.Equallable;
 import code.util.ints.Listable;
 
-public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>> {
+public final class IdList<T> extends AbEqList<T> {
 
     public IdList() {
     }
@@ -20,7 +19,6 @@ public final class IdList<T> extends AbEqList<T> implements Equallable<IdList<T>
         super(_capacity);
     }
 
-    @Override
     public boolean eq(IdList<T> _g) {
         int len_ = size();
         if (_g.size() != len_) {

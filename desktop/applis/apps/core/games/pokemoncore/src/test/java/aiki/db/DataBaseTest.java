@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import aiki.fight.Combos;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
+import aiki.fight.util.ListEffectCombo;
 import aiki.fight.util.TypesDuo;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.enums.DifficultyModelLaw;
@@ -1765,7 +1766,7 @@ public class DataBaseTest {
         effect_.setEndRoundRank(4);
         eff_.getEffectEndRound().add(effect_);
         data_.initCombosTest();
-        data_.getCombos().getEffects().put(new StringList("FLYING","SURF"), eff_);
+        data_.getCombos().getEffects().add(new ListEffectCombo(new StringList("FLYING","SURF"), eff_));
         data_.completeMembersCombos();
         assertEq(1, data_.getEvtEndRound().size());
         assertEq(4, data_.getEvtEndRound().first().getNumberIncrement());
