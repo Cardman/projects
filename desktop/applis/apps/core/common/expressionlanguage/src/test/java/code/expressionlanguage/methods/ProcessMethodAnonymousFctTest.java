@@ -4964,6 +4964,108 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(475, getNumber(ret_));
     }
+
+    @Test
+    public void calculate189() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum3 = 0;\n");
+        xml_.append("  for (int i = 2; i <= 10; i+= 2){\n");
+        xml_.append("  sum3+=(:int) -> {int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  sum3 += 1;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(i -> i -> sum2 + #i + i + ([#i]) + ##i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;}.call();\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum3;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(475, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate190() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum3 = 0;\n");
+        xml_.append("  for (int i = 2; i <= 10; i+= 2){\n");
+        xml_.append("  sum3+=(:int) -> {int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  sum3 ++;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(i -> i -> sum2 + #i + i + ([#i]) + ##i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;}.call();\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum3;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(475, getNumber(ret_));
+    }
+
+    @Test
+    public void calculate191() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum3 = 0;\n");
+        xml_.append("  for (int i = 2; i <= 10; i+= 2){\n");
+        xml_.append("  sum3+=(:int) -> {int sum = 0;\n");
+        xml_.append("  int sum2 = 3;\n");
+        xml_.append("  sum3 =1;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(i -> i -> sum2 + #i + i + ([#i]) + ##i,2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;}.call();\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum3;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(475, getNumber(ret_));
+    }
     @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();

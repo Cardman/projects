@@ -18,6 +18,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation implement
     private String variableName;
     private boolean declare;
     private boolean finalVariable;
+    private int deep;
     private OperationNode analyzed;
 
     AssSimStdVariableOperation(VariableOperation _ex) {
@@ -25,6 +26,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation implement
         variableName = _ex.getVariableName();
         declare = _ex.isDeclare();
         finalVariable = _ex.isFinalVariable();
+        deep = _ex.getDeep();
         analyzed = _ex;
     }
     AssSimStdVariableOperation(MutableLoopVariableOperation _ex) {
@@ -32,6 +34,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation implement
         variableName = _ex.getVariableName();
         declare = _ex.isDeclare();
         finalVariable = _ex.isFinalVariable();
+        deep = _ex.getDeep();
         analyzed = _ex;
     }
 
@@ -49,6 +52,10 @@ public final class AssSimStdVariableOperation extends AssLeafOperation implement
             _a.putLocalVar(variableName, finalVariable);
         }
 
+    }
+
+    public int getDeep() {
+        return deep;
     }
 
     public String getVariableName() {

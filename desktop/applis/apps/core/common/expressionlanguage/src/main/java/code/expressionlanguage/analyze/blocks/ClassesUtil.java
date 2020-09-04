@@ -2711,10 +2711,12 @@ public final class ClassesUtil {
             _context.getAnalyzing().setGlobalType(c_);
             _context.getAnalyzing().setGlobalDirType(c_);
             AnalyzingEl anAss_ = e.getValue();
+            assVars_.setCache(method_.getCache());
             AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), method_);
             tryAnalyseAssign(_context, assVars_, null, anAss_, assign_);
             page_.clearAllLocalVars(assVars_);
         }
+        assVars_.setCache(new AnaCache());
         page_.setGlobalClass("");
         page_.setGlobalType(null);
         page_.setGlobalDirType(null);
@@ -2827,10 +2829,12 @@ public final class ClassesUtil {
             _context.getAnalyzing().setGlobalType(c_);
             _context.getAnalyzing().setGlobalDirType(c_);
             AnalyzingEl anAss_ = e.getValue();
+            assVars_.setCache(method_.getCache());
             AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), method_);
             tryAnalyseAssign(_context, assVars_, anAss_, assign_);
             page_.clearAllLocalVars(assVars_);
         }
+        assVars_.setCache(new AnaCache());
         page_.setGlobalClass("");
         page_.setGlobalType(null);
         page_.setGlobalDirType(null);

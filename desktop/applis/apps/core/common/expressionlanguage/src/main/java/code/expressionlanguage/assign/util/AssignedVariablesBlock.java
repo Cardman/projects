@@ -1,5 +1,6 @@
 package code.expressionlanguage.assign.util;
 
+import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.blocks.AssReturnMethod;
 import code.util.IdMap;
@@ -13,6 +14,7 @@ public final class AssignedVariablesBlock {
 
     private final StringMap<Boolean> localVars = new StringMap<Boolean>();
     private StringMap<Boolean> variables = new StringMap<Boolean>();
+    private AnaCache cache = new AnaCache();
 
     public void putLocalVar(String _key, boolean _final) {
         localVars.put(_key, _final);
@@ -42,4 +44,11 @@ public final class AssignedVariablesBlock {
         return assignments;
     }
 
+    public AnaCache getCache() {
+        return cache;
+    }
+
+    public void setCache(AnaCache cache) {
+        this.cache = cache;
+    }
 }

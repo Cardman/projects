@@ -180,7 +180,7 @@ public final class AnonymousLambdaOperation extends
                 if (argCandidates_.onlyOneElt()) {
                     modifiedArgCandidates_.add(argCandidates_.first());
                 } else {
-                    modifiedArgCandidates_.add("?");
+                    modifiedArgCandidates_.add(_conf.getStandards().getAliasObject());
                 }
             }
             StringList feed_ = new StringList();

@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -43,27 +44,46 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<Boolean> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();
-            for (EntryCust<String, Boolean> e: variables_.entryList()) {
-                if (StringList.quickEq(str_, e.getKey())) {
-                    if (e.getValue()) {
-                        if (_a.isFinalLocalVar(str_)) {
-                            //error
-                            analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl(), _conf);
-                            FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                    str_);
-                            _conf.addError(un_);
-                            if (analyzed.getPartOffsetsChildren().isEmpty()) {
-                                int opLocat_ = analyzed.getFoundOffset();
-                                CustList<PartOffset> err_ = new CustList<PartOffset>();
-                                err_.add(new PartOffset("<a title=\"" + LinkageUtil.transform(un_.getBuiltError()) + "\" class=\"e\">", opLocat_));
-                                err_.add(new PartOffset("</a>", opLocat_ + 1));
-                                analyzed.getPartOffsetsChildren().add(err_);
+            int deep_ = ((AssSimStdVariableOperation) firstChild_).getDeep();
+            AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
+            if (localVar_ == null) {
+                for (EntryCust<String, Boolean> e: variables_.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey())) {
+                        if (e.getValue()) {
+                            if (_a.isFinalLocalVar(str_)) {
+                                //error
+                                analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl(), _conf);
+                                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                                        str_);
+                                _conf.addError(un_);
+                                if (analyzed.getPartOffsetsChildren().isEmpty()) {
+                                    int opLocat_ = analyzed.getFoundOffset();
+                                    CustList<PartOffset> err_ = new CustList<PartOffset>();
+                                    err_.add(new PartOffset("<a title=\"" + LinkageUtil.transform(un_.getBuiltError()) + "\" class=\"e\">", opLocat_));
+                                    err_.add(new PartOffset("</a>", opLocat_ + 1));
+                                    analyzed.getPartOffsetsChildren().add(err_);
+                                }
                             }
                         }
                     }
+                }
+            } else if (localVar_.isFinalVariable()){
+                analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl(), _conf);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                        str_);
+                _conf.addError(un_);
+                if (analyzed.getPartOffsetsChildren().isEmpty()) {
+                    int opLocat_ = analyzed.getFoundOffset();
+                    CustList<PartOffset> err_ = new CustList<PartOffset>();
+                    err_.add(new PartOffset("<a title=\"" + LinkageUtil.transform(un_.getBuiltError()) + "\" class=\"e\">", opLocat_));
+                    err_.add(new PartOffset("</a>", opLocat_ + 1));
+                    analyzed.getPartOffsetsChildren().add(err_);
                 }
             }
         }

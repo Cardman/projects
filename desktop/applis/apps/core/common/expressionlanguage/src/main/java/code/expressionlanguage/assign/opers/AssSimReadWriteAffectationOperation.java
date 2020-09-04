@@ -3,6 +3,7 @@ package code.expressionlanguage.assign.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariables;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
@@ -31,20 +32,34 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<Boolean> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();
-            for (EntryCust<String, Boolean> e: variables_.entryList()) {
-                if (StringList.quickEq(str_, e.getKey())) {
-                    if (_a.isFinalLocalVar(str_)) {
-                        //error
-                        analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _conf);
-                        FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
-                                str_);
-                        _conf.addError(un_);
-                        analyzed.getErrs().add(un_.getBuiltError());
+            int deep_ = ((AssSimStdVariableOperation) firstChild_).getDeep();
+            AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
+            if (localVar_ == null) {
+                for (EntryCust<String, Boolean> e: variables_.entryList()) {
+                    if (StringList.quickEq(str_, e.getKey())) {
+                        if (_a.isFinalLocalVar(str_)) {
+                            //error
+                            analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _conf);
+                            FoundErrorInterpret un_ = new FoundErrorInterpret();
+                            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                                    str_);
+                            _conf.addError(un_);
+                            analyzed.getErrs().add(un_.getBuiltError());
+                        }
                     }
                 }
+            } else if (localVar_.isFinalVariable()){
+                //error
+                analyzed.setRelativeOffsetPossibleAnalyzable(((AssSimStdVariableOperation)firstChild_).getAnalyzed().getIndexInEl(), _conf);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                        str_);
+                _conf.addError(un_);
+                analyzed.getErrs().add(un_.getBuiltError());
             }
         }
     }

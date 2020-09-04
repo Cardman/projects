@@ -2106,4 +2106,213 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
 
+    @Test
+    public void report703Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   sum2 = 1;\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m221\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
+                "   <a href=\"#m60\">sum2</a> <a title=\"The field sum2 is already assigned.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m221\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m245\">fct</a>,int <a name=\"m253\">a</a>,int <a name=\"m259\">b</a>){\n" +
+                "  return <a href=\"#m245\">fct</a>.<b>call</b>(<a href=\"#m253\">a</a>).<b>call</b>(<a href=\"#m259\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report704Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   sum2 = \"1\";\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m223\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
+                "   <a href=\"#m60\">sum2</a> <a title=\"The type $core.String cannot be implicitly cast to int\" class=\"e\">=</a> <span class=\"s\">\"1\"</span>;\n" +
+                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m247\">fct</a>,int <a name=\"m255\">a</a>,int <a name=\"m261\">b</a>){\n" +
+                "  return <a href=\"#m247\">fct</a>.<b>call</b>(<a href=\"#m255\">a</a>).<b>call</b>(<a href=\"#m261\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report705Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   sum2++;\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m219\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
+                "   <a href=\"#m60\">sum2</a><a title=\"The field sum2 is already assigned.\" class=\"e\">++</a>;\n" +
+                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m219\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m243\">fct</a>,int <a name=\"m251\">a</a>,int <a name=\"m257\">b</a>){\n" +
+                "  return <a href=\"#m243\">fct</a>.<b>call</b>(<a href=\"#m251\">a</a>).<b>call</b>(<a href=\"#m257\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report706Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   sum2+=1;\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <a name=\"m39\">sum</a> = 0;\n" +
+                "  final int <a name=\"m60\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m81\">i</a> = 1; <a href=\"#m81\">i</a> &lt;= 9; <a href=\"#m81\">i</a>+= 2){\n" +
+                "   <a href=\"#m39\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m220\">m</a>(<span class=\"t\"><a name=\"m116\">a</a> <a name=\"m118\">-&gt;</a> <span class=\"t\"><a name=\"m121\">i</a> <a name=\"m123\">-&gt;</a> {final int <a name=\"m137\">b</a> = 0;\n" +
+                "   <a href=\"#m60\">sum2</a>+<a title=\"The field sum2 is already assigned.\" class=\"e\">=</a>1;\n" +
+                "   return <a href=\"#m60\">sum2</a> + <a href=\"#m121\">i</a> + <a href=\"#m116\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m39\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m220\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m244\">fct</a>,int <a name=\"m252\">a</a>,int <a name=\"m258\">b</a>){\n" +
+                "  return <a href=\"#m244\">fct</a>.<b>call</b>(<a href=\"#m252\">a</a>).<b>call</b>(<a href=\"#m258\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report707Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(int j){\n");
+        xml_.append("  int sum = 0;\n");
+        xml_.append("  final int sum2 = 3;\n");
+        xml_.append("  for (int i = 1; i <= 9; i+= 2){\n");
+        xml_.append("   sum += m(a -> i -> {final int b = 0;\n");
+        xml_.append("   j = 1;\n");
+        xml_.append("   return sum2 + i + a;},2,7);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,Fct<int,int>> fct,int a,int b){\n");
+        xml_.append("  return fct.call(a).call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(int <a name=\"m34\">j</a>){\n" +
+                "  int <a name=\"m44\">sum</a> = 0;\n" +
+                "  final int <a name=\"m65\">sum2</a> = 3;\n" +
+                "  for (int <a name=\"m86\">i</a> = 1; <a href=\"#m86\">i</a> &lt;= 9; <a href=\"#m86\">i</a>+= 2){\n" +
+                "   <a href=\"#m44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m223\">m</a>(<span class=\"t\"><a name=\"m121\">a</a> <a name=\"m123\">-&gt;</a> <span class=\"t\"><a name=\"m126\">i</a> <a name=\"m128\">-&gt;</a> {final int <a name=\"m142\">b</a> = 0;\n" +
+                "   <a href=\"#m34\">j</a> <a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a> 1;\n" +
+                "   return <a href=\"#m65\">sum2</a> + <a href=\"#m126\">i</a> + <a href=\"#m121\">a</a>;}</span></span>,2,7);\n" +
+                "  }\n" +
+                "  return <a href=\"#m44\">sum</a>;\n" +
+                " }\n" +
+                " static int <a name=\"m223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m247\">fct</a>,int <a name=\"m255\">a</a>,int <a name=\"m261\">b</a>){\n" +
+                "  return <a href=\"#m247\">fct</a>.<b>call</b>(<a href=\"#m255\">a</a>).<b>call</b>(<a href=\"#m261\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }
