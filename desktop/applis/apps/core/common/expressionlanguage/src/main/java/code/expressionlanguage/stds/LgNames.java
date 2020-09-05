@@ -147,8 +147,10 @@ public abstract class LgNames {
     public static final String ITERATOR_TABLE = "IteratorTable";
     public static final String ITERABLE_TABLE = "IterableTable";
     public static final String TO_LOWER_CASE = "ToLowerCase";
+    public static final String TO_LOWER_CASE_CHAR = "ToLowerCaseChar";
     public static final String STRING_BUILDER = "StringBuilder";
     public static final String TO_UPPER_CASE = "ToUpperCase";
+    public static final String TO_UPPER_CASE_CHAR = "ToUpperCaseChar";
     public static final String ENSURE_CAPACITY = "EnsureCapacity";
     public static final String SET_LENGTH = "SetLength";
     public static final String TRIM_TO_SIZE = "TrimToSize";
@@ -474,8 +476,6 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_DECLARED_FIELDS,getAliasGetDeclaredFields()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
-                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getAliasGetDeclaredAnonymousLambdaLocalVars()),
-                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getAliasGetDeclaredAnonymousLambdaLoopVars()),
                 new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,getAliasGetDeclaredLocalTypes()),
                 new KeyValueMemberName(GET_DECLARED_BLOCKS,getAliasGetDeclaredBlocks()),
                 new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
@@ -529,6 +529,8 @@ public abstract class LgNames {
         map_.addEntry(getAliasConstructor(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
                 new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
@@ -549,7 +551,9 @@ public abstract class LgNames {
         map_.addEntry(getAliasField(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
-                new KeyValueMemberName(ARRAY_GET,getAliasArrayGet()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_FIELD,getAliasGetField()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_GENERIC_TYPE,getAliasGetGenericType()),
                 new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
@@ -565,6 +569,10 @@ public abstract class LgNames {
         map_.addEntry(getAliasMethod(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getAliasGetDeclaredAnonymousLambdaLocalVars()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getAliasGetDeclaredAnonymousLambdaLoopVars()),
                 new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
                 new KeyValueMemberName(GET_DEFAULT_VALUE,getAliasGetDefaultValue()),
                 new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
@@ -727,9 +735,9 @@ public abstract class LgNames {
                 new KeyValueMemberName(IS_WORD_CHAR,getAliasIsWordChar()),
                 new KeyValueMemberName(LENGTH,getAliasLength()),
                 new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
-                new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
+                new KeyValueMemberName(TO_LOWER_CASE_CHAR,getAliasToLowerCaseChar()),
                 new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
-                new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase())));
+                new KeyValueMemberName(TO_UPPER_CASE_CHAR,getAliasToUpperCaseChar())));
         map_.addEntry(getAliasDouble(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
                 new KeyValueMemberName(COMPARE,getAliasCompare()),
@@ -1563,6 +1571,22 @@ public abstract class LgNames {
     }
     public void setAliasGetCharType(String _aliasGetType) {
         nbAlias.setAliasGetCharType(_aliasGetType);
+    }
+
+    public String getAliasToLowerCaseChar() {
+        return nbAlias.getAliasToLowerCaseChar();
+    }
+
+    public void setAliasToLowerCaseChar(String aliasToLowerCaseChar) {
+        nbAlias.setAliasToLowerCaseChar(aliasToLowerCaseChar);
+    }
+
+    public String getAliasToUpperCaseChar() {
+        return nbAlias.getAliasToUpperCaseChar();
+    }
+
+    public void setAliasToUpperCaseChar(String aliasToUpperCaseChar) {
+        nbAlias.setAliasToUpperCaseChar(aliasToUpperCaseChar);
     }
     public String getAliasString() {
         return charSeq.getAliasString();

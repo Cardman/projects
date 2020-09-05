@@ -299,6 +299,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasSubSequence("subSequence");
         _lgNames.setAliasToLowerCase("toLowerCase");
         _lgNames.setAliasToUpperCase("toUpperCase");
+        _lgNames.setAliasToLowerCaseChar("toLowerCase");
+        _lgNames.setAliasToUpperCaseChar("toUpperCase");
         _lgNames.setAliasTrim("trim");
         _lgNames.setAliasStringBuilder("$core.StringBuilder");
         _lgNames.setAliasAppend("append");
@@ -606,6 +608,8 @@ public final class KeyWordsMap {
         _lgNames.setAliasSubSequence("sousSequence");
         _lgNames.setAliasToLowerCase("versMinuscule");
         _lgNames.setAliasToUpperCase("versMajuscule");
+        _lgNames.setAliasToLowerCaseChar("versMinuscule");
+        _lgNames.setAliasToUpperCaseChar("versMajuscule");
         _lgNames.setAliasTrim("trimmer");
         _lgNames.setAliasStringBuilder("$coeur.ConstructeurChaine");
         _lgNames.setAliasAppend("ajouter");

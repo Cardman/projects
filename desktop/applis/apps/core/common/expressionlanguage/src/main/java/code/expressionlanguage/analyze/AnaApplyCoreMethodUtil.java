@@ -591,11 +591,11 @@ public final class AnaApplyCoreMethodUtil {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(StringList.isWordChar(one_)));
                 }
-                if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToLowerCaseChar())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
                     return(new CharStruct(Character.toLowerCase(one_)));
                 }
-                if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToUpperCaseChar())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
                     return(new CharStruct(Character.toUpperCase(one_)));
                 }

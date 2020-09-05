@@ -128,6 +128,8 @@ public final class DefaultInitialization {
         _lgNames.setAliasSubSequence("subSequence");
         _lgNames.setAliasToLowerCase("toLowerCase");
         _lgNames.setAliasToUpperCase("toUpperCase");
+        _lgNames.setAliasToLowerCaseChar("toLowerCase");
+        _lgNames.setAliasToUpperCaseChar("toUpperCase");
         _lgNames.setAliasTrim("trim");
         _lgNames.setAliasStringBuilder("java.lang.StringBuilder");
         _lgNames.setAliasAppend("append");

@@ -71,6 +71,8 @@ public final class AliasNumber {
     private String aliasForDigit;
     private String aliasGetDirectionality;
     private String aliasGetCharType;
+    private String aliasToLowerCaseChar;
+    private String aliasToUpperCaseChar;
 
     public static void instantiateNumber(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
       String type_ = _method.getName();
@@ -442,12 +444,12 @@ public final class AliasNumber {
                     _res.setResult(BooleanStruct.of(StringList.isWordChar(one_)));
                     return;
                 }
-                if (StringList.quickEq(name_, lgNames_.getAliasToLowerCase())) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToLowerCaseChar())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
                     _res.setResult(new CharStruct(Character.toLowerCase(one_)));
                     return;
                 }
-                if (StringList.quickEq(name_, lgNames_.getAliasToUpperCase())) {
+                if (StringList.quickEq(name_, lgNames_.getAliasToUpperCaseChar())) {
                     char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
                     _res.setResult(new CharStruct(Character.toUpperCase(one_)));
                     return;
@@ -1350,10 +1352,10 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(_lgNames.getAliasToLowerCase(), params_, aliasPrimChar_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToLowerCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(_lgNames.getAliasToUpperCase(), params_, aliasPrimChar_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToUpperCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
@@ -1807,5 +1809,20 @@ public final class AliasNumber {
     public void setAliasGetCharType(String _aliasGetType) {
         aliasGetCharType = _aliasGetType;
     }
-    
+
+    public String getAliasToLowerCaseChar() {
+        return aliasToLowerCaseChar;
+    }
+
+    public void setAliasToLowerCaseChar(String aliasToLowerCaseChar) {
+        this.aliasToLowerCaseChar = aliasToLowerCaseChar;
+    }
+
+    public String getAliasToUpperCaseChar() {
+        return aliasToUpperCaseChar;
+    }
+
+    public void setAliasToUpperCaseChar(String aliasToUpperCaseChar) {
+        this.aliasToUpperCaseChar = aliasToUpperCaseChar;
+    }
 }

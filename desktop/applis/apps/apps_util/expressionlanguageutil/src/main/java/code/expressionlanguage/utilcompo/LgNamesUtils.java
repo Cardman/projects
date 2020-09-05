@@ -3875,8 +3875,10 @@ public class LgNamesUtils extends LgNames {
         setAliasIteratorTable(get(_util,_cust, ITERATOR_TABLE));
         setAliasIterableTable(get(_util,_cust, ITERABLE_TABLE));
         setAliasToLowerCase(get(_util,_cust, TO_LOWER_CASE));
+        setAliasToLowerCaseChar(get(_util,_cust, TO_LOWER_CASE_CHAR));
         setAliasStringBuilder(get(_util,_cust, STRING_BUILDER));
         setAliasToUpperCase(get(_util,_cust, TO_UPPER_CASE));
+        setAliasToUpperCaseChar(get(_util,_cust, TO_UPPER_CASE_CHAR));
         setAliasEnsureCapacity(get(_util,_cust, ENSURE_CAPACITY));
         setAliasSetLength(get(_util,_cust, SET_LENGTH));
         setAliasTrimToSize(get(_util,_cust, TRIM_TO_SIZE));
