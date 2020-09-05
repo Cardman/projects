@@ -107,6 +107,7 @@ public abstract class LgNames {
     public static final String GET_TYPE = "GetType";
     public static final String CONTAINS = "Contains";
     public static final String REPLACE = "Replace";
+    public static final String REPLACE_STRING = "ReplaceString";
     public static final String FORMAT = "Format";
     public static final String ENDS_WITH = "EndsWith";
     public static final String CAPACITY = "Capacity";
@@ -455,6 +456,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(GET_CAUSE,getAliasGetCause())));
         map_.addEntry(getAliasAnnotated(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
                 new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters())));
         map_.addEntry(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
@@ -697,7 +699,6 @@ public abstract class LgNames {
                 new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
                 new KeyValueMemberName(LENGTH,getAliasLength()),
                 new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
-                new KeyValueMemberName(REPLACE,getAliasReplace()),
                 new KeyValueMemberName(SPLIT,getAliasSplit()),
                 new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
                 new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
@@ -831,7 +832,7 @@ public abstract class LgNames {
                 new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
                 new KeyValueMemberName(LENGTH,getAliasLength()),
                 new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
-                new KeyValueMemberName(REPLACE,getAliasReplace()),
+                new KeyValueMemberName(REPLACE_STRING,getAliasReplaceString()),
                 new KeyValueMemberName(SPLIT,getAliasSplit()),
                 new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
                 new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
@@ -1635,6 +1636,12 @@ public abstract class LgNames {
     }
     public void setAliasReplace(String _aliasReplace) {
         charSeq.setAliasReplace(_aliasReplace);
+    }
+    public String getAliasReplaceString() {
+        return charSeq.getAliasReplaceString();
+    }
+    public void setAliasReplaceString(String _aliasReplace) {
+        charSeq.setAliasReplaceString(_aliasReplace);
     }
     public String getAliasReplaceMultiple() {
         return charSeq.getAliasReplaceMultiple();

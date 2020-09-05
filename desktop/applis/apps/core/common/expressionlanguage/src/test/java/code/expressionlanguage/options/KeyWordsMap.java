@@ -283,6 +283,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasSplitChars("splitChars");
         _lgNames.setAliasSplitStrings("splitStrings");
         _lgNames.setAliasReplace("replace");
+        _lgNames.setAliasReplaceString("replace");
         _lgNames.setAliasReplaceMultiple("replaceMultiple");
         _lgNames.setAliasEqualsIgnoreCase("equalsIgnoreCase");
         _lgNames.setAliasCompareToIgnoreCase("compareToIgnoreCase");
@@ -592,6 +593,7 @@ public final class KeyWordsMap {
         _lgNames.setAliasSplitChars("separerCaracteres");
         _lgNames.setAliasSplitStrings("separerChaines");
         _lgNames.setAliasReplace("remplacer");
+        _lgNames.setAliasReplaceString("remplacer");
         _lgNames.setAliasReplaceMultiple("remplacerMultiple");
         _lgNames.setAliasEqualsIgnoreCase("egalIgnorantCasse");
         _lgNames.setAliasCompareToIgnoreCase("compareIgnorantCasse");

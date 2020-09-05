@@ -1625,6 +1625,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         setAliasGetType(get(_util,_cust, GET_TYPE));
         setAliasContains(get(_util,_cust, CONTAINS));
         setAliasReplace(get(_util,_cust, REPLACE));
+        setAliasReplaceString(get(_util,_cust, REPLACE_STRING));
         setAliasFormat(get(_util,_cust, FORMAT));
         setAliasEndsWith(get(_util,_cust, ENDS_WITH));
         setAliasCapacity(get(_util,_cust, CAPACITY));

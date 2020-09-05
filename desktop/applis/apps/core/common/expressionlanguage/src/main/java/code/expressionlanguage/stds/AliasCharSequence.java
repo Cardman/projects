@@ -22,6 +22,7 @@ public final class AliasCharSequence {
     private String aliasSplitStrings;
     private String aliasSplitChars;
     private String aliasReplace;
+    private String aliasReplaceString;
     private String aliasReplaceMultiple;
     private String aliasEqualsIgnoreCase;
     private String aliasCompareToIgnoreCase;
@@ -128,7 +129,7 @@ public final class AliasCharSequence {
                     ClassArgumentMatching.convertToNumber(_args[3]), ClassArgumentMatching.convertToNumber(_args[4]), lgNames_, _res);
             return;
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
+        if (StringList.quickEq(name_, lgNames_.getAliasReplaceString())) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 replaceString(_str,_args[0], _args[1], _res);
                 return;
@@ -1488,10 +1489,10 @@ public final class AliasCharSequence {
         method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasString, aliasString);
-        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimChar_);
-        method_ = new StandardMethod(aliasReplace, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasReplacement);
         method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL);
@@ -1798,6 +1799,14 @@ public final class AliasCharSequence {
 
     public void setAliasReplace(String _aliasReplace) {
         aliasReplace = _aliasReplace;
+    }
+
+    public String getAliasReplaceString() {
+        return aliasReplaceString;
+    }
+
+    public void setAliasReplaceString(String _aliasReplace) {
+        aliasReplaceString = _aliasReplace;
     }
 
     public String getAliasReplaceMultiple() {

@@ -818,7 +818,7 @@ public final class AnaApplyCoreMethodUtil {
             return regionMatches(_str,ClassArgumentMatching.convertToBoolean(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]), _args[2],
                     ClassArgumentMatching.convertToNumber(_args[3]), ClassArgumentMatching.convertToNumber(_args[4]));
         }
-        if (StringList.quickEq(name_, lgNames_.getAliasReplace())) {
+        if (StringList.quickEq(name_, lgNames_.getAliasReplaceString())) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return replaceString(_str,_args[0], _args[1]);
             }

@@ -162,6 +162,7 @@ public final class RenderInitStdsTest {
         _lgNames.setAliasSplitChars("splitChars");
         _lgNames.setAliasSplitStrings("splitStrings");
         _lgNames.setAliasReplace("replace");
+        _lgNames.setAliasReplaceString("replace");
         _lgNames.setAliasReplaceMultiple("replaceMultiple");
         _lgNames.setAliasEqualsIgnoreCase("equalsIgnoreCase");
         _lgNames.setAliasCompareToIgnoreCase("compareToIgnoreCase");

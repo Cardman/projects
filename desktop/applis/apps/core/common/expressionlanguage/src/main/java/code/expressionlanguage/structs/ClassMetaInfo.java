@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecTypeVar;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -348,6 +349,20 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
     public boolean isTypeVoid() {
         return category == ClassCategory.VOID;
     }
+
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        if (rootBlock != null) {
+            return rootBlock.getAnonymousRootLambda();
+        }
+        return new CustList<ExecAnonymousFunctionBlock>();
+    }
+
+    @Override
+    public String getDeclaringClass() {
+        return getName();
+    }
+
     public String getName() {
         return name;
     }

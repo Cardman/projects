@@ -4,7 +4,10 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
+import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.util.CustList;
 import code.util.StringList;
 
 
@@ -103,6 +106,13 @@ public final class FieldMetaInfo extends WithoutParentStruct implements Annotate
         return type;
     }
 
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        if (annotableBlock instanceof ExecInfoBlock) {
+            return (((ExecInfoBlock)annotableBlock).getAnonymousLambda());
+        }
+        return new CustList<ExecAnonymousFunctionBlock>();
+    }
 
     @Override
     public String getClassName(ContextEl _contextEl) {

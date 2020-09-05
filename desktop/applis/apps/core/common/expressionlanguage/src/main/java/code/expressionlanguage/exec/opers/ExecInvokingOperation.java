@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -16,6 +17,7 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
+import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -186,6 +188,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String aliasAnnotated_ = stds_.getAliasAnnotated();
         String aliasGetAnnotations_ = stds_.getAliasGetAnnotations();
         String aliasGetAnnotationsParam_ = stds_.getAliasGetAnnotationsParameters();
+        String aliasGetDeclaredAnonymousLambda_ = stds_.getAliasGetDeclaredAnonymousLambda();
         if (StringList.quickEq(aliasAnnotated_, idClassNameFound_)) {
             if (StringList.quickEq(aliasGetAnnotations_, _methodId.getName())) {
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION, _previous, _firstArgs, false));
@@ -195,7 +198,11 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 _cont.setCallingState(new CustomReflectMethod(ReflectingType.ANNOTATION_PARAM, _previous, _firstArgs, false));
                 return new Argument();
             }
-            String fileName_ = NumParsers.getAnnotated(_previous.getStruct()).getFileName();
+            AnnotatedStruct annotated_ = NumParsers.getAnnotated(_previous.getStruct());
+            if (StringList.quickEq(aliasGetDeclaredAnonymousLambda_, _methodId.getName())) {
+                return new Argument(fetchAnonLambdaCallee(_cont,annotated_,Argument.toArgArray(_firstArgs)));
+            }
+            String fileName_ = annotated_.getFileName();
             return new Argument(new StringStruct(fileName_));
         }
         String aliasField_ = stds_.getAliasField();
@@ -500,6 +507,51 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return argRes_;
     }
 
+    private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Argument... _args) {
+        CustList<MethodMetaInfo> candidates_;
+        candidates_ = new CustList<MethodMetaInfo>();
+        Struct[] args_ = AnaApplyCoreMethodUtil.getObjects(_args);
+        LgNames standards_ = _cont.getStandards();
+        String aliasMethod_ = standards_.getAliasMethod();
+        CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
+        String declaringClass_ = _annot.getDeclaringClass();
+        for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
+            MethodId id_ = f.getId();
+            ExecRootBlock _type = f.getParentType();
+            String ret_ = f.getImportedReturnType();
+            boolean param_ = id_.getKind() == MethodAccessKind.STATIC_CALL;
+            MethodId fid_ = ExecutingUtil.tryFormatId(declaringClass_, _cont, id_);
+            String idType_ = _type.getFullName();
+            String formCl_ = ExecutingUtil.tryFormatType(idType_, declaringClass_, _cont);
+            String idCl_ = _type.getFullName();
+            if (param_) {
+                idCl_ = declaringClass_;
+            }
+            MethodMetaInfo met_ = new MethodMetaInfo(declaringClass_,f.getAccess(), idCl_, id_, f.getModifier(), ret_, fid_, formCl_);
+            met_.setCache(new Cache(f,standards_.getAliasObject()));
+            met_.setAnnotableBlock(f);
+            met_.setCallee(f);
+            met_.setCalleeInv(f);
+            met_.setDeclaring(_type);
+            met_.setFileName(f.getFile().getFileName());
+            methods_.add(met_);
+        }
+        if (args_.length == 0) {
+            for (MethodMetaInfo e: methods_) {
+                candidates_.add(e);
+            }
+        } else {
+            AliasReflection.filterMethods(_cont, args_, declaringClass_, candidates_, methods_);
+        }
+        String className_= StringExpUtil.getPrettyArrayType(aliasMethod_);
+        Struct[] methodsArr_ = new Struct[candidates_.size()];
+        int index_ = 0;
+        for (MethodMetaInfo c: candidates_) {
+            methodsArr_[index_] = c;
+            index_++;
+        }
+        return new ArrayStruct(methodsArr_, className_);
+    }
     public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound,ExecRootBlock _rootBlock, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
         return callPrepare(_exit,_cont,_classNameFound,_rootBlock,_methodId,_previous,null,_firstArgs,_right,_named);
     }

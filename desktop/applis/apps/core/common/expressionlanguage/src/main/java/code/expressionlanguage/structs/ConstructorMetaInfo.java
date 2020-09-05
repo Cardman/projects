@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.util.CustList;
 import code.util.StringList;
 
 public final class ConstructorMetaInfo extends WithoutParentStruct implements AnnotatedParamStruct {
@@ -110,6 +111,18 @@ public final class ConstructorMetaInfo extends WithoutParentStruct implements An
     
     public String getName() {
         return formClassName;
+    }
+
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        if (callee != null) {
+            return callee.getAnonymousLambda();
+        }
+        return new CustList<ExecAnonymousFunctionBlock>();
+    }
+    @Override
+    public String getDeclaringClass() {
+        return getClassName();
     }
 
     public ConstructorId getFid() {

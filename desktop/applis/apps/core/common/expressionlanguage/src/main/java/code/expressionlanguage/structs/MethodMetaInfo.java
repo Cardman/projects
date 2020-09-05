@@ -8,6 +8,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardMethod;
+import code.util.CustList;
 import code.util.StringList;
 
 
@@ -190,6 +191,13 @@ public final class MethodMetaInfo extends WithoutParentStruct implements Annotat
         return returnType;
     }
 
+    @Override
+    public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
+        if (callee != null) {
+            return callee.getAnonymousLambda();
+        }
+        return new CustList<ExecAnonymousFunctionBlock>();
+    }
     @Override
     public String getClassName(ContextEl _contextEl) {
         return _contextEl.getStandards().getAliasMethod();
