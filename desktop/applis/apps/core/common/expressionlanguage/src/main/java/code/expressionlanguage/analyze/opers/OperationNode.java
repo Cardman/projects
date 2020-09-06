@@ -1748,14 +1748,20 @@ public abstract class OperationNode {
     private static CustList<MethodInfo>
     getDeclaredCustImplicitCast(ContextEl _conf,
                         String _fromClass, ClassMethodId _uniqueId, ClassArgumentMatching _arg) {
-        String single_ = _arg.getSingleNameOrEmpty();
-        return getDeclaredCustImplicitCast(_conf, _fromClass, _uniqueId, single_);
+        CustList<MethodInfo> methods_ = getDeclaredCustImplicitCastFrom(_conf,_fromClass,_uniqueId);
+        for (String n: _arg.getNames()) {
+            methods_.addAllElts(getDeclaredCustImplicitCast(_conf, _fromClass, _uniqueId, n));
+        }
+        return methods_;
     }
     private static CustList<MethodInfo>
     getDeclaredCustCast(ContextEl _conf,
                         String _fromClass, ClassMethodId _uniqueId, ClassArgumentMatching _arg) {
-        String single_ = _arg.getSingleNameOrEmpty();
-        return getDeclaredCustCast(_conf, _fromClass, _uniqueId, single_);
+        CustList<MethodInfo> methods_ = getDeclaredCustCastFrom(_conf,_fromClass,_uniqueId);
+        for (String n: _arg.getNames()) {
+            methods_.addAllElts(getDeclaredCustCast(_conf, _fromClass, _uniqueId, n));
+        }
+        return methods_;
     }
 
     private static CustList<MethodInfo> getDeclaredCustCast(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId, String _single) {
@@ -1763,43 +1769,56 @@ public abstract class OperationNode {
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String idFrom_ = StringExpUtil.getIdFromAllTypes(_single);
-        String id_ = StringExpUtil.getIdFromAllTypes(_fromClass);
         StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
         superTypesBaseAnc_.addEntry(idFrom_,idFrom_);
+        CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getExplicitFromCastMethods().getVal(idFrom_);
+        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
+        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
+        return methods_;
+    }
+
+    private static CustList<MethodInfo> getDeclaredCustCastFrom(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId) {
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String id_ = StringExpUtil.getIdFromAllTypes(_fromClass);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<MethodHeaderInfo> casts_ = _conf.getAnalyzing().getExplicitCastMethods().getVal(id_);
         CustList<MethodHeaderInfo> castsId_ = _conf.getAnalyzing().getExplicitIdCastMethods().getVal(id_);
         RootBlock tId_ = _conf.getAnalyzing().getAnaClassBody(id_);
-        CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getExplicitFromCastMethods().getVal(idFrom_);
-        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
-
     private static CustList<MethodInfo> getDeclaredCustImplicitCast(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId, String _single) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         String idFrom_ = StringExpUtil.getIdFromAllTypes(_single);
-        String id_ = StringExpUtil.getIdFromAllTypes(_fromClass);
         StringMap<String> superTypesBaseAnc_ = new StringMap<String>();
         superTypesBaseAnc_.addEntry(idFrom_,idFrom_);
+        CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getImplicitFromCastMethods().getVal(idFrom_);
+        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
+        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
+        return methods_;
+    }
+
+
+    private static CustList<MethodInfo> getDeclaredCustImplicitCastFrom(ContextEl _conf, String _fromClass, ClassMethodId _uniqueId) {
+        String glClass_ = _conf.getAnalyzing().getGlobalClass();
+        CustList<MethodInfo> methods_;
+        methods_ = new CustList<MethodInfo>();
+        String id_ = StringExpUtil.getIdFromAllTypes(_fromClass);
         StringMap<String> superTypesBaseAncBis_ = new StringMap<String>();
         superTypesBaseAncBis_.addEntry(id_,id_);
         CustList<MethodHeaderInfo> casts_ = _conf.getAnalyzing().getImplicitCastMethods().getVal(id_);
         CustList<MethodHeaderInfo> castsId_ = _conf.getAnalyzing().getImplicitIdCastMethods().getVal(id_);
         RootBlock tId_ = _conf.getAnalyzing().getAnaClassBody(id_);
-        CustList<MethodHeaderInfo> castsFrom_ = _conf.getAnalyzing().getImplicitFromCastMethods().getVal(idFrom_);
-        RootBlock tDi_ = _conf.getAnalyzing().getAnaClassBody(idFrom_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, casts_, superTypesBaseAncBis_);
         fetchCastMethods(tId_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_fromClass, castsId_, superTypesBaseAncBis_);
-        fetchCastMethods(tDi_,_conf,  _uniqueId, glClass_, methods_, _fromClass,_single, castsFrom_, superTypesBaseAnc_);
         return methods_;
     }
-
 
     private static CustList<MethodInfo> getDeclaredCustImplicitCast(ContextEl _conf, String _fromClass, String _single) {
         String glClass_ = _conf.getAnalyzing().getGlobalClass();
