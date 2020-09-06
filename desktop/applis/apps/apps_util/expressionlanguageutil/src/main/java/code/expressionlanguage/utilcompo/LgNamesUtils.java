@@ -733,6 +733,7 @@ public class LgNamesUtils extends LgNames {
         constructors_.add(ctor_);
         std_ = stdcl_;
         getStandards().addEntry(aliasThread, std_);
+        methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasThread);
