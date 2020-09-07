@@ -63,6 +63,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
     private int nameNumber;
+    private boolean matchParamNames = true;
 
     public NamedFunctionBlock(OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
@@ -365,4 +366,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void setNameNumber(int nameNumber) {
         this.nameNumber = nameNumber;
     }
+
+    public boolean isMatchParamNames() {
+        return matchParamNames;
+    }
+
+    public void setMatchParamNames(boolean matchParamNames) {
+        this.matchParamNames = matchParamNames;
+    }
+
 }

@@ -12,6 +12,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.Configuration;
+import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -55,20 +56,14 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: filterInvoking(chidren_)) {
-            arguments_.add(getArgument(_nodes,o));
-        }
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments,
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments,
                                 Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
@@ -79,7 +74,10 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
             return Argument.createVoid();
         }
         String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
+        RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_all, chidren_);
+        CustList<Argument> first_ = args_.getArguments();
+        CustList<RendDynOperationNode> filter_ = args_.getFilter();
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, first_);
         return ExecInvokingOperation.instancePrepareFormat(_conf.getPageEl(),_conf.getContext(), className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
     }
 

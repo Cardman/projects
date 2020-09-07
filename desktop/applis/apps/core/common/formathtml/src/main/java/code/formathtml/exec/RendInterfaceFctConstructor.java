@@ -56,28 +56,25 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
                 return;
             }
             _nodes.getValue(getParent().getFirstChild().getOrder()).setArgument(ref_);
-            CustList<Argument> arguments_ = getArguments(_nodes, this);
-            arguments_.add(0,ref_);
-            Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
+            Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, ref_, _conf, null);
             setSimpleArgument(argres_,_conf,_nodes);
             return;
         }
         int order_ = getParent().getFirstChild().getOrder();
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        arguments_.add(0,_nodes.getValue(order_).getArgument());
-        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, _nodes.getValue(order_).getArgument(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
-    Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
+    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments, Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offsetOper, _conf);
-        Argument arg_ = _arguments.first();
+        Argument arg_ = _arguments;
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getPageEl().formatVarType(classFromName,_conf.getContext());
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(rootBlock,superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, rootBlock,ctor, arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }
@@ -91,7 +88,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return getArgument(_arguments,_conf);
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+        return getArgument(_all,_arguments,_conf);
     }
 }

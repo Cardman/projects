@@ -35,7 +35,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument arg_ = processCall(this, this, previous_, new CustList<Argument>(), _conf, null);
+        Argument arg_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
         if (_conf.getContext().hasException()) {
             return;
         }
@@ -66,7 +66,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
 
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         return getCommonArgument(_previous,_conf);
     }
 

@@ -35,30 +35,27 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 return;
             }
             _nodes.getValue(getParent().getFirstChild().getOrder()).setArgument(ref_);
-            CustList<Argument> arguments_ = getArguments(_nodes, this);
-            arguments_.add(0,ref_);
-            Argument res_ = getArgument(arguments_, _conf);
+            Argument res_ = getArgument(_nodes,ref_, _conf);
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }
         int order_ = getParent().getFirstChild().getOrder();
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        arguments_.add(0,_nodes.getValue(order_).getArgument());
-        Argument res_ = getArgument(arguments_, _conf);
+        Argument res_ = getArgument(_nodes,_nodes.getValue(order_).getArgument(), _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        Argument arg_ = _arguments.first();
+        Argument arg_ = _argument;
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(getRootBlock(),superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments.mid(1));
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();
     }

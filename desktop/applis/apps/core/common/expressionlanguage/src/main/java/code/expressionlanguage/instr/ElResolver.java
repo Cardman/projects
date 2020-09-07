@@ -19,23 +19,24 @@ import code.util.*;
 public final class ElResolver {
 
     public static final int CONST_PRIO = 0;
-    public static final int DECL_PRIO = 1;
-    public static final int AFF_PRIO = 2;
-    public static final int TERNARY_PRIO = 3;
-    public static final int NULL_SAFE_PRIO = 4;
-    public static final int OR_PRIO = 5;
-    public static final int AND_PRIO = 6;
-    public static final int BIT_OR_PRIO = 7;
-    public static final int BIT_XOR_PRIO = 8;
-    public static final int BIT_AND_PRIO = 9;
-    public static final int EQ_PRIO = 10;
-    public static final int CMP_PRIO = 11;
-    public static final int SHIFT_PRIO = 12;
-    public static final int ADD_PRIO = 13;
-    public static final int MULT_PRIO = 14;
-    public static final int UNARY_PRIO = 15;
-    public static final int POST_INCR_PRIO = 16;
-    public static final int FCT_OPER_PRIO = 17;
+    public static final int NAME_PRIO = 1;
+    public static final int DECL_PRIO = 2;
+    public static final int AFF_PRIO = 3;
+    public static final int TERNARY_PRIO = 4;
+    public static final int NULL_SAFE_PRIO = 5;
+    public static final int OR_PRIO = 6;
+    public static final int AND_PRIO = 7;
+    public static final int BIT_OR_PRIO = 8;
+    public static final int BIT_XOR_PRIO = 9;
+    public static final int BIT_AND_PRIO = 10;
+    public static final int EQ_PRIO = 11;
+    public static final int CMP_PRIO = 12;
+    public static final int SHIFT_PRIO = 13;
+    public static final int ADD_PRIO = 14;
+    public static final int MULT_PRIO = 15;
+    public static final int UNARY_PRIO = 16;
+    public static final int POST_INCR_PRIO = 17;
+    public static final int FCT_OPER_PRIO = 18;
     public static final byte UNICODE_SIZE = 4;
 
     private static final String EMPTY_STRING = "";
@@ -866,7 +867,9 @@ public final class ElResolver {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
+            if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
+            }
         }
         if (_curChar == SEP_ARG && parsBrackets_.isEmpty()) {
             return -1;
@@ -2321,11 +2324,9 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            if (parsBrackets_.lastValue() != BEGIN_TERNARY) {
-                _dout.setBadOffset(i_);
-                return;
+            if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
+                parsBrackets_.removeKey(parsBrackets_.lastKey());
             }
-            parsBrackets_.removeKey(parsBrackets_.lastKey());
         }
         if (curChar_ == SEP_ARG && parsBrackets_.isEmpty() && isAcceptCommaInstr(_conf)) {
             _dout.setBadOffset(i_);

@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.inherits.FoundSuperType;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
+import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParametersGroup;
@@ -28,6 +29,7 @@ import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
+import code.expressionlanguage.exec.opers.ExecNamedArgumentOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
@@ -447,14 +449,31 @@ public final class ClassesUtil {
             validateOverridingInherit(_context);
             for (IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> m: _context.getAnalyzing().getMapAnonymous()) {
                 for (EntryCust<AnonymousInstancingOperation, ExecAnonymousInstancingOperation> e: m.entryList()) {
-                    AnonymousTypeBlock block_ = e.getKey().getBlock();
+                    AnonymousInstancingOperation key_ = e.getKey();
+                    AnonymousTypeBlock block_ = key_.getBlock();
                     RootBlock parentType_ = block_.getParentType();
                     if (parentType_ == null) {
                         continue;
                     }
-                    _context.getAnalyzing().setGlobalClass(e.getKey().getGlClass());
-                    e.getKey().postAnalyze(_context);
-                    e.getValue().setExecAnonymousInstancingOperation(e.getKey(),_context);
+                    _context.getAnalyzing().setGlobalClass(key_.getGlClass());
+                    key_.postAnalyze(_context);
+                    ExecAnonymousInstancingOperation value_ = e.getValue();
+                    CustList<OperationNode> read_ = key_.getChildrenNodes();
+                    CustList<ExecOperationNode> write_ = value_.getChildrenNodes();
+                    int min_ = Math.min(read_.size(),write_.size());
+                    for (int i = 0; i < min_;i++){
+                        OperationNode r_ = read_.get(i);
+                        ExecOperationNode w_ = null;
+                        int in_ = -1;
+                        if (r_ instanceof NamedArgumentOperation) {
+                            w_ = write_.get(i);
+                            in_ = ((NamedArgumentOperation)r_).getIndex();
+                        }
+                        if (w_ instanceof ExecNamedArgumentOperation) {
+                            ((ExecNamedArgumentOperation)w_).setIndex(in_);
+                        }
+                    }
+                    value_.setExecAnonymousInstancingOperation(key_,_context);
                 }
             }
 

@@ -295,6 +295,10 @@ public abstract class ExecOperationNode {
                 return new ExecFctOperation(f_,fct_,ex_);
             }
         }
+        if (_anaNode instanceof NamedArgumentOperation) {
+            NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
+            return new ExecNamedArgumentOperation(f_);
+        }
         if (_anaNode instanceof FirstOptOperation) {
             FirstOptOperation f_ = (FirstOptOperation) _anaNode;
             return new ExecFirstOptOperation(f_);
@@ -562,26 +566,6 @@ public abstract class ExecOperationNode {
     }
     protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
         return _nodes.getValue(_node.getOrder()).getPreviousArgument();
-    }
-    protected static CustList<ExecOperationNode> filterInvoking(CustList<ExecOperationNode> _list) {
-        CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
-        for (ExecOperationNode o: _list) {
-            if (o instanceof ExecStaticInitOperation) {
-                continue;
-            }
-            out_.add(o);
-        }
-        return out_;
-    }
-    protected static CustList<Argument> filterInvoking(CustList<ExecOperationNode> _list, IdMap<ExecOperationNode,ArgumentsPair> _nodes) {
-        CustList<Argument> out_ = new CustList<Argument>();
-        for (ExecOperationNode o: _list) {
-            if (o instanceof ExecStaticInitOperation) {
-                continue;
-            }
-            out_.add(getArgument(_nodes,o));
-        }
-        return out_;
     }
 
     private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {

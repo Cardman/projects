@@ -400,6 +400,7 @@ public final class InitializationLgNames {
         _lgNames.getDisplayedStrings().setInfinity("Infinity");
         _lgNames.getDisplayedStrings().setNan("Nan");
         _lgNames.getDisplayedStrings().setExponent("E");
+        _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
     }
 
     public static ContextEl buildDefKw(String _lang, DefaultLockingClass _lock, Initializer _init,

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -47,16 +48,13 @@ public final class ExecStandardInstancingOperation extends
 
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf);
+        Argument res_ = getArgument(previous_,_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument getArgument(Argument _previous,CustList<Argument> _arguments,
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<ExecOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         if (!fieldName.isEmpty()) {
             off_ -= _conf.getLastPage().getTranslatedOffset();
@@ -74,7 +72,10 @@ public final class ExecStandardInstancingOperation extends
             }
         }
         String lastType_ = ExecTemplates.quickFormat(rootBlock,className_, lastType);
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, _arguments);
+        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, first_);
         return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
     }
 

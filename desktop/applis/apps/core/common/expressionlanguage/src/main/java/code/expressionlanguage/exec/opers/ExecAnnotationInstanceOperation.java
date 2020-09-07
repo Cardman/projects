@@ -34,7 +34,7 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
+        CustList<Argument> arguments_ = listNamedArguments(_nodes,chidren_).getArguments();
         Argument res_ = getArgument(arguments_, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }

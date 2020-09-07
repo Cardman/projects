@@ -15,11 +15,9 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class ExecCustArrOperation extends ExecInvokingOperation implements ExecSettableElResult {
 
@@ -65,9 +63,8 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
             return;
         }
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf,null);
+        Argument res_ = getArgument(previous_,_nodes, _conf,null);
         setSimpleArgument(res_, _conf, _nodes);
     }
     @Override
@@ -77,7 +74,6 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     @Override
     public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -89,12 +85,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
-        return getArgument(previous_, arguments_, _conf,res_);
+        return getArgument(previous_,_nodes, _conf,res_);
     }
 
     @Override
     public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -104,7 +99,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
-        return getArgument(previous_, arguments_, _conf,res_);
+        return getArgument(previous_,_nodes, _conf,res_);
     }
 
     @Override
@@ -123,12 +118,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     private Argument endCalculateCommon(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        return getArgument(previous_, arguments_, _conf,_right);
+        return getArgument(previous_,_nodes, _conf,_right);
     }
 
-    private Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf, Argument _right) {
+    private Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
@@ -151,11 +145,12 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         } else {
             fct_ = get;
         }
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -164,7 +159,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }

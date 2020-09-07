@@ -10,7 +10,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.AnaCache;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -23,7 +22,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.ElUtil;
@@ -117,6 +115,9 @@ public abstract class OperationNode {
 
     public abstract void analyze(ContextEl _conf);
 
+    static boolean isNotChildOfCall(MethodOperation _m) {
+        return _m == null ||!_m.isCallMethodCtor();
+    }
     final boolean isCallMethodCtor(){
         if (!(this instanceof InvokingOperation)) {
             return false;
@@ -161,6 +162,9 @@ public abstract class OperationNode {
         }
         if (_op.getOperators().isEmpty()) {
             return createLeaf(_index, _indexChild, _m, _op, _an);
+        }
+        if (_op.getPriority() == ElResolver.NAME_PRIO) {
+            return new NamedArgumentOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.DECL_PRIO) {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
@@ -741,7 +745,7 @@ public abstract class OperationNode {
     }
     static ConstrustorIdVarArg getDeclaredCustConstructor(OperationNode _oper,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
                                                           String _id,AnaGeneType _type,
-                                                          ConstructorId _uniqueId, String _param, ClassArgumentMatching... _args) {
+                                                          ConstructorId _uniqueId, String _param, NameParametersFilter _filter) {
         String clCurName_ = _class.getName();
         int varargOnly_ = _varargOnly;
         boolean uniq_ = false;
@@ -751,7 +755,7 @@ public abstract class OperationNode {
         }
         CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(_type);
         if (constructors_.isEmpty()) {
-            if (_args.length == 0) {
+            if (_filter.isEmptyArg()) {
                 ConstrustorIdVarArg out_;
                 out_ = new ConstrustorIdVarArg();
                 out_.setRealId(new ConstructorId(clCurName_, new StringList(),false));
@@ -770,12 +774,14 @@ public abstract class OperationNode {
             ConstructorInfo mloc_ = new ConstructorInfo();
             if (e instanceof NamedFunctionBlock) {
                 mloc_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
+                mloc_.setCustomCtor((NamedFunctionBlock)e);
             }
+            mloc_.setParametersNames(e.getParametersNames());
             mloc_.setConstraints(ctor_);
             mloc_.setParameters(pg_);
             mloc_.setClassName(clCurName_);
             mloc_.format(_conf);
-            if (!isPossibleMethod(_conf, uniq_, varargOnly_, mloc_, _param,_args)) {
+            if (!isPossibleMethod(_conf, uniq_, varargOnly_, mloc_, _param,_filter)) {
                 continue;
             }
             signatures_.add(mloc_);
@@ -786,8 +792,11 @@ public abstract class OperationNode {
         ConstructorInfo cInfo_ = sortCtors(signatures_, gr_);
         if (cInfo_ == null) {
             StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: _args) {
+            for (ClassArgumentMatching c: _filter.getPositional()) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
+            }
+            for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+                classesNames_.add(StringList.join(c.getResultClass().getNames(), "&"));
             }
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -806,10 +815,16 @@ public abstract class OperationNode {
         for (int i = 0; i < len_; i++) {
             CustList<ImplicitInfos> implicitInfos_ = cInfo_.getImplicits().get(i);
             for (ImplicitInfos j: implicitInfos_) {
-                _args[i].getImplicits().add(j.getIdMethod());
-                _args[i].setRootNumber(j.getRootNumber());
-                _args[i].setMemberNumber(j.getMemberNumber());
+                _filter.getPositional().get(i).getImplicits().add(j.getIdMethod());
+                _filter.getPositional().get(i).setRootNumber(j.getRootNumber());
+                _filter.getPositional().get(i).setMemberNumber(j.getMemberNumber());
             }
+        }
+        int parNameLen_ = cInfo_.getNameParametersFilterIndexes().size();
+        for (int i = 0; i < parNameLen_; i++) {
+            NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
+            namedArgument_.setCustomMethod(cInfo_.getCustomCtor());
+            namedArgument_.setIndex(cInfo_.getNameParametersFilterIndexes().get(i));
         }
         ConstrustorIdVarArg out_;
         out_ = new ConstrustorIdVarArg();
@@ -822,6 +837,7 @@ public abstract class OperationNode {
         out_.setMemberNumber(cInfo_.getMemberNumber());
         return out_;
     }
+
     static ConstrustorIdVarArg getDeclaredCustConstructorLambda(OperationNode _op,ContextEl _conf, int _varargOnly, ClassArgumentMatching _class,
                                                                 String _id,AnaGeneType _type,
             ConstructorId _uniqueId, ClassArgumentMatching... _args) {
@@ -943,15 +959,18 @@ public abstract class OperationNode {
     }
     static ClassMethodIdReturn getDeclaredCustMethod(OperationNode _op,ContextEl _conf, int _varargOnly,
                                                      MethodAccessKind _staticContext, StringList _classes, String _name,
-                                                     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param, ClassArgumentMatching... _argsClass) {
-        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext,false, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _param,_argsClass);
+                                                     boolean _superClass, boolean _accessFromSuper, boolean _import, ClassMethodIdAncestor _uniqueId, String _param, NameParametersFilter _filter) {
+        ClassMethodIdReturn res_ = tryGetDeclaredCustMethod(_conf, _varargOnly, _staticContext,false, _classes, _name, _superClass, _accessFromSuper, _import, _uniqueId, _param,_filter);
         if (res_.isFoundMethod()) {
             return res_;
         }
         ClassMethodIdReturn return_ = new ClassMethodIdReturn(false);
         StringList classesNames_ = new StringList();
-        for (ClassArgumentMatching c: _argsClass) {
+        for (ClassArgumentMatching c: _filter.getPositional()) {
             classesNames_.add(StringList.join(c.getNames(), "&"));
+        }
+        for (NamedArgumentOperation c: _filter.getParameterFilter()) {
+            classesNames_.add(StringList.join(c.getResultClass().getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -967,6 +986,7 @@ public abstract class OperationNode {
         return_.setReturnType(_conf.getStandards().getAliasObject());
         return return_;
     }
+
     static ClassMethodIdReturn getDeclaredCustTrueFalse(OperationNode _op, ContextEl _conf,
                                                         MethodAccessKind _staticContext, StringList _classes, String _name,
                                                         ClassMethodId _uniqueId, ClassArgumentMatching... _argsClass) {
@@ -1033,15 +1053,34 @@ public abstract class OperationNode {
                                                                   StringList _classes, String _name,
                                                                   boolean _superClass, boolean _accessFromSuper,
                                                                   boolean _import, ClassMethodIdAncestor _uniqueId,
+                                                                  String _param,NameParametersFilter _filter) {
+        CustList<CustList<MethodInfo>> methods_;
+        methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
+        boolean uniq_ = uniq(_uniqueId,_varargOnly);
+        int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
+        return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_filter);
+    }
+
+    protected static ClassMethodIdReturn tryGetDeclaredCustMethod(ContextEl _conf, int _varargOnly,
+                                                                  MethodAccessKind _staticContext,
+                                                                  boolean _excVararg,
+                                                                  StringList _classes, String _name,
+                                                                  boolean _superClass, boolean _accessFromSuper,
+                                                                  boolean _import, ClassMethodIdAncestor _uniqueId,
                                                                   String _param,ClassArgumentMatching[] _argsClass) {
         CustList<CustList<MethodInfo>> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
-        int varargOnly_ = _varargOnly;
         boolean uniq_ = uniq(_uniqueId,_varargOnly);
+        int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
+        return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_argsClass);
+    }
+
+    private static int fetchVarargOnly(int _varargOnly, ClassMethodIdAncestor _uniqueId) {
+        int varargOnly_ = _varargOnly;
         if (_uniqueId != null) {
             varargOnly_ = -1;
         }
-        return getCustResult(_conf,uniq_,_excVararg, varargOnly_, methods_, _name, _param,_argsClass);
+        return varargOnly_;
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustTrueFalse(ContextEl _conf,
@@ -1104,10 +1143,7 @@ public abstract class OperationNode {
                                                                         ClassArgumentMatching[] _argsClass) {
         CustList<CustList<MethodInfo>> methods_;
         methods_ = getDeclaredCustMethodByType(_conf, _staticContext, _accessFromSuper, _superClass, _classes, _name, _import, _uniqueId);
-        int varargOnly_ = _varargOnly;
-        if (_uniqueId != null) {
-            varargOnly_ = -1;
-        }
+        int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(_conf, varargOnly_, methods_, _name, _argsClass);
     }
 
@@ -1689,27 +1725,40 @@ public abstract class OperationNode {
                                            boolean _excVararg,
                                            String _op, String _param,ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> ops_ = getOperators(_cont, _cl);
-        int varargOnly_ = _varargOnly;
         boolean uniq_ = uniq(_cl,_varargOnly);
-        if (_cl != null) {
-            varargOnly_ = -1;
-        }
+        int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
         return getCustResult(_cont,uniq_, _excVararg,varargOnly_, o_, _op, _param,_argsClass);
+    }
+    static ClassMethodIdReturn getOperator(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
+                                           boolean _excVararg,
+                                           String _op, String _param,NameParametersFilter _filter) {
+        CustList<MethodInfo> ops_ = getOperators(_cont, _cl);
+        boolean uniq_ = uniq(_cl,_varargOnly);
+        int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
+        CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
+        o_.add(ops_);
+        return getCustResult(_cont,uniq_, _excVararg,varargOnly_, o_, _op, _param,_filter);
     }
 
     static ClassMethodIdReturn getOperatorLambda(ContextEl _cont, ClassMethodId _cl, int _varargOnly,
                                                  String _op, ClassArgumentMatching... _argsClass) {
         CustList<MethodInfo> ops_ = getOperators(_cont, _cl);
-        int varargOnly_ = _varargOnly;
-        if (_cl != null) {
-            varargOnly_ = -1;
-        }
+        int varargOnly_ = fetchVarargOnlyBis(_cl, _varargOnly);
         CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
         o_.add(ops_);
         return getCustResultLambda(_cont, varargOnly_, o_, _op, _argsClass);
     }
+
+    private static int fetchVarargOnlyBis(ClassMethodId _cl, int _varargOnly) {
+        int varargOnly_ = _varargOnly;
+        if (_cl != null) {
+            varargOnly_ = -1;
+        }
+        return varargOnly_;
+    }
+
     private static boolean uniq(Object _cl, int _varargOnly) {
         boolean uniq_ = false;
         if (_cl != null) {
@@ -2009,6 +2058,7 @@ public abstract class OperationNode {
                     mloc_.setRootNumber(e.getRootNumber());
                     mloc_.setMemberNumber(e.getMemberNumber());
                     mloc_.setStandardMethod(e.getStandardMethod());
+                    mloc_.setCustMethod(e.getCustMethod());
                     m_.add(mloc_);
                 }
                 methods_.add(m_);
@@ -2299,9 +2349,14 @@ public abstract class OperationNode {
         if (_m instanceof NamedFunctionBlock) {
             mloc_.setFileName(((Block)_m).getFile().getFileName());
             mloc_.setMemberNumber(((NamedFunctionBlock)_m).getNameNumber());
+            if (((NamedFunctionBlock)_m).isMatchParamNames()) {
+                mloc_.setParametersNames(_m.getParametersNames());
+            }
+            mloc_.setCustMethod((NamedFunctionBlock) _m);
         }
         if (_m instanceof StandardMethod) {
             mloc_.setStandardMethod((StandardMethod)_m);
+            mloc_.setParametersNames(_m.getParametersNames());
         }
         if (_r instanceof RootBlock) {
             mloc_.setRootNumber(((RootBlock)_r).getNumberAll());
@@ -2465,7 +2520,16 @@ public abstract class OperationNode {
     }
     private static ClassMethodIdReturn getCustResult(ContextEl _conf, boolean _unique,boolean _excludeVararg,int _varargOnly,
                                                      CustList<CustList<MethodInfo>> _methods,
-            String _name, String _param,ClassArgumentMatching... _argsClass) {
+                                                     String _name, String _param,ClassArgumentMatching... _argsClass) {
+        NameParametersFilter name_ = new NameParametersFilter();
+        for (ClassArgumentMatching a: _argsClass) {
+            name_.getPositional().add(a);
+        }
+        return getCustResult(_conf,_unique,_excludeVararg,_varargOnly,_methods,_name,_param,name_);
+    }
+    private static ClassMethodIdReturn getCustResult(ContextEl _conf, boolean _unique, boolean _excludeVararg, int _varargOnly,
+                                                     CustList<CustList<MethodInfo>> _methods,
+                                                     String _name, String _param, NameParametersFilter _filter) {
         CustList<CustList<MethodInfo>> signatures_ = new CustList<CustList<MethodInfo>>();
         for (CustList<MethodInfo> l: _methods) {
             CustList<MethodInfo> m_ = new CustList<MethodInfo>();
@@ -2485,7 +2549,7 @@ public abstract class OperationNode {
                 if (!StringList.quickEq(id_.getName(), _name)) {
                     continue;
                 }
-                if (!isPossibleMethod(_conf, _unique, _varargOnly, e, _param,_argsClass)) {
+                if (!isPossibleMethod(_conf, _unique, _varargOnly, e, _param,_filter)) {
                     continue;
                 }
                 m_.add(e);
@@ -2504,10 +2568,16 @@ public abstract class OperationNode {
         for (int i = 0; i < len_; i++) {
             CustList<ImplicitInfos> implicitInfos_ = m_.getImplicits().get(i);
             for (ImplicitInfos j: implicitInfos_) {
-                _argsClass[i].getImplicits().add(j.getIdMethod());
-                _argsClass[i].setRootNumber(j.getRootNumber());
-                _argsClass[i].setMemberNumber(j.getMemberNumber());
+                _filter.getPositional().get(i).getImplicits().add(j.getIdMethod());
+                _filter.getPositional().get(i).setRootNumber(j.getRootNumber());
+                _filter.getPositional().get(i).setMemberNumber(j.getMemberNumber());
             }
+        }
+        int parNameLen_ = m_.getNameParametersFilterIndexes().size();
+        for (int i = 0; i < parNameLen_; i++) {
+            NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
+            namedArgument_.setCustomMethod(m_.getCustMethod());
+            namedArgument_.setIndex(m_.getNameParametersFilterIndexes().get(i));
         }
         MethodId constraints_ = m_.getConstraints();
         String baseClassName_ = m_.getClassName();
@@ -2650,18 +2720,39 @@ public abstract class OperationNode {
         return true;
     }
     private static boolean isPossibleMethod(ContextEl _context, boolean _unique, int _varargOnly, Parametrable _id,
-                                            String _param,ClassArgumentMatching... _argsClass) {
-        int startOpt_ = _argsClass.length;
+                                            String _param, NameParametersFilter _filter) {
+        CustList<NamedArgumentOperation> parameterFilter_ = _filter.getParameterFilter();
+        CustList<ClassArgumentMatching> positional_ = _filter.getPositional();
+        int lengthArgs_ = positional_.size();
+        ClassArgumentMatching[] merged_ =new ClassArgumentMatching[lengthArgs_ +parameterFilter_.size()];
+        for (int i = 0; i < lengthArgs_; i++) {
+            merged_[i] = positional_.get(i);
+        }
+        for (NamedArgumentOperation f: parameterFilter_) {
+            int ind_ = StringList.indexOf(_id.getParametersNames(), f.getName());
+            StringList formattedParams_ = _id.getFormattedParams();
+            if (!formattedParams_.isValidIndex(ind_)) {
+                return false;
+            }
+            if (ind_ < Math.min(lengthArgs_, _filter.getIndex())) {
+                return false;
+            }
+            merged_[ind_] = f.getResultClass();
+            _id.getNameParametersFilterIndexes().add(ind_);
+        }
+
+
+        int startOpt_ = merged_.length;
         boolean checkOnlyDem_ = true;
         int all_ = _id.getGeneFormatted().getParametersTypesLength();
         int last_ = all_-1;
         boolean vararg_ = _id.isVararg();
         if (!vararg_) {
-            if (all_ != _argsClass.length) {
+            if (all_ != merged_.length) {
                 return false;
             }
         } else {
-            if (all_ > _argsClass.length + 1) {
+            if (all_ > merged_.length + 1) {
                 return false;
             }
             if (_varargOnly != 0) {
@@ -2673,7 +2764,7 @@ public abstract class OperationNode {
                     return false;
                 }
             } else if (_varargOnly == 0) {
-                if (all_ -1 != _argsClass.length) {
+                if (all_ -1 != merged_.length) {
                     return false;
                 }
             }
@@ -2683,17 +2774,17 @@ public abstract class OperationNode {
         boolean implicit_ = false;
         for (int i = CustList.FIRST_INDEX; i < startOpt_; i++) {
             String wc_ = _id.getGeneFormatted().getParametersType(i);
-			wc_ = wrap(i,all_,vararg_,wc_);
+            wc_ = wrap(i,all_,vararg_,wc_);
             CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
             _id.getImplicits().add(l_);
-            if (_argsClass[i].isVariable()) {
+            if (merged_[i].isVariable()) {
                 if (PrimitiveTypeUtil.isPrimitive(wc_,_context)) {
                     return false;
                 }
                 continue;
             }
             Mapping map_ = new Mapping();
-            ClassArgumentMatching arg_ = _argsClass[i];
+            ClassArgumentMatching arg_ = merged_[i];
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
             if (wc_.isEmpty()) {
@@ -2734,9 +2825,9 @@ public abstract class OperationNode {
             setWideInvoke(_id, vararg_, allNotBoxUnbox_, implicit_);
             return true;
         }
-        if (all_ == _argsClass.length) {
+        if (all_ == merged_.length) {
             Mapping map_ = new Mapping();
-            ClassArgumentMatching arg_ = _argsClass[last_];
+            ClassArgumentMatching arg_ = merged_[last_];
             map_.setArg(arg_);
             map_.getMapping().putAllMap(mapCtr_);
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
@@ -2782,7 +2873,7 @@ public abstract class OperationNode {
             }
             return false;
         }
-        int nbDem_ = _argsClass.length;
+        int nbDem_ = merged_.length;
         Mapping map_ = new Mapping();
         map_.getMapping().putAllMap(mapCtr_);
         String wc_ = _id.getGeneFormatted().getParametersType(last_);
@@ -2793,7 +2884,7 @@ public abstract class OperationNode {
         for (int i = startOpt_; i < nbDem_; i++) {
             CustList<ImplicitInfos> l_ = new CustList<ImplicitInfos>();
             _id.getImplicits().add(l_);
-            ClassArgumentMatching a_ = _argsClass[i];
+            ClassArgumentMatching a_ = merged_[i];
             map_.setArg(a_);
             if (!AnaTemplates.isCorrectOrNumbers(map_, _context)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_context, wc_, a_);
@@ -2814,6 +2905,7 @@ public abstract class OperationNode {
         _id.setVarArgWrap(true);
         return true;
     }
+
     private static boolean isPossibleIncrDecrMethod(ContextEl _context, Parametrable _id,
                                                     ClassArgumentMatching _argsClass) {
         StringMap<StringList> mapCtr_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();

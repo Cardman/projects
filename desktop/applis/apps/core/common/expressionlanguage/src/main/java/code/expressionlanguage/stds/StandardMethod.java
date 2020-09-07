@@ -11,7 +11,12 @@ public final class StandardMethod extends StandardNamedFunction implements GeneC
 
     public StandardMethod(String _name, StringList _parametersTypes,
                           String _returnType, boolean _varargs, MethodModifier _modifier) {
-        super(_name, _parametersTypes, _returnType, _varargs);
+        this(_name, _parametersTypes, _returnType, _varargs,_modifier,new StringList());
+    }
+
+    public StandardMethod(String _name, StringList _parametersTypes,
+                          String _returnType, boolean _varargs, MethodModifier _modifier, StringList _paramNames) {
+        super(_name, _parametersTypes, _returnType, _varargs,_paramNames);
         modifier = _modifier;
     }
 

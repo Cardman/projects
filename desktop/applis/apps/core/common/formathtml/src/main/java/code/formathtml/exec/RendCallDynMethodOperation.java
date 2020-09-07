@@ -30,13 +30,13 @@ public final class RendCallDynMethodOperation extends RendInvokingOperation impl
             setSimpleArgument(res_, _conf, _nodes);
             return;
         }
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return ExecInvokingOperation.prepareCallDyn(_previous, _arguments, _conf.getContext());
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+        CustList<Argument> arguments_ = getArguments(_all,this);
+        return ExecInvokingOperation.prepareCallDyn(_previous, arguments_, _conf.getContext());
     }
 }

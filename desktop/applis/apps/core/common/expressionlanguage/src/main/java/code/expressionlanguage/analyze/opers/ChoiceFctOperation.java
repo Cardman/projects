@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -105,7 +106,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         String varargParam_ = getVarargParam(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         lengthMethod = methodName.length();
         int deltaEnd_ = lengthMethod-StringList.getLastPrintableCharIndex(methodName)-1;
@@ -127,11 +127,16 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             feedBase_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
             feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
         }
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
             ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(firstArgs_);
+            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(name_.getPositional());
             clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
             if (!clMeth_.isFoundMethod()) {
                 setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -145,11 +150,11 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             classMethodId = new ClassMethodId(foundClass_, id_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getPositional(), _conf);
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, feed_,varargParam_, OperationNode.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, false, false, import_, feed_,varargParam_, name_);
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -179,7 +184,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             lastType = paramtTypes_.last();
         }
         staticMethod = realId.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(chidren_, realId, naturalVararg, lastType, firstArgs_, _conf);
+        unwrapArgsFct(chidren_, realId, naturalVararg, lastType, name_.getAll(), _conf);
         setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();

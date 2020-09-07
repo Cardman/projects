@@ -188,7 +188,7 @@ public final class PredefinedClasses {
         iterable_.append(type_).append("{\n");
         iterable_.append(public_).append(SPACE);
         iterable_.append(abstract_).append(SPACE);
-        String tr_ = ValidatorStandard.tr(new StringList(), _context);
+        String tr_ = stds_.getPredefTypes().getParams().getAliasSeedGenerator0Get0();
         iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(stds_.getAliasSeedGet()).append("(");
         iterable_.append(stds_.getAliasPrimLong()).append(SPACE).append(tr_).append(");\n");
         iterable_.append("}\n");

@@ -132,14 +132,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, _right);
+        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, _right);
         setSimpleArgument(argres_,_conf,_nodes);
         return argres_;
     }
 
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
@@ -162,11 +161,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         } else {
             fct_ = get;
         }
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -176,7 +176,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }

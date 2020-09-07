@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -173,10 +174,13 @@ public final class AnonymousInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(filter_);
         ClassArgumentMatching aClass_ = new ClassArgumentMatching(block.getGenericString());
-        ClassArgumentMatching[] args_ = OperationNode.toArgArray(firstArgs_);
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, args_);
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_);
         if (ctorRes_.getRealId() == null) {
             return;
         }
@@ -188,7 +192,7 @@ public final class AnonymousInstancingOperation extends
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
         }
-        unwrapArgsFct(filter_, getConstId(), getNaturalVararg(), getLastType(), firstArgs_, _conf);
+        unwrapArgsFct(filter_, getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
     }
 
     public AnonymousTypeBlock getBlock() {

@@ -1,10 +1,6 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -2311,6 +2307,382 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 " }\n" +
                 " static int <a name=\"m223\">m</a>(Fct&lt;int,Fct&lt;int,int&gt;&gt; <a name=\"m247\">fct</a>,int <a name=\"m255\">a</a>,int <a name=\"m261\">b</a>){\n" +
                 "  return <a href=\"#m247\">fct</a>.<b>call</b>(<a href=\"#m255\">a</a>).<b>call</b>(<a href=\"#m261\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report708Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return m(2,c:5,d:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return <a title=\"The function static m(int,int,int) is undefined.\" class=\"e\">m</a>(2,c:5,d:3);\n" +
+                " }\n" +
+                " static int <a name=\"m74\">m</a>(int <a name=\"m80\">a</a>,int <a name=\"m86\">b</a>,int <a name=\"m92\">c</a>){\n" +
+                "  return <a href=\"#m80\">a</a>*<a href=\"#m86\">b</a>+<a href=\"#m92\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report709Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return m(2,c:5,10,d:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c,int d){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return m(2,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:5,10,d:3);\n" +
+                " }\n" +
+                " static int <a name=\"m77\">m</a>(int <a name=\"m83\">a</a>,int <a name=\"m89\">b</a>,int <a name=\"m95\">c</a>,int <a name=\"m101\">d</a>){\n" +
+                "  return <a href=\"#m83\">a</a>*<a href=\"#m89\">b</a>+<a href=\"#m95\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report710Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return m(2,c:5,c:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+                " }\n" +
+                " static int <a name=\"m74\">m</a>(int <a name=\"m80\">a</a>,int <a name=\"m86\">b</a>,int <a name=\"m92\">c</a>){\n" +
+                "  return <a href=\"#m80\">a</a>*<a href=\"#m86\">b</a>+<a href=\"#m92\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report711Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return (a:3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:3);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report712Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  new Ext(2,c:5,c:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(int a,int b,int c){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+                " }\n" +
+                " <a name=\"m60\">Ext(</a>int <a name=\"m68\">a</a>,int <a name=\"m74\">b</a>,int <a name=\"m80\">c</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report713Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  new Ext(2,c:5,c:3){\n");
+        xml_.append("   Ext(int a,int b, int c){\n");
+        xml_.append("    super(a,b,c);\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(int a,int b,int c){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3)<span class=\"t\"><a name=\"m54\">{</a>\n" +
+                "   <a name=\"m59\">Ext(</a>int <a name=\"m67\">a</a>,int <a name=\"m73\">b</a>, int <a name=\"m80\">c</a>){\n" +
+                "    <a title=\"pkg.Ext.pkg.Ext(int,int,int)\" href=\"#m116\">super</a>(<a href=\"#m67\">a</a>,<a href=\"#m73\">b</a>,<a href=\"#m80\">c</a>);\n" +
+                "   }\n" +
+                "  }</span>;\n" +
+                " }\n" +
+                " <a name=\"m116\">Ext(</a>int <a name=\"m124\">a</a>,int <a name=\"m130\">b</a>,int <a name=\"m136\">c</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report714Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static void m(){\n");
+        xml_.append("  new Ext(){\n");
+        xml_.append("   Ext(){\n");
+        xml_.append("    super(2,c:5,c:3);\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(int a,int b,int c){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static void <a name=\"m29\">m</a>(){\n" +
+                "  <a title=\"pkg.Ext..Ext*1.pkg.Ext..Ext*1()\" href=\"#m50\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()<span class=\"t\"><a name=\"m45\">{</a>\n" +
+                "   <a name=\"m50\">Ext(</a>){\n" +
+                "    super(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+                "   }\n" +
+                "  }</span>;\n" +
+                " }\n" +
+                " <a name=\"m93\">Ext(</a>int <a name=\"m101\">a</a>,int <a name=\"m107\">b</a>,int <a name=\"m113\">c</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report715Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return classchoice(Ext)m(2,c:5,c:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return classchoice(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+                " }\n" +
+                " static int <a name=\"m90\">m</a>(int <a name=\"m96\">a</a>,int <a name=\"m102\">b</a>,int <a name=\"m108\">c</a>){\n" +
+                "  return <a href=\"#m96\">a</a>*<a href=\"#m102\">b</a>+<a href=\"#m108\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report716Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return superaccess(Ext)m(2,c:5,c:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return superaccess(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
+                " }\n" +
+                " static int <a name=\"m90\">m</a>(int <a name=\"m96\">a</a>,int <a name=\"m102\">b</a>,int <a name=\"m108\">c</a>){\n" +
+                "  return <a href=\"#m96\">a</a>*<a href=\"#m102\">b</a>+<a href=\"#m108\">c</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report717Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext()[0,b:1,b:2];\n");
+        xml_.append(" }\n");
+        xml_.append(" int this(int a,int b){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" void this(int a,int b){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()[0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2];\n" +
+                " }\n" +
+                " int <a name=\"m75\">this</a>(int <a name=\"m84\">a</a>,int <a name=\"m90\">b</a>){\n" +
+                "  return 0;\n" +
+                " }\n" +
+                " void <a name=\"m115\">this</a>(int <a name=\"m124\">a</a>,int <a name=\"m130\">b</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report718Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return operator(+,Ext)(0,b:1,b:2);\n");
+        xml_.append(" }\n");
+        xml_.append(" operator+ int(int a,int b){\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return operator(+,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)(0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2);\n" +
+                " }\n" +
+                " operator<a name=\"m85\">+</a> int(int <a name=\"m95\">a</a>,int <a name=\"m101\">b</a>){\n" +
+                "  return 0;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report719Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return (a:b:3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:3);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report720Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext(2,c:5,d:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(int a,int b,int c){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext(int,int,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,d:3);\n" +
+                " }\n" +
+                " <a name=\"m69\">Ext(</a>int <a name=\"m77\">a</a>,int <a name=\"m83\">b</a>,int <a name=\"m89\">c</a>){\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report721Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext(a:2);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(a:2);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

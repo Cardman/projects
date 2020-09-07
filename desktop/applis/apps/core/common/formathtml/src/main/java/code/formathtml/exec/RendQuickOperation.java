@@ -43,9 +43,7 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
                 return;
             }
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-            CustList<Argument> arguments_ = getArguments(_nodes,this);
-            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            Argument argres_ = processCall(this, this, Argument.createVoid(), firstArgs_, _conf, null);
+            Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, Argument.createVoid(), _conf, null);
             if (converter != null) {
                 Argument res_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), argres_, _conf);
                 if (res_ == null) {
@@ -67,8 +65,10 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+        CustList<RendDynOperationNode> list_ = getChildrenNodes();
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,first_);
         return Argument.createVoid();
     }
     public abstract boolean match(Struct _struct);

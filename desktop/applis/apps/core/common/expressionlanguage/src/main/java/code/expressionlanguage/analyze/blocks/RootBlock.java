@@ -1058,6 +1058,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (iOne_.eqPartial(iTwo_)) {
                     ok_ = true;
                     set_ = j;
+                    i.setMatchParamNames(StringList.eqStrings(i.getParametersNames(),j.getParametersNames()));
+                    j.setMatchParamNames(StringList.eqStrings(i.getParametersNames(),j.getParametersNames()));
                 }
             }
             if (!ok_) {

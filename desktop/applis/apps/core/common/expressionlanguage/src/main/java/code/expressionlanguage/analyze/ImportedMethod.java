@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze;
 
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardMethod;
 
@@ -10,6 +11,7 @@ public final class ImportedMethod {
     private int rootNumber;
     private int memberNumber;
     private StandardMethod standardMethod;
+    private NamedFunctionBlock custMethod;
 
     public ImportedMethod(String returnType, ClassMethodId id) {
         this.returnType = returnType;
@@ -54,5 +56,13 @@ public final class ImportedMethod {
 
     public void setStandardMethod(StandardMethod standardMethod) {
         this.standardMethod = standardMethod;
+    }
+
+    public NamedFunctionBlock getCustMethod() {
+        return custMethod;
+    }
+
+    public void setCustMethod(NamedFunctionBlock custMethod) {
+        this.custMethod = custMethod;
     }
 }

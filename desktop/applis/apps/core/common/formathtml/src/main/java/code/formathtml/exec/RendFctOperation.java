@@ -61,13 +61,12 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -87,11 +86,12 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             return a_;
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         if (isStaticChoiceMethod()) {
             String argClassName_ = prev_.getObjectClassName(_conf.getContext());
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = getClassMethodId().getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -102,7 +102,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             String argClassName_ = stds_.getStructClassName(previous_, context_);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }

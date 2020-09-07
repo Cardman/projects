@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
@@ -33,7 +32,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (m_ == null ||!m_.isCallMethodCtor()) {
+        if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());

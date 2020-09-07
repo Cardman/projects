@@ -39,11 +39,10 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
+        Argument res_ = getArgument(_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -56,7 +55,8 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         classNameFound_ = classMethodId.getClassName();
         classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
         lastType_ = classMethodId.formatType(rootBlock,classNameFound_,lastType_);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
             return Argument.createVoid();
         }

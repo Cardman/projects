@@ -1,9 +1,11 @@
 package code.expressionlanguage.analyze.opers.util;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class MethodInfo implements Parametrable {
@@ -32,7 +34,10 @@ public final class MethodInfo implements Parametrable {
     private boolean abstractMethod;
     private InvocationMethod invocation;
     private StandardMethod standardMethod;
+    private NamedFunctionBlock custMethod;
     private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
+    private StringList parametersNames = new StringList();
+    private Ints nameParametersFilterIndexes = new Ints();
 
     public MethodId getConstraints() {
         return constraints;
@@ -153,6 +158,10 @@ public final class MethodInfo implements Parametrable {
         return new MethodId(constraints.getKind(),formatted.getName(),formattedParams,formatted.isVararg());
     }
 
+    public StringList getFormattedParams() {
+        return formattedParams;
+    }
+
     public boolean same(MethodId _id) {
         return formatted.eq(_id);
     }
@@ -209,6 +218,26 @@ public final class MethodInfo implements Parametrable {
 
     public void setStandardMethod(StandardMethod standardMethod) {
         this.standardMethod = standardMethod;
+    }
+
+    public NamedFunctionBlock getCustMethod() {
+        return custMethod;
+    }
+
+    public void setCustMethod(NamedFunctionBlock custMethod) {
+        this.custMethod = custMethod;
+    }
+
+    public StringList getParametersNames() {
+        return parametersNames;
+    }
+
+    public void setParametersNames(StringList parametersNames) {
+        this.parametersNames = parametersNames;
+    }
+
+    public Ints getNameParametersFilterIndexes() {
+        return nameParametersFilterIndexes;
     }
 
 }

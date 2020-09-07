@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -64,7 +65,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         LgNames stds_ = _conf.getStandards();
         String varargParam_ = getVarargParam(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         if (from == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
@@ -82,8 +82,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         classFromName = clCurName_;
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(id_);
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         ConstrustorIdVarArg ctorRes_;
-        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,id_,type_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
+        ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,id_,type_, feed_, varargParam_, name_);
         if (ctorRes_.getRealId() == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
@@ -93,16 +98,16 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         memberNumber = ctorRes_.getMemberNumber();
         constId = ctorRes_.getRealId();
         checkPositionBasis(_conf);
-        postAnalysis(_conf, ctorRes_, chidren_, firstArgs_);
+        postAnalysis(_conf, ctorRes_, chidren_, name_);
     }
 
     abstract ClassArgumentMatching getFrom(ContextEl _conf);
-    final void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, CustList<OperationNode> _children, CustList<ClassArgumentMatching> _args) {
+    private void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, CustList<OperationNode> _children, NameParametersFilter _args) {
         if (_res.isVarArgToCall()) {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        unwrapArgsFct(_children, constId, naturalVararg, lastType, _args, _conf);
+        unwrapArgsFct(_children, constId, naturalVararg, lastType, _args.getAll(), _conf);
         LgNames stds_ = _conf.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

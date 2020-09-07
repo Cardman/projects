@@ -59,13 +59,12 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     }
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf);
+        Argument res_ = getArgument(previous_,_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -85,11 +84,12 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         if (staticChoiceMethod) {
             String argClassName_ = prev_.getObjectClassName(_conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
@@ -99,7 +99,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
             String argClassName_ = stds_.getStructClassName(previous_, _conf);
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }

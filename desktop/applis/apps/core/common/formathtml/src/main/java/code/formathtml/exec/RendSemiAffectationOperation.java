@@ -59,12 +59,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             RendDynOperationNode left_ = list_.first();
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
             chidren_.add(left_);
-            CustList<Argument> arguments_ = new CustList<Argument>();
             Argument stored_ = getArgument(_nodes,left_);
-            arguments_.add(stored_);
-            CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),firstArgs_,_conf, null);
+            res_ =  processCall(this,this, Argument.createVoid(),_nodes,Argument.createVoid(),_conf, null);
             res_ = settable.endCalculate(_nodes,_conf, post, stored_, res_);
             setSimpleArgument(res_, _conf,_nodes);
             return;
@@ -108,8 +105,10 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,_arguments);
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+        CustList<RendDynOperationNode> list_ = getChildrenNodes();
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,first_);
         return Argument.createVoid();
     }
 }

@@ -2041,6 +2041,7 @@ public final class FileResolver {
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
+                    ov_.setMatchParamNames(false);
                 } else {
                     if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordToString())
                             &&!StringList.quickEq(modifier_,keyWordStatic_)

@@ -36,13 +36,12 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf);
+        Argument res_ = getArgument(previous_,_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
 
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         MethodId methodId_ = classMethodId.getConstraints();
@@ -61,7 +60,8 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
         lastType_ = classMethodId.formatType(null,classNameFound_,lastType_);
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, _arguments);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, first_);
         return callStd(new DefaultExiting(_conf),_conf, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 

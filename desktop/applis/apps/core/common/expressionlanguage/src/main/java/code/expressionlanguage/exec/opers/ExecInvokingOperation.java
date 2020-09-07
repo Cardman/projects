@@ -11,8 +11,10 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.FormattedParameters;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -43,6 +45,39 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         previousArgument = _previousArgument;
     }
 
+    static ArgumentList listNamedArguments(IdMap<ExecOperationNode, ArgumentsPair> _all, CustList<ExecOperationNode> _children) {
+        ArgumentList out_ = new ArgumentList();
+        CustList<Argument> args_ = out_.getArguments();
+        CustList<ExecOperationNode> filter_ = out_.getFilter();
+        CustList<ExecNamedArgumentOperation> named_ = new CustList<ExecNamedArgumentOperation>();
+        for (ExecOperationNode c: _children) {
+            if (c instanceof ExecNamedArgumentOperation) {
+                named_.add((ExecNamedArgumentOperation)c);
+                filter_.add(c);
+            } else if (!(c instanceof ExecStaticInitOperation)){
+                args_.add(getArgument(_all,c));
+                filter_.add(c);
+            }
+        }
+        while (!named_.isEmpty()) {
+            ExecNamedArgumentOperation min_ = named_.first();
+            int minIndex_ = min_.getIndex();
+            int size_ = named_.size();
+            int i_ = 0;
+            for (int i = 1; i < size_; i++) {
+                ExecNamedArgumentOperation elt_ = named_.get(i);
+                int index_ = elt_.getIndex();
+                if (index_ < minIndex_) {
+                    min_ = elt_;
+                    minIndex_ = index_;
+                    i_ = i;
+                }
+            }
+            args_.add(getArgument(_all,min_));
+            named_.remove(i_);
+        }
+        return out_;
+    }
     static CustList<Argument> listArguments(CustList<ExecOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {
             CustList<Argument> firstArgs_ = new CustList<Argument>();

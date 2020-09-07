@@ -58,7 +58,7 @@ public final class RendSettableFieldOperation extends
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        return processCall(this, this, previous_, new CustList<Argument>(), _conf, _right);
+        return processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, _right);
     }
 
     @Override
@@ -136,7 +136,7 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         if (_right != null) {
             return getCommonSetting(_previous,_conf,_right);
         }

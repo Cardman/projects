@@ -185,64 +185,83 @@ public final class ValidatorStandard {
     }
 
     public static void validateMethodsContents(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
-        AnalysisMessages a_ = _cont.getAnalysisMessages();
         for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
-            for (KeyValueMemberName f: e.getValue()) {
-                String key_ = f.getKey();
-                String value_ = f.getValue();
-                if (value_.isEmpty()) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_,e.getKey()));
-                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.addStdError(err_);
-                    continue;
-                }
-                if (_cont.getKeyWords().isKeyWordNotVar(value_)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_,e.getKey()));
-                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.addStdError(err_);
-                }
-                if (StringList.contains(_prims.values(), value_)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_,e.getKey()));
-                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.addStdError(err_);
-                }
-                for (char c: value_.toCharArray()) {
-                    if (!StringList.isDollarWordChar(c)) {
-                        StdWordError err_ = new StdWordError();
-                        err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_,e.getKey(),Character.toString(c)));
-                        err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                        _cont.addStdError(err_);
-                        break;
-                    }
-                }
-                if (StringExpUtil.isDigit(value_.charAt(0))) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_,e.getKey(),Character.toString(value_.charAt(0))));
-                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
-                    _cont.addStdError(err_);
-                }
-            }
+            CustList<KeyValueMemberName> list_ = e.getValue();
+            checkContent(_cont, _prims, list_, e.getKey());
         }
     }
 
-    public static void validateMethodsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+    public static void validateParamtersContents(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods, StringMap<String> _prims){
+        for (CustList<KeyValueMemberName> e: _methods) {
+            checkContent(_cont,_prims,e,"");
+        }
+    }
+
+    private static void checkContent(ContextEl _cont, StringMap<String> _prims, CustList<KeyValueMemberName> list_, String _key) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
-            StringList keyWords_ = new StringList();
-            for (KeyValueMemberName f: e.getValue()) {
-                keyWords_.add(f.getValue());
+        for (KeyValueMemberName f: list_) {
+            String key_ = f.getKey();
+            String value_ = f.getValue();
+            if (value_.isEmpty()) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyMethod(),key_, _key));
+                err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                _cont.addStdError(err_);
+                continue;
             }
-            if (keyWords_.hasDuplicates()) {
-                for (KeyValueMemberName f: e.getValue()) {
-                    String v_ = f.getValue();
+            if (_cont.getKeyWords().isKeyWordNotVar(value_)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getMethodKeyWord(),value_,key_, _key));
+                err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                _cont.addStdError(err_);
+            }
+            if (StringList.contains(_prims.values(), value_)) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getMethodPrimitive(),value_,key_, _key));
+                err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                _cont.addStdError(err_);
+            }
+            for (char c: value_.toCharArray()) {
+                if (!StringList.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
-                    err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordCharMethod(),value_, _key,Character.toString(c)));
+                    err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
                     _cont.addStdError(err_);
+                    break;
                 }
+            }
+            if (StringExpUtil.isDigit(value_.charAt(0))) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirstMethod(),value_, _key,Character.toString(value_.charAt(0))));
+                err_.setErrCat(ErrorCat.WRITE_METHOD_WORD);
+                _cont.addStdError(err_);
+            }
+        }
+    }
+    public static void validateMethodsDuplicates(ContextEl _cont, StringMap<CustList<KeyValueMemberName>> _methods){
+        for (EntryCust<String, CustList<KeyValueMemberName>> e: _methods.entryList()) {
+            CustList<KeyValueMemberName> value_ = e.getValue();
+            checkDuplicates(_cont, value_);
+        }
+    }
+    public static void validateParamtersDuplicates(ContextEl _cont, CustList<CustList<KeyValueMemberName>> _methods){
+        for (CustList<KeyValueMemberName> e: _methods) {
+            checkDuplicates(_cont, e);
+        }
+    }
+    private static void checkDuplicates(ContextEl _cont, CustList<KeyValueMemberName> value_) {
+        AnalysisMessages a_ = _cont.getAnalysisMessages();
+        StringList keyWords_ = new StringList();
+        for (KeyValueMemberName f: value_) {
+            keyWords_.add(f.getValue());
+        }
+        if (keyWords_.hasDuplicates()) {
+            for (KeyValueMemberName f: value_) {
+                String v_ = f.getValue();
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateMethod(),v_));
+                err_.setErrCat(ErrorCat.DUPLICATE_METHOD_WORD);
+                _cont.addStdError(err_);
             }
         }
     }

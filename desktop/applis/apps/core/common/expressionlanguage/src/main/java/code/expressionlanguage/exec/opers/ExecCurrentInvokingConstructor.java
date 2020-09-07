@@ -5,7 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.analyze.opers.CurrentInvokingConstructor;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.CustList;
+import code.util.IdMap;
 
 public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingConstructor {
 
@@ -14,7 +16,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument,  ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -26,7 +28,8 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         String lastType_ = getLastType();
         lastType_ = page_.formatVarType(lastType_, _conf);
         int natvararg_ = getNaturalVararg();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         checkParametersCtors(_conf, gl_, getRootBlock(),getCtor(), arg_, firstArgs_, InstancingStep.USING_THIS,null);
         return Argument.createVoid();
     }

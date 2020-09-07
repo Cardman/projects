@@ -7,14 +7,12 @@ import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ParametersGroup;
-import code.expressionlanguage.analyze.opers.util.Parametrable;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.GeneConstructor;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
@@ -52,22 +50,53 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         getChildren().putAllMap(vs_);
     }
 
+    NameParametersFilter buildFilter(ContextEl _conf) {
+        NameParametersFilter out_ = new NameParametersFilter();
+        CustList<OperationNode> childrenNodes_ = getChildrenNodes();
+        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
+        CustList<ClassArgumentMatching> positionalArgs_ = out_.getPositional();
+        StringList names_ = new StringList();
+        int delta_ = getDeltaCount(getFirstChild());
+        boolean ok_ = true;
+        for (OperationNode o: childrenNodes_) {
+            if (o instanceof NamedArgumentOperation) {
+                String name_ = ((NamedArgumentOperation) o).getName();
+                OperationNode next_ = o.getNextSibling();
+                if (StringList.contains(names_,name_) || !(next_ instanceof NamedArgumentOperation)&& next_ != null) {
+                    ok_ = false;
+                    o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ ((NamedArgumentOperation) o).getOffset(), _conf);
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    //param name len
+                    b_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
+                            name_);
+                    _conf.addError(b_);
+                    o.getErrs().add(b_.getBuiltError());
+                }
+                names_.add(name_);
+                filter_.add(((NamedArgumentOperation) o));
+                if (out_.getIndex() == -1) {
+                    out_.setIndex(o.getIndexChild()+delta_);
+                }
+            } else {
+                if (!(o instanceof VarargOperation
+                        || o instanceof IdFctOperation
+                        || o instanceof StaticInitOperation)) {
+                    positionalArgs_.add(o.getResultClass());
+                }
+            }
+        }
+        out_.setOk(ok_);
+        return out_;
+    }
+
     static String getVarargParam(CustList<OperationNode> _children) {
         if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             return ((VarargOperation)_children.first()).getClassName();
         }
         return "";
-    }
-    static CustList<ClassArgumentMatching> listClasses(CustList<OperationNode> _children) {
-        CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
-        for (OperationNode o: _children) {
-            if (o instanceof VarargOperation
-                    || o instanceof IdFctOperation) {
-                continue;
-            }
-            firstArgs_.add(o.getResultClass());
-        }
-        return firstArgs_;
     }
 
     protected static String tryGetRetType(ContextEl _an) {

@@ -11,8 +11,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -46,12 +44,11 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
-        Argument res_ = getArgument(previous_, arguments_, _conf);
+        Argument res_ = getArgument(previous_,_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument getArgument(Argument _previous, CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(Argument _previous, IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -70,7 +67,8 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         methodId_ = realId;
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
     }

@@ -33,6 +33,7 @@ public final class AliasPredefinedTypes {
     private String aliasEnumValues;
     private String aliasEnumPredValueOf;
     private String aliasEnumParamVar;
+    private AliasParamPredefinedTypes params = new AliasParamPredefinedTypes();
 
     public String getAliasIterable() {
         return aliasIterable;
@@ -243,5 +244,9 @@ public final class AliasPredefinedTypes {
 
     public void setAliasSeedGet(String aliasSeedGet) {
         this.aliasSeedGet = aliasSeedGet;
+    }
+
+    public AliasParamPredefinedTypes getParams() {
+        return params;
     }
 }

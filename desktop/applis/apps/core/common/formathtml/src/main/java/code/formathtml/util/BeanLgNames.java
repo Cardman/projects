@@ -6,6 +6,7 @@ import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.exec.RendStdFctOperation;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
@@ -217,7 +218,7 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);
     public abstract Argument getCommonSetting(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf, Argument _right);
-    public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf);
+    public abstract Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf);
 
 
     protected abstract void gearFw(Configuration _conf, Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean);

@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -1185,7 +1186,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, CustList<Argument> _arguments, Configuration _conf) {
+    public Argument getCommonFctArgument(RendStdFctOperation _rend, Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(_rend.getMethodName());
         _rend.setRelativeOffsetPossibleLastPage(_rend.getIndexInEl()+off_, _conf);
         ContextEl ctx_ = _conf.getContext();
@@ -1203,7 +1204,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         classNameFound_ = _rend.getClassMethodId().getClassName();
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();
-        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, _rend.getNaturalVararg(), lastType_, _arguments);
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
+        CustList<Argument> firstArgs_ = RendInvokingOperation.listArguments(chidren_, _rend.getNaturalVararg(), lastType_, first_);
         return ExecInvokingOperation.callStd(new AdvancedExiting(_conf),ctx_, classNameFound_, methodId_, prev_, firstArgs_, null);
     }
 

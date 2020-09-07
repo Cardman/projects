@@ -1,12 +1,14 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 
 public final class ConstructorInfo implements Parametrable {
@@ -22,7 +24,9 @@ public final class ConstructorInfo implements Parametrable {
     private InvocationMethod invocation;
     private int memberNumber=-1;
     private CustList<CustList<ImplicitInfos>> implicits = new CustList<CustList<ImplicitInfos>>();
-
+    private StringList parametersNames = new StringList();
+    private NamedFunctionBlock customCtor;
+    private Ints nameParametersFilterIndexes = new Ints();
     public ConstructorId getConstraints() {
         return constraints;
     }
@@ -87,6 +91,9 @@ public final class ConstructorInfo implements Parametrable {
         formatted = new ConstructorId(className, params_, isVararg());
     }
 
+    public StringList getFormattedParams() {
+        return formatted.getParametersTypes();
+    }
     @Override
     public Identifiable getGeneFormatted() {
         return getFormatted();
@@ -118,4 +125,25 @@ public final class ConstructorInfo implements Parametrable {
     public void setMemberNumber(int memberNumber) {
         this.memberNumber = memberNumber;
     }
+
+    public StringList getParametersNames() {
+        return parametersNames;
+    }
+
+    public void setParametersNames(StringList parametersNames) {
+        this.parametersNames = parametersNames;
+    }
+
+    public NamedFunctionBlock getCustomCtor() {
+        return customCtor;
+    }
+
+    public void setCustomCtor(NamedFunctionBlock customCtor) {
+        this.customCtor = customCtor;
+    }
+
+    public Ints getNameParametersFilterIndexes() {
+        return nameParametersFilterIndexes;
+    }
+
 }

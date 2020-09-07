@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -100,7 +101,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         if (args_.size() > 2) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
@@ -122,13 +122,18 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), s_.getKind());
             id_ = new ClassMethodId(from,new MethodId(static_,op_,s_.getParametersTypes(),s_.isVararg()));
         }
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_, OperationNode.toArgArray(firstArgs_));
+            cust_ = getOperator(_conf, id_,varargOnly_,false,op_, varargParam_, name_);
         } else {
             cust_ = tryGetDeclaredCustMethod(_conf, -1, MethodAccessKind.STATIC_CALL,
                     false, new StringList(from), op_, false, false, false, null,
-                    varargParam_, OperationNode.toArgArray(firstArgs_));
+                    varargParam_, name_);
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -136,7 +141,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: firstArgs_) {
+            for (ClassArgumentMatching c: name_.getAll()) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
             }
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
@@ -160,7 +165,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
     }
 
 

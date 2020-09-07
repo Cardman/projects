@@ -27,7 +27,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        Argument argres_ = processCall(this, this, Argument.createVoid(), new CustList<Argument>(), _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
@@ -37,7 +37,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         return getCommonArgument(_conf);
     }
 }

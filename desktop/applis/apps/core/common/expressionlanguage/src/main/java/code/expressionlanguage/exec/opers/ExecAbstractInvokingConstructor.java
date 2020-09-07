@@ -39,12 +39,11 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes, this);
-        Argument res_ = getArgument(arguments_, _conf);
+        Argument res_ = getArgument(_nodes,Argument.createVoid(), _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
 
-    abstract Argument getArgument(CustList<Argument> _arguments, ContextEl _conf);
+    abstract Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes,Argument _argument, ContextEl _conf);
 
     public final ConstructorId getConstId() {
         return constId;

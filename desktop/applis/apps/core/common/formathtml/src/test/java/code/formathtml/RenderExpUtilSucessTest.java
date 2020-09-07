@@ -5886,6 +5886,40 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(4,getNumber(argument_));
     }
     @Test
+    public void processEl477Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int j,$int k){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=j+k;\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth(k:5,j:3)", cont_);
+        assertEq(9, getNumber(arg_));
+    }
+    @Test
+    public void processEl478Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth($int j,$int k){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=j+k;\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Configuration cont_ = getConfiguration4(files_);
+        addImportingPage(cont_);
+        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth(j:3,k:5)", cont_);
+        assertEq(9, getNumber(arg_));
+    }
+    @Test
     public void procesAffect00Test() {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);

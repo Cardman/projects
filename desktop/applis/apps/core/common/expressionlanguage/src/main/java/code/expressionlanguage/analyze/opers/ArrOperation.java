@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -106,7 +107,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         MethodOperation.processEmptyError(getFirstChild(),getErrs());
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         ForwardOperation fwd_ = tryGetForward(this);
@@ -146,12 +146,17 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         for (String c: l_) {
             bounds_.addAllElts(getBounds(c, _conf));
         }
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMeth_, accessSuperTypes_, accessFromSuper_, false, feed_,
-                varargParam_, OperationNode.toArgArray(firstArgs_));
+                varargParam_, name_);
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
                 bounds_, trimMethSet_, accessSuperTypes_, accessFromSuper_, false, feedSet_,
-                varargParam_, OperationNode.toArgArray(firstArgs_));
+                varargParam_, name_);
         Argument arg_ = getPreviousArgument();
         checkNull(arg_,_conf);
         if (clMeth_.isFoundMethod()) {
@@ -187,7 +192,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 naturalVararg = paramtTypes_.size() - 1;
                 lastType = paramtTypes_.last();
             }
-            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
             setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
             return;
         }

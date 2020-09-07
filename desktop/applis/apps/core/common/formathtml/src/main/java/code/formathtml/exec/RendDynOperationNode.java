@@ -81,16 +81,16 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
     protected static Argument processCall(RendCallable _node, RendDynOperationNode _method,
-                                          Argument _previous, CustList<Argument> _arguments,
+                                          Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments,
                                           Configuration _conf, Argument _right) {
-        Argument argres_ = _node.getArgument(_previous, _arguments, _conf, _right);
-        argres_ = init(argres_,_node,_previous,_arguments,_conf,_right);
-        argres_ = init(argres_,_node,_previous,_arguments,_conf,_right);
+        Argument argres_ = _node.getArgument(_previous, _all,_arguments, _conf, _right);
+        argres_ = init(argres_,_node,_previous,_all,_arguments,_conf,_right);
+        argres_ = init(argres_,_node,_previous,_all,_arguments,_conf,_right);
         return _method.processCall(_conf,argres_);
     }
     private static Argument init(Argument _before,
                          RendCallable _node,
-                         Argument _previous, CustList<Argument> _arguments,
+                         Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments,
                          Configuration _conf, Argument _right) {
         CallingState state_ = _conf.getContext().getCallingState();
         Argument before_ = _before;
@@ -100,7 +100,7 @@ public abstract class RendDynOperationNode {
             if (_conf.getContext().hasException()) {
                 return Argument.createVoid();
             }
-            before_ = _node.getArgument(_previous, _arguments, _conf, _right);
+            before_ = _node.getArgument(_previous, _all,_arguments, _conf, _right);
         }
         return before_;
     }
@@ -264,6 +264,10 @@ public abstract class RendDynOperationNode {
             if (ex_ != null) {
                 return new RendFctOperation(f_,fct_,ex_);
             }
+        }
+        if (_anaNode instanceof NamedArgumentOperation) {
+            NamedArgumentOperation f_ = (NamedArgumentOperation) _anaNode;
+            return new RendNamedArgumentOperation(f_);
         }
         if (_anaNode instanceof FirstOptOperation) {
             FirstOptOperation f_ = (FirstOptOperation) _anaNode;
@@ -477,17 +481,6 @@ public abstract class RendDynOperationNode {
     }
     final void setNextSibling(RendDynOperationNode _nextSibling) {
         nextSibling = _nextSibling;
-    }
-
-    static CustList<RendDynOperationNode> filterInvoking(CustList<RendDynOperationNode> _list) {
-        CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
-        for (RendDynOperationNode o: _list) {
-            if (o instanceof RendStaticInitOperation) {
-                continue;
-            }
-            out_.add(o);
-        }
-        return out_;
     }
 
     private void setNextSiblingsArg(Argument _arg, Configuration _cont) {

@@ -589,6 +589,7 @@ public final class ResolvingImportTypes {
                 }
                 if (e instanceof NamedFunctionBlock) {
                     value_.setMemberNumber(((NamedFunctionBlock)e).getNameNumber());
+                    value_.setCustMethod((NamedFunctionBlock)e);
                 }
                 if (super_ instanceof RootBlock) {
                     value_.setRootNumber(((RootBlock)super_).getNumberAll());

@@ -6,8 +6,10 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.SuperInvokingConstructor;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
+import code.util.IdMap;
 
 public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingConstructor {
 
@@ -16,7 +18,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
     }
 
     @Override
-    Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument,  ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -29,7 +31,8 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         String lastType_ = getLastType();
         lastType_ = ExecTemplates.quickFormat(getRootBlock(), superClass_, lastType_);
         int natvararg_ = getNaturalVararg();
-        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, _arguments);
+        CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         calledCtorTemp_ = superClass_;
         checkParametersCtors(_conf, calledCtorTemp_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
         return Argument.createVoid();

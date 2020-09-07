@@ -118,6 +118,12 @@ final class AfterUnaryParts {
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
             return;
         }
+        int indexTwoDots_ = _string.indexOf(':',firstPrintChar_);
+        if (indexTwoDots_ > -1) {
+            if (StringList.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
+                prio = ElResolver.NAME_PRIO;
+            }
+        }
         index = firstPrintChar_;
     }
     void setInstance(String _string, ContextEl _conf) {
@@ -326,7 +332,7 @@ final class AfterUnaryParts {
                 return;
             }
         }
-        if (curChar_ == END_TERNARY) {
+        if (curChar_ == END_TERNARY&&!parsBrackets.isEmpty()&&parsBrackets.lastValue() == BEGIN_TERNARY) {
             parsBrackets.removeKey(parsBrackets.lastKey());
             if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                 operators.put(index, String.valueOf(curChar_));
@@ -338,6 +344,15 @@ final class AfterUnaryParts {
             return;
         }
         if (!parsBrackets.isEmpty()) {
+            index++;
+            return;
+        }
+        if (prio == ElResolver.NAME_PRIO) {
+            if (operators.isEmpty()) {
+                operators.put(index, String.valueOf(curChar_));
+            }
+            enPars = false;
+            enabledId = false;
             index++;
             return;
         }

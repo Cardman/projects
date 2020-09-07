@@ -9,7 +9,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
@@ -73,6 +72,7 @@ public final class AliasNumber {
     private String aliasGetCharType;
     private String aliasToLowerCaseChar;
     private String aliasToUpperCaseChar;
+    private AliasParamNumber params = new AliasParamNumber();
 
     public static void instantiateNumber(ContextEl _cont, ResultErrorStd _res, ConstructorId _method, Struct... _args) {
       String type_ = _method.getName();
@@ -1193,85 +1193,85 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasBooleanValue, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_, aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasBoolean0Compare0(),params.getAliasBoolean0Compare1()));
         methods_.add( method_);
         params_ = new StringList(aliasBoolean);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasBoolean0CompareTo0()));
         methods_.add( method_);
         params_ = new StringList(aliasBoolean);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasBoolean0Equals0()));
         methods_.add( method_);
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(aliasParseBoolean, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasParseBoolean, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasBoolean0ParseBoolean0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasBoolean0ToStringMethod0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC,new StringList(params.getAliasBoolean0ValueOfMethod0()));
         methods_.add( method_);
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasValueOfMethod, params_, aliasBoolean, false, MethodModifier.STATIC,new StringList(params.getAliasBoolean1ValueOfMethod0()));
         methods_.add( method_);
         StandardConstructor ctor_;
         params_ = new StringList(_lgNames.getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(params.getAliasBoolean0Boolean0()));
         constructors_.add(ctor_);
         params_ = new StringList(aliasBoolean);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new StringList(params.getAliasBoolean1Boolean0()));
         constructors_.add(ctor_);
         standards_.addEntry(aliasBoolean, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasByte, fields_, constructors_, methods_, aliasShort, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimByte_);
-        numbersValuesMethods(_lgNames,methods_, aliasByte, aliasParseByte, aliasPrimByte_, true);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasByte, aliasParseByteOrNull, true);
+        numbersConstructors(_lgNames,constructors_, aliasPrimByte_,new StringList(params.getAliasByte0Byte0()),new StringList(params.getAliasByte1Byte0()));
+        numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimByte_, aliasByte, aliasParseByte, new StringList(params.getAliasByte0ToStringMethod0()), new StringList(params.getAliasByte0ParseByte0()), new StringList(params.getAliasByte1ParseByte0(),params.getAliasByte1ParseByte1()), new StringList(params.getAliasByte0CompareTo0()), new StringList(params.getAliasByte0Compare0(),params.getAliasByte0Compare1()));
+        numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasByte, aliasParseByteOrNull, new StringList(params.getAliasByte0ParseByteOrNull0()), new StringList(params.getAliasByte1ParseByteOrNull0(),params.getAliasByte1ParseByteOrNull1()));
         numbersValuesFields(fields_, aliasPrimByte_, std_);
         standards_.addEntry(aliasByte, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasShort, fields_, constructors_, methods_, aliasInteger, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimShort_);
-        numbersValuesMethods(_lgNames,methods_, aliasShort, aliasParseShort, aliasPrimShort_, true);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasShort, aliasParseShortOrNull, true);
+        numbersConstructors(_lgNames,constructors_, aliasPrimShort_,new StringList(params.getAliasShort0Short0()),new StringList(params.getAliasShort1Short0()));
+        numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimShort_, aliasShort, aliasParseShort, new StringList(params.getAliasShort0ToStringMethod0()), new StringList(params.getAliasShort0ParseShort0()), new StringList(params.getAliasShort1ParseShort0(),params.getAliasShort1ParseShort1()), new StringList(params.getAliasShort0CompareTo0()), new StringList(params.getAliasShort0Compare0(),params.getAliasShort0Compare1()));
+        numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasShort, aliasParseShortOrNull, new StringList(params.getAliasShort0ParseShortOrNull0()), new StringList(params.getAliasShort1ParseShortOrNull0(),params.getAliasShort1ParseShortOrNull1()));
         numbersValuesFields(fields_, aliasPrimShort_, std_);
         standards_.addEntry(aliasShort, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasInteger, fields_, constructors_, methods_, aliasLong, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimInteger_);
-        numbersValuesMethods(_lgNames,methods_, aliasInteger, aliasParseInt, aliasPrimInteger_, true);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasInteger, aliasParseIntOrNull, true);
+        numbersConstructors(_lgNames,constructors_, aliasPrimInteger_,new StringList(params.getAliasInteger0Integer0()),new StringList(params.getAliasInteger1Integer0()));
+        numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimInteger_, aliasInteger, aliasParseInt, new StringList(params.getAliasInteger0ToStringMethod0()), new StringList(params.getAliasInteger0ParseInt0()), new StringList(params.getAliasInteger1ParseInt0(),params.getAliasInteger1ParseInt1()), new StringList(params.getAliasInteger0CompareTo0()), new StringList(params.getAliasInteger0Compare0(),params.getAliasInteger0Compare1()));
+        numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasInteger, aliasParseIntOrNull, new StringList(params.getAliasInteger0ParseIntOrNull0()), new StringList(params.getAliasInteger1ParseIntOrNull0(),params.getAliasInteger1ParseIntOrNull1()));
         numbersValuesFields(fields_, aliasPrimInteger_, std_);
         standards_.addEntry(aliasInteger, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasLong, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimLong_);
-        numbersValuesMethods(_lgNames,methods_, aliasLong, aliasParseLong, aliasPrimLong_, true);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasLong, aliasParseLongOrNull, true);
+        numbersConstructors(_lgNames,constructors_, aliasPrimLong_,new StringList(params.getAliasLong0Long0()),new StringList(params.getAliasLong1Long0()));
+        numbersValuesMethodsRadix(_lgNames, methods_, aliasPrimLong_, aliasLong, aliasParseLong, new StringList(params.getAliasLong0ToStringMethod0()), new StringList(params.getAliasLong0ParseLong0()), new StringList(params.getAliasLong1ParseLong0(),params.getAliasLong1ParseLong1()), new StringList(params.getAliasLong0CompareTo0()), new StringList(params.getAliasLong0Compare0(),params.getAliasLong0Compare1()));
+        numbersSafeParsersMethodsRadix(_lgNames, methods_, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong0ParseLongOrNull0()), new StringList(params.getAliasLong1ParseLongOrNull0(),params.getAliasLong1ParseLongOrNull1()));
         numbersValuesFields(fields_, aliasPrimLong_, std_);
         standards_.addEntry(aliasLong, std_);
         constructors_ = new CustList<StandardConstructor>();
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasFloat, fields_, constructors_, methods_, aliasDouble, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimFloat_);
-        numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, false);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasFloat, aliasParseFloatOrNull, false);
+        numbersConstructors(_lgNames,constructors_, aliasPrimFloat_,new StringList(params.getAliasFloat0Float0()),new StringList(params.getAliasFloat1Float0()));
+        numbersValuesMethods(_lgNames,methods_, aliasFloat, aliasParseFloat, aliasPrimFloat_, new StringList(params.getAliasFloat0ToStringMethod0()), new StringList(params.getAliasFloat0ParseFloat0()), new StringList(params.getAliasFloat0CompareTo0()), new StringList(params.getAliasFloat0Compare0(),params.getAliasFloat0Compare1()));
+        numbersSafeParsersMethods(_lgNames,methods_, aliasFloat, aliasParseFloatOrNull, new StringList(params.getAliasFloat0ParseFloatOrNull0()));
         params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasFloat0IsInfinite0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasFloat0IsNan0()));
         methods_.add( method_);
         numbersDotValuesFields(fields_, aliasPrimFloat_, std_);
         standards_.addEntry(aliasFloat, std_);
@@ -1279,20 +1279,20 @@ public final class AliasNumber {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new StandardClass(aliasDouble, fields_, constructors_, methods_, aliasNumber, MethodModifier.FINAL);
-        numbersConstructors(_lgNames,constructors_, aliasPrimDouble_);
-        numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, false);
-        numbersSafeParsersMethods(_lgNames,methods_, aliasDouble, aliasParseDoubleOrNull, false);
+        numbersConstructors(_lgNames,constructors_, aliasPrimDouble_,new StringList(params.getAliasDouble0Double0()),new StringList(params.getAliasDouble1Double0()));
+        numbersValuesMethods(_lgNames,methods_, aliasDouble, aliasParseDouble, aliasPrimDouble_, new StringList(params.getAliasDouble0ToStringMethod0()), new StringList(params.getAliasDouble0ParseDouble0()), new StringList(params.getAliasDouble0CompareTo0()), new StringList(params.getAliasDouble0Compare0(),params.getAliasDouble0Compare1()));
+        numbersSafeParsersMethods(_lgNames,methods_, aliasDouble, aliasParseDoubleOrNull,new StringList(params.getAliasDouble0ParseDoubleOrNull0()));
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsInfinite, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsInfinite0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsNan0()));
         methods_.add( method_);
         numbersDotValuesFields(fields_, aliasPrimDouble_, std_);
         standards_.addEntry(aliasDouble, std_);
@@ -1310,71 +1310,105 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar_, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasCharacter);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharacter0CompareTo0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimChar_);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Compare0(),params.getAliasCharacter0Compare1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Digit0(),params.getAliasCharacter0Digit1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ForDigit0(),params.getAliasCharacter0ForDigit1()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetDirectionality0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimByte_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetType0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsDigit0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetter0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetterOrDigit0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWordChar0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWhitespace0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLowerCase0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsUpperCase0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsSpace0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToLowerCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToLowerCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToLowerCaseChar0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToUpperCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToUpperCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToUpperCaseChar0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToStringMethod0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasCharacter0Character0()));
         constructors_.add(ctor_);
         numbersValuesFields(fields_, aliasPrimChar_, stdcl_);
         std_ = stdcl_;
         standards_.addEntry(aliasCharacter, std_);
     }
-    private static void numbersConstructors(LgNames _lgNames, CustList<StandardConstructor> _ctors, String _primitive) {
+
+    private static void numbersSafeParsersMethodsRadix(LgNames _lgNames, CustList<StandardMethod> methods_, String _aliasType, String _aliasParseOrNull, StringList _first, StringList _second) {
+        String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
+        StringList params_;
+        StandardMethod method_;
+        params_ = new StringList(_lgNames.getAliasString());
+        method_ = new StandardMethod(_aliasParseOrNull, params_, _aliasType, false, MethodModifier.STATIC, _first);
+        methods_.add(method_);
+        params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
+        method_ = new StandardMethod(_aliasParseOrNull, params_, _aliasType, false, MethodModifier.STATIC, _second);
+        methods_.add(method_);
+    }
+
+    private void numbersValuesMethodsRadix(LgNames _lgNames, CustList<StandardMethod> methods_, String _primitive, String _aliasLong, String _aliasParse, StringList _first, StringList _second, StringList _third, StringList _fourth, StringList _fifth) {
+        String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
+        StringList params_;
+        StandardMethod method_;
+        params_ = new StringList(_primitive);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _first);
+        methods_.add( method_);
+        params_ = new StringList(_lgNames.getAliasString());
+        method_ = new StandardMethod(_aliasParse, params_, _aliasLong, false, MethodModifier.STATIC, _second);
+        methods_.add( method_);
+        params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
+        method_ = new StandardMethod(_aliasParse, params_, _aliasLong, false, MethodModifier.STATIC, _third);
+        methods_.add( method_);
+        params_ = new StringList(_aliasLong);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _fourth);
+        methods_.add( method_);
+        params_ = new StringList(_primitive, _primitive);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _fifth);
+        methods_.add( method_);
+    }
+
+    private static void numbersConstructors(LgNames _lgNames, CustList<StandardConstructor> _ctors, String _primitive, StringList _first,StringList _second) {
         StringList params_;
         StandardConstructor ctor_;
         params_ = new StringList(_lgNames.getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,_first);
         _ctors.add(ctor_);
         params_ = new StringList(_primitive);
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,_second);
         _ctors.add(ctor_);
     }
     private void numbersDotValuesFields(CustList<StandardField> _fields, String _primitive, StandardType _type) {
@@ -1395,41 +1429,30 @@ public final class AliasNumber {
         field_ = new StandardField(aliasMaxValueField, _primitive, true, true, _type);
         _fields.add(field_);
     }
-    private void numbersValuesMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner, String _parserName, String _primitive, boolean _radix) {
+    private void numbersValuesMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner, String _parserName, String _primitive, StringList _first, StringList _second, StringList _third, StringList _fourth) {
         String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
         params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC, _first);
         _methods.add( method_);
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _second);
         _methods.add( method_);
-        if (_radix) {
-            params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
-            method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC);
-            _methods.add( method_);
-        }
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _third);
         _methods.add( method_);
         params_ = new StringList(_primitive, _primitive);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC, _fourth);
         _methods.add( method_);
     }
-    private static void numbersSafeParsersMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner, String _parserName, boolean _radix) {
-        String aliasPrimInteger_ = _lgNames.getAliasPrimInteger();
+    private static void numbersSafeParsersMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner, String _parserName, StringList _first) {
         StringList params_;
         StandardMethod method_;
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC, _first);
         _methods.add(method_);
-        if (!_radix) {
-            return;
-        }
-        params_ = new StringList(_lgNames.getAliasString(), aliasPrimInteger_);
-        method_ = new StandardMethod(_parserName, params_, _owner, false, MethodModifier.STATIC);
-        _methods.add(method_);
+
     }
     private void numbersAbsMethods(LgNames _lgNames, CustList<StandardMethod> _methods, String _owner) {
         String aliasPrimBoolean_ = _lgNames.getAliasPrimBoolean();
@@ -1463,19 +1486,19 @@ public final class AliasNumber {
         method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL);
         _methods.add( method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasNumber0ToStringMethod0()));
         _methods.add( method_);
         params_ = new StringList(aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0Equals0()));
         _methods.add( method_);
         params_ = new StringList(aliasNumber,aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber1Equals0(),params.getAliasNumber1Equals1()));
         _methods.add( method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0CompareTo0()));
         _methods.add( method_);
         params_ = new StringList(_owner, _owner);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber0Compare0(),params.getAliasNumber0Compare1()));
         _methods.add( method_);
     }
     public String getAliasCompareTo() {
@@ -1824,5 +1847,9 @@ public final class AliasNumber {
 
     public void setAliasToUpperCaseChar(String aliasToUpperCaseChar) {
         this.aliasToUpperCaseChar = aliasToUpperCaseChar;
+    }
+
+    public AliasParamNumber getParams() {
+        return params;
     }
 }

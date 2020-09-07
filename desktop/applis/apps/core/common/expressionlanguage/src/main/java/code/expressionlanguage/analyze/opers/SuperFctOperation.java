@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -110,7 +111,6 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _conf);
         String varargParam_ = getVarargParam(chidren_);
-        CustList<ClassArgumentMatching> firstArgs_ = listClasses(chidren_);
         Mapping map_ = new Mapping();
         map_.setParam(className_);
         map_.setArg(clCur_);
@@ -149,11 +149,16 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             feedBase_ = new ClassMethodId(idClass_, new MethodId(static_, trimMeth_, params_, vararg_));
             feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
         }
+        NameParametersFilter name_ = buildFilter(_conf);
+        if (!name_.isOk()) {
+            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            return;
+        }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
             ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(firstArgs_);
+            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(name_.getPositional());
             clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
             if (!clMeth_.isFoundMethod()) {
                 setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -167,11 +172,11 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             classMethodId = new ClassMethodId(foundClass_, id_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getPositional(), _conf);
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
-        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_, OperationNode.toArgArray(firstArgs_));
+        ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_,name_);
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
             setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
@@ -206,7 +211,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             lastType = paramtTypes_.last();
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, firstArgs_, _conf);
+        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
         setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();

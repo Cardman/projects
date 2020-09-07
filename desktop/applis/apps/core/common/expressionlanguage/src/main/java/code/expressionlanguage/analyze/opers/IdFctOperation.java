@@ -39,7 +39,7 @@ public final class IdFctOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
         LgNames stds_ = _conf.getStandards();
         MethodOperation m_ = getParent();
-        if (m_ == null ||!m_.isCallMethodCtor()) {
+        if (isNotChildOfCall(m_)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());

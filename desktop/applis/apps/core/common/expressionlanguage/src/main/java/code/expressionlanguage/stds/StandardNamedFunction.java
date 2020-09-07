@@ -7,17 +7,19 @@ public abstract class StandardNamedFunction {
     private final String name;
 
     private final StringList parametersTypes;
+    private final StringList parametersNames;
 
     private final String returnType;
 
     private final boolean varargs;
 
     protected StandardNamedFunction(String _name, StringList _parametersTypes,
-                                    String _returnType, boolean _varargs) {
+                                    String _returnType, boolean _varargs, StringList _parametersNames) {
         name = _name;
         parametersTypes = _parametersTypes;
         returnType = _returnType;
         varargs = _varargs;
+        parametersNames = _parametersNames;
     }
 
     public String getName() {
@@ -26,6 +28,10 @@ public abstract class StandardNamedFunction {
 
     public StringList getImportedParametersTypes() {
         return new StringList(parametersTypes);
+    }
+
+    public StringList getParametersNames() {
+        return parametersNames;
     }
 
     public String getImportedReturnType() {

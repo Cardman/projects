@@ -45,6 +45,7 @@ public final class AliasCore {
     private String aliasReadResourcesIndex;
     private String aliasResources;
     private String aliasStringUtil;
+    private AliasParamCore params = new AliasParamCore();
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
@@ -74,10 +75,10 @@ public final class AliasCore {
         method_ = new StandardMethod(_lgNames.getAliasToStringMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(_lgNames.getAliasCurrentStack(), params_, stackElt_, false, MethodModifier.STATIC,new StringList(params.getAliasError0CurrentStack0()));
         methods_.add( method_);
         params_ = new StringList(aliasError);
-        method_ = new StandardMethod(_lgNames.getAliasToStringMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(_lgNames.getAliasToStringMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasError0ToStringMethod0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetMessage, params_, _lgNames.getAliasString(), false, MethodModifier.NORMAL);
@@ -158,10 +159,10 @@ public final class AliasCore {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasEnums, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(_lgNames.getAliasEnumType());
-        method_ = new StandardMethod(aliasName, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasName, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Name0()));
         methods_.add( method_);
         params_ = new StringList(_lgNames.getAliasEnumType());
-        method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasOrdinal, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(params.getAliasEnums0Ordinal0()));
         methods_.add( method_);
         standards_.addEntry(aliasEnums, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -169,13 +170,13 @@ public final class AliasCore {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasObjectsUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasSameRef, params_, _lgNames.getAliasPrimBoolean(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasSameRef, params_, _lgNames.getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0SameRef0(),params.getAliasObjectsUtil0SameRef1()));
         methods_.add( method_);
         params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasGetParent, params_, aliasObject, false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0GetParent0()));
         methods_.add( method_);
         params_ = new StringList(aliasObject,aliasObject);
-        method_ = new StandardMethod(aliasSetParent, params_, aliasVoid, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasSetParent, params_, aliasVoid, false, MethodModifier.STATIC,new StringList(params.getAliasObjectsUtil0SetParent0(),params.getAliasObjectsUtil0SetParent1()));
         methods_.add( method_);
         standards_.addEntry(aliasObjectsUtil, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -183,7 +184,7 @@ public final class AliasCore {
         fields_ = new CustList<StandardField>();
         stdcl_ = new StandardClass(aliasStringUtil, fields_, constructors_, methods_, aliasObject, MethodModifier.ABSTRACT);
         params_ = new StringList(aliasObject);
-        method_ = new StandardMethod(_lgNames.getAliasValueOfMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(_lgNames.getAliasValueOfMethod(), params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasStringUtil0ValueOfMethod0()));
         methods_.add( method_);
         standards_.addEntry(aliasStringUtil, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -194,13 +195,13 @@ public final class AliasCore {
         method_ = new StandardMethod(aliasReadResourcesNames, params_, StringExpUtil.getPrettyArrayType(_lgNames.getAliasString()), false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(_lgNames.getAliasString());
-        method_ = new StandardMethod(aliasReadResources, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasReadResources, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasResources0ReadResources0()));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasReadResourcesNamesLength, params_, _lgNames.getAliasPrimInteger(), false, MethodModifier.STATIC);
         methods_.add( method_);
         params_ = new StringList(_lgNames.getAliasPrimInteger());
-        method_ = new StandardMethod(aliasReadResourcesIndex, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasReadResourcesIndex, params_, _lgNames.getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasResources0ReadResourcesIndex0()));
         methods_.add( method_);
         standards_.addEntry(aliasResources, stdcl_);
     }
@@ -445,4 +446,7 @@ public final class AliasCore {
 		aliasResources = _aliasResources;
 	}
 
+    public AliasParamCore getParams() {
+        return params;
+    }
 }

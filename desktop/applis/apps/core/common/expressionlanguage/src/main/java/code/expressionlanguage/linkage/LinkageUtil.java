@@ -3253,6 +3253,34 @@ public final class LinkageUtil {
                 _parts.add(new PartOffset("</a>",begin_+ _cont.getKeyWords().getKeyWordFirstopt().length()));
             }
         }
+        if (val_ instanceof NamedArgumentOperation) {
+            NamedArgumentOperation n_ = (NamedArgumentOperation) val_;
+            int firstOff_ = n_.getOffsetTr();
+            NamedFunctionBlock customMethod_ = n_.getCustomMethod();
+            Ints offs_ = new Ints();
+            int ref_ = -1;
+            String relFile_ = "";
+            if (customMethod_ != null) {
+                FileBlock file_ = customMethod_.getFile();
+                if (!file_.isPredefined()) {
+                    offs_ = customMethod_.getParametersNamesOffset();
+                    relFile_ = file_.getRenderFileName();
+                }
+            }
+            if (offs_.isValidIndex(n_.getIndex())) {
+                ref_ = offs_.get(n_.getIndex());
+            }
+            if (!val_.getErrs().isEmpty()) {
+                int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
+                _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+            } else if (ref_ != -1){
+                int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
+                String rel_ = relativize(currentFileName_, relFile_ + "#m" + ref_);
+                _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
+                _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+            }
+        }
         if (val_ instanceof DefaultOperation) {
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl();

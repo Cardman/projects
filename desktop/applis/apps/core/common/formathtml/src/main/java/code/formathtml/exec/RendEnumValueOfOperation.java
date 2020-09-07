@@ -28,8 +28,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
-        Argument argres_ = processCall(this, this, Argument.createVoid(), arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
@@ -39,7 +38,9 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
     }
 
     @Override
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
-        return getCommonArgument(_arguments.first(),_conf);
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+        CustList<RendDynOperationNode> list_ = getChildrenNodes();
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
+        return getCommonArgument(first_.first(),_conf);
     }
 }

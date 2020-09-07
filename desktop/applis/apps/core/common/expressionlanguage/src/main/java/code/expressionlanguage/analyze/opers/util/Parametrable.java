@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.functionid.Identifiable;
 import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
 
 public interface Parametrable {
 
@@ -19,6 +21,9 @@ public interface Parametrable {
     boolean sameParamsVararg(Parametrable _id);
 
     Identifiable getGeneFormatted();
+    StringList getFormattedParams();
+    StringList getParametersNames();
+    Ints getNameParametersFilterIndexes();
     Identifiable getPartialId();
 
     void setInvocation(InvocationMethod _inv);

@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.Configuration;
+import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -31,21 +32,18 @@ public final class RendDirectStandardInstancingOperation extends RendInvokingOpe
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = new CustList<Argument>();
-        for (RendDynOperationNode o: filterInvoking(chidren_)) {
-            arguments_.add(getArgument(_nodes,o));
-        }
-        Argument argres_ = getArgument(arguments_, _conf);
+        Argument argres_ = getArgument(_nodes, _conf);
         setSimpleArgument(argres_,_conf,_nodes);
     }
-    Argument getArgument(CustList<Argument> _arguments,
+    Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes,
                          Configuration _conf) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
-        CustList<RendDynOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, _arguments);
+        RendArgumentList args_ = RendInvokingOperation.listNamedArguments(_nodes, chidren_);
+        CustList<Argument> first_ = args_.getArguments();
+        CustList<RendDynOperationNode> filter_ = args_.getFilter();
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, first_);
         return ExecInvokingOperation.instancePrepareStd(_conf.getContext(), className, constId, firstArgs_);
     }
 }

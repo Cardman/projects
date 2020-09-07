@@ -9,7 +9,10 @@ public final class StandardConstructor extends StandardNamedFunction implements 
     private static final String DEFAULT_NAME = "";
 
     public StandardConstructor(StringList _parametersTypes, boolean _varargs) {
-        super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs);
+        super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs, new StringList());
+    }
+    public StandardConstructor(StringList _parametersTypes, boolean _varargs, StringList _paramNames) {
+        super(DEFAULT_NAME, _parametersTypes, DEFAULT_NAME, _varargs,_paramNames);
     }
 
     @Override

@@ -3,9 +3,12 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
+import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
+import code.util.IdMap;
 
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
     private boolean intermediate;
@@ -24,6 +27,39 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         super(_indexChild,_res,_order);
         intermediate = _intermediate;
         previousArgument = _previousArgument;
+    }
+    public static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
+        RendArgumentList out_ = new RendArgumentList();
+        CustList<Argument> args_ = out_.getArguments();
+        CustList<RendDynOperationNode> filter_ = out_.getFilter();
+        CustList<RendNamedArgumentOperation> named_ = new CustList<RendNamedArgumentOperation>();
+        for (RendDynOperationNode c: _children) {
+            if (c instanceof RendNamedArgumentOperation) {
+                named_.add((RendNamedArgumentOperation)c);
+                filter_.add(c);
+            } else if (!(c instanceof RendStaticInitOperation)){
+                args_.add(getArgument(_all,c));
+                filter_.add(c);
+            }
+        }
+        while (!named_.isEmpty()) {
+            RendNamedArgumentOperation min_ = named_.first();
+            int minIndex_ = min_.getIndex();
+            int size_ = named_.size();
+            int i_ = 0;
+            for (int i = 1; i < size_; i++) {
+                RendNamedArgumentOperation elt_ = named_.get(i);
+                int index_ = elt_.getIndex();
+                if (index_ < minIndex_) {
+                    min_ = elt_;
+                    minIndex_ = index_;
+                    i_ = i;
+                }
+            }
+            args_.add(getArgument(_all,min_));
+            named_.remove(i_);
+        }
+        return out_;
     }
     public static CustList<Argument> listArguments(CustList<RendDynOperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
         if (_natVararg > -1) {

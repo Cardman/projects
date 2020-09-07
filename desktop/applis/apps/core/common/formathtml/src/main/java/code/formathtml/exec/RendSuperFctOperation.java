@@ -41,13 +41,12 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
-        CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_, arguments_, _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
-    public Argument getArgument(Argument _previous, CustList<Argument> _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
@@ -68,7 +67,8 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, _arguments);
+        CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
+        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         methodId_ = classMethodId.getConstraints();
         return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
     }

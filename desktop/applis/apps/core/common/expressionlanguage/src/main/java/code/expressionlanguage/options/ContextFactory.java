@@ -77,12 +77,15 @@ public final class ContextFactory {
         }
         StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(_context, methods_, prims_);
+        CustList<CustList<KeyValueMemberName>> params_ = _definedLgNames.allTableTypeMethodParamNames();
+        ValidatorStandard.validateParamtersContents(_context, params_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = _definedLgNames.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(_context, fields_, prims_);
         StringMap<CustList<KeyValueMemberName>> varTypes_ = _definedLgNames.allTableTypeVarTypes();
         ValidatorStandard.validateVarTypesContents(_context, varTypes_, prims_);
         //duplicates
         ValidatorStandard.validateMethodsDuplicates(_context, methods_);
+        ValidatorStandard.validateParamtersDuplicates(_context, params_);
         ValidatorStandard.validateFieldsDuplicates(_context, fields_);
         ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();

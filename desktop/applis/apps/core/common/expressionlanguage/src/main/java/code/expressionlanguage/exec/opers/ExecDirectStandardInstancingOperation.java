@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
+import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
@@ -32,18 +33,18 @@ public final class ExecDirectStandardInstancingOperation extends
 
     @Override
     public void calculate(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ContextEl _conf) {
-        CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<Argument> arguments_ = filterInvoking(chidren_, _nodes);
-        Argument res_ = getArgument(arguments_, _conf);
+        Argument res_ = getArgument(_nodes, _conf);
         setSimpleArgument(res_, _conf, _nodes);
     }
-    Argument getArgument(CustList<Argument> _arguments,
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                          ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        CustList<ExecOperationNode> filter_ = filterInvoking(chidren_);
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, _arguments);
+        ArgumentList argumentList_ = listNamedArguments(_nodes, chidren_);
+        CustList<Argument> first_ = argumentList_.getArguments();
+        CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
+        CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType, first_);
         return instancePrepareStd(_conf, className, constId, firstArgs_);
     }
 
