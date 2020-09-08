@@ -182,6 +182,21 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _an);
     }
+    protected static String tryParamVarargFormat(Parametrable _param, String _name) {
+        if (!_param.isVararg()) {
+            return null;
+        }
+        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        StringList formattedParams_ = _param.getFormattedParams();
+        if (!formattedParams_.isValidIndex(ind_)) {
+            return null;
+        }
+        Identifiable idMethod_ = _param.getGeneFormatted();
+        if (ind_ != idMethod_.getParametersTypesLength() - 1) {
+            return null;
+        }
+        return StringExpUtil.getPrettyArrayType(idMethod_.getParametersTypes().last());
+    }
     protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
         String parametersType_ = tryGetParam(_param,indexChild_);
         if (parametersType_ == null) {
