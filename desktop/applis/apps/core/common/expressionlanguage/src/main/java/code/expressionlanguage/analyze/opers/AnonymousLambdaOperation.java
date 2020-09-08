@@ -108,8 +108,12 @@ public final class AnonymousLambdaOperation extends
                 int len_ = methodInfos_.size();
                 for (int i = 0; i < len_; i++) {
                     int gr_ = methodInfos_.get(i).size();
+                    CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                        if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
+                            newList_.add(methodInfo_);
+                        }
                         String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
                         if (format_ == null) {
                             continue;
@@ -120,6 +124,7 @@ public final class AnonymousLambdaOperation extends
                         }
                         candidates_.add(format_);
                     }
+                    methodInfos_.set(i,newList_);
                 }
             }
             if (call_ instanceof RetrieveConstructor) {
@@ -130,8 +135,12 @@ public final class AnonymousLambdaOperation extends
                 NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
                 CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
                 int len_ = methodInfos_.size();
+                CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                    if (InvokingOperation.isValidNameIndex(filter_,methodInfo_,name_)) {
+                        newList_.add(methodInfo_);
+                    }
                     String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
                     if (format_ == null) {
                         continue;
@@ -142,6 +151,8 @@ public final class AnonymousLambdaOperation extends
                     }
                     candidates_.add(format_);
                 }
+                methodInfos_.clear();
+                methodInfos_.addAllElts(newList_);
             }
         }
         if (m_ instanceof RetrieveMethod){

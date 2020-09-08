@@ -171,16 +171,20 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
     }
     protected static String tryParamFormat(NameParametersFilter _filter,Parametrable _param, String _name, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
+        if (!isValidNameIndex(_filter,_param,_name)) {
+            return null;
+        }
+        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _an);
+    }
+    protected static boolean isValidNameIndex(NameParametersFilter _filter, Parametrable _param, String _name) {
         int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
         StringList formattedParams_ = _param.getFormattedParams();
         if (!formattedParams_.isValidIndex(ind_)) {
-            return null;
+            return false;
         }
         int lengthArgs_ = _filter.getPositional().size();
-        if (ind_ < Math.min(lengthArgs_, _filter.getIndex())) {
-            return null;
-        }
-        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _an);
+        return ind_ >= Math.min(lengthArgs_, _filter.getIndex());
     }
     protected static String tryParamVarargFormat(Parametrable _param, String _name) {
         if (!_param.isVararg()) {
