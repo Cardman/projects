@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.DimComp;
@@ -85,6 +86,70 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             return;
         }
         StringMap<String> vars_ = new StringMap<String>();
+        if (m_ instanceof NamedArgumentOperation){
+            NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+            String name_ = n_.getName();
+            MethodOperation call_ = n_.getParent();
+            if (call_ instanceof RetrieveMethod) {
+                RetrieveMethod f_ = (RetrieveMethod) call_;
+                NameParametersFilter filter_ = buildQuickFilter(call_);
+                CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                int len_ = methodInfos_.size();
+                StringList candidates_ = new StringList();
+                for (int i = 0; i < len_; i++) {
+                    int gr_ = methodInfos_.get(i).size();
+                    CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
+                    for (int j = 0; j < gr_; j++) {
+                        MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                        String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                        if (format_ == null) {
+                            continue;
+                        }
+                        candidates_.add(format_);
+                        newList_.add(methodInfo_);
+                    }
+                    methodInfos_.set(i,newList_);
+                }
+                if (candidates_.onlyOneElt()) {
+                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                    partOffsets.addAllElts(partOffsets_);
+                    int begin_ = new_.length()+local_+className_.indexOf('<');
+                    int end_ = new_.length()+local_+className_.indexOf('>')+1;
+                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    typeInfer = infer_;
+                    setClassName(StringExpUtil.getQuickComponentType(infer_));
+                }
+            }
+            if (call_ instanceof RetrieveConstructor) {
+                RetrieveConstructor f_ = (RetrieveConstructor) call_;
+                NameParametersFilter filter_ = buildQuickFilter(call_);
+                CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                int len_ = methodInfos_.size();
+                StringList candidates_ = new StringList();
+                CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
+                for (int i = 0; i < len_; i++) {
+                    ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                    String format_ = tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_+dim_.getDim(), type_, vars_, _an);
+                    if (format_ == null) {
+                        continue;
+                    }
+                    candidates_.add(format_);
+                    newList_.add(methodInfo_);
+                }
+                methodInfos_.clear();
+                methodInfos_.addAllElts(newList_);
+                if (candidates_.onlyOneElt()) {
+                    String infer_ = StringExpUtil.getPrettyArrayType(candidates_.first(), dim_.getDim());
+                    partOffsets.addAllElts(partOffsets_);
+                    int begin_ = new_.length()+local_+className_.indexOf('<');
+                    int end_ = new_.length()+local_+className_.indexOf('>')+1;
+                    ContextUtil.appendTitleParts(_an,begin_,end_,infer_,partOffsets);
+                    typeInfer = infer_;
+                    setClassName(StringExpUtil.getQuickComponentType(infer_));
+                }
+            }
+            return;
+        }
         if (m_ instanceof RetrieveMethod){
             RetrieveMethod f_ = (RetrieveMethod) m_;
             OperationNode firstChild_ = f_.getFirstChild();

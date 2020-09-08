@@ -6,6 +6,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 
@@ -15,7 +16,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     private int offsetTr;
     private int index = -1;
     private String name;
-    private NamedFunctionBlock customMethod;
+    private CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
     public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -64,12 +65,8 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
         this.index = index;
     }
 
-    public NamedFunctionBlock getCustomMethod() {
+    public CustList<NamedFunctionBlock> getCustomMethod() {
         return customMethod;
-    }
-
-    public void setCustomMethod(NamedFunctionBlock customMethod) {
-        this.customMethod = customMethod;
     }
 
     public String getName() {

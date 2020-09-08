@@ -4,11 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
-import code.expressionlanguage.analyze.opers.util.MethodInfo;
-import code.expressionlanguage.analyze.opers.util.ParametersGroup;
-import code.expressionlanguage.analyze.opers.util.ParentInferring;
-import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
@@ -20,7 +16,6 @@ import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.*;
@@ -97,6 +92,56 @@ public final class AnonymousLambdaOperation extends
             mapping_.setArg(foundType_);
             if (AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
                 candidates_.add(foundType_);
+            }
+        }
+        if (m_ instanceof NamedArgumentOperation){
+            NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+            String name_ = n_.getName();
+            MethodOperation call_ = n_.getParent();
+            if (call_ instanceof RetrieveMethod) {
+                RetrieveMethod f_ = (RetrieveMethod) call_;
+                Mapping mapping_ = new Mapping();
+                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+                mapping_.setParam(pattern_.toString());
+                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
+                int len_ = methodInfos_.size();
+                for (int i = 0; i < len_; i++) {
+                    int gr_ = methodInfos_.get(i).size();
+                    for (int j = 0; j < gr_; j++) {
+                        MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
+                        String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
+                        if (format_ == null) {
+                            continue;
+                        }
+                        mapping_.setArg(format_);
+                        if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                            continue;
+                        }
+                        candidates_.add(format_);
+                    }
+                }
+            }
+            if (call_ instanceof RetrieveConstructor) {
+                RetrieveConstructor f_ = (RetrieveConstructor) call_;
+                Mapping mapping_ = new Mapping();
+                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+                mapping_.setParam(pattern_.toString());
+                NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
+                CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
+                int len_ = methodInfos_.size();
+                for (int i = 0; i < len_; i++) {
+                    ConstructorInfo methodInfo_ = methodInfos_.get(i);
+                    String format_ = InvokingOperation.tryParamFormat(filter_,methodInfo_, name_, nbParentsInfer_, type_, vars_, _conf);
+                    if (format_ == null) {
+                        continue;
+                    }
+                    mapping_.setArg(format_);
+                    if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
+                        continue;
+                    }
+                    candidates_.add(format_);
+                }
             }
         }
         if (m_ instanceof RetrieveMethod){

@@ -8,6 +8,7 @@ public final class NameParametersFilter {
     private int index = -1;
     private boolean ok;
     private final CustList<NamedArgumentOperation> parameterFilter = new CustList<NamedArgumentOperation>();
+    private final CustList<NamedArgumentOperation> parameterFilterErr = new CustList<NamedArgumentOperation>();
     private final CustList<ClassArgumentMatching> positional = new CustList<ClassArgumentMatching>();
 
     public int getIndex() {
@@ -59,6 +60,10 @@ public final class NameParametersFilter {
 
     public CustList<NamedArgumentOperation> getParameterFilter() {
         return parameterFilter;
+    }
+
+    public CustList<NamedArgumentOperation> getParameterFilterErr() {
+        return parameterFilterErr;
     }
 
     public CustList<ClassArgumentMatching> getPositional() {

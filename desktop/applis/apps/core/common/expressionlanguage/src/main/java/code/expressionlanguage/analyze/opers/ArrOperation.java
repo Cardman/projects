@@ -22,6 +22,7 @@ import code.util.StringList;
 public final class ArrOperation extends InvokingOperation implements SettableElResult,PreAnalyzableOperation,RetrieveMethod {
 
     private boolean variable;
+    private boolean getAndSet;
 
     private boolean catString;
 
@@ -298,8 +299,13 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         return variable;
     }
 
+    public boolean isGetAndSet() {
+        return getAndSet;
+    }
+
     @Override
     public void setVariable(boolean _variable) {
+        getAndSet = true;
         variable = _variable;
     }
 

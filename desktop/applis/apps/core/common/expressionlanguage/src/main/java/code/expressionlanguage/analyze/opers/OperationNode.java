@@ -823,7 +823,10 @@ public abstract class OperationNode {
         int parNameLen_ = cInfo_.getNameParametersFilterIndexes().size();
         for (int i = 0; i < parNameLen_; i++) {
             NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
-            namedArgument_.setCustomMethod(cInfo_.getCustomCtor());
+            NamedFunctionBlock custMethod_ = cInfo_.getCustomCtor();
+            if (custMethod_ != null) {
+                namedArgument_.getCustomMethod().add(custMethod_);
+            }
             namedArgument_.setIndex(cInfo_.getNameParametersFilterIndexes().get(i));
         }
         ConstrustorIdVarArg out_;
@@ -2576,7 +2579,10 @@ public abstract class OperationNode {
         int parNameLen_ = m_.getNameParametersFilterIndexes().size();
         for (int i = 0; i < parNameLen_; i++) {
             NamedArgumentOperation namedArgument_ = _filter.getParameterFilter().get(i);
-            namedArgument_.setCustomMethod(m_.getCustMethod());
+            NamedFunctionBlock custMethod_ = m_.getCustMethod();
+            if (custMethod_ != null) {
+                namedArgument_.getCustomMethod().add(custMethod_);
+            }
             namedArgument_.setIndex(m_.getNameParametersFilterIndexes().get(i));
         }
         MethodId constraints_ = m_.getConstraints();

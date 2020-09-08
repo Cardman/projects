@@ -2687,4 +2687,357 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void report722Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(b:new Ext<>(11));\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall T m(Ext<T> a){\n");
+        xml_.append("  return a.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Object) is undefined.\" class=\"e\">m</a>(b:<a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                " }\n" +
+                " staticCall <a href=\"#m14\">T</a> <a name=\"m141\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m150\">a</a>){\n" +
+                "  return <a href=\"#m150\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report723Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(Ext<T> a){\n");
+        xml_.append("  field=a.field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext<int>(b:new Ext<>(11));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m66\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m66\">a</a>.<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m105\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:<a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void report724Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(b:new Ext<>[]{new Ext<>(11)});\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall T m(Ext<T>[] a){\n");
+        xml_.append("  return a[0].field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([$core.Object) is undefined.\" class=\"e\">m</a>(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                " }\n" +
+                " staticCall <a href=\"#m14\">T</a> <a name=\"m154\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m165\">a</a>){\n" +
+                "  return <a href=\"#m165\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report725Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(Ext<T>[] a){\n");
+        xml_.append("  field=a[0].field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext<int>(b:new Ext<>[]{new Ext<>(11)});\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[] <a name=\"m68\">a</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m68\">a</a>[0].<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m110\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(b:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt;[] is unknown.\" class=\"e\">&lt;</a>&gt;[]<a title=\"The type $core.Object is unexpected.\" class=\"e\">{</a><a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11)});\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report726Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(c:a -> 2 * a,b:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall T m(Fct<T,T> a,T b){\n");
+        xml_.append("  return a.call(b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">m</a>(c:<span class=\"t\"><a name=\"m108\">a</a> <a name=\"m110\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#m108\">a</a></span>,b:3);\n" +
+                " }\n" +
+                " staticCall <a href=\"#m14\">T</a> <a name=\"m142\">m</a>(Fct&lt;<a href=\"#m14\">T</a>,<a href=\"#m14\">T</a>&gt; <a name=\"m153\">a</a>,<a href=\"#m14\">T</a> <a name=\"m157\">b</a>){\n" +
+                "  return <a href=\"#m153\">a</a>.<b>call</b>(<a href=\"#m157\">b</a>);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report727Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(Fct<T,T> a,T b){\n");
+        xml_.append("  field=a.call(b);\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext<int>(c:a -> 2 * a,b:3);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " <a name=\"m55\">Ext(</a>Fct&lt;<a href=\"#m14\">T</a>,<a href=\"#m14\">T</a>&gt; <a name=\"m68\">a</a>,<a href=\"#m14\">T</a> <a name=\"m72\">b</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m68\">a</a>.<b>call</b>(<a href=\"#m72\">b</a>);\n" +
+                " }\n" +
+                " static Object <a name=\"m113\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;($core.Fct&lt;$core.Object,$core.Object&gt;,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(c:<span class=\"t\"><a name=\"m142\">a</a> <a name=\"m144\">-&gt;</a> 2 <a title=\"The operands types int;$core.Object for the operator * are unexpected.\" class=\"e\">*</a> <a href=\"#m142\">a</a></span>,b:3);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report728Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(new Ext<>[1][1],0,0,null);\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall Object m(Object[][] a,int b, int c, Object d){\n");
+        xml_.append("  return a[b][c]=d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"pkg.Ext.staticCall m([[$core.Object,int,int,$core.Object)\" href=\"#m155\">m</a>(new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                " }\n" +
+                " staticCall Object <a name=\"m155\">m</a>(Object[][] <a name=\"m168\">a</a>,int <a name=\"m174\">b</a>, int <a name=\"m181\">c</a>, Object <a name=\"m191\">d</a>){\n" +
+                "  return <a href=\"#m168\">a</a>[<a href=\"#m174\">b</a>][<a href=\"#m181\">c</a>]=<a href=\"#m191\">d</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report729Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(Object[][] a,int b, int c, Object d){\n");
+        xml_.append("  field=(a[b][c]=d).field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext<int>(new Ext<>[1][1],0,0,null);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " <a name=\"m55\">Ext(</a>Object[][] <a name=\"m70\">a</a>,int <a name=\"m76\">b</a>, int <a name=\"m83\">c</a>, Object <a name=\"m93\">d</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a><a title=\"The type $core.Object cannot be implicitly cast to #T\" class=\"e\">=</a>(<a href=\"#m70\">a</a>[<a href=\"#m76\">b</a>][<a href=\"#m83\">c</a>]=<a href=\"#m93\">d</a>).<a title=\"There is no accessible field named field from the type $core.Object in this context.\" class=\"e\">field</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m142\">m</a>(){\n" +
+                "  return <a title=\"pkg.Ext.pkg.Ext([[$core.Object,int,int,$core.Object)\" href=\"#m55\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],0,0,null);\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report730Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return staticCall(Ext<int>).m(e:new Ext<>[1][1],b:0,c:0,d:new Ext<>(11));\n");
+        xml_.append(" }\n");
+        xml_.append(" staticCall Ext<T> m(Ext<T>[][] a,int b, int c, Ext<T> d){\n");
+        xml_.append("  return a[b][c]=d;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m69\">m</a>(){\n" +
+                "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;).<a title=\"The function staticCall m([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">m</a>(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                " }\n" +
+                " staticCall <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m172\">m</a>(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[][] <a name=\"m185\">a</a>,int <a name=\"m191\">b</a>, int <a name=\"m198\">c</a>, <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m208\">d</a>){\n" +
+                "  return <a href=\"#m185\">a</a>[<a href=\"#m191\">b</a>][<a href=\"#m198\">c</a>]=<a href=\"#m208\">d</a>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report731Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext<T> {\n");
+        xml_.append(" T field;\n");
+        xml_.append(" Ext(T p){\n");
+        xml_.append("  field=p;\n");
+        xml_.append(" }\n");
+        xml_.append(" Ext(Ext<T>[][] a,int b, int c, Ext<T> d){\n");
+        xml_.append("  field=(a[b][c]=d).field;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  return new Ext<int>(e:new Ext<>[1][1],b:0,c:0,d:new Ext<>(11));\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElErrorStdReadOnlyDef();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckErrors(files_, cont_);
+        StringMap<String> filesExp_ = getErrors(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
+                " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
+                " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=<a href=\"#m36\">p</a>;\n" +
+                " }\n" +
+                " <a name=\"m55\">Ext(</a><a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt;[][] <a name=\"m70\">a</a>,int <a name=\"m76\">b</a>, int <a name=\"m83\">c</a>, <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;<a href=\"#m14\">T</a>&gt; <a name=\"m93\">d</a>){\n" +
+                "  <a title=\"pkg.Ext.field\" href=\"#m22\">field</a>=(<a href=\"#m70\">a</a>[<a href=\"#m76\">b</a>][<a href=\"#m83\">c</a>]=<a href=\"#m93\">d</a>).<a title=\"pkg.Ext.field\" href=\"#m22\">field</a>;\n" +
+                " }\n" +
+                " static Object <a name=\"m142\">m</a>(){\n" +
+                "  return <a title=\"The constructor pkg.Ext&lt;int&gt;([[$core.Object,int,int,$core.Object) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&lt;int&gt;(e:new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;[1][1],b:0,c:0,d:<a title=\"The constructor $core.Object(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a><a title=\"The type Ext&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt;(11));\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
 }

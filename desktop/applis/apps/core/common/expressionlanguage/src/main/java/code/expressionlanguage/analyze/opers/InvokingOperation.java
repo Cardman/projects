@@ -51,12 +51,34 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     NameParametersFilter buildFilter(ContextEl _conf) {
+        NameParametersFilter out_ = buildQuickFilter(this);
+        buildFilter(out_,_conf);
+        out_.setOk(out_.getParameterFilterErr().isEmpty());
+        return out_;
+    }
+    private static void buildFilter(NameParametersFilter _filter, ContextEl _conf) {
+        for (NamedArgumentOperation o: _filter.getParameterFilterErr()) {
+            String name_ = o.getName();
+            o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffset(), _conf);
+            FoundErrorInterpret b_;
+            b_ = new FoundErrorInterpret();
+            b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            //param name len
+            b_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
+                    name_);
+            _conf.addError(b_);
+            o.getErrs().add(b_.getBuiltError());
+        }
+    }
+    static NameParametersFilter buildQuickFilter(MethodOperation _par) {
         NameParametersFilter out_ = new NameParametersFilter();
-        CustList<OperationNode> childrenNodes_ = getChildrenNodes();
+        CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
         CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
+        CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
         CustList<ClassArgumentMatching> positionalArgs_ = out_.getPositional();
         StringList names_ = new StringList();
-        int delta_ = getDeltaCount(getFirstChild());
+        int delta_ = getDeltaCount(_par.getFirstChild());
         boolean ok_ = true;
         for (OperationNode o: childrenNodes_) {
             if (o instanceof NamedArgumentOperation) {
@@ -64,16 +86,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 OperationNode next_ = o.getNextSibling();
                 if (StringList.contains(names_,name_) || !(next_ instanceof NamedArgumentOperation)&& next_ != null) {
                     ok_ = false;
-                    o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ ((NamedArgumentOperation) o).getOffset(), _conf);
-                    FoundErrorInterpret b_;
-                    b_ = new FoundErrorInterpret();
-                    b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    //param name len
-                    b_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
-                            name_);
-                    _conf.addError(b_);
-                    o.getErrs().add(b_.getBuiltError());
+                    filterErr_.add(((NamedArgumentOperation) o));
                 }
                 names_.add(name_);
                 filter_.add(((NamedArgumentOperation) o));
@@ -91,7 +104,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         out_.setOk(ok_);
         return out_;
     }
-
     static String getVarargParam(CustList<OperationNode> _children) {
         if (!_children.isEmpty() && _children.first() instanceof VarargOperation) {
             return ((VarargOperation)_children.first()).getClassName();
@@ -151,11 +163,24 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             ParametersGroup pg_ = new ParametersGroup();
             ConstructorInfo mloc_ = new ConstructorInfo();
             mloc_.setConstraints(ctor_);
+            mloc_.setParametersNames(e.getParametersNames());
             mloc_.setParameters(pg_);
             mloc_.setClassName(_typeInfer);
             mloc_.format(_an);
             _ctors.add(mloc_);
         }
+    }
+    protected static String tryParamFormat(NameParametersFilter _filter,Parametrable _param, String _name, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
+        int ind_ = StringList.indexOf(_param.getParametersNames(), _name);
+        StringList formattedParams_ = _param.getFormattedParams();
+        if (!formattedParams_.isValidIndex(ind_)) {
+            return null;
+        }
+        int lengthArgs_ = _filter.getPositional().size();
+        if (ind_ < Math.min(lengthArgs_, _filter.getIndex())) {
+            return null;
+        }
+        return tryFormat(_param, ind_, nbParentsInfer_, type_, vars_, _an);
     }
     protected static String tryFormat(Parametrable _param, int indexChild_, int nbParentsInfer_, String type_, StringMap<String> vars_, ContextEl _an) {
         String parametersType_ = tryGetParam(_param,indexChild_);

@@ -3256,29 +3256,72 @@ public final class LinkageUtil {
         if (val_ instanceof NamedArgumentOperation) {
             NamedArgumentOperation n_ = (NamedArgumentOperation) val_;
             int firstOff_ = n_.getOffsetTr();
-            NamedFunctionBlock customMethod_ = n_.getCustomMethod();
-            Ints offs_ = new Ints();
-            int ref_ = -1;
-            String relFile_ = "";
-            if (customMethod_ != null) {
-                FileBlock file_ = customMethod_.getFile();
+            CustList<NamedFunctionBlock> customMethods_ = n_.getCustomMethod();
+            int refOne_ = -1;
+            int refTwo_ = -1;
+            String relFileOne_ = "";
+            String relFileTwo_ = "";
+            int i_ = 0;
+            CustList<NamedFunctionBlock> cust_ = new CustList<NamedFunctionBlock>();
+            CustList<NamedFunctionBlock> filterSet_ = new CustList<NamedFunctionBlock>();
+            CustList<NamedFunctionBlock> filterGet_ = new CustList<NamedFunctionBlock>();
+            for (NamedFunctionBlock n:customMethods_) {
+                FileBlock file_ = n.getFile();
+                Ints offs_ = new Ints();
                 if (!file_.isPredefined()) {
-                    offs_ = customMethod_.getParametersNamesOffset();
-                    relFile_ = file_.getRenderFileName();
+                    offs_ = n.getParametersNamesOffset();
+                }
+                if (offs_.isValidIndex(n_.getIndex())) {
+                    if (n instanceof OverridableBlock) {
+                        OverridableBlock ov_ = (OverridableBlock) n;
+                        if (ov_.getKind() == MethodKind.GET_INDEX) {
+                            filterGet_.add(n);
+                        }
+                        if (ov_.getKind() == MethodKind.SET_INDEX) {
+                            filterSet_.add(n);
+                        }
+                    }
+                    cust_.add(n);
                 }
             }
-            if (offs_.isValidIndex(n_.getIndex())) {
-                ref_ = offs_.get(n_.getIndex());
+            if (val_.getParent() instanceof ArrOperation) {
+                ArrOperation arr_ = (ArrOperation) val_.getParent();
+                if (arr_.isVariable()) {
+                    cust_ = filterSet_;
+                } else if (!arr_.isGetAndSet()) {
+                    cust_ = filterGet_;
+                }
+            }
+            for (NamedFunctionBlock n:cust_) {
+                FileBlock file_ = n.getFile();
+                Ints offs_ = n.getParametersNamesOffset();
+                if (i_ == 0) {
+                    relFileOne_ = file_.getRenderFileName();
+                    refOne_ = offs_.get(n_.getIndex());
+                } else {
+                    relFileTwo_ = file_.getRenderFileName();
+                    refTwo_ = offs_.get(n_.getIndex());
+                }
+                i_++;
             }
             if (!val_.getErrs().isEmpty()) {
                 int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
                 _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(val_.getErrs(),"\n\n")) +"\" class=\"e\">",begin_));
                 _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
-            } else if (ref_ != -1){
-                int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
-                String rel_ = relativize(currentFileName_, relFile_ + "#m" + ref_);
-                _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
-                _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+            } else {
+                if (refOne_ != -1){
+                    int begin_ = sum_ + val_.getIndexInEl()+firstOff_;
+                    String rel_ = relativize(currentFileName_, relFileOne_ + "#m" + refOne_);
+                    _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
+                    _parts.add(new PartOffset("</a>",begin_+ n_.getName().length()));
+                }
+                if (refTwo_ != -1){
+                    IntTreeMap<String> vs_ = val_.getOperations().getValues();
+                    int begin_ = sum_ + val_.getIndexInEl()+vs_.firstKey()-vs_.firstValue().length();
+                    String rel_ = relativize(currentFileName_, relFileTwo_ + "#m" + refTwo_);
+                    _parts.add(new PartOffset("<a href=\""+rel_ +"\">",begin_));
+                    _parts.add(new PartOffset("</a>",begin_+ vs_.firstValue().length()));
+                }
             }
         }
         if (val_ instanceof DefaultOperation) {
