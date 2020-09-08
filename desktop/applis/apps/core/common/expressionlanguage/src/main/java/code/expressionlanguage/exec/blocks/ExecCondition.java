@@ -30,7 +30,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
         opCondition = ExpressionLanguage.getReducedNodes(r_);
     }
 
-    final ConditionReturn evaluateCondition(ContextEl _context) {
+    public final ConditionReturn evaluateCondition(ContextEl _context) {
         AbstractPageEl last_ = _context.getLastPage();
         ExpressionLanguage exp_ = last_.getCurrentEl(_context,this, CustList.FIRST_INDEX, CustList.FIRST_INDEX);
         last_.setOffset(0);

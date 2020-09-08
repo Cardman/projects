@@ -862,6 +862,126 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.wrapAndCall(first_,classBody_,"pkg.Ex",Argument.createVoid(),new CustList<Argument>(new Argument()), cont_);
         assertNotNull(getException(cont_));
     }
+    @Test
+    public void breakEmpty() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        assertTrue(!ExecTemplates.hasBlockBreak(instancingClass_,""));
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void continueEmpty() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        assertTrue(!ExecTemplates.hasBlockContinue(cont_,instancingClass_,""));
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void setVisited() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.setVisited(instancingClass_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void processFinally() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.processFinally(cont_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void processElseIf() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.processElseIf(cont_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void processElse() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.processElse(cont_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void processDo() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.processDo(cont_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void processBlockAndRemove() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = getSimpleContextEl();
+        Classes.validateAll(files_,cont_);
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
+        ExecutingUtil.addPage(cont_, instancingClass_);
+        ExecTemplates.processBlockAndRemove(cont_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
     private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();
         parseCustomFiles(_files, cont_);

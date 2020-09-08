@@ -52,7 +52,6 @@ public final class ExecForEachTable extends ExecBracedBlock implements ExecLoop,
 
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
-        AbstractPageEl ip_ = _conf.getLastPage();
         _l.setEvaluatingKeepLoop(true);
         ConditionReturn has_ = iteratorHasNext(_conf,_l);
         if (has_ == ConditionReturn.CALL_EX) {

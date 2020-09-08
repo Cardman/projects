@@ -5,11 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFinally,WithNotEmptyEl {
@@ -38,11 +36,6 @@ public final class ExecReturnMethod extends ExecLeaf implements MethodCallingFin
             }
         }
         ip_.setNullReadWrite();
-    }
-
-    @Override
-    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new AbruptCallingFinally(this);
     }
 
     @Override

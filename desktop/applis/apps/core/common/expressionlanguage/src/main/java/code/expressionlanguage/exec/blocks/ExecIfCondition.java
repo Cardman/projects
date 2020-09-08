@@ -34,7 +34,7 @@ public final class ExecIfCondition extends ExecCondition implements StackableBlo
         if_.setExecLastBlock(this);
         if_.setLabel(label);
         ExecBlock n_ = getNextSibling();
-        while (n_ instanceof ExecElseIfCondition || n_ instanceof ExecElseCondition) {
+        while (isNextIfParts(n_)) {
             if_.setExecLastBlock((ExecBracedBlock) n_);
             n_ = n_.getNextSibling();
         }

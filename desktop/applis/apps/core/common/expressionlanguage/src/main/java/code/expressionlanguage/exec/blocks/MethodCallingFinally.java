@@ -1,9 +1,7 @@
 package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
-import code.expressionlanguage.structs.Struct;
 
-public interface MethodCallingFinally extends CallingFinally {
+public interface MethodCallingFinally {
 
     void removeBlockFinally(ContextEl _conf);
 }

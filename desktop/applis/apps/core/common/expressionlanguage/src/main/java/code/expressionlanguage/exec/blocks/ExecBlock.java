@@ -5,6 +5,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.MethodId;
@@ -37,9 +38,7 @@ public abstract class ExecBlock {
     }
 
     public final void processBlockAndRemove(ContextEl _conf) {
-        AbstractPageEl ip_ = _conf.getLastPage();
-        ip_.removeLastBlock();
-        processBlock(_conf);
+        ExecTemplates.processBlockAndRemove(_conf,this);
     }
     public static CustList<ExecBlock> getDirectChildrenNotType(ExecBlock _element) {
         CustList<ExecBlock> list_ = new CustList<ExecBlock>();
@@ -72,7 +71,7 @@ public abstract class ExecBlock {
             return;
         }
         ExecBracedBlock par_ = getParent();
-        if (par_ != ip_.getBlockRoot()) {
+        if (ip_.hasBlock()) {
             rw_.setBlock(par_);
             AbstractStask lastStack_ = ip_.getLastStack();
             if (lastStack_ instanceof LoopBlockStack) {
@@ -149,7 +148,7 @@ public abstract class ExecBlock {
                     rw_.setBlock(par_);
                     AbruptCallingFinally call_ = ((TryBlockStack)lastStack_).getCalling();
                     if (call_ != null) {
-                        CallingFinally callingFinally_ = call_.getCallingFinally();
+                        Object callingFinally_ = call_.getCallingFinally();
                         if (callingFinally_ instanceof MethodCallingFinally) {
                             ((MethodCallingFinally)callingFinally_).removeBlockFinally(_conf);
                         } else {

@@ -134,8 +134,8 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         String var_ = getVariableName();
         long nbMaxIterations_ = 0;
-        long stepValue_ = 0;
-        long fromValue_ = 0;
+        long stepValue_;
+        long fromValue_;
 
         boolean eq_ = isEq();
         ip_.setGlobalOffset(initOffset);

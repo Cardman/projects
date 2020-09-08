@@ -5,13 +5,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.stacks.AbruptCallingFinally;
 import code.expressionlanguage.exec.stacks.AbstractStask;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 
-public final class LocalThrowing implements CallingFinally {
+public final class LocalThrowing {
 
     public void removeBlockFinally(ContextEl _conf, Struct _str) {
         Struct custCause_ = _str;
@@ -72,8 +71,4 @@ public final class LocalThrowing implements CallingFinally {
     }
 
 
-    @Override
-    public AbruptCallingFinally newAbruptCallingFinally(Struct _struct) {
-        return new AbruptCallingFinally(this);
-    }
 }

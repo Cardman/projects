@@ -3,13 +3,17 @@ package code.expressionlanguage.exec.inherits;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.IndexesComparator;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.Cache;
@@ -903,6 +907,164 @@ public final class ExecTemplates {
         return _instance == NullStruct.NULL_VALUE;
     }
 
+    public static boolean hasBlockBreak(AbstractPageEl _ip, String _label) {
+        if (!_ip.hasBlock()) {
+            _ip.setNullReadWrite();
+            return false;
+        }
+        ReadWrite rw_ = _ip.getReadWrite();
+        AbstractStask bl_ = _ip.getLastStack();
+        if (_label.isEmpty()) {
+            if (bl_ instanceof LoopBlockStack || bl_ instanceof SwitchBlockStack) {
+                ExecBlock forLoopLoc_ = bl_.getLastBlock();
+                rw_.setBlock(forLoopLoc_);
+                if (bl_ instanceof LoopBlockStack) {
+                    _ip.setLastLoop((LoopBlockStack) bl_);
+                    ((LoopBlockStack)bl_).setFinished(true);
+                }
+                return false;
+            }
+        } else {
+            if (StringList.quickEq(_label, bl_.getLabel())){
+                ExecBlock forLoopLoc_ = bl_.getLastBlock();
+                rw_.setBlock(forLoopLoc_);
+                if (bl_ instanceof LoopBlockStack) {
+                    _ip.setLastLoop((LoopBlockStack) bl_);
+                    ((LoopBlockStack)bl_).setFinished(true);
+                }
+                if (bl_ instanceof IfBlockStack) {
+                    _ip.setLastIf((IfBlockStack) bl_);
+                }
+                if (bl_ instanceof TryBlockStack) {
+                    _ip.setLastTry((TryBlockStack) bl_);
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean hasBlockContinue(ContextEl _conf,AbstractPageEl _ip, String _label) {
+        if (!_ip.hasBlock()) {
+            _ip.setNullReadWrite();
+            return false;
+        }
+        AbstractStask bl_ = _ip.getLastStack();
+        if (bl_ instanceof LoopBlockStack) {
+            ExecBracedBlock br_ = bl_.getBlock();
+            if (_label.isEmpty()) {
+                LoopBlockStack lSt_;
+                lSt_ = (LoopBlockStack) bl_;
+                br_.removeLocalVars(_ip);
+                ExecLoop loop_;
+                loop_ = ((LoopBlockStack) bl_).getExecLoop();
+                _ip.getReadWrite().setBlock(br_);
+                loop_.processLastElementLoop(_conf,lSt_);
+                return false;
+            }
+            if (StringList.quickEq(_label, bl_.getLabel())){
+                LoopBlockStack lSt_;
+                lSt_ = (LoopBlockStack) bl_;
+                br_.removeLocalVars(_ip);
+                ExecLoop loop_;
+                loop_ = ((LoopBlockStack) bl_).getExecLoop();
+                _ip.getReadWrite().setBlock(br_);
+                loop_.processLastElementLoop(_conf,lSt_);
+                return false;
+            }
+        }
+        return true;
+    }
+    public static void setVisited(AbstractPageEl _ip, ExecBracedBlock _block) {
+        if (!_ip.hasBlock()) {
+            _ip.setNullReadWrite();
+            return;
+        }
+        _ip.getLastStack().setCurrentVisitedBlock(_block);
+    }
+    public static void processFinally(ContextEl _cont,ExecBracedBlock _block) {
+        AbstractPageEl ip_ = _cont.getLastPage();
+        TryBlockStack ts_ = ip_.getLastTry();
+        if (ts_ == null) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        ts_.setCurrentVisitedBlock(_block);
+        if (ts_.isVisitedFinally()) {
+            _block.processBlockAndRemove(_cont);
+            return;
+        }
+        ts_.setVisitedFinally(true);
+        ip_.getReadWrite().setBlock(_block.getFirstChild());
+    }
+    public static void processElseIf(ContextEl _cont,ExecCondition _cond) {
+        AbstractPageEl ip_ = _cont.getLastPage();
+        ReadWrite rw_ = ip_.getReadWrite();
+        IfBlockStack if_ = ip_.getLastIf();
+        if (if_ == null) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        if_.setCurrentVisitedBlock(_cond);
+        if (!if_.isEntered()) {
+            ConditionReturn assert_ = _cond.evaluateCondition(_cont);
+            if (assert_ == ConditionReturn.CALL_EX) {
+                return;
+            }
+            if (assert_ == ConditionReturn.YES) {
+                if_.setEntered(true);
+                rw_.setBlock(_cond.getFirstChild());
+                return;
+            }
+        }
+        if (ExecBracedBlock.isNextIfParts(_cond.getNextSibling())) {
+            rw_.setBlock(_cond.getNextSibling());
+            return;
+        }
+        _cond.processBlockAndRemove(_cont);
+    }
+    public static void processElse(ContextEl _cont,ExecBracedBlock _cond) {
+        AbstractPageEl ip_ = _cont.getLastPage();
+        IfBlockStack if_ = ip_.getLastIf();
+        if (if_ == null) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        if_.setCurrentVisitedBlock(_cond);
+        if (!if_.isEntered()) {
+            if_.setEntered(true);
+            ip_.getReadWrite().setBlock(_cond.getFirstChild());
+            return;
+        }
+        _cond.processBlockAndRemove(_cont);
+    }
+    public static void processDo(ContextEl _cont,ExecCondition _cond) {
+        AbstractPageEl ip_ = _cont.getLastPage();
+        ReadWrite rw_ = ip_.getReadWrite();
+        LoopBlockStack l_ = ip_.getLastLoop();
+        if (l_ == null) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        l_.setEvaluatingKeepLoop(true);
+        ConditionReturn keep_ = _cond.evaluateCondition(_cont);
+        if (keep_ == ConditionReturn.CALL_EX) {
+            return;
+        }
+        if (keep_ == ConditionReturn.NO) {
+            l_.setFinished(true);
+        }
+        l_.setEvaluatingKeepLoop(false);
+        rw_.setBlock(_cond.getPreviousSibling());
+    }
+    public static void processBlockAndRemove(ContextEl _context,ExecBlock _bl) {
+        AbstractPageEl ip_ = _context.getLastPage();
+        if (!ip_.hasBlock()) {
+            ip_.setNullReadWrite();
+            return;
+        }
+        ip_.removeLastBlock();
+        _bl.processBlock(_context);
+    }
     public static Argument getIndexLoop(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();

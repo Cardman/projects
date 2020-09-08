@@ -46,7 +46,6 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
 
     @Override
     public void processLastElementLoop(ContextEl _conf, LoopBlockStack _l) {
-        AbstractPageEl ip_ = _conf.getLastPage();
         _l.setEvaluatingKeepLoop(true);
         boolean hasNext_;
         if (_l.getStructIterator() != null) {

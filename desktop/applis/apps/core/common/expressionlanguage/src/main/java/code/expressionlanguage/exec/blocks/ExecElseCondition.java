@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.stacks.IfBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
 
@@ -13,14 +14,6 @@ public final class ExecElseCondition extends ExecBracedBlock implements Stackabl
 
     @Override
     public void processEl(ContextEl _cont) {
-        AbstractPageEl ip_ = _cont.getLastPage();
-        IfBlockStack if_ = ip_.getLastIf();
-        if_.setCurrentVisitedBlock(this);
-        if (!if_.isEntered()) {
-            if_.setEntered(true);
-            ip_.getReadWrite().setBlock(getFirstChild());
-            return;
-        }
-        processBlockAndRemove(_cont);
+        ExecTemplates.processElse(_cont,this);
     }
 }

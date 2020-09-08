@@ -11,6 +11,12 @@ public abstract class ExecBracedBlock extends ExecBlock {
         super(_offset);
     }
 
+    static boolean isNextTryParts(ExecBlock _n) {
+        return _n instanceof ExecAbstractCatchEval || _n instanceof ExecFinallyEval;
+    }
+    public static boolean isNextIfParts(ExecBlock _n) {
+        return _n instanceof ExecElseIfCondition || _n instanceof ExecElseCondition;
+    }
     public final void appendChild(ExecBlock _child) {
         _child.setParent(this);
         if (firstChild == null) {

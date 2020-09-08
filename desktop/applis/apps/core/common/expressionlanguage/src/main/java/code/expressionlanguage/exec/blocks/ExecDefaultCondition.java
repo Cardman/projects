@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public final class ExecDefaultCondition extends ExecBracedBlock implements
@@ -18,6 +19,6 @@ public final class ExecDefaultCondition extends ExecBracedBlock implements
         ip_.setGlobalOffset(getOffset().getOffsetTrim());
         ip_.setOffset(0);
         rw_.setBlock(getFirstChild());
-        ip_.getLastStack().setCurrentVisitedBlock(this);
+        ExecTemplates.setVisited(ip_,this);
     }
 }

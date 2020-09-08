@@ -6,10 +6,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.AbstractStask;
-import code.expressionlanguage.exec.stacks.IfBlockStack;
-import code.expressionlanguage.exec.stacks.LoopBlockStack;
-import code.expressionlanguage.exec.stacks.TryBlockStack;
+import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
@@ -144,9 +141,21 @@ public abstract class AbstractPageEl extends PageEl {
         AbstractStask last_ = blockStacks.last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         blockStacks.removeLast();
+        if (hasBlock()) {
+            AbstractStask before_ = blockStacks.last();
+            if (before_ instanceof LoopBlockStack) {
+                setLastLoop((LoopBlockStack) before_);
+            }
+            if (before_ instanceof IfBlockStack) {
+                setLastIf((IfBlockStack) before_);
+            }
+            if (before_ instanceof TryBlockStack) {
+                setLastTry((TryBlockStack) before_);
+            }
+        }
     }
 
-    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, CallingFinally _call, Struct _ex) {
+    public static boolean setRemovedCallingFinallyToProcess(AbstractPageEl _ip,AbstractStask _vars, Object _call, Struct _ex) {
         if (!(_vars instanceof TryBlockStack)) {
             _ip.removeLastBlock();
             return false;
@@ -161,7 +170,7 @@ public abstract class AbstractPageEl extends PageEl {
             _ip.setLastTry(try_);
             _ip.getReadWrite().setBlock(br_);
             try_.setException(_ex);
-            try_.setCalling(_call.newAbruptCallingFinally(_ex));
+            try_.setCalling(new AbruptCallingFinally(_call));
             return true;
         }
         _ip.removeLastBlock();

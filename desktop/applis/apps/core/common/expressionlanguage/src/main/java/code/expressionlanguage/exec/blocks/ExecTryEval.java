@@ -2,18 +2,15 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.expressionlanguage.files.OffsetsBlock;
 
 public final class ExecTryEval extends ExecBracedBlock implements StackableBlock {
 
     private String label;
-    private int labelOffset;
-    public ExecTryEval(OffsetsBlock _offset, String _label, int _labelOffset) {
+    public ExecTryEval(OffsetsBlock _offset, String _label) {
         super(_offset);
         label= _label;
-        labelOffset = _labelOffset;
     }
 
     @Override
@@ -22,7 +19,7 @@ public final class ExecTryEval extends ExecBracedBlock implements StackableBlock
         ExecBlock n_ = getNextSibling();
         TryBlockStack tryStack_ = new TryBlockStack();
         tryStack_.setLabel(label);
-        while (n_ instanceof ExecAbstractCatchEval || n_ instanceof ExecFinallyEval) {
+        while (isNextTryParts(n_)) {
             tryStack_.setExecLastBlock((ExecBracedBlock) n_);
             n_ = n_.getNextSibling();
         }
