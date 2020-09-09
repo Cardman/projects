@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;

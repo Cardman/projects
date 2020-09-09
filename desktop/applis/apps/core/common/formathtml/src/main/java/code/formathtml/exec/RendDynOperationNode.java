@@ -366,7 +366,7 @@ public abstract class RendDynOperationNode {
                 return new RendErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new RendCustNumericOperation(n_,_anaNode,
+                return new RendCustNumericOperation(n_,_cont,_anaNode,
                         ExecOperationNode.fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),
                         ExecOperationNode.fetchType(_cont,n_.getRootNumber()));
             }

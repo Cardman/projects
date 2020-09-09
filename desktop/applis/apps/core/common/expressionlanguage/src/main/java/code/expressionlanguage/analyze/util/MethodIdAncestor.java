@@ -1,5 +1,7 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.analyze.util;
 
+
+import code.expressionlanguage.functionid.MethodId;
 
 public final class MethodIdAncestor {
     private final MethodId classMethodId;

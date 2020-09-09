@@ -1,6 +1,7 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;

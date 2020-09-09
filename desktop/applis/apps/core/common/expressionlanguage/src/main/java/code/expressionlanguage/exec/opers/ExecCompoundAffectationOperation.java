@@ -8,8 +8,8 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -18,7 +18,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
 
     private ExecSettableElResult settable;
     private String oper;
-    private ClassMethodId classMethodId;
+    private String className;
+    private MethodAccessKind kind;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
@@ -28,7 +29,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
     public ExecCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
         super(_c);
         oper = _c.getOper();
-        classMethodId = _c.getClassMethodId();
+        kind = getKind(_c.getClassMethodId());
+        className = getType(_context,_c.getClassMethodId());
         named = fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
         rootBlock = fetchType(_context,_c.getRootNumber());
         converter = fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
@@ -77,7 +79,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
             arguments_.add(leftArg_);
             arguments_.add(rightArg_);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock, named,Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className,kind);
             return;
         }
         ArgumentsPair pairBefore_ = getArgumentPair(_nodes,this);

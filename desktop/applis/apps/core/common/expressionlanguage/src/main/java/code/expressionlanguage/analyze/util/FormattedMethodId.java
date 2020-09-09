@@ -1,4 +1,4 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.analyze.util;
 import code.util.StringList;
 
 public final class FormattedMethodId {

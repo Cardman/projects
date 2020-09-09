@@ -12,7 +12,7 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;

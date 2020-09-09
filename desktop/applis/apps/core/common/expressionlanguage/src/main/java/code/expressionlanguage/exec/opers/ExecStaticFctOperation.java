@@ -53,8 +53,8 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         String classNameFound_;
         Argument prev_ = new Argument();
         classNameFound_ = classMethodId.getClassName();
-        classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
-        lastType_ = classMethodId.formatType(rootBlock,classNameFound_,lastType_);
+        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, classMethodId.getConstraints().getKind());
+        lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType_, classMethodId.getConstraints().getKind());
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {

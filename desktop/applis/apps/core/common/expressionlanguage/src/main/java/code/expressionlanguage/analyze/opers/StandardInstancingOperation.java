@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;

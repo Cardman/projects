@@ -1,7 +1,6 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.util.CustList;
 
 public class ClassMethodIdOverrides {

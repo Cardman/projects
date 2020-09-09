@@ -9,7 +9,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;

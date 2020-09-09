@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.util.PolymorphMethod;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -105,6 +106,18 @@ public abstract class ExecOperationNode {
             }
         }
         return null;
+    }
+    public static MethodAccessKind getKind(ClassMethodId _cl) {
+        if (_cl == null) {
+            return MethodAccessKind.STATIC;
+        }
+        return _cl.getConstraints().getKind();
+    }
+    public static String getType(ContextEl _cont,ClassMethodId _cl) {
+        if (_cl == null) {
+            return _cont.getStandards().getAliasObject();
+        }
+        return _cl.getClassName();
     }
     public static ExecNamedFunctionBlock fetchFunction(ContextEl _cont, int _rootNumber, int _memberNumber) {
         return fetchFunction(_cont,_rootNumber,_memberNumber,_memberNumber);
@@ -412,7 +425,7 @@ public abstract class ExecOperationNode {
                 return new ExecErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new ExecCustNumericOperation(n_,_anaNode,fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),fetchType(_cont,n_.getRootNumber()));
+                return new ExecCustNumericOperation(n_,_cont,_anaNode,fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),fetchType(_cont,n_.getRootNumber()));
             }
         }
         if (_anaNode instanceof UnaryBooleanOperation) {

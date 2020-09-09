@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
@@ -86,12 +85,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         String geneFor_ = ExecTemplates.quickFormat(r_,_className,gene_);
                         String ret_ = clRealId_.getOverridableBlock().getImportedReturnType();
                         ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
-                        ClassMethodIdReturn parmMe_ = new ClassMethodIdReturn(true);
-                        parmMe_.setId(new ClassMethodId(clRealId_.getClassName(),idMeth_));
-                        parmMe_.setRealId(realId_);
-                        parmMe_.setReturnType(ret_);
-                        parmMe_.setRealClass(gene_);
-                        String fctParam_ = formatReturn(EMPTY_STRING,_conf, parmMe_, false);
+                        String fctParam_ = formatReturn(EMPTY_STRING,_conf, false, ret_, idMeth_, realId_.isStaticMethod());
                         fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
                         String argCl_ = _objArg.getObjectClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
@@ -108,14 +102,12 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
             }
         }
     }
-    public static String formatReturn(String _foundClass, ContextEl _an, ClassMethodIdReturn _id, boolean _demand) {
+    public static String formatReturn(String _foundClass, ContextEl _an, boolean _demand, String _returnType, MethodId _shortId, boolean _staticMethod) {
         LgNames stds_ = _an.getStandards();
         String fctBase_ = stds_.getAliasFct();
-        String returnType_ = _id.getReturnType();
         StringList paramsReturn_ = new StringList();
-        MethodId id_ = _id.getId().getConstraints();
-        IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, id_, _id.getRealId().isStaticMethod());
-        paramsReturn_.add(returnType_);
+        IdentifiableUtil.appendLeftPart(_foundClass, _demand, paramsReturn_, _shortId, _staticMethod);
+        paramsReturn_.add(_returnType);
         return StringList.concat(fctBase_, Templates.TEMPLATE_BEGIN, StringList.join(paramsReturn_, Templates.TEMPLATE_SEP), Templates.TEMPLATE_END);
     }
 }

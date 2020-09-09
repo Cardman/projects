@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -23,7 +22,7 @@ import code.util.StringList;
 public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     private boolean initClass;
-    private ClassMethodId methodToCall;
+    private String className;
     private ExecNamedFunctionBlock methodToCallBody;
     private ExecRootBlock methodToCallType;
     private boolean calledMethod;
@@ -69,11 +68,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
             if (isPolymorph(_context)) {
                 Struct instance_ = getArguments().first().getStruct();
                 ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(_context, instance_, method_.getDeclaring(), method_.getCalleeInv());
-                methodToCall = new ClassMethodId(polymorph_.getClassName(),method_.getRealId());
+                className = polymorph_.getClassName();
                 methodToCallBody = polymorph_.getOverridableBlock();
                 methodToCallType = polymorph_.getRootBlock();
             } else {
-                methodToCall = new ClassMethodId(className_, method_.getRealId());
+                className = className_;
                 methodToCallBody = method_.getCalleeInv();
                 methodToCallType = method_.getDeclaring();
             }
@@ -125,9 +124,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         }
         if (!calledAfter) {
             setWrapException(false);
-            String className_ = methodToCall.getClassName();
             MethodId mid_ = method_.getRealId();
-            Argument arg_ = prepare(_context, className_, mid_, instance, args, rightArg);
+            Argument arg_ = prepare(_context, className, mid_, instance, args, rightArg);
             if (_context.getCallingState() instanceof NotInitializedClass) {
                 setWrapException(true);
                 return false;

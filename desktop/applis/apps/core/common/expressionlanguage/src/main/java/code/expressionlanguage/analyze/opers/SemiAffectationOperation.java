@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;

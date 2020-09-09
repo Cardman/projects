@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.Block;

@@ -1,6 +1,8 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.analyze.util;
 
 
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
 
 public final class ClassMethodIdReturn {

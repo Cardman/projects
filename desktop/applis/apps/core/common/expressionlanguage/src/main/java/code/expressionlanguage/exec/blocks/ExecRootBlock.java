@@ -10,7 +10,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.functionid.ClassMethodIdOverrides;
+import code.expressionlanguage.exec.util.ClassMethodIdOverrides;
 import code.expressionlanguage.inherits.Templates;
 import code.util.*;
 

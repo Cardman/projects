@@ -10,8 +10,8 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
@@ -22,7 +22,8 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     private RendSettableElResult settable;
     private boolean post;
     private String oper;
-    private ClassMethodId classMethodId;
+    private MethodAccessKind kind;
+    private String className;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converterFrom;
@@ -32,7 +33,8 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         super(_s);
         post = _s.isPost();
         oper = _s.getOper();
-        classMethodId = _s.getClassMethodId();
+        kind = ExecOperationNode.getKind(_s.getClassMethodId());
+        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
         named = ExecOperationNode.fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
         rootBlock = ExecOperationNode.fetchType(_context,_s.getRootNumber());
         converterFrom = ExecOperationNode.fetchImplicits(_context,_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom());
@@ -54,7 +56,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
                 return;
             }
         }
-        if (classMethodId != null) {
+        if (named != null) {
             CustList<RendDynOperationNode> list_ = getChildrenNodes();
             RendDynOperationNode left_ = list_.first();
             CustList<RendDynOperationNode> chidren_ = new CustList<RendDynOperationNode>();
@@ -108,7 +110,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,first_);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, className, kind);
         return Argument.createVoid();
     }
 }

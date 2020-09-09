@@ -12,7 +12,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.FormattedMethodId;
+import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.Templates;

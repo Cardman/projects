@@ -659,14 +659,14 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return r_ == null || _category != ClassCategory.ENUM;
     }
 
-    public static void checkParametersOperators(AbstractExiting _exit,ContextEl _conf, ClassMethodId _clMeth, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _named,
-                                         Argument _previous, CustList<Argument> _firstArgs) {
-        if (_exit.hasToExit(_clMeth.getClassName())) {
+    public static void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _named,
+                                                CustList<Argument> _firstArgs, String _className, MethodAccessKind _kind) {
+        String classNameFound_ = _className;
+        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, _kind);
+        if (_exit.hasToExit(classNameFound_)) {
             return;
         }
-        String classNameFound_ = _clMeth.getClassName();
-        classNameFound_ = _clMeth.formatType(classNameFound_,_conf);
-        checkParameters(_conf, classNameFound_,_rootBlock, _named, _previous,null, _firstArgs, CallPrepareState.OPERATOR,null, null);
+        checkParameters(_conf, classNameFound_,_rootBlock, _named, Argument.createVoid(),null, _firstArgs, CallPrepareState.OPERATOR,null, null);
     }
 
     private static void checkParameters(ContextEl _conf, String _classNameFound, Identifiable _methodId,

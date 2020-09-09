@@ -1,9 +1,7 @@
-package code.expressionlanguage.functionid;
+package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;

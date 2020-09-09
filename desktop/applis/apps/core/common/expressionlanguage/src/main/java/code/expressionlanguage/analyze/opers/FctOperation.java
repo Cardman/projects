@@ -6,6 +6,8 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;

@@ -57,8 +57,6 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
             }
         }
         classNameFound_ = classMethodId.getClassName();
-        classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
-        lastType_ = classMethodId.formatType(null,classNameFound_,lastType_);
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, first_);

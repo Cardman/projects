@@ -4,6 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;

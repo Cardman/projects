@@ -14,7 +14,7 @@ import code.expressionlanguage.instr.OperationsSequence;
 
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;

@@ -3,10 +3,10 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
-import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -14,10 +14,8 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
-import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod {
     private ClassMethodId classMethodId;

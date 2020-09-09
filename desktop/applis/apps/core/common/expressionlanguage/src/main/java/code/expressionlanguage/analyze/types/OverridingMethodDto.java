@@ -1,6 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.functionid.FormattedMethodId;
+import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.util.CustList;
 
 public final class OverridingMethodDto {

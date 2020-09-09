@@ -15,15 +15,15 @@ public final class ClassMethodId {
         constraints = _constraints;
     }
 
-    public String formatType(String _type, ContextEl _conf) {
-        if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
+    public static String formatType(String _type, ContextEl _conf, MethodAccessKind _kind) {
+        if (_kind == MethodAccessKind.STATIC_CALL) {
             return _conf.getLastPage().formatVarType(_type,_conf);
         }
         return _type;
     }
 
-    public String formatType(ExecRootBlock _rootBlock, String _owner, String _formatted) {
-        if (getConstraints().getKind() == MethodAccessKind.STATIC_CALL) {
+    public static String formatType(ExecRootBlock _rootBlock, String _owner, String _formatted, MethodAccessKind _kind) {
+        if (_kind == MethodAccessKind.STATIC_CALL) {
             return ExecTemplates.quickFormat(_rootBlock,_owner, _formatted);
         }
         return _formatted;

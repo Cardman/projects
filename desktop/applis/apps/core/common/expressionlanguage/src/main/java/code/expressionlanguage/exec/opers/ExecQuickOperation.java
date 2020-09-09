@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.QuickOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -15,13 +15,15 @@ import code.util.IdMap;
 
 public abstract class ExecQuickOperation extends ExecMethodOperation implements AtomicExecCalculableOperation,CallExecSimpleOperation {
 
-    private ClassMethodId classMethodId;
+    private MethodAccessKind kind;
+    private String className;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
     public ExecQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
-        classMethodId = _q.getClassMethodId();
+        kind = getKind(_q.getClassMethodId());
+        className = getType(_context,_q.getClassMethodId());
         named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
         rootBlock = fetchType(_context,_q.getRootNumber());
         converter = fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
@@ -31,7 +33,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
                                 ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         ExecOperationNode first_ = chidren_.first();
-        if (classMethodId != null) {
+        if (named != null) {
             ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
             if (argumentPair_.isArgumentTest()){
                 Argument f_ = getArgument(_nodes,first_);
@@ -41,7 +43,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
             CustList<Argument> arguments_ = getArguments(_nodes, this);
             CustList<Argument> firstArgs_ = ExecInvokingOperation.listArguments(chidren_, -1, EMPTY_STRING, arguments_);
-            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock, named,Argument.createVoid(), firstArgs_);
+            ExecInvokingOperation.checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className, kind);
             return;
         }
         Argument f_ = getArgument(_nodes,first_);

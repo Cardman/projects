@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -20,7 +20,8 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
 
     private int naturalVararg;
 
-    private ClassMethodId classMethodId;
+    private MethodAccessKind kind;
+    private String className;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private int offsetOper;
@@ -28,7 +29,8 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         super(_fct);
         named = ExecOperationNode.fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
         rootBlock = ExecOperationNode.fetchType(_context,_fct.getRootNumber());
-        classMethodId = _fct.getClassMethodId();
+        kind = ExecOperationNode.getKind(_fct.getClassMethodId());
+        className = ExecOperationNode.getType(_context,_fct.getClassMethodId());
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         offsetOper = _fct.getOffsetOper();
@@ -46,7 +48,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType, first_);
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), classMethodId,rootBlock,named, _previous,firstArgs_);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, firstArgs_, className, kind);
         return Argument.createVoid();
     }
 }

@@ -8,7 +8,7 @@ import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;

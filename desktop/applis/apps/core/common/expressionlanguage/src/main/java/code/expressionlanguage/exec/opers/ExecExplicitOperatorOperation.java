@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -17,7 +18,8 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
 
     private int naturalVararg;
 
-    private ClassMethodId classMethodId;
+    private String className;
+    private MethodAccessKind kind;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private int offsetOper;
@@ -26,7 +28,8 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         super(_fct);
         named = fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
         rootBlock = fetchType(_context,_fct.getRootNumber());
-        classMethodId = _fct.getClassMethodId();
+        kind = getKind(_fct.getClassMethodId());
+        className = getType(_context,_fct.getClassMethodId());
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         offsetOper = _fct.getOffsetOper();
@@ -37,13 +40,12 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        String classNameFound_ = classMethodId.getClassName();
-        classNameFound_ = classMethodId.formatType(classNameFound_,_conf);
-        String lastType_ = classMethodId.formatType(rootBlock,classNameFound_,lastType);
+        String classNameFound_ = className;
+        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, kind);
+        String lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType, kind);
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         CustList<Argument> firstArgs_ = listArguments(chidren_, naturalVararg, lastType_, first_);
-        Argument prev_ = new Argument();
-        checkParametersOperators(new DefaultExiting(_conf),_conf, classMethodId,rootBlock, named,prev_,firstArgs_);
+        checkParametersOperators(new DefaultExiting(_conf),_conf, rootBlock, named, firstArgs_, className,kind);
     }
 
     public int getOffsetOper() {

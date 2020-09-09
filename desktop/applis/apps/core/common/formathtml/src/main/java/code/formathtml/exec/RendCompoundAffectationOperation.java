@@ -9,8 +9,8 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
@@ -21,7 +21,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
 
     private RendSettableElResult settable;
     private String oper;
-    private ClassMethodId classMethodId;
+    private MethodAccessKind kind;
+    private String className;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
     private ImplicitMethods converter;
@@ -29,7 +30,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     public RendCompoundAffectationOperation(CompoundAffectationOperation _c, ContextEl _context) {
         super(_c);
         oper = _c.getOper();
-        classMethodId = _c.getClassMethodId();
+        kind = ExecOperationNode.getKind(_c.getClassMethodId());
+        className = ExecOperationNode.getType(_context,_c.getClassMethodId());
         named = ExecOperationNode.fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
         rootBlock = ExecOperationNode.fetchType(_context,_c.getRootNumber());
         converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
@@ -103,7 +105,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
-        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(),classMethodId,rootBlock,named,_previous,first_);
+        ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, className, kind);
         return Argument.createVoid();
     }
 
