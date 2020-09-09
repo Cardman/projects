@@ -75,9 +75,6 @@ public final class ValuesOperation extends LeafOperation {
         setResultClass(new ClassArgumentMatching(ret_));
     }
 
-    public String getClassName() {
-        return className;
-    }
     public int getArgOffset() {
         return argOffset;
     }
