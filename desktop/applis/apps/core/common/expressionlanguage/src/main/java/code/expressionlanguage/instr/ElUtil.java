@@ -14,6 +14,7 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.ExecBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
@@ -22,6 +23,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.opers.ExecPossibleIntermediateDotted;
 import code.expressionlanguage.exec.opers.ExecSemiAffectationOperation;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -694,17 +696,37 @@ public final class ElUtil {
     }
     public static void setImplicits(ExecOperationNode _ex, ContextEl _context){
         ClassArgumentMatching resultClass_ = _ex.getResultClass();
-        for (ClassMethodId c: resultClass_.getImplicits()) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumber());
-            _ex.getImplicits().getConverter().add(ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(),_context));
-            _ex.getImplicits().setOwnerClass(c.getClassName());
-            _ex.getImplicits().setRootBlock(classBody_);
+        ImplicitMethods implicits_ = _ex.getImplicits();
+        ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
+        setImplicits(_context, resultClass_, implicits_, implicitsTest_);
+    }
+
+    public static void setImplicits(ContextEl _context, ClassArgumentMatching resultClass_, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp) {
+        CustList<ClassMethodId> implicits_ = resultClass_.getImplicits();
+        String owner_ = "";
+        ExecNamedFunctionBlock conv_ = null;
+        if (!implicits_.isEmpty()) {
+            owner_ = implicits_.first().getClassName();
+            conv_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(),_context);
         }
-        for (ClassMethodId c: resultClass_.getImplicitsTest()) {
+        if (conv_ != null) {
+            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumber());
+            _implicitsOp.getConverter().add(conv_);
+            _implicitsOp.setOwnerClass(owner_);
+            _implicitsOp.setRootBlock(classBody_);
+        }
+        CustList<ClassMethodId> implicitsTest_ = resultClass_.getImplicitsTest();
+        String ownerTest_ = "";
+        ExecNamedFunctionBlock convTest_ = null;
+        if (!implicitsTest_.isEmpty()) {
+            ownerTest_ = implicitsTest_.first().getClassName();
+            convTest_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(),_context);
+        }
+        if (convTest_ != null) {
             ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumberTest());
-            _ex.getImplicitsTest().getConverter().add(ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(),_context));
-            _ex.getImplicitsTest().setOwnerClass(c.getClassName());
-            _ex.getImplicitsTest().setRootBlock(classBody_);
+            _implicitsTestOp.getConverter().add(convTest_);
+            _implicitsTestOp.setOwnerClass(ownerTest_);
+            _implicitsTestOp.setRootBlock(classBody_);
         }
     }
 

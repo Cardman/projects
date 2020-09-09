@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.SuperInvokingConstructor;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -18,7 +17,13 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
     }
 
     @Override
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument,  ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
+        Argument res_ = getArgument(_nodes, _conf);
+        setSimpleArgument(res_, _conf, _nodes);
+    }
+
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

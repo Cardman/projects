@@ -6856,6 +6856,28 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         calculateError("pkg.Ex", id_, args_, cont_);
     }
     @Test
+    public void calculateArgument510Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+        xml_.append("  $return $class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invokeDirect($new java.lang.Number[]{});\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = contextElDefault();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument arg_;
+        arg_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
+        assertTrue(arg_.getStruct() instanceof ArrayStruct);
+        assertEq("[java.lang.Number",arg_.getStruct().getClassName(cont_));
+        assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
+    }
+    @Test
     public void processEl_1Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

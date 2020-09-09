@@ -479,8 +479,7 @@ public final class ExecTemplates {
             }
         }
         if (_id instanceof GeneMethod) {
-            String name_ = _id.getName();
-            if (StringList.quickEq("[]=", name_)) {
+            if (_right != null) {
                 String type_ = _id.getImportedReturnType();
                 type_ = quickFormat(_rootBlock,_classNameFound, type_);
                 Struct ex_ = checkObjectEx(type_, _right, _conf);

@@ -2,6 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -33,7 +34,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
 
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+argOffset, _conf);
-        return ExecInvokingOperation.getEnumValues(new AdvancedExiting(_conf),className,rootBlock, _conf.getContext());
+        return ExecInvokingOperation.tryGetEnumValues(new AdvancedExiting(_conf), _conf.getContext(),rootBlock,ClassCategory.ENUM);
     }
 
     @Override

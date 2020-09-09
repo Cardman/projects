@@ -7,7 +7,8 @@ import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractReflectPageEl;
 import code.expressionlanguage.exec.calls.CastPageEl;
 import code.expressionlanguage.exec.calls.MethodPageEl;
-import code.expressionlanguage.exec.calls.util.CallConstructor;
+import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
+import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.util.CustList;
 
@@ -31,11 +32,8 @@ public final class ProcessMethod {
     }
 
     public static Argument instanceArgument(String _class, ExecRootBlock _root, Argument _global, ExecNamedFunctionBlock _id, Parameters _args, ContextEl _cont) {
-        CallConstructor call_ = new CallConstructor();
-        call_.setArgument(_global);
-        call_.setId(_id);
-        call_.setFieldName(EMPTY_STRING);
-        AbstractCallingInstancingPageEl page_ = ExecutingUtil.createInstancing(_cont,_class, _root,call_, _args);
+        CustomFoundConstructor found_ = new CustomFoundConstructor(_class,_root,EMPTY_STRING,-1,_id,_global,_args,InstancingStep.NEWING);
+        AbstractCallingInstancingPageEl page_ = ExecutingUtil.createNewInstancing(_cont,found_);
         ExecutingUtil.addPage(_cont,page_);
         _cont.getInit().loopCalling(_cont);
         return page_.getGlobalArgument();

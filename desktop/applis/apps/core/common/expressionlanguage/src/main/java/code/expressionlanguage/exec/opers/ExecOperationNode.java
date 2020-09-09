@@ -75,11 +75,16 @@ public abstract class ExecOperationNode {
     }
 
     public static ImplicitMethods fetchImplicits(ContextEl _context,ClassMethodId _clMet,int _root, int _member) {
+        ExecNamedFunctionBlock conv_ = null;
+        String converterClass = "";
         if (_clMet != null) {
-            String converterClass = _clMet.getClassName();
+            converterClass = _clMet.getClassName();
+            conv_ = fetchFunction(_root,_member,_context);
+        }
+        if (conv_ != null) {
             ImplicitMethods converter = new ImplicitMethods();
             ExecRootBlock classBody_ = fetchType(_context,_root);
-            converter.getConverter().add(fetchFunction(_root,_member,_context));
+            converter.getConverter().add(conv_);
             converter.setOwnerClass(converterClass);
             converter.setRootBlock(classBody_);
             return converter;

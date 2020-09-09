@@ -164,14 +164,12 @@ public final class ExecutingUtil {
     }
     public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
-        ExecNamedFunctionBlock methodLoc_;
-        methodLoc_ = _method;
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-        _context.getCoverage().passCalls(_context,idCl_,methodLoc_);
-        String ret_ = methodLoc_.getImportedReturnType();
+        _context.getCoverage().passCalls(_context,idCl_,_method);
+        String ret_ = _method.getImportedReturnType();
         CastPageEl pageLoc_ = new CastPageEl(_context,ret_,Argument.createVoid(),_class);
         pageLoc_.setBlockRootType(_rootBlock);
-        setMethodInfos(pageLoc_,methodLoc_, _args);
+        setMethodInfos(pageLoc_,_method, _args);
         return pageLoc_;
     }
     private static void setMethodInfos(AbstractMethodPageEl _page, ExecNamedFunctionBlock _block, Parameters _args) {
@@ -188,28 +186,33 @@ public final class ExecutingUtil {
         Parameters args_ = _e.getArguments();
         InstancingStep in_ = _e.getInstanceStep();
         if (in_ == InstancingStep.NEWING) {
-            return createInstancing(_context,cl_, _e.getType(),_e.getCall(), args_);
+            return createNewInstancing(_context,_e);
         }
-        return createForwardingInstancing(_context,cl_, _e.getType(),_e.getCall(), args_);
+        return createForwardingInstancing(_context,_e);
     }
-    public static CallConstructorPageEl createInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
+    public static CallConstructorPageEl createNewInstancing(ContextEl _context, CustomFoundConstructor _e) {
+        String cl_ = _e.getClassName();
+        ExecRootBlock type_ = _e.getType();
+        Parameters args_ = _e.getArguments();
         _context.setCallingState(null);
         CallConstructorPageEl page_;
-        Argument global_ = _call.getArgument();
+        Argument global_ = _e.getCurrentObject();
+        ExecNamedFunctionBlock ctor_ = _e.getId();
         Argument argGl_ = new Argument();
         page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
             str_ = global_.getStruct();
         }
-        String fieldName_ = _call.getFieldName();
-        int ordinal_ = _call.getChildIndex();
-        argGl_.setStruct(_context.getInit().processInit(_context, str_, _class,_type, fieldName_, ordinal_));
+        String fieldName_ = _e.getFieldName();
+        int ordinal_ = _e.getChildIndex();
+        argGl_.setStruct(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
-        page_.setBlockRootTypes(_type);
-        setInstanciationInfos(_context,page_,_class,_type,_call,_args);
+        page_.setBlockRootTypes(type_);
+        setInstanciationInfos(_context,page_,cl_,type_, args_, ctor_);
         return page_;
     }
+
     private static NewAnnotationPageEl createAnnotation(ContextEl _context,String _class,ExecRootBlock _type,
                                                         StringMap<AnnotationTypeInfo> _id,
                                                         CustList<Argument> _args) {
@@ -229,33 +232,32 @@ public final class ExecutingUtil {
         page_.setBlockRootTypes(_type);
         return page_;
     }
-    private static AbstractPageEl createForwardingInstancing(ContextEl _context,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
+    private static AbstractPageEl createForwardingInstancing(ContextEl _context,CustomFoundConstructor _e) {
         _context.setCallingState(null);
         CallConstructorPageEl page_ = new CallConstructorPageEl();
-        Argument global_ = _call.getArgument();
-        Argument argGl_ = new Argument();
-        argGl_.setStruct(global_.getStruct());
-        page_.setGlobalArgument(argGl_);
-        page_.setBlockRootTypes(_type);
-        setInstanciationInfos(_context,page_,_class,_type,_call,_args);
+        String cl_ = _e.getClassName();
+        ExecRootBlock type_ = _e.getType();
+        Parameters args_ = _e.getArguments();
+        Argument global_ = _e.getCurrentObject();
+        page_.setGlobalArgument(global_);
+        page_.setBlockRootTypes(type_);
+        setInstanciationInfos(_context,page_,cl_,type_, args_, _e.getId());
         return page_;
     }
-    private static void setInstanciationInfos(ContextEl _context,AbstractPageEl _page,String _class, ExecRootBlock _type,CallConstructor _call, Parameters _args) {
-        ExecNamedFunctionBlock id_ = _call.getId();
+
+    private static void setInstanciationInfos(ContextEl _context, AbstractPageEl _page, String _class, ExecRootBlock _type, Parameters _args, ExecNamedFunctionBlock _ctor) {
         ExecFileBlock file_ = _type.getFile();
-        ExecNamedFunctionBlock method_ = null;
         _page.setGlobalClass(_class);
         ReadWrite rw_ = new ReadWrite();
-        if (id_ != null) {
+        if (_ctor != null) {
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-            method_ = id_;
-            _context.getCoverage().passCalls(_context,idCl_,method_);
+            _context.getCoverage().passCalls(_context,idCl_,_ctor);
             _page.getValueVars().putAllMap(_args.getParameters());
-            ExecBlock firstChild_ = method_.getFirstChild();
+            ExecBlock firstChild_ = _ctor.getFirstChild();
             rw_.setBlock(firstChild_);
         }
         _page.setReadWrite(rw_);
-        _page.setBlockRoot(method_);
+        _page.setBlockRoot(_ctor);
         _page.setFile(file_);
     }
     private static FieldInitPageEl createInitFields(ContextEl _context, ExecRootBlock _type,String _class, Argument _current) {
@@ -317,6 +319,8 @@ public final class ExecutingUtil {
             pageLoc_ = new DirectStdRefectMethodPageEl();
         } else if (_reflect == ReflectingType.CLONE_FCT) {
             pageLoc_ = new DirectCloneRefectMethodPageEl();
+        } else if (_reflect == ReflectingType.ENUM_METHODS) {
+            pageLoc_ = new DirectEnumMethods();
         } else if (_reflect == ReflectingType.ANNOT_FCT) {
             pageLoc_ = new DirectAnnotationRefectMethodPageEl();
         } else if (_reflect == ReflectingType.CONSTRUCTOR) {

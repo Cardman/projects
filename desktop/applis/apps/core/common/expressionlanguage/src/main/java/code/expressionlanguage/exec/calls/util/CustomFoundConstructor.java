@@ -3,8 +3,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.util.CustList;
 
 public final class CustomFoundConstructor implements CallingState {
 
@@ -36,13 +34,12 @@ public final class CustomFoundConstructor implements CallingState {
         instanceStep = _instance;
     }
 
-    public CallConstructor getCall() {
-        CallConstructor call_ = new CallConstructor();
-        call_.setFieldName(fieldName);
-        call_.setChildIndex(childIndex);
-        call_.setArgument(getCurrentObject());
-        call_.setId(getId());
-        return call_;
+    public int getChildIndex() {
+        return childIndex;
+    }
+
+    public String getFieldName() {
+        return fieldName;
     }
 
     public ExecRootBlock getType() {

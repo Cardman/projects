@@ -5,12 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -488,17 +484,8 @@ public final class RenderExpUtil {
 
     public static void setImplicits(RendDynOperationNode _ex, ContextEl _context){
         ClassArgumentMatching resultClass_ = _ex.getResultClass();
-        for (ClassMethodId c: resultClass_.getImplicits()) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumber());
-            _ex.getImplicits().getConverter().add(ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(),_context));
-            _ex.getImplicits().setOwnerClass(c.getClassName());
-            _ex.getImplicits().setRootBlock(classBody_);
-        }
-        for (ClassMethodId c: resultClass_.getImplicitsTest()) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumberTest());
-            _ex.getImplicitsTest().getConverter().add(ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(),_context));
-            _ex.getImplicitsTest().setOwnerClass(c.getClassName());
-            _ex.getImplicitsTest().setRootBlock(classBody_);
-        }
+        ImplicitMethods implicits_ = _ex.getImplicits();
+        ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
+        ElUtil.setImplicits(_context,resultClass_,implicits_,implicitsTest_);
     }
 }

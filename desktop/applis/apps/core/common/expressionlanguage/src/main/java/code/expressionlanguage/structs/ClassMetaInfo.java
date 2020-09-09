@@ -350,6 +350,10 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         return category == ClassCategory.VOID;
     }
 
+    public ClassCategory getCategory() {
+        return category;
+    }
+
     @Override
     public CustList<ExecAnonymousFunctionBlock> getAnonymousLambda() {
         if (rootBlock != null) {

@@ -15,8 +15,15 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         super(_current,_context);
     }
 
+
     @Override
-    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes,Argument _argument,  ContextEl _conf) {
+    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
+                          ContextEl _conf) {
+        Argument res_ = getArgument(_nodes, _conf);
+        setSimpleArgument(res_, _conf, _nodes);
+    }
+
+    Argument getArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

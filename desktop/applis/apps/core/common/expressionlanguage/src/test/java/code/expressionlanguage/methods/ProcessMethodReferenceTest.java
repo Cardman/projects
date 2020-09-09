@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.ErroneousStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -5039,6 +5040,78 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(5, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument156Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $Fct<String,ExEnum> f = $static().$lambda(ExEnum,valueOf,String);\n");
+        xml_.append("  $return f.call(\"ONE\").$name();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append(" ONE\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+
+    @Test
+    public void calculateArgument157Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  $Fct<ExEnum[]> f = $static().$lambda(ExEnum,values);\n");
+        xml_.append("  $return f.call()[0].$name();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append(" ONE\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("ONE", getString(ret_));
+    }
+
+    @Test
+    public void calculateArgument158Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static ExEnum exmeth(){\n");
+        xml_.append("  $Fct<String,ExEnum> f = $static().$lambda(ExEnum,valueOf,String);\n");
+        xml_.append("  $return f.call(\"INEXIST\");\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $enum pkg.ExEnum {\n");
+        xml_.append(" ONE\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = contextElDefault();
+        files_.put("pkg/Ex", xml_.toString());
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertSame(NullStruct.NULL_VALUE, ret_.getStruct());
     }
     @Test
     public void calculateArgument0FailTest() {
