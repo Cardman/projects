@@ -65,7 +65,10 @@ public final class ClassesUtil {
             if (resDyn_.isFoundMethod()) {
                 ExecRootBlock ex_ = ExecOperationNode.fetchType(_context,resDyn_.getRootNumber());
                 ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(),_context);
-                toStringMethodsToCallBodies_.addEntry(e.getKey().getFullName(),new PolymorphMethod(ex_,fct_));
+                String fullName_ = e.getKey().getFullName();
+                toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
+                page_.getToStringOwners().add(fullName_);
+                _context.getCoverage().putToStringOwner(_context,fullName_);
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
@@ -1365,6 +1368,12 @@ public final class ClassesUtil {
                 allDirectSuperTypes_.add(s_.getFullName());
             }
             for (RootBlock a: allAncestors_) {
+                MemberCallingsBlock outerFctAnc_ = a.getOuterFuntionInType();
+                if (outerFctAnc_ != null) {
+                    for (RootBlock r:outerFctAnc_.getReserved()) {
+                        allPossibleDirectSuperTypes_.add(r.getFullName());
+                    }
+                }
                 for (Block m: getDirectChildren(a)) {
                     if (!(m instanceof RootBlock)) {
                         continue;

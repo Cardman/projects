@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -78,12 +79,16 @@ public final class MethodId implements Identifiable {
     }
     @Override
     public String getSignature(ContextEl _ana) {
+        return getSignature(_ana.getStandards().getDisplayedStrings());
+    }
+    @Override
+    public String getSignature(DisplayedStrings _ana) {
         String pref_ = EMPTY;
         if (kind == MethodAccessKind.STATIC) {
-            pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticString()," ");
+            pref_ = StringList.concat(_ana.getStaticString()," ");
         } else {
             if (kind == MethodAccessKind.STATIC_CALL) {
-                pref_ = StringList.concat(_ana.getStandards().getDisplayedStrings().getStaticCallString()," ");
+                pref_ = StringList.concat(_ana.getStaticCallString()," ");
             }
         }
         String suf_ = EMPTY;

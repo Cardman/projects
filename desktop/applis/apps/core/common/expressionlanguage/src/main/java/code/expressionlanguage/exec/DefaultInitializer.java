@@ -24,7 +24,7 @@ public class DefaultInitializer implements Initializer {
         return init(_context, _parent, _className, _fieldName, _ordinal, fields_);
     }
 
-    public CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className,ExecRootBlock _rootBlock) {
+    public final CustList<ClassFieldStruct> feedFields(ContextEl _context, String _className,ExecRootBlock _rootBlock) {
         ExecFormattedRootBlock base_ = new ExecFormattedRootBlock(_rootBlock,_rootBlock.getGenericString());
         CustList<ExecFormattedRootBlock> allClasses_ = new CustList<ExecFormattedRootBlock>(base_);
         allClasses_.addAllElts(_rootBlock.getAllGenericSuperTypes());

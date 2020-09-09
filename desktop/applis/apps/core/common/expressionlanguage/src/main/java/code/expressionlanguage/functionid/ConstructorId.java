@@ -1,6 +1,7 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.stds.DisplayedStrings;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -45,6 +46,11 @@ public final class ConstructorId implements Identifiable {
 
     @Override
     public String getSignature(ContextEl _ana) {
+        return getSignature(_ana.getStandards().getDisplayedStrings());
+    }
+
+    @Override
+    public String getSignature(DisplayedStrings _ana) {
         String suf_ = EMPTY;
         if (vararg) {
             suf_ = VARARG;

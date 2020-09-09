@@ -249,7 +249,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     ClassMethodId ref_ = new ClassMethodId(clDest_,m.getId());
                     CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
                     StringList l_ = new StringList();
-                    LinkageUtil.addParts(_context,analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                    LinkageUtil.addParts(_context.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                     partMethods_.addAllElts(partMethod_);
                     overrides.put(clKey_,new GeneStringOverridable(formattedDest_,formattedDestType_,m));
                     break;

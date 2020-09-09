@@ -128,6 +128,7 @@ public final class AnalyzedPageEl {
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private boolean variableIssue;
+    private final StringList toStringOwners = new StringList();
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -769,5 +770,9 @@ public final class AnalyzedPageEl {
 
     public void setVariableIssue(boolean variableIssue) {
         this.variableIssue = variableIssue;
+    }
+
+    public StringList getToStringOwners() {
+        return toStringOwners;
     }
 }

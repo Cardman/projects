@@ -23,7 +23,8 @@ public final class Coverage {
     private CustList<FileBlock> files = new CustList<FileBlock>();
     private final CustList<RootBlock> refFoundTypes = new CustList<RootBlock>();
     private final CustList<OperatorBlock> refOperators = new CustList<OperatorBlock>();
-    private IdMap<Block,AbstractCoverageResult> coversConditions = new IdMap<Block,AbstractCoverageResult>();
+    private final StringList toStringOwners = new StringList();
+    private IdMap<Block,BooleanCoverageResult> coversConditions = new IdMap<Block,BooleanCoverageResult>();
     private IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>> covers = new IdMap<Block,IdMap<OperationNode,AbstractCoverageResult>>();
     private IdMap<Block,BooleanCoverageResult> coverLoops = new IdMap<Block,BooleanCoverageResult>();
     private StringMap<IdMap<NamedFunctionBlock,Boolean>> calls = new StringMap<IdMap<NamedFunctionBlock,Boolean>>();
@@ -177,6 +178,14 @@ public final class Coverage {
         }
         catches.put(_block,false);
     }
+
+    public void putToStringOwner(ContextEl _context, String _owner) {
+        if (!_context.isCovering()) {
+            return;
+        }
+        toStringOwners.add(_owner);
+    }
+
     public void passLoop(ContextEl _context, Argument _value) {
         if (!_context.isCovering()) {
             return;
@@ -193,7 +202,7 @@ public final class Coverage {
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
         ExecBlock en_ = rw_.getBlock();
-        AbstractCoverageResult cov_ = coversConditions.getVal(mappingBlocks.getVal(en_));
+        BooleanCoverageResult cov_ = coversConditions.getVal(mappingBlocks.getVal(en_));
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
             cov_.fullCover();
@@ -329,5 +338,9 @@ public final class Coverage {
 
     public CustList<OperatorBlock> getRefOperators() {
         return refOperators;
+    }
+
+    public StringList getToStringOwners() {
+        return toStringOwners;
     }
 }

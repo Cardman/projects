@@ -3,6 +3,10 @@ package code.expressionlanguage.linkage;
 import code.expressionlanguage.analyze.blocks.OperatorBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.DisplayedStrings;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.StringList;
@@ -14,6 +18,10 @@ public final class VariablesOffsets {
     private String currentFileName = "";
     private CustList<RootBlock> refFoundTypes;
     private CustList<OperatorBlock> refOperators;
+    private KeyWords keyWords;
+    private Coverage coverage;
+    private LgNames stds;
+    private StringList toStringOwners;
 
     public String getCurrentFileName() {
         return currentFileName;
@@ -62,5 +70,37 @@ public final class VariablesOffsets {
 
     public void setState(LinkageStackElement state) {
         this.state = state;
+    }
+
+    public KeyWords getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(KeyWords keyWords) {
+        this.keyWords = keyWords;
+    }
+
+    public Coverage getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(Coverage coverage) {
+        this.coverage = coverage;
+    }
+
+    public LgNames getStds() {
+        return stds;
+    }
+
+    public void setStds(LgNames stds) {
+        this.stds = stds;
+    }
+
+    public StringList getToStringOwners() {
+        return toStringOwners;
+    }
+
+    public void setToStringOwners(StringList toStringOwners) {
+        this.toStringOwners = toStringOwners;
     }
 }
