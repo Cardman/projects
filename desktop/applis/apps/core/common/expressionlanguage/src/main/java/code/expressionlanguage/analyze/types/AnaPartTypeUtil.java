@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.types.*;
 import code.util.*;
 
 public final class AnaPartTypeUtil {

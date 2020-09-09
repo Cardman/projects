@@ -6,6 +6,7 @@ import code.expressionlanguage.inherits.MatchingEnum;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -988,5 +989,49 @@ public final class StringExpUtil {
     }
     public static int getOffset(String _str) {
         return Math.max(0,StringList.getFirstPrintableCharIndex(_str));
+    }
+
+    public static ArrayResult tryGetArray(String _string, IntTreeMap<String> _values, IntTreeMap<String> _operators) {
+        int j_ = _string.length()-1;
+        boolean arr_ = true;
+        while (true) {
+            char locChar_ = _string.charAt(j_);
+            if (Character.isWhitespace(locChar_)) {
+                j_--;
+                continue;
+            }
+            if (locChar_ != ']') {
+                arr_ = false;
+            }
+            break;
+        }
+        if (arr_) {
+            j_--;
+            while (j_ >= 0) {
+                char locChar_ = _string.charAt(j_);
+                if (Character.isWhitespace(locChar_)) {
+                    j_--;
+                    continue;
+                }
+                if (locChar_ != '[') {
+                    arr_ = false;
+                }
+                break;
+            }
+        }
+        if (arr_) {
+            if (j_ >= 0) {
+                String str_ = _string.substring(0, j_);
+                int last_ = StringList.getLastPrintableCharIndex(str_);
+                if (last_ < 0) {
+                    return ArrayResult.ERROR;
+                }
+                _values.put((int)CustList.FIRST_INDEX, str_);
+                _operators.put(last_, _string.substring(j_));
+                return ArrayResult.OK;
+            }
+            return ArrayResult.ERROR;
+        }
+        return ArrayResult.NONE;
     }
 }

@@ -1,9 +1,12 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ArrayResult;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.types.AnalyzingType;
-import code.expressionlanguage.types.ParserType;
+import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.types.KindPartType;
+import code.expressionlanguage.analyze.types.ParserType;
 import code.util.*;
 
 public final class ExecPartTypeUtil {
@@ -119,8 +122,8 @@ public final class ExecPartTypeUtil {
     }
     public static String processPrettyType(String _input) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = ParserType.getIndexesExec(_input);
-        AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
+        Ints indexes_ = getIndexesExec(_input);
+        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
@@ -170,8 +173,8 @@ public final class ExecPartTypeUtil {
     }
     public static String processPrettySingleType(String _input) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = ParserType.getIndexesExec(_input);
-        AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
+        Ints indexes_ = getIndexesExec(_input);
+        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
@@ -221,11 +224,11 @@ public final class ExecPartTypeUtil {
     }
     public static ExecResultPartType processExec(String _input,ContextEl _an) {
         StringBuilder out_ = new StringBuilder();
-        Ints indexes_ = ParserType.getIndexesExec(_input);
+        Ints indexes_ = getIndexesExec(_input);
         if (indexes_ == null) {
             return new ExecResultPartType("",null);
         }
-        AnalyzingType loc_ = ParserType.analyzeLocalExec(0, _input, indexes_);
+        ExecAnalyzingType loc_ = analyzeLocalExec(0, _input, indexes_);
         CustList<IntTreeMap< String>> dels_;
         dels_ = new CustList<IntTreeMap< String>>();
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValues());
@@ -285,7 +288,7 @@ public final class ExecPartTypeUtil {
         }
         return new ExecResultPartType(out_.toString(), root_);
     }
-    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static ExecParentChildType createFirstChildExec(ExecPartType _parent, ExecAnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         if (!(_parent instanceof ExecParentPartType)) {
             return new ExecParentChildType(null,null);
         }
@@ -302,13 +305,13 @@ public final class ExecPartTypeUtil {
         }
         IntTreeMap< String> last_ = _dels.last();
         String v_ = last_.firstValue();
-        AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
+        ExecAnalyzingType an_ = analyzeLocalExec(off_, v_, _analyze.getIndexes());
         ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, last_);
         addValues(p_, _dels, an_);
         return new ExecParentChildType(par_,p_);
     }
 
-    private static ExecPartType createNextSiblingExec(ExecPartType _parent, AnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
+    private static ExecPartType createNextSiblingExec(ExecPartType _parent, ExecAnalyzingType _analyze, CustList<IntTreeMap<String>> _dels) {
         ExecParentPartType par_ = _parent.getParent();
         if (!(par_ instanceof ExecBinaryType)) {
             return null;
@@ -331,13 +334,13 @@ public final class ExecPartTypeUtil {
             g_ = g_.getParent();
         }
         String v_ = last_.getValue(indexNext_);
-        AnalyzingType an_ = ParserType.analyzeLocalExec(off_, v_, _analyze.getIndexes());
+        ExecAnalyzingType an_ = analyzeLocalExec(off_, v_, _analyze.getIndexes());
         ExecPartType p_ = ExecPartType.createPartTypeExec(b_,indexNext_, an_, last_);
         p_.setPreviousSibling(_parent);
         addValues(p_, _dels, an_);
         return p_;
     }
-    private static void addValues(ExecPartType _p, CustList<IntTreeMap< String>> _dels, AnalyzingType _an) {
+    private static void addValues(ExecPartType _p, CustList<IntTreeMap< String>> _dels, ExecAnalyzingType _an) {
         if (!(_p instanceof ExecParentPartType)) {
             return;
         }
@@ -355,5 +358,144 @@ public final class ExecPartTypeUtil {
         } else {
             _dels.add(_an.getValues());
         }
+    }
+
+    private static ExecAnalyzingType analyzeLocalExec(int _offset, String _string, Ints _indexes) {
+        ExecAnalyzingType a_ = new ExecAnalyzingType();
+        a_.getIndexes().addAllElts(_indexes);
+        if (_string.trim().isEmpty()) {
+            a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+            a_.setError(true);
+            return a_;
+        }
+        if (StringExpUtil.isTypeLeafExec(_string)) {
+            a_.setKind(KindPartType.TYPE_NAME);
+            a_.setupValueExec(_string);
+            return a_;
+        }
+        if (StringList.quickEq(_string.trim(), Templates.SUB_TYPE)) {
+            a_.setKind(KindPartType.EMPTY_WILD_CARD);
+            a_.setupValueExec(_string);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUB_TYPE)) {
+            a_.setPrio(ParserType.WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUB_TYPE, _string);
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.SUP_TYPE)) {
+            if (StringList.quickEq(_string.trim(), Templates.SUP_TYPE)) {
+                a_.setError(true);
+            }
+            a_.setPrio(ParserType.WILD_CARD_PRIO);
+            a_.setupWildCardValues(Templates.SUP_TYPE, _string);
+            return a_;
+        }
+        ArrayResult res_ = StringExpUtil.tryGetArray(_string, a_.getValues(), a_.getOperators());
+        if (res_ != ArrayResult.NONE) {
+            if (res_ == ArrayResult.ERROR) {
+                a_.getValues().put((int)CustList.FIRST_INDEX, _string);
+                a_.setError(true);
+            } else {
+                a_.setPrio(ParserType.ARR_PRIO);
+            }
+            return a_;
+        }
+        if (_string.trim().startsWith(Templates.ARR_BEG_STRING)) {
+            a_.setPrio(ParserType.ARR_PRIO);
+            a_.setupArrayValuesExec(_string);
+            return a_;
+        }
+        int count_ = 0;
+        int len_ = _string.length();
+        int i_ = 0;
+        int prio_ = ParserType.TMP_PRIO;
+        IntTreeMap<String> operators_;
+        operators_ = new IntTreeMap<String>();
+        while (i_ < len_) {
+            char curChar_ = _string.charAt(i_);
+            if (!_indexes.containsObj((long)i_+_offset)) {
+                i_++;
+                continue;
+            }
+            if (curChar_ == Templates.LT) {
+                if (count_== 0 && prio_ == ParserType.TMP_PRIO) {
+                    operators_.clear();
+                    operators_.put(i_,Templates.TEMPLATE_BEGIN);
+                }
+                count_++;
+            }
+            if (curChar_ == Templates.COMMA && count_ == 1 && prio_ == ParserType.TMP_PRIO) {
+                operators_.put(i_, Templates.TEMPLATE_SEP);
+            }
+            if (curChar_ == Templates.GT) {
+                count_--;
+                if (count_ == 0 && prio_ == ParserType.TMP_PRIO) {
+                    operators_.put(i_,Templates.TEMPLATE_END);
+                }
+            }
+            if (count_ == 0) {
+                if (curChar_ == Templates.SEP_CLASS_CHAR || curChar_ == '-') {
+                    if (prio_ > ParserType.INT_PRIO) {
+                        operators_.clear();
+                        prio_ = ParserType.INT_PRIO;
+                    }
+                    if (curChar_ == Templates.SEP_CLASS_CHAR){
+                        operators_.put(i_,Templates.INNER_TYPE);
+                    } else {
+                        operators_.put(i_,"-");
+                    }
+                }
+            }
+            i_++;
+        }
+        a_.getOperators().putAllMap(operators_);
+        a_.setPrio(prio_);
+        a_.setupValuesExec(_string);
+        return a_;
+    }
+
+    private static Ints getIndexesExec(String _input) {
+        return getDoubleDotIndexes(_input);
+    }
+
+    private static Ints getDoubleDotIndexes(String _input) {
+        int count_ = 0;
+        int len_ = _input.length();
+        int i_ = 0;
+        Ints indexes_ = new Ints();
+        while (i_ < len_) {
+            char curChar_ = _input.charAt(i_);
+            if (curChar_ == Templates.LT) {
+                indexes_.add(i_);
+                count_++;
+            }
+            if (curChar_ == Templates.GT) {
+                if (count_ == 0) {
+                    return null;
+                }
+                indexes_.add(i_);
+                count_--;
+            }
+            if (curChar_ == Templates.COMMA) {
+                if (count_ == 0) {
+                    return null;
+                }
+                indexes_.add(i_);
+            }
+            if (curChar_ == Templates.SEP_CLASS_CHAR) {
+                if (StringExpUtil.nextCharIs(_input, i_ + 1, len_, Templates.SEP_CLASS_CHAR)) {
+                    indexes_.add(i_);
+                    i_++;
+                }
+            } else if (curChar_ == '-') {
+                indexes_.add(i_);
+            }
+            i_++;
+        }
+        if (count_ > 0) {
+            return null;
+        }
+        return indexes_;
     }
 }

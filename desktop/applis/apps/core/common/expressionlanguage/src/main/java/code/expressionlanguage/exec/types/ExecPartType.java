@@ -1,8 +1,7 @@
 package code.expressionlanguage.exec.types;
 
-import code.expressionlanguage.types.AnalyzingType;
 import code.expressionlanguage.types.KindPartType;
-import code.expressionlanguage.types.ParserType;
+import code.expressionlanguage.analyze.types.ParserType;
 import code.util.IntTreeMap;
 
 abstract class ExecPartType {
@@ -18,7 +17,7 @@ abstract class ExecPartType {
         index = _index;
     }
 
-    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, AnalyzingType _analyze, IntTreeMap<String> _dels) {
+    static ExecPartType createPartTypeExec(ExecParentPartType _parent, int _index, ExecAnalyzingType _analyze, IntTreeMap<String> _dels) {
         if (_analyze.isError()) {
             return new ExecEmptyPartType(_parent, _index, _dels.getValue(_index),"");
         }

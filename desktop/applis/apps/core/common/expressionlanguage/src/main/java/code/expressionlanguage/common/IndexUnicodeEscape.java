@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-public class IndexUnicodeEscape {
+public final class IndexUnicodeEscape {
 
     private int index;
 

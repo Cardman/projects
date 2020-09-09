@@ -1,7 +1,7 @@
 package code.expressionlanguage.common;
 
 
-public class VariableInfo {
+public final class VariableInfo {
 
     private String name;
 

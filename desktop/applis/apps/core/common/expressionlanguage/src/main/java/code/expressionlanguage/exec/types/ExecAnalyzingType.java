@@ -1,12 +1,14 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.inherits.Templates;
+import code.expressionlanguage.types.KindPartType;
+import code.expressionlanguage.analyze.types.ParserType;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.Ints;
 import code.util.StringList;
 
-public final class AnalyzingType {
+public final class ExecAnalyzingType {
 
     private Ints indexes = new Ints();
     private IntTreeMap< String> operators = new IntTreeMap< String>();
@@ -14,43 +16,6 @@ public final class AnalyzingType {
     private boolean error;
     private KindPartType kind = KindPartType.NOTHING;
     private int prio;
-
-    public void setupValue(String _string) {
-        values = new IntTreeMap<String>();
-        values.put((int)CustList.FIRST_INDEX, _string);
-    }
-
-    public void setupValues(String _string) {
-        values = new IntTreeMap<String>();
-        if (operators.isEmpty()) {
-            values.put((int)CustList.FIRST_INDEX, _string);
-            error = true;
-            return;
-        }
-        int beginValuePart_ = CustList.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_;
-        str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.put(beginValuePart_, str_);
-        int i_ = CustList.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.put(beginValuePart_, str_);
-            i_++;
-        }
-        beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        str_ = _string.substring(beginValuePart_);
-        if (!str_.trim().isEmpty() && prio == ParserType.TMP_PRIO) {
-            values = new IntTreeMap<String>();
-            values.put((int)CustList.FIRST_INDEX, _string);
-            error = true;
-            return;
-        }
-        values.put(beginValuePart_, str_);
-    }
 
     public void setupValueExec(String _string) {
         values = new IntTreeMap<String>();
@@ -157,5 +122,5 @@ public final class AnalyzingType {
     public void setPrio(int _prio) {
         prio = _prio;
     }
-    
+
 }

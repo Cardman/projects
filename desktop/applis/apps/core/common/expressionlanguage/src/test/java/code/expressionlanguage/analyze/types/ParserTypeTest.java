@@ -1,4 +1,4 @@
-package code.expressionlanguage.types;
+package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
@@ -11,7 +11,7 @@ import org.junit.Test;
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertTrue;
 
-public class ParserTypeTest extends ProcessMethodCommon {
+public final class ParserTypeTest extends ProcessMethodCommon {
     @Test
     public void getIndexes1_Test(){
         Ints indexes_ = ParserType.getIndexes("int", new StringList());
