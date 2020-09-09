@@ -2,7 +2,7 @@ package code.expressionlanguage.options;
 
 import code.util.StringList;
 
-public class IterableAnalysisResult {
+public final class IterableAnalysisResult {
 
     private StringList className;
 

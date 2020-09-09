@@ -418,11 +418,13 @@ public final class ElResolver {
             }
             if (prevOp_ != '.' && curChar_ == DOT_VAR) {
                 int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
-                if (isDigitOrDot(_string,n_)) {
-                    KeyWords keyWords_ = _conf.getKeyWords();
-                    NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
-                    from_ = res_.getNextIndex();
-                    continue;
+                if (!StringExpUtil.nextCharIs(_string,n_,len_,DOT_VAR)) {
+                    if (isDigitOrDot(_string,n_)) {
+                        KeyWords keyWords_ = _conf.getKeyWords();
+                        NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
+                        from_ = res_.getNextIndex();
+                        continue;
+                    }
                 }
             }
             next_ = processOperatorsQuick(parsBrackets_,callings_,indexesNew_,indexesNewEnd_,from_,curChar_, _string,_conf, _globalDirType);
@@ -469,55 +471,7 @@ public final class ElResolver {
         //
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            next_ = incrType(next_,_string);
-            if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
-                int nbOpened_ = 1;
-                next_++;
-                while (next_ < len_) {
-                    char curLoc_ = _string.charAt(next_);
-                    if (curLoc_ == LOWER_CHAR) {
-                        nbOpened_++;
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == GREATER_CHAR) {
-                        nbOpened_--;
-                        next_++;
-                        if (nbOpened_ == 0) {
-                            String substring_ = _string.substring(next_);
-                            if (substring_.trim().startsWith(".")) {
-                                next_ = incrType(next_,_string);
-                            }
-                        }
-                        continue;
-                    }
-                    if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
-                        break;
-                    }
-                    next_++;
-                }
-            }
-            if (next_ < len_) {
-                char curLoc_ = _string.charAt(next_);
-                if (curLoc_ == ARR_LEFT) {
-                    while (next_ < len_) {
-                        curLoc_ = _string.charAt(next_);
-                        if (Character.isWhitespace(curLoc_)) {
-                            next_++;
-                            continue;
-                        }
-                        if (curLoc_ == ARR_LEFT) {
-                            next_++;
-                            continue;
-                        }
-                        if (curLoc_ == ARR_RIGHT) {
-                            next_++;
-                            continue;
-                        }
-                        break;
-                    }
-                }
-            }
+            next_ = incrInstanceOf(_string, len_, next_);
             i_ = next_;
             return i_;
         }
@@ -663,6 +617,59 @@ public final class ElResolver {
             }
         }
         return i_;
+    }
+
+    private static int incrInstanceOf(String _string, int len_, int next_) {
+        next_ = incrType(next_,_string);
+        if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
+            int nbOpened_ = 1;
+            next_++;
+            while (next_ < len_) {
+                char curLoc_ = _string.charAt(next_);
+                if (curLoc_ == LOWER_CHAR) {
+                    nbOpened_++;
+                    next_++;
+                    continue;
+                }
+                if (curLoc_ == GREATER_CHAR) {
+                    nbOpened_--;
+                    next_++;
+                    if (nbOpened_ == 0) {
+                        String substring_ = _string.substring(next_);
+                        if (substring_.trim().startsWith(".")) {
+                            next_ = incrType(next_,_string);
+                        }
+                    }
+                    continue;
+                }
+                if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
+                    break;
+                }
+                next_++;
+            }
+        }
+        if (next_ < len_) {
+            char curLoc_ = _string.charAt(next_);
+            if (curLoc_ == ARR_LEFT) {
+                while (next_ < len_) {
+                    curLoc_ = _string.charAt(next_);
+                    if (Character.isWhitespace(curLoc_)) {
+                        next_++;
+                        continue;
+                    }
+                    if (curLoc_ == ARR_LEFT) {
+                        next_++;
+                        continue;
+                    }
+                    if (curLoc_ == ARR_RIGHT) {
+                        next_++;
+                        continue;
+                    }
+                    break;
+                }
+            }
+        }
+        return next_;
     }
 
     private static int indexAfterPossibleCastQuick(ContextEl _conf, String _string, int _from, Ints _callings) {
@@ -1127,55 +1134,7 @@ public final class ElResolver {
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {
             int next_ = i_ + keyWordInstanceof_.length();
-            next_ = incrType(next_,_string);
-            if (next_ < len_ && _string.charAt(next_) == LOWER_CHAR) {
-                int nbOpened_ = 1;
-                next_++;
-                while (next_ < len_) {
-                    char curLoc_ = _string.charAt(next_);
-                    if (curLoc_ == LOWER_CHAR) {
-                        nbOpened_++;
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == GREATER_CHAR) {
-                        nbOpened_--;
-                        next_++;
-                        if (nbOpened_ == 0) {
-                            String substring_ = _string.substring(next_);
-                            if (substring_.trim().startsWith(".")) {
-                                next_ = incrType(next_,_string);
-                            }
-                        }
-                        continue;
-                    }
-                    if (nbOpened_ == 0 && !Character.isWhitespace(curLoc_)) {
-                        break;
-                    }
-                    next_++;
-                }
-            }
-            if (next_ < len_) {
-                char curLoc_ = _string.charAt(next_);
-                if (curLoc_ == ARR_LEFT) {
-                    while (next_ < len_) {
-                        curLoc_ = _string.charAt(next_);
-                        if (Character.isWhitespace(curLoc_)) {
-                            next_++;
-                            continue;
-                        }
-                        if (curLoc_ == ARR_LEFT) {
-                            next_++;
-                            continue;
-                        }
-                        if (curLoc_ == ARR_RIGHT) {
-                            next_++;
-                            continue;
-                        }
-                        break;
-                    }
-                }
-            }
+            next_ = incrInstanceOf(_string, len_, next_);
             _d.getAllowedOperatorsIndexes().add(i_);
             _d.getDelInstanceof().add(i_);
             _d.getDelInstanceof().add(next_);

@@ -1,6 +1,6 @@
 package code.expressionlanguage;
 
-public class DefaultSetOffset implements AbstractSetOffset {
+public final class DefaultSetOffset implements AbstractSetOffset {
     private final ContextEl context;
 
     public DefaultSetOffset(ContextEl context) {

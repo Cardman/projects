@@ -3,7 +3,7 @@ package code.expressionlanguage.inherits;
 import code.util.StringList;
 import code.util.ints.Comparing;
 
-public class ComparingByTypeList implements Comparing<String> {
+public final class ComparingByTypeList implements Comparing<String> {
 
     private StringList types;
     public ComparingByTypeList(StringList _types) {

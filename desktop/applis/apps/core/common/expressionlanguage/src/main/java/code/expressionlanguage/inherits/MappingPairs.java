@@ -2,7 +2,7 @@ package code.expressionlanguage.inherits;
 
 import code.util.CustList;
 
-public class MappingPairs {
+public final class MappingPairs {
 
     private CustList<Matching> pairsArgParam = new CustList<Matching>();
 
