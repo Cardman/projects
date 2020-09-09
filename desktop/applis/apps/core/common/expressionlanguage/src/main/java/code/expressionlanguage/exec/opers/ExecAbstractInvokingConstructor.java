@@ -4,11 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
-import code.expressionlanguage.functionid.ConstructorId;
 
 public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperation {
 
-    private ConstructorId constId;
     private String classFromName;
 
     private String lastType;
@@ -19,7 +17,6 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
     private ExecNamedFunctionBlock ctor;
     public ExecAbstractInvokingConstructor(AbstractInvokingConstructor _abs, ContextEl _context) {
         super(_abs);
-        constId = _abs.getConstId();
         lastType = _abs.getLastType();
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
@@ -30,10 +27,6 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
 
     public int getOffsetOper() {
         return offsetOper;
-    }
-
-    public final ConstructorId getConstId() {
-        return constId;
     }
 
     public String getLastType() {

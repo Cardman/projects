@@ -1,17 +1,16 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -22,20 +21,18 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
-    private MethodId realId;
+    private String className;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendChoiceFctOperation(ChoiceFctOperation _choice, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_choice);
         methodName = _choice.getMethodName();
-        classMethodId = _choice.getClassMethodId();
-        realId = _choice.getRealId();
+        className = ExecOperationNode.getType(_context,_choice.getClassMethodId());
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
@@ -56,12 +53,11 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = className;
         prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
             Argument a_ = new Argument();
@@ -73,8 +69,7 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        methodId_ = realId;
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, null,named,MethodAccessKind.INSTANCE, "");
     }
 
 }

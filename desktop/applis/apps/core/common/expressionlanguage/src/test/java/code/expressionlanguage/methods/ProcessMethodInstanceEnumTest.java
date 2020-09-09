@@ -641,7 +641,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("[java.lang.$stack", field_.getClassName(cont_));
         assertEq(2, ((ArrayStruct)field_).getInstance().length);
         assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
-        assertEq("pkg/Ex:7,17:126\npkg.Ex.pkg.Ex($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:7,17:126\npkg.Ex.($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
     }
 
     @Test
@@ -702,8 +702,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("[java.lang.$stack", field_.getClassName(cont_));
         assertEq(3, ((ArrayStruct)field_).getInstance().length);
         assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
-        assertEq("pkg/Ex:2,24:46\npkg.Ex-ONE.pkg.Ex-ONE($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
-        assertEq("pkg/Ex:7,17:147\npkg.Ex.pkg.Ex($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[2]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:2,24:46\npkg.Ex-ONE.($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:7,17:147\npkg.Ex.($int)", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[2]).getDisplayedString(cont_).getInstance());
     }
 
     @Test
@@ -734,7 +734,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         assertEq("[java.lang.$stack", field_.getClassName(cont_));
         assertEq(2, ((ArrayStruct)field_).getInstance().length);
         assertEq("pkg/Ex:2,2:24\npkg.Ex.", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[0]).getDisplayedString(cont_).getInstance());
-        assertEq("pkg/Ex:2,26:48\npkg.Ex-ONE.pkg.Ex-ONE()", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
+        assertEq("pkg/Ex:2,26:48\npkg.Ex-ONE.()", ((StackTraceElementStruct)((ArrayStruct)field_).getInstance()[1]).getDisplayedString(cont_).getInstance());
     }
 
     @Test

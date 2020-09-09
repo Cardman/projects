@@ -1629,7 +1629,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
         Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "value"));
-        assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,212:208\npkgtwo.ExClass.pkgtwo.ExClass()",((StringStruct)out_).getInstance());
+        assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,212:208\npkgtwo.ExClass.()",((StringStruct)out_).getInstance());
     }
     @Test
     public void processEl107Test() {
@@ -1650,7 +1650,7 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertTrue(cont_.isEmptyErrors());
         assertTrue(cont_.getClasses().isInitialized("pkgtwo.ExClass"));
         Struct out_ = cont_.getClasses().getStaticField(new ClassField("pkgtwo.ExClass", "value"));
-        assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,220:217\npkgtwo.ExClass.pkgtwo.ExClass($int...)",((StringStruct)out_).getInstance());
+        assertEq("pkg/Ex:1,61:60\npkgtwo.ExClass.pkg/Ex:1,220:217\npkgtwo.ExClass.($int...)",((StringStruct)out_).getInstance());
     }
 
     @Test

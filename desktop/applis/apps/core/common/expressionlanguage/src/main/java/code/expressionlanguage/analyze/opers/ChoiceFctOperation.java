@@ -21,7 +21,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
     private String methodName;
 
     private ClassMethodId classMethodId;
-    private MethodId realId;
 
     private boolean staticMethod;
 
@@ -179,14 +178,14 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             getErrs().add(abs_.getBuiltError());
         }
         classMethodId = clMeth_.getId();
-        realId = clMeth_.getRealId();
+        MethodId realId_ = clMeth_.getRealId();
         if (clMeth_.isVarArgToCall()) {
             StringList paramtTypes_ = clMeth_.getRealId().getParametersTypes();
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        staticMethod = realId.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(chidren_, realId, naturalVararg, lastType, name_.getAll(), _conf);
+        staticMethod = realId_.getKind() != MethodAccessKind.INSTANCE;
+        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
         setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
@@ -200,10 +199,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
 
     public ClassMethodId getClassMethodId() {
         return classMethodId;
-    }
-
-    public MethodId getRealId() {
-        return realId;
     }
 
     public boolean isStaticMethod() {

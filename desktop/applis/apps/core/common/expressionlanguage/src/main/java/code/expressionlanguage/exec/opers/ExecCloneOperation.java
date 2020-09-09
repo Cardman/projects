@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
@@ -15,12 +14,9 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
-
     protected ExecCloneOperation(FctOperation _fct) {
         super(_fct);
         methodName = _fct.getMethodName();
-        classMethodId = _fct.getClassMethodId();
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {

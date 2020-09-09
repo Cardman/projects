@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,7 +20,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
+    private String className;
 
     private String lastType;
 
@@ -27,10 +28,10 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public ExecSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
+    public ExecSuperFctOperation(SuperFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
         super(_s);
         methodName = _s.getMethodName();
-        classMethodId = _s.getClassMethodId();
+        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();
@@ -50,13 +51,12 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
         prev_.setStruct(_previous.getStruct());
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = getClassName();
         prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
@@ -67,13 +67,17 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        methodId_ = classMethodId.getConstraints();
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), MethodAccessKind.INSTANCE, "");
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public String getClassName() {
+        return className;
     }
+
+    public ExecNamedFunctionBlock getNamed() {
+        return named;
+    }
+
 
     public int getNaturalVararg() {
         return naturalVararg;

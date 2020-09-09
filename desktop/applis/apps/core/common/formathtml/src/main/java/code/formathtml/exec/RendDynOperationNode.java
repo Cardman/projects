@@ -171,7 +171,7 @@ public abstract class RendDynOperationNode {
                             rootBlock_);
                 }
                 if (a_.isStaticMethod()) {
-                    return new RendStaticFctOperation(i_,a_,ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
+                    return new RendStaticFctOperation(i_,a_,_cont,ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
                             rootBlock_);
                 }
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
@@ -214,7 +214,7 @@ public abstract class RendDynOperationNode {
             ExecNamedFunctionBlock get_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _cont);
             ExecNamedFunctionBlock set_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _cont);
             if (a_.getClassMethodId() != null) {
-                return new RendCustArrOperation(a_,get_,set_,ex_);
+                return new RendCustArrOperation(a_,_cont,get_,set_,ex_);
             }
             return new RendArrOperation(a_);
         }
@@ -246,7 +246,7 @@ public abstract class RendDynOperationNode {
             ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,c_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(c_, _cont);
-                return new RendChoiceFctOperation(c_,fct_,ex_);
+                return new RendChoiceFctOperation(c_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
@@ -254,7 +254,7 @@ public abstract class RendDynOperationNode {
             ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,s_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(s_, _cont);
-                return new RendSuperFctOperation(s_,fct_,ex_);
+                return new RendSuperFctOperation(s_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof FctOperation) {
@@ -262,7 +262,7 @@ public abstract class RendDynOperationNode {
             ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(f_, _cont);
             ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,f_.getRootNumber());
             if (ex_ != null) {
-                return new RendFctOperation(f_,fct_,ex_);
+                return new RendFctOperation(f_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof NamedArgumentOperation) {

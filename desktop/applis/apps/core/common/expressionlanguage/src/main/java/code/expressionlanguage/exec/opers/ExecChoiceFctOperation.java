@@ -9,8 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ChoiceFctOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -19,8 +18,7 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
-    private MethodId realId;
+    private String className;
 
     private String lastType;
 
@@ -29,11 +27,10 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
+    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
         super(_choice);
         methodName = _choice.getMethodName();
-        classMethodId = _choice.getClassMethodId();
-        realId = _choice.getRealId();
+        className = ExecOperationNode.getType(_context,_choice.getClassMethodId());
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();
@@ -53,12 +50,11 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = getClassName();
         prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
@@ -69,12 +65,15 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        methodId_ = realId;
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), MethodAccessKind.INSTANCE, "");
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public ExecNamedFunctionBlock getNamed() {
+        return named;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public int getNaturalVararg() {

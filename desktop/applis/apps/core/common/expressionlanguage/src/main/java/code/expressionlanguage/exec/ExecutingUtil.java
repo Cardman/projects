@@ -501,9 +501,9 @@ public final class ExecutingUtil {
             if (b instanceof ExecConstructorBlock) {
                 existCtor_ = true;
                 ExecConstructorBlock method_ = (ExecConstructorBlock) b;
-                ConstructorId id_ = method_.getGenericId();
+                ConstructorId id_ = method_.getGenericId(_type.getGenericString());
                 String ret_ = method_.getImportedReturnType();
-                String formCl_ = method_.getDeclaringType();
+                String formCl_ = _type.getFullName();
                 ConstructorId fid_ = tryFormatId(_name, _context, id_);
                 ConstructorMetaInfo met_ = new ConstructorMetaInfo(_name, method_.getAccess(), id_, ret_, fid_, formCl_);
                 met_.setAnnotableBlock(method_);

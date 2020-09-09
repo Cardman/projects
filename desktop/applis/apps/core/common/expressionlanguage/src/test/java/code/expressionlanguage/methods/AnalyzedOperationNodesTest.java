@@ -3,10 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.exec.blocks.ExecFieldBlock;
-import code.expressionlanguage.exec.blocks.ExecLine;
-import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -19,6 +16,7 @@ import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
@@ -30,7 +28,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo($null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenTwo", id_.getName());
@@ -45,7 +43,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenTwo((java.lang.Object)$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenTwo", id_.getName());
@@ -60,7 +58,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -76,7 +74,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -92,7 +90,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0D)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -108,7 +106,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0d)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -124,7 +122,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0F)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -140,7 +138,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenThree(1.0f)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenThree", id_.getName());
@@ -155,7 +153,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour($null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenFour", id_.getName());
@@ -170,7 +168,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenFour", id_.getName());
@@ -186,7 +184,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFour(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenFour", id_.getName());
@@ -202,7 +200,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1I)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenFive", id_.getName());
@@ -218,7 +216,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenFive(1)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenFive", id_.getName());
@@ -234,7 +232,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenSix", id_.getName());
@@ -250,7 +248,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSix(1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenSix", id_.getName());
@@ -265,7 +263,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenSeven", id_.getName());
@@ -281,7 +279,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1L)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenSeven", id_.getName());
@@ -297,7 +295,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenSeven(1l,1D)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenSeven", id_.getName());
@@ -313,7 +311,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenEight", id_.getName());
@@ -329,7 +327,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight1(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenEight1", id_.getName());
@@ -345,7 +343,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight2(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenEight2", id_.getName());
@@ -363,7 +361,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenEight3(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenEight3", id_.getName());
@@ -386,7 +384,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = f_.getExp();
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("code.formathtml.classes.CompositeImported", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenEight3", id_.getName());
@@ -404,7 +402,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOverridenNine(1,2)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOverridenNine", id_.getName());
@@ -420,7 +418,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
@@ -435,7 +433,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
@@ -451,7 +449,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sample(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
@@ -467,7 +465,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleTwo(1)", "myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
@@ -483,7 +481,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getSampleVararg($vararg($int))", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getSampleVararg", id_.getName());
@@ -500,7 +498,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
@@ -516,7 +514,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo($null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
@@ -532,7 +530,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sample((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sample", id_.getName());
@@ -548,7 +546,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVarsParam("myvar.sampleTwo((W)$null)", "W","myvar", g_);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyGeneIntTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleTwo", id_.getName());
@@ -563,7 +561,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVararg", id_.getName());
@@ -580,7 +578,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVararg", id_.getName());
@@ -596,7 +594,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargTwo", id_.getName());
@@ -612,7 +610,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargTwo", id_.getName());
@@ -627,7 +625,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargThree", id_.getName());
@@ -644,7 +642,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargThree(1i,($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargThree", id_.getName());
@@ -661,7 +659,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTwo(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargTwo", id_.getName());
@@ -677,7 +675,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVararg", id_.getName());
@@ -693,7 +691,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVararg(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVararg", id_.getName());
@@ -709,7 +707,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargFour", id_.getName());
@@ -725,7 +723,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFour(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargFour", id_.getName());
@@ -741,7 +739,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargFive", id_.getName());
@@ -757,7 +755,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargFive(5,6l)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargFive", id_.getName());
@@ -774,7 +772,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargSix", id_.getName());
@@ -791,7 +789,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSix(5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargSix", id_.getName());
@@ -807,7 +805,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargSeven", id_.getName());
@@ -825,7 +823,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargSeven(4,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargSeven", id_.getName());
@@ -842,7 +840,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargEight", id_.getName());
@@ -860,7 +858,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEight(4l,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargEight", id_.getName());
@@ -877,7 +875,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargNine", id_.getName());
@@ -894,7 +892,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargNine(4,5l,6)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargNine", id_.getName());
@@ -912,7 +910,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4,($int[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargTen", id_.getName());
@@ -930,7 +928,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargTen(4I,($long[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargTen", id_.getName());
@@ -948,7 +946,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleThree(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MySuperOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleThree", id_.getName());
@@ -963,7 +961,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFour(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MySuperOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleFour", id_.getName());
@@ -978,7 +976,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleFive(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleFive", id_.getName());
@@ -993,7 +991,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven((java.lang.Integer)4,(java.lang.Integer[])$null)", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargEleven", id_.getName());
@@ -1010,7 +1008,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSix(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleSix", id_.getName());
@@ -1026,7 +1024,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleSeven(1)", "myvar", MY_CLASS);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleSeven", id_.getName());
@@ -1042,7 +1040,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleEight(1)", "myvar", MY_CLASS);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleEight", id_.getName());
@@ -1058,7 +1056,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("myvar.sampleNine(1)", "myvar", MY_CLASS);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("myimpl.MyIntTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("sampleNine", id_.getName());
@@ -1074,7 +1072,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ = analyzeIndirectLocalVars("composite.getOvVarargEleven($vararg(java.lang.Integer),0i,$firstopt(0i))", "composite", COMPOSITE);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq(COMPOSITE, cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("getOvVarargEleven", id_.getName());
@@ -1101,7 +1099,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVars("myvar.get($null)", "myvar", g_, xml_.toString());
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1127,7 +1125,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1153,7 +1151,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1179,7 +1177,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1205,7 +1203,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1235,7 +1233,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExThree", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1265,7 +1263,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExThree", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1291,7 +1289,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1324,7 +1322,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExFour", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1357,7 +1355,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExFour", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1395,7 +1393,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExFour", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1421,7 +1419,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get(0)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1447,7 +1445,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Object[])$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1473,7 +1471,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Object[])$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1499,7 +1497,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null,$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1526,7 +1524,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($null,$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1553,7 +1551,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1579,7 +1577,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1605,7 +1603,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1641,7 +1639,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1676,7 +1674,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1709,7 +1707,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo..Inner", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1735,7 +1733,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1761,7 +1759,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExTwo,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1789,7 +1787,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExPar,$static,Number...),(Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecStaticFctOperation fct_ = getStaticFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExPar", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1815,7 +1813,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get((Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1849,7 +1847,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExTwo", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1887,7 +1885,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExThree", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1915,7 +1913,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         CustList<ExecOperationNode> opers_ =  analyzeIndirectLocalVarsParamFirst("myvar.get($id(pkg.ExPar,Number...),(Integer[])$null)", "myvar", g_, xml_.toString(), false);
         ExecFctOperation fct_ = getFct(opers_);
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExPar", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -1990,8 +1988,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("$int", params_.last());
@@ -2031,8 +2029,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("$int", params_.last());
@@ -2059,8 +2057,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -2087,8 +2085,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner<java.lang.String>", params_.last());
@@ -2115,8 +2113,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -2143,8 +2141,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner<java.lang.String>", params_.last());
@@ -2169,8 +2167,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<#T>", params_.last());
@@ -2197,8 +2195,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -2223,8 +2221,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("[java.lang.String", params_.last());
@@ -2249,8 +2247,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<?>", params_.last());
@@ -2275,8 +2273,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<?java.lang.Number>", params_.last());
@@ -2301,8 +2299,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2327,8 +2325,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("java.lang.$Fct<$void>", params_.last());
@@ -2353,8 +2351,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2379,8 +2377,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2405,8 +2403,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2431,8 +2429,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2458,8 +2456,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo<java.lang.String>", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo<!java.lang.Number>", params_.last());
@@ -2484,7 +2482,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -2511,7 +2509,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -2538,9 +2536,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
-        MethodId m_  =id_.getConstraints();
-        assertEq("pkg.ExTwo", id_.getClassName());
+        MethodId m_  =((ExecOverridableBlock)fct_.getNamed()).getId();
+        assertEq("pkg.ExTwo", fct_.getClassName());
         assertEq("m", m_.getName());
         StringList params_ = m_.getParametersTypes();
         assertEq(0, params_.size());
@@ -2565,7 +2562,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -2592,7 +2589,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -2619,9 +2616,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
-        MethodId m_  =id_.getConstraints();
-        assertEq("pkg.ExTwo", id_.getClassName());
+        MethodId m_  =((ExecOverridableBlock)fct_.getNamed()).getId();
+        assertEq("pkg.ExTwo", fct_.getClassName());
         assertEq("m", m_.getName());
         StringList params_ = m_.getParametersTypes();
         assertEq(0, params_.size());
@@ -2652,7 +2648,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.Apply", id_.getClassName());
         assertEq("m", m_.getName());
@@ -2684,7 +2680,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExThree", id_.getClassName());
         assertEq("o", m_.getName());
@@ -2716,7 +2712,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.ExThree", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -2754,7 +2750,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkgtwo.ExFour", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("get", id_.getName());
@@ -2863,8 +2859,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo", params_.last());
@@ -2891,8 +2887,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo", params_.last());
@@ -2921,8 +2917,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -2951,8 +2947,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -2981,8 +2977,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -3011,8 +3007,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
         assertNotNull(fct_);
-        ConstructorId id_ =fct_.getConstId();
-        assertEq("pkg.ExTwo", id_.getName());
+        ConstructorId id_ = getConstId(fct_);
+        assertEq("pkg.ExTwo", fct_.getClassName());
         StringList params_ = id_.getParametersTypes();
         assertEq(1, params_.size());
         assertEq("pkg.ExTwo..Inner", params_.last());
@@ -3020,6 +3016,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
+
+    private static ConstructorId getConstId(ExecStandardInstancingOperation fct_) {
+        return ((ExecConstructorBlock)fct_.getCtor()).getId();
+    }
+
     @Test
     public void processEl230Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3153,7 +3154,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -3180,7 +3181,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -3207,7 +3208,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -3234,7 +3235,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -3304,7 +3305,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId id_ =fct_.getClassMethodId();
+        ClassMethodId id_ = getClassMethodId(fct_);
         MethodId m_  =id_.getConstraints();
         assertEq("pkg.ExTwo", id_.getClassName());
         assertEq("m", m_.getName());
@@ -3408,7 +3409,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
+        ClassMethodId cid_ = getClassMethodId(fct_);
         assertEq("pkg.IntOne", cid_.getClassName());
         MethodId id_ = cid_.getConstraints();
         assertEq("method", id_.getName());
@@ -3418,6 +3419,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq(-1, fct_.getNaturalVararg());
         assertTrue(!id_.isStaticMethod());
     }
+
+    private static ClassMethodId getClassMethodId(ExecFctOperation fct_) {
+        return new ClassMethodId(fct_.getClassName(),((ExecOverridableBlock)fct_.getNamed()).getId());
+    }
+
     @Test
     public void processEl2452Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3434,16 +3440,15 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
         assertNotNull(fct_);
-        ClassMethodId cid_ = fct_.getClassMethodId();
-        assertEq("pkg.ExEnum", cid_.getClassName());
-        MethodId id_ = cid_.getConstraints();
-        assertEq("values", id_.getName());
-        StringList params_ = id_.getParametersTypes();
-        assertEq(0, params_.size());
-        assertTrue(!id_.isVararg());
+        assertEq("pkg.ExEnum", fct_.getClassName());
+        assertNull(fct_.getNamed());
         assertEq(-1, fct_.getNaturalVararg());
-        assertTrue(id_.isStaticMethod());
     }
+
+    private static ClassMethodId getClassMethodId(ExecStaticFctOperation fct_) {
+        return new ClassMethodId(fct_.getClassName(),((ExecOverridableBlock)fct_.getNamed()).getId());
+    }
+
     @Test
     public void processEl1FailTest() {
         assertTrue(analyzeIndirectLocalVarsFailCallValue("composite.getOverridenOne($null)"));

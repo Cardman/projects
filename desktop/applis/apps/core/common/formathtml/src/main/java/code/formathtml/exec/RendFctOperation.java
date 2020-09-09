@@ -6,14 +6,15 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
@@ -25,7 +26,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
+    private String className;
 
     private boolean staticChoiceMethod;
 
@@ -36,10 +37,10 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendFctOperation(FctOperation _fct, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendFctOperation(FctOperation _fct, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_fct);
         methodName = _fct.getMethodName();
-        classMethodId = _fct.getClassMethodId();
+        className = ExecOperationNode.getType(_context,_fct.getClassMethodId());
         staticChoiceMethod = _fct.isStaticChoiceMethod();
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
@@ -52,8 +53,8 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
                             ClassMethodId _classMethodId,
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_child,_res,_order,true,null);
-        classMethodId = _classMethodId;
-        methodName = classMethodId.getConstraints().getName();
+        className = _classMethodId.getClassName();
+        methodName = _classMethodId.getConstraints().getName();
         naturalVararg = -1;
         lastType = "";
         named = _named;
@@ -72,14 +73,13 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
         Argument prev_ = new Argument();
         ExecNamedFunctionBlock fct_ = named;
         ExecRootBlock type_ = rootBlock;
-        classNameFound_ = getClassMethodId().getClassName();
+        classNameFound_ =className;
         prev_.setStruct(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
             Argument a_ = new Argument();
@@ -92,7 +92,6 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = getClassMethodId().getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
             ContextEl context_ = _conf.getContext();
@@ -103,14 +102,9 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,type_, methodId_, prev_, firstArgs_, null,fct_);
-    }
-
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
     }
 
     public int getNaturalVararg() {

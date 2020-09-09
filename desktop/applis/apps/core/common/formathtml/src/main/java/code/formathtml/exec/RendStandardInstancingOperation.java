@@ -21,8 +21,6 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
 
     private String methodName;
 
-    private ConstructorId constId;
-
     private String className;
 
     private String fieldName = EMPTY_STRING;
@@ -36,7 +34,6 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     public RendStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
         super(_s);
         methodName = _s.getMethodName();
-        constId = _s.getConstId();
         className = _s.getClassName();
         fieldName = _s.getFieldName();
         blockIndex = _s.getBlockIndex();
@@ -49,9 +46,8 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
     public RendStandardInstancingOperation(ClassArgumentMatching _res,
                                  ConstructorId _constId, ExecRootBlock _rootBlock) {
         super(0,_res,0,false,null);
-        constId = _constId;
-        className = constId.getName();
-        methodName = constId.getName();
+        className = _constId.getName();
+        methodName = _constId.getName();
         rootBlock = _rootBlock;
     }
     @Override

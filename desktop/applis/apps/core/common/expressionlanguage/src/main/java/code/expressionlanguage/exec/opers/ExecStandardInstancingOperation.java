@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentList;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -20,8 +19,6 @@ public final class ExecStandardInstancingOperation extends
         ExecInvokingOperation {
 
     private String methodName;
-
-    private ConstructorId constId;
 
     private String className;
 
@@ -36,7 +33,6 @@ public final class ExecStandardInstancingOperation extends
     public ExecStandardInstancingOperation(StandardInstancingOperation _s, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _ctor) {
         super(_s);
         methodName = _s.getMethodName();
-        constId = _s.getConstId();
         className = _s.getClassName();
         fieldName = _s.getFieldName();
         blockIndex = _s.getBlockIndex();
@@ -64,7 +60,7 @@ public final class ExecStandardInstancingOperation extends
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         String className_;
         PageEl page_ = _conf.getLastPage();
-        className_ = page_.formatVarType(className, _conf);
+        className_ = page_.formatVarType(getClassName(), _conf);
         if (fieldName.isEmpty()) {
             String base_ = StringExpUtil.getIdFromAllTypes(className_);
             if (ExecutingUtil.hasToExit(_conf,base_)) {
@@ -76,11 +72,15 @@ public final class ExecStandardInstancingOperation extends
         CustList<Argument> first_ = argumentList_.getArguments();
         CustList<ExecOperationNode> filter_ = argumentList_.getFilter();
         CustList<Argument> firstArgs_ = listArguments(filter_, naturalVararg, lastType_, first_);
-        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,ctor, _previous, firstArgs_, fieldName, blockIndex);
+        return instancePrepareFormat(_conf.getLastPage(),_conf, className_,rootBlock,getCtor(), _previous, firstArgs_, fieldName, blockIndex);
     }
 
-    public ConstructorId getConstId() {
-        return constId;
+    public String getClassName() {
+        return className;
+    }
+
+    public ExecNamedFunctionBlock getCtor() {
+        return ctor;
     }
 
     public int getNaturalVararg() {

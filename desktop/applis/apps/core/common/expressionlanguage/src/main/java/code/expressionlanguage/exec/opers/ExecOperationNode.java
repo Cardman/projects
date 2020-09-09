@@ -205,7 +205,7 @@ public abstract class ExecOperationNode {
                 }
                 if (a_.isStaticMethod()) {
                     ExecNamedFunctionBlock fct_ = fetchFunction(a_, _cont);
-                    return new ExecStaticFctOperation(i_,a_,fct_,ex_);
+                    return new ExecStaticFctOperation(i_,a_,_cont,fct_,ex_);
                 }
             }
         }
@@ -262,7 +262,7 @@ public abstract class ExecOperationNode {
             ExecNamedFunctionBlock get_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _cont);
             ExecNamedFunctionBlock set_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _cont);
             if (a_.getClassMethodId() != null) {
-                return new ExecCustArrOperation(a_,get_,set_,ex_);
+                return new ExecCustArrOperation(a_,_cont,get_,set_,ex_);
             }
             return new ExecArrOperation(a_);
         }
@@ -294,7 +294,7 @@ public abstract class ExecOperationNode {
             ExecRootBlock ex_ = fetchType(_cont,c_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = fetchFunction(c_, _cont);
-                return new ExecChoiceFctOperation(c_,fct_,ex_);
+                return new ExecChoiceFctOperation(c_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
@@ -302,7 +302,7 @@ public abstract class ExecOperationNode {
             ExecRootBlock ex_ = fetchType(_cont,s_.getRootNumber());
             if (ex_ != null) {
                 ExecNamedFunctionBlock fct_ = fetchFunction(s_, _cont);
-                return new ExecSuperFctOperation(s_,fct_,ex_);
+                return new ExecSuperFctOperation(s_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof FctOperation) {
@@ -310,7 +310,7 @@ public abstract class ExecOperationNode {
             ExecNamedFunctionBlock fct_ = fetchFunction(f_, _cont);
             ExecRootBlock ex_ = fetchType(_cont,f_.getRootNumber());
             if (ex_ != null) {
-                return new ExecFctOperation(f_,fct_,ex_);
+                return new ExecFctOperation(f_,_cont,fct_,ex_);
             }
         }
         if (_anaNode instanceof NamedArgumentOperation) {

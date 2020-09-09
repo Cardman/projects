@@ -601,10 +601,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ArrayStruct(methodsArr_, className_);
     }
-    public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound,ExecRootBlock _rootBlock, MethodId _methodId, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
-        return callPrepare(_exit,_cont,_classNameFound,_rootBlock,_methodId,_previous,null,_firstArgs,_right,_named);
+    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
+        return callPrepare(_exit,_cont,_classNameFound,_rootBlock, _previous,null,_firstArgs,_right,_named, _kind, _name);
     }
-    public static Argument callPrepare(AbstractExiting _exit,ContextEl _cont, String _classNameFound,ExecRootBlock _rootBlock, MethodId _methodId, Argument _previous, Cache _cache, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named) {
+    public static Argument callPrepare(AbstractExiting _exit, ContextEl _cont, String _classNameFound, ExecRootBlock _rootBlock, Argument _previous, Cache _cache, CustList<Argument> _firstArgs, Argument _right, ExecNamedFunctionBlock _named, MethodAccessKind _kind, String _name) {
         if (!(_named instanceof ExecOverridableBlock)&&!(_named instanceof ExecAnonymousFunctionBlock)) {
             if (_named instanceof ExecOperatorBlock) {
                 FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous, _cache,_firstArgs, CallPrepareState.METHOD,null, _right);
@@ -627,7 +627,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return tryGetEnumValue(_exit,_cont,_rootBlock, ClassCategory.ENUM, arg_);
         }
-        if (FunctionIdUtil.isOperatorName(_methodId)) {
+        if (FunctionIdUtil.isOperatorName(_name)) {
             FormattedParameters classFound_ = checkParameters(_cont, _classNameFound, _rootBlock,_named, _previous,_cache, _firstArgs, CallPrepareState.METHOD,null, _right);
             if (_cont.callsOrException()) {
                 return Argument.createVoid();
@@ -647,7 +647,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 return prepareCallDyn(fct_, _firstArgs, _cont);
             }
         }
-        if (_methodId.getKind() == MethodAccessKind.STATIC_CALL) {
+        if (_kind == MethodAccessKind.STATIC_CALL) {
             _cont.setCallingState(new CustomFoundCast(classFound_.getFormattedClass(),_rootBlock, _named, classFound_.getParameters()));
             return Argument.createVoid();
         }
@@ -948,7 +948,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 nList_.add(new Argument(arr_));
                 return redirect(_conf, l_, pr_, nList_);
             }
-            if (FunctionIdUtil.isOperatorName(fid_)) {
+            if (FunctionIdUtil.isOperatorName(fid_.getName())) {
                 ArrayStruct arr_ = new ArrayStruct(new Struct[_values.size()+1],obj_);
                 int i_ = 1;
                 arr_.getInstance()[0] = instance_.getStruct();

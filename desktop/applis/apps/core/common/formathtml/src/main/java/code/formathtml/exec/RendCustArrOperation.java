@@ -6,23 +6,21 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class RendCustArrOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult,RendCallable {
 
@@ -31,6 +29,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private boolean catString;
 
     private ClassMethodId classMethodId;
+    private String className;
 
     private String lastType;
 
@@ -44,11 +43,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
 
-    public RendCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
+    public RendCustArrOperation(ArrOperation _arr, ContextEl _context, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
         classMethodId = _arr.getClassMethodId();
+        className = ExecOperationNode.getType(_context,_arr.getClassMethodId());
         lastType = _arr.getLastType();
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
@@ -61,6 +61,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
                             boolean _intermediate, Argument _previousArgument) {
         super(_indexChild,_res,_order, _intermediate, _previousArgument);
+        className = _arr.className;
         previous = _arr.previous;
         classMethodId = _arr.classMethodId;
         lastType = _arr.lastType;
@@ -143,12 +144,11 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = className;
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf.getContext()));
         if (_conf.getContext().hasException()) {
@@ -167,7 +167,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
             ContextEl context_ = _conf.getContext();
@@ -177,13 +176,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }
-        if (_right != null) {
-            methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-        }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, methodId_, prev_, firstArgs_, _right,fct_);
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,rootBlock, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
     }
 
     public ClassMethodId getClassMethodId() {

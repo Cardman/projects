@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -30,6 +31,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private CustList<Argument> args = new CustList<Argument>();
     private Argument instance;
     private Argument rightArg;
+    private MethodAccessKind accessKind;
+    private String methodName = "";
 
     protected boolean initDefault(ContextEl _cont) {
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
@@ -80,6 +83,8 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
         if (!calledMethod) {
             calledMethod = true;
             MethodId mid_ = method_.getRealId();
+            methodName = mid_.getName();
+            accessKind = mid_.getKind();
             if (method_.isWideStatic()) {
                 instance = new Argument();
             } else {
@@ -142,7 +147,15 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
         MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
-        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _mid, _instance,method_.getCache(), _args, _right,methodToCallBody);
+        return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _instance,method_.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
+    }
+
+    MethodAccessKind getAccessKind() {
+        return accessKind;
+    }
+
+    String getMethodName() {
+        return methodName;
     }
 
     ExecNamedFunctionBlock getMethodToCallBody() {

@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,17 +20,19 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
 
     private String methodName;
 
-    private ClassMethodId classMethodId;
+    private MethodAccessKind kind;
+    private String className;
 
     private String lastType;
 
     private int naturalVararg;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public ExecStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public ExecStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_inv);
         methodName = _s.getMethodName();
-        classMethodId = _s.getClassMethodId();
+        kind = getKind(_s.getClassMethodId());
+        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         named = _named;
@@ -47,25 +50,29 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         CustList<Argument> firstArgs_;
-        MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
-        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, classMethodId.getConstraints().getKind());
-        lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType_, classMethodId.getConstraints().getKind());
+        classNameFound_ = className;
+        classNameFound_ = ClassMethodId.formatType(classNameFound_,_conf, kind);
+        lastType_ = ClassMethodId.formatType(rootBlock,classNameFound_,lastType_, kind);
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
         if (ExecutingUtil.hasToExit(_conf,classNameFound_)) {
             return Argument.createVoid();
         }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, null,named);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, null,getNamed(), kind, "");
     }
 
-    public ClassMethodId getClassMethodId() {
-        return classMethodId;
+    public ExecNamedFunctionBlock getNamed() {
+        return named;
     }
+
+    public String getClassName() {
+        return className;
+    }
+
 
     public int getNaturalVararg() {
         return naturalVararg;

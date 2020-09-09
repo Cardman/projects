@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
@@ -25,7 +24,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
 
     private boolean catString;
 
-    private ClassMethodId classMethodId;
+    private String className;
 
     private String lastType;
 
@@ -39,11 +38,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
 
-    public ExecCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
+    public ExecCustArrOperation(ArrOperation _arr, ContextEl _context, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
-        classMethodId = _arr.getClassMethodId();
+        className = ExecOperationNode.getType(_context,_arr.getClassMethodId());
         lastType = _arr.getLastType();
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
@@ -127,12 +126,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
-        MethodId methodId_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
         Argument prev_ = new Argument();
-        classNameFound_ = classMethodId.getClassName();
+        classNameFound_ = className;
         Struct argPrev_ = _previous.getStruct();
         prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
@@ -151,7 +149,6 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = classMethodId.getConstraints();
         } else {
             Struct previous_ = prev_.getStruct();
             ExecOverrideInfo polymorph_ = polymorph(_conf, previous_, rootBlock, fct_);
@@ -160,13 +157,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
             String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
             lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
             firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-            methodId_ = classMethodId.getConstraints();
             classNameFound_ = polymorph_.getClassName();
         }
-        if (_right != null) {
-            methodId_ = new MethodId(MethodAccessKind.INSTANCE,"[]=",methodId_.getParametersTypes(),methodId_.isVararg());
-        }
-        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, methodId_, prev_, firstArgs_, _right,fct_);
+        return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,rootBlock, prev_, firstArgs_, _right,fct_, MethodAccessKind.INSTANCE, "");
     }
 
 }

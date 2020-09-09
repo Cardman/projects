@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.opers.AbstractInvokingConstructor;
 import code.expressionlanguage.exec.blocks.ExecDeclareVariable;
 import code.expressionlanguage.exec.blocks.ExecLine;
 import code.expressionlanguage.exec.opers.*;
@@ -67,8 +68,8 @@ public final class Line extends Leaf implements BuildableElMethod {
             callFromCtorToCtor = true;
             callInts = true;
         }
-        if (op_.last() instanceof ExecAbstractInvokingConstructor) {
-            constId =((ExecAbstractInvokingConstructor)op_.last()).getConstId();
+        if (root instanceof AbstractInvokingConstructor) {
+            constId =((AbstractInvokingConstructor)root).getConstId();
         }
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();

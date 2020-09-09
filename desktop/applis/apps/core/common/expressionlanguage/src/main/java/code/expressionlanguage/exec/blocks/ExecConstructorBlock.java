@@ -15,8 +15,11 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
     }
 
     public ConstructorId getId() {
-        ExecRootBlock clBlock_ = (ExecRootBlock) getParent();
-        String name_ = clBlock_.getFullName();
+        return getGenericId("");
+    }
+
+
+    public ConstructorId getGenericId(String _name) {
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
@@ -24,25 +27,7 @@ public final class ExecConstructorBlock extends ExecNamedFunctionBlock implement
             String n_ = types_.get(i);
             pTypes_.add(n_);
         }
-        return new ConstructorId(name_, pTypes_, isVarargs());
-    }
-
-
-    public String getDeclaringType() {
-        ExecRootBlock clBlock_ = (ExecRootBlock) getParent();
-        return clBlock_.getFullName();
-    }
-    public ConstructorId getGenericId() {
-        ExecRootBlock clBlock_ = (ExecRootBlock) getParent();
-        String name_ = clBlock_.getGenericString();
-        StringList types_ = getImportedParametersTypes();
-        int len_ = types_.size();
-        StringList pTypes_ = new StringList();
-        for (int i = CustList.FIRST_INDEX; i < len_; i++) {
-            String n_ = types_.get(i);
-            pTypes_.add(n_);
-        }
-        return new ConstructorId(name_, pTypes_, isVarargs());
+        return new ConstructorId(_name, pTypes_, isVarargs());
     }
 
     @Override
