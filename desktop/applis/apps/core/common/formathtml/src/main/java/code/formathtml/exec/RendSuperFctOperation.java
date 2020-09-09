@@ -10,9 +10,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -25,9 +23,9 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
 
     private String className;
 
-    private String lastType = EMPTY_STRING;
+    private String lastType;
 
-    private int naturalVararg = -1;
+    private int naturalVararg;
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
@@ -45,11 +43,11 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);

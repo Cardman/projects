@@ -39,12 +39,12 @@ public final class RendExplicitOperation extends RendAbstractUnaryOperation impl
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, Argument.createVoid(), _conf, null);
+        Argument argres_ = processCall(this, this, Argument.createVoid(),_nodes, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         return ExecExplicitOperation.prepare(new AdvancedExiting(_conf),rootBlock,false,named,first_,className,classNameOwner,_conf.getPageEl(),_conf.getContext());

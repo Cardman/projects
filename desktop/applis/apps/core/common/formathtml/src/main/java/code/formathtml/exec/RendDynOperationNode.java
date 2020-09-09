@@ -81,16 +81,16 @@ public abstract class RendDynOperationNode {
         parent = _parent;
     }
     protected static Argument processCall(RendCallable _node, RendDynOperationNode _method,
-                                          Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments,
+                                          Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                                           Configuration _conf, Argument _right) {
-        Argument argres_ = _node.getArgument(_previous, _all,_arguments, _conf, _right);
-        argres_ = init(argres_,_node,_previous,_all,_arguments,_conf,_right);
-        argres_ = init(argres_,_node,_previous,_all,_arguments,_conf,_right);
+        Argument argres_ = _node.getArgument(_previous, _all, _conf, _right);
+        argres_ = init(argres_,_node,_previous,_all,_conf,_right);
+        argres_ = init(argres_,_node,_previous,_all,_conf,_right);
         return _method.processCall(_conf,argres_);
     }
     private static Argument init(Argument _before,
                          RendCallable _node,
-                         Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments,
+                         Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all,
                          Configuration _conf, Argument _right) {
         CallingState state_ = _conf.getContext().getCallingState();
         Argument before_ = _before;
@@ -100,7 +100,7 @@ public abstract class RendDynOperationNode {
             if (_conf.getContext().hasException()) {
                 return Argument.createVoid();
             }
-            before_ = _node.getArgument(_previous, _all,_arguments, _conf, _right);
+            before_ = _node.getArgument(_previous, _all, _conf, _right);
         }
         return before_;
     }

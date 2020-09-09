@@ -4105,7 +4105,7 @@ public final class LinkageUtil {
         return _op instanceof QuickOperation;
     }
 
-    public static CustList<NamedFunctionBlock> getMethodBodiesById(CustList<RootBlock> _refFoundTypes, String _genericClassName, MethodId _id) {
+    private static CustList<NamedFunctionBlock> getMethodBodiesById(CustList<RootBlock> _refFoundTypes, String _genericClassName, MethodId _id) {
         return filter(getMethodBodies(_refFoundTypes,_genericClassName),_id);
     }
     private static CustList<NamedFunctionBlock> getMethodBodies(CustList<RootBlock> _refFoundTypes, String _genericClassName) {

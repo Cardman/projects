@@ -12,13 +12,11 @@ import code.util.IdMap;
 public final class ExecValuesOperation extends ExecLeafOperation implements
         AtomicExecCalculableOperation {
 
-    private String className;
     private int argOffset;
     private ExecRootBlock rootBlock;
 
     public ExecValuesOperation(ValuesOperation _v, ContextEl _cont) {
         super(_v);
-        className = _v.getClassName();
         argOffset = _v.getArgOffset();
         rootBlock = fetchType(_cont, _v.getNumberEnum());
     }

@@ -68,7 +68,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             chidren_.add(left_);
             chidren_.add(right_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,Argument.createVoid(),_conf, null);
+            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null);
             if (converter != null) {
                 Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
                 if (conv_ == null) {
@@ -102,7 +102,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, className, kind);

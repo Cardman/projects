@@ -63,7 +63,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             chidren_.add(left_);
             Argument stored_ = getArgument(_nodes,left_);
             Argument res_;
-            res_ =  processCall(this,this, Argument.createVoid(),_nodes,Argument.createVoid(),_conf, null);
+            res_ =  processCall(this,this, Argument.createVoid(),_nodes,_conf, null);
             res_ = settable.endCalculate(_nodes,_conf, post, stored_, res_);
             setSimpleArgument(res_, _conf,_nodes);
             return;
@@ -107,7 +107,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> list_ = getChildrenNodes();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, list_).getArguments();
         ExecInvokingOperation.checkParametersOperators(new AdvancedExiting(_conf),_conf.getContext(), rootBlock,named, first_, className, kind);

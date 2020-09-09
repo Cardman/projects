@@ -134,12 +134,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
 
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, Argument _right) {
         Argument previous_ = getPreviousArgument(_nodes,this);
-        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, _right);
+        Argument argres_ = processCall(this, this, previous_,_nodes,  _conf, _right);
         setSimpleArgument(argres_,_conf,_nodes);
         return argres_;
     }
 
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         LgNames stds_ = _conf.getStandards();

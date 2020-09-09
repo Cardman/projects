@@ -43,12 +43,12 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
-        Argument argres_ = processCall(this, this, previous_,_nodes, Argument.createVoid(), _conf, null);
+        Argument argres_ = processCall(this, this, previous_,_nodes, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
 
     @Override
-    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, Configuration _conf, Argument _right) {
+    public Argument getArgument(Argument _previous, IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf, Argument _right) {
         return getArgument(_all,_conf);
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Configuration _conf) {
