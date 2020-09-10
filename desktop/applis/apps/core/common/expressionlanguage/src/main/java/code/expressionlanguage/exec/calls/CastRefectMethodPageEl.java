@@ -22,7 +22,7 @@ public final class CastRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     boolean initType(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         if (direct) {
             return false;
         }

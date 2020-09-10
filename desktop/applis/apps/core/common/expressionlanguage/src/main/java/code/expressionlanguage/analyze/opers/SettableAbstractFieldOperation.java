@@ -201,8 +201,7 @@ public abstract class SettableAbstractFieldOperation extends
         Struct str_ = cl_.getStaticField(fieldId_);
         if (map_.isEmpty()) {
             ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
-            Argument arg_ = Argument.createVoid();
-            arg_.setStruct(res_.getResult());
+            Argument arg_ = new Argument(res_.getResult());
             _oper.setSimpleArgumentAna(arg_,_conf);
             trySetDotParent(_conf, _oper, arg_);
             return;
@@ -213,8 +212,7 @@ public abstract class SettableAbstractFieldOperation extends
             return;
         }
         if (str_ != null) {
-            Argument arg_ = Argument.createVoid();
-            arg_.setStruct(str_);
+            Argument arg_ = new Argument(str_);
             _oper.setSimpleArgumentAna(arg_,_conf);
             trySetDotParent(_conf, _oper, arg_);
         }

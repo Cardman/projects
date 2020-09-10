@@ -25,7 +25,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        Struct structBlock_ = getGlobalArgument().getStruct();
+        Struct structBlock_ = getGlobalStruct();
         if (!retrievedAnnot) {
             if (onParameters) {
                 if (structBlock_ instanceof AnnotatedParamStruct){
@@ -133,8 +133,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             }
         }
 
-        Argument out_ = new Argument();
-        out_.setStruct(array);
+        Argument out_ = new Argument(array);
         setReturnedArgument(out_);
         return true;
     }

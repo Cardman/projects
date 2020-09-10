@@ -18,14 +18,11 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
 
     @Override
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
         Struct inst_ = _previous.getStruct();
         int len_ = getLength(inst_,_conf);
         if (inst_ instanceof ArrayStruct) {
-            a_ = new Argument();
-            a_.setStruct(new IntStruct(len_));
-            return a_;
+            return new Argument(new IntStruct(len_));
         }
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
@@ -34,8 +31,7 @@ public final class ExecArrayFieldOperation extends ExecAbstractFieldOperation {
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf, StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
-        a_ = new Argument();
-        return a_;
+        return new Argument();
     }
 
     public static int getLength(Struct _str, ContextEl _cont) {

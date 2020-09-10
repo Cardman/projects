@@ -40,13 +40,14 @@ public abstract class PageEl {
         return ExecTemplates.quickFormat(blockRootType,globalClass, _varType);
     }
 
+    public Struct getGlobalStruct() {
+        return getGlobalArgument().getStruct();
+    }
     public Argument getGlobalArgument() {
         return globalArgument;
     }
     public void setGlobalArgumentStruct(Struct _obj) {
-        Argument arg_ = new Argument();
-        arg_.setStruct(_obj);
-        globalArgument = arg_;
+        globalArgument = new Argument(_obj);
     }
 
     public void setGlobalArgument(Argument _globalArgument) {

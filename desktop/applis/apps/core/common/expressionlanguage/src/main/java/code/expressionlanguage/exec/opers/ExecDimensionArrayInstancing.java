@@ -53,14 +53,12 @@ public final class ExecDimensionArrayInstancing extends
             args_[i_] = dim_;
             i_++;
         }
-        Argument a_ = new Argument();
         Ints dims_;
         dims_ = new Ints();
         for (int d: args_) {
             dims_.add(d);
         }
-        a_.setStruct(ExecTemplates.newCustomArray(className_, dims_, _conf));
-        return a_;
+        return new Argument(ExecTemplates.newCustomArray(className_, dims_, _conf));
     }
 
 }

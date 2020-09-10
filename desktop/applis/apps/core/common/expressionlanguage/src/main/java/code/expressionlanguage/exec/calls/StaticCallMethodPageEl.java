@@ -42,7 +42,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
             _context.setException(new ErrorStruct(_context,null_));
             return Argument.createVoid();
         }
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         return prepareStaticCall(getMethodToCallType(),getMethodToCallBody(),method_.getCache(),_args,res_,_context.getLastPage(),_context);
     }
     private static Argument prepareStaticCall(ExecRootBlock _rootBlock,ExecNamedFunctionBlock _castOpId, Cache _cache, CustList<Argument> _arguments, String _className,

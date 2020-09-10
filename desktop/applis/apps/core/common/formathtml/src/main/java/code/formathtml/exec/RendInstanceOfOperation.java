@@ -32,15 +32,11 @@ public final class RendInstanceOfOperation extends RendAbstractUnaryOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
-            Argument arg_ = new Argument();
-            arg_.setStruct(BooleanStruct.of(false));
-            return arg_;
+            return new Argument(BooleanStruct.of(false));
         }
         PageEl page_ = _conf.getPageEl();
         String str_ = page_.formatVarType(className, _conf.getContext());
         boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf.getContext()) == ErrorType.NOTHING;
-        Argument arg_ = new Argument();
-        arg_.setStruct(BooleanStruct.of(res_));
-        return arg_;
+        return new Argument(BooleanStruct.of(res_));
     }
 }

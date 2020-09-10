@@ -50,9 +50,7 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        Argument arg_ = new Argument();
-        arg_.setStruct(newLambda(_previous,_conf, getFoundClass(), method, getReturnFieldType(), getAncestor(), directCast, polymorph));
-        return arg_;
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), method, getReturnFieldType(), getAncestor(), directCast, polymorph));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ClassMethodId method, String returnFieldType, int ancestor, boolean directCast, boolean polymorph) {

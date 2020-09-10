@@ -57,8 +57,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         if (resultCanBeSet()) {
             Struct array_;
             array_ = getPreviousArgument(_nodes,this).getStruct();
-            Argument a_ = new Argument();
-            a_.setStruct(array_);
+            Argument a_ = new Argument(array_);
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes);
             return;
         }
@@ -77,8 +76,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
+        Argument left_ = new Argument(store_);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, getResultClass());
         if (_conf.callsOrException()) {
@@ -93,8 +91,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
+        Argument left_ = new Argument(store_);
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
@@ -129,10 +126,9 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
         classNameFound_ = className;
         Struct argPrev_ = _previous.getStruct();
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }

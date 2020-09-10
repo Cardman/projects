@@ -46,15 +46,13 @@ public final class ExecAnnotationInstanceOperation extends ExecInvokingOperation
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         if (array) {
             int nbCh_ = chidren_.size();
-            Argument a_ = new Argument();
             Ints dims_;
             dims_ = new Ints();
             dims_.add(nbCh_);
             String className_ = StringExpUtil.getQuickComponentType(className);
             Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
             ExecTemplates.setCheckedElements(_arguments,str_,_conf);
-            a_.setStruct(str_);
-            return a_;
+            return new Argument(str_);
         }
         String base_ = StringExpUtil.getIdFromAllTypes(className);
         if (ExecutingUtil.hasToExit(_conf,base_)) {

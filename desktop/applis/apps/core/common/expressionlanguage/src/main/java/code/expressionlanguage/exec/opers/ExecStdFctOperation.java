@@ -47,14 +47,16 @@ public final class ExecStdFctOperation extends ExecInvokingOperation {
         MethodId methodId_ = classMethodId.getConstraints();
         String lastType_ = lastType;
         String classNameFound_;
-        Argument prev_ = new Argument();
+        Argument prev_;
         if (!staticMethod) {
             classNameFound_ = classMethodId.getClassName();
             Struct argPrev_ = _previous.getStruct();
-            prev_.setStruct(ExecTemplates.getParent(0, classNameFound_, argPrev_, _conf));
+            prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, _conf));
             if (_conf.callsOrException()) {
                 return new Argument();
             }
+        } else {
+            prev_ = new Argument();
         }
         classNameFound_ = classMethodId.getClassName();
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();

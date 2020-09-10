@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -52,7 +51,7 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     public RendFctOperation(ClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_child,_res,_order,true,null);
+        super(_child,_res,_order,true);
         className = _classMethodId.getClassName();
         methodName = _classMethodId.getConstraints().getName();
         naturalVararg = -1;
@@ -76,14 +75,12 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
         String classNameFound_;
-        Argument prev_ = new Argument();
         ExecNamedFunctionBlock fct_ = named;
         ExecRootBlock type_ = rootBlock;
         classNameFound_ =className;
-        prev_.setStruct(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
+        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
-            Argument a_ = new Argument();
-            return a_;
+            return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();

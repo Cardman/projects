@@ -13,7 +13,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
     @Override
     boolean isAbstract(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         return method_.isAbstract();
     }
 

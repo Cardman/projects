@@ -747,20 +747,20 @@ public abstract class RendBlock implements AnalyzedBlock {
         if (settable_ instanceof RendSettableFieldOperation) {
             ArgumentsPair pair_ = args_.getValue(((RendSettableFieldOperation) settable_).getOrder());
             if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-                obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
+                obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
             } else {
                 obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
             }
             objClasses_ = new StringList(((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty());
-            arg_ = pair_.getArgument();
+            arg_ = Argument.getNullableValue(pair_.getArgument());
         } else {
             ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
             obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
             objClasses_ = new StringList(((RendMethodOperation) settable_).getResultClass().getSingleNameOrEmpty());
-            arg_ = pair_.getArgument();
+            arg_ = Argument.getNullableValue(pair_.getArgument());
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
                 pair_ = args_.getValue(r.getOrder());
-                obj_.add(pair_.getArgument().getStruct());
+                obj_.add(Argument.getNullableValue(pair_.getArgument()).getStruct());
                 objClasses_.add(r.getResultClass().getSingleNameOrEmpty());
             }
         }

@@ -27,32 +27,32 @@ public final class ConstantOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String argClName_;
-        Argument a_ = new Argument();
         LgNames stds_ = _conf.getStandards();
         String stringType_;
         stringType_ = stds_.getAliasString();
         if (op_.getConstType() == ConstType.TRUE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
-            a_.setStruct(BooleanStruct.of(true));
+            Argument a_ = new Argument(BooleanStruct.of(true));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
-            a_.setStruct(BooleanStruct.of(false));
+            Argument a_ = new Argument(BooleanStruct.of(false));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.NULL_CST) {
             argClName_ = EMPTY_STRING;
+            Argument a_ = new Argument();
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
-            a_.setStruct(new StringStruct(originalStr_));
+            Argument a_ = new Argument(new StringStruct(originalStr_));
             setSimpleArgument(a_);
             setResultClass(new ClassArgumentMatching(stringType_));
             if (op_.getStrInfo().isKo()) {
@@ -68,7 +68,9 @@ public final class ConstantOperation extends LeafOperation {
         }
         if (op_.getConstType() == ConstType.CHARACTER) {
             argClName_ = stds_.getAliasPrimChar();
+            Argument a_;
             if (op_.getStrInfo().isKo()) {
+                a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -77,8 +79,9 @@ public final class ConstantOperation extends LeafOperation {
                 _conf.getAnalyzing().getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             } else if (!originalStr_.isEmpty()) {
-                a_.setStruct(new CharStruct(originalStr_.charAt(0)));
+                a_ = new Argument(new CharStruct(originalStr_.charAt(0)));
             } else {
+                a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
@@ -104,8 +107,7 @@ public final class ConstantOperation extends LeafOperation {
             getErrs().add(badFormat_.getBuiltError());
             argClassName_ = stds_.getAliasPrimDouble();
         }
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(parsed_.getStruct());
+        Argument arg_ = new Argument(parsed_.getStruct());
         setSimpleArgument(arg_);
         setResultClass(new ClassArgumentMatching(argClassName_));
     }

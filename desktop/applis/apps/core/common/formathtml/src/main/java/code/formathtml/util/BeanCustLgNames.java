@@ -1132,9 +1132,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
         boolean staticField_ = _rend.getFieldMetaInfo().isStaticField();
-        Argument previous_ = new Argument();
+        Argument previous_;
         if (!staticField_) {
-            previous_.setStruct(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+        } else {
+            previous_ = new Argument();
         }
         String fieldType_ = _rend.getFieldMetaInfo().getRealType();
         Argument arg_ = getField(_conf, off_, className_, fieldName_, staticField_, previous_, fieldType_);
@@ -1163,9 +1165,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ClassField fieldId_ = _rend.getFieldMetaInfo().getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        Argument previous_ = new Argument();
+        Argument previous_;
         if (!isStatic_) {
-            previous_.setStruct(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+            previous_ = new Argument(ExecTemplates.getParent(_rend.getAnc(), className_, _previous.getStruct(), _conf.getContext()));
+        } else {
+            previous_ = new Argument();
         }
         //Come from code directly so constant static fields can be initialized here
         Argument arg_ = setField(_conf, _right, off_, fieldType_, isStatic_, isFinal_, _rend.getRootBlock(), className_, fieldName_, previous_);
@@ -1193,14 +1197,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         MethodId methodId_ = _rend.getClassMethodId().getConstraints();
         String lastType_ = _rend.getLastType();
         String classNameFound_;
-        Argument prev_ = new Argument();
+        Argument prev_;
         if (!_rend.isStaticMethod()) {
             classNameFound_ = _rend.getClassMethodId().getClassName();
             Struct argPrev_ = _previous.getStruct();
-            prev_.setStruct(ExecTemplates.getParent(0, classNameFound_, argPrev_, ctx_));
+            prev_ = new Argument(ExecTemplates.getParent(0, classNameFound_, argPrev_, ctx_));
             if (ctx_.hasException()) {
                 return new Argument();
             }
+        } else {
+            prev_ = new Argument();
         }
         classNameFound_ = _rend.getClassMethodId().getClassName();
         CustList<RendDynOperationNode> chidren_ = _rend.getChildrenNodes();

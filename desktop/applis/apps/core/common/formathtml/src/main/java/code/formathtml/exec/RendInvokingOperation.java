@@ -13,20 +13,16 @@ import code.util.IdMap;
 public abstract class RendInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
     private boolean intermediate;
 
-    private Argument previousArgument;
-
     public RendInvokingOperation(
             InvokingOperation _inter) {
         super(_inter);
         intermediate = _inter.isIntermediateDottedOperation();
-        previousArgument = _inter.getPreviousArgument();
     }
 
     public RendInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
-                                 boolean _intermediate, Argument _previousArgument) {
+                                 boolean _intermediate) {
         super(_indexChild,_res,_order);
         intermediate = _intermediate;
-        previousArgument = _previousArgument;
     }
     public static RendArgumentList listNamedArguments(IdMap<RendDynOperationNode, ArgumentsPair> _all, CustList<RendDynOperationNode> _children) {
         RendArgumentList out_ = new RendArgumentList();
@@ -80,13 +76,12 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
                     firstArgs_.add(a_);
                 }
             }
-            Argument argRem_ = new Argument();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
             ExecTemplates.setElements(optArgs_,str_);
-            argRem_.setStruct(str_);
+            Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }
@@ -106,11 +101,6 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
     @Override
     public final boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public final Argument getPreviousArgument() {
-        return previousArgument;
     }
 
 }

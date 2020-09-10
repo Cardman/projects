@@ -198,7 +198,6 @@ public final class ExecutingUtil {
         CallConstructorPageEl page_;
         Argument global_ = _e.getCurrentObject();
         ExecNamedFunctionBlock ctor_ = _e.getId();
-        Argument argGl_ = new Argument();
         page_ = new CallConstructorPageEl();
         Struct str_ = NullStruct.NULL_VALUE;
         if (global_ != null) {
@@ -206,7 +205,7 @@ public final class ExecutingUtil {
         }
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
-        argGl_.setStruct(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
+        Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_,type_, fieldName_, ordinal_));
         page_.setGlobalArgument(argGl_);
         page_.setBlockRootTypes(type_);
         setInstanciationInfos(_context,page_,cl_,type_, args_, ctor_);
@@ -219,11 +218,10 @@ public final class ExecutingUtil {
         _context.setCallingState(null);
         NewAnnotationPageEl page_;
         ExecFileBlock file_ = _type.getFile();
-        Argument argGl_ = new Argument();
         page_ = new NewAnnotationPageEl();
         page_.setArgs(_args);
         page_.setNames(_id);
-        argGl_.setStruct(_context.getInit().processInitAnnot(_context, _class,_type));
+        Argument argGl_ = new Argument(_context.getInit().processInitAnnot(_context, _class,_type));
         page_.setGlobalClass(_class);
         page_.setGlobalArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();

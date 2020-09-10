@@ -85,13 +85,12 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         }
         CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Argument out_ = new Argument();
         Struct nb_ = arg_.getStruct();
         if (!(nb_ instanceof NumberStruct)) {
             return;
         }
         ClassArgumentMatching res_ = _par.getResultClass();
-        out_.setStruct(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, res_));
+        Argument out_ = new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, res_));
         _par.setSimpleArgumentAna(out_, _conf);
     }
 

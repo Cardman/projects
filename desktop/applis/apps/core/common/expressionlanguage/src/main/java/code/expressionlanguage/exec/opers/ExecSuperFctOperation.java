@@ -54,10 +54,8 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
-        prev_.setStruct(_previous.getStruct());
         classNameFound_ = getClassName();
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, prev_.getStruct(), _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }

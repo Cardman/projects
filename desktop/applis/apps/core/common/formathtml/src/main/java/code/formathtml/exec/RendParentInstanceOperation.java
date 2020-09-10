@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ParentInstanceOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -26,21 +25,9 @@ public class RendParentInstanceOperation extends RendLeafOperation implements Re
 
     Argument getCommonArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getPageEl();
-        Struct struct_;
-        if (isIntermediateDottedOperation()) {
-            Argument previous_ = getPreviousArg(this, _nodes, _conf);
-            struct_ = previous_.getStruct();
-        } else {
-            struct_ = ip_.getGlobalArgument().getStruct();
-        }
-        Argument a_ = new Argument();
-        a_.setStruct(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),struct_.getParent(),_conf.getContext()));
-        return a_;
-    }
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+        Struct struct_ = previous_.getStruct();
+        return new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),struct_.getParent(),_conf.getContext()));
     }
 
     @Override

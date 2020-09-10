@@ -16,18 +16,8 @@ public final class ExecForwardOperation extends ExecLeafOperation implements Ato
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        if (isIntermediateDottedOperation()) {
-            Argument arg_ = getPreviousArg(this,_nodes,_conf);
-            setSimpleArgument(arg_, _conf, _nodes);
-        } else {
-            Argument arg_ = _conf.getLastPage().getGlobalArgument();
-            setSimpleArgument(arg_, _conf, _nodes);
-        }
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
+        Argument arg_ = getPreviousArg(this,_nodes,_conf);
+        setSimpleArgument(arg_, _conf, _nodes);
     }
 
     @Override

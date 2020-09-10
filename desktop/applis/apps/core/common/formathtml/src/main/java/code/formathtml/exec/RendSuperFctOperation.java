@@ -55,13 +55,10 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
-        prev_.setStruct(_previous.getStruct());
         classNameFound_ = className;
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, prev_.getStruct(), _conf.getContext()));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
-            Argument a_ = new Argument();
-            return a_;
+            return new Argument();
         }
         String argClassName_ = prev_.getObjectClassName(_conf.getContext());
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);

@@ -83,8 +83,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             return;
         }
         BooleanStruct o_ = (BooleanStruct) value_;
-        Argument a_ = new Argument();
-        a_.setStruct(o_.neg());
+        Argument a_ = new Argument(o_.neg());
         _par.setSimpleArgumentAna(a_, _conf);
     }
 

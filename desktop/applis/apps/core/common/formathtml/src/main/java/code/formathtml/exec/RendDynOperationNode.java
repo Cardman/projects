@@ -520,13 +520,13 @@ public abstract class RendDynOperationNode {
         return a_;
     }
     protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
-        return getArgumentPair(_nodes,_node).getArgument();
+        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
     }
     protected static ArgumentsPair getArgumentPair(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return _nodes.getValue(_node.getOrder());
     }
     protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendPossibleIntermediateDotted _node) {
-        return _nodes.getValue(_node.getOrder()).getPreviousArgument();
+        return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
     }
 
     public final RendMethodOperation getParent() {
@@ -743,9 +743,7 @@ public abstract class RendDynOperationNode {
             return Argument.createVoid();
         }
         if (convert_) {
-            Argument outConv_ = new Argument();
-            outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_conf.getContext()).getDisplayedString(ctx_));
-            out_ = outConv_;
+            out_ = new Argument(ExecCatOperation.getDisplayable(out_,_conf.getContext()).getDisplayedString(ctx_));
         }
         return out_;
     }

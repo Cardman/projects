@@ -18,24 +18,19 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
 
     @Override
     Argument getCommonArgument(Argument _previous, Configuration _conf) {
-        Argument a_;
         setRelativeOffsetPossibleLastPage(getIndexInEl()+getOff(), _conf);
-        Argument arg_ = _previous;
-        Struct inst_ = arg_.getStruct();
+        Struct inst_ = _previous.getStruct();
         if (inst_ instanceof ArrayStruct) {
             ArrayStruct arr_ = (ArrayStruct) inst_;
-            a_ = new Argument();
-            a_.setStruct(new IntStruct(arr_.getInstance().length));
-            return a_;
+            return new Argument(new IntStruct(arr_.getInstance().length));
         }
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = arg_.getObjectClassName(_conf.getContext());
+        String argCl_ = _previous.getObjectClassName(_conf.getContext());
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));
-        a_ = new Argument();
-        return a_;
+        return new Argument();
     }
 }

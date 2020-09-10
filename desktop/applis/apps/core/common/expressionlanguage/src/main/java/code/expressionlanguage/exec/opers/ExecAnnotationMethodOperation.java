@@ -47,12 +47,12 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
         }
         String clName_ = _previous.getObjectClassName(_conf);
         Struct ret_ = getInstanceField(clName_, _name,_previous,_conf).getStruct();
-        Argument a_ = new Argument();
+        Argument a_;
         if (ret_ instanceof ArrayStruct) {
             ArrayStruct orig_ = (ArrayStruct) ret_;
-            a_.setStruct(orig_.swallowCopy());
+            a_ = new Argument(orig_.swallowCopy());
         } else {
-            a_.setStruct(ret_);
+            a_ = new Argument(ret_);
         }
         return a_;
     }

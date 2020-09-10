@@ -375,13 +375,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     firstArgs_.add(a_);
                 }
             }
-            Argument argRem_ = new Argument();
             int len_ = optArgs_.size();
             Struct[] array_ = new Struct[len_];
             String clArr_ = StringExpUtil.getPrettyArrayType(_lastType);
             ArrayStruct str_ = new ArrayStruct(array_,clArr_);
             ExecTemplates.setElements(optArgs_,str_);
-            argRem_.setStruct(str_);
+            Argument argRem_ = new Argument(str_);
             firstArgs_.add(argRem_);
             return firstArgs_;
         }

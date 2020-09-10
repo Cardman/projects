@@ -43,7 +43,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
-        Argument a_ = new Argument();
         for (int i = CustList.FIRST_INDEX; i < _maxIndexChildren; i++) {
             ExecOperationNode op_ = chidren_.get(i);
             Struct o_ = getArgument(_nodes,op_).getStruct();
@@ -51,11 +50,10 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             setRelativeOffsetPossibleLastPage(indexEl_, _conf);
             array_ = ExecInvokingOperation.getElement(array_, o_, _conf);
             if (_conf.callsOrException()) {
-                return a_;
+                return new Argument();
             }
         }
-        a_.setStruct(array_);
-        return a_;
+        return new Argument(array_);
     }
 
     public boolean resultCanBeSet() {
@@ -67,13 +65,11 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             Argument _right) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
-        Argument a_ = new Argument();
         ExecOperationNode lastElement_ = chidren_.last();
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        a_.setStruct(affectArray(array_, lastArg_, lastElement_.getIndexInEl(), _right, _conf));
-        return a_;
+        return new Argument(affectArray(array_, lastArg_, _right, _conf));
     }
 
     @Override
@@ -88,9 +84,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        Argument o_ = new Argument();
-        o_.setStruct(compoundAffectArray(array_, store_, lastArg_, lastElement_.getIndexInEl(), _op,_right, _conf,getResultClass()));
-        return o_;
+        return new Argument(compoundAffectArray(array_, store_, lastArg_, _op,_right, _conf,getResultClass()));
     }
 
     @Override
@@ -105,21 +99,18 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        Argument o_ = new Argument();
-        o_.setStruct(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
-        return o_;
+        return new Argument(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
     }
 
-    Struct affectArray(Struct _array,Argument _index, int _indexEl, Argument _right, ContextEl _conf) {
+    private Struct affectArray(Struct _array, Argument _index, Argument _right, ContextEl _conf) {
         Struct o_ = _index.getStruct();
         ExecInvokingOperation.setElement(_array, o_, _right.getStruct(), _conf);
         return _right.getStruct();
     }
 
-    Struct compoundAffectArray(Struct _array,Struct _stored,Argument _index, int _indexEl, String _op, Argument _right, ContextEl _conf, ClassArgumentMatching _arg) {
+    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, String _op, Argument _right, ContextEl _conf, ClassArgumentMatching _arg) {
         Struct o_ = _index.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(_stored);
+        Argument left_ = new Argument(_stored);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         if (_conf.callsOrException()) {
@@ -128,10 +119,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf) {
+    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf) {
         Struct o_ = _index.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(_stored);
+        Argument left_ = new Argument(_stored);
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);

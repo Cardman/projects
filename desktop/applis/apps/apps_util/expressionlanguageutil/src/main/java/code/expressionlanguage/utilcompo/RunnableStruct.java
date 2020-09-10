@@ -104,8 +104,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
             _r.getCustInit().removeThreadFromList(_r);
             return;
         }
-        Argument arg_ = new Argument();
-        arg_.setStruct(_instance);
+        Argument arg_ = new Argument(_instance);
         RunnableStruct.invoke(arg_, mId_.getClassName(), mId_.getRootBlock(), mId_.getOverridableBlock(), _args, _r);
     }
     public static Argument invoke(Argument _global, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, CustList<Argument> _args, RunnableContextEl _cont) {

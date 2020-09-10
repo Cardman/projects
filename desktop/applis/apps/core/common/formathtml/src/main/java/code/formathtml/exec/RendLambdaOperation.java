@@ -18,7 +18,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
 
     private boolean intermediate;
     private boolean safeInstance;
-    private Argument previousArgument;
 
     private ClassMethodId method;
     private String foundClass;
@@ -46,7 +45,6 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         standardMethod = _l.getStandardMethod();
         intermediate = _l.isIntermediate();
         safeInstance = _l.isSafeInstance();
-        previousArgument = _l.getPreviousArgument();
         method = _l.getMethod();
         foundClass = _l.getFoundClass();
         ancestor = _l.getAncestor();
@@ -79,38 +77,28 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
     }
 
     Argument getCommonArgument(Argument _previous, Configuration _conf) {
-        Argument arg_ = new Argument();
         String name_ = getResultClass().getName();
         PageEl pageEl_ = _conf.getPageEl();
         ContextEl context_ = _conf.getContext();
         if (standardMethod != null) {
-            arg_.setStruct(ExecStdMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,
+            return new Argument(ExecStdMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,
                     shiftArgument,safeInstance, name_, pageEl_, standardMethod));
-            return arg_;
         }
         if (method == null && realId == null) {
-            arg_.setStruct(ExecFieldLambdaOperation.newLambda(_previous, context_,foundClass,returnFieldType,fieldId,ancestor,
+            return new Argument(ExecFieldLambdaOperation.newLambda(_previous, context_,foundClass,returnFieldType,fieldId,ancestor,
                     affField,staticField,finalField,shiftArgument,safeInstance, name_, pageEl_, fileName,declaring,annotableBlock));
-            return arg_;
         }
         if (method == null) {
-            arg_.setStruct(ExecConstructorLambdaOperation.newLambda(_previous, context_,foundClass,realId,returnFieldType,
+            return new Argument(ExecConstructorLambdaOperation.newLambda(_previous, context_,foundClass,realId,returnFieldType,
                     shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,declaring,function));
-            return arg_;
         }
-        arg_.setStruct(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,
+        return new Argument(ExecMethodLambdaOperation.newLambda(_previous, context_,foundClass,method,returnFieldType,ancestor,
                 directCast,polymorph,abstractMethod,expCast,shiftArgument,safeInstance, name_, pageEl_, fileName,functionBlock,function,declaring));
-        return arg_;
     }
 
     @Override
     public boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return previousArgument;
     }
 
 }

@@ -24,10 +24,8 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(Configuration _conf,
                          Argument _in) {
-        Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf.getContext(), res_));
-        return out_;
+        return new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf.getContext(), res_));
     }
 }

@@ -45,7 +45,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
 
     public RendStandardInstancingOperation(ClassArgumentMatching _res,
                                  ConstructorId _constId, ExecRootBlock _rootBlock) {
-        super(0,_res,0,false,null);
+        super(0,_res,0,false);
         className = _constId.getName();
         methodName = _constId.getName();
         rootBlock = _rootBlock;

@@ -37,7 +37,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private ClassArgumentMatching previousResultClass;
     private boolean intermediate;
-    private Argument previousArgument;
 
     private String className;
     private int offset;
@@ -2046,13 +2045,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         previousResultClass = _previousResultClass;
     }
 
-    public Argument getPreviousArgument() {
-        return previousArgument;
-    }
-
     @Override
     public void setPreviousArgument(Argument _previousArgument) {
-        previousArgument = _previousArgument;
     }
 
     public boolean isIntermediate() {

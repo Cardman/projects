@@ -163,9 +163,6 @@ public final class ExpressionLanguage {
                 }
             }
             a_.setArgument(o.getArgument());
-            if (o instanceof ExecPossibleIntermediateDotted) {
-                a_.setPreviousArgument(((ExecPossibleIntermediateDotted)o).getPreviousArgument());
-            }
             arguments_.addEntry(o, a_);
         }
         return arguments_;

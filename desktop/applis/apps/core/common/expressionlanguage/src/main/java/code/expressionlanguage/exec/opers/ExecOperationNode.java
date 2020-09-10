@@ -577,13 +577,13 @@ public abstract class ExecOperationNode {
         return a_;
     }
     protected static Argument getArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return getArgumentPair(_nodes,_node).getArgument();
+        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
     }
     protected static ArgumentsPair getArgumentPair(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
         return _nodes.getValue(_node.getOrder());
     }
     protected static Argument getPreviousArgument(IdMap<ExecOperationNode,ArgumentsPair> _nodes, ExecOperationNode _node) {
-        return _nodes.getValue(_node.getOrder()).getPreviousArgument();
+        return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
     }
 
     private void setNextSiblingsArg(ContextEl _cont, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
@@ -808,7 +808,7 @@ public abstract class ExecOperationNode {
         _conf.getCoverage().passBlockOperation(_conf, this,new Argument(valueStruct_),!_possiblePartial);
     }
     private static Struct getValueStruct(ExecOperationNode _oper, ArgumentsPair _v) {
-        Argument res_ = _v.getArgument();
+        Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
         if (_oper.getNextSibling() != null&&!_oper.getResultClass().getImplicitsTest().isEmpty()){
             ExecMethodOperation par_ = _oper.getParent();
@@ -831,12 +831,9 @@ public abstract class ExecOperationNode {
         return v_;
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {
-        Argument out_ = new Argument();
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();
-        out_.setStruct(struct_);
         if (struct_ instanceof DisplayableStruct) {
-            out_.setStruct(((DisplayableStruct)struct_).getDisplayedString(_conf));
-            return out_;
+            return new Argument(((DisplayableStruct)struct_).getDisplayedString(_conf));
         }
         String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
@@ -854,10 +851,10 @@ public abstract class ExecOperationNode {
         }
         clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (methodCallBody_ == null) {
-            out_.setStruct(_conf.getStandards().getStringOfObject(_conf,struct_));
-            return out_;
+            return new Argument(_conf.getStandards().getStringOfObject(_conf,struct_));
         }
         Parameters parameters_ = new Parameters();
+        Argument out_ = new Argument(struct_);
         _conf.setCallingState(new CustomFoundMethod(out_,clCall_,type_,methodCallBody_,parameters_));
         return out_;
     }

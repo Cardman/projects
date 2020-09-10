@@ -41,9 +41,7 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        Argument arg_ = new Argument();
-        arg_.setStruct(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), fieldId, getAncestor(), affField, staticField, finalField));
-        return arg_;
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), getReturnFieldType(), fieldId, getAncestor(), affField, staticField, finalField));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, String returnFieldType, ClassField fieldId, int ancestor, boolean affField, boolean staticField, boolean finalField) {

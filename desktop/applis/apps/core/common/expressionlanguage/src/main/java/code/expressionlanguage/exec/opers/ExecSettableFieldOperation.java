@@ -46,9 +46,11 @@ public final class ExecSettableFieldOperation extends
         if (resultCanBeSet()) {
             return Argument.createVoid();
         }
-        Argument previous_ = new Argument();
+        Argument previous_;
         if (!staticField_) {
-            previous_.setStruct(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_ = new Argument(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+        } else {
+            previous_ = new Argument();
         }
         if (_conf.callsOrException()) {
             return Argument.createVoid();
@@ -95,9 +97,11 @@ public final class ExecSettableFieldOperation extends
         ClassField fieldId_ = fieldMetaInfo.getClassField();
         String className_ = fieldId_.getClassName();
         String fieldName_ = fieldId_.getFieldName();
-        Argument previous_ = new Argument();
+        Argument previous_;
         if (!isStatic_) {
-            previous_.setStruct(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+            previous_ = new Argument(ExecTemplates.getParent(anc, className_, _previous.getStruct(), _conf));
+        } else {
+            previous_ = new Argument();
         }
         if (_conf.callsOrException()) {
             return Argument.createVoid();
@@ -106,10 +110,9 @@ public final class ExecSettableFieldOperation extends
         return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
     private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
-        Argument left_ = new Argument();
+        Argument left_ = new Argument(_store);
         Argument res_;
 
-        left_.setStruct(_store);
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         if (_conf.callsOrException()) {
             return res_;
@@ -117,10 +120,9 @@ public final class ExecSettableFieldOperation extends
         return getCommonSetting(_previous,_conf,res_);
     }
     private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
-        Argument left_ = new Argument();
+        Argument left_ = new Argument(_store);
         Argument res_;
 
-        left_.setStruct(_store);
         ClassArgumentMatching cl_ = getResultClass();
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
         getCommonSetting(_previous,_conf,res_);

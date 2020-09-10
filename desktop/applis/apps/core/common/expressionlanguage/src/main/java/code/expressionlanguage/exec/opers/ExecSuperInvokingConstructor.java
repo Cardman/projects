@@ -29,7 +29,6 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
         PageEl page_ = _conf.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
         CustList<Argument> firstArgs_;
         String calledCtorTemp_;
         String superClass_ = page_.formatVarType(getClassFromName(), _conf);
@@ -39,7 +38,7 @@ public final class ExecSuperInvokingConstructor extends ExecAbstractInvokingCons
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
         calledCtorTemp_ = superClass_;
-        checkParametersCtors(_conf, calledCtorTemp_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, calledCtorTemp_, getRootBlock(),getCtor(),  firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 

@@ -70,12 +70,9 @@ public final class CustContextFactory {
             _progressingTests.showErrors(rCont_,_options,_exec);
             return;
         }
-        String aliasExecuteTests_ = _definedLgNames.getAliasExecuteTests();
         String infoTest_ = _definedLgNames.getAliasInfoTest();
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
                 NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);
-        MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
-                aliasExecuteTests_,new StringList(infoTest_));
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);

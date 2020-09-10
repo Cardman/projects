@@ -85,8 +85,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             Struct store_;
             store_ = leftArg_.getStruct();
-            Argument l_ = new Argument();
-            l_.setStruct(store_);
+            Argument l_ = new Argument(store_);
             pairBefore_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
         }
@@ -110,8 +109,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             Argument leftArg_ = getArgument(_nodes,left_);
             Struct store_;
             store_ = leftArg_.getStruct();
-            Argument l_ = new Argument();
-            l_.setStruct(store_);
+            Argument l_ = new Argument(store_);
             pair_.setIndexImplicitSemiFrom(ExecOperationNode.processConverter(_conf,l_, implicits_,indexImplicit_));
             return;
         }

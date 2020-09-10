@@ -27,7 +27,6 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         int off_ = getOffsetOper();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
-        Argument arg_ = _conf.getLastPage().getGlobalArgument();
         CustList<Argument> firstArgs_;
         String superClass_ = _conf.getLastPage().formatVarType(getClassFromName(),_conf);
         String lastType_ = getLastType();
@@ -35,7 +34,7 @@ public final class ExecInterfaceInvokingConstructor extends ExecAbstractInvoking
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  arg_, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(),  firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 

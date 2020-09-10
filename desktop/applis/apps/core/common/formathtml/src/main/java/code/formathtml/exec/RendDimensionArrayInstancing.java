@@ -48,20 +48,17 @@ public final class RendDimensionArrayInstancing extends
             int dim_ = n_.intStruct();
             if (dim_ < 0) {
                 _conf.setException(new ErrorStruct(_conf.getContext(),StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
-                Argument a_ = new Argument();
-                return a_;
+                return new Argument();
             }
             args_[i_] = dim_;
             i_++;
         }
-        Argument a_ = new Argument();
         Ints dims_;
         dims_ = new Ints();
         for (int d: args_) {
             dims_.add(d);
         }
-        a_.setStruct(ExecTemplates.newCustomArray(className_, dims_, _conf.getContext()));
-        return a_;
+        return new Argument(ExecTemplates.newCustomArray(className_, dims_, _conf.getContext()));
     }
 
 }

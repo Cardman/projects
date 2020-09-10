@@ -172,9 +172,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Struct default_ = _previous.getStruct();
         ContextEl _cont = _conf.getContext();
         ResultErrorStd res_ = getOtherResult(_cont, fieldId_, default_);
-        Argument a_ = new Argument();
-        a_.setStruct(res_.getResult());
-        return a_;
+        return new Argument(res_.getResult());
     }
 
     @Override
@@ -194,8 +192,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         CustList<Argument> firstArgs_;
         String lastType_ = _rend.getLastType();
         int naturalVararg_ = _rend.getNaturalVararg();
-        Argument prev_ = new Argument();
-        prev_.setStruct(_previous.getStruct());
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
         int i_ =0;
@@ -206,9 +202,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             i_++;
         }
         ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));
-        Argument argRes_ = new Argument();
-        argRes_.setStruct(res_.getResult());
-        return argRes_;
+        return new Argument(res_.getResult());
     }
 
     private StringMap<Validator> loadValidator(Element _elt) {

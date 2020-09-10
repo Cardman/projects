@@ -17,7 +17,7 @@ public final class ReflectSetFieldPageEl extends AbstractReflectPageEl {
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        FieldMetaInfo method_ = NumParsers.getField(getGlobalArgument().getStruct());
+        FieldMetaInfo method_ = NumParsers.getField(getGlobalStruct());
         if (!initClass) {
             initClass = true;
             if (method_.isStaticField()) {

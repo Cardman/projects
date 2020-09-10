@@ -8,7 +8,6 @@ import code.util.IdMap;
 
 public final class RendForwardOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
     private boolean intermediate;
-    private Argument previousArgument;
 
     RendForwardOperation(ForwardOperation _v) {
         super(_v);
@@ -19,11 +18,6 @@ public final class RendForwardOperation extends RendLeafOperation implements Ren
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         setSimpleArgument(previous_, _conf,_nodes);
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return previousArgument;
     }
 
     @Override

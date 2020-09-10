@@ -20,8 +20,7 @@ public final class ExecUnaryBooleanOperation extends ExecAbstractUnaryOperation 
         Argument arg_ = getArgument(_nodes,chidren_.first());
         BooleanStruct o_ = ClassArgumentMatching.convertToBoolean(arg_.getStruct());
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        Argument a_ = new Argument();
-        a_.setStruct(o_.neg());
+        Argument a_ = new Argument(o_.neg());
         setSimpleArgument(a_, _conf, _nodes);
     }
 

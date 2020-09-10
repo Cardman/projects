@@ -52,10 +52,8 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
         CustList<Argument> firstArgs_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
-        String classNameFound_;
-        Argument prev_ = new Argument();
-        classNameFound_ = getClassName();
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
+        String classNameFound_ = getClassName();
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }

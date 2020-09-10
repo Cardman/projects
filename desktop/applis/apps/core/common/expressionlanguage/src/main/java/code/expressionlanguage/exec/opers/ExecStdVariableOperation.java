@@ -100,8 +100,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
 
     private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
         PageEl ip_ = _conf.getLastPage();
-        Argument left_ = new Argument();
-        left_.setStruct(_store);
+        Argument left_ = new Argument(_store);
         Argument res_;
         res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
         setVar(_conf,variableName, ip_, res_,deep);
@@ -109,8 +108,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     }
     private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getLastPage();
-        Argument left_ = new Argument();
-        left_.setStruct(_store);
+        Argument left_ = new Argument(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);

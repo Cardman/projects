@@ -56,9 +56,8 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
         classNameFound_ = className;
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, _previous.getStruct(), _conf.getContext()));
         if (_conf.getContext().hasException()) {
             Argument a_ = new Argument();
             return a_;

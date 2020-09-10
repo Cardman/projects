@@ -20,9 +20,8 @@ public final class ExecStaticInfoOperation extends ExecLeafOperation implements
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
-        Argument a_ = new Argument();
         String classStr_ = _conf.getLastPage().formatVarType(className, _conf);
-        a_.setStruct(ExecutingUtil.getClassMetaInfo(_conf,classStr_));
+        Argument a_ = new Argument(ExecutingUtil.getClassMetaInfo(_conf,classStr_));
         setSimpleArgument(a_, _conf, _nodes);
     }
 

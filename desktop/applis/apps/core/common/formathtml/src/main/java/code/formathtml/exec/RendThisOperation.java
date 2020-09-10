@@ -26,10 +26,8 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getPageEl();
-        Struct struct_ = ip_.getGlobalArgument().getStruct();
-        Argument a_ = new Argument();
-        a_.setStruct(struct_);
-        return a_;
+        Struct struct_ = ip_.getGlobalStruct();
+        return new Argument(struct_);
     }
 
 }

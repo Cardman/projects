@@ -382,7 +382,7 @@ public final class RenderExpUtil {
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = getAllArgs(_nodes,_context);
-        return arguments_.lastValue().getArgument();
+        return Argument.getNullableValue(arguments_.lastValue().getArgument());
     }
 
     public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, Configuration _context) {
@@ -393,9 +393,6 @@ public final class RenderExpUtil {
             a_.setArgument(o.getArgument());
             a_.setImplicits(o.getImplicits());
             a_.setImplicitsTest(o.getImplicitsTest());
-            if (o instanceof RendPossibleIntermediateDotted) {
-                a_.setPreviousArgument(((RendPossibleIntermediateDotted)o).getPreviousArgument());
-            }
             arguments_.addEntry(o, a_);
         }
         int fr_ = 0;
@@ -412,7 +409,7 @@ public final class RenderExpUtil {
             }
             if (pair_.getArgument() != null) {
                 o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
-                Argument res_ = pair_.getArgument();
+                Argument res_ = Argument.getNullableValue(pair_.getArgument());
                 Struct st_ = res_.getStruct();
                 fr_ = RendDynOperationNode.getNextIndex(o, st_);
                 continue;
@@ -422,7 +419,7 @@ public final class RenderExpUtil {
             if (_context.getContext().hasException()) {
                 return arguments_;
             }
-            Argument res_ = pair_.getArgument();
+            Argument res_ = Argument.getNullableValue(pair_.getArgument());
             Struct st_ = res_.getStruct();
             if (o.getNextSibling() != null&&pair_.isArgumentTest()){
                 RendMethodOperation par_ = o.getParent();

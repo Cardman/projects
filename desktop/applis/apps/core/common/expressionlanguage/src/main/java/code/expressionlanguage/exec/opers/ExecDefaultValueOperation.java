@@ -19,9 +19,8 @@ public final class ExecDefaultValueOperation extends ExecLeafOperation implement
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
-        Argument a_ = new Argument();
         String classStr_ = _conf.getLastPage().formatVarType(className, _conf);
-        a_.setStruct(PrimitiveTypeUtil.defaultValue(classStr_,_conf));
+        Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(classStr_,_conf));
         setSimpleArgument(a_, _conf, _nodes);
     }
 }

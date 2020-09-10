@@ -9,7 +9,6 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class RendSettableFieldOperation extends
@@ -34,7 +33,7 @@ public final class RendSettableFieldOperation extends
         rootBlock = _rootBlock;
     }
     public RendSettableFieldOperation(RendSettableFieldOperation _s,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
-        super(_s.getPreviousArgument(),_indexChild,_res,_order,_int);
+        super(_indexChild,_res,_order,_int);
         variable = _s.variable;
         rootBlock = _s.rootBlock;
         fieldMetaInfo = _s.getFieldMetaInfo();

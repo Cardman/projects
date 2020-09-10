@@ -63,9 +63,7 @@ public class CustInitializer extends DefaultInitializer {
                 }
                 if (!_cont.hasException()) {
                     if (convert_) {
-                        Argument outConv_ = new Argument();
-                        outConv_.setStruct(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
-                        out_ = outConv_;
+                        out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
                     }
                     String text_ = AnaApplyCoreMethodUtil.getString(out_.getStruct()).getInstance();
                     log(_cont,text_);

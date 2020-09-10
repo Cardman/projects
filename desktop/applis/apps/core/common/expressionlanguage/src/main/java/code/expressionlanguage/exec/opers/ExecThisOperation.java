@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ThisOperation;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecThisOperation extends ExecLeafOperation implements AtomicExecCalculableOperation,ExecPossibleIntermediateDotted {
@@ -32,12 +31,12 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     Argument getCommonArgument(ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         PageEl ip_ = _conf.getLastPage();
-        Struct struct_ = ip_.getGlobalArgument().getStruct();
-        Argument a_ = new Argument();
-        a_.setStruct(struct_);
+        Argument a_;
         if (isIntermediateDottedOperation()) {
             String c_ = getResultClass().getName();
-            a_.setStruct(ExecTemplates.getParent(nbAncestors, c_, a_.getStruct(), _conf));
+            a_ = new Argument(ExecTemplates.getParent(nbAncestors, c_, ip_.getGlobalStruct(), _conf));
+        } else {
+            a_ = new Argument(ip_.getGlobalStruct());
         }
         return a_;
     }
@@ -45,11 +44,6 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
     @Override
     public boolean isIntermediateDottedOperation() {
         return intermediate;
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
     }
 
 }

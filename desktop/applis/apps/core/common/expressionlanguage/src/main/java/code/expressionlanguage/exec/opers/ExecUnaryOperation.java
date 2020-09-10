@@ -34,11 +34,11 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     }
 
     public static Argument getArgument(ContextEl _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
-        Argument out_ = new Argument();
+        Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         } else {
-            out_.setStruct(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
         }
         return out_;
     }

@@ -18,11 +18,7 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
 
     static Argument calculateAffect(Argument _left, Configuration _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
         ResultErrorStd res_= new ResultErrorStd();
-        if (_right == null) {
-            ExecNumericOperation.calculateOperator(_conf.getPageEl(),_conf.getContext(), res_, _arg, _op, _catString, _left.getStruct(), NullStruct.NULL_VALUE);
-        } else {
-            ExecNumericOperation.calculateOperator(_conf.getPageEl(),_conf.getContext(), res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
-        }
+        ExecNumericOperation.calculateOperator(_conf.getPageEl(),_conf.getContext(), res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
         return new Argument(res_.getResult());
     }
 

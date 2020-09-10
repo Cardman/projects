@@ -49,7 +49,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
     public ExecFctOperation(ClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
-        super(_child,_res,_order,true,null);
+        super(_child,_res,_order,true);
         className = _classMethodId.getClassName();
         methodName = _classMethodId.getConstraints().getName();
         naturalVararg = -1;
@@ -73,12 +73,11 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
         ExecNamedFunctionBlock fct_ = getNamed();
         ExecRootBlock type_ = rootBlock;
         classNameFound_ = getClassName();
         Struct argPrev_ = _previous.getStruct();
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf));
         if (_conf.callsOrException()) {
             return new Argument();
         }

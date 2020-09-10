@@ -39,12 +39,10 @@ public final class ExecCloneOperation extends ExecInvokingOperation {
             return new Argument();
         }
         //clone object
-        Argument a_ = new Argument();
         ArrayStruct arr_ = (ArrayStruct) argPrev_;
         ArrayStruct copy_ = arr_.swallowCopy();
         _conf.getInitializingTypeInfos().addSensibleElementsFromClonedArray(arr_, copy_);
-        a_.setStruct(copy_);
-        return a_;
+        return new Argument(copy_);
     }
 
 }

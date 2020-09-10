@@ -1072,24 +1072,20 @@ public final class ExecTemplates {
             if (cache_ != null) {
                 LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
                 if (loopVar_ != null) {
-                    Argument a_ = new Argument();
                     ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
                     LongStruct str_ = new LongStruct(loopVar_.getIndex());
                     Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
-                    a_.setStruct(value_);
-                    return a_;
+                    return new Argument(value_);
                 }
             }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
         }
-        Argument a_ = new Argument();
         ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
         LongStruct str_ = new LongStruct(locVar_.getIndex());
         Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
-        a_.setStruct(value_);
-        return a_;
+        return new Argument(value_);
     }
 
     public static void incrIndexLoop(ContextEl _context, String _val, PageEl _lastPage) {
@@ -1122,18 +1118,14 @@ public final class ExecTemplates {
             if (cache_ != null) {
                 LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
                 if (loopVar_ != null) {
-                    Argument a_ = new Argument();
-                    a_.setStruct(loopVar_.getStruct());
-                    return a_;
+                    return new Argument(loopVar_.getStruct());
                 }
             }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();
         }
-        Argument a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
-        return a_;
+        return new Argument(locVar_.getStruct());
     }
 
     public static Argument setValue(ContextEl _context, String _val, PageEl _lastPage, Argument _value, int _deep) {

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ParentInstanceOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -28,22 +27,9 @@ public class ExecParentInstanceOperation extends ExecLeafOperation implements At
 
     Argument getCommonArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        PageEl ip_ = _conf.getLastPage();
-        Struct struct_;
-        if (isIntermediateDottedOperation()) {
-            Argument previous_ = getPreviousArg(this, _nodes, _conf);
-            struct_ = previous_.getStruct();
-        } else {
-            struct_ = ip_.getGlobalArgument().getStruct();
-        }
-        Argument a_ = new Argument();
-        a_.setStruct(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),struct_.getParent(),_conf));
-        return a_;
-    }
-
-    @Override
-    public Argument getPreviousArgument() {
-        return null;
+        Argument previous_ = getPreviousArg(this, _nodes, _conf);
+        Struct struct_ = previous_.getStruct();
+        return new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),struct_.getParent(),_conf));
     }
 
     @Override

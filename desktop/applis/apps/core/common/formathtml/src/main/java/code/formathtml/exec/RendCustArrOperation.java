@@ -60,7 +60,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
     public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
                             boolean _intermediate, Argument _previousArgument) {
-        super(_indexChild,_res,_order, _intermediate, _previousArgument);
+        super(_indexChild,_res,_order, _intermediate);
         className = _arr.className;
         previous = _arr.previous;
         classMethodId = _arr.classMethodId;
@@ -78,8 +78,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         if (resultCanBeSet()) {
             Struct array_;
             array_ = getPreviousArgument(_nodes,this).getStruct();
-            Argument a_ = new Argument();
-            a_.setStruct(array_);
+            Argument a_ = new Argument(array_);
             setQuickNoConvertSimpleArgument(a_, _conf,_nodes);
             return;
         }
@@ -101,8 +100,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        Argument left_ = new Argument();
-        left_.setStruct(store_);
+        Argument left_ = new Argument(store_);
         ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
@@ -147,10 +145,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
         String classNameFound_;
-        Argument prev_ = new Argument();
         classNameFound_ = className;
         Struct argPrev_ = _previous.getStruct();
-        prev_.setStruct(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf.getContext()));
+        Argument prev_ = new Argument(ExecTemplates.getParent(anc, classNameFound_, argPrev_, _conf.getContext()));
         if (_conf.getContext().hasException()) {
             return new Argument();
         }

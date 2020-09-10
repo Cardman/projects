@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -55,18 +54,17 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         if (_className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
             return;
         }
-        Argument a_ = new Argument();
         ClassMetaInfo candidate_ = new ClassMetaInfo(_className);
         CustList<ClassMetaInfo> classMetaInfos_ = _conf.getAnalyzing().getClassMetaInfos();
         for (ClassMetaInfo c: classMetaInfos_) {
             if (c.sameReference(candidate_)) {
-                a_.setStruct(c);
+                Argument a_ = new Argument(c);
                 _current.setSimpleArgumentAna(a_, _conf);
                 return;
             }
         }
         classMetaInfos_.add(candidate_);
-        a_.setStruct(candidate_);
+        Argument a_ = new Argument(candidate_);
         _current.setSimpleArgumentAna(a_, _conf);
     }
 

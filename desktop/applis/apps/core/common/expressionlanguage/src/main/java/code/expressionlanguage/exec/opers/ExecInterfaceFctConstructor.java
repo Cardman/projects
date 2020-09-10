@@ -20,7 +20,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf) {
         int order_ = getParent().getFirstChild().getOrder();
-        Argument mainArgument_ = _nodes.getValue(order_).getArgument();
+        Argument mainArgument_ = Argument.getNullableValue(_nodes.getValue(order_).getArgument());
         if (getIndexChild() == 1) {
             //init and test
             Argument lda_ = new Argument(mainArgument_.getStruct());
@@ -55,7 +55,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER,null);
+        checkParametersCtors(_conf, superClass_, getRootBlock(),getCtor(), _argument, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 }

@@ -20,8 +20,7 @@ public final class RendInternVariableOperation extends RendLeafOperation impleme
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf) {
         ImportingPage ip_ = _conf.getLastPage();
         LocalVariable locVar_ = ip_.getInternVars().getVal(variableName);
-        Argument a_ = new Argument();
-        a_.setStruct(locVar_.getStruct());
+        Argument a_ = new Argument(locVar_.getStruct());
         setSimpleArgument(a_, _conf, _nodes);
     }
 }

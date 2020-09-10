@@ -23,9 +23,7 @@ public final class RendInternGlobalOperation extends RendLeafOperation implement
     Argument getCommonArgument(Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         Struct struct_ = _conf.getInternGlobal();
-        Argument a_ = new Argument();
-        a_.setStruct(struct_);
-        return a_;
+        return new Argument(struct_);
     }
 
 }

@@ -25,10 +25,8 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(ContextEl _conf,
             Argument _in) {
-        Argument out_ = new Argument();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
         ClassArgumentMatching res_ = getResultClass();
-        out_.setStruct(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
-        return out_;
+        return new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
     }
 }

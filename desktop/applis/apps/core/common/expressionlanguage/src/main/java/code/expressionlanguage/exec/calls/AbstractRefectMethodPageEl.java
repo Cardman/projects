@@ -35,14 +35,14 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     private String methodName = "";
 
     protected boolean initDefault(ContextEl _cont) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         return method_.isWideStatic()&&ExecutingUtil.hasToExit(_cont,method_.getClassName());
     }
 
     @Override
     public boolean checkCondition(ContextEl _context) {
         LgNames stds_ = _context.getStandards();
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         if (!initClass) {
             initClass = true;
             if (initType(_context)) {
@@ -98,8 +98,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
                 return false;
             }
             for (Struct a: ((ArrayStruct)struct_).getInstance()) {
-                Argument a_ = new Argument();
-                a_.setStruct(a);
+                Argument a_ = new Argument(a);
                 args.add(a_);
             }
             if (method_.isExpCast()) {
@@ -146,7 +145,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractReflectPageEl {
     }
 
     Argument prepare(ContextEl _context, String _className, MethodId _mid, Argument _instance, CustList<Argument> _args, Argument _right) {
-        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo method_ = NumParsers.getMethod(getGlobalStruct());
         return ExecInvokingOperation.callPrepare(new DefaultExiting(_context), _context, _className,methodToCallType, _instance,method_.getCache(), _args, _right,methodToCallBody,accessKind, methodName);
     }
 

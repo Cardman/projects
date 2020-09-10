@@ -29,7 +29,6 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
 
         PageEl page_ = _conf.getLastPage();
-        Argument arg_ = page_.getGlobalArgument();
         String gl_ = page_.getGlobalClass();
         CustList<Argument> firstArgs_;
         String lastType_ = getLastType();
@@ -37,7 +36,7 @@ public final class ExecCurrentInvokingConstructor extends ExecAbstractInvokingCo
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        checkParametersCtors(_conf, gl_, getRootBlock(),getCtor(), arg_, firstArgs_, InstancingStep.USING_THIS,null);
+        checkParametersCtors(_conf, gl_, getRootBlock(),getCtor(), firstArgs_, InstancingStep.USING_THIS);
         return Argument.createVoid();
     }
 

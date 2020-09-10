@@ -304,8 +304,7 @@ public final class StandardInstancingOperation extends
         if (out_ == null) {
             return;
         }
-        Argument arg_ = Argument.createVoid();
-        arg_.setStruct(out_);
+        Argument arg_ = new Argument(out_);
         _current.setSimpleArgumentAna(arg_, _conf);
     }
 

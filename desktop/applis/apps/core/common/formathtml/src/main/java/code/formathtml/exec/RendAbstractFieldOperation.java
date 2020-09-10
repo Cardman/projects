@@ -12,19 +12,15 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
 
     private boolean intermediate;
 
-    private Argument previousArgument;
-
     private int off;
 
     public RendAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
         intermediate = _a.isIntermediateDottedOperation();
-        previousArgument = _a.getPreviousArgument();
         off = _a.getOff();
     }
-    RendAbstractFieldOperation(Argument _a,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
+    RendAbstractFieldOperation(int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
         super(_indexChild,_res,_order);
-        previousArgument = _a;
         intermediate = _int;
     }
 
@@ -58,11 +54,6 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
         return intermediate;
     }
     abstract Argument getCommonArgument(Argument _previous, Configuration _conf);
-
-    @Override
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
 
 
     @Override

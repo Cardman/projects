@@ -89,27 +89,25 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         return getCommonSemiSetting(_conf, store_, _op, _post);
     }
 
-    Argument getCommonSetting(Configuration _conf, Argument _right) {
+    private Argument getCommonSetting(Configuration _conf, Argument _right) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         return ExecTemplates.setValue(_conf.getContext(),variableName,ip_,_right,deep);
     }
-    Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        Argument left_ = new Argument();
-        left_.setStruct(_store);
+        Argument left_ = new Argument(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
         ExecTemplates.setValue(_conf.getContext(), variableName, ip_, res_,deep);
         return res_;
     }
-    Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
-        Argument left_ = new Argument();
-        left_.setStruct(_store);
+        Argument left_ = new Argument(_store);
         ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
         res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, cl_);

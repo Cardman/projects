@@ -28,14 +28,12 @@ public final class ExecArrayElementOperation extends
         className_ = page_.formatVarType(cl_, _conf);
 
         int nbCh_ = _arguments.size();
-        Argument a_ = new Argument();
 
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
         ExecTemplates.setCheckedElements(_arguments,str_,_conf);
-        a_.setStruct(str_);
-        return a_;
+        return new Argument(str_);
     }
 }

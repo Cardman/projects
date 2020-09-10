@@ -42,7 +42,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         if (getParent().getFirstChild().getNextSibling() == this) {
             //init and test
             int order_ = getParent().getFirstChild().getOrder();
-            Argument lda_ = new Argument(_nodes.getValue(order_).getArgument().getStruct());
+            Argument lda_ = new Argument(Argument.getNullableValue(_nodes.getValue(order_).getArgument()).getStruct());
             if (!ExecTemplates.checkObject(_conf.getStandards().getAliasFct(), lda_, _conf.getContext())) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes);
                 return;
@@ -60,7 +60,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
             return;
         }
         int order_ = getParent().getFirstChild().getOrder();
-        Argument argres_ = processCall(this, this, _nodes.getValue(order_).getArgument(),_nodes, _conf, null);
+        Argument argres_ = processCall(this, this, Argument.getNullableValue(_nodes.getValue(order_).getArgument()),_nodes, _conf, null);
         setSimpleArgument(argres_,_conf,_nodes);
     }
     Argument getArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all,Argument _arguments, Configuration _conf) {
@@ -73,7 +73,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         int natvararg_ = getNaturalVararg();
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
         firstArgs_ = listArguments(chidren_, natvararg_, lastType_, first_);
-        ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, rootBlock,ctor, _arguments, firstArgs_, InstancingStep.USING_SUPER,null);
+        ExecInvokingOperation.checkParametersCtors(_conf.getContext(), superClass_, rootBlock,ctor, _arguments, firstArgs_, InstancingStep.USING_SUPER);
         return Argument.createVoid();
     }
 

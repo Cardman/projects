@@ -100,16 +100,16 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
         }
         CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
-        Argument out_ = new Argument();
         Struct nb_ = arg_.getStruct();
         if (!(nb_ instanceof NumberStruct)) {
             return;
         }
         ClassArgumentMatching to_ = _par.getResultClass();
+        Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
-            out_.setStruct(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         } else {
-            out_.setStruct(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
         }
         _par.setSimpleArgumentAna(out_, _conf);
     }

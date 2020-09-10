@@ -33,15 +33,11 @@ public final class ExecInstanceOfOperation extends ExecAbstractUnaryOperation {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
         Argument objArg_ = _arguments.first();
         if (objArg_.isNull()) {
-            Argument arg_ = new Argument();
-            arg_.setStruct(BooleanStruct.of(false));
-            return arg_;
+            return new Argument(BooleanStruct.of(false));
         }
         PageEl page_ = _conf.getLastPage();
         String str_ = page_.formatVarType(className, _conf);
         boolean res_ = ExecTemplates.safeObject(str_, objArg_, _conf) == ErrorType.NOTHING;
-        Argument arg_ = new Argument();
-        arg_.setStruct(BooleanStruct.of(res_));
-        return arg_;
+        return new Argument(BooleanStruct.of(res_));
     }
 }

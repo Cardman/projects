@@ -40,9 +40,7 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     }
 
     Argument getCommonArgument(Argument _previous, ContextEl _conf) {
-        Argument arg_ = new Argument();
-        arg_.setStruct(newLambda(_previous,_conf, getFoundClass(), realId, getReturnFieldType()));
-        return arg_;
+        return new Argument(newLambda(_previous,_conf, getFoundClass(), realId, getReturnFieldType()));
     }
 
     private Struct newLambda(Argument _previous, ContextEl _conf, String foundClass, ConstructorId realId, String returnFieldType) {

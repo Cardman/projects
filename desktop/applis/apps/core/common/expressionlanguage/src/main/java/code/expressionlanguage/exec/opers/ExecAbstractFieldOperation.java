@@ -10,14 +10,11 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
 
     private boolean intermediate;
 
-    private Argument previousArgument;
-
     private int off;
 
     public ExecAbstractFieldOperation(AbstractFieldOperation _a) {
         super(_a);
         intermediate = _a.isIntermediateDottedOperation();
-        previousArgument = _a.getPreviousArgument();
         off = _a.getOff();
     }
 
@@ -48,11 +45,5 @@ public abstract class ExecAbstractFieldOperation extends ExecLeafOperation imple
         }
     }
     abstract Argument getCommonArgument(Argument _previous, ContextEl _conf);
-
-
-    @Override
-    public final Argument getPreviousArgument() {
-        return previousArgument;
-    }
 
 }

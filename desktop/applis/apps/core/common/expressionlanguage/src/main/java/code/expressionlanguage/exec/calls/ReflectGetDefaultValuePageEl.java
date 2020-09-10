@@ -2,20 +2,15 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
@@ -24,7 +19,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
 
     @Override
     public boolean checkCondition(ContextEl _context) {
-        MethodMetaInfo instance_ = NumParsers.getMethod(getGlobalArgument().getStruct());
+        MethodMetaInfo instance_ = NumParsers.getMethod(getGlobalStruct());
         ExecAnnotableBlock annotableBlock_ = instance_.getAnnotableBlock();
         if (!(annotableBlock_ instanceof ExecAnnotationMethodBlock)) {
             setReturnedArgument(new Argument());
@@ -36,8 +31,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             if (ops.isEmpty()) {
                 String clMethod_ = ann_.getImportedReturnType();
                 Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
-                Argument out_ = new Argument();
-                out_.setStruct(value_);
+                Argument out_ = new Argument(value_);
                 setReturnedArgument(out_);
                 return true;
             }

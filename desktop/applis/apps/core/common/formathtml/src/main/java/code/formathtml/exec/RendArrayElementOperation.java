@@ -28,14 +28,12 @@ public final class RendArrayElementOperation extends
         className_ = page_.formatVarType(cl_, _conf.getContext());
 
         int nbCh_ = _arguments.size();
-        Argument a_ = new Argument();
 
         Ints dims_;
         dims_ = new Ints();
         dims_.add(nbCh_);
         Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf.getContext());
         ExecTemplates.setCheckedElements(_arguments,str_,_conf.getContext());
-        a_.setStruct(str_);
-        return a_;
+        return new Argument(str_);
     }
 }
