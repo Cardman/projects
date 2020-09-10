@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -54,7 +53,6 @@ public final class ReadConfiguration {
                 context_.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
             }
         }
-        context_.setOptions(opt_);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
         if (!context_.isEmptyMessageError()) {

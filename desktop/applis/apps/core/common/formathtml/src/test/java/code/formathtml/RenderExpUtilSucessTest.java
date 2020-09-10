@@ -6873,7 +6873,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertTrue(cont_.isEmptyErrors());
         AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
-        Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_);
+        Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_, cont_.getAnalyzing().getOptions());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

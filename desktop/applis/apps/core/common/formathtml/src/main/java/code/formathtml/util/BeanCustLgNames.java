@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.ProcessMethod;
+import code.expressionlanguage.options.Options;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -874,14 +875,15 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         Classes.forwardAndClear(_conf.getContext());
         buildIterables(_conf);
         AnalysisMessages analysisMessages_ = _conf.getContext().getAnalyzing().getAnalysisMessages();
+        Options options_ = _conf.getContext().getAnalyzing().getOptions();
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
-        Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_);
+        Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_, options_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
         return messages_;
     }
 
-    public void setupRendClasses(Configuration _conf, StringMap<String> _files) {
+    private void setupRendClasses(Configuration _conf, StringMap<String> _files) {
         String conf_ = _conf.getFilesConfName();
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -1237,47 +1239,47 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _conf.getLastPage().clearInternVars();
     }
 
-    public String getIteratorVar() {
+    private String getIteratorVar() {
         return iteratorVar;
     }
 
-    public String getHasNextVar() {
+    private String getHasNextVar() {
         return hasNextVar;
     }
 
-    public String getNextVar() {
+    private String getNextVar() {
         return nextVar;
     }
 
-    public CustList<RendDynOperationNode> getExpsIterator() {
+    private CustList<RendDynOperationNode> getExpsIterator() {
         return expsIterator;
     }
 
-    public CustList<RendDynOperationNode> getExpsHasNext() {
+    private CustList<RendDynOperationNode> getExpsHasNext() {
         return expsHasNext;
     }
 
-    public CustList<RendDynOperationNode> getExpsNext() {
+    private CustList<RendDynOperationNode> getExpsNext() {
         return expsNext;
     }
 
-    public String getIteratorTableVarCust() {
+    private String getIteratorTableVarCust() {
         return iteratorTableVarCust;
     }
 
-    public String getHasNextPairVarCust() {
+    private String getHasNextPairVarCust() {
         return hasNextPairVarCust;
     }
 
-    public String getNextPairVarCust() {
+    private String getNextPairVarCust() {
         return nextPairVarCust;
     }
 
-    public String getFirstVarCust() {
+    private String getFirstVarCust() {
         return firstVarCust;
     }
 
-    public String getSecondVarCust() {
+    private String getSecondVarCust() {
         return secondVarCust;
     }
 
@@ -1285,23 +1287,23 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return beforeDisplayingVar;
     }
 
-    public CustList<RendDynOperationNode> getExpsIteratorTableCust() {
+    private CustList<RendDynOperationNode> getExpsIteratorTableCust() {
         return expsIteratorTableCust;
     }
 
-    public CustList<RendDynOperationNode> getExpsHasNextPairCust() {
+    private CustList<RendDynOperationNode> getExpsHasNextPairCust() {
         return expsHasNextPairCust;
     }
 
-    public CustList<RendDynOperationNode> getExpsNextPairCust() {
+    private CustList<RendDynOperationNode> getExpsNextPairCust() {
         return expsNextPairCust;
     }
 
-    public CustList<RendDynOperationNode> getExpsFirstCust() {
+    private CustList<RendDynOperationNode> getExpsFirstCust() {
         return expsFirstCust;
     }
 
-    public CustList<RendDynOperationNode> getExpsSecondCust() {
+    private CustList<RendDynOperationNode> getExpsSecondCust() {
         return expsSecondCust;
     }
 

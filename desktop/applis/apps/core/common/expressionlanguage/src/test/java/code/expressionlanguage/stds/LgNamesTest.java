@@ -125,17 +125,6 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
 
-    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
-        AnalysisMessages mess_ = new AnalysisMessages();
-        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, new Options(), kw_, lgName_, 4);
-        ctx_.setAnalyzing();
-        ctx_.getAnalyzing().setAnalysisMessages(mess_);
-        ctx_.getAnalyzing().setKeyWords(kw_);
-        AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
-        assertTrue(ctx_.isEmptyMessageError());
-        return ctx_;
-    }
-
     @Test
     public void fail7Test() {
         DefaultLockingClass lk_ = new DefaultLockingClass();
@@ -2199,8 +2188,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> all_ = new StringMap<String>();
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
-        ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_);
-        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>());
+        Options options_ = new Options();
+        ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
+        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
         assertTrue(contextEl_.isEmptyErrors());
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2231,8 +2221,9 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> all_ = new StringMap<String>();
         all_.putAllMap(srcFiles_);
         all_.putAllMap(others_);
-        ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_);
-        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>());
+        Options options_ = new Options();
+        ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
+        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
         assertTrue(contextEl_.isEmptyErrors());
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2241,6 +2232,21 @@ public class LgNamesTest extends ProcessMethodCommon {
         Argument ret_ = ProcessMethod.calculateArgument(argGlLoc_, "pkg.Ex", classBody_, method_, new Parameters(), contextEl_);
         assertNull(getException(contextEl_));
         assertEq(2, getNumber(ret_));
+    }
+
+    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options) {
+        AnalysisMessages mess_ = new AnalysisMessages();
+        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, kw_, lgName_, 4);
+        ctx_.setAnalyzing();
+        ctx_.getAnalyzing().setAnalysisMessages(mess_);
+        ctx_.getAnalyzing().setKeyWords(kw_);
+        AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
+        assertTrue(ctx_.isEmptyMessageError());
+        return ctx_;
+    }
+
+    public static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
+        return getCtx(lk_, di_, kw_, lgName_, new Options());
     }
     @Test
     public void parseLineArg1Test() {

@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.*;
@@ -11,7 +10,7 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 
@@ -75,8 +74,9 @@ public final class Classes {
         }
         forwardAndClear(_context);
         AnalysisMessages analysisMessages_ = _context.getAnalyzing().getAnalysisMessages();
+        Options options_ = _context.getAnalyzing().getOptions();
         _context.setNullAnalyzing();
-        tryInitStaticlyTypes(_context,analysisMessages_,messages_);
+        tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
         return messages_;
     }
 
@@ -97,7 +97,7 @@ public final class Classes {
         }
     }
 
-    public static void tryInitStaticlyTypes(ContextEl _context,AnalysisMessages _mess,ReportedMessages _reported) {
+    public static void tryInitStaticlyTypes(ContextEl _context, AnalysisMessages _mess, ReportedMessages _reported, Options _options) {
         Classes cl_ = _context.getClasses();
         for (ClassMetaInfo c: cl_.getClassMetaInfos()) {
             String name_ = c.getName();
@@ -147,7 +147,7 @@ public final class Classes {
         _context.getInitializingTypeInfos().resetInitEnums(_context);
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.LIST);
         dl_.initAlwaysSuccess();
-        for (String t: _context.getOptions().getTypesInit()) {
+        for (String t: _options.getTypesInit()) {
             String res_ = StringExpUtil.removeDottedSpaces(t);
             ExecRootBlock classBody_ = _context.getClasses().getClassBody(res_);
             if (classBody_ == null) {
@@ -158,7 +158,7 @@ public final class Classes {
         }
         _context.getInitializingTypeInfos().resetInitEnums(_context);
         StringList notInit_ = dl_.initAlwaysSuccess();
-        if (_context.getOptions().isFailIfNotAllInit()) {
+        if (_options.isFailIfNotAllInit()) {
             for (String s: notInit_) {
                 ExecRootBlock r_ = cl_.getClassBody(s);
                 ExecFileBlock file_ = r_.getFile();

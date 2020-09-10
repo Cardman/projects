@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -87,30 +88,29 @@ public final class GuiProcess implements Runnable {
         opt_.setFailIfNotAllInit(true);
         opt_.getComments().addAllElts(exec_.getComments());
         LgNamesGui stds_ = new LgNamesGui(new FileInfos(new DefaultResourcesReader(),new DefaultLogger(), new DefaultFileSystem(), new DefaultReporter(), _window.getGenerator()));
-        GuiContextEl cont_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
-        if (cont_ == null) {
-            return null;
-        }
-        CustContextFactory.reportErrors(cont_,stds_,opt_,exec_);
-        if (!exec_.getMethodHeaders().isEmptyErrors()) {
+        ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_,_window,opt_, exec_, stds_, zipFiles_, exec_.getTabWidth());
+        GuiContextEl cont_ = res_.getRunnable();
+        ReportedMessages reportedMessages_ = res_.getReportedMessages();
+        CustContextFactory.reportErrors(cont_,stds_,opt_,exec_, reportedMessages_);
+        if (!reportedMessages_.isEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayErrors());
             return null;
         }
         if (!cont_.isEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayWarnings());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayStdErrors());
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayMessageErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayWarnings());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayStdErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayMessageErrors());
             return null;
         }
-        if (!exec_.getMethodHeaders().isEmptyWarnings()) {
+        if (!reportedMessages_.isEmptyWarnings()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayWarnings());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayWarnings());
         }
         GuiProcess pr_ = new GuiProcess();
         pr_.executingOptions = exec_;

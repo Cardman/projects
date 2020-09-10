@@ -1,7 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.analyze.MethodHeaders;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
@@ -28,7 +26,6 @@ public final class ExecutingOptions {
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
-    private ReportedMessages methodHeaders = new ReportedMessages();
 
     public String getSrcFolder() {
         return srcFolder;
@@ -162,11 +159,4 @@ public final class ExecutingOptions {
         this.comments = comments;
     }
 
-    public ReportedMessages getMethodHeaders() {
-        return methodHeaders;
-    }
-
-    public void setMethodHeaders(ReportedMessages methodHeaders) {
-        this.methodHeaders = methodHeaders;
-    }
 }

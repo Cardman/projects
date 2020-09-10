@@ -47,11 +47,9 @@ public class RunnableContextEl extends ContextEl implements Locking {
     protected RunnableContextEl(ContextEl _context) {
         getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
         setClasses(_context.getClasses());
-        setOptions(_context.getOptions());
         setStandards(_context.getStandards());
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
-        setCovering(_context.isCovering());
         setCoverage(_context.getCoverage());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;

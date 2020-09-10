@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -16,7 +17,7 @@ import code.util.StringMap;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
-    public static RunnableContextEl buildDefKw(String _lang,
+    public static ResultsRunnableContext buildDefKw(String _lang,
             Options _options, ExecutingOptions _exec,LgNamesUtils _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
@@ -61,11 +62,13 @@ public final class CustContextFactory {
                                KeyWords _definedKw,
                                LgNamesUtils _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
-        RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
+        ResultsRunnableContext res_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
-        CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec);
-        if (!_exec.getMethodHeaders().isEmptyErrors()||!rCont_.isEmptyErrors()) {
-            _progressingTests.showErrors(rCont_,_options,_exec);
+        RunnableContextEl rCont_ = res_.getRunnable();
+        ReportedMessages reportedMessages_ = res_.getReportedMessages();
+        CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec, reportedMessages_);
+        if (!reportedMessages_.isEmptyErrors()||!rCont_.isEmptyErrors()) {
+            _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
             return;
         }
         String infoTest_ = _definedLgNames.getAliasInfoTest();
@@ -80,7 +83,7 @@ public final class CustContextFactory {
                 _definedLgNames.getAliasExecute(), rCont_.getExecuteType(), fctBody_,
                 new CustList<Argument>(argMethod_), rCont_);
         showUpdates_.stop();
-        if (rCont_.isCovering()) {
+        if (_options.isCovering()) {
             String exp_ = _exec.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
                 _definedLgNames.coverFile(exp_,f.getKey(),f.getValue(),rCont_);
@@ -88,20 +91,20 @@ public final class CustContextFactory {
         }
         _progressingTests.setResults(rCont_,arg_);
     }
-    public static void reportErrors(RunnableContextEl _ctx, LgNamesUtils _definedLgNames, Options _opts, ExecutingOptions _exec) {
+    public static void reportErrors(RunnableContextEl _ctx, LgNamesUtils _definedLgNames, Options _opts, ExecutingOptions _exec, ReportedMessages _reportedMessages) {
         if (_exec.isErrors()) {
             String exp_ = _exec.getErrorsFolder();
-            for (EntryCust<String,String> f:_exec.getMethodHeaders().getErrors().entryList()) {
+            for (EntryCust<String,String> f: _reportedMessages.getErrors().entryList()) {
                 _definedLgNames.errorFile(exp_,f.getKey(),f.getValue(),_ctx);
             }
         }
     }
-    public static RunnableContextEl build(int _stack,
+    public static ResultsRunnableContext build(int _stack,
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
         RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
-        _exec.setMethodHeaders(ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments()));
-        return r_;
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
+        return new ResultsRunnableContext(r_,reportedMessages_);
     }
 }

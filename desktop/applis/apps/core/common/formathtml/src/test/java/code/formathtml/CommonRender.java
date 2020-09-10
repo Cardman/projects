@@ -284,7 +284,7 @@ public abstract class CommonRender {
             Classes.forwardAndClear(_context.getContext());
             AnalysisMessages analysisMessages_ = _context.getContext().getAnalyzing().getAnalysisMessages();
             ReportedMessages messages_ = _context.getContext().getAnalyzing().getMessages();
-            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_);
+            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_, _context.getContext().getAnalyzing().getOptions());
         }
         addInnerPage(_context);
     }

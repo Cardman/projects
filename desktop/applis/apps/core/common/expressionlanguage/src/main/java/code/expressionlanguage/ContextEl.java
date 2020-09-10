@@ -28,8 +28,6 @@ public abstract class ContextEl {
 
     private int stackOverFlow;
 
-    private Options options;
-
     private CallingState callingState;
 
     private LgNames standards;
@@ -41,8 +39,6 @@ public abstract class ContextEl {
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
     private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
-    private boolean covering;
-    private boolean gettingErrors;
     private Coverage coverage;
     private AbstractFullStack fullStack;
     private Struct seed = NullStruct.NULL_VALUE;
@@ -51,14 +47,11 @@ public abstract class ContextEl {
                      DefaultLockingClass _lock, Options _options,
                      LgNames _stds, int _tabWitdth) {
         this();
-        setGettingErrors(_options.isGettingErrors());
-        setCovering(_options.isCovering());
-        setOptions(_options);
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
         setTabWidth(_tabWitdth);
         setClasses(new Classes());
-        setCoverage(new Coverage());
+        setCoverage(new Coverage(_options.isCovering()));
         classes.setLocks(_lock);
     }
     protected ContextEl() {
@@ -71,14 +64,6 @@ public abstract class ContextEl {
             return c_;
         }
         return standards.getStandards().getVal(_type);
-    }
-
-    public Options getOptions() {
-        return options;
-    }
-
-    public void setOptions(Options _options) {
-        options = _options;
     }
 
     public int getStackOverFlow() {
@@ -151,19 +136,11 @@ public abstract class ContextEl {
     }
 
     public boolean isCovering() {
-        return covering;
-    }
-
-    public void setCovering(boolean _covering) {
-        covering = _covering;
+        return coverage.isCovering();
     }
 
     public boolean isGettingErrors() {
-        return gettingErrors;
-    }
-
-    public void setGettingErrors(boolean _gettingErrors) {
-        gettingErrors = _gettingErrors;
+        return analyzing.isGettingErrors();
     }
 
     public void clearPages() {

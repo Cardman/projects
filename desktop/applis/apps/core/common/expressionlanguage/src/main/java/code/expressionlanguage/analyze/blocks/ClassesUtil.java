@@ -55,7 +55,7 @@ public final class ClassesUtil {
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = _context.getClasses().getToStringMethodsToCallBodies();
         AnalyzedPageEl page_ = _context.getAnalyzing();
         _context.setAnnotAnalysis(false);
-        if (!_context.getOptions().isReadOnly()) {
+        if (!page_.getOptions().isReadOnly()) {
             validateFinals(_context);
         } else {
             validateSimFinals(_context);

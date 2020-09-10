@@ -37,40 +37,46 @@ public final class Coverage {
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private KeyWords keyWords;
+    private final boolean covering;
+
+    public Coverage(boolean covering) {
+        this.covering = covering;
+    }
+
     public void putFile(ContextEl _context, FileBlock _file) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         files.add(_file);
     }
 
     public void putType(ContextEl _context, RootBlock _type) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         refFoundTypes.add(_type);
     }
 
     public void putOperator(ContextEl _context, OperatorBlock _type) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         refOperators.add(_type);
     }
     public void putBlockOperationsLoops(ContextEl _context, Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         coverLoops.put(_block,new BooleanCoverageResult());
     }
     public void putBlockOperationsConditions(ContextEl _context, Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         coversConditions.put(_block,new BooleanCoverageResult());
     }
     public void putBlockOperationsSwitchs(ContextEl _context, Block _block, boolean _def) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         coverSwitchs.put(_block, new IdMap<Block, StandardCoverageResult>());
@@ -79,26 +85,26 @@ public final class Coverage {
         }
     }
     public void putBlockOperationsSwitchs(ContextEl _context, Block _block, Block _child) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         coverSwitchs.getVal(_block).put(_child, new StandardCoverageResult());
     }
     public void putBlockOperations(ContextEl _context, Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         covers.put(_block, new IdMap<OperationNode, AbstractCoverageResult>());
         getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperations(ContextEl _context, ExecBlock _exec,Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         getMappingBlocks().put(_exec,_block);
     }
     public void putBlockOperationsField(ContextEl _context, Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         if (_context.isAnnotAnalysisField()) {
@@ -108,7 +114,7 @@ public final class Coverage {
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
     public void putBlockOperation(ContextEl _context, Block _block,  OperationNode _root,OperationNode _op, ExecOperationNode _exec) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         if (_context.isAnnotAnalysis()) {
@@ -162,33 +168,33 @@ public final class Coverage {
         }
     }
     public void putCalls(ContextEl _context, String _type) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         calls.put(_type,new IdMap<NamedFunctionBlock,Boolean>());
     }
     public void putCalls(ContextEl _context, String _type,NamedFunctionBlock _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         calls.getVal(_type).put(_block,false);
     }
     public void putCatches(ContextEl _context, Block _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         catches.put(_block,false);
     }
 
     public void putToStringOwner(ContextEl _context, String _owner) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         toStringOwners.add(_owner);
     }
 
     public void passLoop(ContextEl _context, Argument _value) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
@@ -198,7 +204,7 @@ public final class Coverage {
         cov_.cover(_value);
     }
     public void passConditions(ContextEl _context, Argument _value, ExecOperationNode _exec) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
@@ -212,7 +218,7 @@ public final class Coverage {
         }
     }
     public void passSwitch(ContextEl _context, ExecBlock _child,Argument _value) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
@@ -222,7 +228,7 @@ public final class Coverage {
         cov_.cover(_value);
     }
     public void passSwitch(ContextEl _context, Argument _value) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         ReadWrite rw_ = _context.getLastPage().getReadWrite();
@@ -232,7 +238,7 @@ public final class Coverage {
         cov_.cover(_value);
     }
     public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, Argument _value, boolean _full) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
@@ -259,7 +265,7 @@ public final class Coverage {
         }
     }
     public void passCalls(ContextEl _context, String _type,ExecNamedFunctionBlock _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         IdMap<NamedFunctionBlock, Boolean> val_ = calls.getVal(_type);
@@ -269,7 +275,7 @@ public final class Coverage {
         val_.set((NamedFunctionBlock)mappingBlocks.getVal(_block),true);
     }
     public void passCatches(ContextEl _context, ExecBlock _block) {
-        if (!_context.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         catches.set(mappingBlocks.getVal(_block),true);
@@ -350,9 +356,13 @@ public final class Coverage {
     }
 
     public void setKeyWords(ContextEl _cont,KeyWords keyWords) {
-        if (!_cont.isCovering()) {
+        if (!isCovering()) {
             return;
         }
         this.keyWords = keyWords;
+    }
+
+    public boolean isCovering() {
+        return covering;
     }
 }

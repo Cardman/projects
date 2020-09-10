@@ -11,8 +11,6 @@ import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.util.Members;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.AnaGeneType;
@@ -29,6 +27,7 @@ import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.types.*;
 import code.util.*;
@@ -135,6 +134,8 @@ public final class AnalyzedPageEl {
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private AnalysisMessages analysisMessages;
     private KeyWords keyWords;
+    private boolean gettingErrors;
+    private Options options;
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -800,5 +801,21 @@ public final class AnalyzedPageEl {
 
     public void setKeyWords(KeyWords keyWords) {
         this.keyWords = keyWords;
+    }
+
+    public boolean isGettingErrors() {
+        return gettingErrors;
+    }
+
+    public void setGettingErrors(boolean gettingErrors) {
+        this.gettingErrors = gettingErrors;
+    }
+
+    public Options getOptions() {
+        return options;
+    }
+
+    public void setOptions(Options options) {
+        this.options = options;
     }
 }

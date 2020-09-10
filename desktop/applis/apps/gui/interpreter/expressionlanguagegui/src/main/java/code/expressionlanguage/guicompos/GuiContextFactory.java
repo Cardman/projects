@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.utilcompo.CustLockingClass;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
@@ -11,7 +12,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class GuiContextFactory {
-    public static GuiContextEl buildDefKw(String _lang, StringList _mainArgs, MainWindow _window,
+    public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs, MainWindow _window,
                                           Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, int _tabWidth) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
@@ -30,13 +31,13 @@ public final class GuiContextFactory {
         }
         return build(_mainArgs,_window,CustList.INDEX_NOT_FOUND_ELT, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _tabWidth);
     }
-    public static GuiContextEl build(StringList _mainArgs, MainWindow _window, int _stack,
-                                     Options _options, ExecutingOptions _exec, AnalysisMessages _mess,KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
+    public static ResultsGuiContext build(StringList _mainArgs, MainWindow _window, int _stack,
+                                               Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         GuiInitializer ci_ = new GuiInitializer();
         GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
         r_.initApplicationParts(_mainArgs,_window);
-        _exec.setMethodHeaders(ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments()));
-        return r_;
+        ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
+        return new ResultsGuiContext(r_,reportedMessages_);
     }
 }

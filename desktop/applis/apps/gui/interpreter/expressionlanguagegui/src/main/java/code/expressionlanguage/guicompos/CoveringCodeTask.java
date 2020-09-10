@@ -18,7 +18,7 @@ public final class CoveringCodeTask implements Runnable {
 
     @Override
     public void run() {
-        if (contextEl.isCovering()) {
+        if (executingOptions.isCovering()) {
             contextEl.getCustInit().joinHooks(contextEl);
             String exp_ = executingOptions.getCoverFolder();
             for (EntryCust<String,String> f:ExecFileBlock.export(contextEl).entryList()) {
