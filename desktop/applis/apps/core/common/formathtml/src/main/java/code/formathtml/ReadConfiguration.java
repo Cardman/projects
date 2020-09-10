@@ -79,9 +79,6 @@ public final class ReadConfiguration {
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
         rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
         rkw_.validateDuplicates(_conf,allStyleUnits_);
-        for (StdWordError s: _conf.getStdErrorDet()) {
-            context_.addStdError(s);
-        }
         if (!context_.isEmptyStdError()) {
             _conf.setContext(null);
             return;

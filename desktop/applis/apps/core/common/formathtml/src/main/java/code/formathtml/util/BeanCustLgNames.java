@@ -863,22 +863,22 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         setupRendClasses(_conf,_files);
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        if (!_conf.isEmptyErrors()) {
-            return false;
+        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
+        if (!messages_.isEmptyErrors()) {
+            return messages_;
         }
         Classes.forwardAndClear(_conf.getContext());
         buildIterables(_conf);
         AnalysisMessages analysisMessages_ = _conf.getContext().getAnalyzing().getAnalysisMessages();
-        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
-        return true;
+        return messages_;
     }
 
     public void setupRendClasses(Configuration _conf, StringMap<String> _files) {
@@ -901,7 +901,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         //!classFiles_.isEmpty()
         Classes.validateWithoutInit(classFiles_, _conf.getContext());
-        setReportedMessages(_conf.getContext().getAnalyzing().getMessages());
     }
     @Override
     public void preInitBeans(Configuration _conf) {

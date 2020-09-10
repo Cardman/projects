@@ -16,7 +16,6 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.expressionlanguage.instr.*;
 
@@ -107,9 +106,6 @@ public final class Configuration {
     private String currentLanguage = "";
     private final RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private final RendKeyWords rendKeyWords = new RendKeyWords();
-    private final StdErrorList stdErrorDet = new StdErrorList();
-    private final ErrorList errorsDet = new ErrorList();
-    private final WarningList warningsDet = new WarningList();
     private RendDocumentBlock rendDocumentBlock;
 
     public ArrayStruct newStackTraceElementArray() {
@@ -388,12 +384,12 @@ public final class Configuration {
 
     public void addWarning(FoundWarningInterpret _warning) {
         _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
-        warningsDet.add(_warning);
+        context.getAnalyzing().addWarning(_warning);
     }
 
     public void addError(FoundErrorInterpret _error) {
         _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
-        errorsDet.add(_error);
+        context.getAnalyzing().addError(_error);
     }
 
     public RendAnalysisMessages getRendAnalysisMessages() {
@@ -405,23 +401,15 @@ public final class Configuration {
     }
 
     public void addStdError(StdWordError _err) {
-        stdErrorDet.add(_err);
-    }
-
-    public StdErrorList getStdErrorDet() {
-        return stdErrorDet;
+        context.getAnalyzing().addStdError(_err);
     }
 
     public boolean isEmptyStdErrors() {
-        return stdErrorDet.isEmpty();
+        return context.getAnalyzing().isEmptyStdError();
     }
 
     public boolean isEmptyErrors() {
-        return standards.getReportedMessages().isEmptyErrors() && getErrorsDet().isEmpty();
-    }
-
-    public ErrorList getErrorsDet() {
-        return errorsDet;
+        return context.getAnalyzing().isEmptyErrors();
     }
 
     public Classes getClasses() {

@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -129,7 +130,12 @@ public final class ThreadActions implements Runnable {
                     }
                 } else {
                     page.getNavigation().setFiles(fileNames);
-                    if (!page.getNavigation().setupRendClassesInit()) {
+                    ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit();
+                    if (!reportedMessages_.isEmptyErrors()) {
+                        if (page.getArea() != null) {
+                            page.getArea().append(reportedMessages_.displayErrors());
+                        }
+                        finish();
                         return;
                     }
                 }
@@ -210,11 +216,6 @@ public final class ThreadActions implements Runnable {
         }
         Document doc_ = page.getNavigation().getDocument();
         if (doc_ == null) {
-            if (page.getArea() != null) {
-                page.getArea().append(conf_.getAdvStandards().getReportedMessages().displayErrors());
-                page.getArea().append("\n");
-                page.getArea().append(conf_.getErrorsDet().display());
-            }
             finish();
             return;
         }

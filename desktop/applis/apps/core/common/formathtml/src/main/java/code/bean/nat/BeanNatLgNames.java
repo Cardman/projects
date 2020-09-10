@@ -3,6 +3,7 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
@@ -411,11 +412,12 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         _nav.initInstancesPattern();
         _nav.setupRenders();
+        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
         _conf.getContext().setNullAnalyzing();
-        return true;
+        return messages_;
     }
     public abstract Struct wrapStd(Object _element);
 

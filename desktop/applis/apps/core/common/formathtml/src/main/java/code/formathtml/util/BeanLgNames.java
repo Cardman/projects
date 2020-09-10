@@ -17,7 +17,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.*;
 import code.formathtml.exec.RendDynOperationNode;
-import code.formathtml.exec.RendFctOperation;
 import code.formathtml.exec.RendSettableFieldOperation;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
@@ -29,7 +28,6 @@ public abstract class BeanLgNames extends LgNames {
     public static final String OFF = "off";
     public static final String ON = "on";
 
-    private ReportedMessages reportedMessages = new ReportedMessages();
     public BeanLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
@@ -156,7 +154,7 @@ public abstract class BeanLgNames extends LgNames {
 
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
-    public abstract boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
+    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
     protected static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
@@ -230,11 +228,4 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract Message validate(Configuration _conf,NodeContainer _cont, String _validatorId);
 
-    public ReportedMessages getReportedMessages() {
-        return reportedMessages;
-    }
-
-    public void setReportedMessages(ReportedMessages _reportedMessages) {
-        reportedMessages = _reportedMessages;
-    }
 }

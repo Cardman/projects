@@ -6488,7 +6488,7 @@ public final class RenderNavigationTest extends CommonRender {
         setupAna(_nav.getSession());
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        assertTrue(!_nav.setupRendClassesInit());
+        assertTrue(!_nav.setupRendClassesInit().isEmptyErrors());
     }
     private static void initSessionFail(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));

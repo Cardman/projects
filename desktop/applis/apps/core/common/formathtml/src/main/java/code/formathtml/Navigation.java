@@ -1,4 +1,5 @@
 package code.formathtml;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -119,7 +120,7 @@ public final class Navigation {
         setupText(htmlText);
     }
 
-    public boolean setupRendClassesInit() {
+    public ReportedMessages setupRendClassesInit() {
         return session.getAdvStandards().setupAll(this,session,files);
     }
 
