@@ -245,13 +245,14 @@ public final class AnalysisMessagesTest {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, def_,kw_, lgName_, opts_);
+        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         s_.setAnalyzing();
+        s_.getAnalyzing().setAnalysisMessages(def_);
         AnalysisMessages.validateMessageContents(s_,def_.allMessages());
         assertTrue(!s_.isEmptyMessageError());
     }
 
-    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, AnalysisMessages _mess, KeyWords kw_, LgNames lgName_, Options opts_) {
-        return new SingleContextEl(-1,lk_,di_,opts_,_mess,kw_,lgName_,4);
+    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
+        return new SingleContextEl(-1,lk_,di_,opts_, kw_,lgName_,4);
     }
 }

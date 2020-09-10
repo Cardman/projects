@@ -958,9 +958,6 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
-        MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
-        _cont.setAnalyzing();
-        _cont.getAnalyzing().setHeaders(headers_);
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
         assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
         ClassesUtil.validateInheritingClasses(_cont);
@@ -970,9 +967,6 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
     private static ContextEl simpleContextEl() {
         ContextEl cont_ = getSimpleContextEl();
-        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
-        cont_.setAnalyzing();
-        cont_.getAnalyzing().setHeaders(headers_);
         ProcessMethodCommon.buildPredefinedBracesBodies(cont_);
         return cont_;
     }

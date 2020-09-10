@@ -13,8 +13,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", "");
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">" +
                 "<a title=\"Bad index by parsing.\" class=\"e\"> " +
                 "</a></span></pre></body></html>", filesExp_.firstValue());
@@ -24,8 +23,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", "\b");
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"The characters ascii 8 are illegal.\" class=\"e\">\b</a></span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
@@ -38,8 +36,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class pkg.Ex {\n" +
                 " $public $static $int exmeth(){\n" +
                 "  $return 1i;\n" +
@@ -60,8 +57,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a> {\n" +
                 " $public $int <a name=\"m41\">v</a>;\n" +
                 " $public $int <a name=\"m58\">w</a>;\n" +
@@ -79,8 +75,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class pkg.ExTwo{} $publ<a title=\"Bad index by parsing.\" class=\"e\">i</a></span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
@@ -91,8 +86,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a>{}\n" +
                 "$public $class <a name=\"m42\" title=\"The type name pkg.ExTwo is duplicated with an other custom type.\" class=\"e\">pkg.ExTwo</a>{}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -106,8 +100,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.ExTwo</a>{\n" +
                 " $public $class <a name=\"m42\" title=\"The inner type simple name ExTwo is duplicated.\" class=\"e\">ExTwo</a>{}\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
@@ -121,8 +114,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"A type must have an non empty package.\" class=\"e\">ExTwo</a>{\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -135,8 +127,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The part #ExTwo in a type is not valid. It must be a word.\" class=\"e\">a.#ExTwo</a>{\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -149,8 +140,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The part #a in a type is not valid. It must be a word.\" class=\"e\">#a.ExTwo</a>{\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -163,8 +153,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"A type must have an non empty package.\n" +
                 "\n" +
                 "The part . in a type is not valid. It must be a word.\" class=\"e\">.</a>{\n" +
@@ -179,8 +168,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"A type must have an non empty package.\n" +
                 "\n" +
                 "The part .ExTwo in a type is not valid. It must be a word.\" class=\"e\">.ExTwo</a>{\n" +
@@ -195,8 +183,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a><a name=\"m24\" title=\"The part must not be empty.\" class=\"e\">&lt;</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -210,8 +197,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a><a name=\"m24\" title=\"The part must not be empty.\" class=\"e\">&lt;</a>,<a name=\"m26\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -225,8 +211,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">T</a><a name=\"m26\" title=\"The part must not be empty.\" class=\"e\">,</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -240,8 +225,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a><a name=\"m24\" title=\"The part must not be empty.\" class=\"e\">&lt;</a><a name=\"m25\" title=\"The part must not be empty.\" class=\"e\">,</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -255,8 +239,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\" title=\"The part T# in a variable type is not valid. It must be a word.\" class=\"e\">T#</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -270,8 +253,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">S</a>,<a name=\"m27\" title=\"The part T# in a variable type is not valid. It must be a word.\" class=\"e\">T#</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -285,8 +267,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Outer</a>&lt;<a name=\"m25\">T</a>,<a name=\"m27\" title=\"The part T in a type variable is duplicated.\" class=\"e\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -301,8 +282,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
@@ -320,8 +300,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
@@ -339,8 +318,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
@@ -360,8 +338,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
@@ -382,8 +359,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.sub.MyClass</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m50\" title=\"The type name pkg.sub is shadowed by the package pkg.sub.\" class=\"e\">pkg.sub</a> {\n" +
@@ -401,8 +377,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.sub.two.MyClass</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m54\" title=\"The type name pkg.sub is shadowed by the package pkg.sub.\n" +
@@ -420,8 +395,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type cannot be the key word $void.\n" +
                 "\n" +
                 "The type cannot be the key word $void.\n" +
@@ -438,8 +412,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $abstract $class <a name=\"m25\" title=\"The type pkg.MyClass cannot have explicitly the type java.lang.CharSequence as super type because java.lang.CharSequence is reserved." +
                 "\" class=\"e\">pkg.MyClass</a>:java.lang.CharSequence {\n" +
                 "}\n" +
@@ -455,8 +428,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\" title=\"The type pkg.MyAnnotation cannot have the type MyClass as super type." +
                 "\" class=\"e\">pkg.MyAnnotation</a>:<a title=\"pkg.MyClass\" href=\"#m74\">MyClass</a> {\n" +
                 "}\n" +
@@ -474,8 +446,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have explicitly the type java.lang.$Enum as super type because java.lang.$Enum is reserved." +
                 "\" class=\"e\">pkg.MyClass</a>:$Enum&lt;<a title=\"pkg.MyEnum\" href=\"#m59\">MyEnum</a>&gt; {\n" +
                 "}\n" +
@@ -491,8 +462,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have explicitly the type java.lang.$en as super type because java.lang.$en is reserved." +
                 "\" class=\"e\">pkg.MyClass</a>:$en {\n" +
                 "}\n" +
@@ -508,8 +478,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have the type pkg.MySuper duplicated as super type 2 times.\n" +
                 "\n" +
                 "The super types of the type pkg.MyClass could not be found." +
@@ -531,8 +500,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MyClass cannot have the type pkg.MySuper..Inner as super type because pkg.MySuper..Inner is instance type.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySuper\" href=\"#m60\">MySuper</a>.<a title=\"pkg.MySuper..Inner\" href=\"#m90\">Inner</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m60\">pkg.MySuper</a> {\n" +
@@ -555,8 +523,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyOuter</a> {\n" +
                 " $public $class <a name=\"m45\" title=\"The type pkg.MyOuter..MyClass cannot have the type pkg.MyOuter..MySuper..Inner as super type because pkg.MyOuter..MyClass has 1 parents types and pkg.MyOuter..MySuper..Inner has 2 parents types.\n" +
                 "\n" +
@@ -579,8 +546,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\" title=\"The interface pkg.MyInt cannot have the type pkg.MyClass as super type because pkg.MyClass is not an interface.\" class=\"e\">pkg.MyInt</a>:<a title=\"pkg.MyClass\" href=\"#m56\">MyClass</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m56\">pkg.MyClass</a> {\n" +
@@ -597,8 +563,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySub cannot have the type pkg.MyClass as super type because pkg.MyClass is final.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyClass\" href=\"#m59\">MyClass</a> {\n" +
                 "}\n" +
                 "$public $final $class <a name=\"m59\">pkg.MyClass</a> {\n" +
@@ -617,8 +582,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The class pkg.MySub cannot have more than one super class (2 times).\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyClass\" href=\"#m63\">MyClass</a>:<a title=\"pkg.MySecClass\" href=\"#m94\">MySecClass</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m63\">pkg.MyClass</a> {\n" +
@@ -640,8 +604,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
                 "\n" +
                 "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"The type MySupOne,MySupTwo is unknown.\" class=\"e\">MySupOne,MySupTwo</a> {\n" +
@@ -663,8 +626,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySup is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m52\">MySup</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m52\">pkg.MySup</a>&lt;<a name=\"m62\">T</a>&gt; {\n" +
@@ -684,8 +646,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySup&lt;java.lang.Integer&gt; is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>:<a title=\"pkg.MySup\" href=\"#m61\">MySup</a>&lt;Integer&gt; {\n" +
                 "}\n" +
                 "$public $class <a name=\"m61\">pkg.MySup</a>&lt;<a name=\"m71\">T</a>:<a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>&gt; {\n" +
@@ -705,8 +666,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>:<a title=\"The type pkgtwo.MyCl is not accessible from the type pkg.MyClass.\n" +
                 "\n" +
                 "pkgtwo.MyCl\" href=\"#m59\" class=\"e\">pkgtwo.MyCl</a> {\n" +
@@ -725,8 +685,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySub cannot have the type pkg.MyInt duplicated as super type 2 times.\n" +
                 "\n" +
                 "The super types of the type pkg.MySub could not be found.\n" +
@@ -749,8 +708,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The generic super types pkg.MyInt&lt;java.lang.String&gt;&amp;pkg.MyInt&lt;java.lang.Object&gt; are duplicated.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MySubInTwo\" href=\"#m84\">MySubInTwo</a>&lt;String&gt;:<a title=\"pkg.MySubInt\" href=\"#m133\">MySubInt</a>&lt;Object&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m84\">pkg.MySubInTwo</a>&lt;<a name=\"m99\">U</a>&gt;:<a title=\"pkg.MyInt\" href=\"#m180\">MyInt</a>&lt;<a href=\"#m99\">U</a>&gt; {}\n" +
@@ -769,8 +727,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MySub cannot have the type pkg.MyInt duplicated as super type 2 times.\n" +
                 "\n" +
                 "The super types of the type pkg.MySub could not be found.\n" +
@@ -797,8 +754,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The argument ?pkg.MyIntTwo of the generic super type pkg.MyInt&lt;?pkg.MyIntTwo&gt; is bound. It cannot be used in generic super type.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m65\">MyInt</a>&lt;?<a title=\"pkg.MyIntTwo\" href=\"#m101\">MyIntTwo</a>&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m65\">pkg.MyInt</a>&lt;<a name=\"m75\">T</a>&gt; {\n" +
@@ -819,8 +775,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The argument !pkg.MyIntTwo of the generic super type pkg.MyInt&lt;!pkg.MyIntTwo&gt; is bound. It cannot be used in generic super type.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m65\">MyInt</a>&lt;!<a title=\"pkg.MyIntTwo\" href=\"#m101\">MyIntTwo</a>&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m65\">pkg.MyInt</a>&lt;<a name=\"m75\">T</a>&gt; {\n" +
@@ -839,8 +794,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m56\">MyInt</a><a title=\"The type MyInt&lt;&gt; is unknown.\" class=\"e\">&lt;</a>&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m56\">pkg.MyInt</a>&lt;<a name=\"m66\">T</a>&gt; {\n" +
@@ -857,8 +811,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MySub</a>:<a title=\"pkg.MyInt\" href=\"#m57\">MyInt</a><a title=\"The type MyInt&lt;!&gt; is unknown.\" class=\"e\">&lt;</a>!&gt; {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m57\">pkg.MyInt</a>&lt;<a name=\"m67\">T</a>&gt; {\n" +
@@ -875,8 +828,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\" title=\"The method name #method is not valid. It must be a word.\" class=\"e\">#method</a>(){\n" +
                 " }\n" +
@@ -893,8 +845,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
                 " }\n" +
@@ -913,8 +864,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>(){\n" +
                 " }\n" +
@@ -933,8 +883,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a> <a name=\"m44\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>(){\n" +
                 " }\n" +
@@ -953,8 +902,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public <a title=\"pkg.MyParam\" href=\"#m82\">MyParam</a>&lt;String<a title=\"The type pkg.MyParam is not parameterized correctly.\" class=\"e\">&gt;</a> <a name=\"m52\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>(){\n" +
                 " }\n" +
@@ -977,8 +925,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public <a title=\"pkg.MyParam\" href=\"#m82\">MyParam</a><a title=\"The type pkg.MyParam&lt;java.lang.String&gt; is not parameterized correctly.\" class=\"e\">&lt;</a>String&gt; <a name=\"m52\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>(){\n" +
                 " }\n" +
@@ -999,8 +946,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">t</a>,$int <a title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
                 " }\n" +
@@ -1019,8 +965,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a name=\"m28\">$public MySub(</a>){\n" +
                 " }\n" +
@@ -1039,8 +984,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a name=\"m28\">$public MySub(</a>$int <a name=\"m47\" title=\"The parameter method name #t is not valid. It must be a word.\" class=\"e\">#t</a>){\n" +
                 " }\n" +
@@ -1057,8 +1001,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a name=\"m28\">$public MySub(</a>$int <a name=\"m47\">t</a>,$int <a name=\"m54\" title=\"The parameter function name t is duplicated.\" class=\"e\">t</a>){\n" +
                 " }\n" +
@@ -1075,8 +1018,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $operator<a name=\"m37\" title=\"The operator symbol &lt;&gt; is not valid.\n" +
                 "\n" +
@@ -1095,8 +1037,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"The indexer []($int) set must be defined.\n" +
                 "\n" +
@@ -1115,8 +1056,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\" title=\"The indexer []=($int) get must be defined.\" class=\"e\">$this</a>($int <a name=\"m53\">i</a>){\n" +
                 " }\n" +
@@ -1135,8 +1075,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 " }\n" +
@@ -1161,8 +1100,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">$this</a>($int <a name=\"m53\">i</a>){\n" +
                 " }\n" +
@@ -1186,8 +1124,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m38\" title=\"The method name #annot is not valid. It must be a word.\" class=\"e\">#annot</a>();\n" +
                 "}\n" +
@@ -1202,8 +1139,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\">#ONE</a>\n" +
                 "}\n" +
@@ -1219,8 +1155,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\">#ONE</a>;\n" +
                 " <a name=\"m34\">$public MySub(</a>){}\n" +
@@ -1239,8 +1174,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"The block is unexpected.\" class=\"e\">$if</a>($true){}\n" +
                 " {\n" +
@@ -1258,8 +1192,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a title=\"The field name #e is not valid. It must be a word.\" class=\"e\">#e</a>;\n" +
                 "}\n" +
@@ -1274,8 +1207,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">e</a>,<a title=\"the field name e is duplicated.\" class=\"e\">e</a>;\n" +
                 "}\n" +
@@ -1290,8 +1222,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a title=\"No field could be retrieved.\" class=\"e\">e+e</a>;\n" +
                 "}\n" +
@@ -1309,8 +1240,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $return 1;\n" +
@@ -1332,8 +1262,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$if</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
@@ -1358,8 +1287,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">v</a> = 1;\n" +
                 " $public $int <a name=\"m54\">method</a>() {\n" +
@@ -1384,8 +1312,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">$while</a> <a title=\"There must be an expression.\" class=\"e\">(</a>){\n" +
@@ -1408,8 +1335,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $do{}\n" +
@@ -1431,8 +1357,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:{}\n" +
@@ -1453,8 +1378,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $switch <a title=\"There must be an expression.\" class=\"e\">(</a>){}\n" +
@@ -1480,8 +1404,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m44\">pkg.MySub</a> {\n" +
@@ -1514,8 +1437,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\">TWO</a>\n" +
                 "}\n" +
@@ -1547,8 +1469,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
@@ -1577,8 +1498,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Integer <a name=\"m36\">e</a>;\n" +
                 " $public $int <a name=\"m53\">method</a>() {\n" +
@@ -1606,8 +1526,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
@@ -1637,8 +1556,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m44\">pkg.MySub</a> {\n" +
@@ -1665,8 +1583,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"The $default block with expression  must be child of a block $switch.\" class=\"e\">$default</a>:{}\n" +
@@ -1694,8 +1611,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m44\">pkg.MySub</a> {\n" +
@@ -1730,8 +1646,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m44\">pkg.MySub</a> {\n" +
@@ -1762,8 +1677,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">e</a>;\n" +
                 " $public $int <a name=\"m50\">method</a>() {\n" +
@@ -1789,8 +1703,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $return 1;\n" +
@@ -1813,8 +1726,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $switch (1){\n" +
@@ -1840,8 +1752,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">v</a> = 1;\n" +
                 " $public $int <a name=\"m54\">method</a>() {\n" +
@@ -1866,8 +1777,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"The code is unreachable in the function method()\n" +
@@ -1892,8 +1802,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $else <a title=\"The code is unreachable in the function method()\n" +
@@ -1918,8 +1827,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"The code is unreachable in the function method()\n" +
@@ -1944,8 +1852,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  $return 1;\n" +
@@ -1966,8 +1873,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $do block must be followed by one of the blocks $while.\" class=\"e\">$do</a>{}\n" +
@@ -1987,8 +1893,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"The $do block must be followed by one of the blocks $while.\" class=\"e\">$do</a>{}\n" +
@@ -2009,8 +1914,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $do{}\n" +
@@ -2027,8 +1931,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"The operator symbol &lt;&gt; is not valid.\n" +
                 "\n" +
                 "A $throw block or a $return block is missing for the method $static &lt;&gt;().\" class=\"e\">&lt;&gt;</a> $int(){\n" +
@@ -2045,8 +1948,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>){\n" +
                 "}\n" +
                 "$operator<a name=\"m36\" title=\"The operator $static +($int) is duplicated.\n" +
@@ -2063,8 +1965,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int).\" class=\"e\">+</a> $int($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2077,8 +1978,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a name=\"m9\" title=\"A $throw block or a $return block is missing for the method $static +($int,$int).\" class=\"e\">+</a> $int($int <a name=\"m21\">i</a>,$int <a title=\"The parameter function name i is duplicated.\" class=\"e\">i</a>){\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -2094,8 +1994,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $try block must be followed by one of the blocks $catch|$finally.\" class=\"e\">$try</a>{}\n" +
@@ -2114,8 +2013,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $catch block must be preceded by one of the blocks $catch|$try.\" class=\"e\">$catch</a>{}\n" +
@@ -2134,8 +2032,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $catch block must be preceded by one of the blocks $catch|$try.\" class=\"e\">$catch</a>($int <a name=\"m67\">i</a>){}\n" +
@@ -2154,8 +2051,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $finally block must be preceded by one of the blocks $catch|$try.\" class=\"e\">$finally</a>{}\n" +
@@ -2175,8 +2071,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $try{}\n" +
@@ -2196,8 +2091,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>:$new $int[]{}){}\n" +
@@ -2216,8 +2110,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>;}\n" +
@@ -2237,8 +2130,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -2259,8 +2151,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -2281,8 +2172,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -2302,8 +2192,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a name=\"m65\">v</a>:$new $int[]{}){$int <a title=\"The variable name #v is not valid. It must be a word.\" class=\"e\">#v</a>,<a name=\"m90\">w</a>;}\n" +
@@ -2323,8 +2212,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -2344,8 +2232,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  <a title=\"There must be an expression.\n" +
@@ -2366,8 +2253,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The type cannot be the key word $void.\" class=\"e\">$return</a> 1;\n" +
@@ -2386,8 +2272,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>;;){}\n" +
@@ -2406,8 +2291,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a><a title=\"The type $int cannot be implicitly cast to \" class=\"e\">=</a>0;$true;){}\n" +
@@ -2426,8 +2310,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>,<a name=\"m68\">j</a>;;$true){}\n" +
@@ -2446,8 +2329,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a><a title=\"The type $int cannot be implicitly cast to \" class=\"e\">=</a>0,<a name=\"m70\">j</a>;;$true){}\n" +
@@ -2466,8 +2348,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for(;;){<a title=\"There must be an expression.\" class=\"e\">$throw</a>;}\n" +
@@ -2486,8 +2367,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iter($int <a title=\"The variable name #i is not valid. It must be a word.\" class=\"e\">#i</a>=0;1;1){}\n" +
@@ -2506,8 +2386,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
@@ -2530,8 +2409,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $if($true)<a name=\"m65\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>;\n" +
@@ -2552,8 +2430,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $if($true)<a name=\"m65\">t</a>{\n" +
@@ -2574,8 +2451,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $switch(1)<a name=\"m65\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>;\n" +
@@ -2594,8 +2470,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $while($true)<a name=\"m68\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>;\n" +
@@ -2615,8 +2490,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $do <a name=\"m59\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>{}\n" +
@@ -2637,8 +2511,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $try <a name=\"m60\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>{}\n" +
@@ -2658,8 +2531,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for(;;)<a name=\"m63\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>{}\n" +
@@ -2678,8 +2550,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iter($int <a name=\"m66\">i</a>=0;1;1)<a name=\"m74\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>{}\n" +
@@ -2698,8 +2569,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $for($int <a name=\"m65\">i</a>:$new $int[]{})<a name=\"m81\" title=\"A label must be a word (included characters dollars).\" class=\"e\">#t</a>{}\n" +
@@ -2719,8 +2589,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -2740,8 +2609,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $break block must be inner of the blocks $switch|$for|$foreach|$do|$iter|$while.\" class=\"e\">$break</a>;\n" +
@@ -2760,8 +2628,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $break <a title=\"The $break block with label lab must be inner of a labelled with $switch|$try|$catch|$finally|$if|$elseif|$else|$for|$foreach|$do|$iter|$while block.\" class=\"e\">lab</a>;\n" +
@@ -2783,8 +2650,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $if($true)<a name=\"m65\">lab</a>{\n" +
@@ -2806,8 +2672,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  <a title=\"The $continue block must be inner of the blocks $for|$foreach|$do|$iter|$while.\" class=\"e\">$continue</a>;\n" +
@@ -2826,8 +2691,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $continue <a title=\"The $continue block with label lab must be inner of a labelled with $for|$foreach|$do|$iter|$while block.\" class=\"e\">lab</a>;\n" +
@@ -2849,8 +2713,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iter($int <a name=\"m66\">i</a>=0;1;1)<a name=\"m74\">lab</a>{\n" +
@@ -2872,8 +2735,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$class<a title=\"There must be a type.\" class=\"e\">(</a>);\n" +
@@ -2892,8 +2754,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$class(<a title=\"The type , is unknown.\" class=\"e\">,</a>);\n" +
@@ -2912,8 +2773,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$(<a title=\"There must be a type.\" class=\"e\">)</a>1;\n" +
@@ -2932,8 +2792,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$(<a title=\"The type a is unknown.\" class=\"e\">a</a>)1;\n" +
@@ -2952,8 +2811,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$(<a title=\"The type a&lt;b,c&gt;d is unknown.\" class=\"e\">a&lt;b,c&gt;d</a>)1;\n" +
@@ -2971,8 +2829,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m38\">annot</a>();\n" +
                 " $int <a name=\"m53\" title=\"The method annot() is duplicated.\" class=\"e\">annot</a>();\n" +
@@ -2989,8 +2846,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Ex</a> {\n" +
                 " $public $static $void<a name=\"m46\" title=\"The method name  is not valid. It must be a word.\" class=\"e\">(</a>){\n" +
                 " }\n" +
@@ -3007,8 +2863,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"The type pkg.MyParam is not parameterized correctly.\n" +
                 "\n" +
@@ -3031,8 +2886,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  Object <a name=\"m62\">v</a>=$(<a title=\"pkg.MyParam\" href=\"#m105\">MyParam</a>&lt;String<a title=\"The type pkg.MyParam is not parameterized correctly.\" class=\"e\">&gt;</a>)1;\n" +
@@ -3055,8 +2909,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m62\">MyParam</a>&lt;<a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a><a title=\"The type pkg.MyParam is not parameterized correctly.\" class=\"e\">&gt;</a> <a name=\"m42\">v</a>;\n" +
                 "}\n" +
@@ -3081,8 +2934,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m62\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m100\">MyCl</a>&gt; <a name=\"m42\">v</a>;\n" +
                 "}\n" +
@@ -3105,8 +2957,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"The type Inexist&lt;MyCl&gt; is unknown.\" class=\"e\">Inexist</a>&lt;<a title=\"pkg.MyCl\" href=\"#m62\">MyCl</a>&gt; <a name=\"m42\">v</a>;\n" +
                 "}\n" +
@@ -3125,8 +2976,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable&lt;<a title=\"pkg.MyCl\" href=\"#m65\">MyCl</a><a title=\"The type $iterable&lt;MyCl.&gt; is unknown.\" class=\"e\">.</a>&gt; <a name=\"m45\">v</a>;\n" +
                 "}\n" +
@@ -3147,8 +2997,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable&lt;<a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a>.<a title=\"pkg.MyCl..Inner\" href=\"#m97\">Inner</a><a title=\"The type $iterable&lt;MyCl.Inner.&gt; is unknown.\" class=\"e\">.</a>&gt; <a name=\"m51\">v</a>;\n" +
                 "}\n" +
@@ -3167,8 +3016,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable&lt;<a title=\"The type $iterable&lt;Inexist[]&gt; is unknown.\" class=\"e\">Inexist</a>[]&gt; <a name=\"m49\">v</a>;\n" +
                 "}\n" +
@@ -3183,8 +3031,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable&lt;?<a title=\"The type $iterable&lt;?Inexist&gt; is unknown.\" class=\"e\">Inexist</a>&gt; <a name=\"m48\">v</a>;\n" +
                 "}\n" +
@@ -3203,8 +3050,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>&gt; <a name=\"m50\">v</a>;\n" +
                 "}\n" +
@@ -3227,8 +3073,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m72\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m98\">Inner</a>[]&gt; <a name=\"m52\">v</a>;\n" +
                 "}\n" +
@@ -3249,8 +3094,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable<a title=\"The type java.lang.$iterable&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3271,8 +3115,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable&lt;?<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3293,8 +3136,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3319,8 +3161,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m126\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl..Inner&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MyCl\" href=\"#m70\">MyCl</a><a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyCl..Inner\" href=\"#m96\">Inner</a>[]&gt; <a name=\"m50\">v</a>;\n" +
                 "}\n" +
@@ -3345,8 +3186,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m94\">MyParam</a><a title=\"The type pkg.MyParam&lt;[pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3371,8 +3211,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m93\">MyParam</a>&lt;?<a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3397,8 +3236,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -3422,8 +3260,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m60\">MyCl</a>\n" +
                 " $int <a name=\"m40\">v</a>;\n" +
@@ -3444,8 +3281,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m56\">MyCl</a>\n" +
                 " <a name=\"m34\">ONE</a>;\n" +
@@ -3466,8 +3302,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m58\">MyCl</a>\n" +
                 " <a name=\"m34\">ONE</a>{};\n" +
@@ -3488,8 +3323,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m67\">MyCl</a>\n" +
                 " $int <a name=\"m45\">v</a>();\n" +
@@ -3510,8 +3344,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m66\">MyCl</a>\n" +
                 " $int <a name=\"m44\">v</a>();\n" +
@@ -3532,8 +3365,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m66\">MyCl</a>\n" +
                 " <a name=\"m39\">MySub(</a>){}\n" +
@@ -3556,8 +3388,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a>\n" +
                 " $operator<a name=\"m48\">+</a> $int($int <a name=\"m60\">i</a>){\n" +
@@ -3580,8 +3411,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
                 "$operator<a name=\"m15\">+</a> [<span class=\"i\">$static</span>;] $int($int <a name=\"m38\">i</a>){\n" +
                 " $return 0;\n" +
@@ -3603,8 +3433,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m92\">MyCl</a>\n" +
                 " $public $class [<span class=\"i\">$static</span>;] <a name=\"m65\">Inner</a>{\n" +
@@ -3627,8 +3456,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>\n" +
                 " $int <a name=\"m44\">$this</a>($int <a name=\"m55\">i</a>);\n" +
@@ -3651,8 +3479,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m37\">$this</a>($int <a name=\"m48\">i</a>);\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m98\">MyCl</a>\n" +
@@ -3674,8 +3501,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m37\">$this</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a> $int <a name=\"m54\">i</a>);\n" +
                 " $void <a name=\"m65\">$this</a>($int <a name=\"m76\">i</a>);\n" +
@@ -3696,8 +3522,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m37\">$this</a>($int <a name=\"m48\">i</a>);\n" +
                 " $void <a name=\"m59\">$this</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m97\">MyCl</a> $int <a name=\"m76\">i</a>);\n" +
@@ -3720,8 +3545,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m104\">MyCl</a>\n" +
                 " $static $int <a name=\"m52\">explicit</a>(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m67\">i</a>){\n" +
@@ -3746,8 +3570,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m108\">MyCl</a>\n" +
                 " $static <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m53\">explicit</a>($int <a name=\"m67\">i</a>){\n" +
@@ -3771,8 +3594,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $static $int <a name=\"m45\">explicit</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m103\">MyCl</a> <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m66\">i</a>){\n" +
                 "  $return 0;\n" +
@@ -3795,8 +3617,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $static <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m46\">explicit</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m107\">MyCl</a> $int <a name=\"m66\">i</a>){\n" +
                 "  $return $null;\n" +
@@ -3817,8 +3638,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m37\">v</a>(<a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a> $int <a name=\"m50\">i</a>);\n" +
                 "}\n" +
@@ -3837,8 +3657,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a name=\"m32\">MySub(</a><a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a> $int <a name=\"m49\">i</a>){}\n" +
                 "}\n" +
@@ -3859,8 +3678,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m67\">MyCl</a>\n" +
                 " <a name=\"m34\" title=\"pkg.MySub.pkg.MySub()\" href=\"#m40\">ONE</a>;\n" +
@@ -3883,8 +3701,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m76\">MyCl</a>\n" +
                 " <a name=\"m34\" title=\"pkg.MySub.pkg.MySub($int)\" href=\"#m43\">ONE</a>(1);\n" +
@@ -3906,8 +3723,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m68\">MyCl</a>\n" +
                 " $int <a name=\"m45\">v</a>()1;\n" +
@@ -3929,8 +3745,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m69\">MyCl</a>\n" +
                 " <a name=\"m34\">ONE</a>{};\n" +
@@ -3952,8 +3767,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m71\">MyCl</a>\n" +
                 " <a name=\"m34\" title=\"pkg.MySub-ONE.pkg.MySub-ONE($int)\" href=\"#m41\">ONE</a>(1){<a name=\"m41\">(</a>$int <a name=\"m47\">i</a>){}};\n" +
@@ -3974,8 +3788,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
                 " $void <a name=\"m41\">m</a>(){\n" +
@@ -3995,8 +3808,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $void <a name=\"m34\">m</a>(){\n" +
                 "  <a title=\"The inferring type $var is not defined for the variables i.\" class=\"e\">$var</a> <a name=\"m46\">i</a>;\n" +
@@ -4017,8 +3829,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>\n" +
                 " $void <a name=\"m41\">m</a>(){\n" +
@@ -4040,8 +3851,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $void <a name=\"m34\">m</a>(){\n" +
                 "  $for(<a title=\"The inferring type $var is not defined for the variables i.\" class=\"e\">$var</a> <a name=\"m51\">i</a>;;){\n" +
@@ -4060,8 +3870,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m35\">MyAnnot</a>(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a><span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m35\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m57\">v</a>();\n" +
@@ -4078,8 +3887,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>( <a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a><span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m36\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m58\">v</a>();\n" +
@@ -4096,8 +3904,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>(<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a> <span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m36\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m58\">v</a>();\n" +
@@ -4116,8 +3923,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
                 " <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m64\">MyCl</a>( <a title=\"After @ the type MyCl is not an annotation.\" class=\"e\">@</a><a title=\"pkg.MyCl\" href=\"#m64\">MyCl</a>)\n" +
                 " <a name=\"m42\">ONE</a>;\n" +
@@ -4135,8 +3941,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int<a title=\"No field could be retrieved.\" class=\"e\">;</a>\n" +
                 "}\n" +
@@ -4153,8 +3958,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $final<a title=\"There must be an expression.\" class=\"e\">;</a>\n" +
@@ -4173,8 +3977,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$int i</a>\n" +
@@ -4194,8 +3997,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
@@ -4218,8 +4020,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The block is unexpected.\" class=\"e\">$static</a> {\n" +
@@ -4237,8 +4038,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"Bad index by parsing.\" class=\"e\">{</a>\n" +
                 "  $int i\n" +
@@ -4252,8 +4052,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class pkg.MySub {\n" +
                 " $int i<a title=\"Bad index by parsing.\" class=\"e\">\n" +
                 "</a></span></pre></body></html>", filesExp_.firstValue());
@@ -4273,8 +4072,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m74\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MySecond,pkg.MyFirst&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"pkg.MySecond\" href=\"#m156\">MySecond</a><a title=\"The type pkg.MyParam&lt;pkg.MySecond,pkg.MyFirst&gt; is not parameterized correctly.\" class=\"e\">,</a><a title=\"pkg.MyFirst\" href=\"#m126\">MyFirst</a>&gt; <a name=\"m54\">i</a>;\n" +
                 "}\n" +
@@ -4295,8 +4093,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"The type Inexist.Inner is unknown.\" class=\"e\">Inexist</a>.Inner <a name=\"m42\">v</a>;\n" +
                 "}\n" +
@@ -4311,8 +4108,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"The type pkg.Inexist.Inner is unknown.\" class=\"e\">pkg.Inexist</a>.Inner <a name=\"m46\">v</a>;\n" +
                 "}\n" +
@@ -4330,8 +4126,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyEnum\" href=\"#m63\">pkg.MyEnum</a>..<a title=\"The type pkg.MyEnum..TWO is unknown.\" class=\"e\">TWO</a> <a name=\"m44\">v</a>;\n" +
                 "}\n" +
@@ -4355,8 +4150,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyEnum\" href=\"#m71\">pkg.MyEnum</a>..<a title=\"pkg.MyEnum-ONE\" href=\"#m84\">ONE</a>.<a title=\"The type pkg.MyEnum..ONE.Inexist is unknown.\" class=\"e\">Inexist</a> <a name=\"m52\">v</a>;\n" +
                 "}\n" +
@@ -4377,8 +4171,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a>.<a title=\"The type MySub.Inner is unknown.\" class=\"e\">Inner</a> <a name=\"m40\">v</a>;\n" +
                 "}\n" +
@@ -4393,8 +4186,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">pkg.MySub</a>.<a title=\"The type pkg.MySub.Inner is unknown.\" class=\"e\">Inner</a> <a name=\"m44\">v</a>;\n" +
                 "}\n" +
@@ -4412,8 +4204,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyEnum\" href=\"#m71\">pkg.MyEnum</a>..<a title=\"The type pkg.MyEnum..ONE&lt;String&gt; is unknown.\" class=\"e\">ONE</a>&lt;String&gt; <a name=\"m52\">v</a>;\n" +
                 "}\n" +
@@ -4434,8 +4225,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyEnum\" href=\"#m71\">pkg.MyEnum</a>&lt;String&gt;<a title=\"The type pkg.MyEnum&lt;java.lang.String&gt;-ONE is not parameterized correctly.\" class=\"e\">..</a><a title=\"pkg.MyEnum-ONE\" href=\"#m87\">ONE</a> <a name=\"m52\">v</a>;\n" +
                 "}\n" +
@@ -4457,8 +4247,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyClass\" href=\"#m74\">pkg.MyClass</a>&lt;String&gt;<a title=\"The type pkg.MyClass&lt;java.lang.String&gt;..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m114\">Inner</a> <a name=\"m54\">v</a>;\n" +
                 "}\n" +
@@ -4481,8 +4270,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyClass\" href=\"#m67\">pkg.MyClass</a>..<a title=\"The type pkg.MyClass..Inner is unknown.\" class=\"e\">Inner</a> <a name=\"m47\">v</a>;\n" +
                 "}\n" +
@@ -4505,8 +4293,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyClass\" href=\"#m67\">pkg.MyClass</a>..<a title=\"The type pkg.MyClass..Inner is unknown.\" class=\"e\">Inner</a> <a name=\"m47\">v</a>;\n" +
                 "}\n" +
@@ -4525,8 +4312,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type ? is unknown.\" class=\"e\">?</a>);\n" +
                 "}\n" +
@@ -4541,8 +4327,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type ?String is unknown.\" class=\"e\">?</a>String);\n" +
                 "}\n" +
@@ -4557,8 +4342,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($iterable&lt;<a title=\"The type $iterable&lt;$void&gt; is unknown.\" class=\"e\">$void</a>&gt;);\n" +
                 "}\n" +
@@ -4573,8 +4357,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($Fct&lt;<a title=\"The type $Fct&lt;$void,$int&gt; is unknown.\" class=\"e\">$void</a>,$int&gt;);\n" +
                 "}\n" +
@@ -4589,8 +4372,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($Fct&lt;<a title=\"The type $Fct&lt;?$int&gt; is unknown.\" class=\"e\">?</a>$int&gt;);\n" +
                 "}\n" +
@@ -4605,8 +4387,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type $void.$int is unknown.\" class=\"e\">$void</a>.$int);\n" +
                 "}\n" +
@@ -4621,8 +4402,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type $void[] is unknown.\" class=\"e\">$void</a>[]);\n" +
                 "}\n" +
@@ -4637,8 +4417,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>);\n" +
                 "}\n" +
@@ -4653,8 +4432,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($Fct<a title=\"The type $Fct&lt;a&lt;b,c&gt;d&gt; is unknown.\" class=\"e\">&lt;</a>a&lt;b,c&gt;d&gt;);\n" +
                 "}\n" +
@@ -4669,8 +4447,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($iterable<a title=\"The type $iterable&lt;!&gt; is unknown.\" class=\"e\">&lt;</a>!&gt;);\n" +
                 "}\n" +
@@ -4685,8 +4462,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue($iterable&lt;$iterable<a title=\"The type $iterable&lt;$iterable&lt;!&gt;&gt; is unknown.\" class=\"e\">&lt;</a>!&gt;&gt;);\n" +
                 "}\n" +
@@ -4701,8 +4477,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type ! is unknown.\" class=\"e\">!</a>);\n" +
                 "}\n" +
@@ -4717,8 +4492,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type a&lt;b is unknown.\" class=\"e\">a&lt;b</a>);\n" +
                 "}\n" +
@@ -4733,8 +4507,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type !String is unknown.\" class=\"e\">!</a>String);\n" +
                 "}\n" +
@@ -4749,8 +4522,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=explicit(Object,<a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4765,8 +4537,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static explicit(java.lang.Object,) is undefined.\" class=\"e\">explicit</a>(Object,Object,<a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4781,8 +4552,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static explicit(java.lang.Object,) is undefined.\" class=\"e\">explicit</a>(Object,<a title=\"There must be a type.\" class=\"e\">,</a>Object)$null;\n" +
                 "}\n" +
@@ -4797,8 +4567,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static explicit(java.lang.Object,) is undefined.\" class=\"e\">explicit</a>(Object,<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4813,8 +4582,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$(Object,<a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4829,8 +4597,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static $(java.lang.Object,) is undefined.\" class=\"e\">$</a>(Object,Object,<a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4845,8 +4612,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static $(java.lang.Object,) is undefined.\" class=\"e\">$</a>(Object,<a title=\"There must be a type.\" class=\"e\">,</a>Object)$null;\n" +
                 "}\n" +
@@ -4861,8 +4627,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<a title=\"The function $static $(java.lang.Object,) is undefined.\" class=\"e\">$</a>(Object,<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">)</a>$null;\n" +
                 "}\n" +
@@ -4877,8 +4642,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
@@ -4893,8 +4657,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,$static<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
@@ -4909,8 +4672,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
@@ -4925,8 +4687,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
@@ -4941,8 +4702,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,$static,0<a title=\"There must be a type.\" class=\"e\">,</a>));\n" +
                 "}\n" +
@@ -4957,8 +4717,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type !MySub is unknown.\" class=\"e\">!</a><a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
                 "}\n" +
@@ -4973,8 +4732,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=$defaultValue(<a title=\"The type ?MySub is unknown.\" class=\"e\">?</a><a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
                 "}\n" +
@@ -4989,8 +4747,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String<a title=\"There must be a type.\" class=\"e\">,</a>,String));\n" +
                 "}\n" +
@@ -5005,8 +4762,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($id(String,<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
@@ -5021,8 +4777,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5037,8 +4792,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(<a title=\"The type pkg.Inexist is unknown.\" class=\"e\">pkg.Inexist</a>));\n" +
                 "}\n" +
@@ -5053,8 +4807,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>.<a title=\"The type MySub.Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5069,8 +4822,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(<a title=\"pkg.MySub\" href=\"#m15\">pkg.MySub</a>.<a title=\"The type pkg.MySub.Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5085,8 +4837,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
                 "}\n" +
@@ -5101,8 +4852,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
@@ -5117,8 +4867,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id( <a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
@@ -5133,8 +4882,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id( <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5149,8 +4897,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id( <a title=\"The type pkg.Inexist is unknown.\" class=\"e\">pkg.Inexist</a>));\n" +
                 "}\n" +
@@ -5165,8 +4912,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id( <a title=\"pkg.MySub\" href=\"#m15\">MySub</a>.<a title=\"The type MySub.Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5181,8 +4927,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.length($id( <a title=\"pkg.MySub\" href=\"#m15\">pkg.MySub</a>.<a title=\"The type pkg.MySub.Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5197,8 +4942,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
@@ -5213,8 +4957,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg( <a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>));\n" +
                 "}\n" +
@@ -5229,8 +4972,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg<a title=\"There must be a type.\" class=\"e\">(</a>));\n" +
                 "}\n" +
@@ -5245,8 +4987,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
                 "}\n" +
@@ -5261,8 +5002,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>&lt;String<a title=\"The type pkg.MySub is not parameterized correctly.\" class=\"e\">&gt;</a>));\n" +
                 "}\n" +
@@ -5277,8 +5017,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a>&lt;<a name=\"m25\">T</a>&gt; {\n" +
                 " Object <a name=\"m38\">v</a>=<span class=\"s\">\"\"</span>.<a title=\"The function length() is undefined.\" class=\"e\">length</a>($vararg(<a title=\"The type pkg.MySub is not parameterized correctly.\n" +
                 "\n" +
@@ -5294,8 +5033,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class [<span class=\"i\">$static</span>;] $interfaces(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>) <a name=\"m47\">pkg.MySub</a>&lt;<a name=\"m57\">T</a>&gt; {\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -5310,8 +5048,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m37\">MyAnnot</a>({1<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">,</a><span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m37\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m59\">v</a>();\n" +
@@ -5328,8 +5065,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>( {1<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">,</a><span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m60\">v</a>();\n" +
@@ -5346,8 +5082,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>({1<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">,</a> <span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m60\">v</a>();\n" +
@@ -5364,8 +5099,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>( {1<a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">,</a><span class=\"s\">\"\"</span>})\n" +
                 "$public $annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m60\">v</a>();\n" +
@@ -5381,8 +5115,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"After @ the type Inex is not an annotation.\" class=\"e\">@</a><a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>(<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>})\n" +
                 "$public $annotation <a name=\"m30\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
@@ -5397,8 +5130,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"After @ the type Inex is not an annotation.\" class=\"e\">@</a><a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>(<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>1})\n" +
                 "$public $annotation <a name=\"m31\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
@@ -5413,8 +5145,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\" title=\"Bad index by parsing.\n" +
                 "\n" +
@@ -5431,8 +5162,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\" title=\"Bad index by parsing.\" class=\"e\">m</a>(a);\n" +
                 "}\n" +
@@ -5447,8 +5177,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\" title=\"The method name  is not valid. It must be a word.\" class=\"e\">(</a>);\n" +
                 "}\n" +
@@ -5463,8 +5192,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a title=\"No field could be retrieved.\" class=\"e\">m[)</a>;\n" +
                 "}\n" +
@@ -5479,8 +5207,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " Object <a name=\"m42\" title=\"The return type java.lang.Object in the function m() is unexpected.\" class=\"e\">m</a>();\n" +
                 "}\n" +
@@ -5495,8 +5222,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\">m</a>()<a title=\"The type $int is unexpected.\" class=\"e\">{</a>};\n" +
                 "}\n" +
@@ -5511,8 +5237,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " Object <a name=\"m42\" title=\"The return type java.lang.Object in the function m() is unexpected.\" class=\"e\">m</a>()<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>};\n" +
                 "}\n" +
@@ -5527,8 +5252,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m40\" title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">m</a>()<span class=\"s\">\"\"</span>;\n" +
                 "}\n" +
@@ -5543,8 +5267,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " $int[][] <a name=\"m44\" title=\"The return type [[$int in the function m() is unexpected.\n" +
                 "\n" +
@@ -5561,8 +5284,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"After @ the type Inex is not an annotation.\" class=\"e\">@</a><a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>(<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a> 1})\n" +
                 "$public $annotation <a name=\"m32\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
@@ -5577,8 +5299,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"After @ the type Inex is not an annotation.\" class=\"e\">@</a><a title=\"The type Inex is unknown.\" class=\"e\">Inex</a>( <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>})\n" +
                 "$public $annotation <a name=\"m31\">pkg.MyAnnot</a> {\n" +
                 "}\n" +
@@ -5593,8 +5314,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $annotation <a name=\"m20\">pkg.MyAnnot</a> {\n" +
                 " Object <a name=\"m42\" title=\"The return type java.lang.Object in the function m() is unexpected.\" class=\"e\">m</a>() <a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>};\n" +
                 "}\n" +
@@ -5608,8 +5328,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"There must be a type.\n" +
                 "\n" +
                 "The type java.lang.Object is not parameterized correctly.\" class=\"e\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>:&gt; {\n" +
@@ -5624,8 +5343,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
                 "\n" +
                 "There must be a type.\n" +
@@ -5646,8 +5364,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The super types of the type pkg.MyClass could not be found.\n" +
                 "\n" +
                 "There must be a type.\n" +
@@ -5668,8 +5385,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type $int is unexpected.\" class=\"e\">$for</a>(;1;){\n" +
@@ -5690,8 +5406,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type java.lang.String is not a primitive type or a wrapper type.\n" +
@@ -5716,8 +5431,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$for</a>[String](;;){\n" +
@@ -5738,8 +5452,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$iter</a>[String]($int <a name=\"m53\">s</a>=0;1;1){\n" +
@@ -5760,8 +5473,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type  is unknown.\" class=\"e\">$switch</a>($null){\n" +
@@ -5782,8 +5494,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type java.lang.Object is not a primitive type or a wrapper type.\" class=\"e\">$for</a>[String]($int <a name=\"m52\">i</a>:{}){\n" +
@@ -5805,8 +5516,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m60\">it</a> = $null;\n" +
@@ -5828,8 +5538,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m44\">i</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">:</a>$new String[]{<span class=\"s\">\"\"</span>}){\n" +
@@ -5851,8 +5560,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $iterable&lt;String&gt; <a name=\"m52\">it</a> = $null;\n" +
@@ -5875,8 +5583,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  String <a name=\"m41\">it</a> = $null;\n" +
@@ -5899,8 +5606,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $iterableTable&lt;String,String&gt; <a name=\"m64\">it</a> = $null;\n" +
@@ -5925,8 +5631,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  String <a name=\"m41\">it</a> = $null;\n" +
@@ -5948,8 +5653,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m44\">i</a>,$int <a name=\"m51\">j</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>$null){\n" +
@@ -5970,8 +5674,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m44\">i</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>($int[])$null){\n" +
@@ -5992,8 +5695,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m44\">i</a><a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">:</a>($iterable&lt;$int&gt;)$null){\n" +
@@ -6012,8 +5714,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m35\">MyAnnot</a>({1<a title=\"The expression part is empty.\" class=\"e\">,</a>})\n" +
                 "$public $annotation <a name=\"m35\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m57\">v</a>();\n" +
@@ -6030,8 +5731,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>({1<a title=\"The expression part is empty.\" class=\"e\">,</a> })\n" +
                 "$public $annotation <a name=\"m36\">pkg.MyAnnot</a> {\n" +
                 " $int[] <a name=\"m58\">v</a>();\n" +
@@ -6049,8 +5749,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  1<a title=\"The type $int is unexpected.\" class=\"e\">?</a>1:1;\n" +
@@ -6069,8 +5768,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $bool(1<a title=\"The type $int is unexpected.\" class=\"e\">,</a>1,1);\n" +
@@ -6089,8 +5787,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 3 is different from the number of supplied arguments 4 for the operator $bool\" class=\"e\">$bool</a>(1,1,1,1);\n" +
@@ -6109,8 +5806,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">($void)$null</a>;\n" +
@@ -6128,8 +5824,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$int i</a><a title=\"Bad index by parsing.\" class=\"e\">}</a>\n" +
@@ -6147,8 +5842,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">(</a>);\n" +
@@ -6167,8 +5861,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">$default</a>();\n" +
@@ -6189,8 +5882,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $int <a name=\"m37\">i</a>=0;\n" +
@@ -6212,8 +5904,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  String <a name=\"m39\">i</a>=<span class=\"s\">\"\"</span>;\n" +
@@ -6234,8 +5925,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  String <a name=\"m39\">i</a>=<span class=\"s\">\"\"</span>;\n" +
@@ -6255,8 +5945,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\">\"\"</span> <a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">$instanceof</a> $int[] <a title=\"There is no accessible field named $int from the type pkg.MySub in this context.\" class=\"e\">$int</a>;\n" +
@@ -6275,8 +5964,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">$valueOf</a>();\n" +
@@ -6295,8 +5983,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">$firstopt</a>();\n" +
@@ -6315,8 +6002,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required operands 1 is different from the number of supplied arguments 0.\" class=\"e\">$valueOf</a>(\"\");\n" +
@@ -6336,8 +6022,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $int <a name=\"m37\">i</a> = 1;\n" +
@@ -6357,8 +6042,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int<a title=\"No field could be retrieved.\" class=\"e\">;</a>\n" +
                 "}\n" +
@@ -6376,8 +6060,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $int <a name=\"m37\">i</a> = 0;\n" +
@@ -6399,8 +6082,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">(</a>$int);\n" +
@@ -6419,8 +6101,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">(</a><a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -6439,8 +6120,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$</a>($int);\n" +
@@ -6459,8 +6139,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -6479,8 +6158,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$</a>(<a title=\"There must be a type.\" class=\"e\">)</a>;\n" +
@@ -6500,8 +6178,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Integer <a name=\"m36\">i</a>;\n" +
                 " {\n" +
@@ -6522,8 +6199,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m35\">i</a>;\n" +
                 " {\n" +
@@ -6544,8 +6220,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m35\">i</a>;\n" +
                 " {\n" +
@@ -6571,8 +6246,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -6602,8 +6276,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m38\">i</a>;\n" +
                 " {\n" +
@@ -6632,8 +6305,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m39\">i</a>;\n" +
                 " {\n" +
@@ -6660,8 +6332,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>)$null)<a title=\"The expression part is empty.\n" +
@@ -6689,8 +6360,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>[])$null)<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">[</a>0];\n" +
@@ -6709,8 +6379,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">explicit</a>(<a title=\"There must be a type.\" class=\"e\">)</a>;\n" +
@@ -6729,8 +6398,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $defaultValue<a title=\"There must be a type.\" class=\"e\">(</a>);\n" +
@@ -6749,8 +6417,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The expression part is empty.\" class=\"e\">$</a>(Object,Object);\n" +
@@ -6771,8 +6438,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m19\">MySub</a> <a name=\"m38\">i</a>;\n" +
                 " {\n" +
@@ -6796,8 +6462,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ((<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\n" +
@@ -6819,8 +6484,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (($int[])$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">clone</a>();\n" +
@@ -6839,8 +6503,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (($int[])$null).<a title=\"Only the method clone can ne used for the array type [$int\" class=\"e\">clones</a>();\n" +
@@ -6863,8 +6526,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $thisaccess(<a title=\"pkg.MyCl\" href=\"#m82\">MyCl</a>)<a title=\"The type pkg.MySub cannot be implicitly cast to pkg.MyCl\n" +
@@ -6893,8 +6555,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $classchoice(<a title=\"pkg.MyCl\" href=\"#m83\">MyCl</a>)<a title=\"The method m() from the type pkg.MyCl must not be called directly because of abstract.\n" +
@@ -6923,8 +6584,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $classchoice(<a title=\"pkg.MyCl\" href=\"#m89\">MyCl</a>)<a title=\"The function inexist() is undefined.\" class=\"e\">inexist</a>();\n" +
@@ -6949,8 +6609,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $superaccess(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)<a title=\"The method m() from the type pkg.MySub must not be called directly because of abstract.\n" +
@@ -6977,8 +6636,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $superaccess(<a title=\"pkg.MyCl\" href=\"#m79\">MyCl</a>)<a title=\"The type pkg.MySub cannot be implicitly cast to pkg.MyCl\n" +
@@ -7003,8 +6661,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $superaccess(<a title=\"pkg.MySub\" href=\"#m19\">MySub</a>)<a title=\"The function inexist() is undefined.\" class=\"e\">inexist</a>();\n" +
@@ -7022,8 +6679,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m36\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m56\">a</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
                 "$public $annotation <a name=\"m36\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m56\">a</a>();\n" +
@@ -7040,8 +6696,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m37\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m57\">a</a> <a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
                 "$public $annotation <a name=\"m37\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m57\">a</a>();\n" +
@@ -7058,8 +6713,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m37\">MyAnnot</a>( <a title=\"pkg.MyAnnot.a()\" href=\"#m57\">a</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">=</a><span class=\"s\">\"1\"</span>)\n" +
                 "$public $annotation <a name=\"m37\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m57\">a</a>();\n" +
@@ -7076,8 +6730,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m58\">a</a>=1,<a title=\"There is no accessible field named b from the type pkg.MyAnnot in this context.\" class=\"e\">b</a>=2)\n" +
                 "$public $annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m58\">a</a>();\n" +
@@ -7094,8 +6747,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"The field a of the annotatation is supplied by duplicate.\n" +
                 "\n" +
                 "pkg.MyAnnot.a()\" href=\"#m58\" class=\"e\">a</a>=1,<a title=\"The field a of the annotatation is supplied by duplicate.\n" +
@@ -7116,8 +6768,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m31\">MyAnnot</a>(<a title=\"The field a of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
                 "$public $annotation <a name=\"m31\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m51\">a</a>();\n" +
@@ -7135,8 +6786,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m54\">a</a>=1<a title=\"The field b of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
                 "$public $annotation <a name=\"m34\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m54\">a</a>();\n" +
@@ -7154,8 +6804,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><a title=\"The field a of the annotatation is compulsory.\" class=\"e\">@</a><a title=\"pkg.MyAnnot\" href=\"#m29\">MyAnnot</a>\n" +
                 "$public $annotation <a name=\"m29\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m49\">a</a>();\n" +
@@ -7173,8 +6822,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a>(<a title=\"pkg.MyAnnot.a()\" href=\"#m54\">a</a>=1<a title=\"The field b of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
                 "$public $annotation <a name=\"m34\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m54\">a</a>();\n" +
@@ -7193,8 +6841,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m32\">MyAnnot</a>(1<a title=\"The field of the annotatation could not be found uniquely.\" class=\"e\">)</a>\n" +
                 "$public $annotation <a name=\"m32\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m52\">a</a>();\n" +
@@ -7212,8 +6859,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m34\">MyAnnot</a><a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">(</a><span class=\"s\">\"1\"</span>)\n" +
                 "$public $annotation <a name=\"m34\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m54\">a</a>();\n" +
@@ -7231,8 +6877,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<span class=\"s\">\"1\"</span>,<a title=\"pkg.MyAnnot.b()\" href=\"#m69\">b</a>=2<a title=\"The field of the annotatation could not be found uniquely.\n" +
                 "\n" +
                 "The field a of the annotatation is compulsory.\" class=\"e\">)</a>\n" +
@@ -7254,8 +6899,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
@@ -7277,8 +6921,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
@@ -7300,8 +6943,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m38\">m</a> = $null;\n" +
@@ -7321,8 +6963,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ((<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>[])$null).<a title=\"The value must not be null because of possible code.util.exceptions.NullObjectException.\" class=\"e\">length</a>;\n" +
@@ -7343,8 +6984,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MyAnnotCont\" href=\"#m90\">MyAnnotCont</a>(<a title=\"The field a of the annotatation is compulsory.\" class=\"e\">@</a><a title=\"pkg.MyAnnot\" href=\"#m43\">MyAnnot</a>)\n" +
                 "$public $annotation <a name=\"m43\">pkg.MyAnnot</a> {\n" +
                 " $int <a name=\"m63\">a</a>();\n" +
@@ -7366,8 +7006,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -7388,8 +7027,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -7410,8 +7048,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int,$int,$int&gt; <a name=\"m57\">f</a>=$null;\n" +
@@ -7432,8 +7069,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -7454,8 +7090,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -7476,8 +7111,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int,$int&gt; <a name=\"m52\">f</a>=$null;\n" +
@@ -7498,8 +7132,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -7520,8 +7153,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int&gt; <a name=\"m42\">f</a>=$null;\n" +
@@ -7541,8 +7173,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new $int<a title=\"The type $double is unexpected.\" class=\"e\">[</a>1.0];\n" +
@@ -7561,8 +7192,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new $int[]<a title=\"The type $double cannot be implicitly cast to $int\" class=\"e\">{</a>1.0};\n" +
@@ -7581,8 +7211,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new $int<a title=\"The type $int is unexpected.\" class=\"e\">{</a>1.0};\n" +
@@ -7601,8 +7230,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"There must be a type.\" class=\"e\">)</a><a title=\"The type  is unexpected.\" class=\"e\">{</a>1};\n" +
@@ -7621,8 +7249,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  Object[] <a name=\"m40\">v</a> = {<a title=\"The type java.lang.Object is unexpected.\" class=\"e\">{</a>1}};\n" +
@@ -7641,8 +7268,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $int <a name=\"m36\">v</a> <a title=\"The type [java.lang.Object cannot be implicitly cast to $int\" class=\"e\">=</a> <a title=\"The type $int is unexpected.\" class=\"e\">{</a>1};\n" +
@@ -7661,8 +7287,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $int[] <a name=\"m38\">v</a> = <a title=\"The type java.lang.String cannot be implicitly cast to $int\" class=\"e\">{</a><span class=\"s\">\"1\"</span>};\n" +
@@ -7681,8 +7306,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new $int[1]<a title=\"The type $double is unexpected.\" class=\"e\">[</a>1.0];\n" +
@@ -7701,8 +7325,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"The constructor pkg.MyCl($int) is undefined.\" class=\"e\">$new</a> <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>(0);\n" +
@@ -7721,8 +7344,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " <a name=\"m27\">MyCl(</a>){\n" +
                 "  <a title=\"The constructor pkg.MyCl($int) is undefined.\" class=\"e\">$this</a>(0);\n" +
@@ -7741,8 +7363,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " <a name=\"m27\">MyCl(</a>){\n" +
                 "  <a title=\"The constructor java.lang.Object($int) is undefined.\" class=\"e\">$super</a>(0);\n" +
@@ -7763,8 +7384,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m74\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"The constructor pkg.MySup($int) is undefined.\" class=\"e\">$super</a>(0);\n" +
@@ -7787,8 +7407,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m81\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"There must be a type.\" class=\"e\">)</a>(0);\n" +
@@ -7811,8 +7430,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m86\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MySup\" href=\"#m86\">MySup</a>)(0);\n" +
@@ -7837,8 +7455,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m86\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m119\">MyInt</a>)(0);\n" +
@@ -7863,8 +7480,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m90\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"The constructor pkg.MyInt($int) is undefined.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m90\">MyInt</a>)(0);\n" +
@@ -7887,8 +7503,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m91\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  (<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$interfaces</a>(MyInt)());\n" +
@@ -7912,8 +7527,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m99\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  $int <a name=\"m48\">i</a>;\n" +
@@ -7937,8 +7551,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a> {\n" +
                 " <a name=\"m37\" title=\"A constructor of the type pkg.MyInt must not be called in the constructor.\" class=\"e\">MyCl(</a>){\n" +
                 "  <a title=\"The call of a constructor of interface must not applied in a constructor of interface.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a>)();\n" +
@@ -7964,8 +7577,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m121\">MyInt</a>:<a title=\"pkg.MyInt2\" href=\"#m161\">MyInt2</a> {\n" +
                 " <a name=\"m40\" title=\"A constructor of the type pkg.MyInt must not be called in the constructor.\n" +
                 "\n" +
@@ -7993,8 +7605,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m75\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  (<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$super</a>());\n" +
@@ -8015,8 +7626,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " <a name=\"m31\">MyCl(</a>){\n" +
                 "  <a title=\"The super constructor can be called only from a class or an enum (singleton or normal).\" class=\"e\">$super</a>(0);\n" +
@@ -8037,8 +7647,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m67\">MySup</a> {\n" +
                 " {\n" +
                 "  <a title=\"The call of a constructor using implicitly the instance must be applied in a constructor.\" class=\"e\">$super</a>();\n" +
@@ -8062,8 +7671,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m87\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  $if($true);\n" +
@@ -8087,8 +7695,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m93\">MyInt</a>)(<a title=\"The call of a constructor using implicitly the instance must be applied at the end of the instruction.\" class=\"e\">$interfaces</a>(MyInt)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a>1);\n" +
@@ -8111,8 +7718,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"There must be a type.\" class=\"e\">)</a>(1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m88\">MyInt</a>)());\n" +
@@ -8137,8 +7743,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyOther\" href=\"#m124\">MyOther</a>)(1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)());\n" +
@@ -8165,8 +7770,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m124\">MyOther</a>)());\n" +
@@ -8193,8 +7797,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m128\">MyOther</a>)());\n" +
@@ -8221,8 +7824,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m98\">MyInt</a>&lt;?&gt;)(1,<a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m134\">MyOther</a>)());\n" +
@@ -8249,8 +7851,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m96\">MyInt</a>)(1,<a title=\"The constructor pkg.MyOther($int) is undefined.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m137\">MyOther</a>)(0));\n" +
@@ -8279,8 +7880,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m121\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m162\">MyOther</a>)(),<a title=\"The call of a constructor of the interface pkg.MyOther cannot be applied before calling the constructor of the interface pkg.MyOtherTwo.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOtherTwo\" href=\"#m208\">MyOtherTwo</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 3.\" class=\"e\">)</a>;\n" +
@@ -8309,8 +7909,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m97\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m138\">MyOther</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 3.\" class=\"e\">,</a>1);\n" +
@@ -8339,8 +7938,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $(<a title=\"pkg.MyInt\" href=\"#m95\">MyInt</a>)(1,$interfaces(<a title=\"pkg.MyOther\" href=\"#m136\">MyOther</a>)()<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">)</a>;\n" +
@@ -8371,8 +7969,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  (1<a title=\"The number of required operands 1 is different from the number of supplied arguments 2.\" class=\"e\">,</a><a title=\"The call of a constructor of interface must refer a super interface of the calling type.\" class=\"e\">$interfaces</a>(<a title=\"pkg.MyOther\" href=\"#m128\">MyOther</a>)());\n" +
@@ -8402,8 +7999,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MySup\" href=\"#m103\">MySup</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"pkg.MyCl.pkg.MyCl($int)\" href=\"#m69\">$this</a>(0);\n" +
@@ -8434,8 +8030,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m148\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  <a title=\"pkg.MyCl.pkg.MyCl($int)\" href=\"#m81\">$this</a>(0);\n" +
@@ -8468,8 +8063,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m146\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  $int <a name=\"m48\">i</a>;\n" +
@@ -8502,8 +8096,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m150\">MyInt</a> {\n" +
                 " <a name=\"m33\">MyCl(</a>){\n" +
                 "  $if($true);\n" +
@@ -8529,8 +8122,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type $int is not resolved for instancing.\" class=\"e\">$new</a> $int();\n" +
@@ -8549,8 +8141,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $abstract $class <a name=\"m25\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MyCl cannot be instantiated because of abstract.\" class=\"e\">$new</a> <a title=\"pkg.MyCl\" href=\"#m25\">MyCl</a>();\n" +
@@ -8569,8 +8160,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a> {;\n" +
                 " {\n" +
                 "  <a title=\"A constructor of a enum cannot be called explicitly.\" class=\"e\">$new</a> <a title=\"pkg.MyCl\" href=\"#m14\">MyCl</a>();\n" +
@@ -8589,8 +8179,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>&lt;<a name=\"m24\">T</a>&gt; {\n" +
                 " {\n" +
                 "  <a title=\"The argument ? of the type pkg.MyCl&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$new</a> <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>&lt;?&gt;();\n" +
@@ -8613,8 +8202,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MyCl cannot be implicitly cast to pkg.MyClTwo\" class=\"e\">$new</a> <a title=\"pkg.MyClTwo\" href=\"#m73\">MyClTwo</a>.<a title=\"pkg.MyClTwo..Inner\" href=\"#m103\">Inner</a>();\n" +
@@ -8641,8 +8229,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " $static {\n" +
                 "  <a title=\"The type pkg.MyClTwo..Inner is not resolved for instancing.\" class=\"e\">$new</a> <a title=\"pkg.MyClTwo\" href=\"#m81\">MyClTwo</a>.<a title=\"pkg.MyClTwo..Inner\" href=\"#m111\">Inner</a>();\n" +
@@ -8665,8 +8252,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new <a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>();\n" +
@@ -8683,8 +8269,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
                 " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\">ONE</a>;\n" +
                 "}\n" +
@@ -8699,8 +8284,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
                 " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\" class=\"e\">ONE</a>{};\n" +
                 "}\n" +
@@ -8719,8 +8303,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The type pkg.MyCl..Inner is not parameterized correctly.\" class=\"e\">$new</a> Inner();\n" +
@@ -8741,8 +8324,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>().<a title=\"The owner for the type Inexist is not resolved for instancing.\" class=\"e\">$new</a> Inexist();\n" +
@@ -8762,8 +8344,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>&lt;<a name=\"m24\">T</a>&gt; {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>&lt;?&gt; <a name=\"m42\">v</a> = $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>&lt;Object&gt;();\n" +
@@ -8784,8 +8365,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>[] <a name=\"m38\">v</a> = $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>[0];\n" +
@@ -8805,8 +8385,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $this.<a title=\"There is no accessible field named v from the type pkg.MyCl in this context.\" class=\"e\">v</a>;\n" +
@@ -8827,8 +8406,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $this.$superaccess(<a title=\"pkg.MyOther\" href=\"#m81\">MyOther</a>)<a title=\"The type pkg.MyCl cannot be implicitly cast to pkg.MyOther\" class=\"e\">v</a>;\n" +
@@ -8851,8 +8429,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <a title=\"There is no accessible field named v from the type pkg.MyCl in this context.\" class=\"e\">v</a>=0;\n" +
@@ -8872,8 +8449,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a> {\n" +
                 " <a name=\"m26\" title=\"The constructor pkg.MyCl-ONE($int) is undefined.\" class=\"e\">ONE</a>(1){\n" +
                 " }\n" +
@@ -8889,8 +8465,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a> {\n" +
                 " <a name=\"m26\" title=\"The constructor pkg.MyCl($int) is undefined.\">ONE</a>(1)\n" +
                 "}\n" +
@@ -8906,8 +8481,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>($int <a title=\"The parameter method name #i is not valid. It must be a word.\" class=\"e\">#i</a>,$int... <a name=\"m65\">j</a>) {\n" +
                 " }\n" +
@@ -8924,8 +8498,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>($int <a name=\"m54\">i</a>,$int... <a title=\"The parameter method name #j is not valid. It must be a word.\" class=\"e\">#j</a>) {\n" +
                 " }\n" +
@@ -8944,8 +8517,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -8966,8 +8538,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -8988,8 +8559,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $void <a name=\"m42\">method</a>() {\n" +
                 "  $iterableTable&lt;$int,$int&gt; <a name=\"m81\">it</a> = $null;\n" +
@@ -9009,8 +8579,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $int <a name=\"m37\">i</a><a title=\"The expression part is empty.\" class=\"e\">,</a>;\n" +
@@ -9028,8 +8597,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@<a title=\"pkg.MySub\" href=\"#m31\">MySub</a>(<a title=\"The expression part is empty.\n" +
                 "\n" +
                 "pkg.MySub.i()\" href=\"#m49\" class=\"e\">i</a><a title=\"The type java.lang.Object cannot be implicitly cast to $int\" class=\"e\">=</a>)\n" +
@@ -9050,8 +8618,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
@@ -9072,8 +8639,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
@@ -9094,8 +8660,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
@@ -9113,8 +8678,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\n" +
                 "\n" +
@@ -9138,8 +8702,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $static $final $int <a name=\"m56\">i</a><a title=\"The expression part is empty.\n" +
                 "\n" +
@@ -9164,8 +8727,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m35\">a</a>;\n" +
                 " $int <a name=\"m44\">i</a>,<a title=\"pkg.MySub.a\" href=\"#m35\">a</a><a title=\"No field could be retrieved.\" class=\"e\">[</a>0],<a name=\"m51\">k</a>;\n" +
@@ -9182,8 +8744,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m35\">a</a>;\n" +
                 " $int <a name=\"m44\">i</a>,<a title=\"pkg.MySub.a\" href=\"#m35\">a</a><a title=\"No field could be retrieved.\" class=\"e\">[</a>0]=1,<a name=\"m53\">k</a>;\n" +
@@ -9200,8 +8761,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int[] <a name=\"m35\">a</a>;\n" +
                 " $int <a title=\"No field could be retrieved.\" class=\"e\">a[0]=1</a>;\n" +
@@ -9219,8 +8779,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">*</a>);\n" +
@@ -9240,8 +8799,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
@@ -9261,8 +8819,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">.</a><a title=\"There is no accessible field named e from the type java.lang.Object in this context.\" class=\"e\">e</a>);\n" +
@@ -9280,8 +8837,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>;\n" +
                 " $int <a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
@@ -9301,8 +8857,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>;\n" +
                 " $int <a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
@@ -9324,8 +8879,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>,<a title=\"the field name i is duplicated.\" class=\"e\">i</a>;\n" +
                 " {\n" +
@@ -9346,8 +8900,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>,<a title=\"the field name i is duplicated.\" class=\"e\">i</a>,<a name=\"m37\">j</a>;\n" +
                 " {\n" +
@@ -9373,8 +8926,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9400,8 +8952,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9422,8 +8973,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9444,8 +8994,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9466,8 +9015,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9488,8 +9036,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9513,8 +9060,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " <a title=\"pkg.MySub2\" href=\"#m81\">MySub2</a> <a name=\"m45\">j</a>;\n" +
@@ -9537,8 +9083,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">??</a>);\n" +
@@ -9560,8 +9105,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9586,8 +9130,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9612,8 +9155,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -9635,8 +9177,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ( $lambda(<a title=\"The number of required splitted parts by comas 2 is greater than the number of supplied splitted parts by comas 1.\" class=\"e\">)</a>);\n" +
@@ -9665,8 +9206,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.Int3\" href=\"#m175\">Int3</a> <a name=\"m33\">a</a>;\n" +
                 " <a title=\"pkg.Int4\" href=\"#m217\">Int4</a> <a name=\"m42\">b</a>;\n" +
@@ -9693,8 +9233,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>,<a name=\"m37\">k</a>;\n" +
                 "}\n" +
@@ -9709,8 +9248,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\n" +
                 "\n" +
@@ -9729,8 +9267,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>=1,<a name=\"m39\">k</a>;\n" +
                 "}\n" +
@@ -9745,8 +9282,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">i</a>,<a name=\"m37\">l</a>=<a title=\"Bad number 1e\" class=\"e\">1e</a>,<a name=\"m42\">k</a>;\n" +
                 "}\n" +
@@ -9761,8 +9297,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">i</a>,<a name=\"m37\">l</a>= <a title=\"Bad number 1e\" class=\"e\">1e</a>,<a name=\"m43\">k</a>;\n" +
                 "}\n" +
@@ -9777,8 +9312,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " Object <a name=\"m35\">i</a>,<a name=\"m37\">l</a>=<a title=\"Bad number 1ee1\" class=\"e\">1ee1</a> ,<a name=\"m45\">k</a>;\n" +
                 "}\n" +
@@ -9795,8 +9329,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"The operator symbol  is not valid.\" class=\"e\">)</a>;\n" +
@@ -9815,8 +9348,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a><a title=\"The operator symbol  is not valid.\" class=\"e\">,</a>);\n" +
@@ -9835,8 +9367,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
@@ -9855,8 +9386,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a><a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
@@ -9876,8 +9406,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a>,$id<a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
@@ -9897,8 +9426,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"The function $static (java.lang.Object) is undefined.\" class=\"e\">+</a>,$id<a title=\"There must be a type.\" class=\"e\">,</a>);\n" +
@@ -9917,8 +9445,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -9937,8 +9464,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -9958,8 +9484,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -9979,8 +9504,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"The function $static (pkg.MySub) is undefined.\" class=\"e\">+</a>,$id,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -10000,8 +9524,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required splitted parts by comas 3 is greater than the number of supplied splitted parts by comas 2.\" class=\"e\">$lambda</a>(MySub,);\n" +
@@ -10021,8 +9544,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,,<a title=\"There is no accessible field named field from the type pkg.MySub in this context.\" class=\"e\">field</a>);\n" +
@@ -10042,8 +9564,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,,$super,<a title=\"There is no accessible field named field from the type pkg.MySub in this context.\" class=\"e\">field</a>);\n" +
@@ -10062,8 +9583,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $static().$lambda(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,,<a title=\"There is no accessible field named field from the type pkg.MySub in this context.\" class=\"e\">field</a>);\n" +
@@ -10083,8 +9603,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">m</a>;\n" +
                 " {\n" +
@@ -10105,8 +9624,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">m</a>;\n" +
                 " {\n" +
@@ -10126,8 +9644,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $static().$lambda(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,, <a title=\"There is no accessible field named field from the type pkg.MySub in this context.\" class=\"e\">field</a>);\n" +
@@ -10149,8 +9666,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">m</a>;\n" +
                 " {\n" +
@@ -10173,8 +9689,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda(<a title=\"There must be a type.\" class=\"e\">,</a>,<a title=\"There is no accessible field named  from the type java.lang.Object in this context.\" class=\"e\">)</a>;\n" +
@@ -10193,8 +9708,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,+,$id,MySub<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,MySub);\n" +
@@ -10213,8 +9727,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $lambda($operator,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,+,MySub<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,MySub);\n" +
@@ -10234,8 +9747,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required splitted parts by comas 2 is lower than the number of supplied splitted parts by comas 3.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,explicit,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -10255,8 +9767,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The function method(pkg.MySub) is undefined.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,method,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -10277,8 +9788,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $abstract $class <a name=\"m25\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The method method(pkg.MySub) from the type pkg.MySub must not be called directly because of abstract.\n" +
@@ -10301,8 +9811,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $abstract $class <a name=\"m25\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MySub cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>,$new,<a title=\"pkg.MySub\" href=\"#m25\">MySub</a>);\n" +
@@ -10322,8 +9831,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <a title=\"The constructor pkg.MySub(pkg.MySub) is undefined.\" class=\"e\">$lambda</a>(<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>,$new,<a title=\"pkg.MySub\" href=\"#m15\">MySub</a>);\n" +
@@ -10344,8 +9852,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $final $int <a name=\"m40\">field</a>;\n" +
                 " {\n" +
@@ -10368,8 +9875,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">+</a>);\n" +
@@ -10389,8 +9895,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">-</a>);\n" +
@@ -10410,8 +9915,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">!</a>);\n" +
@@ -10431,8 +9935,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">~</a>);\n" +
@@ -10453,8 +9956,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10476,8 +9978,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10499,8 +10000,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10522,8 +10022,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10545,8 +10044,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10568,8 +10066,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10591,8 +10088,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10614,8 +10110,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10637,8 +10132,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10660,8 +10154,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10683,8 +10176,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10706,8 +10198,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10729,8 +10220,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10752,8 +10242,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10775,8 +10264,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">field</a>;\n" +
                 " {\n" +
@@ -10798,8 +10286,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -10820,8 +10307,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static {\n" +
                 "  1<a title=\"The assignment operator ++ is unexpected.\" class=\"e\">++</a>;\n" +
@@ -10842,8 +10328,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -10868,8 +10353,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">i</a>;\n" +
                 " {\n" +
@@ -10899,8 +10383,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m49\">i</a> = $null;\n" +
                 " $static {\n" +
@@ -10930,8 +10413,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m49\">i</a> = $null;\n" +
                 " {\n" +
@@ -10953,8 +10435,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -10979,8 +10460,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final String <a name=\"m50\">i</a>=<span class=\"s\">\"\"</span>;\n" +
                 " $static {\n" +
@@ -11005,8 +10485,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m49\">i</a>=$null;\n" +
                 " $static {\n" +
@@ -11028,8 +10507,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -11052,8 +10530,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static $final $float <a name=\"m76\">f</a>;\n" +
@@ -11076,8 +10553,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -11099,8 +10575,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -11122,8 +10597,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">i</a>=0;\n" +
                 " $static {\n" +
@@ -11143,8 +10617,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  1<a title=\"The assignment operator += is unexpected.\" class=\"e\">+=</a>1;\n" +
@@ -11164,8 +10637,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $int <a name=\"m33\">v</a>;\n" +
                 " {\n" +
@@ -11186,8 +10658,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
                 " {\n" +
@@ -11208,8 +10679,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static $final $int <a name=\"m48\">v</a>=0;\n" +
                 " $static {\n" +
@@ -11229,8 +10699,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $static {\n" +
                 "  1<a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a>1;\n" +
@@ -11249,8 +10718,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (1<a title=\"The string ! is not an operator reference.\" class=\"e\">!</a>1);\n" +
@@ -11269,8 +10737,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (1&lt;1<a title=\"The number of required operands 2 is different from the number of supplied arguments 3 for the operator &lt;\" class=\"e\">&lt;</a>3);\n" +
@@ -11289,8 +10756,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">.</a>);\n" +
@@ -11309,8 +10775,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>)<a title=\"The operands types $boolean;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
@@ -11329,8 +10794,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a> )<a title=\"The operands types $boolean;$int for the operator &gt;= are unexpected.\" class=\"e\">&gt;=</a>1;\n" +
@@ -11349,8 +10813,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>2);\n" +
@@ -11369,8 +10832,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (1<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>2);\n" +
@@ -11389,8 +10851,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format ''\" class=\"e\">''</a></span>;\n" +
@@ -11410,8 +10871,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a>:<a title=\"pkg.MySub2\" href=\"#m71\">MySub2</a> {\n" +
                 " $int <a name=\"m40\">a</a>,$super.<a title=\"No field could be retrieved.\n" +
                 "\n" +
@@ -11433,8 +10893,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  ([<a title=\"The variable a is undefined in this context.\" class=\"e\">a</a>]);\n" +
@@ -11451,8 +10910,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The constructor pkg.MyEnum($int) is undefined.\">ONE</a>(1);\n" +
                 "}\n" +
@@ -11467,8 +10925,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The constructor pkg.MyEnum-ONE($int) is undefined.\" class=\"e\">ONE</a>(1){};\n" +
                 "}\n" +
@@ -11485,8 +10942,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">$valueOf</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,<span class=\"s\">\"\"</span>);\n" +
@@ -11505,8 +10961,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {;\n" +
                 " {\n" +
                 "  <a title=\"The type $int is unexpected.\" class=\"e\">$valueOf</a>(<a title=\"pkg.MyEnum\" href=\"#m14\">MyEnum</a>,0);\n" +
@@ -11525,8 +10980,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">$values</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>);\n" +
@@ -11545,8 +10999,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {;\n" +
                 " {\n" +
                 "  <a title=\"The key word $firstopt is unexpected here.\" class=\"e\">$firstopt</a>(0);\n" +
@@ -11567,8 +11020,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a>&lt;<a name=\"m26\">T</a>&gt; {\n" +
                 " {\n" +
                 "  <a title=\"The type pkg.MyEnum&lt;?&gt; is unexpected.\" class=\"e\">$staticCall</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>&lt;?&gt;).<a title=\"pkg.MyEnum.$staticCall m()\" href=\"#m86\">m</a>();\n" +
@@ -11593,8 +11045,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a>&lt;<a name=\"m26\">T</a>&gt; {\n" +
                 " {\n" +
                 "  <a title=\"The type pkgtwo.MyOther is not accessible from the type pkg.MyEnum.\" class=\"e\">$static</a>(<a title=\"pkgtwo.MyOther\" href=\"#m77\">pkgtwo.MyOther</a>).<a title=\"The function $static m() is undefined.\" class=\"e\">m</a>();\n" +
@@ -11617,8 +11068,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The key word $vararg is unexpected here.\" class=\"e\">$vararg</a>(MyEnum);\n" +
@@ -11637,8 +11087,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $static {\n" +
                 "  <a title=\"The context is static. The key word $super cannot be used in this context.\" class=\"e\">$super</a><a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">[</a>0];\n" +
@@ -11657,8 +11106,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The function m() is undefined.\" class=\"e\">m</a>($id(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,$int<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,$int));\n" +
@@ -11677,8 +11125,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The key word $id is unexpected here.\" class=\"e\">$id</a>(MyEnum,$int);\n" +
@@ -11697,8 +11144,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The function m() is undefined.\" class=\"e\">m</a>($id(<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>));\n" +
@@ -11717,8 +11163,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The function $static +,MyEnum($int) is undefined.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>)(1);\n" +
@@ -11737,8 +11182,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The number of required splitted parts by comas 2 is lower than the number of supplied splitted parts by comas 3.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>,MyEnum)();\n" +
@@ -11759,8 +11203,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $static {\n" +
                 "  <a title=\"The context is static. The key word $this cannot be used in this context.\" class=\"e\">$this</a>.<a title=\"pkg.MyEnum.m()\" href=\"#m62\">m</a>();\n" +
@@ -11783,8 +11226,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $static {\n" +
                 "  <a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>.<a title=\"The context is static. The key word $this cannot be used in this context.\" class=\"e\">$this</a>.<a title=\"pkg.MyEnum.m()\" href=\"#m69\">m</a>();\n" +
@@ -11805,8 +11247,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  $this<a title=\"The type pkg.MyEnum is unexpected.\" class=\"e\">[</a>0];\n" +
@@ -11825,8 +11266,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $public $class <a name=\"m44\">Inner</a>{\n" +
                 "  $static $int <a name=\"m66\" title=\"The field i of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">i</a>;\n" +
@@ -11845,8 +11285,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $public $class <a name=\"m44\">Inner</a>{\n" +
                 "  $static $int <a name=\"m66\" title=\"The field i of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>,<a name=\"m70\" title=\"The field k of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">k</a>;\n" +
@@ -11865,8 +11304,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m43\">i</a><a title=\"The type java.lang.Object cannot be implicitly cast to java.lang.$iterable\" class=\"e\">:</a>){}\n" +
@@ -11885,8 +11323,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  $for($int <a name=\"m43\">i</a>,$int <a name=\"m50\">j</a><a title=\"The type java.lang.Object cannot be implicitly cast to java.lang.$iterableTable\" class=\"e\">:</a>){}\n" +
@@ -11905,8 +11342,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The type pkg.MyCl must have a constructor because of implementing interfaces with instance elements.\" class=\"e\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m53\">MyInt</a> {\n" +
                 "}\n" +
                 "$public $interface <a name=\"m53\">pkg.MyInt</a> {\n" +
@@ -11927,8 +11363,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyInt\" href=\"#m66\">MyInt</a> {\n" +
                 " <a name=\"m33\" title=\"A constructor of the type pkg.MyInt must be called in the constructor.\" class=\"e\">MyCl(</a>) {\n" +
                 " }\n" +
@@ -11949,8 +11384,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format 'ab'\" class=\"e\">'ab'</a></span>;\n" +
@@ -11969,8 +11403,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format &quot;\\ug000&quot;\" class=\"e\">\"\\ug000\"</a></span>;\n" +
@@ -11989,8 +11422,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format &quot;\\u&quot;\" class=\"e\">\"\\u\"</a></span>;\n" +
@@ -12009,8 +11441,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format &quot;\\a&quot;\" class=\"e\">\"\\a\"</a></span>;\n" +
@@ -12029,8 +11460,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format '\\ug000'\" class=\"e\">'\\ug000'</a></span>;\n" +
@@ -12049,8 +11479,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format '\\u'\" class=\"e\">'\\u'</a></span>;\n" +
@@ -12069,8 +11498,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format '\\a'\" class=\"e\">'\\a'</a></span>;\n" +
@@ -12089,8 +11517,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format '\\u1'\" class=\"e\">'\\u1'</a></span>;\n" +
@@ -12109,8 +11536,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  <span class=\"s\"><a title=\"Bad character format &quot;\\u1&quot;\" class=\"e\">\"\\u1\"</a></span>;\n" +
@@ -12132,8 +11558,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m72\">MyCl2</a> {\n" +
                 " $public $void <a name=\"m47\" title=\"The function m() of the type pkg.MyCl2 is final. So overriding it is forbidden.\" class=\"e\">m</a>(){\n" +
                 " }\n" +
@@ -12155,8 +11580,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"The method m() from the type pkg.MyCl2 must be overriden in the concrete type pkg.MyCl.\" class=\"e\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m59\">MyCl2</a> {\n" +
                 "}\n" +
                 "$public $abstract $class <a name=\"m59\">pkg.MyCl2</a> {\n" +
@@ -12175,8 +11599,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " <a name=\"m27\" title=\"The constructors pkg.MyCl()&amp;pkg.MyCl() of the type pkg.MyCl belong to cyclic calls.\" class=\"e\">$public MyCl(</a>) {\n" +
                 "  <a title=\"pkg.MyCl.pkg.MyCl()\" href=\"#m27\">$this</a>();\n" +
@@ -12198,8 +11621,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m70\">MyCl2</a> {\n" +
                 " <a name=\"m33\" title=\"No super constructor with implicit call is defined and accessible. The explicit call of a super constructor is required for the constructor pkg.MyCl().\" class=\"e\">$public MyCl(</a>) {\n" +
                 " }\n" +
@@ -12222,8 +11644,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\" title=\"No super constructor with implicit call is defined and accessible. There must be at least one constructor for the type pkg.MyCl\" class=\"e\">pkg.MyCl</a>:<a title=\"pkg.MyCl2\" href=\"#m49\">MyCl2</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m49\">pkg.MyCl2</a> {\n" +
@@ -12242,8 +11663,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class $interfaces(<a title=\"pkg.MyOther\" href=\"#m65\">MyOther</a>) <a name=\"m36\" title=\"The type pkg.MyOther is not an interface.\" class=\"e\">pkg.MySub</a> {\n" +
                 "}\n" +
                 "$public $class <a name=\"m65\">pkg.MyOther</a> {\n" +
@@ -12261,8 +11681,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 "{\n" +
                 " $static(<a title=\"The type cannot be the key word $void.\" class=\"e\">$void</a>).<a title=\"The function $static m() is undefined.\" class=\"e\">m</a>();\n" +
@@ -12279,8 +11698,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.MySub</a> {\n" +
                 " int <a name=\"m30\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a>,<a name=\"m37\">k</a>;\n" +
                 "}\n" +
@@ -12295,8 +11713,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MySub\" href=\"#m13\">MySub</a> <a name=\"m32\">i</a>,<a title=\"The field name this is not valid. It must not be a key word.\" class=\"e\">this</a>=null,<a name=\"m44\">k</a>;\n" +
                 "}\n" +
@@ -12311,8 +11728,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"A type must have an non empty package.\n" +
                 "\n" +
                 "The part  in a type is not valid. It must be a word.\" class=\"e\">$class</a> {\n" +
@@ -12327,8 +11743,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"A type must have an non empty package.\n" +
                 "\n" +
                 "The part  in a type is not valid. It must be a word.\" class=\"e\">$class</a> <a name=\"m15\" title=\"The part must not be empty.\" class=\"e\">&lt;</a>&gt;{\n" +
@@ -12344,8 +11759,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>)\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
@@ -12360,8 +11774,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
                 "\n" +
@@ -12380,8 +11793,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The field name  is not valid. It must be a word.\">(</a>);\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
@@ -12396,8 +11808,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum pkg.MyEnum{\n" +
                 " {}\n" +
                 "<a title=\"Bad index by parsing.\" class=\"e\">}</a></span></pre></body></html>", filesExp_.firstValue());
@@ -12414,8 +11825,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The constructor pkg.MyEnum() is undefined.\">ONE</a>();\n" +
                 " <a name=\"m35\">MyEnum(</a>$int <a name=\"m47\">i</a>){ }}</span></pre></body></html>", filesExp_.firstValue());
@@ -12430,8 +11840,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
@@ -12448,8 +11857,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
                 "\n" +
@@ -12472,8 +11880,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\n" +
                 "\n" +
@@ -12490,8 +11897,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a>{\n" +
                 " <a name=\"m27\" title=\"The inner type simple name  is duplicated.\n" +
                 "\n" +
@@ -12515,8 +11921,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  (<a title=\"The expression part is empty.\" class=\"e\">&lt;</a> <a title=\"The expression part is empty.\" class=\"e\">&lt;</a>);\n" +
@@ -12555,8 +11960,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m177\">ExClass</a>();\n" +
@@ -12598,8 +12002,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12627,8 +12030,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12656,8 +12058,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12685,8 +12086,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12714,8 +12114,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12742,8 +12141,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12770,8 +12168,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12798,8 +12195,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12827,8 +12223,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12850,8 +12245,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
@@ -12868,8 +12262,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"The $case block with expression 1 must be child of a block $switch.\" class=\"e\">$case</a> 1:<a title=\"Bad index by parsing.\n" +
@@ -12885,8 +12278,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method method().\" class=\"e\">method</a>() {\n" +
                 "  <a title=\"Bad index by parsing.\n" +
@@ -12909,8 +12301,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  Object <a name=\"m61\">v</a> = $null;\n" +
@@ -12937,8 +12328,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">method</a>() {\n" +
                 "  StringBuilder <a name=\"m68\">v</a> = $null;\n" +
@@ -12962,8 +12352,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a> {\n" +
                 " {\n" +
                 "  $new <a title=\"pkg.MyClass\" href=\"#m15\">MyClass</a>()?1<a title=\"pkg.MyClass.$static $true($boolean,pkg.MyClass)\" href=\"#m83\">:</a>1;\n" +
@@ -12993,8 +12382,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m152\">ExClass</a>&lt;?&gt; <a name=\"m74\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m152\">ExClass</a>&lt;$int&gt;();\n" +
@@ -13031,8 +12419,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m138\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m138\">ExClass</a>();\n" +
@@ -13067,8 +12454,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m105\">ExClass</a>.<a title=\"The function $static $true() is undefined.\" class=\"e\">$true</a>($null);\n" +
@@ -13104,8 +12490,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\">method</a>(){\n" +
                 "  $return <span class=\"s\">\"\"</span>;\n" +
@@ -13132,8 +12517,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " <a title=\"Bad index by parsing.\" class=\"e\">$intern</a>;\n" +
                 "}\n" +
@@ -13148,8 +12532,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " <a title=\"Bad index by parsing.\" class=\"e\">$intern</a>{);\n" +
                 "}\n" +
@@ -13166,8 +12549,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a>:<a title=\"pkg.Super\" href=\"#m87\">Super</a> {\n" +
                 " $intern{m():m(<a title=\"pkg.Super\" href=\"#m87\">Super</a>,$int<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,$int)};\n" +
                 "}\n" +
@@ -13186,8 +12568,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a>:<a title=\"pkg.Super\" href=\"#m77\">Super</a> {\n" +
                 " $intern{m($int<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,$int)};\n" +
                 "}\n" +
@@ -13204,8 +12585,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $void <a name=\"m34\">m</a>()$intern(<a title=\"pkg.Apply\" href=\"#m15\">Apply</a>:m(<a title=\"pkg.Apply\" href=\"#m15\">Apply</a>,$int<a title=\"The three dots are unexpected here.\" class=\"e\">...</a>,$int)){}\n" +
                 "}\n" +
@@ -13223,8 +12603,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -13245,8 +12624,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a> {\n" +
                 " {\n" +
                 "  $Fct&lt;$int,$int&gt; <a name=\"m47\">f</a>=$null;\n" +
@@ -13264,8 +12642,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a><a title=\"The type java.lang.Number cannot be implicitly cast to $double\" class=\"e\">=</a><a title=\"Bad number 1e\" class=\"e\">1e</a><a title=\"The expression part is empty.\" class=\"e\">+</a>;\n" +
                 "}\n" +
@@ -13280,8 +12657,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1e\" class=\"e\">1e</a>+(1.0);\n" +
                 "}\n" +
@@ -13296,8 +12672,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1e\" class=\"e\">1e</a>;\n" +
                 "}\n" +
@@ -13312,8 +12687,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1e\" class=\"e\">1e</a>*1.0;\n" +
                 "}\n" +
@@ -13328,8 +12702,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a><a title=\"The type java.lang.Number cannot be implicitly cast to $double\" class=\"e\">=</a><a title=\"Bad number 1e\" class=\"e\">1e</a><a title=\"The expression part is empty.\" class=\"e\">*</a>;\n" +
                 "}\n" +
@@ -13344,8 +12717,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a><a title=\"The type java.lang.Number cannot be implicitly cast to $double\" class=\"e\">=</a><a title=\"Bad number 1e\" class=\"e\">1e</a><a title=\"The expression part is empty.\" class=\"e\">*</a><a title=\"The expression part is empty.\" class=\"e\">*</a>;\n" +
                 "}\n" +
@@ -13360,8 +12732,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1e 1\" class=\"e\">1e 1</a>;\n" +
                 "}\n" +
@@ -13376,8 +12747,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1.e 1\" class=\"e\">1.e 1</a>;\n" +
                 "}\n" +
@@ -13392,8 +12762,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1.e1 1\" class=\"e\">1.e1 1</a>;\n" +
                 "}\n" +
@@ -13408,8 +12777,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1ee1\" class=\"e\">1ee1</a> ;\n" +
                 "}\n" +
@@ -13424,8 +12792,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $double <a name=\"m36\">i</a>=<a title=\"Bad number 1ee 1\" class=\"e\">1ee 1</a> ;\n" +
                 "}\n" +
@@ -13444,8 +12811,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyClass\" href=\"#m66\">pkg.MyClass</a><a title=\"The type pkg.MyClass..Inner is not parameterized correctly.\" class=\"e\">.</a><a title=\"pkg.MyClass..Inner\" href=\"#m98\">Inner</a> <a name=\"m46\">v</a>;\n" +
                 "}\n" +
@@ -13467,8 +12833,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>&gt;{\n" +
                 " $public $class <a name=\"m47\">Inner</a>{\n" +
                 " }\n" +
@@ -13490,8 +12855,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyClass</a>&lt;<a name=\"m27\">T</a>&gt;{\n" +
                 " $public $class <a name=\"m47\">Inner</a>{\n" +
                 " }\n" +
@@ -13514,8 +12878,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $interface <a name=\"m19\">pkg.MySub</a> {\n" +
                 " {\n" +
                 "  $thisaccess(<a title=\"The type MyCl is unknown.\" class=\"e\">MyCl</a>)<a title=\"The function m() is undefined.\" class=\"e\">m</a>();\n" +
@@ -13543,8 +12906,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>();\n" +
@@ -13581,8 +12943,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElErrorReadOnlyDef();
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.Apply</a> {\n" +
                 " $public $static String <a name=\"m51\" title=\"A $throw block or a $return block is missing for the method $static method().\" class=\"e\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a> <a name=\"m71\">e</a> = $new <a title=\"pkg.ExClass\" href=\"#m157\">ExClass</a>();\n" +
@@ -13612,8 +12973,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $iterable<a title=\"The type java.lang.$iterable&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -13636,8 +12996,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " <a title=\"pkg.MyParam\" href=\"#m92\">MyParam</a><a title=\"The type pkg.MyParam&lt;pkg.MyCl&gt; is not parameterized correctly.\" class=\"e\">&lt;</a><a title=\"The type pkg.MyCl is not parameterized correctly.\n" +
                 "\n" +
@@ -13658,8 +13017,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
                 " <a name=\"m28\" title=\"The type pkg.MyEnum&lt;java.lang.Object&gt; is not parameterized correctly.\" class=\"e\">ONE</a>&lt;<a title=\"The type Inexist is unknown.\" class=\"e\">Inexist</a>&gt;{}\n" +
                 "}\n" +
@@ -13676,8 +13034,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
                 "  <a title=\"The type  is unexpected.\" class=\"e\">$values</a><a title=\"There must be a type.\" class=\"e\">(</a>);\n" +
@@ -13693,8 +13050,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public <a title=\"A type must have an non empty package.\n" +
                 "\n" +
                 "The part  in a type is not valid. It must be a word.\" class=\"e\">$class</a> [) {\n" +
@@ -13708,8 +13064,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator<a title=\"Bad index by parsing.\" class=\"e\">+</a> {\n" +
                 "}</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -13723,8 +13078,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " <a title=\"The block is unexpected.\" class=\"e\">$default</a>:\n" +
                 "  $int i;\n" +
@@ -13741,14 +13095,14 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " <a title=\"The block is unexpected.\" class=\"e\">$case</a> 1:\n" +
                 "  $int i;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
     @Test
     public void reportWithoutErrorTest() {
         StringBuilder xml_ = new StringBuilder();
@@ -13760,8 +13114,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckNoErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckNoReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
                 " $public $int <a name=\"m41\">m</a>() {\n" +
                 "  $return 0;\n" +

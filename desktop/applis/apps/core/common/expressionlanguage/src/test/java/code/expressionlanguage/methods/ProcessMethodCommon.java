@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
-import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -47,8 +46,8 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static void validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
-        ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src", new CustList<CommentDelimiters>());
+    protected static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
+        return ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src", new CustList<CommentDelimiters>());
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -202,18 +201,22 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOne(opt_);
     }
 
-    protected static StringMap<String> getErrors(ContextEl _cont) {
-        return _cont.getOptions().getErrors();
+    private static StringMap<String> getErrors(ContextEl _cont,ReportedMessages _report) {
+        return _report.getErrors();
     }
 
-    protected static void validateAndCheckErrors(StringMap<String> files_, ContextEl cont_) {
-        validate(cont_,files_);
-        assertTrue(!cont_.isEmptyErrors());
+    public static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, ContextEl _cont) {
+        ReportedMessages report_ = validate(_cont, _files);
+        assertTrue(!_cont.isEmptyErrors());
+        return getErrors(_cont,report_);
     }
-    protected static void validateAndCheckNoErrors(StringMap<String> files_, ContextEl cont_) {
-        validate(cont_,files_);
-        assertTrue(cont_.isEmptyErrors());
+
+    public static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, ContextEl _cont) {
+        ReportedMessages report_ = validate(_cont, _files);
+        assertTrue(_cont.isEmptyErrors());
+        return getErrors(_cont,report_);
     }
+
     protected static ContextEl contextElErrorStdReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -565,9 +568,6 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
-        MethodHeaders headers_ = _cont.getAnalyzing().getHeaders();
-        _cont.setAnalyzing();
-        _cont.getAnalyzing().setHeaders(headers_);
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
     }
 
@@ -580,9 +580,6 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
-        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
-        cont_.setAnalyzing();
-        cont_.getAnalyzing().setHeaders(headers_);
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -620,9 +617,6 @@ public abstract class ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         LgNames stds_ = cont_.getStandards();
-        MethodHeaders headers_ = cont_.getAnalyzing().getHeaders();
-        cont_.setAnalyzing();
-        cont_.getAnalyzing().setHeaders(headers_);
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -646,8 +640,8 @@ public abstract class ProcessMethodCommon {
         validate(_cont, _files);
         assertTrue(_cont.isEmptyErrors());
     }
-    protected static void validate(ContextEl _c, StringMap<String> _f) {
-        validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
+    protected static ReportedMessages validate(ContextEl _c, StringMap<String> _f) {
+        return validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();

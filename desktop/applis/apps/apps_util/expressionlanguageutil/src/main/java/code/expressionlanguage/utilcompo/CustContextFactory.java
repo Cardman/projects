@@ -4,8 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -66,7 +64,7 @@ public final class CustContextFactory {
         RunnableContextEl rCont_ = build(_stack, _options, _exec, _mess,_definedKw,
                 _definedLgNames, _files, _exec.getTabWidth());
         CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec);
-        if (!_options.isEmptyErrors()||!rCont_.isEmptyErrors()) {
+        if (!_exec.getMethodHeaders().isEmptyErrors()||!rCont_.isEmptyErrors()) {
             _progressingTests.showErrors(rCont_,_options,_exec);
             return;
         }
@@ -93,7 +91,7 @@ public final class CustContextFactory {
     public static void reportErrors(RunnableContextEl _ctx, LgNamesUtils _definedLgNames, Options _opts, ExecutingOptions _exec) {
         if (_exec.isErrors()) {
             String exp_ = _exec.getErrorsFolder();
-            for (EntryCust<String,String> f:_opts.getErrors().entryList()) {
+            for (EntryCust<String,String> f:_exec.getMethodHeaders().getErrors().entryList()) {
                 _definedLgNames.errorFile(exp_,f.getKey(),f.getValue(),_ctx);
             }
         }
@@ -102,7 +100,7 @@ public final class CustContextFactory {
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _mess,_definedKw, _definedLgNames,_tabWidth);
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
         _exec.setMethodHeaders(ContextFactory.validate(_mess,_definedKw,_definedLgNames,_files,r_,_exec.getSrcFolder(),_definedLgNames.defComments()));
         return r_;
     }

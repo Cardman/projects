@@ -1,11 +1,8 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.errors.custom.ErrorList;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class Options {
 
@@ -15,9 +12,6 @@ public final class Options {
     private boolean gettingErrors;
     private boolean failIfNotAllInit;
     private final CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
-
-    private StringMap<String> errors = new StringMap<String>();
-    private final ErrorList errorsDet = new ErrorList();
 
     public StringList getTypesInit() {
         return typesInit;
@@ -59,21 +53,4 @@ public final class Options {
         return comments;
     }
 
-    public boolean isEmptyErrors() {
-        return errorsDet.isEmpty();
-    }
-    public String displayErrors() {
-        return errorsDet.display();
-    }
-    public void addError(FoundErrorInterpret _error) {
-        errorsDet.add(_error);
-    }
-
-    public StringMap<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(StringMap<String> _errors) {
-        errors = _errors;
-    }
 }

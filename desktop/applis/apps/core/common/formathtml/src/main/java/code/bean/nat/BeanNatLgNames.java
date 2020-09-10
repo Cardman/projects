@@ -414,8 +414,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     public boolean setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        _conf.getAdvStandards().setReportedMessages(null);
-        _conf.getAnalyzing().setHeaders(null);
         _conf.getContext().setNullAnalyzing();
         return true;
     }

@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -35,7 +36,7 @@ public final class Coverage {
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mapping = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnot = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
     private IdMap<Block,IdMap<ExecOperationNode,OperationNode>> mappingAnnotMembers = new IdMap<Block,IdMap<ExecOperationNode,OperationNode>>();
-
+    private KeyWords keyWords;
     public void putFile(ContextEl _context, FileBlock _file) {
         if (!_context.isCovering()) {
             return;
@@ -342,5 +343,16 @@ public final class Coverage {
 
     public StringList getToStringOwners() {
         return toStringOwners;
+    }
+
+    public KeyWords getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(ContextEl _cont,KeyWords keyWords) {
+        if (!_cont.isCovering()) {
+            return;
+        }
+        this.keyWords = keyWords;
     }
 }

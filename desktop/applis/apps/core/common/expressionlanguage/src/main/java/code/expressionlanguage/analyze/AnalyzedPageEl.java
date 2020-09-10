@@ -16,6 +16,7 @@ import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
@@ -23,9 +24,11 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.types.*;
 import code.util.*;
@@ -129,6 +132,9 @@ public final class AnalyzedPageEl {
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private boolean variableIssue;
     private final StringList toStringOwners = new StringList();
+    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+    private AnalysisMessages analysisMessages;
+    private KeyWords keyWords;
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -579,10 +585,6 @@ public final class AnalyzedPageEl {
         return headers;
     }
 
-    public void setHeaders(MethodHeaders _headers) {
-        headers = _headers;
-    }
-
     public ReportedMessages getMessages() {
         return messages;
     }
@@ -774,5 +776,29 @@ public final class AnalyzedPageEl {
 
     public StringList getToStringOwners() {
         return toStringOwners;
+    }
+
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
+    }
+
+    public void setComments(CustList<CommentDelimiters> comments) {
+        this.comments = comments;
+    }
+
+    public AnalysisMessages getAnalysisMessages() {
+        return analysisMessages;
+    }
+
+    public void setAnalysisMessages(AnalysisMessages _analysisMessages) {
+        analysisMessages = _analysisMessages;
+    }
+
+    public KeyWords getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(KeyWords keyWords) {
+        this.keyWords = keyWords;
     }
 }

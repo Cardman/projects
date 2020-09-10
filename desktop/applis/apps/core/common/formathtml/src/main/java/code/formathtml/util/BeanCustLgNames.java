@@ -1,6 +1,7 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -869,13 +870,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!_conf.isEmptyErrors()) {
             return false;
         }
-        _conf.getAdvStandards().setReportedMessages(null);
-        _conf.getAnalyzing().setHeaders(null);
         Classes.forwardAndClear(_conf.getContext());
         buildIterables(_conf);
+        AnalysisMessages analysisMessages_ = _conf.getContext().getAnalyzing().getAnalysisMessages();
+        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
         _conf.getContext().setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
-        Classes.tryInitStaticlyTypes(_conf.getContext());
+        Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));
         return true;
     }

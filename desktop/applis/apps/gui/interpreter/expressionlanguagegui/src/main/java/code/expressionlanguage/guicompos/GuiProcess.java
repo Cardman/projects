@@ -92,10 +92,10 @@ public final class GuiProcess implements Runnable {
             return null;
         }
         CustContextFactory.reportErrors(cont_,stds_,opt_,exec_);
-        if (!opt_.isEmptyErrors()) {
+        if (!exec_.getMethodHeaders().isEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+opt_.displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+exec_.getMethodHeaders().displayErrors());
             return null;
         }
         if (!cont_.isEmptyErrors()) {

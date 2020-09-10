@@ -74,9 +74,8 @@ public final class GuiContextEl extends RunnableContextEl {
 
     GuiContextEl(int _stackOverFlow, DefaultLockingClass _lock, GuiInitializer _init,
                  Options _options, ExecutingOptions _exec,
-                 AnalysisMessages _mess,
                  KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _init, _options, _exec, _mess,_keyWords, _stds, _tabWidth);
+        super(_stackOverFlow, _lock, _init, _options, _exec, _keyWords, _stds, _tabWidth);
         guiInit = _init;
     }
 

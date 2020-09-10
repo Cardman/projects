@@ -1,7 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.Initializer;
@@ -37,10 +36,9 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private ExecNamedFunctionBlock runMethod;
 
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
-                      CustInitializer _init, Options _options, ExecutingOptions _exec,
-                                AnalysisMessages _mess,
+                                CustInitializer _init, Options _options, ExecutingOptions _exec,
                                 KeyWords _keyWords, LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _options, _mess,_keyWords, _stds, _tabWidth);
+        super(_stackOverFlow, _lock, _options, _stds, _tabWidth);
         custInit = _init;
         executingOptions = _exec;
         interrupt = _exec.getInterrupt();
@@ -53,9 +51,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         setStandards(_context.getStandards());
         setTabWidth(_context.getTabWidth());
         setStackOverFlow(_context.getStackOverFlow());
-        setAnalysisMessages(_context.getAnalysisMessages());
-        setKeyWords(_context.getKeyWords());
-        setThrowing(_context.getThrowing());
         setCovering(_context.isCovering());
         setCoverage(_context.getCoverage());
         executingOptions = ((RunnableContextEl)_context).executingOptions;

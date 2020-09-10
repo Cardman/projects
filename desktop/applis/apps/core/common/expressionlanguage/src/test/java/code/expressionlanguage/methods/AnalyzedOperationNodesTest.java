@@ -4852,9 +4852,6 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static void validate(StringMap<String> _files, ContextEl _context) {
-        MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
-        _context.setAnalyzing();
-        _context.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildAllBracesBodies(_files,_context);
     }
 

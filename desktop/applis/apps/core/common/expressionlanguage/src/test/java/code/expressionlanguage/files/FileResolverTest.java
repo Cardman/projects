@@ -9891,7 +9891,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         ContextEl cont_ = getEnContextEl();
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -9903,7 +9902,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         ContextEl cont_ = getEnContextElComment();
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -9915,7 +9913,6 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         ContextEl cont_ = getFrContextEl();
         LgNames stds_ = cont_.getStandards();
-        cont_.setAnalyzing();
         for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();

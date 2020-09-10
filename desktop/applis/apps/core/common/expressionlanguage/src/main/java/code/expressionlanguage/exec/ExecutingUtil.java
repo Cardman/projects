@@ -34,7 +34,7 @@ public final class ExecutingUtil {
     public static void processGeneException(ContextEl _context) {
         CallingState callingState_ = _context.getCallingState();
         if (callingState_ instanceof Struct) {
-            _context.getThrowing().removeBlockFinally(_context, (Struct) callingState_);
+           LocalThrowing.removeBlockFinally(_context, (Struct) callingState_);
         }
     }
 

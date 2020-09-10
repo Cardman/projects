@@ -338,6 +338,10 @@ public final class RendKeyWordsTest {
         assertTrue(!conf_.isEmptyStdErrors());
     }
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
-        return new SingleContextEl(-1,lk_,di_,opts_,new AnalysisMessages(),kw_,lgName_,4);
+        SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        s_.setAnalyzing();
+        s_.getAnalyzing().setAnalysisMessages(new AnalysisMessages());
+        s_.getAnalyzing().setKeyWords(kw_);
+        return s_;
     }
 }

@@ -12,7 +12,9 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 
 public final class LocalThrowing {
 
-    public void removeBlockFinally(ContextEl _conf, Struct _str) {
+    private LocalThrowing() {
+    }
+    public static void removeBlockFinally(ContextEl _conf, Struct _str) {
         Struct custCause_ = _str;
         ExecAbstractCatchEval catchElt_ = null;
         while (_conf.hasPages()) {
@@ -60,7 +62,7 @@ public final class LocalThrowing {
                         return;
                     }
                 }
-                if (AbstractPageEl.setRemovedCallingFinallyToProcess(bkIp_,bl_,this,custCause_)) {
+                if (AbstractPageEl.setRemovedCallingFinallyToProcess(bkIp_,bl_,null,custCause_)) {
                     return;
                 }
             }

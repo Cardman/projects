@@ -7,6 +7,7 @@ import code.expressionlanguage.errors.custom.WarningList;
 import code.expressionlanguage.errors.stds.StdErrorList;
 import code.expressionlanguage.errors.stds.StdWordError;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class ReportedMessages {
 
@@ -14,6 +15,9 @@ public final class ReportedMessages {
     private final WarningList warningsDet = new WarningList();
     private final StdErrorList stdErrorDet = new StdErrorList();
     private final StringList messagesErrorDet = new StringList();
+
+    private StringMap<String> errors = new StringMap<String>();
+
 
     public boolean isEmptyErrors() {
         return errorsDet.isEmpty();
@@ -55,4 +59,11 @@ public final class ReportedMessages {
         return warningsDet.display();
     }
 
+    public StringMap<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(StringMap<String> errors) {
+        this.errors = errors;
+    }
 }

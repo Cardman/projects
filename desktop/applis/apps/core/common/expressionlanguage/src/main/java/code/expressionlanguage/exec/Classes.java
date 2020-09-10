@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.util.PolymorphMethod;
@@ -45,6 +46,7 @@ public final class Classes {
     private ExecRootBlock seedGenerator;
     private ExecNamedFunctionBlock seedPick;
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
+    private String keyWordValue = "";
 
     public Classes(){
         classesBodies = new StringMap<ExecRootBlock>();
@@ -72,8 +74,9 @@ public final class Classes {
             return messages_;
         }
         forwardAndClear(_context);
+        AnalysisMessages analysisMessages_ = _context.getAnalyzing().getAnalysisMessages();
         _context.setNullAnalyzing();
-        tryInitStaticlyTypes(_context);
+        tryInitStaticlyTypes(_context,analysisMessages_,messages_);
         return messages_;
     }
 
@@ -86,17 +89,15 @@ public final class Classes {
             //all standards errors are logged here
             return;
         }
-        MethodHeaders headers_ = _context.getAnalyzing().getHeaders();
-        _context.setAnalyzing();
-        _context.getAnalyzing().setHeaders(headers_);
         ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
         if (_context.isGettingErrors()) {
-            _context.getOptions().setErrors(ExecFileBlock.errors(_context));
+            ReportedMessages messages_ = _context.getAnalyzing().getMessages();
+            messages_.setErrors(ExecFileBlock.errors(_context));
         }
     }
 
-    public static void tryInitStaticlyTypes(ContextEl _context) {
+    public static void tryInitStaticlyTypes(ContextEl _context,AnalysisMessages _mess,ReportedMessages _reported) {
         Classes cl_ = _context.getClasses();
         for (ClassMetaInfo c: cl_.getClassMetaInfos()) {
             String name_ = c.getName();
@@ -164,9 +165,9 @@ public final class Classes {
                 FoundErrorInterpret n_ = new FoundErrorInterpret();
                 n_.setFileName(file_.getFileName());
                 n_.setIndexFile(r_.getIdRowCol());
-                n_.buildError(_context.getAnalysisMessages().getNotInitClass(),
+                n_.buildError(_mess.getNotInitClass(),
                         s);
-                _context.getOptions().addError(n_);
+                _reported.addError(n_);
             }
         }
         _context.getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
@@ -392,5 +393,13 @@ public final class Classes {
 
     public void setSeedGenerator(ExecRootBlock seedGenerator) {
         this.seedGenerator = seedGenerator;
+    }
+
+    public String getKeyWordValue() {
+        return keyWordValue;
+    }
+
+    public void setKeyWordValue(String keyWordValue) {
+        this.keyWordValue = keyWordValue;
     }
 }

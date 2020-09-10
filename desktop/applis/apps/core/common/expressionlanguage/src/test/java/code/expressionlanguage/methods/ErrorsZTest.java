@@ -27,8 +27,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
@@ -66,8 +65,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a> = 15;\n" +
                 "}\n" +
@@ -110,8 +108,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static int <a name=\"m28\">stfield</a>;\n" +
                 " int <a name=\"m42\" title=\"A throw block or a return block is missing for the method field().\" class=\"e\">field</a>();\n" +
@@ -166,8 +163,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
@@ -227,8 +223,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
@@ -277,8 +272,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">interface <a name=\"m10\">pkg.Int</a> {\n" +
                 " int <a name=\"m25\">field</a>();\n" +
                 "}\n" +
@@ -320,8 +314,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
@@ -383,8 +376,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
@@ -482,8 +474,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">field</a>=1;\n" +
                 "}\n" +
@@ -573,8 +564,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
                 " int <a name=\"m22\">field</a> = 2;\n" +
                 "}\n" +
@@ -636,8 +626,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Init</a> {\n" +
                 " int <a name=\"m22\">field</a> = 2;\n" +
                 "}\n" +
@@ -686,8 +675,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " int <a name=\"m21\">CST</a> = 1;\n" +
                 "}\n" +
@@ -717,8 +705,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new Enum&lt;<a title=\"pkg.Ext..MyEnum\" href=\"#m67\">MyEnum</a>&gt;()<span class=\"t\"><a name=\"m54\" title=\"The type pkg.Ext..Enum*1 cannot have explicitly the type $core.Enum as super type because $core.Enum is reserved.\" class=\"e\">{</a>}</span>;\n" +
@@ -742,8 +729,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new $en()<span class=\"t\"><a name=\"m45\" title=\"The type pkg.Ext..$en*1 cannot have explicitly the type $core.$en as super type because $core.$en is reserved.\" class=\"e\">{</a>}</span>;\n" +
@@ -761,8 +747,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$operator+ pkg.MySub() {\n" +
                 " $int i<a title=\"Bad index by parsing.\" class=\"e\">\n" +
                 "</a></span></pre></body></html>", filesExp_.firstValue());
@@ -778,8 +763,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  <a title=\"The type $core.CharSequence is not resolved for instancing.\" class=\"e\">new</a> CharSequence()<span class=\"t\"><a name=\"m54\">{</a>int nonSeen;}</span>;\n" +
@@ -800,8 +784,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  return <span class=\"t\">(int <a name=\"m47\">a</a>:int)<a name=\"m53\" title=\"A throw block or a return block is missing for the method static .1(int).\" class=\"e\">-&gt;</a>{}</span>.<b>call</b>(3);\n" +
@@ -822,8 +805,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  return <span class=\"t\">(int <a name=\"m47\">a</a>,int <a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:int)<a name=\"m59\">-&gt;</a>{return 0;}</span>.<b>call</b>(3,4);\n" +
@@ -844,8 +826,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  <span class=\"t\">(int <a name=\"m41\">a</a>:void)<a name=\"m48\">-&gt;</a>{<a title=\"The type cannot be the key word void.\" class=\"e\">return</a> 0;}</span>.<b>call</b>(3);\n" +
@@ -873,8 +854,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -909,8 +889,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -945,8 +924,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -981,8 +959,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1017,8 +994,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1053,8 +1029,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1090,8 +1065,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1128,8 +1102,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1166,8 +1139,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1203,8 +1175,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1239,8 +1210,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1275,8 +1245,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1311,8 +1280,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1347,8 +1315,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1383,8 +1350,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1419,8 +1385,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1455,8 +1420,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1493,8 +1457,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1531,8 +1494,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1566,8 +1528,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Int</a> {\n" +
                 " static final int <a name=\"m34\">FIELD</a>=1;\n" +
                 "}\n" +
@@ -1600,8 +1561,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  return staticCall(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>).<a title=\"pkg.Ext.staticCall m()\" href=\"#m82\">m</a>();\n" +
@@ -1636,8 +1596,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1674,8 +1633,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1712,8 +1670,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1750,8 +1707,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1788,8 +1744,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1826,8 +1781,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -1858,8 +1812,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  final int <a name=\"m45\">i</a> = 1;\n" +
@@ -1884,8 +1837,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  final int <a name=\"m45\">i</a> = 1;\n" +
@@ -1910,8 +1862,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  final int <a name=\"m45\">i</a> = 1;\n" +
@@ -1936,8 +1887,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  final int <a name=\"m45\">i</a> = 1;\n" +
@@ -1963,8 +1913,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
@@ -1991,8 +1940,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
@@ -2019,8 +1967,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  for (final int <a name=\"m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
@@ -2047,8 +1994,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  for (final int <a name=\"m50\">i</a> = <a href=\"#m50\">i</a> = 1;<a href=\"#m50\">i</a>&lt;2;){\n" +
@@ -2082,8 +2028,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -2124,8 +2069,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -2166,8 +2110,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -2208,8 +2151,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -2250,8 +2192,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(){\n" +
                 "  int <a name=\"m39\">sum</a> = 0;\n" +
@@ -2292,8 +2233,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static int <a name=\"m28\">m</a>(int <a name=\"m34\">j</a>){\n" +
                 "  int <a name=\"m44\">sum</a> = 0;\n" +
@@ -2327,8 +2267,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return <a title=\"The function static m(int,int,int) is undefined.\" class=\"e\">m</a>(2,c:5,d:3);\n" +
@@ -2355,8 +2294,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return m(2,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:5,10,d:3);\n" +
@@ -2382,8 +2320,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
@@ -2406,8 +2343,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:3);\n" +
@@ -2429,8 +2365,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
@@ -2458,8 +2393,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3)<span class=\"t\"><a name=\"m54\">{</a>\n" +
@@ -2491,8 +2425,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static void <a name=\"m29\">m</a>(){\n" +
                 "  <a title=\"pkg.Ext..Ext*1.pkg.Ext..Ext*1()\" href=\"#m50\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()<span class=\"t\"><a name=\"m45\">{</a>\n" +
@@ -2521,8 +2454,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return classchoice(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
@@ -2548,8 +2480,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return superaccess(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)m(2,c:5,<a title=\"The parameter function name c is duplicated.\" class=\"e\">c</a>:3);\n" +
@@ -2577,8 +2508,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()[0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2];\n" +
@@ -2606,8 +2536,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return operator(+,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)(0,b:1,<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:2);\n" +
@@ -2630,8 +2559,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:3);\n" +
@@ -2654,8 +2582,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return <a title=\"The constructor pkg.Ext(int,int,int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(2,c:5,d:3);\n" +
@@ -2678,8 +2605,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
                 "  return <a title=\"The constructor pkg.Ext(int) is undefined.\" class=\"e\">new</a> <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>(a:2);\n" +
@@ -2707,8 +2633,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2743,8 +2668,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2779,8 +2703,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2814,8 +2737,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2849,8 +2771,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2884,8 +2805,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2919,8 +2839,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2954,8 +2873,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -2989,8 +2907,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -3024,8 +2941,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -3065,8 +2981,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -3112,8 +3027,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_.append("}\n");
         ContextEl cont_ = contextElErrorStdReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckErrors(files_, cont_);
-        StringMap<String> filesExp_ = getErrors(cont_);
+        StringMap<String> filesExp_ = validateAndCheckReportErrors(files_, cont_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a>&lt;<a name=\"m14\">T</a>&gt; {\n" +
                 " <a href=\"#m14\">T</a> <a name=\"m22\">field</a>;\n" +
                 " <a name=\"m30\">Ext(</a><a href=\"#m14\">T</a> <a name=\"m36\">p</a>){\n" +
@@ -3134,4 +3048,5 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
 }

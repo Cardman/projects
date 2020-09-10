@@ -427,7 +427,6 @@ public final class ValidatorStandard {
         }
         pkgs_.removeDuplicates();
         pkgsBase_.removeDuplicates();
-        _cont.setAnalyzing();
         _cont.getAnalyzing().getHeaders().getPackagesFound().addAllElts(pkgs_);
         _cont.getAnalyzing().getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
         buildInherits(_cont);

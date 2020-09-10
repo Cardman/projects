@@ -2,8 +2,10 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
@@ -6765,7 +6767,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(1, getNumber(arg_));
     }
@@ -6801,7 +6802,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
         assertTrue(context_.isEmptyErrors());
-        ctx_.setNullAnalyzing();
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -6830,7 +6830,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
         assertTrue(context_.isEmptyErrors());
-        context_.setNullAnalyzing();
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         Argument arg_ = RenderExpUtil.calculateReuse(out_, _conf);
         assertNull(getException(_conf));
@@ -6872,7 +6871,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
-        Classes.tryInitStaticlyTypes(cont_);
+        AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
+        ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
+        Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

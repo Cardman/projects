@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
@@ -1629,8 +1630,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final StringBuilder inst=$new StringBuilder();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getOptions().displayErrors(),!cont_.getOptions().isEmptyErrors());
+        ReportedMessages reportedMessages_ = Classes.validateAll(files_, cont_);
+        assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isEmptyErrors());
         assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
     }

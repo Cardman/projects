@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.options.KeyWords;
@@ -31,8 +30,6 @@ public abstract class ContextEl {
 
     private Options options;
 
-    private LocalThrowing throwing;
-
     private CallingState callingState;
 
     private LgNames standards;
@@ -43,20 +40,16 @@ public abstract class ContextEl {
 
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
-    private AnalysisMessages analysisMessages;
-    private KeyWords keyWords;
     private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
     private boolean covering;
     private boolean gettingErrors;
     private Coverage coverage;
     private AbstractFullStack fullStack;
-    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private Struct seed = NullStruct.NULL_VALUE;
 
     public ContextEl(int _stackOverFlow,
                      DefaultLockingClass _lock, Options _options,
-                     AnalysisMessages _mess,
-                     KeyWords _keyWords, LgNames _stds, int _tabWitdth) {
+                     LgNames _stds, int _tabWitdth) {
         this();
         setGettingErrors(_options.isGettingErrors());
         setCovering(_options.isCovering());
@@ -64,13 +57,9 @@ public abstract class ContextEl {
         setStackOverFlow(_stackOverFlow);
         setStandards(_stds);
         setTabWidth(_tabWitdth);
-        setAnalysisMessages(_mess);
-        setKeyWords(_keyWords);
         setClasses(new Classes());
-        setThrowing(new LocalThrowing());
         setCoverage(new Coverage());
         classes.setLocks(_lock);
-        comments = _options.getComments();
     }
     protected ContextEl() {
         setFullStack(new DefaultFullStack(this));
@@ -225,6 +214,7 @@ public abstract class ContextEl {
             getClasses().getClassMetaInfos().add(c);
         }
         getAnalyzing().getClassMetaInfos().clear();
+        getClasses().setKeyWordValue(getKeyWords().getKeyWordValue());
         ValidatorStandard.buildIterable(this);
     }
     public void setNullAnalyzing() {
@@ -276,13 +266,6 @@ public abstract class ContextEl {
 
     public void setException(Struct _exception) {
         callingState = _exception;
-    }
-
-    public LocalThrowing getThrowing() {
-        return throwing;
-    }
-    public void setThrowing(LocalThrowing _throwing) {
-        throwing = _throwing;
     }
 
     public CallingState getCallingState() {
@@ -352,23 +335,11 @@ public abstract class ContextEl {
     }
 
     public AnalysisMessages getAnalysisMessages() {
-        return analysisMessages;
-    }
-
-    public void setAnalysisMessages(AnalysisMessages _analysisMessages) {
-        analysisMessages = _analysisMessages;
+        return analyzing.getAnalysisMessages();
     }
 
     public KeyWords getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(KeyWords _keyWords) {
-        keyWords = _keyWords;
-    }
-
-    public CustList<CommentDelimiters> getComments() {
-        return comments;
+        return analyzing.getKeyWords();
     }
 
 

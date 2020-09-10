@@ -489,7 +489,7 @@ public final class ExecTemplates {
                 }
                 p_.setRight(_right);
                 LocalVariable lv_ = LocalVariable.newLocalVariable(_right.getStruct(),type_);
-                p_.getParameters().addEntry(_conf.getKeyWords().getKeyWordValue(),lv_);
+                p_.getParameters().addEntry(_conf.getClasses().getKeyWordValue(),lv_);
             }
         }
         return p_;

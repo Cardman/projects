@@ -2,12 +2,14 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -280,8 +282,9 @@ public abstract class CommonRender {
     protected static void tryInitStaticlyTypes(Configuration _context) {
         if (_context.isEmptyErrors()) {
             Classes.forwardAndClear(_context.getContext());
-            _context.getContext().setNullAnalyzing();
-            Classes.tryInitStaticlyTypes(_context.getContext());
+            AnalysisMessages analysisMessages_ = _context.getContext().getAnalyzing().getAnalysisMessages();
+            ReportedMessages messages_ = _context.getContext().getAnalyzing().getMessages();
+            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_);
         }
         addInnerPage(_context);
     }
@@ -313,11 +316,9 @@ public abstract class CommonRender {
                     Integer.toString(_index),
                     _el);
             _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
-            context_.setNullAnalyzing();
             return Argument.createVoid();
         }
         Classes.forwardAndClear(context_);
-        context_.setNullAnalyzing();
         for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);

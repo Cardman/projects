@@ -1,6 +1,7 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.common.AccessEnum;
@@ -61,7 +62,8 @@ public final class FileResolver {
         Ints offsetsImports_ = new Ints();
         Ints beginComments_ = _block.getBeginComments();
         Ints endComments_ = _block.getEndComments();
-        CustList<CommentDelimiters> comments_ = _context.getComments();
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        CustList<CommentDelimiters> comments_ = analyzing_.getComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
             if (current_ != null) {
@@ -282,7 +284,8 @@ public final class FileResolver {
         after_.setIndex(i_);
         after_.setParent(null);
         CommentDelimiters current_ = null;
-        CustList<CommentDelimiters> comments_ = _context.getComments();
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        CustList<CommentDelimiters> comments_ = analyzing_.getComments();
         Ints beginComments_ = fileBlock_.getBeginComments();
         Ints endComments_ = fileBlock_.getEndComments();
         while (i_ < len_) {
@@ -2976,6 +2979,7 @@ public final class FileResolver {
     private static int afterComments(ContextEl _context,String _file, int _from) {
         int i_ = _from;
         int len_ = _file.length();
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
         CommentDelimiters current_ = null;
         while (i_ < len_) {
             char cur_ = _file.charAt(i_);
@@ -2991,7 +2995,7 @@ public final class FileResolver {
                 continue;
             }
             boolean skip_= false;
-            for (CommentDelimiters c: _context.getComments()) {
+            for (CommentDelimiters c: analyzing_.getComments()) {
                 if (_file.startsWith(c.getBegin(),i_)) {
                     current_ = c;
                     i_ += c.getBegin().length();

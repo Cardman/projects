@@ -4,7 +4,9 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -2487,7 +2489,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         conf_.setStandards(standards_);
         Classes.validateWithoutInit(_files, cont_);
         assertTrue(cont_.isEmptyErrors());
-        Classes.tryInitStaticlyTypes(cont_);
+        AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
+        ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
+        Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

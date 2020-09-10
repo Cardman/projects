@@ -7,7 +7,6 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.Parameters;
@@ -128,8 +127,10 @@ public class LgNamesTest extends ProcessMethodCommon {
 
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_) {
         AnalysisMessages mess_ = new AnalysisMessages();
-        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, new Options(), mess_, kw_, lgName_, 4);
+        SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, new Options(), kw_, lgName_, 4);
         ctx_.setAnalyzing();
+        ctx_.getAnalyzing().setAnalysisMessages(mess_);
+        ctx_.getAnalyzing().setKeyWords(kw_);
         AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
         assertTrue(ctx_.isEmptyMessageError());
         return ctx_;

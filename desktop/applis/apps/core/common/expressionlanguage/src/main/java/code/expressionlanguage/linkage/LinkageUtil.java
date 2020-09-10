@@ -32,7 +32,7 @@ public final class LinkageUtil {
     public static StringMap<String> errors(ContextEl _cont) {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedPageEl analyzing_ = _cont.getAnalyzing();
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = analyzing_.getKeyWords();
         Coverage cov_ = _cont.getCoverage();
         LgNames standards_ = _cont.getStandards();
         CustList<RootBlock> refFoundTypes_ = analyzing_.getRefFoundTypes();
@@ -92,7 +92,7 @@ public final class LinkageUtil {
     public static StringMap<String> export(ContextEl _cont) {
         StringMap<String> files_ = new StringMap<String>();
         Coverage cov_ = _cont.getCoverage();
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = cov_.getKeyWords();
         LgNames standards_ = _cont.getStandards();
         CustList<RootBlock> refFoundTypes_ = cov_.getRefFoundTypes();
         CustList<OperatorBlock> operators_ = cov_.getRefOperators();

@@ -1,7 +1,6 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
@@ -37,14 +36,19 @@ public final class ContextFactory {
 
     public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
                                   Options _options, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
-        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options,  _mess, _definedKw, _definedLgNames,_tabWidth);
+        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames,_tabWidth);
         validateStds(contextEl_,_mess,_definedKw,_definedLgNames, new CustList<CommentDelimiters>());
         return contextEl_;
     }
     public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
                                     CustList<CommentDelimiters> _comments) {
         _context.setAnalyzing();
-        CommentsUtil.checkAndUpdateComments(_context.getComments(),_comments);
+        CustList<CommentDelimiters> comments_ = _context.getOptions().getComments();
+        CommentsUtil.checkAndUpdateComments(comments_,_comments);
+        _context.getAnalyzing().setComments(comments_);
+        _context.getAnalyzing().setAnalysisMessages(_mess);
+        _context.getAnalyzing().setKeyWords(_definedKw);
+        _context.getCoverage().setKeyWords(_context,_definedKw);
         _context.setStandards(_definedLgNames);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
         if (!_context.isEmptyMessageError()) {

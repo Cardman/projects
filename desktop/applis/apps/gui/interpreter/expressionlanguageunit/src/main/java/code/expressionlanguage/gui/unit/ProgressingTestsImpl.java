@@ -18,11 +18,11 @@ public final class ProgressingTestsImpl implements ProgressingTests {
 
     @Override
     public void showErrors(RunnableContextEl _ctx, Options _opts, ExecutingOptions _exec) {
-        if (!_opts.isEmptyErrors()) {
+        if (!_exec.getMethodHeaders().isEmptyErrors()) {
             String folder_ = _exec.getLogFolder();
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_opts.displayErrors());
+            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_exec.getMethodHeaders().displayErrors());
         }
         if (!_ctx.isEmptyErrors()) {
             String folder_ = _exec.getLogFolder();
