@@ -2,8 +2,8 @@
  {private} {List}<{T}> {listItr}{endLine}
  {private} {int} {lengthItrLi}{endLine}
  {private} {int} {indexItrLi}{endLine}
- {public} ({List}<{T}> {i})'{'
-  {this}.{listItr}={i}{param}{endLine}
+ {public} ({List}<{T}> {itCtr})'{'
+  {this}.{listItr}={itCtr}{param}{endLine}
   {this}.{lengthItrLi}={this}.{listItr}.{sizeLi}(){endLine}
  '}'
  {public} {T} {next}()'{'
@@ -21,24 +21,24 @@
  {public} ()'{'
   {array}={new} {E}[0]{endLine}
  '}'
- {public} ({List}<{E}> {p})'{'
-  {this}.{array}=({p}{param}).{array}.{clone}(){endLine}
+ {public} ({List}<{E}> {liCtr1})'{'
+  {this}.{array}=({liCtr1}{param}).{array}.{clone}(){endLine}
   {this}.{lengthLi}={this}.{array}.{length}{endLine}
  '}'
- {public} ({E}... {p})'{'
-  {this}.{array}=({p}{param}).{clone}(){endLine}
+ {public} ({E}... {liCtr2})'{'
+  {this}.{array}=({liCtr2}{param}).{clone}(){endLine}
   {this}.{lengthLi}={this}.{array}.{length}{endLine}
  '}'
- {public} {void} {add}({E} {p})'{'
-  {add}({this}.{lengthLi},{p}{param}){endLine}
+ {public} {void} {add}({E} {liAdd1})'{'
+  {add}({this}.{lengthLi},{liAdd1}{param}){endLine}
  '}'
- {public} {void} {add}({int} {ind},{E} {p})'{'
+ {public} {void} {add}({int} {liAdd21},{E} {liAdd22})'{'
   {E}[] {out}={new} {E}[{this}.{lengthLi}+1]{endLine}
-  {iter}({int} {i}=0{endLine}{ind}{param}{endLine}1)'{'
+  {iter}({int} {i}=0{endLine}{liAdd21}{param}{endLine}1)'{'
    {out}{local}[{i}{loop}]={this}.{array}[{i}{loop}]{endLine}
   '}'
-  {out}{local}[{ind}{param}]={p}{param}{endLine}
-  {iter}({int} {i}={ind}{param}+1{endLine}{lengthLi}+1{endLine}1)'{'
+  {out}{local}[{liAdd21}{param}]={liAdd22}{param}{endLine}
+  {iter}({int} {i}={liAdd21}{param}+1{endLine}{lengthLi}+1{endLine}1)'{'
    {out}{local}[{i}{loop}]={this}.{array}[{i}{loop}-1]{endLine}
   '}'
   {this}.{lengthLi}++{endLine}
@@ -47,18 +47,18 @@
  {public} {int} {sizeLi}()'{'
   {return} {this}.{lengthLi}{endLine}
  '}'
- {public} {E} {this}({int} {ind})'{'
-  {return} {this}.{array}[{ind}{param}]{endLine}
+ {public} {E} {this}({int} {liInd1})'{'
+  {return} {this}.{array}[{liInd1}{param}]{endLine}
  '}'
- {public} {void} {this}({int} {ind})'{'
-  {this}.{array}[{ind}{param}]={value}{param}{endLine}
+ {public} {void} {this}({int} {liInd2})'{'
+  {this}.{array}[{liInd2}{param}]={value}{param}{endLine}
  '}'
- {public} {void} {remove}({int} {ind})'{'
+ {public} {void} {remove}({int} {liRem})'{'
   {E}[] {out}={new} {E}[{this}.{lengthLi}-1]{endLine}
-  {iter}({int} {i}=0{endLine}{ind}{param}{endLine}1)'{'
+  {iter}({int} {i}=0{endLine}{liRem}{param}{endLine}1)'{'
    {out}{local}[{i}{loop}]={this}.{array}[{i}{loop}]{endLine}
   '}'
-  {iter}({int} {i}={ind}{param}+1{endLine}{this}.{lengthLi}{endLine}1)'{'
+  {iter}({int} {i}={liRem}{param}+1{endLine}{this}.{lengthLi}{endLine}1)'{'
    {out}{local}[{i}{loop}-1]={this}.{array}[{i}{loop}]{endLine}
   '}'
   {this}.{array} = {out}{local}{endLine}

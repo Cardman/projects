@@ -256,6 +256,66 @@ public class LgNamesUtils extends LgNames {
     private static final String FILE_0_FILE_ZIPPED_TEXT_0="File0FileZippedText0";
     private static final String FILE_0_FILE_MAKE_DIRS_0="File0FileMakeDirs0";
 
+    private static final String CUST_ITERATOR_0_CUST_ITERATOR_0="CustIterator0CustIterator0";
+    private static final String LIST_0_ADD_LI_0="List0AddLi0";
+    private static final String LIST_1_ADD_LI_0="List1AddLi0";
+    private static final String LIST_1_ADD_LI_1="List1AddLi1";
+    private static final String LIST_0_THIS_0="List0This0";
+    private static final String LIST_1_THIS_0="List1This0";
+    private static final String LIST_0_REMOVE_LI_0="List0RemoveLi0";
+    private static final String LIST_0_LIST_0="List0List0";
+    private static final String LIST_1_LIST_0="List1List0";
+    private static final String CUST_PAIR_0_SET_FIRST_0="CustPair0SetFirst0";
+    private static final String CUST_PAIR_0_SET_SECOND_0="CustPair0SetSecond0";
+    private static final String CUST_PAIR_0_CUST_PAIR_0="CustPair0CustPair0";
+    private static final String CUST_PAIR_0_CUST_PAIR_1="CustPair0CustPair1";
+    private static final String CUST_ITER_TABLE_0_CUST_ITER_TABLE_0="CustIterTable0CustIterTable0";
+    private static final String TABLE_0_ADD_LI_0="Table0AddLi0";
+    private static final String TABLE_0_ADD_LI_1="Table0AddLi1";
+    private static final String TABLE_1_ADD_LI_0="Table1AddLi0";
+    private static final String TABLE_0_GET_TA_0="Table0GetTa0";
+    private static final String TABLE_0_GET_FIRST_TA_0="Table0GetFirstTa0";
+    private static final String TABLE_0_GET_SECOND_TA_0="Table0GetSecondTa0";
+    private static final String TABLE_0_SET_FIRST_0="Table0SetFirst0";
+    private static final String TABLE_0_SET_FIRST_1="Table0SetFirst1";
+    private static final String TABLE_0_SET_SECOND_0="Table0SetSecond0";
+    private static final String TABLE_0_SET_SECOND_1="Table0SetSecond1";
+    private static final String TABLE_0_REMOVE_LI_0="Table0RemoveLi0";
+    private static final String EXECUTE_0_EXECUTE_TESTS_0="Execute0ExecuteTests0";
+    private static final String EXECUTE_0_RUN_0="Execute0Run0";
+    private static final String EXECUTE_0_RUN_1="Execute0Run1";
+    private static final String EXECUTE_0_RUN_2="Execute0Run2";
+    private static final String EXECUTE_0_EXECUTE_CONVERT_0="Execute0ExecuteConvert0";
+    private static final String EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0="Execute0ExecuteSetupNoException0";
+    private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_0="Execute0ExecuteSetupError0";
+    private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_1="Execute0ExecuteSetupError1";
+    private static final String EXECUTE_0_EXECUTE_SETUP_ERROR_2="Execute0ExecuteSetupError2";
+    private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_0="Execute1ExecuteSetupError0";
+    private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_1="Execute1ExecuteSetupError1";
+    private static final String ASSERT_0_ASSERT_ASSERT_0="Assert0AssertAssert0";
+    private static final String ASSERT_0_ASSERT_ASSERT_1="Assert0AssertAssert1";
+    private static final String ASSERT_1_ASSERT_ASSERT_0="Assert1AssertAssert0";
+    private static final String ASSERT_1_ASSERT_ASSERT_1="Assert1AssertAssert1";
+    private static final String ASSERT_2_ASSERT_ASSERT_0="Assert2AssertAssert0";
+    private static final String ASSERT_2_ASSERT_ASSERT_1="Assert2AssertAssert1";
+    private static final String ASSERT_3_ASSERT_ASSERT_0="Assert3AssertAssert0";
+    private static final String ASSERT_3_ASSERT_ASSERT_1="Assert3AssertAssert1";
+    private static final String ASSERT_4_ASSERT_ASSERT_0="Assert4AssertAssert0";
+    private static final String ASSERT_4_ASSERT_ASSERT_1="Assert4AssertAssert1";
+    private static final String ASSERT_0_ASSERT_ASSERT_TRUE_0="Assert0AssertAssertTrue0";
+    private static final String ASSERT_0_ASSERT_ASSERT_NULL_0="Assert0AssertAssertNull0";
+    private static final String ASSERT_0_ASSERT_ASSERT_NOT_NULL_0="Assert0AssertAssertNotNull0";
+    private static final String ASSERT_0_ASSERT_ASSERT_SAME_0="Assert0AssertAssertSame0";
+    private static final String ASSERT_0_ASSERT_ASSERT_SAME_1="Assert0AssertAssertSame1";
+    private static final String ASSERT_5_ASSERT_ASSERT_0="Assert5AssertAssert0";
+    private static final String ASSERT_5_ASSERT_ASSERT_1="Assert5AssertAssert1";
+    private static final String ASSERT_5_ASSERT_ASSERT_2="Assert5AssertAssert2";
+    private static final String ASSERT_6_ASSERT_ASSERT_0="Assert6AssertAssert0";
+    private static final String ASSERT_6_ASSERT_ASSERT_1="Assert6AssertAssert1";
+    private static final String FORMAT_TYPE_0_PRINT_0="FormatType0Print0";
+    private static final String FORMAT_TYPE_1_PRINT_0="FormatType1Print0";
+    private static final String FORMAT_TYPE_1_PRINT_1="FormatType1Print1";
+
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -492,7 +552,65 @@ public class LgNamesUtils extends LgNames {
     private String aliasFile0FileZippedText0;
     private String aliasFile0FileMakeDirs0;
 
-
+    private String aliasCustIterator0CustIterator0;
+    private String aliasList0AddLi0;
+    private String aliasList1AddLi0;
+    private String aliasList1AddLi1;
+    private String aliasList0This0;
+    private String aliasList1This0;
+    private String aliasList0RemoveLi0;
+    private String aliasList0List0;
+    private String aliasList1List0;
+    private String aliasCustPair0SetFirst0;
+    private String aliasCustPair0SetSecond0;
+    private String aliasCustPair0CustPair0;
+    private String aliasCustPair0CustPair1;
+    private String aliasCustIterTable0CustIterTable0;
+    private String aliasTable0AddLi0;
+    private String aliasTable0AddLi1;
+    private String aliasTable1AddLi0;
+    private String aliasTable0GetTa0;
+    private String aliasTable0GetFirstTa0;
+    private String aliasTable0GetSecondTa0;
+    private String aliasTable0SetFirst0;
+    private String aliasTable0SetFirst1;
+    private String aliasTable0SetSecond0;
+    private String aliasTable0SetSecond1;
+    private String aliasTable0RemoveLi0;
+    private String aliasExecute0ExecuteTests0;
+    private String aliasExecute0Run0;
+    private String aliasExecute0Run1;
+    private String aliasExecute0Run2;
+    private String aliasExecute0ExecuteConvert0;
+    private String aliasExecute0ExecuteSetupNoException0;
+    private String aliasExecute0ExecuteSetupError0;
+    private String aliasExecute0ExecuteSetupError1;
+    private String aliasExecute0ExecuteSetupError2;
+    private String aliasExecute1ExecuteSetupError0;
+    private String aliasExecute1ExecuteSetupError1;
+    private String aliasAssert0AssertAssert0;
+    private String aliasAssert0AssertAssert1;
+    private String aliasAssert1AssertAssert0;
+    private String aliasAssert1AssertAssert1;
+    private String aliasAssert2AssertAssert0;
+    private String aliasAssert2AssertAssert1;
+    private String aliasAssert3AssertAssert0;
+    private String aliasAssert3AssertAssert1;
+    private String aliasAssert4AssertAssert0;
+    private String aliasAssert4AssertAssert1;
+    private String aliasAssert0AssertAssertTrue0;
+    private String aliasAssert0AssertAssertNull0;
+    private String aliasAssert0AssertAssertNotNull0;
+    private String aliasAssert0AssertAssertSame0;
+    private String aliasAssert0AssertAssertSame1;
+    private String aliasAssert5AssertAssert0;
+    private String aliasAssert5AssertAssert1;
+    private String aliasAssert5AssertAssert2;
+    private String aliasAssert6AssertAssert0;
+    private String aliasAssert6AssertAssert1;
+    private String aliasFormatType0Print0;
+    private String aliasFormatType1Print0;
+    private String aliasFormatType1Print1;
     private FileInfos infos;
 
     public LgNamesUtils(FileInfos _infos) {
@@ -550,10 +668,18 @@ public class LgNamesUtils extends LgNames {
         map_.put("{E}", aliasListVar);
         map_.put("{int}", int_);
         map_.put("{boolean}", boolean_);
-        map_.put("{i}", tr("i",_context));
+        map_.put("{itCtr}", aliasCustIterator0CustIterator0);
+        map_.put("{liCtr1}", aliasList0List0);
+        map_.put("{liCtr2}", aliasList1List0);
+        map_.put("{liAdd1}", aliasList0AddLi0);
+        map_.put("{liAdd21}", aliasList1AddLi0);
+        map_.put("{liAdd22}", aliasList1AddLi1);
+        map_.put("{liRem}", aliasList0RemoveLi0);
+        map_.put("{liInd1}", aliasList0This0);
+        map_.put("{liInd2}", aliasList1This0);
+        map_.put("{i}", tr("i",_context,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
         map_.put("{p}", tr("p",_context));
-        map_.put("{out}", tr("out",_context));
-        map_.put("{ind}", tr("ind",_context));
+        map_.put("{out}", tr("out",_context,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
         map_.put("{loop}", suffixLoop_);
@@ -598,6 +724,22 @@ public class LgNamesUtils extends LgNames {
         map_.put("{getSecond}",getAliasGetSecond());
         map_.put("{setFirst}",aliasSetFirst);
         map_.put("{setSecond}",aliasSetSecond);
+        map_.put("{p1}", aliasCustPair0CustPair0);
+        map_.put("{p2}", aliasCustPair0CustPair1);
+        map_.put("{p3}", aliasCustPair0SetFirst0);
+        map_.put("{p4}", aliasCustPair0SetSecond0);
+        map_.put("{ti}", aliasCustIterTable0CustIterTable0);
+        map_.put("{p5}", aliasTable0AddLi0);
+        map_.put("{p6}", aliasTable0AddLi1);
+        map_.put("{p7}", aliasTable1AddLi0);
+        map_.put("{p8}", aliasTable0GetTa0);
+        map_.put("{p9}", aliasTable0GetFirstTa0);
+        map_.put("{p10}", aliasTable0GetSecondTa0);
+        map_.put("{p11}", aliasTable0SetFirst0);
+        map_.put("{p12}", aliasTable0SetFirst1);
+        map_.put("{p13}", aliasTable0SetSecond0);
+        map_.put("{p14}", aliasTable0SetSecond1);
+        map_.put("{p15}", aliasTable0RemoveLi0);
         map_.put("{f}", tr("f",_context));
         map_.put("{s}", tr("s",_context));
         map_.put("{CustIterTable}", aliasCustIterTable);
@@ -633,38 +775,96 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasTable);
 
         content_ = infos.getReader().read("resources_lg/tests/run.txt");
-        map_.put("{a}",tr("a",_context));
-        map_.put("{b}",tr("b",_context));
-        map_.put("{c}",tr("c",_context));
-        map_.put("{d}",tr("d",_context));
-        map_.put("{e}",tr("e",_context));
+        map_.put("{a}",tr("a",_context,aliasExecute0ExecuteTests0));
+        map_.put("{b}",tr("b",_context,
+                aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
+        ));
+        map_.put("{c}",tr("c",_context,aliasExecute0ExecuteTests0));
+        map_.put("{a11}",aliasAssert0AssertAssert0);
+        map_.put("{a12}",aliasAssert0AssertAssert1);
+        map_.put("{a21}",aliasAssert1AssertAssert0);
+        map_.put("{a22}",aliasAssert1AssertAssert1);
+        map_.put("{a31}",aliasAssert2AssertAssert0);
+        map_.put("{a32}",aliasAssert2AssertAssert1);
+        map_.put("{a41}",aliasAssert3AssertAssert0);
+        map_.put("{a42}",aliasAssert3AssertAssert1);
+        map_.put("{a51}",aliasAssert4AssertAssert0);
+        map_.put("{a52}",aliasAssert4AssertAssert1);
+        map_.put("{a6}",aliasAssert0AssertAssertTrue0);
+        map_.put("{a7}",aliasAssert0AssertAssertNull0);
+        map_.put("{a8}",aliasAssert0AssertAssertNotNull0);
+        map_.put("{a91}",aliasAssert0AssertAssertSame0);
+        map_.put("{a92}",aliasAssert0AssertAssertSame1);
+        map_.put("{a101}",aliasAssert5AssertAssert0);
+        map_.put("{a102}",aliasAssert5AssertAssert1);
+        map_.put("{a103}",aliasAssert5AssertAssert2);
+        map_.put("{a111}",aliasAssert6AssertAssert0);
+        map_.put("{a112}",aliasAssert6AssertAssert1);
+        map_.put("{d}",tr("d",_context,
+                aliasAssert0AssertAssert0,aliasAssert0AssertAssert1,
+                aliasAssert1AssertAssert0,aliasAssert1AssertAssert1,
+                aliasAssert2AssertAssert0,aliasAssert2AssertAssert1,
+                aliasAssert3AssertAssert0,aliasAssert3AssertAssert1,
+                aliasAssert4AssertAssert0,aliasAssert4AssertAssert1,
+                aliasAssert0AssertAssertTrue0,
+                aliasAssert0AssertAssertNull0,
+                aliasAssert0AssertAssertNotNull0,
+                aliasAssert0AssertAssertSame0,aliasAssert0AssertAssertSame1,
+                aliasAssert5AssertAssert0,aliasAssert5AssertAssert1,aliasAssert5AssertAssert2,
+                aliasAssert6AssertAssert0,aliasAssert6AssertAssert1));
+        map_.put("{co}",aliasExecute0ExecuteConvert0);
+        map_.put("{e}",tr("e",_context,aliasExecute0ExecuteTests0,aliasExecute0ExecuteConvert0));
         map_.put("{f}",tr("f",_context));
-        map_.put("{i}",tr("i",_context));
-        map_.put("{l}",tr("l",_context));
-        map_.put("{m}",tr("m",_context));
-        map_.put("{o}",tr("o",_context));
-        map_.put("{p}",tr("p",_context));
+        map_.put("{i}",tr("i",_context,aliasExecute0ExecuteTests0));
+        map_.put("{l}",tr("l",_context,aliasExecute0ExecuteTests0));
+        map_.put("{m}",tr("m",_context,aliasExecute0ExecuteTests0));
+        map_.put("{o}",tr("o",_context,
+                aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
+        ));
+        map_.put("{r1}",aliasExecute0Run0);
+        map_.put("{r2}",aliasExecute0Run1);
+        map_.put("{r3}",aliasExecute0Run2);
+        map_.put("{p}",tr("p",_context,aliasExecute0ExecuteTests0));
         map_.put("{s}",tr("s",_context));
-        map_.put("{t}",tr("t",_context));
-        map_.put("{tt}",tr("tt",_context));
-        map_.put("{ex}",tr("ex",_context));
-        map_.put("{res}",tr("res",_context));
-        map_.put("{out}",tr("out",_context));
-        map_.put("{processEx}",tr("processEx",_context));
-        map_.put("{ctor}",tr("ctor",_context));
-        map_.put("{classTest}",tr("classTest",_context));
-        map_.put("{results}",tr("results",_context));
-        map_.put("{exc}",tr("exc",_context));
-        map_.put("{nbParams}",tr("nbParams",_context));
-        map_.put("{params}",tr("params",_context));
-        map_.put("{arr}",tr("arr",_context));
-        map_.put("{as}",tr("as",_context));
-        map_.put("{bs}",tr("bs",_context));
-        map_.put("{tts}",tr("tts",_context));
-        map_.put("{locType}",tr("locType",_context));
-        map_.put("{loc}",tr("loc",_context));
-        map_.put("{paramAnn}",tr("paramAnn",_context));
-        map_.put("{aParam}",tr("aParam",_context));
+        map_.put("{t}",tr("t",_context,aliasExecute0ExecuteTests0));
+        map_.put("{tt}",tr("tt",_context,
+                aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2,
+                aliasExecute0ExecuteSetupNoException0));
+        map_.put("{ex}",tr("ex",_context,
+                aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2));
+        map_.put("{et2}",aliasExecute0ExecuteSetupError0);
+        map_.put("{et3}",aliasExecute0ExecuteSetupError1);
+        map_.put("{et4}",aliasExecute0ExecuteSetupError2);
+        map_.put("{et}",aliasExecute1ExecuteSetupError0);
+        map_.put("{er}",aliasExecute1ExecuteSetupError1);
+        map_.put("{et1}",aliasExecute0ExecuteSetupNoException0);
+        map_.put("{info}",aliasExecute0ExecuteTests0);
+        map_.put("{res}",tr("res",_context,
+                aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2,
+                aliasExecute1ExecuteSetupError0,aliasExecute1ExecuteSetupError1,
+                aliasExecute0ExecuteSetupNoException0,aliasExecute0ExecuteTests0));
+        map_.put("{out}",tr("out",_context,aliasExecute0ExecuteTests0));
+        map_.put("{processEx}",tr("processEx",_context,
+                aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
+        ));
+        map_.put("{ctor}",tr("ctor",_context,
+                aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
+        ));
+        map_.put("{classTest}",tr("classTest",_context,
+                aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
+        ));
+        map_.put("{results}",tr("results",_context,aliasExecute0ExecuteTests0));
+        map_.put("{exc}",tr("exc",_context,aliasExecute0ExecuteTests0));
+        map_.put("{nbParams}",tr("nbParams",_context,aliasExecute0ExecuteTests0));
+        map_.put("{params}",tr("params",_context,aliasExecute0ExecuteTests0));
+        map_.put("{arr}",tr("arr",_context,aliasExecute0ExecuteTests0));
+        map_.put("{as}",tr("as",_context,aliasExecute0ExecuteTests0));
+        map_.put("{bs}",tr("bs",_context,aliasExecute0ExecuteTests0));
+        map_.put("{tts}",tr("tts",_context,aliasExecute0ExecuteTests0));
+        map_.put("{locType}",tr("locType",_context,aliasExecute0ExecuteTests0));
+        map_.put("{loc}",tr("loc",_context,aliasExecute0ExecuteTests0));
+        map_.put("{paramAnn}",tr("paramAnn",_context,aliasExecute0ExecuteTests0));
+        map_.put("{aParam}",tr("aParam",_context,aliasExecute0ExecuteTests0));
         map_.put("{final}",keyWords_.getKeyWordFinal());
         map_.put("{static}",keyWords_.getKeyWordStatic());
         map_.put("{for}",keyWords_.getKeyWordFor());
@@ -801,10 +1001,13 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasFormatType);
         return stds_;
     }
-    protected static String tr(String _var, ContextEl _context) {
+    protected static String tr(String _var, ContextEl _context, String... _args) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getStandards().getAliasVoid());
+        for (String p:_args) {
+            allKeysWords_.add(p);
+        }
         String candidate_ = _var;
         int index_ = 0;
         while (StringList.contains(allKeysWords_,candidate_)) {
@@ -2234,6 +2437,46 @@ public class LgNamesUtils extends LgNames {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_ZIPPED_BIN_ARRAY_0,aliasFile0FileZippedBinArray0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_ZIPPED_TEXT_0,aliasFile0FileZippedText0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FILE_0_FILE_MAKE_DIRS_0,aliasFile0FileMakeDirs0)));
+
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CUST_ITERATOR_0_CUST_ITERATOR_0,aliasCustIterator0CustIterator0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_0_ADD_LI_0,aliasList0AddLi0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_1_ADD_LI_0,aliasList1AddLi0),new KeyValueMemberName(LIST_1_ADD_LI_1,aliasList1AddLi1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_0_THIS_0,aliasList0This0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_1_THIS_0,aliasList1This0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_0_REMOVE_LI_0,aliasList0RemoveLi0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_0_LIST_0,aliasList0List0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LIST_1_LIST_0,aliasList1List0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CUST_PAIR_0_SET_FIRST_0,aliasCustPair0SetFirst0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CUST_PAIR_0_SET_SECOND_0,aliasCustPair0SetSecond0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CUST_PAIR_0_CUST_PAIR_0,aliasCustPair0CustPair0),new KeyValueMemberName(CUST_PAIR_0_CUST_PAIR_1,aliasCustPair0CustPair1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CUST_ITER_TABLE_0_CUST_ITER_TABLE_0,aliasCustIterTable0CustIterTable0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_ADD_LI_0,aliasTable0AddLi0),new KeyValueMemberName(TABLE_0_ADD_LI_1,aliasTable0AddLi1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_1_ADD_LI_0,aliasTable1AddLi0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_GET_TA_0,aliasTable0GetTa0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_GET_FIRST_TA_0,aliasTable0GetFirstTa0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_GET_SECOND_TA_0,aliasTable0GetSecondTa0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_SET_FIRST_0,aliasTable0SetFirst0),new KeyValueMemberName(TABLE_0_SET_FIRST_1,aliasTable0SetFirst1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_SET_SECOND_0,aliasTable0SetSecond0),new KeyValueMemberName(TABLE_0_SET_SECOND_1,aliasTable0SetSecond1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_0_REMOVE_LI_0,aliasTable0RemoveLi0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_TESTS_0,aliasExecute0ExecuteTests0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_RUN_0,aliasExecute0Run0),new KeyValueMemberName(EXECUTE_0_RUN_1,aliasExecute0Run1),new KeyValueMemberName(EXECUTE_0_RUN_2,aliasExecute0Run2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_CONVERT_0,aliasExecute0ExecuteConvert0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0,aliasExecute0ExecuteSetupNoException0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_0,aliasExecute0ExecuteSetupError0),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_1,aliasExecute0ExecuteSetupError1),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_2,aliasExecute0ExecuteSetupError2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_0,aliasAssert0AssertAssert0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_1,aliasAssert0AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_0,aliasAssert1AssertAssert0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_1,aliasAssert1AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_0,aliasAssert2AssertAssert0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_1,aliasAssert2AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_0,aliasAssert3AssertAssert0),new KeyValueMemberName(ASSERT_3_ASSERT_ASSERT_1,aliasAssert3AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_0,aliasAssert4AssertAssert0),new KeyValueMemberName(ASSERT_4_ASSERT_ASSERT_1,aliasAssert4AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_TRUE_0,aliasAssert0AssertAssertTrue0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NULL_0,aliasAssert0AssertAssertNull0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_NOT_NULL_0,aliasAssert0AssertAssertNotNull0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_0,aliasAssert0AssertAssertSame0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_SAME_1,aliasAssert0AssertAssertSame1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_0,aliasAssert5AssertAssert0),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_1,aliasAssert5AssertAssert1),new KeyValueMemberName(ASSERT_5_ASSERT_ASSERT_2,aliasAssert5AssertAssert2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_0,aliasAssert6AssertAssert0),new KeyValueMemberName(ASSERT_6_ASSERT_ASSERT_1,aliasAssert6AssertAssert1)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FORMAT_TYPE_0_PRINT_0,aliasFormatType0Print0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(FORMAT_TYPE_1_PRINT_0,aliasFormatType1Print0),new KeyValueMemberName(FORMAT_TYPE_1_PRINT_1,aliasFormatType1Print1)));
         return m_;
     }
 
@@ -4935,6 +5178,65 @@ public class LgNamesUtils extends LgNames {
         aliasFile0FileZippedText0=get(_util,_cust, FILE_0_FILE_ZIPPED_TEXT_0);
         aliasFile0FileMakeDirs0=get(_util,_cust, FILE_0_FILE_MAKE_DIRS_0);
 
+        aliasCustIterator0CustIterator0=get(_util,_cust, CUST_ITERATOR_0_CUST_ITERATOR_0);
+        aliasList0AddLi0=get(_util,_cust, LIST_0_ADD_LI_0);
+        aliasList1AddLi0=get(_util,_cust, LIST_1_ADD_LI_0);
+        aliasList1AddLi1=get(_util,_cust, LIST_1_ADD_LI_1);
+        aliasList0This0=get(_util,_cust, LIST_0_THIS_0);
+        aliasList1This0=get(_util,_cust, LIST_1_THIS_0);
+        aliasList0RemoveLi0=get(_util,_cust, LIST_0_REMOVE_LI_0);
+        aliasList0List0=get(_util,_cust, LIST_0_LIST_0);
+        aliasList1List0=get(_util,_cust, LIST_1_LIST_0);
+        aliasCustPair0SetFirst0=get(_util,_cust, CUST_PAIR_0_SET_FIRST_0);
+        aliasCustPair0SetSecond0=get(_util,_cust, CUST_PAIR_0_SET_SECOND_0);
+        aliasCustPair0CustPair0=get(_util,_cust, CUST_PAIR_0_CUST_PAIR_0);
+        aliasCustPair0CustPair1=get(_util,_cust, CUST_PAIR_0_CUST_PAIR_1);
+        aliasCustIterTable0CustIterTable0=get(_util,_cust, CUST_ITER_TABLE_0_CUST_ITER_TABLE_0);
+        aliasTable0AddLi0=get(_util,_cust, TABLE_0_ADD_LI_0);
+        aliasTable0AddLi1=get(_util,_cust, TABLE_0_ADD_LI_1);
+        aliasTable1AddLi0=get(_util,_cust, TABLE_1_ADD_LI_0);
+        aliasTable0GetTa0=get(_util,_cust, TABLE_0_GET_TA_0);
+        aliasTable0GetFirstTa0=get(_util,_cust, TABLE_0_GET_FIRST_TA_0);
+        aliasTable0GetSecondTa0=get(_util,_cust, TABLE_0_GET_SECOND_TA_0);
+        aliasTable0SetFirst0=get(_util,_cust, TABLE_0_SET_FIRST_0);
+        aliasTable0SetFirst1=get(_util,_cust, TABLE_0_SET_FIRST_1);
+        aliasTable0SetSecond0=get(_util,_cust, TABLE_0_SET_SECOND_0);
+        aliasTable0SetSecond1=get(_util,_cust, TABLE_0_SET_SECOND_1);
+        aliasTable0RemoveLi0=get(_util,_cust, TABLE_0_REMOVE_LI_0);
+        aliasExecute0ExecuteTests0=get(_util,_cust, EXECUTE_0_EXECUTE_TESTS_0);
+        aliasExecute0Run0=get(_util,_cust, EXECUTE_0_RUN_0);
+        aliasExecute0Run1=get(_util,_cust, EXECUTE_0_RUN_1);
+        aliasExecute0Run2=get(_util,_cust, EXECUTE_0_RUN_2);
+        aliasExecute0ExecuteConvert0=get(_util,_cust, EXECUTE_0_EXECUTE_CONVERT_0);
+        aliasExecute0ExecuteSetupNoException0=get(_util,_cust, EXECUTE_0_EXECUTE_SETUP_NO_EXCEPTION_0);
+        aliasExecute0ExecuteSetupError0=get(_util,_cust, EXECUTE_0_EXECUTE_SETUP_ERROR_0);
+        aliasExecute0ExecuteSetupError1=get(_util,_cust, EXECUTE_0_EXECUTE_SETUP_ERROR_1);
+        aliasExecute0ExecuteSetupError2=get(_util,_cust, EXECUTE_0_EXECUTE_SETUP_ERROR_2);
+        aliasExecute1ExecuteSetupError0=get(_util,_cust, EXECUTE_1_EXECUTE_SETUP_ERROR_0);
+        aliasExecute1ExecuteSetupError1=get(_util,_cust, EXECUTE_1_EXECUTE_SETUP_ERROR_1);
+        aliasAssert0AssertAssert0=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_0);
+        aliasAssert0AssertAssert1=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_1);
+        aliasAssert1AssertAssert0=get(_util,_cust, ASSERT_1_ASSERT_ASSERT_0);
+        aliasAssert1AssertAssert1=get(_util,_cust, ASSERT_1_ASSERT_ASSERT_1);
+        aliasAssert2AssertAssert0=get(_util,_cust, ASSERT_2_ASSERT_ASSERT_0);
+        aliasAssert2AssertAssert1=get(_util,_cust, ASSERT_2_ASSERT_ASSERT_1);
+        aliasAssert3AssertAssert0=get(_util,_cust, ASSERT_3_ASSERT_ASSERT_0);
+        aliasAssert3AssertAssert1=get(_util,_cust, ASSERT_3_ASSERT_ASSERT_1);
+        aliasAssert4AssertAssert0=get(_util,_cust, ASSERT_4_ASSERT_ASSERT_0);
+        aliasAssert4AssertAssert1=get(_util,_cust, ASSERT_4_ASSERT_ASSERT_1);
+        aliasAssert0AssertAssertTrue0=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_TRUE_0);
+        aliasAssert0AssertAssertNull0=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_NULL_0);
+        aliasAssert0AssertAssertNotNull0=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_NOT_NULL_0);
+        aliasAssert0AssertAssertSame0=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_SAME_0);
+        aliasAssert0AssertAssertSame1=get(_util,_cust, ASSERT_0_ASSERT_ASSERT_SAME_1);
+        aliasAssert5AssertAssert0=get(_util,_cust, ASSERT_5_ASSERT_ASSERT_0);
+        aliasAssert5AssertAssert1=get(_util,_cust, ASSERT_5_ASSERT_ASSERT_1);
+        aliasAssert5AssertAssert2=get(_util,_cust, ASSERT_5_ASSERT_ASSERT_2);
+        aliasAssert6AssertAssert0=get(_util,_cust, ASSERT_6_ASSERT_ASSERT_0);
+        aliasAssert6AssertAssert1=get(_util,_cust, ASSERT_6_ASSERT_ASSERT_1);
+        aliasFormatType0Print0=get(_util,_cust, FORMAT_TYPE_0_PRINT_0);
+        aliasFormatType1Print0=get(_util,_cust, FORMAT_TYPE_1_PRINT_0);
+        aliasFormatType1Print1=get(_util,_cust, FORMAT_TYPE_1_PRINT_1);
     }
     protected final String get(StringMap<String> _util, StringMap<String> _cust,String _key) {
         String val_ = _cust.getVal(_key);
