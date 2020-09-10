@@ -993,6 +993,11 @@ public class LgNamesUtils extends LgNames {
         content_ = infos.getReader().read("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
+        map_.put("{fo1}", aliasFormatType0Print0);
+        map_.put("{fo2}", aliasFormatType1Print0);
+        map_.put("{fo3}", aliasFormatType1Print1);
+        map_.put("{as}", tr("as",_context,aliasFormatType1Print0,aliasFormatType1Print1));
+        map_.put("{e}", tr("e",_context,aliasFormatType1Print0,aliasFormatType1Print1));
         map_.put("{print}",getAliasPrint());
         map_.put("{format}",getAliasFormat());
         content_ = StringList.formatQuote(content_, map_);

@@ -1,12 +1,12 @@
 {public} {abstract} {final} {class} {Format} '{'
-    {public} {static} {void} {print}({Object} {p})'{'
-        {static}({Thread}).{print}({static}({StringUtil}).{valueOf}({p}{param})){endLine}
+    {public} {static} {void} {print}({Object} {fo1})'{'
+        {static}({Thread}).{print}({static}({StringUtil}).{valueOf}({fo1}{param})){endLine}
     '}'
-    {public} {static} {void} {print}({String} {p},{Object}... {a})'{'
-        {String}[] {as} = {new} {String}[({a}{param}).{length}]{endLine}
-        {for}({var} {e}:{a}{param})'{'
+    {public} {static} {void} {print}({String} {fo2},{Object}... {fo3})'{'
+        {String}[] {as} = {new} {String}[({fo3}{param}).{length}]{endLine}
+        {for}({var} {e}:{fo3}{param})'{'
             {as}{local}[([{e}])] = {static}({StringUtil}).{valueOf}({e}{loop}){endLine}
         '}'
-        {static}({Thread}).{print}(({p}{param}).{format}({as}{local})){endLine}
+        {static}({Thread}).{print}(({fo2}{param}).{format}({as}{local})){endLine}
     '}'
 '}'
