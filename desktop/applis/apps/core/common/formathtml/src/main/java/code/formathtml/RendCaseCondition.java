@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
@@ -16,7 +17,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.exec.RendDynOperationNode;
@@ -163,7 +163,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                 un_.setIndexFile(valueOffset);
                 un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getKeyWords().getKeyWordCase(),
-                        ExecCatOperation.getString(arg_,_cont.getContext()),
+                        AnaApplyCoreMethodUtil.getString(arg_,_cont.getContext()),
                         StringList.join(resSwitch_.getNames(),AND_ERR));
                 _cont.addError(un_);
             }
@@ -185,7 +185,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
                         un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
                                 _cont.getKeyWords().getKeyWordCase(),
-                                ExecCatOperation.getString(_arg,_cont.getContext()),
+                                AnaApplyCoreMethodUtil.getString(_arg,_cont.getContext()),
                                 _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
                         break;

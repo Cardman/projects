@@ -33,7 +33,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getAnalyzing());
     }
 
     @Override
@@ -90,7 +90,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     }
     @Override
     public void buildImportedReturnTypes(ContextEl _stds) {
-        String void_ = _stds.getStandards().getAliasVoid();
+        String void_ = _stds.getAnalyzing().getStandards().getAliasVoid();
         setImportedReturnType(void_);
     }
 

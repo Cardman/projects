@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -48,7 +49,7 @@ public final class AnaTemplates {
         if (StringList.equalsSet(_first, _second)) {
             return new ResultTernary(_first, false, false);
         }
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = _conf.getAnalyzing().getStandards();
         ClassArgumentMatching first_ = new ClassArgumentMatching(_first);
         ClassArgumentMatching second_ = new ClassArgumentMatching(_second);
         if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(new StringList(PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_)), second_.getNames())) {
@@ -187,13 +188,14 @@ public final class AnaTemplates {
     }
 
     private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
         String name_ = _class.getName();
         StringMap<PrimitiveType> prs_ = stds_.getPrimitiveTypes();
         PrimitiveType pr_ = prs_.getVal(name_);
         gt_.add(_class);
-        for (String s: pr_.getAllSuperType(_context)) {
+        for (String s: pr_.getAllSuperType(page_)) {
             if (!prs_.contains(s)) {
                 continue;
             }
@@ -203,7 +205,8 @@ public final class AnaTemplates {
     }
     static StringList getTernarySubclasses(StringList _classNames, StringMap<StringList> _map, ContextEl _context) {
         StringList types_ = new StringList();
-        LgNames stds_ = _context.getStandards();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String obj_ = stds_.getAliasObject();
         Mapping m_ = new Mapping();
         m_.setMapping(_map);
@@ -217,7 +220,7 @@ public final class AnaTemplates {
                 if (StringList.quickEq(baseSup_, baseSub_)) {
                     continue;
                 }
-                if (PrimitiveTypeUtil.isPrimitive(baseSup_, _context) && !PrimitiveTypeUtil.isPrimitive(baseSub_, _context)) {
+                if (AnaTypeUtil.isPrimitive(baseSup_, page_) && !AnaTypeUtil.isPrimitive(baseSub_, page_)) {
                     continue;
                 }
                 int dimSup_ = baseArrSub_.getDim();
@@ -237,7 +240,7 @@ public final class AnaTemplates {
                     }
                     continue;
                 }
-                if (StringList.quickEq(baseArrSup_.getComponent(), _context.getStandards().getAliasObject())) {
+                if (StringList.quickEq(baseArrSup_.getComponent(), page_.getStandards().getAliasObject())) {
                     if (baseArrSub_.getDim() >= baseArrSup_.getDim()) {
                         sub_ = false;
                         break;
@@ -250,15 +253,15 @@ public final class AnaTemplates {
                 if (baseArrSup_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
                     continue;
                 }
-                AnaInheritedType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
-                AnaInheritedType g_ = _context.getAnalyzing().getAnaGeneType(_context,baseArrSub_.getComponent());
+                AnaInheritedType pr_ = page_.getStandards().getPrimitiveTypes().getVal(baseArrSub_.getComponent());
+                AnaInheritedType g_ = page_.getAnaGeneType(baseArrSub_.getComponent());
                 AnaInheritedType in_;
                 if (pr_ != null) {
                     in_ = pr_;
                 } else {
                     in_ = g_;
                 }
-                if (in_.isSubTypeOf(baseArrSup_.getComponent(),_context)) {
+                if (in_.isSubTypeOf(baseArrSup_.getComponent(),page_)) {
                     sub_ = false;
                     break;
                 }
@@ -273,7 +276,8 @@ public final class AnaTemplates {
     }
     static StringList getSuperTypesSet(StringList _first, StringMap<StringList> _mapping, ContextEl _conf) {
         StringList superTypes_ = new StringList();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String obj_ = stds_.getAliasObject();
         String bool_ = stds_.getAliasPrimBoolean();
         for (String c: _first) {
@@ -292,7 +296,7 @@ public final class AnaTemplates {
                     String i_ = dci_.getComponent();
                     int dLoc_ = dci_.getDim();
                     i_ = StringExpUtil.getIdFromAllTypes(i_);
-                    AnaGeneType j_ = _conf.getAnalyzing().getAnaGeneType(_conf,i_);
+                    AnaGeneType j_ = page_.getAnaGeneType(i_);
                     for (String u: j_.getAllGenericSuperTypes()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(u, d_ + dLoc_));
                     }
@@ -304,7 +308,7 @@ public final class AnaTemplates {
             }
             if (StringList.quickEq(base_, bool_)) {
                 String w_ = PrimitiveTypeUtil.toWrapper(base_, stds_);
-                AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,w_);
+                AnaGeneType g_ = page_.getAnaGeneType(w_);
                 superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
                 for (String t: g_.getAllGenericSuperTypes()) {
                     superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
@@ -314,13 +318,13 @@ public final class AnaTemplates {
                 }
                 continue;
             }
-            if (PrimitiveTypeUtil.isPrimitive(base_, _conf)) {
+            if (AnaTypeUtil.isPrimitive(base_, page_)) {
                 ClassArgumentMatching c_ = new ClassArgumentMatching(base_);
                 for (ClassArgumentMatching s: getAllSuperTypes(c_, _conf)) {
                     for (String p: s.getNames()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
-                        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,w_);
+                        AnaGeneType g_ = page_.getAnaGeneType(w_);
                         superTypes_.add(StringExpUtil.getPrettyArrayType(w_, d_));
                         for (String t: g_.getAllGenericSuperTypes()) {
                             superTypes_.add(StringExpUtil.getPrettyArrayType(t, d_));
@@ -333,7 +337,7 @@ public final class AnaTemplates {
                 continue;
             }
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
-            AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,id_);
+            AnaGeneType g_ = page_.getAnaGeneType(id_);
             for (String t: g_.getAllGenericSuperTypes()) {
                 String f_ = format(g_,base_, t, _conf);
                 superTypes_.add(StringExpUtil.getPrettyArrayType(f_, d_));
@@ -353,9 +357,10 @@ public final class AnaTemplates {
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        AnaGeneType root_ = _classes.getAnalyzing().getAnaGeneType(_classes,className_);
+        AnalyzedPageEl page_ = _classes.getAnalyzing();
+        AnaGeneType root_ = page_.getAnaGeneType(className_);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _classes.getStandards().getAliasObject();
+        String objType_ = page_.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
@@ -399,9 +404,10 @@ public final class AnaTemplates {
         DimComp dc_ = StringExpUtil.getQuickComponentBaseType(_second);
         StringList types_ = StringExpUtil.getAllTypes(_first);
         String className_ = StringExpUtil.getQuickComponentBaseType(types_.first()).getComponent();
-        AnaGeneType root_ = _classes.getAnalyzing().getAnaGeneType(_classes,className_);
+        AnalyzedPageEl page_ = _classes.getAnalyzing();
+        AnaGeneType root_ = page_.getAnaGeneType(className_);
         CustList<TypeVar> typeVar_ = ContextUtil.getParamTypesMapValues(root_);
-        String objType_ = _classes.getStandards().getAliasObject();
+        String objType_ = page_.getStandards().getAliasObject();
         if (dc_.getComponent().startsWith(PREFIX_VAR_TYPE)) {
             int arr_ = dc_.getDim();
             String name_ = _second.substring(PREFIX_VAR_TYPE.length()+arr_);
@@ -566,17 +572,18 @@ public final class AnaTemplates {
     public static String check(StringList _errs,String _className, StringList _parts, StringMap<StringList> _inherit, ContextEl _context) {
         String res_ = tryGetAllInners(_className, _parts, _inherit, _context);
         if (res_.isEmpty()) {
-            int rc_ = _context.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            AnalyzedPageEl page_ = _context.getAnalyzing();
+            int rc_ = page_.getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_context.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //original type len
             String realClassName_ = getRealClassName(_className, _parts);
             un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
                     realClassName_);
-            _context.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             _errs.add(un_.getBuiltError());
-            res_ = _context.getStandards().getAliasObject();
+            res_ = page_.getStandards().getAliasObject();
         }
         return res_;
     }
@@ -630,7 +637,8 @@ public final class AnaTemplates {
         return _ana.getBoundAll();
     }
     public static String tryInfer(String _erased, StringMap<String> _vars, String _declaring, ContextEl _context) {
-        AnaGeneType g_ = _context.getAnalyzing().getAnaGeneType(_context,_erased);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        AnaGeneType g_ = page_.getAnaGeneType(_erased);
         if (g_ == null) {
             return null;
         }
@@ -645,7 +653,7 @@ public final class AnaTemplates {
                 }
             }
         } else {
-            if (StringList.quickEq(_erased,_context.getStandards().getAliasFct())) {
+            if (StringList.quickEq(_erased,page_.getStandards().getAliasFct())) {
                 return _declaring;
             }
             type_ = gene_;
@@ -753,12 +761,13 @@ public final class AnaTemplates {
     }
 
     public static boolean isReturnCorrect(String _p, String _a, StringMap<StringList> _mapping,ContextEl _context) {
-        if (PrimitiveTypeUtil.isPrimitive(_p, _context)) {
-            if (!PrimitiveTypeUtil.isPrimitive(_a, _context)) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        if (AnaTypeUtil.isPrimitive(_p, page_)) {
+            if (!AnaTypeUtil.isPrimitive(_a, page_)) {
                 return false;
             }
         }
-        String void_ = _context.getStandards().getAliasVoid();
+        String void_ = page_.getStandards().getAliasVoid();
         if (StringList.quickEq(_p, void_)) {
             return StringList.quickEq(_a, void_);
         }
@@ -778,11 +787,12 @@ public final class AnaTemplates {
         if (_m.getParam().isVariable()) {
             return false;
         }
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         if (_m.getArg().isVariable()) {
-            return !PrimitiveTypeUtil.isPrimitive(p_, _context);
+            return !AnaTypeUtil.isPrimitive(p_, page_);
         }
-        if (PrimitiveTypeUtil.isPrimitive(p_, _context)) {
-            LgNames stds_ = _context.getStandards();
+        if (AnaTypeUtil.isPrimitive(p_, page_)) {
+            LgNames stds_ = page_.getStandards();
             Mapping m_ = new Mapping();
             m_.setArg(PrimitiveTypeUtil.toPrimitive(a_, stds_));
             m_.setParam(p_);
@@ -867,7 +877,8 @@ public final class AnaTemplates {
     }
 
     public static String getGeneric(String _arg, String _param, ContextEl _context, Mapping map_) {
-        String objType_ = _context.getStandards().getAliasObject();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        String objType_ = page_.getStandards().getAliasObject();
         DimComp dArg_ = StringExpUtil.getQuickComponentBaseType(_arg);
         String baseArrayArg_ = dArg_.getComponent();
         String generic_ = "";
@@ -877,7 +888,7 @@ public final class AnaTemplates {
                 String arr_ = StringExpUtil.getPrettyArrayType(c,dArg_.getDim());
                 String idCl_ = StringExpUtil.getIdFromAllTypes(arr_);
                 String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
-                AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+                AnaGeneType info_ = page_.getAnaGeneType(compo_);
                 generic_ = getFullTypeByBases(info_,arr_, _param, _context);
                 if (!generic_.isEmpty()) {
                     break;
@@ -886,7 +897,7 @@ public final class AnaTemplates {
         } else {
             String idCl_ = StringExpUtil.getIdFromAllTypes(_arg);
             String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
-            AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+            AnaGeneType info_ = page_.getAnaGeneType(compo_);
             generic_ = getFullTypeByBases(info_,_arg, _param, _context);
         }
         return generic_;
@@ -915,8 +926,8 @@ public final class AnaTemplates {
             }
             return null;
         }
-        String fct_ = _context.getStandards().getAliasFct();
-        String obj_ = _context.getStandards().getAliasObject();
+        String fct_ = _context.getAnalyzing().getStandards().getAliasFct();
+        String obj_ = _context.getAnalyzing().getStandards().getAliasObject();
         String idBaseArrayArg_ = StringExpUtil.getIdFromAllTypes(baseArrayArg_);
         String idBaseArrayParam_ = StringExpUtil.getIdFromAllTypes(baseArrayParam_);
         if (StringList.quickEq(idBaseArrayArg_, fct_)) {
@@ -960,7 +971,8 @@ public final class AnaTemplates {
         String classParam_ = dBaseParam_.getComponent();
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        if (StringList.quickEq(classParam_, _context.getStandards().getAliasObject())) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        if (StringList.quickEq(classParam_, page_.getStandards().getAliasObject())) {
             if (dBaseArg_.getDim() < dim_) {
                 return "";
             }
@@ -969,17 +981,17 @@ public final class AnaTemplates {
         if (dBaseArg_.getDim() != dim_) {
             return "";
         }
-        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
-            PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
-            if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
+        if (AnaTypeUtil.isPrimitive(baseArr_,page_)) {
+            PrimitiveType pr_ = page_.getStandards().getPrimitiveTypes().getVal(baseArr_);
+            if (StringList.contains(pr_.getAllSuperType(page_), classParam_)) {
                 return _superType;
             }
             return "";
         }
-        if (StringList.quickEq(_subType, _context.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_subType, page_.getStandards().getAliasVoid())) {
             return "";
         }
-        if (StringList.quickEq(_superType, _context.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_superType, page_.getStandards().getAliasVoid())) {
             return "";
         }
         String generic_ = getSuperGeneric(_typeSub,_context, dim_, classParam_);
@@ -1018,7 +1030,7 @@ public final class AnaTemplates {
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof AnnotationBlock) {
-            if (StringList.quickEq(param_,_context.getStandards().getAliasAnnotationType())) {
+            if (StringList.quickEq(param_,_context.getAnalyzing().getStandards().getAliasAnnotationType())) {
                 return StringExpUtil.getPrettyArrayType(param_,_dim);
             }
         }
@@ -1066,13 +1078,14 @@ public final class AnaTemplates {
         //From analyze
         String idCl_ = StringExpUtil.getIdFromAllTypes(_genericClass);
         String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         if (_info == null) {
-            if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+            if (AnaTypeUtil.isPrimitive(compo_,page_)) {
                 return true;
             }
-            return StringList.quickEq(compo_, _context.getStandards().getAliasVoid());
+            return StringList.quickEq(compo_, page_.getStandards().getAliasVoid());
         }
-        String fct_ = _context.getStandards().getAliasFct();
+        String fct_ = page_.getStandards().getAliasFct();
         Ints rep_ = _info.getTypeVarCounts();
         StringList inners_ = StringExpUtil.getAllInnerTypes(_genericClass);
         int len_ = inners_.size();

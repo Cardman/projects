@@ -1,6 +1,5 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -1209,7 +1208,7 @@ public final class NumParsers {
         return one_ < 0 || two_ < 0 || one_ + two_ > arr_.length;
     }
 
-    public static String getString(Struct _oldChar) {
+    public static String getStringValue(Struct _oldChar) {
         String old_;
         if (_oldChar instanceof StringStruct) {
             old_ = ((StringStruct)_oldChar).getInstance();
@@ -1274,7 +1273,7 @@ public final class NumParsers {
         if (_previous instanceof StringBuilderStruct) {
             return (StringBuilderStruct) _previous;
         }
-        return AnaApplyCoreMethodUtil.getString(_previous);
+        return getString(_previous);
     }
 
     public static StringBuilderStruct getStrBuilder(Struct _previous) {
@@ -1289,5 +1288,19 @@ public final class NumParsers {
             return ((EnumerableStruct)_arg).getName();
         }
         return ";";
+    }
+
+    public static DisplayableStruct getDisplayableStruct(Struct _previous) {
+        if (_previous instanceof DisplayableStruct) {
+            return (DisplayableStruct) _previous;
+        }
+        return new StringStruct("");
+    }
+
+    public static StringStruct getString(Struct _previous) {
+        if (_previous instanceof StringStruct) {
+            return (StringStruct) _previous;
+        }
+        return new StringStruct("");
     }
 }

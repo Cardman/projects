@@ -84,7 +84,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             page_.getLoopsVars().put(str_, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                lInfo_.setClassName(_conf.getStandards().getAliasObject());
+                lInfo_.setClassName(page_.getStandards().getAliasObject());
             } else {
                 lInfo_.setClassName(c_);
             }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.functionid;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.common.AnaGeneType;
@@ -79,6 +80,9 @@ public final class MethodId implements Identifiable {
     }
     @Override
     public String getSignature(ContextEl _ana) {
+        return getSignature(_ana.getStandards().getDisplayedStrings());
+    }
+    public String getSignature(AnalyzedPageEl _ana) {
         return getSignature(_ana.getStandards().getDisplayedStrings());
     }
     @Override

@@ -65,7 +65,7 @@ public abstract class AssMethodOperation extends AssOperationNode {
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         StringMap<Assignment> variablesAfter_ = new StringMap<Assignment>();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
+        isBool_ = getResultClass().isBoolType(_conf.getAnalyzing());
         if (children_.isEmpty()) {
             fieldsAfter_.putAllMap(AssignmentsUtil.assignAfter(isBool_,vars_.getFieldsBefore().getVal(this)));
             variablesAfter_.putAllMap(AssignmentsUtil.assignAfter(isBool_,vars_.getVariablesBefore().getVal(this)));

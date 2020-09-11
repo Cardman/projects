@@ -233,10 +233,11 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     protected void checkAccess(ContextEl _context) {
         useSuperTypesOverrides(_context);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         StringList allGenericSuperClasses_ = new StringList();
         for (String s: allGenericSuperTypes) {
             String base_ = StringExpUtil.getIdFromAllTypes(s);
-            if (_context.getAnalyzing().getAnaClassBody(base_) instanceof ClassBlock) {
+            if (page_.getAnaClassBody(base_) instanceof ClassBlock) {
                 allGenericSuperClasses_.add(s);
             }
         }
@@ -275,9 +276,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //key word access or method name
                         err_.buildError(_context.getAnalysisMessages().getMethodsAccesses(),
                                 name_,
-                                id_.getSignature(_context),
+                                id_.getSignature(page_),
                                 nameCl_,
-                                idCl_.getSignature(_context));
+                                idCl_.getSignature(page_));
                         _context.addError(err_);
                         supCl_.addNameErrors(err_);
                     }
@@ -294,10 +295,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             //sub return type len
                             err_.buildError(_context.getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
-                                    id_.getSignature(_context),
+                                    id_.getSignature(page_),
                                     name_,
                                     formattedRetDer_,
-                                    idCl_.getSignature(_context),
+                                    idCl_.getSignature(page_),
                                     nameCl_);
                             _context.addError(err_);
                             supCl_.addNameErrors(err_);
@@ -312,10 +313,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         //sub return type len
                         err_.buildError(_context.getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
-                                idCl_.getSignature(_context),
+                                idCl_.getSignature(page_),
                                 nameCl_,
                                 formattedRetBase_,
-                                id_.getSignature(_context),
+                                id_.getSignature(page_),
                                 name_);
                         _context.addError(err_);
                         supCl_.addNameErrors(err_);
@@ -505,7 +506,8 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         CustList<Block> bl_;
         bl_ = ClassesUtil.getDirectChildren(this);
         KeyWords keyWords_ = _context.getKeyWords();
-        LgNames stds_ = _context.getStandards();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         for (Block b: bl_) {
             if (b instanceof InfoBlock) {
                 continue;
@@ -775,7 +777,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         m_.addNameErrors(badMeth_);
                     } else {
                         ToStringMethodHeader t_ = new ToStringMethodHeader(getNumberAll(),m_.getNameNumber(),m_.getName(), m_.getImportedReturnType(), m_.isFinalMethod(),m_.isAbstractMethod());
-                        _context.getAnalyzing().getToStringMethods().addEntry(getFullName(), t_);
+                        page_.getToStringMethods().addEntry(getFullName(), t_);
                     }
                 } else if (m_.getKind() == MethodKind.STD_METHOD) {
                     if (!StringList.quickEq(name_, keyWords_.getKeyWordToString())) {
@@ -863,7 +865,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_context));
+                                    id_.getSignature(page_));
                             _context.addError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -875,7 +877,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_context.getAnalysisMessages().getReservedCustomMethod(),
-                                    id_.getSignature(_context));
+                                    id_.getSignature(page_));
                             _context.addError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -889,7 +891,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
-                                    id_.getSignature(_context));
+                                    id_.getSignature(page_));
                             _context.addError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -906,7 +908,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             duplicate_.setFileName(getFile().getFileName());
                             //method name len
                             duplicate_.buildError(_context.getAnalysisMessages().getDuplicateIndexer(),
-                                    id_.getSignature(_context));
+                                    id_.getSignature(page_));
                             _context.addError(duplicate_);
                             m_.addNameErrors(duplicate_);
                         }
@@ -923,7 +925,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         duplicate_ = new FoundErrorInterpret();
                         duplicate_.setIndexFile(r_);
                         duplicate_.setFileName(getFile().getFileName());
-                        String sgn_ = id_.getSignature(_context);
+                        String sgn_ = id_.getSignature(page_);
                         //method name len
                         duplicate_.buildError(_context.getAnalysisMessages().getDuplicateCustomMethod(),
                                 sgn_);
@@ -959,7 +961,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         duplicate_.setFileName(getFile().getFileName());
                         //left par len
                         duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedCtor(),
-                                idCt_.getSignature(_context));
+                                idCt_.getSignature(page_));
                         _context.addError(duplicate_);
                         method_.addNameErrors(duplicate_);
                     }
@@ -969,18 +971,18 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             validateParameters(_context, method_);
         }
         buildFieldInfos(_context, bl_);
-        _context.getAnalyzing().getUnary().addEntry(getFullName(),unary_);
-        _context.getAnalyzing().getBinaryAll().addEntry(getFullName(),binaryAll_);
-        _context.getAnalyzing().getBinaryFirst().addEntry(getFullName(),binaryFirst_);
-        _context.getAnalyzing().getBinarySecond().addEntry(getFullName(),binarySecond_);
-        _context.getAnalyzing().getExplicitCastMethods().addEntry(getFullName(),explicit_);
-        _context.getAnalyzing().getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
-        _context.getAnalyzing().getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
-        _context.getAnalyzing().getImplicitCastMethods().addEntry(getFullName(),implicit_);
-        _context.getAnalyzing().getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
-        _context.getAnalyzing().getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
-        _context.getAnalyzing().getTrues().addEntry(getFullName(),true_);
-        _context.getAnalyzing().getFalses().addEntry(getFullName(),false_);
+        page_.getUnary().addEntry(getFullName(),unary_);
+        page_.getBinaryAll().addEntry(getFullName(),binaryAll_);
+        page_.getBinaryFirst().addEntry(getFullName(),binaryFirst_);
+        page_.getBinarySecond().addEntry(getFullName(),binarySecond_);
+        page_.getExplicitCastMethods().addEntry(getFullName(),explicit_);
+        page_.getExplicitIdCastMethods().addEntry(getFullName(),explicitId_);
+        page_.getExplicitFromCastMethods().addEntry(getFullName(),explicitFrom_);
+        page_.getImplicitCastMethods().addEntry(getFullName(),implicit_);
+        page_.getImplicitIdCastMethods().addEntry(getFullName(),implicitId_);
+        page_.getImplicitFromCastMethods().addEntry(getFullName(),implicitFrom_);
+        page_.getTrues().addEntry(getFullName(),true_);
+        page_.getFalses().addEntry(getFullName(),false_);
         validateIndexers(_context, indexersGet_, indexersSet_);
     }
 
@@ -1132,8 +1134,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         rcs_ = getRowColDirectSuperTypes();
         int i_ = 0;
         results.clear();
-        _classes.getAnalyzing().getMappingLocal().clear();
-        _classes.getAnalyzing().getMappingLocal().putAllMap(mappings);
+        AnalyzedPageEl page_ = _classes.getAnalyzing();
+        page_.getMappingLocal().clear();
+        page_.getMappingLocal().putAllMap(mappings);
         for (String s: getDirectSuperTypes()) {
             int index_ = rcs_.getKey(i_);
             AnaResultPartType s_;
@@ -1156,7 +1159,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (ok_) {
                     res_ = AnaTemplates.getRealClassName(allTypes_.first(), j_);
                 } else {
-                    res_ = _classes.getStandards().getAliasObject();
+                    res_ = page_.getStandards().getAliasObject();
                 }
                 s_ = new AnaResultPartType(res_,null);
             } else if (index_ < 0){
@@ -1168,7 +1171,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
             i_++;
             String base_ = StringExpUtil.getIdFromAllTypes(s_.getResult());
-            RootBlock r_ = _classes.getAnalyzing().getAnaClassBody(base_);
+            RootBlock r_ = page_.getAnaClassBody(base_);
             if (this instanceof AnnotationBlock||r_ instanceof InterfaceBlock) {
                 importedDirectSuperInterfaces.add(s_.getResult());
             } else {
@@ -1179,7 +1182,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             }
         }
         if (importedDirectSuperClass.isEmpty()) {
-            importedDirectSuperClass = _classes.getStandards().getAliasObject();
+            importedDirectSuperClass = page_.getStandards().getAliasObject();
 
         }
     }
@@ -1250,7 +1253,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (TypeVar t: getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
         }
-        LgNames stds_ = _context.getStandards();
+        LgNames stds_ = _context.getAnalyzing().getStandards();
         String objectClassName_ = stds_.getAliasObject();
         for (TypeVar t: getParamTypesMapValues()) {
             CustList<MethodIdAncestors> signatures_;
@@ -1277,6 +1280,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         sub_ = RootBlock.getAllOverridingMethods(_signatures, _context);
         CustList<MethodIdAncestors> er_;
         er_ = RootBlock.areCompatibleIndexer(_fullName, sub_);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         for (MethodIdAncestors e: er_) {
             StringList retClasses_ = new StringList();
             StringList types_ = new StringList();
@@ -1291,7 +1295,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             err_.setIndexFile(idRowCol);
             //original id len
             err_.buildError(_context.getAnalysisMessages().getReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_context),
+                    e.getClassMethodId().getClassMethodId().getSignature(page_),
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
@@ -1316,10 +1320,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     //original id len
                     err_.buildError(_context.getAnalysisMessages().getFinalNotSubReturnType(),
                             subType_,
-                            subInt_.getConstraints().getSignature(_context),
+                            subInt_.getConstraints().getSignature(page_),
                             subInt_.getClassName(),
                             formattedSup_,
-                            s.getConstraints().getSignature(_context),
+                            s.getConstraints().getSignature(page_),
                             s.getClassName());
                     _context.addError(err_);
                     addNameErrors(err_);
@@ -1341,7 +1345,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             err_.setIndexFile(idRowCol);
             //original id len
             err_.buildError(_context.getAnalysisMessages().getTwoReturnTypes(),
-                    e.getClassMethodId().getClassMethodId().getSignature(_context),
+                    e.getClassMethodId().getClassMethodId().getSignature(page_),
                     StringList.join(types_,"&"),
                     StringList.join(retClasses_,"&"));
             _context.addError(err_);
@@ -1355,7 +1359,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             //original id len
             err_.buildError(_context.getAnalysisMessages().getTwoFinal(),
                     _virtualType,
-                    e.getClassMethodId().getClassMethodId().getSignature(_context));
+                    e.getClassMethodId().getClassMethodId().getSignature(page_));
             _context.addError(err_);
             addNameErrors(err_);
         }
@@ -1414,7 +1418,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         if (concreteClass_) {
             for (OverridableBlock b: ClassesUtil.getMethodExecBlocks(this)) {
-                MethodId idFor_ = b.getId();
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
@@ -1424,7 +1427,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     err_.buildError(
                             _context.getAnalysisMessages().getAbstractMethodConc(),
                             getFullName(),
-                            idFor_.getSignature(_context));
+                            b.getSignature(_context));
                     _context.addError(err_);
                     b.addNameErrors(err_);
                 }
@@ -1654,6 +1657,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public void validateConstructors(ContextEl _cont) {
         boolean opt_ = optionalCallConstr(_cont);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         CustList<ConstructorBlock> ctors_ = new CustList<ConstructorBlock>();
         IdMap<ConstructorId,ConstructorBlock> ctorsId_ = new IdMap<ConstructorId,ConstructorBlock>();
         for (Block b: ClassesUtil.getDirectChildren(this)) {
@@ -1673,7 +1677,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             addNameErrors(un_);
         }
         for (ConstructorBlock c: ctors_) {
-            c.setupInstancingStep(_cont,_cont.getAnalyzing().getMapMembers().getVal(this).getAllCtors().getVal(c));
+            c.setupInstancingStep(_cont, page_.getMapMembers().getVal(this).getAllCtors().getVal(c));
         }
         for (ConstructorBlock c: ctors_) {
             if (c.implicitConstr() && !opt_) {
@@ -1707,7 +1711,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     FoundErrorInterpret cyclic_ = new FoundErrorInterpret();
                     StringList c_ = new StringList();
                     for (ConstructorId c: cycle_) {
-                        c_.add(c.getSignature(_cont));
+                        c_.add(c.getSignature(page_));
                     }
                     cyclic_.setFileName(getFile().getFileName());
                     cyclic_.setIndexFile(getOffset().getOffsetTrim());
@@ -1893,12 +1897,17 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return getOuterParent().getFullName();
     }
 
-    public boolean isSubTypeOf(String parName_, ContextEl context) {
-        if (StringList.quickEq(parName_,getFullName())) {
+    public boolean isSubTypeOf(String parName_, AnalyzedPageEl context) {
+        return isSubTypeOf(parName_);
+    }
+
+    private boolean isSubTypeOf(String _parName) {
+        if (StringList.quickEq(_parName,getFullName())) {
             return true;
         }
-        return StringList.contains(getAllSuperTypes(),parName_);
+        return StringList.contains(getAllSuperTypes(), _parName);
     }
+
     public StringList getAllSuperTypes(){
         return allSuperTypes;
     }

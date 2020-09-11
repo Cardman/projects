@@ -2,12 +2,13 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -71,12 +72,13 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offsetLocal, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode opOne_ = chidren_.first();
         ClassArgumentMatching clMatch_ = opOne_.getResultClass();
-        if (!clMatch_.isBoolType(_conf)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimBoolean(), clMatch_);
+        if (!clMatch_.isBoolType(page_)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimBoolean(), clMatch_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
@@ -93,19 +95,19 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                 } else {
                     setRelativeOffsetPossibleAnalyzable(opOne_.getIndexInEl()+1, _conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //after first arg separator len
                     un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(clMatch_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    page_.getLocalizer().addError(un_);
                     getErrs().add(un_.getBuiltError());
                 }
             }
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            int i_ = page_.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> list_ = new CustList<PartOffset>();
             list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+1));
@@ -119,7 +121,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringList one_ = clMatchTwo_.getNames();
         StringList two_ = clMatchThree_.getNames();
-        StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
         while (m_ != null) {
@@ -143,7 +145,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             type_ = c_.getClassName();
         }
         if (!type_.isEmpty()) {
-            if (PrimitiveTypeUtil.isPrimitive(type_, _conf)) {
+            if (AnaTypeUtil.isPrimitive(type_, page_)) {
                 opTwo_.getResultClass().setUnwrapObject(type_);
                 opThree_.getResultClass().setUnwrapObject(type_);
                 opTwo_.cancelArgument();

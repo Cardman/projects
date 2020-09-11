@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
@@ -47,7 +48,8 @@ public final class FinalVariableOperation extends LeafOperation {
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         if (!className.isEmpty()) {
             variableName = StringExpUtil.skipPrefix(str_);
             realVariableName = str_;
@@ -56,15 +58,15 @@ public final class FinalVariableOperation extends LeafOperation {
         }
         int deep_ = -1;
         String shortStr_ = str_;
-        AnaLoopVariable val_ = _conf.getAnalyzing().getLoopsVars().getVal(str_);
+        AnaLoopVariable val_ = page_.getLoopsVars().getVal(str_);
         if (val_ == null) {
             deep_ = StringExpUtil.countPrefix(str_);
             shortStr_ = StringExpUtil.skipPrefix(str_);
-            AnaLoopVariable loc_ = _conf.getAnalyzing().getLoopsVars().getVal(shortStr_);
+            AnaLoopVariable loc_ = page_.getLoopsVars().getVal(shortStr_);
             if (loc_ != null) {
                 deep_--;
             }
-            val_ = _conf.getAnalyzing().getCache().getLoopVar(shortStr_,deep_);
+            val_ = page_.getCache().getLoopVar(shortStr_,deep_);
         }
         if (val_ != null) {
             deep = deep_;
@@ -77,12 +79,12 @@ public final class FinalVariableOperation extends LeafOperation {
         variableName = str_;
         realVariableName = str_;
         FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-        und_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        und_.setFileName(page_.getLocalizer().getCurrentFileName());
+        und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //variable name len
         und_.buildError(_conf.getAnalysisMessages().getUndefinedVariable(),
                 variableName);
-        _conf.getAnalyzing().getLocalizer().addError(und_);
+        page_.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }

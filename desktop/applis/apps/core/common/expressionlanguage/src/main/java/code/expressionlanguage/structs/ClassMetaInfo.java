@@ -1,7 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
@@ -12,14 +12,11 @@ import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ClassCategory;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct {
+public final class ClassMetaInfo extends WithoutParentStruct implements AnnotatedStruct,AnaDisplayableStruct {
 
     private static final String EMPTY_STRING = "";
 
@@ -456,6 +453,11 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
+        return getDisplayedString();
+    }
+
+    @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
         return getDisplayedString();
     }
 

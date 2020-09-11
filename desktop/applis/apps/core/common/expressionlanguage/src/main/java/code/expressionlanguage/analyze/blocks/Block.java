@@ -123,7 +123,7 @@ public abstract class Block implements AnalyzedBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,_block);
+            page_.getCoverage().putBlockOperations(_cont, exec_,_block);
             return true;
         }
         if (_block instanceof RootBlock) {

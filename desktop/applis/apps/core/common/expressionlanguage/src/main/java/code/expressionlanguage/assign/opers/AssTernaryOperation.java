@@ -38,7 +38,7 @@ public final class AssTernaryOperation extends AssMultMethodOperation {
         AssOperationNode befLast_ = children_.get(children_.size() - 2);
         StringMap<Assignment> fieldsAfterBefLast_ = vars_.getFields().getVal(befLast_);
         StringMap<Assignment> variablesAfterBefLast_ = vars_.getVariables().getVal(befLast_);
-        boolean toBoolean_ = getResultClass().isBoolType(_conf);
+        boolean toBoolean_ = getResultClass().isBoolType(_conf.getAnalyzing());
         for (EntryCust<String, Assignment> e: fieldsAfterLast_.entryList()) {
             Assignment b_ = e.getValue();
             Assignment p_ = fieldsAfterBefLast_.getVal(e.getKey());

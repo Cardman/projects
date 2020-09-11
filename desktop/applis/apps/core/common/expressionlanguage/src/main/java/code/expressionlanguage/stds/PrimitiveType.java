@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.InheritedType;
 import code.util.StringList;
@@ -34,6 +35,15 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
     public StringList getAllSuperType(ContextEl _cont) {
         StringList all_ = new StringList();
         LgNames stds_ = _cont.getStandards();
+        return getAllSuperType(all_, stds_);
+    }
+    public StringList getAllSuperType(AnalyzedPageEl _cont) {
+        StringList all_ = new StringList();
+        LgNames stds_ = _cont.getStandards();
+        return getAllSuperType(all_, stds_);
+    }
+
+    public StringList getAllSuperType(StringList all_, LgNames stds_) {
         StringMap<PrimitiveType> p_ = stds_.getPrimitiveTypes();
         String name_ = name;
         while (!name_.isEmpty()) {
@@ -51,6 +61,11 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
 
     @Override
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {
+        return StringList.contains(getAllSuperType(_an),_fullName);
+    }
+
+    @Override
+    public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
         return StringList.contains(getAllSuperType(_an),_fullName);
     }
 }

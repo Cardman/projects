@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -65,7 +65,7 @@ public class CustInitializer extends DefaultInitializer {
                     if (convert_) {
                         out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
                     }
-                    String text_ = AnaApplyCoreMethodUtil.getString(out_.getStruct()).getInstance();
+                    String text_ = NumParsers.getString(out_.getStruct()).getInstance();
                     log(_cont,text_);
                 } else {
                     log(_cont,_cont.getStandards().getDisplayedStrings().getNullString());

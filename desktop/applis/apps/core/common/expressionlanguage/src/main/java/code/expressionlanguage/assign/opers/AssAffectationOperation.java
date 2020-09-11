@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
@@ -54,8 +55,9 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
         AssOperationNode lastChild_ = getChildrenNodes().last();
         StringMap<Assignment> fieldsAfter_ = new StringMap<Assignment>();
         StringMap<Assignment> variablesAfter_ = new StringMap<Assignment>();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
+        isBool_ = getResultClass().isBoolType(page_);
         if (firstChild_ instanceof AssStdVariableOperation) {
             StringMap<Assignment> variablesAfterLast_ = vars_.getVariables().getVal(lastChild_);
             String str_ = ((AssStdVariableOperation)firstChild_).getVariableName();
@@ -65,8 +67,8 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
                         //error
                         firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                        un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                         un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                 str_);
                         _conf.addError(un_);
@@ -91,8 +93,8 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
                     //error if final field
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
                     _conf.addError(un_);

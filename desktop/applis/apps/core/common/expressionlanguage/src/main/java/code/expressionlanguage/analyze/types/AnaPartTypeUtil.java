@@ -300,7 +300,7 @@ public final class AnaPartTypeUtil {
         String analyzedType_ = _current.getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(analyzedType_);
         String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
-        AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(_context,compo_);
+        AnaGeneType info_ = _context.getAnalyzing().getAnaGeneType(compo_);
         return !skip(_current) && !AnaTemplates.correctNbParameters(info_,analyzedType_, _context);
     }
 

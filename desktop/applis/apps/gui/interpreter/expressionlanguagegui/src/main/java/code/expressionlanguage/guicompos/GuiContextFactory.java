@@ -35,7 +35,7 @@ public final class GuiContextFactory {
                                                Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         GuiInitializer ci_ = new GuiInitializer();
-        GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        GuiContextEl r_ = new GuiContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth);
         r_.initApplicationParts(_mainArgs,_window);
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
         return new ResultsGuiContext(r_,reportedMessages_);

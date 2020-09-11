@@ -37,7 +37,7 @@ public final class BreakBlock extends AbruptBlock {
         ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkBreakable(ContextEl _cont) {

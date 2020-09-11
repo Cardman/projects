@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -90,9 +91,10 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         boolean import_ = false;
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            setStaticAccess(_conf.getAnalyzing().getStaticContext());
+            setStaticAccess(page_.getStaticContext());
         }
         String className_ = methodName.substring(0, methodName.lastIndexOf(PAR_RIGHT));
         int lenPref_ = methodName.indexOf(PAR_LEFT) + 1;
@@ -100,7 +102,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         int loc_ = StringList.getFirstPrintableCharIndex(className_)-off_;
         if (typeInfer.isEmpty()) {
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            partOffsets.addAllElts(page_.getCurrentParts());
         } else {
             className_ = typeInfer;
         }
@@ -130,7 +132,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
@@ -167,14 +169,14 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         if (clMeth_.isAbstractMethod()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
-            abs_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            abs_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            abs_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            abs_.setFileName(page_.getLocalizer().getCurrentFileName());
             //method name len
             abs_.buildError(
                     _conf.getAnalysisMessages().getAbstractMethodRef(),
                     clMeth_.getRealClass(),
-                    clMeth_.getRealId().getSignature(_conf));
-            _conf.getAnalyzing().getLocalizer().addError(abs_);
+                    clMeth_.getRealId().getSignature(page_));
+            page_.getLocalizer().addError(abs_);
             getErrs().add(abs_.getBuiltError());
         }
         classMethodId = clMeth_.getId();

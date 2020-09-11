@@ -85,9 +85,15 @@ public final class ExecTemplates {
             int lastIndex_ = key_.last();
             Struct str_ = indexesArray_.getVal(ind_);
             Struct[] array_ = ExecArrayFieldOperation.getArray(str_,_cont).getInstance();
-            array_[lastIndex_] = value_;
+            trySet(array_,lastIndex_,value_);
         }
         return output_;
+    }
+    static void trySet(Struct[] _arr, int _index, Struct _value) {
+        if (_index < 0 || _index >= _arr.length) {
+            return;
+        }
+        _arr[_index] = _value;
     }
     /** nb calls of getParent - super type - arg object
      use class parent of object
@@ -1065,19 +1071,19 @@ public final class ExecTemplates {
         _bl.processBlock(_context);
     }
     public static Argument getIndexLoop(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
-        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
-        if (_deep >= 0||locVar_ == null) {
-            Cache cache_ = _lastPage.getCache();
-            if (cache_ != null) {
-                LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
-                if (loopVar_ != null) {
-                    ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
-                    LongStruct str_ = new LongStruct(loopVar_.getIndex());
-                    Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
-                    return new Argument(value_);
-                }
+        Cache cache_ = _lastPage.getCache();
+        if (cache_ != null) {
+            LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
+            if (loopVar_ != null) {
+                ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
+                LongStruct str_ = new LongStruct(loopVar_.getIndex());
+                Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
+                return new Argument(value_);
             }
+        }
+        LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
+        if (locVar_ == null) {
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
@@ -1088,21 +1094,21 @@ public final class ExecTemplates {
         return new Argument(value_);
     }
 
-    public static void incrIndexLoop(ContextEl _context, String _val, PageEl _lastPage) {
+    public static void incrIndexLoop(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
         if (_context.callsOrException()) {
             return;
+        }
+        Cache cache_ = _lastPage.getCache();
+        if (cache_ != null) {
+            LoopVariable loopVar_ = cache_.getLoopVar(_val, _deep);
+            if (loopVar_ != null) {
+                loopVar_.setIndex(loopVar_.getIndex() + 1);
+                return;
+            }
         }
         LoopVariable locVar_ = _lastPage.getVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
         if (locVar_ == null) {
-            Cache cache_ = _lastPage.getCache();
-            if (cache_ != null) {
-                LoopVariable loopVar_ = cache_.getLoopVar(_val,0);
-                if (loopVar_ != null) {
-                    loopVar_.setIndex(loopVar_.getIndex() + 1);
-                    return;
-                }
-            }
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return;
@@ -1111,16 +1117,16 @@ public final class ExecTemplates {
     }
 
     public static Argument getValue(ContextEl _context, String _val, PageEl _lastPage, int _deep) {
-        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
-        if (_deep >= 0||locVar_ == null) {
-            Cache cache_ = _lastPage.getCache();
-            if (cache_ != null) {
-                LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
-                if (loopVar_ != null) {
-                    return new Argument(loopVar_.getStruct());
-                }
+        Cache cache_ = _lastPage.getCache();
+        if (cache_ != null) {
+            LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
+            if (loopVar_ != null) {
+                return new Argument(loopVar_.getStruct());
             }
+        }
+        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        if (locVar_ == null) {
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();
@@ -1132,16 +1138,16 @@ public final class ExecTemplates {
         if (_context.callsOrException()) {
             return new Argument();
         }
-        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
         LgNames stds_ = _context.getStandards();
-        if (_deep >= 0||locVar_ == null) {
-            Cache cache_ = _lastPage.getCache();
-            if (cache_ != null) {
-                LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
-                if (loopVar_ != null) {
-                    return checkSet(_context,loopVar_,_value);
-                }
+        Cache cache_ = _lastPage.getCache();
+        if (cache_ != null) {
+            LocalVariable loopVar_ = cache_.getLocalVar(_val,_deep);
+            if (loopVar_ != null) {
+                return checkSet(_context,loopVar_,_value);
             }
+        }
+        LocalVariable locVar_ = _lastPage.getValueVars().getVal(_val);
+        if (locVar_ == null) {
             String npe_ = stds_.getAliasNullPe();
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument();

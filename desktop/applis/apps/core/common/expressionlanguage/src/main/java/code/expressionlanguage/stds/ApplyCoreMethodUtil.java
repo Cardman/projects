@@ -13,7 +13,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -278,7 +277,7 @@ public final class ApplyCoreMethodUtil {
             } else if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNames())) {
                 result_.setResult(ResourcesStruct.getResourceNames(_cont));
             } else {
-                result_.setResult(ResourcesStruct.getResource(_cont, AnaApplyCoreMethodUtil.getString(args_[0])));
+                result_.setResult(ResourcesStruct.getResource(_cont, NumParsers.getString(args_[0])));
             }
             return result_;
         }
@@ -393,7 +392,7 @@ public final class ApplyCoreMethodUtil {
         if (!_firstArgs.isEmpty()) {
             previous_ = _firstArgs.first().getStruct();
         }
-        if (PrimitiveTypeUtil.isPureNumberClass(new ClassArgumentMatching(_id),_conf)) {
+        if (ClassArgumentMatching.isPureNumberClass(new ClassArgumentMatching(_id),_conf)) {
             return PrimitiveTypeUtil.convertToNumber(new ClassArgumentMatching(_id),previous_,stds_);
         }
         String aliasBoolean_ = stds_.getAliasBoolean();
@@ -403,7 +402,7 @@ public final class ApplyCoreMethodUtil {
         String aliasString_ = stds_.getAliasString();
         String aliasStringBuilder_ = stds_.getAliasStringBuilder();
         if (StringList.quickEq(aliasString_, _id)) {
-            return AnaApplyCoreMethodUtil.getString(previous_);
+            return NumParsers.getString(previous_);
         }
         if (StringList.quickEq(aliasStringBuilder_, _id)) {
             return NumParsers.getStrBuilder(previous_);

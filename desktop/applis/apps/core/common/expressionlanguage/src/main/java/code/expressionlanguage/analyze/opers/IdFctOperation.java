@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
@@ -38,18 +39,19 @@ public final class IdFctOperation extends LeafOperation {
     public void analyze(ContextEl _conf) {
         partOffsets = new CustList<PartOffset>();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl() + offset, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
+            int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
             varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
                     _conf.getKeyWords().getKeyWordId());
-            _conf.getAnalyzing().getLocalizer().addError(varg_);
+            page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordId().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -58,13 +60,13 @@ public final class IdFctOperation extends LeafOperation {
         if (!isFirstChildInParent()) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
+            int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
             varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
                     _conf.getKeyWords().getKeyWordId());
-            _conf.getAnalyzing().getLocalizer().addError(varg_);
+            page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordId().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -81,7 +83,7 @@ public final class IdFctOperation extends LeafOperation {
             int off_ = StringList.getFirstPrintableCharIndex(firstFull_);
             String fromType_ = StringExpUtil.removeDottedSpaces(firstFull_);
             cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+className.indexOf('(')+1,fromType_);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            partOffsets.addAllElts(page_.getCurrentParts());
             if (cl_.isEmpty()) {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;

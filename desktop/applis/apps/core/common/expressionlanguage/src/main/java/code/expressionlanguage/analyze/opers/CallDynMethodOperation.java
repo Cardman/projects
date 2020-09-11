@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -31,53 +32,54 @@ public final class CallDynMethodOperation extends InvokingOperation {
 
     @Override
     public void analyze(ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String fctName_ = getOperations().getFctName().trim();
         fctName = fctName_;
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        if (StringList.quickEq(fctName_, _conf.getStandards().getAliasMetaInfo())) {
+        if (StringList.quickEq(fctName_, page_.getStandards().getAliasMetaInfo())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
-                        _conf.getStandards().getAliasFct());
-                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                        page_.getStandards().getAliasFct());
+                page_.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
             }
             setResultClass(new ClassArgumentMatching(stds_.getAliasAnnotated()));
             return;
         }
-        if (StringList.quickEq(fctName_, _conf.getStandards().getAliasInstance())) {
+        if (StringList.quickEq(fctName_, page_.getStandards().getAliasInstance())) {
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
-                        _conf.getStandards().getAliasFct());
-                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                        page_.getStandards().getAliasFct());
+                page_.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
             }
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        if (!StringList.quickEq(fctName_, _conf.getStandards().getAliasCall())) {
+        if (!StringList.quickEq(fctName_, page_.getStandards().getAliasCall())) {
             FoundErrorInterpret und_ = new FoundErrorInterpret();
-            und_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            und_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            und_.setFileName(page_.getLocalizer().getCurrentFileName());
+            und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //fctName_ len
             und_.buildError(_conf.getAnalysisMessages().getFunctionalApplyOnly(),
-                    _conf.getStandards().getAliasCall(),
-                    _conf.getStandards().getAliasFct());
-            _conf.getAnalyzing().getLocalizer().addError(und_);
+                    page_.getStandards().getAliasCall(),
+                    page_.getStandards().getAliasFct());
+            page_.getLocalizer().addError(und_);
             getErrs().add(und_.getBuiltError());
         }
         ClassArgumentMatching clCur_ = getPreviousResultClass();
@@ -98,28 +100,28 @@ public final class CallDynMethodOperation extends InvokingOperation {
             if (param_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(param_.size()),
                         Integer.toString(firstArgs_.size()),
-                        _conf.getStandards().getAliasFct());
-                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                        page_.getStandards().getAliasFct());
+                page_.getLocalizer().addError(undefined_);
                 sepErr = undefined_.getBuiltError();
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             indexCh = Math.min(param_.size() - 1,firstArgs_.size()-1);
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //unexpected coma or right parenthese
             undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
                     Integer.toString(param_.size()),
                     Integer.toString(firstArgs_.size()),
-                    _conf.getStandards().getAliasFct());
-            _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                    page_.getStandards().getAliasFct());
+            page_.getLocalizer().addError(undefined_);
             sepErr = undefined_.getBuiltError();
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
@@ -133,7 +135,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
         }
         if (!allParamWildCard_) {
             int nb_ = param_.size();
-            StringMap<StringList> map_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+            StringMap<StringList> map_ = page_.getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
                 IntTreeMap<String> operators_ = getOperations().getOperators();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
@@ -154,19 +156,19 @@ public final class CallDynMethodOperation extends InvokingOperation {
                         a_.setMemberNumber(res_.getMemberNumber());
                     } else {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                        cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                        int i_ = page_.getLocalizer().getCurrentLocationIndex();
                         cast_.setIndexFile(i_);
                         //character before
                         cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                                 StringList.join(a_.getNames(),"&"),
                                 StringList.join(p_.getNames(),"&"));
-                        _conf.getAnalyzing().getLocalizer().addError(cast_);
+                        page_.getLocalizer().addError(cast_);
                         parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",i_));
                         parts_.add(new PartOffset("</a>",i_+1));
                     }
                 }
-                if (PrimitiveTypeUtil.isPrimitive(pa_, _conf)) {
+                if (AnaTypeUtil.isPrimitive(pa_, page_)) {
                     a_.setUnwrapObject(pa_);
                     chidren_.get(i).cancelArgument();
                 }

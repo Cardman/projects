@@ -47,7 +47,7 @@ public abstract class ProcessMethodCommon {
     protected static final String BOOLEAN = "java.lang.Boolean";
 
     protected static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
-        return ContextFactory.validate(_mess, _definedKw,_definedLgNames,_files,_contextEl,"src", new CustList<CommentDelimiters>(),_contextEl.getAnalyzing().getOptions());
+        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src");
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -29,7 +30,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         KeyWords keyWords_ = _conf.getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
@@ -38,22 +40,22 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(Templates.TEMPLATE_BEGIN);
         if (sub_.isEmpty()) {
-            int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + begin_ + off_;
+            int rc_ = page_.getLocalizer().getCurrentLocationIndex() + begin_ + off_;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
             un_.buildError(_conf.getAnalysisMessages().getEmptyType());
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            className = _conf.getStandards().getAliasObject();
+            className = page_.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
             return;
         }
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        partOffsets.addAllElts(page_.getCurrentParts());
         if (!exact_) {
-            RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(sub_));
+            RootBlock r_ = page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sub_));
             if (r_ != null) {
                 sub_ = r_.getWildCardString();
             }

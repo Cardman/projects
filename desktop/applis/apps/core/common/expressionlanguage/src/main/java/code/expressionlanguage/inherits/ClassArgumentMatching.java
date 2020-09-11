@@ -1,5 +1,6 @@
 package code.expressionlanguage.inherits;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -46,10 +47,10 @@ public final class ClassArgumentMatching {
         if (format_.isBoolType(_exec)) {
             return convertToBoolean(_arg);
         }
-        if (PrimitiveTypeUtil.toPrimitive(format_,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+        if (toPrimitive(format_,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
             return convertToChar(_arg);
         }
-        if (PrimitiveTypeUtil.isPureNumberClass(format_,_exec)) {
+        if (isPureNumberClass(format_,_exec)) {
             return PrimitiveTypeUtil.convertToNumber(format_,_arg,_exec.getStandards());
         }
         return _arg;
@@ -62,11 +63,11 @@ public final class ClassArgumentMatching {
     }
 
     public static Struct convertWide(ClassArgumentMatching _dest, Struct _arg, ContextEl _exec) {
-        if (PrimitiveTypeUtil.isPrimitive(_dest,_exec)) {
+        if (isPrimitive(_dest,_exec)) {
             if (_dest.isBoolType(_exec)) {
                 return convertToBoolean(_arg);
             }
-            if (PrimitiveTypeUtil.toPrimitive(_dest,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
+            if (toPrimitive(_dest,_exec).matchClass(_exec.getStandards().getAliasPrimChar())) {
                 return convertToChar(_arg);
             }
             return PrimitiveTypeUtil.convertToNumber(_dest,_arg,_exec.getStandards());
@@ -95,6 +96,20 @@ public final class ClassArgumentMatching {
         return new ByteStruct((byte)0);
     }
 
+    public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,
+                                      ContextEl _conf) {
+        LgNames stds_ = _conf.getStandards();
+        return PrimitiveTypeUtil.isPrimitive(_clMatchLeft, stds_);
+    }
+
+    public static boolean isPureNumberClass(ClassArgumentMatching _class, ContextEl _context) {
+        return PrimitiveTypeUtil.isPureNumberClass(_class, _context.getStandards());
+    }
+
+    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, ContextEl _context) {
+        return PrimitiveTypeUtil.toPrimitive(_class, _context.getStandards());
+    }
+
     private ClassArgumentMatching format(PageEl _page, ContextEl _exec) {
         StringList className_ = new StringList();
         for (String s: className) {
@@ -104,12 +119,13 @@ public final class ClassArgumentMatching {
     }
 
     public boolean isNumericInt(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String intPr_ = stds_.getAliasPrimInteger();
         String shortPr_ = stds_.getAliasPrimShort();
         String charPr_ = stds_.getAliasPrimChar();
         String bytePr_ = stds_.getAliasPrimByte();
-        ClassArgumentMatching prim_ = PrimitiveTypeUtil.toPrimitive(this, _context);
+        ClassArgumentMatching prim_ = AnaTypeUtil.toPrimitive(this, page_);
         if (prim_.matchClass(intPr_)) {
             return true;
         }
@@ -131,7 +147,7 @@ public final class ClassArgumentMatching {
         return false;
     }
     public boolean matchVoid(ContextEl _classes) {
-        LgNames stds_ = _classes.getStandards();
+        LgNames stds_ = _classes.getAnalyzing().getStandards();
         StringList l_ = new StringList(stds_.getAliasVoid());
         return StringList.equalsSet(className, l_);
     }
@@ -147,7 +163,7 @@ public final class ClassArgumentMatching {
 
     public boolean isPrimitive(ContextEl _context) {
         for (String b: className) {
-            if (PrimitiveTypeUtil.isPrimitive(b, _context)) {
+            if (AnaTypeUtil.isPrimitive(b, _context.getAnalyzing())) {
                 return true;
             }
         }
@@ -164,8 +180,15 @@ public final class ClassArgumentMatching {
     }
     public boolean isBoolType(ContextEl _context) {
         LgNames lgNames_ = _context.getStandards();
-        String aliasBoolean_ = lgNames_.getAliasBoolean();
-        String aliasPrBoolean_ = lgNames_.getAliasPrimBoolean();
+        return isBoolType(lgNames_);
+    }
+    public boolean isBoolType(AnalyzedPageEl _context) {
+        LgNames lgNames_ = _context.getStandards();
+        return isBoolType(lgNames_);
+    }
+    public boolean isBoolType(LgNames _lgNames) {
+        String aliasBoolean_ = _lgNames.getAliasBoolean();
+        String aliasPrBoolean_ = _lgNames.getAliasPrimBoolean();
         for (String b: className) {
             if (b.isEmpty()) {
                 return true;

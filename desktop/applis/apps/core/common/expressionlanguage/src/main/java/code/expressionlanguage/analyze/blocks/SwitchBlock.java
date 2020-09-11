@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -90,7 +89,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void processAfterEl(ContextEl _cont) {
@@ -108,7 +107,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             getErrorsBlock().add(un_.getBuiltError());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(_cont,id_);
+            AnaGeneType classBody_ = page_.getAnaGeneType(id_);
             boolean final_ = true;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);
@@ -116,7 +115,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 final_ = false;
             }
             if (!AnaTypeUtil.isPrimitiveOrWrapper(id_, _cont)) {
-                if (!StringList.quickEq(id_, _cont.getStandards().getAliasString())) {
+                if (!StringList.quickEq(id_, page_.getStandards().getAliasString())) {
                     if (!(classBody_ instanceof EnumBlock)) {
                         if (!final_) {
                             instanceTest = type_;
@@ -169,7 +168,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             first_.setReachableError(true);
             first_ = first_.getNextSibling();
         }
-        _cont.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);
+        page_.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);
     }
 
     @Override

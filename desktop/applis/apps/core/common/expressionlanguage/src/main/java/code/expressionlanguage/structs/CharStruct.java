@@ -1,6 +1,7 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 
 public final class CharStruct extends NumberStruct {
 
@@ -13,6 +14,11 @@ public final class CharStruct extends NumberStruct {
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
+        return new StringStruct(Character.toString(value));
+    }
+
+    @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
         return new StringStruct(Character.toString(value));
     }
 

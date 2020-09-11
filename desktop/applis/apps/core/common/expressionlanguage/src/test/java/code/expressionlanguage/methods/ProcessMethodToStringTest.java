@@ -2424,4 +2424,50 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Apply<java.lang.String>;#T", getString(ret_));
     }
+    @Test
+    public void calculate71Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $final String field = \"\"+c();\n");
+        xml_.append(" $public $static code.util.Replacement c(){\n");
+        xml_.append("  $return $new code.util.Replacement(\"\",\"\");\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $return field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDef();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("code.util.Replacement", getString(ret_));
+    }
+    @Test
+    public void calculate72Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $final String field = java.lang.$StringUtil.valueOf(c());\n");
+        xml_.append(" $public $static code.util.Replacement c(){\n");
+        xml_.append("  $return $new code.util.Replacement(\"\",\"\");\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  $return field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextElReadOnlyDef();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("code.util.Replacement", getString(ret_));
+    }
 }

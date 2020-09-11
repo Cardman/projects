@@ -19,7 +19,7 @@ public abstract class AssLeafOperation extends AssOperationNode {
     @Override
     public void analyzeAssignmentAfter(ContextEl _conf, AssBlock _ass, AssignedVariablesBlock _a) {
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
+        isBool_ = getResultClass().isBoolType(_conf.getAnalyzing());
         analyzeAssignmentAfter(_ass,_a, isBool_);
     }
 

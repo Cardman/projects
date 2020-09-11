@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import static code.expressionlanguage.EquallableElUtil.assertEq;
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public final class ExecTemplatesTest extends ProcessMethodCommon {
@@ -803,7 +804,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(files_,cont_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
-        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
+        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage(), 0);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -819,7 +820,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage());
+        ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage(), 0);
         assertNotNull(getException(cont_));
     }
     @Test
@@ -840,9 +841,27 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         cache_.addLoop("myvar", loopVariable);
         instancingClass_.setCache(cache_);
         ExecutingUtil.addPage(cont_, instancingClass_);
-        ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage());
+        ExecTemplates.incrIndexLoop(cont_,"myvar", cont_.getLastPage(), 0);
         assertNull(getException(cont_));
         assertEq(3,getNumber(new Argument(cache_.getLoopValue("myvar",0))));
+    }
+    @Test
+    public void trySet1() {
+        Struct[] arr_ = new Struct[1];
+        ExecTemplates.trySet(arr_,-1,NullStruct.NULL_VALUE);
+        assertNull(arr_[0]);
+    }
+    @Test
+    public void trySet2() {
+        Struct[] arr_ = new Struct[1];
+        ExecTemplates.trySet(arr_,1,NullStruct.NULL_VALUE);
+        assertNull(arr_[0]);
+    }
+    @Test
+    public void trySet3() {
+        Struct[] arr_ = new Struct[1];
+        ExecTemplates.trySet(arr_,0,NullStruct.NULL_VALUE);
+        assertNotNull(arr_[0]);
     }
     @Test
     public void wrapAndCall() {

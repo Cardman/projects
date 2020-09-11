@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -20,15 +21,16 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         MethodOperation.processEmptyError(getFirstChild(),getErrs());
         if (isFirstKo()) {
             CustList<OperationNode> children_ = getChildrenNodes();
-            LgNames stds_ = _conf.getStandards();
+            AnalyzedPageEl page_ = _conf.getAnalyzing();
+            LgNames stds_ = page_.getStandards();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //first operator part
             un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(children_.size()));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

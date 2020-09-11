@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -35,15 +36,16 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
     @Override
     public void analyze(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _conf);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (StringList.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
+            int index_ = page_.getLocalizer().getCurrentLocationIndex();
             badEl_.setIndexFile(index_);
             //oper len
             badEl_.buildError(_conf.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
-            _conf.getAnalyzing().getLocalizer().addError(badEl_);
+            page_.getLocalizer().addError(badEl_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badEl_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+1));
@@ -60,7 +62,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             memberNumber = cl_.getMemberNumber();
             return;
         }
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = page_.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
     }
     @Override

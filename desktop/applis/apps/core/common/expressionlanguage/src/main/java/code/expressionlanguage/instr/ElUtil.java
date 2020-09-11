@@ -8,12 +8,12 @@ import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecAffectationOperation;
@@ -28,7 +28,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -125,26 +124,27 @@ public final class ElUtil {
 
     public static CustList<ExecOperationNode> getAnalyzedOperationsReadOnly(String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
-        _conf.getAnalyzing().setCurrentEmptyPartErr("");
-        _conf.getAnalyzing().setCurrentRoot(null);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        page_.setAccessStaticContext(hiddenVarTypes_);
+        page_.setCurrentEmptyPartErr("");
+        page_.setCurrentRoot(null);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_conf.getAnalysisMessages().getEmptyPart());
             _conf.addError(badEl_);
-            _conf.getAnalyzing().setCurrentEmptyPartErr(badEl_.getBuiltError());
+            page_.setCurrentEmptyPartErr(badEl_.getBuiltError());
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _conf.getStandards().getAliasObject();
+            String argClName_ = page_.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            _conf.getAnalyzing().setCurrentRoot(e_);
+            page_.setCurrentRoot(e_);
             return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf));
         }
         OperationNode op_;
@@ -167,15 +167,16 @@ public final class ElUtil {
 
     public static CustList<OperationNode> getAnalyzedOperationsQucikly(String _el, ContextEl _conf, Calculation _calcul) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
-        _conf.getAnalyzing().setAccessStaticContext(hiddenVarTypes_);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        page_.setAccessStaticContext(hiddenVarTypes_);
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
-        _conf.getAnalyzing().getMapAnonymous().removeLast();
-        _conf.getAnalyzing().getMapAnonymousLambda().removeLast();
+        page_.getMapAnonymous().removeLast();
+        page_.getMapAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badEl_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badEl_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
                     " ",
@@ -185,7 +186,7 @@ public final class ElUtil {
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
-            String argClName_ = _conf.getStandards().getAliasObject();
+            String argClName_ = page_.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
             return new CustList<OperationNode>(e_);
@@ -345,7 +346,7 @@ public final class ElUtil {
     }
 
     private static void unwrapPrimitive(ContextEl _context, MethodOperation _par, ClassArgumentMatching _cl) {
-        if (PrimitiveTypeUtil.isPrimitive(_cl, _context)) {
+        if (AnaTypeUtil.isPrimitive(_cl, _context.getAnalyzing())) {
             _cl.setUnwrapObject(_cl);
             _par.cancelArgument();
         }
@@ -624,20 +625,21 @@ public final class ElUtil {
         }
     }
     private static CustList<ExecOperationNode> getExecutableNodes(ContextEl _an,CustList<OperationNode> _list) {
-        Block bl_ = _an.getAnalyzing().getCurrentBlock();
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        Block bl_ = page_.getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an);
         setImplicits(exp_,_an);
-        _an.getAnalyzing().setCurrentRoot(root_);
-        _an.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
+        page_.setCurrentRoot(root_);
+        page_.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                 setImplicits(loc_,_an);
-                _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
+                page_.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -658,7 +660,7 @@ public final class ElUtil {
                 if (op_ != null) {
                     ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                     setImplicits(loc_,_an);
-                    _an.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
+                    page_.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {

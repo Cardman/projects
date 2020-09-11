@@ -1,14 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
@@ -41,37 +42,38 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     @Override
     public void analyzeUnary(ContextEl _conf) {
         OperationNode leftEl_ = getFirstChild();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         settable = AffectationOperation.tryGetSettable(this);
         if (settable == null) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //operator
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     oper);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (settable instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
-            StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
+            StringMap<Boolean> fieldsAfterLast_ = page_.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //field name len
                 un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
             }
         }
-        setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(settable.getResultClass(),_conf)));
+        setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(),page_)));
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
@@ -86,7 +88,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         }
         ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+        if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, page_)) {
             ReversibleConversion reversibleConversion_ = tryGetPair(_conf, clMatchLeft_);
             if (reversibleConversion_ != null) {
                 converterFrom = reversibleConversion_.getFrom();
@@ -98,19 +100,19 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(clMatchLeft_);
-                mapping_.setParam(_conf.getStandards().getAliasLong());
+                mapping_.setParam(page_.getStandards().getAliasLong());
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //operator
                 cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
             }
             return;
         }
-        clMatchLeft_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf));
+        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, page_));
         leftEl_.cancelArgument();
     }
 

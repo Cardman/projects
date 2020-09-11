@@ -166,7 +166,7 @@ public final class ResultInput {
                             varParamNames_.add(varParam_);
                             i_++;
                         }
-                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont.getContext());
+                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont.getAnalyzing());
                         idName = StringList.concat("[]", sgn_);
                         id = StringList.concat(idClass,".",idName);
                         String varLoc_ = RendBlock.lookForVar(_cont, varNames_);

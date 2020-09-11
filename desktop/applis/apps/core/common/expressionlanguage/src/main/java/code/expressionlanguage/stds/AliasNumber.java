@@ -2,6 +2,7 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -673,13 +674,23 @@ public final class AliasNumber {
         return BooleanStruct.of(first_.compareTo(second_) > 0);
     }
 
-    public static NumberStruct idNumber(NumberStruct _a, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct idNumber(NumberStruct _a, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         return PrimitiveTypeUtil.convertToNumber(_order, _a, stds_);
     }
 
+    public static NumberStruct negBinNumber(NumberStruct _a, AnalyzedPageEl _an, ClassArgumentMatching _order) {
+        LgNames stds_ = _an.getStandards();
+        return negBinNumber(_a, _order, stds_);
+    }
+
     public static NumberStruct negBinNumber(NumberStruct _a, ContextEl _an, ClassArgumentMatching _order) {
-        String intPrim_ = _an.getStandards().getAliasPrimInteger();
+        LgNames stds_ = _an.getStandards();
+        return negBinNumber(_a, _order, stds_);
+    }
+
+    private static NumberStruct negBinNumber(NumberStruct _a, ClassArgumentMatching _order, LgNames stds_) {
+        String intPrim_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(intPrim_)) {
             int left_ = _a.intStruct();
             boolean[] bits_ = NumParsers.toBits(left_);
@@ -698,48 +709,48 @@ public final class AliasNumber {
         return new LongStruct(NumParsers.toLong(bits_));
     }
 
-    public static NumberStruct calculateIncr(NumberStruct _a, int _dir, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isByte(_order,_an)) {
+    public static NumberStruct calculateIncr(NumberStruct _a, int _dir, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isByte(_order, standards)) {
             byte left_ = _a.byteStruct();
             left_+=_dir;
             return new ByteStruct(left_);
         }
-        if (PrimitiveTypeUtil.isShort(_order,_an)) {
+        if (PrimitiveTypeUtil.isShort(_order, standards)) {
             short left_ = _a.shortStruct();
             left_+=_dir;
             return new ShortStruct(left_);
         }
-        if (PrimitiveTypeUtil.isChar(_order,_an)) {
+        if (PrimitiveTypeUtil.isChar(_order, standards)) {
             char left_ = (char)_a.intStruct();
             left_+=_dir;
             return new CharStruct(left_);
         }
-        if (PrimitiveTypeUtil.isInt(_order,_an)) {
+        if (PrimitiveTypeUtil.isInt(_order, standards)) {
             int left_ = _a.intStruct();
             int nb_ = left_ + _dir;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long nb_ = left_ + _dir;
             return new LongStruct(nb_);
         }
         double left_ = _a.doubleStruct();
         double nb_ = left_ + (double)_dir;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isIntOrLess(_order,_an)) {
+    public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isIntOrLess(_order, standards)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ + right_;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long right_ = _b.longStruct();
             long nb_ = left_ + right_;
@@ -748,19 +759,19 @@ public final class AliasNumber {
         double left_ = _a.doubleStruct();
         double right_ = _b.doubleStruct();
         double nb_ = left_ + right_;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static NumberStruct opposite(NumberStruct _a, ContextEl _an, ClassArgumentMatching _order) {
+    public static NumberStruct opposite(NumberStruct _a, ClassArgumentMatching _order, LgNames standards) {
         NumberStruct tmp_;
-        if (PrimitiveTypeUtil.isInt(_order, _an)) {
+        if (PrimitiveTypeUtil.isInt(_order, standards)) {
             tmp_ = new IntStruct(-_a.intStruct());
-        } else if (PrimitiveTypeUtil.isLong(_order, _an)) {
+        } else if (PrimitiveTypeUtil.isLong(_order, standards)) {
             tmp_ = new LongStruct(-_a.longStruct());
-        } else if (PrimitiveTypeUtil.isFloat(_order,_an)){
+        } else if (PrimitiveTypeUtil.isFloat(_order, standards)){
             tmp_ = new FloatStruct(-_a.floatStruct());
         } else {
             tmp_ = new DoubleStruct(-_a.doubleStruct());
@@ -768,14 +779,14 @@ public final class AliasNumber {
         return tmp_;
     }
 
-    public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isIntOrLess(_order,_an)) {
+    public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isIntOrLess(_order, standards)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ - right_;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long right_ = _b.longStruct();
             long nb_ = left_ - right_;
@@ -784,20 +795,20 @@ public final class AliasNumber {
         double left_ = _a.doubleStruct();
         double right_ = _b.doubleStruct();
         double nb_ = left_ - right_;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isIntOrLess(_order,_an)) {
+    public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isIntOrLess(_order, standards)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             int nb_ = left_ * right_;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long right_ = _b.longStruct();
             long nb_ = left_ * right_;
@@ -806,14 +817,14 @@ public final class AliasNumber {
         double left_ = _a.doubleStruct();
         double right_ = _b.doubleStruct();
         double nb_ = left_ * right_;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isIntOrLess(_order,_an)) {
+    public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isIntOrLess(_order, standards)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             if (right_ == 0) {
@@ -822,7 +833,7 @@ public final class AliasNumber {
             int nb_ = left_ / right_;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long right_ = _b.longStruct();
             if (right_ == 0) {
@@ -834,14 +845,14 @@ public final class AliasNumber {
         double left_ = _a.doubleStruct();
         double right_ = _b.doubleStruct();
         double nb_ = left_ / right_;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static Struct calculateMod(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        if (PrimitiveTypeUtil.isIntOrLess(_order,_an)) {
+    public static Struct calculateMod(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        if (PrimitiveTypeUtil.isIntOrLess(_order, standards)) {
             int left_ = _a.intStruct();
             int right_ = _b.intStruct();
             if (right_ == 0) {
@@ -850,7 +861,7 @@ public final class AliasNumber {
             int nb_ = left_ % right_;
             return new IntStruct(nb_);
         }
-        if (PrimitiveTypeUtil.isLong(_order,_an)) {
+        if (PrimitiveTypeUtil.isLong(_order, standards)) {
             long left_ = _a.longStruct();
             long right_ = _b.longStruct();
             if (right_ == 0) {
@@ -862,14 +873,14 @@ public final class AliasNumber {
         double left_ = _a.doubleStruct();
         double right_ = _b.doubleStruct();
         double nb_ = left_ % right_;
-        if (PrimitiveTypeUtil.isFloat(_order,_an)) {
+        if (PrimitiveTypeUtil.isFloat(_order, standards)) {
             return new FloatStruct((float)nb_);
         }
         return new DoubleStruct(nb_);
     }
 
-    public static Struct calculateAnd(Struct _a, Struct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static Struct calculateAnd(Struct _a, Struct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
@@ -901,8 +912,8 @@ public final class AliasNumber {
         return new LongStruct(value_);
     }
 
-    public static Struct calculateOr(Struct _a, Struct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static Struct calculateOr(Struct _a, Struct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
@@ -934,8 +945,8 @@ public final class AliasNumber {
         return new LongStruct(value_);
     }
 
-    public static Struct calculateXor(Struct _a, Struct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static Struct calculateXor(Struct _a, Struct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String bool_ = stds_.getAliasPrimBoolean();
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(bool_)) {
@@ -967,8 +978,8 @@ public final class AliasNumber {
         return new LongStruct(value_);
     }
 
-    public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();
@@ -992,8 +1003,8 @@ public final class AliasNumber {
         return new LongStruct(left_*power_);
     }
 
-    public static NumberStruct calculateShiftRight(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateShiftRight(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();
@@ -1017,8 +1028,8 @@ public final class AliasNumber {
         return new LongStruct(Numbers.quot(left_, power_));
     }
 
-    public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();
@@ -1054,8 +1065,8 @@ public final class AliasNumber {
         _bits[_i] = _bits[_i + _value];
     }
 
-    public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();
@@ -1091,8 +1102,8 @@ public final class AliasNumber {
         return new LongStruct(NumParsers.toLong(bitsLeft_));
     }
 
-    public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();
@@ -1130,8 +1141,8 @@ public final class AliasNumber {
         shift(1, _bits, _j);
     }
 
-    public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, ContextEl _an, ClassArgumentMatching _order) {
-        LgNames stds_ = _an.getStandards();
+    public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, ClassArgumentMatching _order, LgNames standards) {
+        LgNames stds_ = standards;
         String int_ = stds_.getAliasPrimInteger();
         if (_order.matchClass(int_)) {
             int left_ = _a.intStruct();

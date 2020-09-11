@@ -17,7 +17,7 @@ public final class EmptyInstruction extends Leaf implements BuildableElMethod {
         ExecEmptyInstruction exec_ = new ExecEmptyInstruction(getOffset());
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
 

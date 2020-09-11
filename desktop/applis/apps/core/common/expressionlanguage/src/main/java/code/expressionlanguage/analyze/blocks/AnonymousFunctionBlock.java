@@ -32,7 +32,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getAnalyzing());
     }
 
     public MethodModifier getModifier() {
@@ -84,7 +84,7 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
     }
 
     private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getStandards();
+        LgNames stds_ = _an.getAnalyzing().getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
                 //error

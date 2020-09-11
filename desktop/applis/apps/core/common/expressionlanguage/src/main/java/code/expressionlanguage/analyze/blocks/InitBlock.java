@@ -18,7 +18,7 @@ public abstract class InitBlock extends MemberCallingsBlock {
     public void setAssignmentAfterCallReadOnly(ContextEl _an, AnalyzingEl _anEl) {
     }
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getAnalyzing());
     }
     public MethodId getId() {
         String name_ = Integer.toString(getNumber());

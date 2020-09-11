@@ -3395,6 +3395,38 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage477Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int c = 5;\n");
+        xml_.append("  return m(2,c:c,b:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        ContextEl cont_ = contextElCoverageEnDefault();
+        files_.put("src/pkg/Ex", xml_.toString());
+        validateAndCheckValid(files_, cont_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = ExecFileBlock.export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m39\">c</a> </span>=<span class=\"f\"> 5</span></span>;\n" +
+                "  return <span class=\"f\"><a title=\"pkg.Ext.static m(int,int,int)\" href=\"#m84\">m</a>(<span class=\"f\">2</span>,<span class=\"f\"><a href=\"#m102\">c</a>:<span class=\"f\"><a href=\"#m39\">c</a></span></span>,<span class=\"f\"><a href=\"#m96\">b</a>:<span class=\"f\">3</span></span>)</span>;\n" +
+                " }\n" +
+                " static int <a name=\"m84\">m</a>(int <a name=\"m90\">a</a>,int <a name=\"m96\">b</a>,int <a name=\"m102\">c</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m90\">a</a></span>*<span class=\"f\"><a href=\"#m96\">b</a></span></span>+<span class=\"f\"><a href=\"#m102\">c</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

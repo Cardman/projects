@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
@@ -23,9 +24,19 @@ public final class ResourcesStruct {
 		}
 		return new ArrayStruct(arr_, cl_);
 	}
+	public static Struct getResourceNamesLength(AnalyzedPageEl _contextEl) {
+		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		return new IntStruct(res_.size());
+	}
 	public static Struct getResourceNamesLength(ContextEl _contextEl) {
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
 		return new IntStruct(res_.size());
+	}
+	public static Struct getResource(AnalyzedPageEl _contextEl,StringStruct _in) {
+		String name_ = _in.getInstance();
+		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		String content_ = res_.getVal(name_);
+		return Argument.wrapStr(content_);
 	}
 	public static Struct getResource(ContextEl _contextEl,StringStruct _in) {
 		String name_ = _in.getInstance();
@@ -33,9 +44,17 @@ public final class ResourcesStruct {
 		String content_ = res_.getVal(name_);
 		return Argument.wrapStr(content_);
 	}
-	public static Struct getResourceIndex(ContextEl _contextEl,Struct _in) {
-		int name_ = ClassArgumentMatching.convertToNumber(_in).intStruct();
+	public static Struct getResourceIndex(AnalyzedPageEl _contextEl,Struct _in) {
 		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		return getResourceIndex(_in, res_);
+	}
+	public static Struct getResourceIndex(ContextEl _contextEl,Struct _in) {
+		StringMap<String> res_ = _contextEl.getClasses().getResources();
+		return getResourceIndex(_in, res_);
+	}
+
+	private static Struct getResourceIndex(Struct _in, StringMap<String> res_) {
+		int name_ = ClassArgumentMatching.convertToNumber(_in).intStruct();
 		CustList<String> values_ = res_.getKeys();
 		if (values_.isValidIndex(name_)) {
 			return  Argument.wrapStr(values_.get(name_));

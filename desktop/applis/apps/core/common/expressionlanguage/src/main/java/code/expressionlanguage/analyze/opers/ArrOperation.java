@@ -1,17 +1,18 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -150,8 +151,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _conf));
         }
         NameParametersFilter name_ = buildFilter(_conf);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
@@ -170,14 +172,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 if (clMeth_.isAbstractMethod()) {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
                     FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                    abs_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                    abs_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    abs_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                    abs_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //method name len
                     abs_.buildError(
                             _conf.getAnalysisMessages().getAbstractMethodRef(),
                             clMeth_.getRealClass(),
-                            clMeth_.getRealId().getSignature(_conf));
-                    _conf.getAnalyzing().getLocalizer().addError(abs_);
+                            clMeth_.getRealId().getSignature(page_));
+                    page_.getLocalizer().addError(abs_);
                     getErrs().add(abs_.getBuiltError());
                 }
             }
@@ -203,28 +205,28 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             getPartOffsetsChildren().add(new CustList<PartOffset>());
             IntTreeMap<String> operators_ =  getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-            int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
+            int i_ = page_.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badNb_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //second separator char
             badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(1),
                     Integer.toString(chidren_.size()),
                     "[]"
             );
-            _conf.getAnalyzing().getLocalizer().addError(badNb_);
+            page_.getLocalizer().addError(badNb_);
             CustList<PartOffset> list_ = new CustList<PartOffset>();
             list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+ 1));
             getPartOffsetsChildren().add(list_);
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         OperationNode right_ = chidren_.last();
         ClassArgumentMatching indexClass_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _conf);
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = page_.getStandards();
         String primInt_ = stds_.getAliasPrimInteger();
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
@@ -236,7 +238,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             }
         }
         if (!indexClass_.isNumericInt(_conf)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimInteger(), indexClass_);
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimInteger(), indexClass_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 indexClass_.getImplicits().add(cl_);
@@ -244,31 +246,31 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 indexClass_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //first separator char
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         StringList.join(indexClass_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
                 nbErr = un_.getBuiltError();
             }
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _conf);
         if (!class_.isArray()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(class_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            class_ = new ClassArgumentMatching(_conf.getStandards().getAliasObject());
+            class_ = new ClassArgumentMatching(page_.getStandards().getAliasObject());
             setResultClass(class_);
             return;
         }
         if (!convertNumber_) {
-            indexClass_.setUnwrapObject(PrimitiveTypeUtil.toPrimitive(indexClass_,  _conf));
+            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_,  page_));
             right_.cancelArgument();
         }
         class_ = StringExpUtil.getQuickComponentType(class_);

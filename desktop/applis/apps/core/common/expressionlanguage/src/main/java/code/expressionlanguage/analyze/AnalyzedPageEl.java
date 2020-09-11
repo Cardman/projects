@@ -18,8 +18,10 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.ExecAnonymousInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecAnonymousLambdaOperation;
 import code.expressionlanguage.files.CommentDelimiters;
@@ -28,6 +30,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.types.*;
 import code.util.*;
@@ -35,6 +38,14 @@ import code.util.*;
 public final class AnalyzedPageEl {
 
     /**Only used while throwing exception*/
+
+    private static final int DEFAULT_TAB_WIDTH = 4;
+
+    private int tabWidth = DEFAULT_TAB_WIDTH;
+    private LgNames standards;
+    private Classes classes;
+    private Coverage coverage;
+
     private Block currentBlock;
     private AnalyzedBlock currentAnaBlock;
 
@@ -136,6 +147,38 @@ public final class AnalyzedPageEl {
     private KeyWords keyWords;
     private boolean gettingErrors;
     private Options options;
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
+    }
+
+    public LgNames getStandards() {
+        return standards;
+    }
+
+    public void setStandards(LgNames standards) {
+        this.standards = standards;
+    }
+
+    public Coverage getCoverage() {
+        return coverage;
+    }
+
+    public void setCoverage(Coverage coverage) {
+        this.coverage = coverage;
+    }
+
+    public int getTabWidth() {
+        return tabWidth;
+    }
+
+    public void setTabWidth(int tabWidth) {
+        this.tabWidth = tabWidth;
+    }
 
     public void setTranslatedOffset(int _translatedOffset) {
         translatedOffset = _translatedOffset;
@@ -306,12 +349,12 @@ public final class AnalyzedPageEl {
         return needInterfaces;
     }
 
-    public AnaGeneType getAnaGeneType(ContextEl _cont, String _type) {
+    public AnaGeneType getAnaGeneType(String _type) {
         RootBlock r_ = getAnaClassBody(_type);
         if (r_ != null) {
             return r_;
         }
-        return _cont.getStandards().getStandards().getVal(_type);
+        return standards.getStandards().getVal(_type);
     }
     public RootBlock getAnaClassBody(String _type) {
         for (RootBlock r: refFoundTypes) {

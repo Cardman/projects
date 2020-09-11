@@ -825,7 +825,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        cache_.putLocalValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),args_[2]);
+                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),args_[2]);
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -835,14 +835,14 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
                         if (cache_ != null) {
-                            result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                            result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
                         } else {
                             result_.setResult(NullStruct.NULL_VALUE);
                         }
                         return result_;
                     }
                     if (cache_ != null) {
-                        cache_.putLocalValue(NumParsers.getString(args_[0]),args_[1]);
+                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]),args_[1]);
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -851,7 +851,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLocalValue(NumParsers.getString(args_[0]),0));
+                        result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),0));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }
@@ -880,7 +880,7 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
                         if (args_[2] instanceof NumberStruct) {
-                            cache_.putLoopValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
+                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
                         }
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -891,7 +891,7 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
                         if (cache_ != null) {
-                            result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                            result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
                         } else {
                             result_.setResult(NullStruct.NULL_VALUE);
                         }
@@ -899,7 +899,7 @@ public final class AliasReflection {
                     }
                     if (cache_ != null) {
                         if (args_[1] instanceof NumberStruct) {
-                            cache_.putLoopValue(NumParsers.getString(args_[0]),((NumberStruct)args_[1]).longStruct());
+                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]),((NumberStruct)args_[1]).longStruct());
                         }
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -909,7 +909,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        result_.setResult(cache_.getLoopValue(NumParsers.getString(args_[0]),0));
+                        result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),0));
                     } else {
                         result_.setResult(NullStruct.NULL_VALUE);
                     }

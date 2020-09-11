@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -28,43 +29,44 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
 
     @Override
     public void analyze(ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         if (isIntermediateDottedOperation()) {
             MethodOperation m_ = getParent();
             OperationNode o_ = m_.getFirstChild();
             if (!(o_ instanceof StaticAccessOperation)) {
-                String arg_ = _conf.getAnalyzing().getGlobalClass();
+                String arg_ = page_.getGlobalClass();
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                static_.setFileName(page_.getLocalizer().getCurrentFileName());
+                static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
                         _conf.getKeyWords().getKeyWordThis());
-                _conf.getAnalyzing().getLocalizer().addError(static_);
+                page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(arg_));
                 return;
             }
             String access_ = previousResultClass.getName();
             String id_ = StringExpUtil.getIdFromAllTypes(access_);
-            String gl_ = _conf.getAnalyzing().getGlobalClass();
+            String gl_ = page_.getGlobalClass();
             gl_ = StringExpUtil.getIdFromAllTypes(gl_);
-            RootBlock g_ = _conf.getAnalyzing().getAnaClassBody(gl_);
+            RootBlock g_ = page_.getAnaClassBody(gl_);
             if (g_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                static_.setFileName(page_.getLocalizer().getCurrentFileName());
+                static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
                         _conf.getKeyWords().getKeyWordThis());
-                _conf.getAnalyzing().getLocalizer().addError(static_);
+                page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
-                setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+                setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
                 return;
             }
             for (RootBlock r: g_.getSelfAndParentTypes().getReverse()) {
                 if (StringList.quickEq(r.getFullName(), id_)) {
-                    if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
+                    if (page_.getStaticContext() != MethodAccessKind.INSTANCE) {
                         MethodOperation root_ = getParent();
                         while (true) {
                             MethodOperation par_ = root_.getParent();
@@ -75,21 +77,21 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         }
                         if (!(root_ instanceof AbstractInvokingConstructor)) {
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                            static_.setFileName(page_.getLocalizer().getCurrentFileName());
+                            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                             //key word len
                             static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
                                     _conf.getKeyWords().getKeyWordThis());
-                            _conf.getAnalyzing().getLocalizer().addError(static_);
+                            page_.getLocalizer().addError(static_);
                             getErrs().add(static_.getBuiltError());
                         } else if (nbAncestors == 0){
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                            static_.setFileName(page_.getLocalizer().getCurrentFileName());
+                            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                             //key word len
                             static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
                                     _conf.getKeyWords().getKeyWordThis());
-                            _conf.getAnalyzing().getLocalizer().addError(static_);
+                            page_.getLocalizer().addError(static_);
                             getErrs().add(static_.getBuiltError());
                         }
                     }
@@ -101,12 +103,12 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String arg_ = stds_.getAliasObject();
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            static_.setFileName(page_.getLocalizer().getCurrentFileName());
+            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
             static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
                     _conf.getKeyWords().getKeyWordThis());
-            _conf.getAnalyzing().getLocalizer().addError(static_);
+            page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
             int off_ = StringList.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
@@ -114,15 +116,15 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
-        String arg_ = _conf.getAnalyzing().getGlobalClass();
-        if (_conf.getAnalyzing().getStaticContext() != MethodAccessKind.INSTANCE) {
+        String arg_ = page_.getGlobalClass();
+        if (page_.getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            static_.setFileName(page_.getLocalizer().getCurrentFileName());
+            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
             static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
                     _conf.getKeyWords().getKeyWordThis());
-            _conf.getAnalyzing().getLocalizer().addError(static_);
+            page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
         }
         setResultClass(new ClassArgumentMatching(arg_));

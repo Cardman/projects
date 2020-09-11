@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -48,9 +49,10 @@ public final class AnonymousInstancingOperation extends
     @Override
     public void analyze(ContextEl _conf) {
         tryAnalyze(_conf);
-        index = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        index = page_.getLocalizer().getCurrentLocationIndex();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
-        setClassName(_conf.getStandards().getAliasObject());
+        setClassName(page_.getStandards().getAliasObject());
         KeyWords keyWords_ = _conf.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
@@ -61,51 +63,52 @@ public final class AnonymousInstancingOperation extends
         }
         if (getTypeInfer().contains("#")) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            static_.setFileName(page_.getLocalizer().getCurrentFileName());
+            static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //original type len
             static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
-            _conf.getAnalyzing().getLocalizer().addError(static_);
+            page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         if (!isIntermediateDottedOperation()) {
-            setStaticAccess(_conf.getAnalyzing().getStaticContext());
+            setStaticAccess(page_.getStaticContext());
             if (!getTypeInfer().isEmpty()) {
                 realClassName_ = getTypeInfer();
             } else  {
                 int local_ = StringList.getFirstPrintableCharIndex(realClassName_);
                 realClassName_ = ResolvingImportTypes.resolveCorrectType(_conf,newKeyWord_.length()+local_,realClassName_);
-                getPartOffsets().addAllElts(_conf.getAnalyzing().getCurrentParts());
+                getPartOffsets().addAllElts(page_.getCurrentParts());
             }
             checkInstancingType(_conf, realClassName_, isStaticAccess(), getErrs());
             analyzeCtor(_conf, realClassName_);
             return;
         }
         FoundErrorInterpret static_ = new FoundErrorInterpret();
-        static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-        static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        static_.setFileName(page_.getLocalizer().getCurrentFileName());
+        static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //key word len
         static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
                 realClassName_);
-        _conf.getAnalyzing().getLocalizer().addError(static_);
+        page_.getLocalizer().addError(static_);
         getErrs().add(static_.getBuiltError());
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = page_.getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
     private void analyzeCtor(ContextEl _conf, String _realClassName) {
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String base_ = StringExpUtil.getIdFromAllTypes(_realClassName);
-        AnaGeneType g_ = _conf.getAnalyzing().getAnaGeneType(_conf,base_);
+        AnaGeneType g_ = page_.getAnaGeneType(base_);
         if (!(g_ instanceof ImmutableNameRootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            call_.setFileName(page_.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
-            _conf.getAnalyzing().getLocalizer().addError(call_);
+            page_.getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             getErrs().add(call_.getBuiltError());
             return;
@@ -119,24 +122,24 @@ public final class AnonymousInstancingOperation extends
         for (String p:StringExpUtil.getAllTypes(_realClassName).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                call_.setFileName(page_.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
                 call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
-                _conf.getAnalyzing().getLocalizer().addError(call_);
+                page_.getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                call_.setFileName(page_.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
                 call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
-                _conf.getAnalyzing().getLocalizer().addError(call_);
+                page_.getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
             }
         }
@@ -144,18 +147,18 @@ public final class AnonymousInstancingOperation extends
         block.getExplicitDirectSuperTypes().put(-1, false);
         block.getRowColDirectSuperTypes().put(-1, _realClassName);
         block.setName(((ImmutableNameRootBlock)g_).getName());
-        block.setParentType(_conf.getAnalyzing().getGlobalType());
+        block.setParentType(page_.getGlobalType());
         base = base_;
-        block.getAllReservedInners().addAllElts(_conf.getAnalyzing().getGlobalDirType().getAllReservedInners());
-        MemberCallingsBlock currentFct_ = _conf.getAnalyzing().getCurrentFct();
+        block.getAllReservedInners().addAllElts(page_.getGlobalDirType().getAllReservedInners());
+        MemberCallingsBlock currentFct_ = page_.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(_conf.getAnalyzing().getGlobalDirType().getMappings());
+            block.getMappings().putAllMap(page_.getGlobalDirType().getMappings());
         }
-        Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
+        Block currentBlock_ = page_.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymous().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {
@@ -166,7 +169,7 @@ public final class AnonymousInstancingOperation extends
         block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
         setResultClass(new ClassArgumentMatching(_realClassName));
-        glClass = _conf.getAnalyzing().getGlobalClass();
+        glClass = page_.getGlobalClass();
     }
 
     public void postAnalyze(ContextEl _conf) {
@@ -177,7 +180,7 @@ public final class AnonymousInstancingOperation extends
         ClassArgumentMatching aClass_ = new ClassArgumentMatching(block.getGenericString());
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_);

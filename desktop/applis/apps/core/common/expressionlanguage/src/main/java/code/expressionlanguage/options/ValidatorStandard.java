@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -87,7 +88,7 @@ public final class ValidatorStandard {
 
     public static void validateRefTypeContents(ContextEl _cont, StringMap<String> _list, StringMap<String> _prims) {
         AnalysisMessages a_ = _cont.getAnalysisMessages();
-        LgNames stds_ = _cont.getStandards();
+        LgNames stds_ = _cont.getAnalyzing().getStandards();
         StringList allPkgs_ = new StringList();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
@@ -414,7 +415,8 @@ public final class ValidatorStandard {
     public static void setupOverrides(ContextEl _cont) {
         StringList pkgs_ = new StringList();
         StringList pkgsBase_ = new StringList();
-        for (StandardType r: _cont.getStandards().getStandards().values()) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        for (StandardType r: page_.getStandards().getStandards().values()) {
             String pkg_ = r.getPackageName();
             int until_ = Math.max(0, pkg_.indexOf('.'));
             pkgsBase_.add(pkg_.substring(0,until_));
@@ -427,13 +429,13 @@ public final class ValidatorStandard {
         }
         pkgs_.removeDuplicates();
         pkgsBase_.removeDuplicates();
-        _cont.getAnalyzing().getHeaders().getPackagesFound().addAllElts(pkgs_);
-        _cont.getAnalyzing().getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
+        page_.getHeaders().getPackagesFound().addAllElts(pkgs_);
+        page_.getHeaders().getBasePackagesFound().addAllElts(pkgsBase_);
         buildInherits(_cont);
     }
 
     public static void buildInherits(ContextEl _context){
-        for (EntryCust<String, StandardType> s: _context.getStandards().getStandards().entryList()) {
+        for (EntryCust<String, StandardType> s: _context.getAnalyzing().getStandards().getStandards().entryList()) {
             buildInherits(s.getValue(), _context);
         }
     }
@@ -448,7 +450,7 @@ public final class ValidatorStandard {
         while (true) {
             StringList newSuperTypes_ = new StringList();
             for (String c: currentSuperTypes_) {
-                StandardType st_ = _context.getStandards().getStandards().getVal(c);
+                StandardType st_ = _context.getAnalyzing().getStandards().getStandards().getVal(c);
                 for (String s: st_.getDirectSuperTypes()) {
                     newSuperTypes_.add(s);
                     _types.add(s);
@@ -466,23 +468,25 @@ public final class ValidatorStandard {
         if (!_in.isEmpty()) {
             return _in;
         }
-        int rc_ = _an.getAnalyzing().getLocalizer().getCurrentLocationIndex() + _loc;
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        int rc_ = page_.getLocalizer().getCurrentLocationIndex() + _loc;
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
+        un_.setFileName(page_.getLocalizer().getCurrentFileName());
         un_.setIndexFile(rc_);
         //original type len
         un_.buildError(_an.getAnalysisMessages().getUnknownType(),
                 _orig);
-        _an.getAnalyzing().getLocalizer().addError(un_);
-        return _an.getStandards().getAliasObject();
+        page_.getLocalizer().addError(un_);
+        return page_.getStandards().getAliasObject();
     }
 
     public static IterableAnalysisResult getCustomTypeBase(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
-        StringMap<StringList> vars_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        LgNames stds_ = _context.getStandards();
+        LgNames stds_ = page_.getStandards();
         for (String f: _names) {
             String iterable_ = stds_.getAliasIterable();
             String type_ = AnaTemplates.getGeneric(f,iterable_,_context,mapping_);
@@ -495,8 +499,9 @@ public final class ValidatorStandard {
 
     public static IterableAnalysisResult getCustomTableType(StringList _names, ContextEl _context) {
         StringList out_ = new StringList();
-        LgNames stds_ = _context.getStandards();
-        StringMap<StringList> vars_ = _context.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         for (String f: _names) {
@@ -509,11 +514,20 @@ public final class ValidatorStandard {
         return new IterableAnalysisResult(out_);
     }
 
+    public static ResultErrorStd getSimpleResultBase(AnalyzedPageEl _conf, ClassField _classField) {
+        LgNames lgNames_ = _conf.getStandards();
+        return getSimpleResultBase(_classField, lgNames_);
+    }
+
     public static ResultErrorStd getSimpleResultBase(ContextEl _conf, ClassField _classField) {
+        LgNames lgNames_ = _conf.getStandards();
+        return getSimpleResultBase(_classField, lgNames_);
+    }
+
+    private static ResultErrorStd getSimpleResultBase(ClassField _classField, LgNames lgNames_) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();
-        LgNames lgNames_ = _conf.getStandards();
         String charType_ = lgNames_.getAliasCharacter();
         String byteType_ = lgNames_.getAliasByte();
         String shortType_ = lgNames_.getAliasShort();
@@ -580,10 +594,11 @@ public final class ValidatorStandard {
 
     public static void buildIterable(ContextEl _context) {
         //local names
-        LgNames stds_ = _context.getStandards();
-        _context.getAnalyzing().setCurrentBlock(null);
-        _context.getAnalyzing().setCurrentAnaBlock(null);
-        Classes cl_ = _context.getClasses();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        page_.setCurrentBlock(null);
+        page_.setCurrentAnaBlock(null);
+        Classes cl_ = page_.getClasses();
         String next_ = stds_.getAliasNext();
         String hasNext_ = stds_.getAliasHasNext();
         String nextPair_ = stds_.getAliasNextPair();
@@ -657,7 +672,7 @@ public final class ValidatorStandard {
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _context.getClasses().getClassBody(id_);
+        ExecRootBlock classBody_ = _context.getAnalyzing().getClasses().getClassBody(id_);
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints()).first();
         ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
         dot_.appendChild(f_);
@@ -669,8 +684,8 @@ public final class ValidatorStandard {
 
     public static String tr(StringList _list, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         allKeysWords_.addAllElts(_list);
         String candidate_ = "tmp";
         int index_ = 0;

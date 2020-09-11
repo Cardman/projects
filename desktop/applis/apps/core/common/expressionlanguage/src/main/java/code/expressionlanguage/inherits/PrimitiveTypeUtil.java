@@ -98,55 +98,52 @@ public final class PrimitiveTypeUtil {
     }
 
 
-    public static boolean isLessInt(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimShort())
-                || class_.matchClass(_context.getStandards().getAliasPrimByte())
-                || class_.matchClass(_context.getStandards().getAliasPrimChar());
+    public static boolean isLessInt(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimShort())
+                || class_.matchClass(standards.getAliasPrimByte())
+                || class_.matchClass(standards.getAliasPrimChar());
     }
 
-    public static boolean isByte(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimByte());
+    public static boolean isByte(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimByte());
     }
 
-    public static boolean isShort(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimShort());
+    public static boolean isShort(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimShort());
     }
 
-    public static boolean isChar(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimChar());
+    public static boolean isChar(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimChar());
     }
 
-    public static boolean isIntOrLess(ClassArgumentMatching _class, ContextEl _context) {
-        return isInt(_class,_context) || isLessInt(_class,_context);
+    public static boolean isIntOrLess(ClassArgumentMatching _class, LgNames standards) {
+        return isInt(_class, standards) || isLessInt(_class, standards);
     }
 
-    public static boolean isInt(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimInteger());
+    public static boolean isInt(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimInteger());
     }
 
-    public static boolean isLong(ClassArgumentMatching _class, ContextEl _context) {
-        ClassArgumentMatching class_ = toPrimitive(_class, _context.getStandards());
-        return class_.matchClass(_context.getStandards().getAliasPrimLong());
+    public static boolean isLong(ClassArgumentMatching _class, LgNames standards) {
+        ClassArgumentMatching class_ = toPrimitive(_class, standards);
+        return class_.matchClass(standards.getAliasPrimLong());
     }
 
-    public static boolean isFloat(ClassArgumentMatching _class, ContextEl _context) {
-        LgNames standards_ = _context.getStandards();
+    public static boolean isFloat(ClassArgumentMatching _class, LgNames standards) {
+        LgNames standards_ = standards;
         return isInternFloat(_class, standards_);
     }
 
-    private static boolean isInternFloat(ClassArgumentMatching _class, LgNames standards_) {
+    public static boolean isInternFloat(ClassArgumentMatching _class, LgNames standards_) {
         ClassArgumentMatching class_ = toPrimitive(_class, standards_);
         return class_.matchClass(standards_.getAliasPrimFloat());
     }
 
-    public static boolean isPureNumberClass(ClassArgumentMatching _class, ContextEl _context) {
-        return isPureNumberClass(_class, _context.getStandards());
-    }
     public static boolean isPureNumberClass(ClassArgumentMatching _class, LgNames _stds) {
         ClassArgumentMatching out_ = toPrimitive(_class, _stds);
         if (out_.matchClass(_stds.getAliasPrimDouble())) {
@@ -169,9 +166,7 @@ public final class PrimitiveTypeUtil {
         }
         return out_.matchClass(_stds.getAliasPrimByte());
     }
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, ContextEl _context) {
-        return toPrimitive(_class, _context.getStandards());
-    }
+
     public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, LgNames _stds) {
         for (String w: _class.getNames()) {
             for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
@@ -202,7 +197,7 @@ public final class PrimitiveTypeUtil {
         return defaultValue(_class, _context.getStandards());
     }
 
-    private static Struct defaultValue(String _class, LgNames _stds) {
+    public static Struct defaultValue(String _class, LgNames _stds) {
         if (isPrimitive(_class, _stds)) {
             if (StringList.quickEq(_class, _stds.getAliasPrimBoolean())) {
                 return BooleanStruct.of(false);
@@ -235,10 +230,9 @@ public final class PrimitiveTypeUtil {
         return new ByteStruct((byte)0);
     }
 
-    public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,
-            ContextEl _conf) {
+    public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft, LgNames stds_) {
         for (String n: _clMatchLeft.getNames()) {
-            if (isPrimitive(n, _conf)) {
+            if (isPrimitive(n, stds_)) {
                 return true;
             }
         }

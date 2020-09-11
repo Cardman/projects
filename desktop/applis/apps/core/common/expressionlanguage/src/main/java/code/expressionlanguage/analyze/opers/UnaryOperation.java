@@ -1,9 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -34,20 +35,21 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     public void analyzeUnary(ContextEl _conf) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         ClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,clMatch_, oper_, _conf);
         if (clId_ != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),_conf)) {
+            if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),page_)) {
                 classMethodId = clId_.getSymbol();
                 rootNumber = clId_.getRootNumber();
                 memberNumber = clId_.getMemberNumber();
             }
             return;
         }
-        ClassArgumentMatching cl_ = PrimitiveTypeUtil.toPrimitive(clMatch_, _conf);
+        ClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, page_);
         if (child_ instanceof ConstantOperation) {
             Argument arg_ = child_.getArgument();
             Struct instance_ = arg_.getStruct();
@@ -63,17 +65,17 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             }
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (!PrimitiveTypeUtil.isPureNumberClass(clMatch_,_conf)) {
-            _conf.getAnalyzing().setOkNumOp(false);
-            String exp_ = _conf.getStandards().getAliasNumber();
+        if (!AnaTypeUtil.isPureNumberClass(clMatch_,page_)) {
+            page_.setOkNumOp(false);
+            String exp_ = page_.getStandards().getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //oper
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             if (!MethodOperation.isEmptyError(getFirstChild())){
                 getErrs().add(un_.getBuiltError());
             }
@@ -81,7 +83,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             setResultClass(arg_);
             return;
         }
-        if (PrimitiveTypeUtil.isLessInt(cl_, _conf)) {
+        if (AnaTypeUtil.isLessInt(cl_, page_)) {
             cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
         clMatch_.setUnwrapObject(cl_);
@@ -105,11 +107,12 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             return;
         }
         ClassArgumentMatching to_ = _par.getResultClass();
+        LgNames stds_ = _conf.getAnalyzing().getStandards();
         Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
-            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), to_, stds_));
         } else {
-            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), _conf, to_));
+            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), to_, stds_));
         }
         _par.setSimpleArgumentAna(out_, _conf);
     }

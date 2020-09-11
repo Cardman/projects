@@ -1,6 +1,7 @@
 package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -39,9 +40,10 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
         StringMap<AssignmentBefore> assF_ = vars_.getFieldsBefore().getVal(this);
         StringMap<Assignment> ass_ = new StringMap<Assignment>();
         StringMap<Assignment> assA_ = new StringMap<Assignment>();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (declare) {
             boolean isBool_;
-            isBool_ = getResultClass().isBoolType(_conf);
+            isBool_ = getResultClass().isBoolType(page_);
             ass_.putAllMap(AssignmentsUtil.assignAfter(isBool_,assB_));
             AssignmentBefore asBe_ = new AssignmentBefore();
             asBe_.setUnassignedBefore(true);
@@ -54,7 +56,7 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
         }
 
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
+        isBool_ = getResultClass().isBoolType(page_);
         String varName_ = variableName;
         if (getParent() instanceof AssAffectationOperation && getParent().getFirstChild() == this) {
             varName_ = "";
@@ -66,8 +68,8 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
                     //errors
                     setRelativeOffsetPossibleAnalyzable(_conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                             varName_);
                     _conf.addError(un_);

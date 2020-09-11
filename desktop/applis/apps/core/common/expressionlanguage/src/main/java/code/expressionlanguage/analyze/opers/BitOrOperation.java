@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -24,8 +25,9 @@ public final class BitOrOperation extends NumericOperation {
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op,
                               ClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
-        if (_a.isBoolType(_cont) && _b.isBoolType(_cont)) {
-            String bool_ = _cont.getStandards().getAliasPrimBoolean();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        if (_a.isBoolType(page_) && _b.isBoolType(page_)) {
+            String bool_ = page_.getStandards().getAliasPrimBoolean();
             _a.setUnwrapObject(bool_);
             _b.setUnwrapObject(bool_);
             res_.setResult(new ClassArgumentMatching(bool_));
@@ -40,12 +42,12 @@ public final class BitOrOperation extends NumericOperation {
             res_.setResult(out_);
             return res_;
         }
-        _cont.getAnalyzing().setOkNumOp(false);
-        String exp_ = _cont.getStandards().getAliasNumber();
+        page_.setOkNumOp(false);
+        String exp_ = page_.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = _cont.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        int index_ = page_.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+        un_.setFileName(page_.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
@@ -53,7 +55,7 @@ public final class BitOrOperation extends NumericOperation {
                         StringList.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
-        _cont.getAnalyzing().getLocalizer().addError(un_);
+        page_.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+getOp().length()));
@@ -66,7 +68,7 @@ public final class BitOrOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             ContextEl _an) {
-        return new Argument(AliasNumber.calculateOr(_a.getStruct(), _b.getStruct(), _an, getResultClass()));
+        return new Argument(AliasNumber.calculateOr(_a.getStruct(), _b.getStruct(), getResultClass(), _an.getAnalyzing().getStandards()));
     }
 
     @Override

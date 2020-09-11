@@ -17,7 +17,7 @@ public final class ExecMultOperation extends ExecStdNumericOperation {
     Argument calculateOper(Argument _a, String _op, Argument _b, ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
             return calculateDivEx(_a, _cont, _b, getResultClass());

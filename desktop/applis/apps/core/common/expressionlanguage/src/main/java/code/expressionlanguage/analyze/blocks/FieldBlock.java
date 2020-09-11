@@ -257,8 +257,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     private void processPutCoverage(ContextEl _cont, ExecFieldBlock _exec) {
-        _cont.getCoverage().putBlockOperations(_cont,_exec,this);
-        _cont.getCoverage().putBlockOperations(_cont,this);
+        _cont.getAnalyzing().getCoverage().putBlockOperations(_cont,_exec,this);
+        _cont.getAnalyzing().getCoverage().putBlockOperations(_cont,this);
     }
 
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {

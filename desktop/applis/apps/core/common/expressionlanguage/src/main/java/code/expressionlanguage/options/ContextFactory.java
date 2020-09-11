@@ -22,6 +22,10 @@ public final class ContextFactory {
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
                                             CustList<CommentDelimiters> _comments, Options _options) {
         validateStds(_contextEl, _mess, _definedKw, _definedLgNames,_comments,_options);
+        return addResourcesAndValidate(_files, _contextEl, _folder);
+    }
+
+    public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -30,7 +34,7 @@ public final class ContextFactory {
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
-        _contextEl.getClasses().addResources(_files);
+        _contextEl.getAnalyzing().getClasses().addResources(_files);
         return Classes.validateAll(srcFiles_, _contextEl);
     }
 
@@ -49,9 +53,12 @@ public final class ContextFactory {
         _context.getAnalyzing().setComments(comments_);
         _context.getAnalyzing().setAnalysisMessages(_mess);
         _context.getAnalyzing().setKeyWords(_definedKw);
+        _context.getAnalyzing().setStandards(_definedLgNames);
+        _context.getAnalyzing().setClasses(_context.getClasses());
+        _context.getAnalyzing().setCoverage(_context.getCoverage());
+        _context.getAnalyzing().setTabWidth(_context.getTabWidth());
         _context.getAnalyzing().setGettingErrors(_options.isGettingErrors());
-        _context.getCoverage().setKeyWords(_context,_definedKw);
-        _context.setStandards(_definedLgNames);
+        _context.getAnalyzing().getCoverage().setKeyWords(_context,_definedKw);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
         if (!_context.isEmptyMessageError()) {
             return;

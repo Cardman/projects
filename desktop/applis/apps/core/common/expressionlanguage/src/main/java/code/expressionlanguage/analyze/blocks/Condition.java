@@ -56,8 +56,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperationsConditions(_cont,this);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperationsConditions(_cont,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
         ExecOperationNode last_ = opCondition_.last();
         processBoolean(_cont, last_);
         argument = last_.getArgument();
@@ -66,10 +66,11 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
     protected abstract ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops);
 
     private void processBoolean(ContextEl _cont, ExecOperationNode _elCondition) {
-        LgNames stds_ = _cont.getStandards();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         ClassArgumentMatching resultClass_ = _elCondition.getResultClass();
-        if (!resultClass_.isBoolType(_cont)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _cont.getStandards().getAliasPrimBoolean(), resultClass_);
+        if (!resultClass_.isBoolType(page_)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, page_.getStandards().getAliasPrimBoolean(), resultClass_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 resultClass_.getImplicits().add(cl_);

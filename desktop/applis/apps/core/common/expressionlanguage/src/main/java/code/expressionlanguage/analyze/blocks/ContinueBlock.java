@@ -37,7 +37,7 @@ public final class ContinueBlock extends AbruptBlock {
         ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkLoop(ContextEl _cont) {

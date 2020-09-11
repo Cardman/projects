@@ -80,7 +80,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         stepOffset = _step.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _importingPage.getAnalyzing().getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -195,7 +195,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             checkBoolCondition(_cont, l_);
             rootExp = page_.getCurrentRoot();
         }
-        _cont.getCoverage().putBlockOperationsConditions(_cont,this);
+        page_.getCoverage().putBlockOperationsConditions(_cont,this);
         MemberCallingsBlock f_1 = _cont.getAnalyzing().getCurrentFct();
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
@@ -219,7 +219,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
 
     }
 
@@ -274,9 +274,10 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     }
     private void checkBoolCondition(ContextEl _cont, ExecOperationNode _exp) {
         ClassArgumentMatching exp_ = _exp.getResultClass();
-        LgNames stds_ = _cont.getStandards();
-        if (!exp_.isBoolType(_cont)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, _cont.getStandards().getAliasPrimBoolean(), exp_);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        if (!exp_.isBoolType(page_)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, page_.getStandards().getAliasPrimBoolean(), exp_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 exp_.getImplicits().add(cl_);

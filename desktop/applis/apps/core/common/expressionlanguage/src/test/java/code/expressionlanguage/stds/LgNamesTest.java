@@ -39,7 +39,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordAbstract("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
@@ -54,7 +54,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordIntern("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
@@ -70,7 +70,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordAbstract("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
@@ -85,7 +85,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordAbstract("1a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
@@ -100,7 +100,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscBound("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -117,7 +117,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscBound("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -135,7 +135,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -154,7 +154,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -173,7 +173,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("_");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -192,7 +192,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbBin("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -212,7 +212,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbBin("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -232,7 +232,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbBin("_");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -252,7 +252,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbBin("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -272,7 +272,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -292,7 +292,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -312,7 +312,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("_");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -332,7 +332,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("1");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -352,7 +352,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -372,7 +372,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbExpBin("A");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -392,7 +392,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -412,7 +412,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -432,7 +432,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("1");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -452,7 +452,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -472,7 +472,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbHexEnd("A");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -492,7 +492,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasPrimInteger("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -514,7 +514,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasPrimInteger("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -536,7 +536,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasPrimInteger("$if");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -558,7 +558,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasPrimInteger("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -580,7 +580,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("$if");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -604,7 +604,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -628,7 +628,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("ab");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -652,7 +652,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -676,7 +676,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("a..b");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -700,7 +700,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("$int");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -724,7 +724,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setDefaultPkg("pkg");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -748,7 +748,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("java");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -772,7 +772,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasLength("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -798,7 +798,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasLength("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -824,7 +824,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasLength("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -850,7 +850,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasLength("$if");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -876,7 +876,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasLength("$int");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -902,7 +902,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasMaxValueField("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -930,7 +930,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasMaxValueField("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -958,7 +958,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasMaxValueField("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -986,7 +986,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasMaxValueField("$int");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1014,7 +1014,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasMaxValueField("$if");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1042,7 +1042,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordCase("$abstract");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1071,7 +1071,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscBound("n");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1101,7 +1101,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscBound("nou");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1131,7 +1131,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscUnicode("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1161,7 +1161,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscUnicode("f");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1192,7 +1192,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.setKeyWordEscBound("");
         kw_.setKeyWordEscUnicode("f0");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1222,7 +1222,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscUnicode("f0");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1252,7 +1252,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbSufLong("Y");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1286,7 +1286,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordNbBin("x");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1324,7 +1324,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.setAliasLe("ge");
         lgName_.setAliasBoolean("java.lang.Byte");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1363,7 +1363,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1387,7 +1387,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasInteger("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1415,7 +1415,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.setAliasIteratorTypeVar("$if");
         lgName_.setAliasIterableVar("$int");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1458,7 +1458,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.setAliasIterableTableVarFirst("E");
         lgName_.setAliasIterableTableVarSecond("E");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1500,7 +1500,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1526,7 +1526,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("<");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1552,7 +1552,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("0a");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1578,7 +1578,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$if");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1604,7 +1604,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$int");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -1630,7 +1630,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         lgName_.setAliasHasNextPair("hasNext");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -2130,7 +2130,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda2("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda3("");
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_);
-        s_.setStandards(lgName_);
+        
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
@@ -2240,6 +2240,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ctx_.setAnalyzing();
         ctx_.getAnalyzing().setAnalysisMessages(mess_);
         ctx_.getAnalyzing().setKeyWords(kw_);
+        ctx_.getAnalyzing().setStandards(lgName_);
         AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
         assertTrue(ctx_.isEmptyMessageError());
         return ctx_;

@@ -4,6 +4,7 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.classes.CustLgNames;
@@ -35,9 +36,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         cont_.setAnalyzing();
+        cont_.getAnalyzing().setStandards(cont_.getStandards());
         ContextUtil.isFinalField(cont_,new ClassField("",""));
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
+        NumParsers.getDisplayableStruct(null);
     }
 
     @Test

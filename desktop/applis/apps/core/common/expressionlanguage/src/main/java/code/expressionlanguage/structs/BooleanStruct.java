@@ -1,8 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.stds.LgNames;
 
-public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct {
+public final class BooleanStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
 
     private static final BooleanStruct FALSE = new BooleanStruct();
     private static final BooleanStruct TRUE = new BooleanStruct();
@@ -24,11 +26,22 @@ public final class BooleanStruct extends WithoutParentIdStruct implements Displa
     }
 
     @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
+        LgNames stds_ = _an.getStandards();
+        return getDisplayedString(stds_);
+    }
+
+    @Override
     public StringStruct getDisplayedString(ContextEl _an) {
+        LgNames stds_ = _an.getStandards();
+        return getDisplayedString(stds_);
+    }
+
+    private StringStruct getDisplayedString(LgNames stds_) {
         if (this == TRUE) {
-            return new StringStruct(_an.getStandards().getDisplayedStrings().getTrueString());
+            return new StringStruct(stds_.getDisplayedStrings().getTrueString());
         }
-        return new StringStruct(_an.getStandards().getDisplayedStrings().getFalseString());
+        return new StringStruct(stds_.getDisplayedStrings().getFalseString());
     }
 
     public StringStruct exportValue() {

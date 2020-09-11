@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -21,20 +22,21 @@ public final class BadTernaryOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String fct_ = getOperations().getFctName();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringList.getFirstPrintableCharIndex(fct_), _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-        badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-        badNb_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
+        badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //=> move to BadTernaryOperation (underline key word)
         badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
                 Integer.toString(BOOLEAN_ARGS),
                 Integer.toString(chidren_.size()),
                 _conf.getKeyWords().getKeyWordBool()
         );
-        _conf.getAnalyzing().getLocalizer().addError(badNb_);
+        page_.getLocalizer().addError(badNb_);
         getErrs().add(badNb_.getBuiltError());
         StringList deep_ = getErrs();
-        int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        int i_ = page_.getLocalizer().getCurrentLocationIndex();
         getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
         getPartOffsetsEnd().add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordBool().length()));
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
@@ -72,7 +74,8 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         className = ValidatorStandard.checkExactType(_conf,beginType, className,originalClassName);
         setResultClass(new ClassArgumentMatching(className));
-        if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        if (AnaTypeUtil.isPrimitive(className, page_)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();
             checkNull(arg_,_conf);
@@ -95,7 +98,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
             return;
         }
         ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
-        Argument after_ = new Argument(PrimitiveTypeUtil.convertObject(cl_, objArg_.getStruct(), _conf.getStandards()));
+        Argument after_ = new Argument(PrimitiveTypeUtil.convertObject(cl_, objArg_.getStruct(), _conf.getAnalyzing().getStandards()));
         if (ExecTemplates.safeObject(_className,after_,_conf) != ErrorType.NOTHING) {
             return;
         }

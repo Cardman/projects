@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -23,16 +24,17 @@ public final class MultOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
             ContextEl _an) {
+        AnalyzedPageEl page_ = _an.getAnalyzing();
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));
         }
         if (StringList.quickEq(_op.trim(), DIV)) {
             return new Argument(AliasNumber.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));
         }
         return new Argument(AliasNumber.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _an, getResultClass()));
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));
     }
 
     @Override
@@ -52,11 +54,12 @@ public final class MultOperation extends NumericOperation {
             res_.setResult(out_);
             return res_;
         }
-        String exp_ = _cont.getStandards().getAliasNumber();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        String exp_ = page_.getStandards().getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = _cont.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        int index_ = page_.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
+        un_.setFileName(page_.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
@@ -64,8 +67,8 @@ public final class MultOperation extends NumericOperation {
                         StringList.join(_b.getNames(),"&")
                 ),";"),
                 getOp());
-        _cont.getAnalyzing().getLocalizer().addError(un_);
-        _cont.getAnalyzing().setOkNumOp(false);
+        page_.getLocalizer().addError(un_);
+        page_.setOkNumOp(false);
         ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
         res_.setResult(arg_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();

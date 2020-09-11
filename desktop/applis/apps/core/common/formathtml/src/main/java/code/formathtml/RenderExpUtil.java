@@ -3,11 +3,11 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.util.ImplicitMethods;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
@@ -207,7 +207,7 @@ public final class RenderExpUtil {
                 _context.getAnalyzing().setOkNumOp(true);
                 processAnalyze(_context, par_);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                if (PrimitiveTypeUtil.isPrimitive(cl_, _context.getContext())) {
+                if (AnaTypeUtil.isPrimitive(cl_, _context.getAnalyzing())) {
                     cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context.getContext());

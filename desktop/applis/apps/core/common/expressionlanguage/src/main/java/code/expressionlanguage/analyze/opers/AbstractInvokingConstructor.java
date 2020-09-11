@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
@@ -63,7 +64,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String varargParam_ = getVarargParam(chidren_);
         if (from == null) {
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -81,10 +83,10 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         String clCurName_ = from.getName();
         classFromName = clCurName_;
         String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
-        RootBlock type_ = _conf.getAnalyzing().getAnaClassBody(id_);
+        RootBlock type_ = page_.getAnaClassBody(id_);
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
@@ -108,7 +110,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             lastType = constId.getParametersTypes().last();
         }
         unwrapArgsFct(_children, constId, naturalVararg, lastType, _args.getAll(), _conf);
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = _conf.getAnalyzing().getStandards();
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -232,14 +233,15 @@ public final class DimensionArrayInstancing extends
         String m_ = getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        setClassName(_conf.getStandards().getAliasObject());
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        setClassName(page_.getStandards().getAliasObject());
         KeyWords keyWords_ = _conf.getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
             int local_ = StringList.getFirstPrintableCharIndex(className_);
             className_ = ResolvingImportTypes.resolveCorrectType(_conf,new_.length()+local_,className_);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            partOffsets.addAllElts(page_.getCurrentParts());
         } else {
             className_ = typeInfer;
         }
@@ -250,7 +252,7 @@ public final class DimensionArrayInstancing extends
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _conf);
             ClassArgumentMatching resCh_ = o.getResultClass();
             if (!resCh_.isNumericInt(_conf)) {
-                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimInteger(), resCh_);
+                ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimInteger(), resCh_);
                 if (res_.isFoundMethod()) {
                     ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                     resCh_.getImplicits().add(cl_);
@@ -258,18 +260,18 @@ public final class DimensionArrayInstancing extends
                     resCh_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    int i_ = page_.getLocalizer().getCurrentLocationIndex();
                     un_.setIndexFile(i_);
-                    un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                    un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //first part child bracket
                     un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                             StringList.join(resCh_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(un_);
+                    page_.getLocalizer().addError(un_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
             }
-            resCh_.setUnwrapObject(_conf.getStandards().getAliasPrimInteger());
+            resCh_.setUnwrapObject(page_.getStandards().getAliasPrimInteger());
             o.cancelArgument();
             getPartOffsetsChildren().add(parts_);
         }

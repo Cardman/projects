@@ -1,4 +1,5 @@
 package code.expressionlanguage.analyze.blocks;
+import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -18,7 +19,6 @@ import code.expressionlanguage.files.ParsedType;
 import code.expressionlanguage.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -94,10 +94,10 @@ public final class CaseCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
-        _cont.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
+        page_.getCoverage().putBlockOperationsSwitchs(_cont,par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
         ClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
@@ -109,14 +109,14 @@ public final class CaseCondition extends SwitchPartBlock {
                 exec_.setFile(page_.getBlockToWrite().getFile());
                 page_.getBlockToWrite().appendChild(exec_);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-                _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+                page_.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
             }
             ExecInstanceCaseCondition exec_ = new ExecInstanceCaseCondition(getOffset(),variableName, importedType,valueOffset);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -165,7 +165,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 exec_.setFile(page_.getBlockToWrite().getFile());
                 page_.getBlockToWrite().appendChild(exec_);
                 page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-                _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+                page_.getCoverage().putBlockOperations(_cont, exec_,this);
                 return;
             }
             CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
@@ -185,7 +185,7 @@ public final class CaseCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(stCtx_));
@@ -203,7 +203,7 @@ public final class CaseCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         ExecBracedBlock exec_;
@@ -215,7 +215,7 @@ public final class CaseCondition extends SwitchPartBlock {
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private EnumBlock getEnumType(ContextEl _cont,String _type) {
@@ -223,7 +223,7 @@ public final class CaseCondition extends SwitchPartBlock {
             return null;
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_cont,id_);
+        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(id_);
         if (g_ instanceof EnumBlock) {
             return (EnumBlock) g_;
         }
@@ -277,7 +277,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 //key word len
                 un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getKeyWords().getKeyWordCase(),
-                        ExecCatOperation.getString(argument,_cont),
+                        AnaApplyCoreMethodUtil.getString(argument,_cont),
                         StringList.join(_resSwitch.getNames(),"&"));
                 _cont.addError(un_);
                 setReachableError(true);
@@ -301,7 +301,7 @@ public final class CaseCondition extends SwitchPartBlock {
                         //key word len
                         un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _cont.getKeyWords().getKeyWordCase(),
-                                ExecCatOperation.getString(_arg,_cont),
+                                AnaApplyCoreMethodUtil.getString(_arg,_cont),
                                 _cont.getKeyWords().getKeyWordSwitch());
                         _cont.addError(un_);
                         setReachableError(true);

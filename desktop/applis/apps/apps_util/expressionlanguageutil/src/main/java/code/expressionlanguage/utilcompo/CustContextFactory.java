@@ -67,7 +67,7 @@ public final class CustContextFactory {
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec, reportedMessages_);
-        if (!reportedMessages_.isEmptyErrors()||!rCont_.isEmptyErrors()) {
+        if (!reportedMessages_.isEmptyErrors()) {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
             return;
         }
@@ -103,7 +103,7 @@ public final class CustContextFactory {
             Options _options, ExecutingOptions _exec,AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files, int _tabWidth) {
         CustLockingClass cl_ = new CustLockingClass();
         CustInitializer ci_ = new CustInitializer();
-        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedKw, _definedLgNames,_tabWidth);
+        RunnableContextEl r_ = new RunnableContextEl(_stack, cl_, ci_, _options, _exec, _definedLgNames,_tabWidth);
         ReportedMessages reportedMessages_ = ContextFactory.validate(_mess, _definedKw, _definedLgNames, _files, r_, _exec.getSrcFolder(), _definedLgNames.defComments(), _options);
         return new ResultsRunnableContext(r_,reportedMessages_);
     }

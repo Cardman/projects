@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -61,7 +62,8 @@ public final class AnonymousLambdaOperation extends
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
         String typeAff_;
-        AnalyzedBlock cur_ = _conf.getAnalyzing().getCurrentAnaBlock();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        AnalyzedBlock cur_ = page_.getCurrentAnaBlock();
         if (m_ == null && cur_ instanceof ReturnMethod) {
             typeAff_ = InvokingOperation.tryGetRetType(_conf);
         } else {
@@ -75,7 +77,7 @@ public final class AnonymousLambdaOperation extends
                 foundType_ = cp_;
             }
         }
-        String type_ = _conf.getStandards().getAliasFct();
+        String type_ = page_.getStandards().getAliasFct();
         StringMap<String> vars_ = new StringMap<String>();
         int nbParams_ = parse.getParametersType().size()+1;
         StringBuilder pattern_ = new StringBuilder(type_);
@@ -87,7 +89,7 @@ public final class AnonymousLambdaOperation extends
         StringList candidates_ = new StringList();
         if (!foundType_.isEmpty()) {
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             mapping_.setArg(foundType_);
             if (AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
@@ -101,7 +103,7 @@ public final class AnonymousLambdaOperation extends
             if (call_ instanceof RetrieveMethod) {
                 RetrieveMethod f_ = (RetrieveMethod) call_;
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+                mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
                 NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
                 CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
@@ -130,7 +132,7 @@ public final class AnonymousLambdaOperation extends
             if (call_ instanceof RetrieveConstructor) {
                 RetrieveConstructor f_ = (RetrieveConstructor) call_;
                 Mapping mapping_ = new Mapping();
-                mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+                mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setParam(pattern_.toString());
                 NameParametersFilter filter_ = InvokingOperation.buildQuickFilter(call_);
                 CustList<ConstructorInfo> methodInfos_ = f_.getCtors();
@@ -158,7 +160,7 @@ public final class AnonymousLambdaOperation extends
         if (m_ instanceof RetrieveMethod){
             RetrieveMethod f_ = (RetrieveMethod) m_;
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
             int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
@@ -184,7 +186,7 @@ public final class AnonymousLambdaOperation extends
         if (m_ instanceof RetrieveConstructor){
             RetrieveConstructor f_ = (RetrieveConstructor) m_;
             Mapping mapping_ = new Mapping();
-            mapping_.setMapping(_conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints());
+            mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             OperationNode firstChild_ = f_.getFirstChild();
             int deltaCount_ = InvokingOperation.getDeltaCount(firstChild_);
@@ -204,19 +206,19 @@ public final class AnonymousLambdaOperation extends
                 candidates_.add(format_);
             }
         }
-        foundClass = _conf.getAnalyzing().getGlobalClass();
-        fileName = _conf.getAnalyzing().getLocalizer().getCurrentFileName();
-        RootBlock globalType_ = _conf.getAnalyzing().getGlobalType();
+        foundClass = page_.getGlobalClass();
+        fileName = page_.getLocalizer().getCurrentFileName();
+        RootBlock globalType_ = page_.getGlobalType();
         rootNumber = globalType_.getNumberAll();
         block.setParentType(globalType_);
-        block.getAllReservedInners().addAllElts(_conf.getAnalyzing().getGlobalDirType().getAllReservedInners());
-        MemberCallingsBlock currentFct_ = _conf.getAnalyzing().getCurrentFct();
+        block.getAllReservedInners().addAllElts(page_.getGlobalDirType().getAllReservedInners());
+        MemberCallingsBlock currentFct_ = page_.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            block.getMappings().putAllMap(_conf.getAnalyzing().getGlobalDirType().getMappings());
+            block.getMappings().putAllMap(page_.getGlobalDirType().getMappings());
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
@@ -236,7 +238,7 @@ public final class AnonymousLambdaOperation extends
                 if (argCandidates_.onlyOneElt()) {
                     modifiedArgCandidates_.add(argCandidates_.first());
                 } else {
-                    modifiedArgCandidates_.add(_conf.getStandards().getAliasObject());
+                    modifiedArgCandidates_.add(page_.getStandards().getAliasObject());
                 }
             }
             StringList feed_ = new StringList();
@@ -272,7 +274,7 @@ public final class AnonymousLambdaOperation extends
             block.buildInternImportedTypes(_conf);
         }
         globalType_.validateParameters(_conf,block);
-        Block currentBlock_ = _conf.getAnalyzing().getCurrentBlock();
+        Block currentBlock_ = page_.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {
             ((InfoBlock)currentBlock_).getAnonymousFct().add(block);
         } else if (currentBlock_ instanceof MemberCallingsBlock) {

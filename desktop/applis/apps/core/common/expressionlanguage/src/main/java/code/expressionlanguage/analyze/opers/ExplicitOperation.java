@@ -2,7 +2,9 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -11,7 +13,6 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -39,18 +40,19 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         String extract_ = className.substring(className.indexOf(PAR_LEFT)+1, className.lastIndexOf(PAR_RIGHT));
         StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (types_.size() > 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(3),
                     Integer.toString(types_.size())
             );
-            _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            page_.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         String res_;
@@ -58,12 +60,12 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         res_ = ResolvingImportTypes.resolveCorrectType(_conf,leftPar_ +1,types_.first());
         className = res_;
         classNameOwner = res_;
-        partOffsets = new CustList<PartOffset>(_conf.getAnalyzing().getCurrentParts());
+        partOffsets = new CustList<PartOffset>(page_.getCurrentParts());
         setResultClass(new ClassArgumentMatching(className));
         if (!customCast(res_)) {
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(className, _conf)) {
+        if (AnaTypeUtil.isPrimitive(className, page_)) {
             getFirstChild().getResultClass().setUnwrapObject(className);
             Argument arg_ = getFirstChild().getArgument();
             checkNull(arg_,_conf);
@@ -77,17 +79,17 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             //add a type for full id
             String arg_ = types_.last();
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, leftPar_ + types_.first().length() + 2, arg_, className);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-            AnaGeneType geneType_ = _conf.getAnalyzing().getAnaGeneType(_conf,StringExpUtil.getIdFromAllTypes(className));
+            partOffsets.addAllElts(page_.getCurrentParts());
+            AnaGeneType geneType_ = page_.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
             if (geneType_ == null) {
-                int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
+                int rc_ = page_.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
                 //_in len
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         className);
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
                 return;
             }
@@ -107,26 +109,26 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             return;
         }
         if (types_.size() == 3){
-            AnaGeneType geneType_ = _conf.getAnalyzing().getAnaGeneType(_conf,StringExpUtil.getIdFromAllTypes(className));
+            AnaGeneType geneType_ = page_.getAnaGeneType(StringExpUtil.getIdFromAllTypes(className));
             if (geneType_ == null) {
-                int rc_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
+                int rc_ = page_.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
                 //_in len
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                         className);
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
                 return;
             }
             String arg_ = types_.get(1);
             int lc_ = leftPar_ + types_.first().length() + 2;
             String midType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf, lc_,arg_, className);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            partOffsets.addAllElts(page_.getCurrentParts());
             arg_ = types_.last();
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,lc_ +types_.get(1).length()+1,arg_, className);
-            partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+            partOffsets.addAllElts(page_.getCurrentParts());
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
             ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             ClassArgumentMatching virtual_ = new ClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_, _conf));
@@ -164,13 +166,14 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             classesNames_.add(StringList.join(c.getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-        undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+        undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //_name len
         String exp_ = _conf.getKeyWords().getKeyWordExplicit();
         undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
-                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(_conf));
-        _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(page_));
+        page_.getLocalizer().addError(undefined_);
         getErrs().add(undefined_.getBuiltError());
 
     }

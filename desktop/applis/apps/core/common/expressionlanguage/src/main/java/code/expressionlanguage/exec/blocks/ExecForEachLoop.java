@@ -103,7 +103,7 @@ public final class ExecForEachLoop extends ExecBracedBlock implements ExecLoop, 
             arg_ = new Argument(element_);
         }
         ExecTemplates.setValue(_conf, variableName,abs_,arg_,-1);
-        ExecTemplates.incrIndexLoop(_conf, variableName, abs_);
+        ExecTemplates.incrIndexLoop(_conf, variableName, abs_, -1);
         if (_conf.callsOrException()) {
             return;
         }

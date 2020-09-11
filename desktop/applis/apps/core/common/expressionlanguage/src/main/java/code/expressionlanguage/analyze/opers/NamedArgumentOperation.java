@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
@@ -35,16 +36,17 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            varg_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            varg_.setFileName(page_.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
                     name);
-            _conf.getAnalyzing().getLocalizer().addError(varg_);
+            page_.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;

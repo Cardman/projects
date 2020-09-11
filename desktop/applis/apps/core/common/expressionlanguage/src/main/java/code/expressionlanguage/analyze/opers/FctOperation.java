@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
@@ -123,15 +124,16 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     public void analyze(ContextEl _conf) {
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         boolean import_ = false;
         ClassArgumentMatching clCur_;
         if (isIntermediateDottedOperation()) {
             clCur_ = getPreviousResultClass();
         } else {
             import_ = true;
-            clCur_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
-            setStaticAccess(_conf.getAnalyzing().getStaticContext());
+            clCur_ = new ClassArgumentMatching(page_.getGlobalClass());
+            setStaticAccess(page_.getStaticContext());
         }
 
         StringList l_ = clCur_.getNames();
@@ -163,24 +165,24 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             if (typeInfer.isEmpty()) {
                 int loc_ = StringList.getFirstPrintableCharIndex(className_);
                 className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
-                partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+                partOffsets.addAllElts(page_.getCurrentParts());
             } else {
                 className_ = typeInfer;
             }
             Mapping map_ = new Mapping();
             map_.setParam(className_);
             map_.setArg(clCur_);
-            StringMap<StringList> mapping_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+            StringMap<StringList> mapping_ = page_.getCurrentConstraints().getCurrentConstraints();
             map_.setMapping(mapping_);
             if (!AnaTemplates.isCorrectOrNumbers(map_, _conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //type len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clCur_.getNames(),"&"),
                         className_);
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
             }
             trimMeth_ = trimMeth_.substring(trimMeth_.lastIndexOf(PAR_RIGHT) + 1).trim();
@@ -208,13 +210,13 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         if (!arrayBounds_.isEmpty()) {
             if (!StringList.quickEq(trimMeth_, stds_.getAliasClone())) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+                undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //trimMeth_ len
                 undefined_.buildError(_conf.getAnalysisMessages().getArrayCloneOnly(),
                         stds_.getAliasClone(),
                         StringList.join(arrayBounds_,"&"));
-                _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                page_.getLocalizer().addError(undefined_);
                 getErrs().add(undefined_.getBuiltError());
                 return;
             }
@@ -229,7 +231,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
@@ -269,14 +271,14 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             if (clMeth_.isAbstractMethod()) {
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
                 FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                abs_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                abs_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                abs_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                abs_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //method name len
                 abs_.buildError(
                         _conf.getAnalysisMessages().getAbstractMethodRef(),
                         clMeth_.getRealClass(),
-                        clMeth_.getRealId().getSignature(_conf));
-                _conf.getAnalyzing().getLocalizer().addError(abs_);
+                        clMeth_.getRealId().getSignature(page_));
+                page_.getLocalizer().addError(abs_);
                 getErrs().add(abs_.getBuiltError());
             }
         }

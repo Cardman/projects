@@ -77,7 +77,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getAnalyzing());
     }
 
     public int getModifierOffset() {
@@ -158,7 +158,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
     }
 
     private void checkReturnFctOverridable(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getStandards();
+        LgNames stds_ = _an.getAnalyzing().getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (!isAbstractMethod() && _anEl.canCompleteNormally(this)) {
                 //error
@@ -199,7 +199,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 sum_ += o.length()+1;
                 continue;
             }
-            if (!root_.isSubTypeOf(_root.getFullName(),_context)) {
+            if (!root_.isSubTypeOf(_root.getFullName(),analyzing_)) {
                 sum_ += o.length()+1;
                 continue;
             }
@@ -249,7 +249,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                     ClassMethodId ref_ = new ClassMethodId(clDest_,m.getId());
                     CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
                     StringList l_ = new StringList();
-                    LinkageUtil.addParts(_context.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                    LinkageUtil.addParts(analyzing_.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                     partMethods_.addAllElts(partMethod_);
                     overrides.put(clKey_,new GeneStringOverridable(formattedDest_,formattedDestType_,m));
                     break;

@@ -73,7 +73,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
         anEl_.getMappingBracedMembers().put(this,_mem);
-        _cont.getCoverage().putBlockOperations(_cont,_mem,this);
+        page_.getCoverage().putBlockOperations(_cont,_mem,this);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
         anEl_.setRoot(this);
         Block en_ = this;
@@ -95,7 +95,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             page_.setCurrentAnaBlock(en_);
             anEl_.putLabel(this);
             addPossibleEmpty(en_);
-            _cont.getCoverage().putBlockOperations(_cont,en_);
+            page_.getCoverage().putBlockOperations(_cont,en_);
             if (en_ == this) {
                 anEl_.reach(this);
             } else {

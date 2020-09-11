@@ -128,8 +128,8 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         page_.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
-        _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
-        _cont.getCoverage().putBlockOperations(_cont,this);
+        page_.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
+        page_.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
         root = page_.getCurrentRoot();
         page_.setTranslatedOffset(0);

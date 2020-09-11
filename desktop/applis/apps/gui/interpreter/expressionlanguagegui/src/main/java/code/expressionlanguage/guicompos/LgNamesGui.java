@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -2305,65 +2306,93 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
+    public ResultErrorStd getSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
+        return getInnerSimpleResult(_conf, _classField);
+    }
+
+    @Override
     public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
+        return getInnerSimpleResult(_conf, _classField);
+    }
+
+    private ResultErrorStd getInnerSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
         if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            String fieldName_ = _classField.getFieldName();
-            if (StringList.quickEq(fieldName_,aliasConfirmFieldOk)) {
-                res_.setResult(new IntStruct(OtherConfirmDialog.OK_OPTION));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasConfirmFieldYes)) {
-                res_.setResult(new IntStruct(OtherConfirmDialog.YES_OPTION));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasConfirmFieldNo)) {
-                res_.setResult(new IntStruct(OtherConfirmDialog.NO_OPTION));
-                return res_;
-            }
-            res_.setResult(new IntStruct(OtherConfirmDialog.CANCEL_OPTION));
-            return res_;
+            return getResultConfirm(_classField);
         }
         if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            String fieldName_ = _classField.getFieldName();
-            if (StringList.quickEq(fieldName_,aliasPanelBorderNorth)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.NORTH));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderSouth)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.SOUTH));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderWest)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.WEST));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderEast)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.EAST));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderCenter)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.CENTER));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeFirst)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeLineBegins)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_LINE_BEGINS));
-                return res_;
-            }
-            if (StringList.quickEq(fieldName_,aliasPanelBorderAfterLineEnds)) {
-                res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LINE_ENDS));
-                return res_;
-            }
-            res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LAST_LINE));
-            return res_;
+            return getResultPanelBorder(_classField);
         }
         return super.getSimpleResult(_conf, _classField);
     }
+
+    private ResultErrorStd getInnerSimpleResult(ContextEl _conf, ClassField _classField) {
+        if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
+            return getResultConfirm(_classField);
+        }
+        if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
+            return getResultPanelBorder(_classField);
+        }
+        return super.getSimpleResult(_conf, _classField);
+    }
+
+    private ResultErrorStd getResultPanelBorder(ClassField _classField) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
+        if (StringList.quickEq(fieldName_,aliasPanelBorderNorth)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.NORTH));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderSouth)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.SOUTH));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderWest)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.WEST));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderEast)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.EAST));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderCenter)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.CENTER));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeFirst)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderBeforeLineBegins)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.BEFORE_LINE_BEGINS));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasPanelBorderAfterLineEnds)) {
+            res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LINE_ENDS));
+            return res_;
+        }
+        res_.setResult(new StringStruct(PanelBorderStruct.AFTER_LAST_LINE));
+        return res_;
+    }
+
+    private ResultErrorStd getResultConfirm(ClassField _classField) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        String fieldName_ = _classField.getFieldName();
+        if (StringList.quickEq(fieldName_,aliasConfirmFieldOk)) {
+            res_.setResult(new IntStruct(OtherConfirmDialog.OK_OPTION));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasConfirmFieldYes)) {
+            res_.setResult(new IntStruct(OtherConfirmDialog.YES_OPTION));
+            return res_;
+        }
+        if (StringList.quickEq(fieldName_,aliasConfirmFieldNo)) {
+            res_.setResult(new IntStruct(OtherConfirmDialog.NO_OPTION));
+            return res_;
+        }
+        res_.setResult(new IntStruct(OtherConfirmDialog.CANCEL_OPTION));
+        return res_;
+    }
+
     @Override
     public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof EventStruct) {

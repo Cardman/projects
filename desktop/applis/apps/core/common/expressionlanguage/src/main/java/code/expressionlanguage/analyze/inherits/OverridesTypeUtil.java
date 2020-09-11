@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.OverridableBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
@@ -23,7 +24,8 @@ public final class OverridesTypeUtil {
     public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(AnaGeneType _type, MethodId _realId, ContextEl _conf) {
         StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
         String baseClassFound_ = _type.getFullName();
-        for (EntryCust<RootBlock, Members> e: _conf.getAnalyzing().getMapMembers().entryList()) {
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        for (EntryCust<RootBlock, Members> e: page_.getMapMembers().entryList()) {
             RootBlock c = e.getKey();
             String name_ = c.getFullName();
             String baseCond_ = AnaTemplates.getOverridingFullTypeByBases(c, baseClassFound_, _conf);
@@ -41,7 +43,7 @@ public final class OverridesTypeUtil {
             all_.add(name_);
             all_.addAllElts(c.getAllSuperTypes());
             for (String s: all_) {
-                RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(s);
+                RootBlock r_ = page_.getAnaClassBody(s);
                 if (!(r_ instanceof InterfaceBlock)) {
                     continue;
                 }
@@ -63,7 +65,7 @@ public final class OverridesTypeUtil {
                     if (StringList.quickEq(baseSuperType_, baseClassFound_)) {
                         found_ = true;
                     }
-                    if (!t.getType().isSubTypeOf(baseClassFound_,_conf)) {
+                    if (!t.getType().isSubTypeOf(baseClassFound_,page_)) {
                         continue;
                     }
                     foundSuperClasses_.add(t);

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -33,17 +34,18 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset_, _conf);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;
         String realCl_ = str_.substring(afterLeftPar_, str_.lastIndexOf(PAR_RIGHT));
-        if (StringList.quickEq(realCl_.trim(), _conf.getStandards().getAliasVoid())) {
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        if (StringList.quickEq(realCl_.trim(), page_.getStandards().getAliasVoid())) {
             className = realCl_.trim();
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasClassType()));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
         String classStr_;
         classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
-        partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
+        partOffsets.addAllElts(page_.getCurrentParts());
         className = classStr_;
-        setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasClassType()));
+        setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasClassType()));
     }
 
     @Override

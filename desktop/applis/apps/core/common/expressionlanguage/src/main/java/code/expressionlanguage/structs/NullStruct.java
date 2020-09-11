@@ -1,8 +1,9 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 
-public final class NullStruct extends WithoutParentIdStruct implements DisplayableStruct {
+public final class NullStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
@@ -14,6 +15,10 @@ public final class NullStruct extends WithoutParentIdStruct implements Displayab
         return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
     }
 
+    @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
+        return new StringStruct(_an.getStandards().getDisplayedStrings().getNullString());
+    }
 
     @Override
     public String getClassName(ContextEl _contextEl) {

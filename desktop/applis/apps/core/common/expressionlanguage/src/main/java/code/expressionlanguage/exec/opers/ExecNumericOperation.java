@@ -40,7 +40,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         String div_;
         div_ = stds_.getAliasDivisionZero();
         Struct res_ = AliasNumber.calculateDiv(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, _order);
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _order, _cont.getStandards());
         if (res_ == NullStruct.NULL_VALUE) {
             _cont.setException(new ErrorStruct(_cont,div_));
         }
@@ -51,7 +51,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         String div_;
         div_ = stds_.getAliasDivisionZero();
         Struct res_ = AliasNumber.calculateMod(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, _order);
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), _order, _cont.getStandards());
         if (res_ == NullStruct.NULL_VALUE) {
             _cont.setException(new ErrorStruct(_cont,div_));
         }
@@ -67,15 +67,15 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         }
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringList.quickEq(op_, "+")) {
-            _res.setResult(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "-")) {
-            _res.setResult(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "*")) {
-            _res.setResult(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "/")) {
@@ -87,39 +87,39 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
             return;
         }
         if (StringList.quickEq(op_, "&")) {
-            _res.setResult(AliasNumber.calculateAnd(_first, _second, _cont, _order));
+            _res.setResult(AliasNumber.calculateAnd(_first, _second, _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "|")) {
-            _res.setResult(AliasNumber.calculateOr(_first, _second, _cont, _order));
+            _res.setResult(AliasNumber.calculateOr(_first, _second, _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "^")) {
-            _res.setResult(AliasNumber.calculateXor(_first, _second, _cont, _order));
+            _res.setResult(AliasNumber.calculateXor(_first, _second, _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "<<")) {
-            _res.setResult(AliasNumber.calculateShiftLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateShiftLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, ">>")) {
-            _res.setResult(AliasNumber.calculateShiftRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateShiftRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "<<<")) {
-            _res.setResult(AliasNumber.calculateBitShiftLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateBitShiftLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, ">>>")) {
-            _res.setResult(AliasNumber.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "<<<<")) {
-            _res.setResult(AliasNumber.calculateRotateLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateRotateLeft(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, ">>>>")) {
-            _res.setResult(AliasNumber.calculateRotateRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _cont, _order));
+            _res.setResult(AliasNumber.calculateRotateRight(ClassArgumentMatching.convertToNumber(_first), ClassArgumentMatching.convertToNumber(_second), _order, _cont.getStandards()));
             return;
         }
         if (StringList.quickEq(op_, "??")) {
@@ -156,7 +156,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Struct res_ = AliasNumber.calculateDiv(_a,_b, _an, _order);
+        Struct res_ = AliasNumber.calculateDiv(_a,_b, _order, _an.getStandards());
         if (res_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,div_));
         }
@@ -167,7 +167,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         LgNames stds_ = _an.getStandards();
         String div_;
         div_ = stds_.getAliasDivisionZero();
-        Struct res_ = AliasNumber.calculateMod(_a,_b, _an, _order);
+        Struct res_ = AliasNumber.calculateMod(_a,_b, _order, _an.getStandards());
         if (res_ == NullStruct.NULL_VALUE) {
             _an.setException(new ErrorStruct(_an,div_));
         }

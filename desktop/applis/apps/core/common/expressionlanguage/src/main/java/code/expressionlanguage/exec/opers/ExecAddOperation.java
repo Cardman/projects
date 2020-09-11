@@ -16,11 +16,11 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
     }
 
     static NumberStruct addOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
-        return AliasNumber.calculateIncr(_arg, 1, _cont, _cl);
+        return AliasNumber.calculateIncr(_arg, 1, _cl, _cont.getStandards());
     }
 
     static NumberStruct removeOne(NumberStruct _arg, ContextEl _cont, ClassArgumentMatching _cl) {
-        return AliasNumber.calculateIncr(_arg, -1, _cont, _cl);
+        return AliasNumber.calculateIncr(_arg, -1, _cl, _cont.getStandards());
     }
 
     @Override
@@ -33,10 +33,10 @@ public final class ExecAddOperation extends ExecStdNumericOperation {
                                   ContextEl _cont) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             return new Argument(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
         }
         return new Argument(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
     }
 
 }

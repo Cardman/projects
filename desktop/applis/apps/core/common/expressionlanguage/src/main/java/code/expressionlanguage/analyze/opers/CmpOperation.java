@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -37,16 +37,17 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         okNum = true;
         if (chidren_.size() != 2) {
             okNum = false;
-            _conf.getAnalyzing().setOkNumOp(false);
+            page_.setOkNumOp(false);
             int in_ = Math.min(getOperations().getOperators().size()-1,1);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _conf);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
+            int index_ = page_.getLocalizer().getCurrentLocationIndex();
             badNb_.setIndexFile(index_);
             //first oper
             badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
@@ -54,7 +55,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                     Integer.toString(chidren_.size()),
                     op
             );
-            _conf.getAnalyzing().getLocalizer().addError(badNb_);
+            page_.getLocalizer().addError(badNb_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
@@ -68,7 +69,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         String op_ = getOperations().getOperators().firstValue().trim();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
         if (cl_.getSymbol() != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
                 classMethodId = cl_.getSymbol();
                 rootNumber = cl_.getRootNumber();
                 memberNumber = cl_.getMemberNumber();
@@ -88,8 +89,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             return;
         }
         if (AnaTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
-            ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
-            ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
+            ClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
+            ClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
             chidren_.first().getResultClass().setUnwrapObject(classFirst_);
             chidren_.last().getResultClass().setUnwrapObject(classSecond_);
             chidren_.first().cancelArgument();
@@ -98,8 +99,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             return;
         }
         if (AnaTypeUtil.isIntOrderClass(first_,second_, _conf)) {
-            ClassArgumentMatching classFirst_ = PrimitiveTypeUtil.toPrimitive(first_,  _conf);
-            ClassArgumentMatching classSecond_ = PrimitiveTypeUtil.toPrimitive(second_,  _conf);
+            ClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
+            ClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
             chidren_.first().getResultClass().setUnwrapObject(classFirst_);
             chidren_.last().getResultClass().setUnwrapObject(classSecond_);
             chidren_.first().cancelArgument();
@@ -108,16 +109,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             return;
         }
         okNum = false;
-        _conf.getAnalyzing().setOkNumOp(false);
+        page_.setOkNumOp(false);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _conf);
         StringList expectedTypes_ = new StringList();
         expectedTypes_.add(stds_.getAliasPrimDouble());
         expectedTypes_.add(stds_.getAliasString());
-        String res_ = _conf.getStandards().getAliasPrimBoolean();
+        String res_ = page_.getStandards().getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        int index_ = page_.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+        un_.setFileName(page_.getLocalizer().getCurrentFileName());
         //oper
         un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
@@ -125,7 +126,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                         StringList.join(second_.getNames(),"&")
                 ),";"),
                 getOp());
-        _conf.getAnalyzing().getLocalizer().addError(un_);
+        page_.getLocalizer().addError(un_);
         CustList<PartOffset> err_ = new CustList<PartOffset>();
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+op.length()));

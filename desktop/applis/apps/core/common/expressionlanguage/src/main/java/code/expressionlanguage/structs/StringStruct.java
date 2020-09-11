@@ -1,9 +1,10 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 
-public final class StringStruct extends CharSequenceStruct {
+public final class StringStruct extends CharSequenceStruct implements AnaDisplayableStruct {
 
     private final String instance;
 
@@ -44,5 +45,10 @@ public final class StringStruct extends CharSequenceStruct {
     @Override
     public String substring(int _i, int _j) {
         return instance.substring(_i,_j);
+    }
+
+    @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
+        return this;
     }
 }

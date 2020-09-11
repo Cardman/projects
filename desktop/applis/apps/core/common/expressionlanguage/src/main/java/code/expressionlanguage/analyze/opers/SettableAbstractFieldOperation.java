@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
@@ -49,17 +50,18 @@ public abstract class SettableAbstractFieldOperation extends
         OperationsSequence op_ = getOperations();
         int relativeOff_ = op_.getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (this instanceof StandardFieldOperation&&ElUtil.isDeclaringField(this,_conf)) {
-            indexBlock = _conf.getAnalyzing().getIndexBlock();
-            _conf.getAnalyzing().setIndexBlock(indexBlock+1);
+            indexBlock = page_.getIndexBlock();
+            page_.setIndexBlock(indexBlock+1);
             declare = true;
         }
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {
             import_ = true;
-            staticAccess = _conf.getAnalyzing().getStaticContext();
+            staticAccess = page_.getStaticContext();
         }
-        LgNames stds_ = _conf.getStandards();
+        LgNames stds_ = page_.getStandards();
         String fieldName_ = getFieldName();
         fieldNameLength = fieldName_.length();
         ClassArgumentMatching cl_ = getFrom(_conf);
@@ -195,12 +197,13 @@ public abstract class SettableAbstractFieldOperation extends
         if (!_info.isFinalField()) {
             return;
         }
-        Classes cl_ = _conf.getClasses();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        Classes cl_ = page_.getClasses();
         ClassField fieldId_ = _info.getClassField();
         StringMap<Struct> map_ = cl_.getStaticFieldMap(fieldId_.getClassName());
         Struct str_ = cl_.getStaticField(fieldId_);
         if (map_.isEmpty()) {
-            ResultErrorStd res_ = _conf.getStandards().getSimpleResult(_conf, fieldId_);
+            ResultErrorStd res_ = page_.getStandards().getSimpleResult(page_, fieldId_);
             Argument arg_ = new Argument(res_.getResult());
             _oper.setSimpleArgumentAna(arg_,_conf);
             trySetDotParent(_conf, _oper, arg_);

@@ -73,7 +73,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         expressionOffset = _expression.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _importingPage.getAnalyzing().getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         label = _label.getInfo();
@@ -141,10 +141,11 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     private MethodAccessKind processVarTypes(ContextEl _cont) {
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
+            mapping_.setParam(page_.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -166,7 +167,6 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         KeyWords keyWords_ = _cont.getKeyWords();
@@ -180,7 +180,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
+        page_.getCoverage().putBlockOperationsLoops(_cont,this);
         return static_;
     }
 
@@ -240,7 +240,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkMatchs(ContextEl _cont, ClassArgumentMatching _elt) {
@@ -250,7 +250,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             static_.setIndexFile(_cont.getCurrentLocationIndex());
             //separator char
             static_.buildError(_cont.getAnalysisMessages().getNullValue(),
-                    _cont.getStandards().getAliasNullPe());
+                    _cont.getAnalyzing().getStandards().getAliasNullPe());
             _cont.addError(static_);
             sepErrors.add(static_.getBuiltError());
         } else {
@@ -265,21 +265,22 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
     }
 
     public StringList getInferredIterable(StringList _types, ContextEl _cont) {
-        IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,"", _cont);
+        IterableAnalysisResult it_ = _cont.getAnalyzing().getStandards().getCustomType(_types,"", _cont);
         return it_.getClassName();
     }
 
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
             String paramArg_ = StringExpUtil.getAllTypes(type_).last();
             if (StringList.quickEq(paramArg_, Templates.SUB_TYPE)) {
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = page_.getStandards().getAliasObject();
             } else if (paramArg_.startsWith(Templates.SUB_TYPE)) {
                 paramArg_ = paramArg_.substring(Templates.SUB_TYPE.length());
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
-                paramArg_ = _cont.getStandards().getAliasObject();
+                paramArg_ = page_.getStandards().getAliasObject();
             }
             KeyWords keyWords_ = _cont.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -288,7 +289,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -308,8 +309,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setIndexFile(expressionOffset);
             //separator char
             cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
-                    _cont.getStandards().getAliasObject(),
-                    _cont.getStandards().getAliasIterable());
+                    page_.getStandards().getAliasObject(),
+                    page_.getStandards().getAliasIterable());
             _cont.addError(cast_);
             sepErrors.add(cast_.getBuiltError());
         }
@@ -319,16 +320,17 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setRef(variableNameOffset);
         lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        page_.getLoopsVars().put(variableName, lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(_cont.getStandards().getAliasObject());
+            lInfo_.setClassName(page_.getStandards().getAliasObject());
         }
         lInfo_.setRef(variableNameOffset);
         lInfo_.setConstType(ConstType.FIX_VAR);
-        _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
+        page_.getInfosVars().put(variableName, lInfo_);
     }
 
     @Override

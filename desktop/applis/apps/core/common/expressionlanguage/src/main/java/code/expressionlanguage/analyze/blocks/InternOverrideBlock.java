@@ -122,7 +122,7 @@ public final class InternOverrideBlock extends Leaf {
                         ClassMethodId ref_ = new ClassMethodId(cl_,m.getId());
                         CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
                         StringList l_ = new StringList();
-                        LinkageUtil.addParts(_context.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
+                        LinkageUtil.addParts(analyzing_.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
                         partMethods_.addAllElts(partMethod_);
                         GeneStringOverridable g_ = new GeneStringOverridable(formatted_,root_,m);
                         list_.add(g_);

@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.AnaInheritedType;
 import code.expressionlanguage.common.GeneType;
@@ -106,6 +107,14 @@ public abstract class StandardType implements GeneType,AnaGeneType,AnaInheritedT
     }
 
     public boolean isSubTypeOf(String _fullName, ContextEl _an) {
+        return isSubTypeOf(_fullName);
+    }
+
+    public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
+        return isSubTypeOf(_fullName);
+    }
+
+    private boolean isSubTypeOf(String _fullName) {
         if (StringList.quickEq(getFullName(),_fullName)) {
             return true;
         }

@@ -34,7 +34,7 @@ public final class ContextUtil {
     }
 
     private static boolean processNormalProtected(AccessibleBlock _block, ContextEl _context, RootBlock root_, String belongPkg_, String rootPkg_) {
-        if (root_.isSubTypeOf(_block.getFullName(),_context)) {
+        if (root_.isSubTypeOf(_block.getFullName(),_context.getAnalyzing())) {
             return true;
         }
         return StringList.quickEq(belongPkg_, rootPkg_);
@@ -51,7 +51,7 @@ public final class ContextUtil {
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (!parName_.isEmpty()) {
-                if (root_.isSubTypeOf(parName_,_context)) {
+                if (root_.isSubTypeOf(parName_,_context.getAnalyzing())) {
                     return true;
                 }
             }
@@ -228,7 +228,7 @@ public final class ContextUtil {
         if (!_cont.isGettingParts()) {
             return;
         }
-        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_cont,_in);
+        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_in);
         if (!isFromCustFile(g_)) {
             return;
         }
@@ -267,7 +267,7 @@ public final class ContextUtil {
     public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
         String fullName_ = _classField.getClassName();
         String search_ = _classField.getFieldName();
-        AnaGeneType cust_ = _cont.getAnalyzing().getAnaGeneType(_cont,fullName_);
+        AnaGeneType cust_ = _cont.getAnalyzing().getAnaGeneType(fullName_);
         if (cust_ instanceof RootBlock) {
             RootBlock r_ = (RootBlock) cust_;
             for (Block b: ClassesUtil.getDirectChildren(r_)) {

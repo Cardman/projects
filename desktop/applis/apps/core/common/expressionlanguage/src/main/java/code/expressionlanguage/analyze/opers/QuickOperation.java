@@ -1,13 +1,14 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
@@ -74,7 +75,8 @@ public abstract class QuickOperation extends MethodOperation {
     @Override
     public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
@@ -83,7 +85,7 @@ public abstract class QuickOperation extends MethodOperation {
         String oper_ = getOperations().getOperators().firstValue();
         OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, leftRes_, rightRes_, oper_, _conf);
         if (opConv_.getSymbol() != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(),_conf)) {
+            if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(),page_)) {
                 classMethodId = opConv_.getSymbol();
                 rootNumber = opConv_.getRootNumber();
                 memberNumber = opConv_.getMemberNumber();
@@ -108,48 +110,48 @@ public abstract class QuickOperation extends MethodOperation {
                     memberNumberConv = res_.getMemberNumber();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(getResultClass().getNames(),"&"),
                             StringList.join(leftRes_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    page_.getLocalizer().addError(cast_);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
-                    int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+                    int index_ = page_.getLocalizer().getCurrentLocationIndex();
                     errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",index_));
                     errFirst.add(new PartOffset("</a>",index_+1));
                     okNum = false;
                 }
-                setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(leftRes_,_conf)));
+                setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_,page_)));
             }
             return;
         }
         okNum = true;
-        if (!leftRes_.isBoolType(_conf)) {
+        if (!leftRes_.isBoolType(page_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(leftRes_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
-            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            int index_ = page_.getLocalizer().getCurrentLocationIndex();
             errFirst.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
             errFirst.add(new PartOffset("</a>",index_+1));
             okNum = false;
         }
-        if (!rightRes_.isBoolType(_conf)) {
+        if (!rightRes_.isBoolType(page_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
                     StringList.join(rightRes_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
-            int index_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex()+1;
+            int index_ = page_.getLocalizer().getCurrentLocationIndex()+1;
             errSecond.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
             errSecond.add(new PartOffset("</a>",index_+1));
             okNum = false;

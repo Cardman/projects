@@ -31,10 +31,10 @@ public final class RendAddOperation extends RendStdNumericOperation {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);
             }
             return new Argument(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
         }
         return new Argument(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), _cont, getResultClass()));
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
     }
 
 }

@@ -28,7 +28,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     @Override
     public String getSignature(ContextEl _ana) {
-        return getId().getSignature(_ana);
+        return getId().getSignature(_ana.getAnalyzing());
     }
 
     @Override

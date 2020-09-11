@@ -37,9 +37,9 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
         opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont);
         RendDynOperationNode elCondition_ = opCondition.last();
-        LgNames stds_ = _cont.getStandards();
+        LgNames stds_ = page_.getStandards();
         ClassArgumentMatching exp_ = elCondition_.getResultClass();
-        if (!exp_.isBoolType(_cont.getContext())) {
+        if (!exp_.isBoolType(page_)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());

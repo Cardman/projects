@@ -258,8 +258,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
     private static String tr(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         String candidate_ = _var;
         int index_ = 0;
         while (StringList.contains(allKeysWords_,candidate_)) {

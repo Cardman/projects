@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -99,18 +100,19 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (args_.size() > 2) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(2),
                     Integer.toString(args_.size())
             );
-            _conf.getAnalyzing().getLocalizer().addError(badCall_);
+            page_.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodId id_ = null;
@@ -122,7 +124,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodIdReturn cust_;
@@ -135,18 +137,18 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         if (!cust_.isFoundMethod()) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
+            undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
             for (ClassArgumentMatching c: name_.getAll()) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
             }
             undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
-                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(_conf));
-            _conf.getAnalyzing().getLocalizer().addError(undefined_);
+                    new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(page_));
+            page_.getLocalizer().addError(undefined_);
             getErrs().add(undefined_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         setResultClass(new ClassArgumentMatching(cust_.getReturnType()));

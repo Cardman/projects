@@ -46,7 +46,7 @@ public final class Throwing extends AbruptBlock {
         ExecThrowing exec_ = new ExecThrowing(getOffset(), expressionOffset,op_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     public OperationNode getRoot() {

@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -29,7 +30,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
     @Override
     public void analyzeUnary(ContextEl _conf) {
         okNum = true;
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
         ClassArgumentMatching clMatch_;
@@ -44,8 +46,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
-        if (!clMatch_.isBoolType(_conf)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, _conf.getStandards().getAliasPrimBoolean(), clMatch_);
+        if (!clMatch_.isBoolType(page_)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimBoolean(), clMatch_);
             if (res_.isFoundMethod()) {
                 ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
                 clMatch_.getImplicits().add(cl_);
@@ -53,8 +55,8 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 clMatch_.setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //operator
                 un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
                         StringList.join(clMatch_.getNames(),"&"),
@@ -62,7 +64,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 if (!MethodOperation.isEmptyError(getFirstChild())){
                     getErrs().add(un_.getBuiltError());
                 }
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
             }
         }
         clMatch_.setUnwrapObject(booleanPrimType_);

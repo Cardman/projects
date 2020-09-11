@@ -47,7 +47,7 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
         if (_className.contains(AnaTemplates.PREFIX_VAR_TYPE)) {
             return;
         }
-        Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(_className,_conf));
+        Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(_className,_conf.getAnalyzing().getStandards()));
         _current.setSimpleArgumentAna(a_, _conf);
     }
 

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.Block;
@@ -12,7 +13,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
@@ -87,16 +87,17 @@ final class AnaNamePartType extends AnaLeafPartType {
 
     private boolean analyzeFull(ContextEl _an, CustList<IntTreeMap<String>> _dels, String _type) {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
-        RootBlock root_ = _an.getAnalyzing().getAnaClassBody(id_);
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        RootBlock root_ = page_.getAnaClassBody(id_);
         if (root_ != null) {
             analyzeFullType(_type);
             return true;
         }
-        if (_an.getStandards().getStandards().contains(_type)) {
+        if (page_.getStandards().getStandards().contains(_type)) {
             setAnalyzedType(_type);
             return true;
         }
-        if (PrimitiveTypeUtil.isPrimitive(_type, _an)) {
+        if (AnaTypeUtil.isPrimitive(_type, page_)) {
             setAnalyzedType(_type);
             return true;
         }
@@ -133,10 +134,11 @@ final class AnaNamePartType extends AnaLeafPartType {
             return false;
         }
         AnaPartType prev_ = par_.getFirstChild();
-        if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        if (StringList.quickEq(getTypeName().trim(), page_.getStandards().getAliasVoid())) {
             String base_ = prev_.getAnalyzedType();
             base_ = StringExpUtil.getIdFromAllTypes(base_);
-            if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+            if (StringList.quickEq(base_.trim(), page_.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                 setAnalyzedType(getTypeName().trim());
             }
             return true;
@@ -327,6 +329,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         AnaPartType part_ = getPreviousPartType();
         String type_ = getTypeName();
         type_ = StringExpUtil.removeDottedSpaces(type_);
+        AnalyzedPageEl page_ = _an.getAnalyzing();
         if (part_ != null) {
             String owner_ = part_.getAnalyzedType();
             String id_ = StringExpUtil.getIdFromAllTypes(owner_);
@@ -337,27 +340,27 @@ final class AnaNamePartType extends AnaLeafPartType {
                 sep_ = "..";
             }
             String in_ = StringList.concat(id_,sep_,type_);
-            RootBlock inner_ = _an.getAnalyzing().getAnaClassBody(in_);
+            RootBlock inner_ = page_.getAnaClassBody(in_);
             if (inner_ == null) {
                 return;
             }
             setAnalyzedType(StringList.concat(owner_,sep_,type_));
             return;
         }
-        if (_an.getAnalyzing().getAnaGeneType(_an,type_) != null) {
+        if (page_.getAnaGeneType(type_) != null) {
             setAnalyzedType(type_);
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(type_, _an)) {
+        if (AnaTypeUtil.isPrimitive(type_, page_)) {
             setAnalyzedType(type_);
             return;
         }
         if (getParent() instanceof AnaTemplatePartType) {
             AnaPartType prev_ = getParent().getFirstChild();
-            if (StringList.quickEq(getTypeName().trim(), _an.getStandards().getAliasVoid())) {
+            if (StringList.quickEq(getTypeName().trim(), page_.getStandards().getAliasVoid())) {
                 String base_ = prev_.getAnalyzedType();
                 base_ = StringExpUtil.getIdFromAllTypes(base_);
-                if (StringList.quickEq(base_.trim(), _an.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
+                if (StringList.quickEq(base_.trim(), page_.getStandards().getAliasFct()) && _dels.last().size() == getIndex() + 1) {
                     setAnalyzedType(getTypeName().trim());
                 }
                 return;
@@ -378,7 +381,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         String curr_ = ((Block)_rooted).getFile().getRenderFileName();
         String imported_ = getAnalyzedType();
         String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(_an,idCl_);
+        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(idCl_);
         if (ContextUtil.isFromCustFile(g_)) {
             String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
             String rel_ = LinkageUtil.relativize(curr_,ref_);

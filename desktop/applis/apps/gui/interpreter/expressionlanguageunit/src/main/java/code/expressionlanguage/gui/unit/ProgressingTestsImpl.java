@@ -24,12 +24,6 @@ public final class ProgressingTestsImpl implements ProgressingTests {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayErrors());
-        }
-        if (!_ctx.isEmptyErrors()) {
-            String folder_ = _exec.getLogFolder();
-            String time_ = Clock.getDateTimeText("_", "_", "_");
-            String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayErrors());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayWarnings());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayStdErrors());
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+_reportedMessages.displayMessageErrors());

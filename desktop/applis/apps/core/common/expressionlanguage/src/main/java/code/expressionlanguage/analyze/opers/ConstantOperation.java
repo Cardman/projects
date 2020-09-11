@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
@@ -27,7 +28,8 @@ public final class ConstantOperation extends LeafOperation {
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         String argClName_;
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String stringType_;
         stringType_ = stds_.getAliasString();
         if (op_.getConstType() == ConstType.TRUE_CST) {
@@ -57,11 +59,11 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new ClassArgumentMatching(stringType_));
             if (op_.getStrInfo().isKo()) {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
-                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             }
             return;
@@ -72,22 +74,22 @@ public final class ConstantOperation extends LeafOperation {
             if (op_.getStrInfo().isKo()) {
                 a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
-                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             } else if (!originalStr_.isEmpty()) {
                 a_ = new Argument(new CharStruct(originalStr_.charAt(0)));
             } else {
                 a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
+                badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
-                _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+                page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             }
             setSimpleArgument(a_);
@@ -98,12 +100,12 @@ public final class ConstantOperation extends LeafOperation {
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {
             FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-            badFormat_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            badFormat_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
+            badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //constant len
             badFormat_.buildError(_conf.getAnalysisMessages().getBadNbFormat(),
                     str_);
-            _conf.getAnalyzing().getLocalizer().addError(badFormat_);
+            page_.getLocalizer().addError(badFormat_);
             getErrs().add(badFormat_.getBuiltError());
             argClassName_ = stds_.getAliasPrimDouble();
         }
@@ -113,7 +115,7 @@ public final class ConstantOperation extends LeafOperation {
     }
 
     private static ParsedArgument parse(ContextEl _conf, OperationsSequence _op) {
-        return ParsedArgument.parse(_op.getNbInfos(), _conf.getStandards());
+        return ParsedArgument.parse(_op.getNbInfos(), _conf.getAnalyzing().getStandards());
     }
 
     public int getLength() {

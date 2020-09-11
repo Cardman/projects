@@ -36,9 +36,9 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     public static Argument getArgument(ContextEl _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
         Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
-            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _to, _conf.getStandards()));
         } else {
-            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, _to));
+            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _to, _conf.getStandards()));
         }
         return out_;
     }

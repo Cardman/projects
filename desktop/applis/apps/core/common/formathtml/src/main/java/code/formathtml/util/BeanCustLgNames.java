@@ -1,8 +1,8 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -467,7 +467,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _context.getClasses().getClassBody(id_);
+        ExecRootBlock classBody_ = _context.getAnalyzing().getClasses().getClassBody(id_);
         CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
         ExecNamedFunctionBlock fct_ = list_.first();
         RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
@@ -487,7 +487,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private void newInstance(ContextEl _context) {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = getAliasStringMapObject();
-        ExecRootBlock ex_ = _context.getClasses().getClassBody(aliasStringMapObject_);
+        ExecRootBlock ex_ = _context.getAnalyzing().getClasses().getClassBody(aliasStringMapObject_);
         opsMap.add(new RendStandardInstancingOperation(new ClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false),ex_));
     }
 
@@ -830,26 +830,26 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
     private static String tr(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trLoop(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trParam(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trLoc(String _var, ContextEl _context) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
 
@@ -977,7 +977,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             if (list_.isEmpty()) {
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
             } else {
-                String value_ = AnaApplyCoreMethodUtil.getString(_args[0]).getInstance();
+                String value_ = NumParsers.getString(_args[0]).getInstance();
                 res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
             }
             return res_;
@@ -1379,7 +1379,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException() || argument_.isNull()) {
             return "";
         }
-        return AnaApplyCoreMethodUtil.getString(argument_.getStruct()).getInstance();
+        return NumParsers.getString(argument_.getStruct()).getInstance();
     }
     public void setScope(Struct _bean, String _scope,Configuration _cont) {
         _cont.getLastPage().putInternVars(setScopeVar, _bean,_cont.getContext());
@@ -1492,7 +1492,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_cont.getContext().hasException()) {
             return "";
         }
-        return AnaApplyCoreMethodUtil.getString(arg_.getStruct()).getInstance();
+        return NumParsers.getString(arg_.getStruct()).getInstance();
     }
 
     @Override

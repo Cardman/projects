@@ -116,7 +116,7 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    public static void setVar(ContextEl _conf, String _variableName,PageEl _var,Argument _value,int _deep) {
+    private static void setVar(ContextEl _conf, String _variableName, PageEl _var, Argument _value, int _deep) {
         ExecTemplates.setValue(_conf,_variableName,_var,_value,_deep);
     }
     @Override

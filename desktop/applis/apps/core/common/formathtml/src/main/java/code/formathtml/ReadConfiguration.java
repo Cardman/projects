@@ -42,17 +42,19 @@ public final class ReadConfiguration {
         RendKeyWords rkw_ = _conf.getRendKeyWords();
         RendAnalysisMessages rMess_ = _conf.getRendAnalysisMessages();
         _stds.buildAliases(_elt,_lg, rkw_,kw_,rMess_,a_);
-        ContextEl context_ = ContextFactory.build(-1,lk_, di_, opt_, a_, kw_, _stds,4);
+        int stack_ = -1;
+        int tab_ = 4;
         for (Element c: _elt.getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "stackOverFlow")) {
-                context_.setStackOverFlow(Numbers.parseInt(c.getAttribute("value")));
+                stack_=(Numbers.parseInt(c.getAttribute("value")));
                 continue;
             }
             if (StringList.quickEq(fieldName_, "tabWidth")) {
-                context_.setTabWidth(Numbers.parseInt(c.getAttribute("value")));
+                tab_=(Numbers.parseInt(c.getAttribute("value")));
             }
         }
+        ContextEl context_ = ContextFactory.build(stack_,lk_, di_, opt_, a_, kw_, _stds,tab_);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
         if (!context_.isEmptyMessageError()) {

@@ -168,8 +168,8 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         page_.setTranslatedOffset(tr_);
         int index_ = getIndex();
         _cont.setCurrentChildTypeIndex(index_);
-        _cont.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
-        _cont.getCoverage().putBlockOperations(_cont,this);
+        page_.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
+        page_.getCoverage().putBlockOperations(_cont,this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
         root = page_.getCurrentRoot();
         page_.setTranslatedOffset(0);

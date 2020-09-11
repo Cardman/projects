@@ -1,10 +1,11 @@
 package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.stds.*;
 
-public abstract class NumberStruct extends WithoutParentStruct implements DisplayableStruct {
+public abstract class NumberStruct extends WithoutParentStruct implements DisplayableStruct,AnaDisplayableStruct {
 
     public abstract double doubleStruct();
     public abstract float floatStruct();
@@ -29,4 +30,11 @@ public abstract class NumberStruct extends WithoutParentStruct implements Displa
                 dis_.getExponent());
     }
 
+    @Override
+    public StringStruct getDisplayedString(AnalyzedPageEl _an) {
+        DisplayedStrings dis_ = _an.getStandards().getDisplayedStrings();
+        return NumParsers.getStringValue(this,dis_.getInfinity(),
+                dis_.getNan(),
+                dis_.getExponent());
+    }
 }

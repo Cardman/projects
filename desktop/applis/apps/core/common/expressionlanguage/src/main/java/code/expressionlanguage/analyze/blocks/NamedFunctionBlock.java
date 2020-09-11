@@ -159,7 +159,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     private void checkReturnFct(ContextEl _an, AnalyzingEl _anEl) {
-        LgNames stds_ = _an.getStandards();
+        LgNames stds_ = _an.getAnalyzing().getStandards();
         if (!StringList.quickEq(getImportedReturnType(), stds_.getAliasVoid())) {
             if (_anEl.canCompleteNormally(this)) {
                 //error
@@ -251,7 +251,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
 
     public void buildImportedReturnTypes(ContextEl _stds) {
-        String void_ = _stds.getStandards().getAliasVoid();
+        String void_ = _stds.getAnalyzing().getStandards().getAliasVoid();
         if (StringList.quickEq(returnType.trim(), void_)) {
             importedReturnType = void_;
             return;

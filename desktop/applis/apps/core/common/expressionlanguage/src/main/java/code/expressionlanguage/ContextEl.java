@@ -22,24 +22,15 @@ import code.util.*;
 
 public abstract class ContextEl {
 
-    private static final int DEFAULT_TAB_WIDTH = 4;
-
-    private int tabWidth = DEFAULT_TAB_WIDTH;
-
-    private int stackOverFlow;
+    private CommonExecutionInfos executionInfos;
 
     private CallingState callingState;
 
-    private LgNames standards;
-
     private AnalyzedPageEl analyzing;
-
-    private Classes classes;
 
     private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
     private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
-    private Coverage coverage;
     private AbstractFullStack fullStack;
     private Struct seed = NullStruct.NULL_VALUE;
 
@@ -47,43 +38,40 @@ public abstract class ContextEl {
                      DefaultLockingClass _lock, Options _options,
                      LgNames _stds, int _tabWitdth) {
         this();
-        setStackOverFlow(_stackOverFlow);
-        setStandards(_stds);
-        setTabWidth(_tabWitdth);
-        setClasses(new Classes());
-        setCoverage(new Coverage(_options.isCovering()));
-        classes.setLocks(_lock);
+        setExecutionInfos(new CommonExecutionInfos(_tabWitdth,_stackOverFlow,_stds,new Classes(),new Coverage(_options.isCovering())));
+        getExecutionInfos().getClasses().setLocks(_lock);
     }
     protected ContextEl() {
         setFullStack(new DefaultFullStack(this));
     }
 
     public GeneType getClassBody(String _type) {
-        ExecRootBlock c_ = classes.getClassBody(_type);
+        ExecRootBlock c_ = executionInfos.getClasses().getClassBody(_type);
         if (c_ != null) {
             return c_;
         }
-        return standards.getStandards().getVal(_type);
+        return executionInfos.getStandards().getStandards().getVal(_type);
+    }
+
+    public CommonExecutionInfos getExecutionInfos() {
+        return executionInfos;
+    }
+
+    public void setExecutionInfos(CommonExecutionInfos executionInfos) {
+        this.executionInfos = executionInfos;
     }
 
     public int getStackOverFlow() {
-        return stackOverFlow;
-    }
-    public void setStackOverFlow(int _stackOverFlow) {
-        stackOverFlow = _stackOverFlow;
+        return executionInfos.getStackOverFlow();
     }
 
     public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
+        return executionInfos.getTabWidth();
     }
 
     private String getLocationFile(String _fileName, int _sum) {
         FileBlock file_ = analyzing.getFileBody(_fileName);
-        FileMetrics metrics_ = file_.getMetrics(tabWidth);
+        FileMetrics metrics_ = file_.getMetrics(analyzing.getTabWidth());
         int r_ = metrics_.getRowFile(_sum);
         int c_ = metrics_.getColFile(_sum,r_);
         return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
@@ -116,19 +104,11 @@ public abstract class ContextEl {
     }
 
     public Classes getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Classes _classes) {
-        classes = _classes;
+        return executionInfos.getClasses();
     }
 
     public Coverage getCoverage() {
-        return coverage;
-    }
-
-    public void setCoverage(Coverage _coverage) {
-        coverage = _coverage;
+        return executionInfos.getCoverage();
     }
 
     public boolean isGettingParts() {
@@ -136,7 +116,7 @@ public abstract class ContextEl {
     }
 
     public boolean isCovering() {
-        return coverage.isCovering();
+        return analyzing.getCoverage().isCovering();
     }
 
     public boolean isGettingErrors() {
@@ -188,10 +168,10 @@ public abstract class ContextEl {
     }
     public void forwardAndClear() {
         for (ClassMetaInfo c: getAnalyzing().getClassMetaInfos()) {
-            getClasses().getClassMetaInfos().add(c);
+            getAnalyzing().getClasses().getClassMetaInfos().add(c);
         }
         getAnalyzing().getClassMetaInfos().clear();
-        getClasses().setKeyWordValue(getKeyWords().getKeyWordValue());
+        getAnalyzing().getClasses().setKeyWordValue(getKeyWords().getKeyWordValue());
         ValidatorStandard.buildIterable(this);
     }
     public void setNullAnalyzing() {
@@ -203,11 +183,7 @@ public abstract class ContextEl {
     }
 
     public LgNames getStandards() {
-        return standards;
-    }
-
-    public void setStandards(LgNames _standards) {
-        standards = _standards;
+        return executionInfos.getStandards();
     }
 
     public void setGlobalClass(String _globalClass) {

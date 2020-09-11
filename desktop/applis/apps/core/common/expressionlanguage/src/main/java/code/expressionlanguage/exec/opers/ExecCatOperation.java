@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.AddOperation;
 import code.expressionlanguage.structs.DisplayableStruct;
@@ -43,9 +44,6 @@ public final class ExecCatOperation extends ExecNumericOperation {
     }
     public static DisplayableStruct getDisplayable(Argument _value,ContextEl _cont) {
         Struct a_ = _value.getStruct();
-        if (!(a_ instanceof DisplayableStruct)) {
-            return _cont.getStandards().getStringOfObject(_cont,a_);
-        }
-        return (DisplayableStruct) a_;
+        return NumParsers.getDisplayableStruct(a_);
     }
 }

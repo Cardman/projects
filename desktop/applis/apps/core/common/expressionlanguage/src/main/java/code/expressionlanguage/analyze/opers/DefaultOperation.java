@@ -27,7 +27,7 @@ public final class DefaultOperation extends AbstractUnaryOperation {
         OperationNode child_ = getFirstChild();
         ClassArgumentMatching res_ = child_.getResultClass();
         if (res_.isVariable()) {
-            setResultClass(new ClassArgumentMatching(_conf.getStandards().getAliasObject()));
+            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
             return;
         }
         setResultClass(ClassArgumentMatching.copy(res_));

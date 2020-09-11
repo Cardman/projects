@@ -33,8 +33,8 @@ public final class LinkageUtil {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedPageEl analyzing_ = _cont.getAnalyzing();
         KeyWords keyWords_ = analyzing_.getKeyWords();
-        Coverage cov_ = _cont.getCoverage();
-        LgNames standards_ = _cont.getStandards();
+        Coverage cov_ = analyzing_.getCoverage();
+        LgNames standards_ = analyzing_.getStandards();
         CustList<RootBlock> refFoundTypes_ = analyzing_.getRefFoundTypes();
         StringList toStringOwners_ = analyzing_.getToStringOwners();
         CustList<OperatorBlock> operators_ = analyzing_.getMapOperators().getKeys();
@@ -42,7 +42,7 @@ public final class LinkageUtil {
             if (f.isPredefined()) {
                 continue;
             }
-            String value_ = _cont.getClasses().getResources().getVal(f.getFileName());
+            String value_ = analyzing_.getClasses().getResources().getVal(f.getFileName());
             String fileExp_ = f.getFileName() + ".html";
             CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, cov_,keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);

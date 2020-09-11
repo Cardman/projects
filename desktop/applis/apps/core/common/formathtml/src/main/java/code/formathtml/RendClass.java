@@ -28,7 +28,7 @@ public final class RendClass extends RendParentBlock {
             RendPackage par_ = (RendPackage) getParent();
             fullName = StringList.concat(par_.getName(),DOT,name);
             fullName = StringExpUtil.removeDottedSpaces(fullName);
-            if (_cont.getContext().getAnalyzing().getAnaGeneType(_cont.getContext(),fullName) == null) {
+            if (_cont.getContext().getAnalyzing().getAnaGeneType(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_cont.getCurrentFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());

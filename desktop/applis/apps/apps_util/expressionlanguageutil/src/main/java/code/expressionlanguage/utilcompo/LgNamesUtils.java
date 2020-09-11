@@ -1008,8 +1008,8 @@ public class LgNamesUtils extends LgNames {
     }
     protected static String tr(String _var, ContextEl _context, String... _args) {
         CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getStandards().getAliasVoid());
+        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         for (String p:_args) {
             allKeysWords_.add(p);
         }

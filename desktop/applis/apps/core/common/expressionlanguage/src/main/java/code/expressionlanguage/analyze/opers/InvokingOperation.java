@@ -2,12 +2,14 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.FunctionBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -19,7 +21,6 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.options.KeyWords;
@@ -113,11 +114,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     protected static String tryGetRetType(ContextEl _an) {
-        FunctionBlock f_ = _an.getAnalyzing().getCurrentFct();
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        FunctionBlock f_ = page_.getCurrentFct();
         if (f_ instanceof NamedFunctionBlock) {
             NamedFunctionBlock n_ = (NamedFunctionBlock) f_;
             String ret_ = n_.getImportedReturnType();
-            String void_ = _an.getStandards().getAliasVoid();
+            String void_ = page_.getStandards().getAliasVoid();
             if (!StringList.quickEq(ret_, void_)) {
                 return ret_;
             }
@@ -154,7 +156,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected static void tryGetCtors(ContextEl _an, String _typeInfer, CustList<ConstructorInfo> _ctors) {
         String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
-        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(_an,base_);
+        AnaGeneType g_ = _an.getAnalyzing().getAnaGeneType(base_);
         CustList<GeneConstructor> constructors_ = ContextUtil.getConstructorBodies(g_);
         for (GeneConstructor e: constructors_) {
             ConstructorId ctor_ = e.getId().copy(base_);
@@ -328,7 +330,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             String name_ = constraints_.getName();
             String className_ = f_.getClassName();
             StringList parametersTypes_ = constraints_.getParametersTypes();
-            parametersTypes_.add(0,_conf.getStandards().getAliasPrimBoolean());
+            parametersTypes_.add(0,_conf.getAnalyzing().getStandards().getAliasPrimBoolean());
             f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
         }
         return f_;
@@ -397,13 +399,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return firstArgs_;
     }
     static StringList getBounds(String _cl, ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         String objectClassName_ = stds_.getAliasObject();
         StringList bounds_ = new StringList();
         if (_cl.startsWith(AnaTemplates.PREFIX_VAR_TYPE)) {
-            String glClass_ = _conf.getAnalyzing().getGlobalClass();
+            String glClass_ = page_.getGlobalClass();
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            AnaGeneType gl_ = _conf.getAnalyzing().getAnaGeneType(_conf,curClassBase_);
+            AnaGeneType gl_ = page_.getAnaGeneType(curClassBase_);
             StringMap<StringList> mapping_ = new StringMap<StringList>();
             for (TypeVar t: ContextUtil.getParamTypesMapValues(gl_)) {
                 mapping_.put(t.getName(), t.getConstraints());
@@ -421,12 +424,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
                 ClassArgumentMatching a_ = _args.get(i);
                 if (i >= _natvararg) {
-                    if (PrimitiveTypeUtil.isPrimitive(_lasttype, _conf)) {
+                    if (AnaTypeUtil.isPrimitive(_lasttype, _conf.getAnalyzing())) {
                         a_.setUnwrapObject(_lasttype);
                     }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
-                    if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                    if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
                         a_.setUnwrapObject(param_);
                     }
                 }
@@ -439,7 +442,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }
-                if (PrimitiveTypeUtil.isPrimitive(param_, _conf)) {
+                if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
                     a_.setUnwrapObject(param_);
                 }
             }

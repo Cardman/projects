@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
@@ -10,7 +9,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -72,7 +70,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             _cont.addError(un_);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(_cont.getContext(),id_);
+            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(id_);
             boolean final_ = true;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);

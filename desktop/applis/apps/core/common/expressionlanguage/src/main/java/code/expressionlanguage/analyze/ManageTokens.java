@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.util.StringList;
 
 public final class ManageTokens {
@@ -76,13 +76,14 @@ public final class ManageTokens {
         if (!StringList.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);
         }
-        if (PrimitiveTypeUtil.isPrimitive(_id, _cont)) {
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        if (AnaTypeUtil.isPrimitive(_id, page_)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(primMessage,_id),true);
         }
         if (_cont.getKeyWords().isKeyWordNotVar(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
-        if (StringList.quickEq(_id, _cont.getStandards().getAliasVoid())) {
+        if (StringList.quickEq(_id, page_.getStandards().getAliasVoid())) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(keyWordMessage,_id),true);
         }
         if (StringExpUtil.isDigit(_id.charAt(0))) {

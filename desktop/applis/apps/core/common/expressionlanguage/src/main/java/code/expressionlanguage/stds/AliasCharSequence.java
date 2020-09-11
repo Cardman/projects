@@ -62,7 +62,7 @@ public final class AliasCharSequence {
 
     public static void calculateString(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            StringStruct str_ = AnaApplyCoreMethodUtil.getString(_struct);
+            StringStruct str_ = NumParsers.getString(_struct);
             calculateLocString(str_,_cont, _res, _method, _args);
             return;
         }
@@ -203,9 +203,9 @@ public final class AliasCharSequence {
 
     private static void replaceString(StringStruct _str, Struct _oldChar, Struct _newChar, ResultErrorStd _res) {
         String old_;
-        old_ = NumParsers.getString(_oldChar);
+        old_ = NumParsers.getStringValue(_oldChar);
         String new_;
-        new_ = NumParsers.getString(_newChar);
+        new_ = NumParsers.getStringValue(_newChar);
         String out_ = StringList.replace(_str.getInstance(), old_, new_);
         _res.setResult(new StringStruct(out_));
     }

@@ -58,7 +58,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         page_.setExecDeclareVariable(exec_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void processVariable(ContextEl _cont) {

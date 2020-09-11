@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.exec.ClassFieldStruct;
@@ -1267,6 +1268,10 @@ public abstract class LgNames {
         return res_;
     }
 
+    public ResultErrorStd getSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
+        return ValidatorStandard.getSimpleResultBase(_conf, _classField);
+    }
+
     public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
         return ValidatorStandard.getSimpleResultBase(_conf, _classField);
     }
@@ -1284,7 +1289,7 @@ public abstract class LgNames {
 
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> files_ = new StringMap<String>();
-        LgNames stds_ = _context.getStandards();
+        LgNames stds_ = _context.getAnalyzing().getStandards();
         String content_ = PredefinedClasses.getBracedIterableType(_context);
         String name_;
         name_ = stds_.getAliasIterable();

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.coverage;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -117,6 +118,7 @@ public final class Coverage {
         if (!isCovering()) {
             return;
         }
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         if (_context.isAnnotAnalysis()) {
             if (_context.isAnnotAnalysisField()) {
                 IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
@@ -139,7 +141,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_op.getArgument() == null) {
-                if (_op.getResultClass().isBoolType(_context)) {
+                if (_op.getResultClass().isBoolType(page_)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -152,7 +154,7 @@ public final class Coverage {
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
             if (StringList.quickEq(c_.getOper(),Block.NULL_EQ)) {
-                if (_op.getResultClass().isBoolType(_context)) {
+                if (_op.getResultClass().isBoolType(page_)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -160,7 +162,7 @@ public final class Coverage {
                 return;
             }
         }
-        String b_ = _context.getStandards().getAliasPrimBoolean();
+        String b_ = page_.getStandards().getAliasPrimBoolean();
         if ((_op.getResultClass().matchClass(b_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
             instr_.put(_op,new BooleanCoverageResult());
         } else {

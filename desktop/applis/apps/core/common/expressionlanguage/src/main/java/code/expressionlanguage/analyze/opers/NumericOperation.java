@@ -2,12 +2,12 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.LgNames;
@@ -47,12 +47,13 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         } else {
             arg_ = _b;
         }
-        LgNames stds_ = _cont.getStandards();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
         if (max_ < intOrder_) {
             arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
         }
-        return PrimitiveTypeUtil.toPrimitive(arg_, _cont);
+        return AnaTypeUtil.toPrimitive(arg_, page_);
     }
 
     @Override
@@ -65,8 +66,9 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         okNum = true;
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (cl_.getSymbol() != null) {
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
                 classMethodId = cl_.getSymbol();
                 rootNumber = cl_.getRootNumber();
                 memberNumber = cl_.getMemberNumber();
@@ -82,7 +84,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             chidren_.last().cancelArgumentString();
         }
         setCatenize(r_);
-        okNum = _conf.getAnalyzing().isOkNumOp();
+        okNum = page_.isOkNumOp();
         a_ = r_.getResult();
         setResultClass(ClassArgumentMatching.copy(a_));
     }

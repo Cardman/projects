@@ -49,7 +49,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        String import_ = _cont.getStandards().getAliasObject();
+        String import_ = page_.getStandards().getAliasObject();
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(st_));
         if (!page_.getCurrentEmptyPartErr().isEmpty()) {
             getErrorsBlock().add(page_.getCurrentEmptyPartErr());
@@ -90,7 +90,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         ExecLine exec_ = new ExecLine(getOffset(), expressionOffset,op_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
 

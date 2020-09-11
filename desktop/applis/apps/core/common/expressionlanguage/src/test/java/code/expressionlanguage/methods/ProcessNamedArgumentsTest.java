@@ -1915,4 +1915,28 @@ public final class ProcessNamedArgumentsTest extends ProcessMethodCommon {
         Argument ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(26, getNumber(ret_));
     }
+
+    @Test
+    public void calculate67() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int c = 5;\n");
+        xml_.append("  return m(2,c:c,b:3);\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(int a,int b,int c){\n");
+        xml_.append("  return a*b+c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = contextEnElDefaultInternType();
+        Classes.validateAll(files_, cont_);
+        assertTrue(cont_.isEmptyErrors());
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(11, getNumber(ret_));
+    }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
@@ -21,6 +22,7 @@ public final class ResolvingSuperTypes {
     public static AnaResultPartType resolveTypeMapping(ContextEl _context, String _in, RootBlock _ana,
                                                        int _location) {
         String tr_ = _in.trim();
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -29,9 +31,9 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getEmptyType());
             _context.addError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
-        String void_ = _context.getStandards().getAliasVoid();
+        String void_ = page_.getStandards().getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -41,7 +43,7 @@ public final class ResolvingSuperTypes {
                     void_);
             _context.addError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
         StringMap<Integer> variables_ = new StringMap<Integer>();
         for (RootBlock r: _ana.getSelfAndParentTypes()) {
@@ -50,15 +52,15 @@ public final class ResolvingSuperTypes {
             }
         }
         //No need to call Templates.isCorrect
-        _context.getAnalyzing().getAvailableVariables().clear();
-        _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
+        page_.getAvailableVariables().clear();
+        page_.getAvailableVariables().putAllMap(variables_);
         String gl_ = _ana.getGenericString();
-        CustList<PartOffset> partOffsets_ = _context.getAnalyzing().getCurrentParts();
-        _context.getAnalyzing().getCurrentBadIndexes().clear();
-        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_ana.getFullName()));
-        _context.getAnalyzing().setImportingTypes(_ana);
+        CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
+        page_.getCurrentBadIndexes().clear();
+        page_.setImportingAcces(new TypeAccessor(_ana.getFullName()));
+        page_.setImportingTypes(_ana);
         AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, false,gl_, _context, _ana,_ana, _location,partOffsets_);
-        for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
+        for (InaccessibleType i: page_.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location+i.getIndex());
@@ -75,7 +77,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_context.getAnalysisMessages().getUnknownType(),
                     _in);
             _context.addError(un_);
-            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
         return resType_;
     }
@@ -84,7 +86,7 @@ public final class ResolvingSuperTypes {
                                                         int _location, CustList<PartOffset> _partOffsets) {
         AnaResultPartType resType_ = typeArguments(_context, _in, _ana, _location, _partOffsets);
         if (resType_ == null) {
-            return new AnaResultPartType(_context.getStandards().getAliasObject(),null);
+            return new AnaResultPartType(_context.getAnalyzing().getStandards().getAliasObject(),null);
         }
         for (String p:StringExpUtil.getAllTypes(resType_.getResult()).mid(1)){
             if (p.startsWith(Templates.SUB_TYPE)) {
@@ -114,6 +116,7 @@ public final class ResolvingSuperTypes {
     }
     public static AnaResultPartType typeArguments(ContextEl _context, String _in, RootBlock _ana,
                                                    int _location, CustList<PartOffset> _partOffsets) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -125,7 +128,7 @@ public final class ResolvingSuperTypes {
             _ana.addNameErrors(un_);
             return null;
         }
-        String void_ = _context.getStandards().getAliasVoid();
+        String void_ = page_.getStandards().getAliasVoid();
         if (StringList.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
@@ -144,15 +147,15 @@ public final class ResolvingSuperTypes {
             }
         }
         //No need to call Templates.isCorrect
-        _context.getAnalyzing().getAvailableVariables().clear();
-        _context.getAnalyzing().getAvailableVariables().putAllMap(variables_);
+        page_.getAvailableVariables().clear();
+        page_.getAvailableVariables().putAllMap(variables_);
         String gl_ = _ana.getGenericString();
         RootBlock scope_ = _ana.getParentType();
-        _context.getAnalyzing().getCurrentBadIndexes().clear();
-        _context.getAnalyzing().setImportingAcces(new TypeAccessor(_ana.getFullName()));
-        _context.getAnalyzing().setImportingTypes(_ana);
+        page_.getCurrentBadIndexes().clear();
+        page_.setImportingAcces(new TypeAccessor(_ana.getFullName()));
+        page_.setImportingTypes(_ana);
         AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in,true,gl_,_context,scope_,_ana, _location, _partOffsets);
-        for (InaccessibleType i: _context.getAnalyzing().getCurrentBadIndexes()) {
+        for (InaccessibleType i: page_.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location+i.getIndex());

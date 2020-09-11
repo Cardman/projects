@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.blocks.ExecReturnMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
@@ -12,7 +13,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -56,7 +56,7 @@ public final class ReturnMethod extends AbruptBlock {
             ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             return;
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
@@ -73,11 +73,11 @@ public final class ReturnMethod extends AbruptBlock {
         root = page_.getCurrentRoot();
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private String processReturnValue(ContextEl _cont) {
-        LgNames stds_ = _cont.getStandards();
+        LgNames stds_ = _cont.getAnalyzing().getStandards();
         String retType_ = stds_.getAliasVoid();
         BracedBlock par_ = getParent();
         while (par_ != null) {
@@ -98,8 +98,9 @@ public final class ReturnMethod extends AbruptBlock {
     }
     private void checkTypes(ContextEl _cont, String _retType, ExecOperationNode _ret) {
         ClassArgumentMatching ret_ = _ret.getResultClass();
-        LgNames stds_ = _cont.getStandards();
-        StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         mapping_.setArg(ret_);
@@ -138,7 +139,7 @@ public final class ReturnMethod extends AbruptBlock {
             }
 
         }
-        if (PrimitiveTypeUtil.isPrimitive(_retType, _cont)) {
+        if (AnaTypeUtil.isPrimitive(_retType, page_)) {
             ret_.setUnwrapObject(_retType);
         }
         ElUtil.setImplicits(_ret,_cont);

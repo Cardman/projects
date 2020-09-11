@@ -37,7 +37,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
 
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                                 CustInitializer _init, Options _options, ExecutingOptions _exec,
-                                KeyWords _keyWords, LgNames _stds, int _tabWidth) {
+                                LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _options, _stds, _tabWidth);
         custInit = _init;
         executingOptions = _exec;
@@ -46,11 +46,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
     protected RunnableContextEl(ContextEl _context) {
         getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        setClasses(_context.getClasses());
-        setStandards(_context.getStandards());
-        setTabWidth(_context.getTabWidth());
-        setStackOverFlow(_context.getStackOverFlow());
-        setCoverage(_context.getCoverage());
+        setExecutionInfos(_context.getExecutionInfos());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         executeType = ((RunnableContextEl)_context).executeType;
@@ -67,17 +63,17 @@ public class RunnableContextEl extends ContextEl implements Locking {
     @Override
     public void forwardAndClear() {
         super.forwardAndClear();
-        LgNamesUtils standards_ = (LgNamesUtils) getStandards();
+        LgNamesUtils standards_ = (LgNamesUtils) getAnalyzing().getStandards();
         String aliasExecute_ = standards_.getAliasExecute();
-        executeType = getClasses().getClassBody(aliasExecute_);
+        executeType = getAnalyzing().getClasses().getClassBody(aliasExecute_);
         String infoTest_ = standards_.getAliasInfoTest();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
                 standards_.getAliasExecuteTests(),new StringList(infoTest_));
         executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
-        formatType = getClasses().getClassBody(standards_.getAliasFormatType());
+        formatType = getAnalyzing().getClasses().getClassBody(standards_.getAliasFormatType());
         formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasObject()))).first();
         formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasString(),standards_.getAliasObject()),true)).first();
-        runnableType = getClasses().getClassBody(standards_.getAliasRunnable());
+        runnableType = getAnalyzing().getClasses().getClassBody(standards_.getAliasRunnable());
         runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getAliasRun(),new StringList())).first();
     }
 

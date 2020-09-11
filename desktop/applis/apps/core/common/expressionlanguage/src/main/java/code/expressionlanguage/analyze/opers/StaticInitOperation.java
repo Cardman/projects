@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.StringList;
@@ -23,15 +24,16 @@ public final class StaticInitOperation extends LeafOperation {
     }
 
     void setInit(ContextEl _conf, String _base, boolean _staticType) {
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!_staticType) {
             possibleInitClass = false;
-            String argClName_ = _conf.getStandards().getAliasObject();
+            String argClName_ = page_.getStandards().getAliasObject();
             setResultClass(new ClassArgumentMatching(argClName_));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-        if (_conf.getAnalyzing().getAnaClassBody(_base) != null) {
+        if (page_.getAnaClassBody(_base) != null) {
             possibleInitClass = true;
         } else {
             setSimpleArgument(new Argument());

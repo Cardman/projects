@@ -22,7 +22,6 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
 
     @Override
     public void analyze(ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
         StringList converted_ = new StringList();
         if (isIntermediateDottedOperation()) {
             for (String p:previousResultClass.getNames()) {
@@ -41,7 +40,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     static StringList getParentTypeList(ContextEl _conf, StringList _converted) {
         StringList rs_ = getParentType(_converted);
         if (rs_.isEmpty()) {
-            return new StringList(_conf.getStandards().getAliasObject());
+            return new StringList(_conf.getAnalyzing().getStandards().getAliasObject());
         }
         return rs_;
     }

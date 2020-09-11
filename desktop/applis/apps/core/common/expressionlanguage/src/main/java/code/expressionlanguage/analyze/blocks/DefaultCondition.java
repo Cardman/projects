@@ -35,14 +35,14 @@ public final class DefaultCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
         }
     }
 
     private boolean checkDefault(ContextEl _cont) {
         BracedBlock b_ = getParent();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (!(b_ instanceof SwitchBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -58,7 +58,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             getErrorsBlock().add(un_.getBuiltError());
             return true;
         } else {
-            _cont.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
+            page_.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
             SwitchBlock s_ = (SwitchBlock) b_;
             String instanceTest_ = s_.getInstanceTest();
             if (instanceTest_.isEmpty()) {
@@ -94,7 +94,6 @@ public final class DefaultCondition extends SwitchPartBlock {
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
             TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -114,7 +113,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(_cont, exec_,this);
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(instanceTest_);
             lv_.setRef(variableOffset);

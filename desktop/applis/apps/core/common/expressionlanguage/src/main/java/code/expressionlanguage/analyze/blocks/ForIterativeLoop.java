@@ -77,7 +77,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         eqOffset = _eq.getOffset();
         String classIndex_ = _classIndex.getInfo();
         if (classIndex_.isEmpty()) {
-            classIndex_ = _importingPage.getStandards().getAliasPrimInteger();
+            classIndex_ = _importingPage.getAnalyzing().getStandards().getAliasPrimInteger();
         }
         classIndexName = classIndex_;
         classIndexNameOffset = _classIndex.getOffset();
@@ -194,14 +194,14 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
-        _cont.getCoverage().putBlockOperationsLoops(_cont,this);
+        page_.getCoverage().putBlockOperationsLoops(_cont,this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, initOffset,
                 expressionOffset, stepOffset,eq,init_,exp_,step_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        _cont.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(_cont, exec_,this);
     }
 
     private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset) {

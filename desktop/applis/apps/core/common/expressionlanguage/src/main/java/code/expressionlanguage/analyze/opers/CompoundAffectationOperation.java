@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -9,7 +10,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
@@ -52,19 +52,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
         boolean ok_ = elt_ != null;
-        LgNames stds_ = _conf.getStandards();
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
         if (!ok_) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            un_.setFileName(page_.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper len
             un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
                     oper);
-            _conf.getAnalyzing().getLocalizer().addError(un_);
+            page_.getLocalizer().addError(un_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-            int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+            int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+oper.length()));
@@ -75,22 +76,22 @@ public final class CompoundAffectationOperation extends MethodOperation {
         settable = elt_;
         if (settable instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
-            StringMap<Boolean> fieldsAfterLast_ = _conf.getAnalyzing().getDeclaredAssignments();
+            StringMap<Boolean> fieldsAfterLast_ = page_.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(_conf, cst_, fieldsAfterLast_)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _conf);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //field name len
                 un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
-                _conf.getAnalyzing().getLocalizer().addError(un_);
+                page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
             }
         }
         IntTreeMap< String> ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
-        int opLocat_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
+        int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
         ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
@@ -104,7 +105,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 clMatchLeft_.setMemberNumberTest(cl_.getMemberNumberTest());
                 test = test_;
             }
-            if (!PrimitiveTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),_conf)) {
+            if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
                 classMethodId = cl_.getSymbol();
                 rootNumber = cl_.getRootNumber();
                 memberNumber = cl_.getMemberNumber();
@@ -120,20 +121,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     memberNumberConv = res_.getMemberNumber();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(getResultClass().getNames(),"&"),
                             StringList.join(elt_.getResultClass().getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    page_.getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                 }
-                setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
+                setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_)));
             }
             return;
         }
-        setResultClass(ClassArgumentMatching.copy(PrimitiveTypeUtil.toPrimitive(clMatchLeft_,_conf)));
+        setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_)));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
@@ -144,16 +145,16 @@ public final class CompoundAffectationOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         if (StringList.quickEq(oper, Block.PLUS_EQ)) {
-            if (!PrimitiveTypeUtil.isPureNumberClass(clMatchLeft_, _conf)) {
+            if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, page_)) {
                 if (!isString_) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    page_.getLocalizer().addError(cast_);
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
                     err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                     err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
@@ -164,32 +165,32 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 right_.cancelArgumentString();
                 return;
             }
-            if (!PrimitiveTypeUtil.isPureNumberClass(clMatchRight_, _conf)) {
+            if (!AnaTypeUtil.isPureNumberClass(clMatchRight_, page_)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
+            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
             if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
                     && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
@@ -204,7 +205,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ) || StringList.quickEq(oper, Block.XOR_EQ)) {
             boolean okRes_ = false;
-            if (clMatchLeft_.isBoolType(_conf) && clMatchRight_.isBoolType(_conf)) {
+            if (clMatchLeft_.isBoolType(page_) && clMatchRight_.isBoolType(page_)) {
                 okRes_ = true;
             } else {
                 if (AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
@@ -213,20 +214,20 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             if (!okRes_) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
+            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
             elt_.getResultClass().setUnwrapObject(unwrapped_);
             right_.getResultClass().setUnwrapObject(unwrapped_);
             ((OperationNode) elt_).cancelArgument();
@@ -234,22 +235,22 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         if (StringList.quickEq(oper, Block.AND_LOG_EQ) || StringList.quickEq(oper, Block.OR_LOG_EQ)) {
-            if (!clMatchLeft_.isBoolType(_conf) || !clMatchRight_.isBoolType(_conf)) {
+            if (!clMatchLeft_.isBoolType(page_) || !clMatchRight_.isBoolType(page_)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
-                _conf.getAnalyzing().getLocalizer().addError(cast_);
+                page_.getLocalizer().addError(cast_);
                 CustList<PartOffset> err_ = new CustList<PartOffset>();
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = PrimitiveTypeUtil.toPrimitive(clMatchLeft_, _conf);
+            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
             elt_.getResultClass().setUnwrapObject(unwrapped_);
             right_.getResultClass().setUnwrapObject(unwrapped_);
             ((OperationNode) elt_).cancelArgument();
@@ -257,7 +258,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         if (StringList.quickEq(oper, Block.NULL_EQ)) {
-            StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+            StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_);
@@ -271,13 +272,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     clMatchRight_.setMemberNumber(res_.getMemberNumber());
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                    cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                    cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper
                     cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
-                    _conf.getAnalyzing().getLocalizer().addError(cast_);
+                    page_.getLocalizer().addError(cast_);
                     CustList<PartOffset> err_ = new CustList<PartOffset>();
                     err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                     err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
@@ -290,13 +291,13 @@ public final class CompoundAffectationOperation extends MethodOperation {
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
                 && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-            cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+            cast_.setFileName(page_.getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper len
             cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
-            _conf.getAnalyzing().getLocalizer().addError(cast_);
+            page_.getLocalizer().addError(cast_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));

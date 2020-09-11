@@ -2,6 +2,7 @@ package code.expressionlanguage.assign.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -34,8 +35,9 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
             AssUtil.setAssignments(this,_ass,_a);
             return;
         }
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         boolean isBool_;
-        isBool_ = getResultClass().isBoolType(_conf);
+        isBool_ = getResultClass().isBoolType(page_);
         StringMap<Assignment> ass_ =AssignmentsUtil.assignAfter(isBool_,assB_);
         boolean procField_ = isFromCurrentClass(_conf);
         ClassField cl_ = fieldMetaInfo.getClassField();
@@ -75,8 +77,8 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
-                        un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+                        un_.setFileName(page_.getLocalizer().getCurrentFileName());
+                        un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                         un_.buildError(_conf.getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
                         _conf.addError(un_);

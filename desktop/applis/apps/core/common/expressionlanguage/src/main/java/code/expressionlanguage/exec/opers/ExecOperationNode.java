@@ -115,7 +115,7 @@ public abstract class ExecOperationNode {
     }
     public static String getType(ContextEl _cont,ClassMethodId _cl) {
         if (_cl == null) {
-            return _cont.getStandards().getAliasObject();
+            return _cont.getAnalyzing().getStandards().getAliasObject();
         }
         return _cl.getClassName();
     }

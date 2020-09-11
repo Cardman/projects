@@ -93,7 +93,7 @@ public final class VariableOperation extends LeafOperation implements
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
             if (StringList.quickEq(c_, keyWordVar_)) {
-                lv_.setClassName(_conf.getStandards().getAliasObject());
+                lv_.setClassName(page_.getStandards().getAliasObject());
             } else {
                 lv_.setClassName(c_);
             }

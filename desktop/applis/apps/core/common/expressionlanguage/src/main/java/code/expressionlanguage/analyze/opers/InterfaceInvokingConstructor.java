@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.common.StringExpUtil;
@@ -134,8 +135,9 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     private static void checkInherits(OperationNode _op,ContextEl _conf, StringList _previousInts, Block _n, String _cl) {
         if (!_previousInts.isEmpty()) {
             String sup_ = _previousInts.last();
-            RootBlock supType_ = _conf.getAnalyzing().getAnaClassBody(sup_);
-            if (supType_ != null && supType_.isSubTypeOf(_cl,_conf)) {
+            AnalyzedPageEl page_ = _conf.getAnalyzing();
+            RootBlock supType_ = page_.getAnaClassBody(sup_);
+            if (supType_ != null && supType_.isSubTypeOf(_cl,page_)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFileName(_n.getFile().getFileName());
