@@ -36,10 +36,10 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendFctOperation(FctOperation _fct, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendFctOperation(FctOperation _fct, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_fct);
         methodName = _fct.getMethodName();
-        className = ExecOperationNode.getType(_context,_fct.getClassMethodId());
+        className = ExecOperationNode.getType(_fct.getClassMethodId());
         staticChoiceMethod = _fct.isStaticChoiceMethod();
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();

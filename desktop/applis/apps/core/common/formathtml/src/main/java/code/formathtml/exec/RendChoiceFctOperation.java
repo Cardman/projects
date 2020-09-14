@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -29,10 +28,10 @@ public final class RendChoiceFctOperation extends RendInvokingOperation implemen
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendChoiceFctOperation(ChoiceFctOperation _choice, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_choice);
         methodName = _choice.getMethodName();
-        className = ExecOperationNode.getType(_context,_choice.getClassMethodId());
+        className = ExecOperationNode.getType(_choice.getClassMethodId());
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();

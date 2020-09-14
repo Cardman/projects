@@ -23,7 +23,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
     public ExecQuickOperation(QuickOperation _q, ContextEl _context) {
         super(_q);
         kind = getKind(_q.getClassMethodId());
-        className = getType(_context,_q.getClassMethodId());
+        className = getType(_q.getClassMethodId());
         named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
         rootBlock = fetchType(_context,_q.getRootNumber());
         converter = fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());

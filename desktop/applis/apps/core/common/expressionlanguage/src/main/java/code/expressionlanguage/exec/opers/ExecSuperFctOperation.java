@@ -9,9 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SuperFctOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -28,10 +26,10 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public ExecSuperFctOperation(SuperFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
+    public ExecSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
         super(_s);
         methodName = _s.getMethodName();
-        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
+        className = ExecOperationNode.getType(_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();

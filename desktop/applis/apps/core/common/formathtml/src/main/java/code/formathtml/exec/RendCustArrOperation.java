@@ -43,12 +43,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
 
-    public RendCustArrOperation(ArrOperation _arr, ContextEl _context, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
+    public RendCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
         classMethodId = _arr.getClassMethodId();
-        className = ExecOperationNode.getType(_context,_arr.getClassMethodId());
+        className = ExecOperationNode.getType(_arr.getClassMethodId());
         lastType = _arr.getLastType();
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();

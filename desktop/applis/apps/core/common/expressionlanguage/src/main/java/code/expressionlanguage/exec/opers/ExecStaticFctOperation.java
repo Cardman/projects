@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -28,11 +27,11 @@ public final class ExecStaticFctOperation extends ExecInvokingOperation {
     private int naturalVararg;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public ExecStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public ExecStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_inv);
         methodName = _s.getMethodName();
         kind = getKind(_s.getClassMethodId());
-        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
+        className = ExecOperationNode.getType(_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         named = _named;

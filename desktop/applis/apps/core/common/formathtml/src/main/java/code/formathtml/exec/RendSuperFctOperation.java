@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -29,10 +28,10 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
     private int anc;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendSuperFctOperation(SuperFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendSuperFctOperation(SuperFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_s);
         methodName = _s.getMethodName();
-        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
+        className = ExecOperationNode.getType(_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         anc = _s.getAnc();

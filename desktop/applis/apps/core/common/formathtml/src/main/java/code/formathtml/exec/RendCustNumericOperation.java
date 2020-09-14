@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -21,10 +20,10 @@ public final class RendCustNumericOperation extends RendNumericOperation impleme
     private String className;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendCustNumericOperation(SymbolOperation _n, ContextEl _context,OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_n,_op);
         kind = ExecOperationNode.getKind(_n.getClassMethodId());
-        className = ExecOperationNode.getType(_context,_n.getClassMethodId());
+        className = ExecOperationNode.getType(_n.getClassMethodId());
         named = _named;
         rootBlock = _rootBlock;
     }

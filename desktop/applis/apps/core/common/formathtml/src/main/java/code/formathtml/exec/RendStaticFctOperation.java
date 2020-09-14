@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -9,9 +8,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -29,11 +26,11 @@ public final class RendStaticFctOperation extends RendInvokingOperation implemen
     private int naturalVararg;
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
-    public RendStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public RendStaticFctOperation(InvokingOperation _inv, AbstractCallFctOperation _s, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_inv);
         methodName = _s.getMethodName();
         kind = ExecOperationNode.getKind(_s.getClassMethodId());
-        className = ExecOperationNode.getType(_context,_s.getClassMethodId());
+        className = ExecOperationNode.getType(_s.getClassMethodId());
         lastType = _s.getLastType();
         naturalVararg = _s.getNaturalVararg();
         named = _named;

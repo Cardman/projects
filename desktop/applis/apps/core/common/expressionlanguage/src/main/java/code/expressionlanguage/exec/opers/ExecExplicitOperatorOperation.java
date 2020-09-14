@@ -29,7 +29,7 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
         named = fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
         rootBlock = fetchType(_context,_fct.getRootNumber());
         kind = getKind(_fct.getClassMethodId());
-        className = getType(_context,_fct.getClassMethodId());
+        className = getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         offsetOper = _fct.getOffsetOper();

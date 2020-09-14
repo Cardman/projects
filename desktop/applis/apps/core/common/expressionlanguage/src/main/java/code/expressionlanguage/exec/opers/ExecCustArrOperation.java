@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -38,11 +37,11 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
 
-    public ExecCustArrOperation(ArrOperation _arr, ContextEl _context, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
+    public ExecCustArrOperation(ArrOperation _arr, ExecNamedFunctionBlock _get, ExecNamedFunctionBlock _set, ExecRootBlock _rootBlock) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
-        className = ExecOperationNode.getType(_context,_arr.getClassMethodId());
+        className = ExecOperationNode.getType(_arr.getClassMethodId());
         lastType = _arr.getLastType();
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();

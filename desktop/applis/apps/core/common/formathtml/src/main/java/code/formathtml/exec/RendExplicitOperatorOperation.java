@@ -30,7 +30,7 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
         named = ExecOperationNode.fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
         rootBlock = ExecOperationNode.fetchType(_context,_fct.getRootNumber());
         kind = ExecOperationNode.getKind(_fct.getClassMethodId());
-        className = ExecOperationNode.getType(_context,_fct.getClassMethodId());
+        className = ExecOperationNode.getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();
         naturalVararg = _fct.getNaturalVararg();
         offsetOper = _fct.getOffsetOper();

@@ -27,10 +27,10 @@ public final class ExecChoiceFctOperation extends ExecInvokingOperation {
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ContextEl _context, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
+    public ExecChoiceFctOperation(ChoiceFctOperation _choice, ExecNamedFunctionBlock _named, ExecRootBlock _rootBloc) {
         super(_choice);
         methodName = _choice.getMethodName();
-        className = ExecOperationNode.getType(_context,_choice.getClassMethodId());
+        className = ExecOperationNode.getType(_choice.getClassMethodId());
         lastType = _choice.getLastType();
         naturalVararg = _choice.getNaturalVararg();
         anc = _choice.getAnc();

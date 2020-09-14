@@ -19,10 +19,10 @@ public final class ExecCustNumericOperation extends ExecNumericOperation {
     private ExecNamedFunctionBlock named;
     private ExecRootBlock rootBlock;
 
-    public ExecCustNumericOperation(SymbolOperation _n,ContextEl _context, OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
+    public ExecCustNumericOperation(SymbolOperation _n, OperationNode _op, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_n,_op);
         kind = getKind(_n.getClassMethodId());
-        className = getType(_context,_n.getClassMethodId());
+        className = getType(_n.getClassMethodId());
         named = _named;
         rootBlock = _rootBlock;
     }
