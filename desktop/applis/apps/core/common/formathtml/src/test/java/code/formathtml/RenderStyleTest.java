@@ -20,7 +20,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -37,7 +37,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -54,7 +54,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -71,7 +71,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -88,7 +88,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -105,7 +105,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -123,7 +123,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -140,7 +140,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -157,7 +157,7 @@ public final class RenderStyleTest extends CommonRender {
         
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());

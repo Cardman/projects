@@ -43,11 +43,11 @@ public final class VarargOperation extends LeafOperation {
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordVararg());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordVararg());
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
@@ -59,11 +59,11 @@ public final class VarargOperation extends LeafOperation {
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordVararg());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordVararg());
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordVararg().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;

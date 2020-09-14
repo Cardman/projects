@@ -128,7 +128,7 @@ public final class AnaPartTypeUtil {
     public static AnaResultPartType processAccessAnalyze(String _input, boolean _rootName, String _globalType, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _an);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(), _input));
+            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(), _input));
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             _offs.add(new PartOffset(pref_, _loc));
             _offs.add(new PartOffset("</a>", _loc + _input.length()));
@@ -277,7 +277,7 @@ public final class AnaPartTypeUtil {
     private static void processErrorParamCount(ContextEl _context, AnaPartType current_) {
         AnaPartType ch_ = current_.getFirstChild();
         if (ch_ != null&&current_ instanceof AnaTemplatePartType) {
-            String err_ = FoundErrorInterpret.buildARError(_context.getAnalysisMessages().getBadParamerizedType(), ch_.getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(), ch_.getAnalyzedType());
             current_.getErrs().add(err_);
             return;
         }
@@ -288,7 +288,7 @@ public final class AnaPartTypeUtil {
         }
         if (l_ != null) {
             //inner
-            String err_ = FoundErrorInterpret.buildARError(_context.getAnalysisMessages().getBadParamerizedType(), l_.getAnalyzedType());
+            String err_ = FoundErrorInterpret.buildARError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(), l_.getAnalyzedType());
             current_.getErrs().add(err_);
             return;
         }
@@ -421,7 +421,7 @@ public final class AnaPartTypeUtil {
     private static AnaPartType getAnalyzeLine(String _input, ReadyTypes _ready, boolean _rootName, ContextEl _an, AccessedBlock _local, AccessedBlock _rooted, int _loc, CustList<AnaLeafPartType> _leaves, CustList<PartOffset> _offs) {
         Ints indexes_ = ParserType.getIndexes(_input.trim(), _an);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(), _input));
+            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(), _input));
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             _offs.add(new PartOffset(pref_,_loc));
             _offs.add(new PartOffset("</a>",_loc+_input.length()));
@@ -518,7 +518,7 @@ public final class AnaPartTypeUtil {
         _an.getAnalyzing().setLocalInType(_loc);
         _an.getAnalyzing().setRefFileName(_refFileName);
         if (indexes_ == null) {
-            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(), _input));
+            String err_ = LinkageUtil.transform(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(), _input));
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
             _offs.add(new PartOffset(pref_,_loc));
             _offs.add(new PartOffset("</a>",_loc+_input.length()));

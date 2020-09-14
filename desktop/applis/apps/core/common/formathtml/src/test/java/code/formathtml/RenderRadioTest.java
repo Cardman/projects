@@ -41,7 +41,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -78,7 +78,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -118,7 +118,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -157,7 +157,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -202,7 +202,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -241,7 +241,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.(index)\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -276,7 +276,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -312,7 +312,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, conf_);
@@ -353,7 +353,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -394,7 +394,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -442,7 +442,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -490,7 +490,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -538,7 +538,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -586,7 +586,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -624,7 +624,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -675,7 +675,7 @@ public final class RenderRadioTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -715,7 +715,7 @@ public final class RenderRadioTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

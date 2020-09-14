@@ -173,7 +173,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             abs_.setFileName(page_.getLocalizer().getCurrentFileName());
             //method name len
             abs_.buildError(
-                    _conf.getAnalysisMessages().getAbstractMethodRef(),
+                    _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(page_));
             page_.getLocalizer().addError(abs_);

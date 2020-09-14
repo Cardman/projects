@@ -39,8 +39,8 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(page_.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordFirstopt());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordFirstopt());
             page_.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -51,8 +51,8 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             varg_.setFileName(page_.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordFirstopt());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordFirstopt());
             page_.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));

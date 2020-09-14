@@ -19,7 +19,7 @@ public final class ProgressingTestsImpl implements ProgressingTests {
 
     @Override
     public void showErrors(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec) {
-        if (!_reportedMessages.isEmptyErrors()) {
+        if (!_reportedMessages.isAllEmptyErrors()) {
             String folder_ = _exec.getLogFolder();
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";

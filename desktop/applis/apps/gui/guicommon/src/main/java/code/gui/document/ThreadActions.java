@@ -131,7 +131,7 @@ public final class ThreadActions implements Runnable {
                 } else {
                     page.getNavigation().setFiles(fileNames);
                     ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit();
-                    if (!reportedMessages_.isEmptyErrors()) {
+                    if (!reportedMessages_.isAllEmptyErrors()) {
                         if (page.getArea() != null) {
                             page.getArea().append(reportedMessages_.displayErrors());
                         }

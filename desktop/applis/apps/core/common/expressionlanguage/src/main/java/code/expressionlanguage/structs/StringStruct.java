@@ -38,6 +38,10 @@ public final class StringStruct extends CharSequenceStruct implements AnaDisplay
     }
 
     @Override
+    public StringStruct getDisplayedString(ContextEl _an) {
+        return this;
+    }
+    @Override
     public String toStringInstance() {
         return instance;
     }

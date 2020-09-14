@@ -63,11 +63,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                     type_);
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(id_);
@@ -84,11 +84,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                             instanceTest = type_;
                         } else {
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_cont.getCurrentFileName());
+                            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                             un_.setIndexFile(valueOffset);
-                            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            _cont.addError(un_);
+                            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                         }
                     } else {
                         enumTest = true;
@@ -114,9 +114,9 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedSwitch(),
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
                     _cont.getKeyWords().getKeyWordSwitch(),
                     StringList.join(
                             new StringList(
@@ -124,7 +124,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                                     _cont.getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             first_ = first_.getNextSibling();
         }
     }

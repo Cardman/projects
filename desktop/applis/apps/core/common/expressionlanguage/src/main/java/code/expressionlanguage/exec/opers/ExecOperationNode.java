@@ -115,7 +115,7 @@ public abstract class ExecOperationNode {
     }
     public static String getType(ContextEl _cont,ClassMethodId _cl) {
         if (_cl == null) {
-            return _cont.getAnalyzing().getStandards().getAliasObject();
+            return "";
         }
         return _cl.getClassName();
     }
@@ -832,9 +832,6 @@ public abstract class ExecOperationNode {
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();
-        if (struct_ instanceof DisplayableStruct) {
-            return new Argument(((DisplayableStruct)struct_).getDisplayedString(_conf));
-        }
         String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         PolymorphMethod valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
@@ -851,7 +848,7 @@ public abstract class ExecOperationNode {
         }
         clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (methodCallBody_ == null) {
-            return new Argument(_conf.getStandards().getStringOfObject(_conf,struct_));
+            return new Argument(ExecCatOperation.getDisplayable(_argument,_conf).getDisplayedString(_conf));
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);

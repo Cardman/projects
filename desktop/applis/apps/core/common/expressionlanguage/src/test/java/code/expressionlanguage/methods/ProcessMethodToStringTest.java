@@ -32,7 +32,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -54,7 +54,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -81,7 +81,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -110,7 +110,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -168,7 +168,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -226,7 +226,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -252,7 +252,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -280,7 +280,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -343,7 +343,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -406,7 +406,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -463,7 +463,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -520,7 +520,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -582,7 +582,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -644,7 +644,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -678,7 +678,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -712,7 +712,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -743,7 +743,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -774,7 +774,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -811,7 +811,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -843,7 +843,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -881,7 +881,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -916,7 +916,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -941,7 +941,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -967,7 +967,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -993,7 +993,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1020,7 +1020,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1047,7 +1047,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1105,7 +1105,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1167,7 +1167,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1229,7 +1229,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1249,7 +1249,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1269,7 +1269,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1298,7 +1298,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1361,7 +1361,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1424,7 +1424,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1453,7 +1453,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1509,7 +1509,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1565,7 +1565,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1624,7 +1624,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1682,7 +1682,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1740,7 +1740,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1766,7 +1766,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1785,7 +1785,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1811,7 +1811,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1840,7 +1840,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1873,7 +1873,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElToString();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1895,7 +1895,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1922,7 +1922,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1944,7 +1944,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1971,7 +1971,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -1989,7 +1989,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
     }
     @Test
     public void calculate57Test() {
@@ -2002,7 +2002,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
     }
     @Test
     public void calculate58Test() {
@@ -2028,7 +2028,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2059,7 +2059,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2096,7 +2096,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2133,7 +2133,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2165,7 +2165,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2199,7 +2199,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2235,7 +2235,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2269,7 +2269,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2290,7 +2290,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2311,7 +2311,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2332,7 +2332,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2353,7 +2353,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2374,7 +2374,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2396,7 +2396,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2417,7 +2417,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2440,7 +2440,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -2463,7 +2463,7 @@ public final class ProcessMethodToStringTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;

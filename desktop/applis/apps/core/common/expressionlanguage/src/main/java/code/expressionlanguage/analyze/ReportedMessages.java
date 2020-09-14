@@ -19,6 +19,9 @@ public final class ReportedMessages {
     private StringMap<String> errors = new StringMap<String>();
 
 
+    public boolean isAllEmptyErrors() {
+        return isEmptyMessageError()&&isEmptyStdError()&&isEmptyErrors();
+    }
     public boolean isEmptyErrors() {
         return errorsDet.isEmpty();
     }

@@ -37,7 +37,7 @@ public final class AnonymousInstancingOperation extends
 
     @Override
     public void preAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
@@ -53,7 +53,7 @@ public final class AnonymousInstancingOperation extends
         index = page_.getLocalizer().getCurrentLocationIndex();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
         setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = realClassName_.indexOf("}");
@@ -66,7 +66,7 @@ public final class AnonymousInstancingOperation extends
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //original type len
-            static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
@@ -89,7 +89,7 @@ public final class AnonymousInstancingOperation extends
         static_.setFileName(page_.getLocalizer().getCurrentFileName());
         static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //key word len
-        static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+        static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                 realClassName_);
         page_.getLocalizer().addError(static_);
         getErrs().add(static_.getBuiltError());
@@ -106,7 +106,7 @@ public final class AnonymousInstancingOperation extends
             call_.setFileName(page_.getLocalizer().getCurrentFileName());
             call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             page_.getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -125,7 +125,7 @@ public final class AnonymousInstancingOperation extends
                 call_.setFileName(page_.getLocalizer().getCurrentFileName());
                 call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
                 page_.getLocalizer().addError(call_);
@@ -136,7 +136,7 @@ public final class AnonymousInstancingOperation extends
                 call_.setFileName(page_.getLocalizer().getCurrentFileName());
                 call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
                 page_.getLocalizer().addError(call_);

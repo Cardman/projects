@@ -44,14 +44,14 @@ public final class DoBlock extends BracedBlock implements Loop {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
-                    _an.getKeyWords().getKeyWordDo(),
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getAnalyzing().getKeyWords().getKeyWordDo(),
                     StringList.join(
                             new StringList(
-                                    _an.getKeyWords().getKeyWordWhile()
+                                    _an.getAnalyzing().getKeyWords().getKeyWordWhile()
                             ),
                             "|"));
-            _an.addError(un_);
+            _an.getAnalyzing().addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
             return;
@@ -61,14 +61,14 @@ public final class DoBlock extends BracedBlock implements Loop {
             un_.setFileName(nextSibling_.getFile().getFileName());
             un_.setIndexFile(nextSibling_.getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
-                    _an.getKeyWords().getKeyWordDo(),
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                    _an.getAnalyzing().getKeyWords().getKeyWordDo(),
                     StringList.join(
                             new StringList(
-                                    _an.getKeyWords().getKeyWordWhile()
+                                    _an.getAnalyzing().getKeyWords().getKeyWordWhile()
                             ),
                             "|"));
-            _an.addError(un_);
+            _an.getAnalyzing().addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         }
@@ -81,7 +81,7 @@ public final class DoBlock extends BracedBlock implements Loop {
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
 }

@@ -43,7 +43,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             String arg_ = _conf.getAnalyzing().getGlobalClass();
             setResultClass(new ClassArgumentMatching(arg_));
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
@@ -78,7 +78,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -117,7 +117,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(getResultClass().getNames(),"&"),
                         classType);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -131,7 +131,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
                 static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //kw_ len
-                static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccess(),
                         kw_);
                 _conf.getAnalyzing().getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());

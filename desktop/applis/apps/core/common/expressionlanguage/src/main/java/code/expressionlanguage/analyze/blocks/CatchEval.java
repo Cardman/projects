@@ -60,22 +60,22 @@ public final class CatchEval extends AbstractCatchEval {
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void processVariable(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.getCoverage().putCatches(_cont,this);
+        page_.getCoverage().putCatches(this);
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFileName(getFile().getFileName());
             d_.setIndexFile(variableNameOffset);
             //variable name
             d_.setBuiltError(res_.getMessage());
-            _cont.addError(d_);
+            _cont.getAnalyzing().addLocError(d_);
             nameErrors.add(d_.getBuiltError());
             return;
         }

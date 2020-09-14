@@ -195,7 +195,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             checkBoolCondition(_cont, l_);
             rootExp = page_.getCurrentRoot();
         }
-        page_.getCoverage().putBlockOperationsConditions(_cont,this);
+        page_.getCoverage().putBlockOperationsConditions(this);
         MemberCallingsBlock f_1 = _cont.getAnalyzing().getCurrentFct();
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
@@ -219,7 +219,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
 
     }
 
@@ -248,16 +248,16 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!className.isEmpty()) {
-            KeyWords keyWords_ = _cont.getKeyWords();
+            KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
@@ -296,9 +296,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(expressionOffset);
                     //second ; char
-                    un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(exp_.getNames(),"&"));
-                    _cont.addError(un_);
+                    _cont.getAnalyzing().addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());
                 }

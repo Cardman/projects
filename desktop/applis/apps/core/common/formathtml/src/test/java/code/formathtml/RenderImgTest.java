@@ -36,7 +36,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><img src=\"7\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -70,7 +70,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><img src=\"content\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -105,7 +105,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><img src=\"{info}\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -139,7 +139,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><img name=\"\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -173,7 +173,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -207,7 +207,7 @@ public final class RenderImgTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);

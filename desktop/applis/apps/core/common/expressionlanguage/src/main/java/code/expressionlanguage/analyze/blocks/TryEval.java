@@ -44,7 +44,7 @@ public final class TryEval extends BracedBlock implements Eval {
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
@@ -56,15 +56,15 @@ public final class TryEval extends BracedBlock implements Eval {
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
-                un_.buildError(_an.getAnalysisMessages().getUnexpectedDoTry(),
-                        _an.getKeyWords().getKeyWordTry(),
+                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordTry(),
                         StringList.join(
                                 new StringList(
-                                        _an.getKeyWords().getKeyWordCatch(),
-                                        _an.getKeyWords().getKeyWordFinally()
+                                        _an.getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                        _an.getAnalyzing().getKeyWords().getKeyWordFinally()
                                 ),
                                 "|"));
-                _an.addError(un_);
+                _an.getAnalyzing().addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }

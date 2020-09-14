@@ -60,7 +60,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedAffect(),
                     oper);
             page_.getLocalizer().addError(un_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
@@ -83,7 +83,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
@@ -124,7 +124,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(getResultClass().getNames(),"&"),
                             StringList.join(elt_.getResultClass().getNames(),"&"));
                     page_.getLocalizer().addError(cast_);
@@ -151,7 +151,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
                     page_.getLocalizer().addError(cast_);
@@ -170,7 +170,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
@@ -187,7 +187,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
@@ -217,7 +217,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
@@ -240,7 +240,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
@@ -275,7 +275,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(clMatchRight_.getNames(),"&"),
                             StringList.join(clMatchLeft_.getNames(),"&"));
                     page_.getLocalizer().addError(cast_);
@@ -294,7 +294,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             cast_.setFileName(page_.getLocalizer().getCurrentFileName());
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper len
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
             page_.getLocalizer().addError(cast_);

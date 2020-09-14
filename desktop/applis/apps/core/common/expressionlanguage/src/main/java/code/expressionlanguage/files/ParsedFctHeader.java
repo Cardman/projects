@@ -24,7 +24,7 @@ public final class ParsedFctHeader {
     private int returnOffest;
     private int offsetLast;
     public void parse(int _paramOffest, String _info, int _offset, ContextEl _context) {
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         parse(_paramOffest, _info, _offset, keyWordIntern_);
     }

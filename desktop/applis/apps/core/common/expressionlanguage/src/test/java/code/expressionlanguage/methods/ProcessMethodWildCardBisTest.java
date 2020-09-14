@@ -41,7 +41,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -94,7 +94,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -141,7 +141,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -198,7 +198,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -246,7 +246,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -294,7 +294,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -342,7 +342,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -390,7 +390,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -438,7 +438,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -487,7 +487,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -535,7 +535,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -583,7 +583,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -631,7 +631,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -672,7 +672,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument144Test() {
@@ -707,7 +707,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -755,7 +755,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -803,7 +803,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -845,7 +845,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -891,7 +891,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -937,7 +937,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -991,7 +991,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1039,7 +1039,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1087,7 +1087,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument2FailTest() {
@@ -1122,7 +1122,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument162Test() {
@@ -1157,7 +1157,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1197,7 +1197,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1245,7 +1245,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument16FailTest() {
@@ -1260,7 +1260,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument17FailTest() {
@@ -1275,7 +1275,7 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument18FailTest() {
@@ -1290,6 +1290,6 @@ public final class ProcessMethodWildCardBisTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

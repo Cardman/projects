@@ -55,7 +55,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -103,7 +103,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -150,7 +150,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select id=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -197,7 +197,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select c:groupId=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -247,7 +247,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -297,7 +297,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -353,7 +353,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -412,7 +412,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -471,7 +471,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -527,7 +527,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\" rows=\"4\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -583,7 +583,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -633,7 +633,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -696,7 +696,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -752,7 +752,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -808,7 +808,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -861,7 +861,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -914,7 +914,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -970,7 +970,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1027,7 +1027,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1083,7 +1083,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1139,7 +1139,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1195,7 +1195,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1246,7 +1246,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1303,7 +1303,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1354,7 +1354,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1408,7 +1408,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1456,7 +1456,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1503,7 +1503,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1553,7 +1553,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1603,7 +1603,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1641,7 +1641,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select><select name=\"bean_one.choice2\" n-i=\"1\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1679,7 +1679,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form><form c:command=\"page1.html\" action=\"\" n-f=\"1\"><select name=\"bean_one.choice2\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1726,7 +1726,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1772,7 +1772,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -1820,7 +1820,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -1868,7 +1868,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -1916,7 +1916,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -1964,7 +1964,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -2163,7 +2163,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -2211,7 +2211,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -2256,7 +2256,7 @@ public final class RenderSelectTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

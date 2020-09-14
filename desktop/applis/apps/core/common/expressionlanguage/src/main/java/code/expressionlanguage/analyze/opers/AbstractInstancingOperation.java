@@ -51,7 +51,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     }
 
     void tryAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = methodName.trim().substring(newKeyWord_.length());
         int j_ = afterNew_.indexOf("}");
@@ -67,7 +67,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         String className_ = afterNew_.trim();
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
         AnalyzedPageEl page_ = _an.getAnalyzing();
-        ints_.parse(_an.getKeyWords(),0,newKeyWord_.length()+local_+ page_.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_an.getAnalyzing().getKeyWords(),0,newKeyWord_.length()+local_+ page_.getLocalizer().getCurrentLocationIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
         staticInitInterfacesOffset = ints_.getStaticInitInterfacesOffset();
         local_ = ints_.getLocIndex();
@@ -357,7 +357,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //original type len
-                static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                         _realClassName);
                 _conf.getAnalyzing().getLocalizer().addError(static_);
                 _errs.add(static_.getBuiltError());
@@ -372,7 +372,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //original type len
-                    static_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             glClass_,
                             outer_);
                     _conf.getAnalyzing().getLocalizer().addError(static_);

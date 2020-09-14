@@ -56,7 +56,7 @@ public final class LocalThrowing {
                         n_ = n_.getNextSibling();
                     }
                     if (catchElt_ != null) {
-                        _conf.getCoverage().passCatches(_conf,catchElt_);
+                        _conf.getCoverage().passCatches(catchElt_);
                         ExecBlock childCatch_ = catchElt_.getFirstChild();
                         bkIp_.getReadWrite().setBlock(childCatch_);
                         return;

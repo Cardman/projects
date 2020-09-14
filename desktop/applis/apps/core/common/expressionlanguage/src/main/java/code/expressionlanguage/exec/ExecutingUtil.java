@@ -147,7 +147,7 @@ public final class ExecutingUtil {
     public static MethodPageEl createCallingMethod(ContextEl _context, Argument _gl, String _class, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-        _context.getCoverage().passCalls(_context,idCl_,_method);
+        _context.getCoverage().passCalls(idCl_,_method);
         String ret_ = _method.getImportedReturnType();
         MethodPageEl pageLoc_ = new MethodPageEl(_context,ret_,_gl,_class,_args.getRight());
         pageLoc_.setBlockRootType(_rootBlock);
@@ -165,7 +165,7 @@ public final class ExecutingUtil {
     public static CastPageEl createCallingCast(ContextEl _context, String _class, ExecRootBlock _rootBlock,ExecNamedFunctionBlock _method, Parameters _args) {
         _context.setCallingState(null);
         String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-        _context.getCoverage().passCalls(_context,idCl_,_method);
+        _context.getCoverage().passCalls(idCl_,_method);
         String ret_ = _method.getImportedReturnType();
         CastPageEl pageLoc_ = new CastPageEl(_context,ret_,Argument.createVoid(),_class);
         pageLoc_.setBlockRootType(_rootBlock);
@@ -249,7 +249,7 @@ public final class ExecutingUtil {
         ReadWrite rw_ = new ReadWrite();
         if (_ctor != null) {
             String idCl_ = StringExpUtil.getIdFromAllTypes(_class);
-            _context.getCoverage().passCalls(_context,idCl_,_ctor);
+            _context.getCoverage().passCalls(idCl_,_ctor);
             _page.getValueVars().putAllMap(_args.getParameters());
             ExecBlock firstChild_ = _ctor.getFirstChild();
             rw_.setBlock(firstChild_);

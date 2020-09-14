@@ -26,7 +26,6 @@ import code.threads.AbstractLock;
 import code.threads.LockFactory;
 import code.threads.ThreadUtil;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -626,7 +625,7 @@ public class LgNamesUtils extends LgNames {
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
         String content_ = infos.getReader().read("resources_lg/threads/runnable.txt");
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -1007,7 +1006,7 @@ public class LgNamesUtils extends LgNames {
         return stds_;
     }
     protected static String tr(String _var, ContextEl _context, String... _args) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         for (String p:_args) {

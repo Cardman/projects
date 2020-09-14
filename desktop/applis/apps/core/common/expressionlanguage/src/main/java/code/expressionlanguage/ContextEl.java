@@ -1,48 +1,57 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.errors.stds.StdWordError;
+import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.coverage.Coverage;
-import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.types.*;
+import code.expressionlanguage.types.DefaultAnnotationAnalysis;
+import code.expressionlanguage.types.DefaultBuildingConstraints;
+import code.expressionlanguage.types.DefaultCurrentConstraints;
+import code.expressionlanguage.types.DefaultCurrentGlobalBlock;
+import code.expressionlanguage.types.DefaultHiddenTypes;
+import code.expressionlanguage.types.DefaultLocalDeclaring;
+import code.expressionlanguage.types.DefaultLocalizer;
+import code.expressionlanguage.types.DefaultLoopDeclaring;
+import code.expressionlanguage.types.DefaultTokenValidation;
 import code.util.*;
 
 public abstract class ContextEl {
 
-    private CommonExecutionInfos executionInfos;
+    private final CommonExecutionInfos executionInfos;
 
     private CallingState callingState;
 
     private AnalyzedPageEl analyzing;
 
-    private CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
+    private final CustList<AbstractPageEl> importing = new CustList<AbstractPageEl>();
 
-    private InitializingTypeInfos initializingTypeInfos = new InitializingTypeInfos();
+    private InitializingTypeInfos initializingTypeInfos;
     private AbstractFullStack fullStack;
-    private Struct seed = NullStruct.NULL_VALUE;
+    private Struct seed;
 
-    public ContextEl(int _stackOverFlow,
-                     DefaultLockingClass _lock, Options _options,
-                     LgNames _stds, int _tabWitdth) {
-        this();
-        setExecutionInfos(new CommonExecutionInfos(_tabWitdth,_stackOverFlow,_stds,new Classes(),new Coverage(_options.isCovering())));
-        getExecutionInfos().getClasses().setLocks(_lock);
+    protected ContextEl(int _stackOverFlow,
+                        DefaultLockingClass _lock, Options _options,
+                        LgNames _stds, int _tabWitdth) {
+        executionInfos = new CommonExecutionInfos(_tabWitdth,_stackOverFlow,_stds,new Classes(),new Coverage(_options.isCovering()));
+        executionInfos.getClasses().setLocks(_lock);
+        initializingTypeInfos = new InitializingTypeInfos();
+        seed = NullStruct.NULL_VALUE;
     }
-    protected ContextEl() {
-        setFullStack(new DefaultFullStack(this));
+    protected ContextEl(ContextEl _ctx) {
+        executionInfos = _ctx.executionInfos;
+        callingState = null;
+        analyzing = null;
+        fullStack = null;
+        initializingTypeInfos = new InitializingTypeInfos();
+        seed = NullStruct.NULL_VALUE;
     }
 
     public GeneType getClassBody(String _type) {
@@ -53,14 +62,6 @@ public abstract class ContextEl {
         return executionInfos.getStandards().getStandards().getVal(_type);
     }
 
-    public CommonExecutionInfos getExecutionInfos() {
-        return executionInfos;
-    }
-
-    public void setExecutionInfos(CommonExecutionInfos executionInfos) {
-        this.executionInfos = executionInfos;
-    }
-
     public int getStackOverFlow() {
         return executionInfos.getStackOverFlow();
     }
@@ -69,39 +70,6 @@ public abstract class ContextEl {
         return executionInfos.getTabWidth();
     }
 
-    private String getLocationFile(String _fileName, int _sum) {
-        FileBlock file_ = analyzing.getFileBody(_fileName);
-        FileMetrics metrics_ = file_.getMetrics(analyzing.getTabWidth());
-        int r_ = metrics_.getRowFile(_sum);
-        int c_ = metrics_.getColFile(_sum,r_);
-        return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
-    }
-
-    public void addWarning(FoundWarningInterpret _warning) {
-        _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
-        analyzing.addWarning(_warning);
-    }
-
-    public boolean isEmptyMessageError() {
-        return analyzing.isEmptyMessageError();
-    }
-    public void addMessageError(String _std) {
-        analyzing.addMessageError(_std);
-    }
-
-    public boolean isEmptyErrors() {
-        return analyzing == null || (analyzing.isEmptyErrors() && analyzing.isEmptyStdError() && analyzing.isEmptyMessageError());
-    }
-    public boolean isEmptyStdError() {
-        return analyzing.isEmptyStdError();
-    }
-    public void addStdError(StdWordError _std) {
-        analyzing.addStdError(_std);
-    }
-    public void addError(FoundErrorInterpret _error) {
-        _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
-        analyzing.addError(_error);
-    }
 
     public Classes getClasses() {
         return executionInfos.getClasses();
@@ -109,18 +77,6 @@ public abstract class ContextEl {
 
     public Coverage getCoverage() {
         return executionInfos.getCoverage();
-    }
-
-    public boolean isGettingParts() {
-        return isCovering() || isGettingErrors();
-    }
-
-    public boolean isCovering() {
-        return analyzing.getCoverage().isCovering();
-    }
-
-    public boolean isGettingErrors() {
-        return analyzing.isGettingErrors();
     }
 
     public void clearPages() {
@@ -145,34 +101,34 @@ public abstract class ContextEl {
         importing.add(_page);
     }
 
-    public String getCurrentFileName() {
-        return analyzing.getCurrentBlock().getFile().getFileName();
-    }
-
     public AnalyzedPageEl getAnalyzing() {
         return analyzing;
     }
 
     public void setAnalyzing() {
-        analyzing = new AnalyzedPageEl();
-        analyzing.setProcessKeyWord(new DefaultProcessKeyWord());
-        analyzing.setHiddenTypes(new DefaultHiddenTypes(this));
-        analyzing.setCurrentConstraints(new DefaultCurrentConstraints(this));
-        analyzing.setAnnotationAnalysis(new DefaultAnnotationAnalysis(this));
-        analyzing.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(this));
-        analyzing.setLoopDeclaring(new DefaultLoopDeclaring(this));
-        analyzing.setLocalDeclaring(new DefaultLocalDeclaring(this));
-        analyzing.setBuildingConstraints(new DefaultBuildingConstraints(this));
-        analyzing.setLocalizer(new DefaultLocalizer(this));
-        analyzing.setTokenValidation(new DefaultTokenValidation(this));
+        analyzing = setInnerAnalyzing();
     }
-    public void forwardAndClear() {
-        for (ClassMetaInfo c: getAnalyzing().getClassMetaInfos()) {
-            getAnalyzing().getClasses().getClassMetaInfos().add(c);
+    public static AnalyzedPageEl setInnerAnalyzing() {
+        AnalyzedPageEl page_ = new AnalyzedPageEl();
+        page_.setProcessKeyWord(new DefaultProcessKeyWord());
+        page_.setHiddenTypes(new DefaultHiddenTypes(page_));
+        page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
+        page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
+        page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
+        page_.setLoopDeclaring(new DefaultLoopDeclaring(page_));
+        page_.setLocalDeclaring(new DefaultLocalDeclaring(page_));
+        page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
+        page_.setLocalizer(new DefaultLocalizer(page_));
+        page_.setTokenValidation(new DefaultTokenValidation(page_));
+        return page_;
+    }
+    public void forwardAndClear(AnalyzedPageEl _ana) {
+        for (ClassMetaInfo c: _ana.getClassMetaInfos()) {
+            _ana.getClasses().getClassMetaInfos().add(c);
         }
-        getAnalyzing().getClassMetaInfos().clear();
-        getAnalyzing().getClasses().setKeyWordValue(getKeyWords().getKeyWordValue());
-        ValidatorStandard.buildIterable(this);
+        _ana.getClassMetaInfos().clear();
+        _ana.getClasses().setKeyWordValue(_ana.getKeyWords().getKeyWordValue());
+        ValidatorStandard.buildIterable(_ana);
     }
     public void setNullAnalyzing() {
         analyzing = null;
@@ -184,11 +140,6 @@ public abstract class ContextEl {
 
     public LgNames getStandards() {
         return executionInfos.getStandards();
-    }
-
-    public void setGlobalClass(String _globalClass) {
-        analyzing.setGlobalClass(_globalClass);
-        analyzing.setGlobalType(analyzing.getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
     }
 
     public void setOffset(int _offset) {
@@ -231,10 +182,6 @@ public abstract class ContextEl {
 
     public abstract Initializer getInit();
 
-    public void setCurrentChildTypeIndex(int _index) {
-        analyzing.setIndexChildType(_index);
-    }
-
     public AbstractFullStack getFullStack() {
         return fullStack;
     }
@@ -243,77 +190,6 @@ public abstract class ContextEl {
         this.fullStack = fullStack;
     }
 
-    public StringList getNeedInterfaces() {
-        return analyzing.getNeedInterfaces();
-    }
-
-
-    public boolean isAssignedStaticFields() {
-        return analyzing.isAssignedStaticFields();
-    }
-
-    public void setAssignedStaticFields(boolean _assignedStaticFields) {
-        analyzing.setAssignedStaticFields(_assignedStaticFields);
-    }
-
-    public boolean isAssignedFields() {
-        return analyzing.isAssignedFields();
-    }
-
-    public void setAssignedFields(boolean _assignedFields) {
-        analyzing.setAssignedFields(_assignedFields);
-    }
-
-    public String getIndexClassName() {
-        return ((ForMutableIterativeLoop)analyzing.getCurrentBlock()).getImportedClassIndexName();
-    }
-
-    public boolean isAnnotAnalysis() {
-        return analyzing.isAnnotAnalysis();
-    }
-
-    public void setAnnotAnalysis(boolean _ana) {
-        analyzing.setAnnotAnalysis(_ana);
-    }
-    public boolean isAnnotAnalysisField() {
-        return analyzing.isAnnotAnalysisField();
-    }
-
-    public void setAnnotAnalysisField(boolean _ana) {
-        analyzing.setAnnotAnalysisField(_ana);
-    }
-
-    public int getCurrentLocationIndex() {
-        return analyzing.getTraceIndex();
-    }
-
-    public AnalysisMessages getAnalysisMessages() {
-        return analyzing.getAnalysisMessages();
-    }
-
-    public KeyWords getKeyWords() {
-        return analyzing.getKeyWords();
-    }
-
-
-    public AccessedBlock getCurrentGlobalBlockImporting() {
-        return getAnalyzing().getImportingTypes();
-    }
-
-    public ExecAccessingImportingBlock getImportingAcces() {
-        return getAnalyzing().getImportingAcces();
-    }
-
-    public AccessedBlock getCurrentGlobalBlock() {
-        return getAnalyzing().getImporting();
-    }
-
-
-    public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
-        CustList<PartOffset> offs_ = getAnalyzing().getCurrentParts();
-        offs_.clear();
-        return _bl;
-    }
 
     public InitializingTypeInfos getInitializingTypeInfos() {
         return initializingTypeInfos;

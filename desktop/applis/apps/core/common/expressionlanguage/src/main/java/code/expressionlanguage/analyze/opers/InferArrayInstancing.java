@@ -118,7 +118,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         } else {
             type_ = tryGetTypeAff(m_);
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(type_,keyWordVar_)) {
             IntTreeMap<String> operators_ = getOperations().getOperators();
@@ -128,7 +128,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setIndexFile(i_);
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     type_);
             page_.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -147,7 +147,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setIndexFile(i_);
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     n_);
             page_.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -165,7 +165,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             un_.setIndexFile(i_);
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     cp_);
             page_.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -200,7 +200,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     int i_ = page_.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             classNameFinal_);
                     page_.getLocalizer().addError(cast_);

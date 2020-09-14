@@ -1,13 +1,13 @@
 package code.expressionlanguage.analyze.util;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
@@ -20,7 +20,7 @@ public final class ContextUtil {
     }
 
     public static boolean canAccess(String _className, AccessibleBlock _block, ContextEl _context) {
-        CodeAccess code_ = processBegin(_className, _block, _context);
+        CodeAccess code_ = processBegin(_className, _block, _context.getAnalyzing());
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
@@ -28,20 +28,20 @@ public final class ContextUtil {
         String belongPkg_ = _block.getPackageName();
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
-            return processNormalProtected(_block, _context, root_, belongPkg_, rootPkg_);
+            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _context.getAnalyzing());
         }
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
     }
 
-    private static boolean processNormalProtected(AccessibleBlock _block, ContextEl _context, RootBlock root_, String belongPkg_, String rootPkg_) {
-        if (root_.isSubTypeOf(_block.getFullName(),_context.getAnalyzing())) {
+    private static boolean processNormalProtected(AccessibleBlock _block, RootBlock root_, String belongPkg_, String rootPkg_, AnalyzedPageEl _analyzing) {
+        if (root_.isSubTypeOf(_block.getFullName(), _analyzing)) {
             return true;
         }
         return StringList.quickEq(belongPkg_, rootPkg_);
     }
 
-    public static boolean canAccessType(String _className, AccessibleBlock _block, ContextEl _context) {
-        CodeAccess code_ = processBegin(_className, _block, _context);
+    public static boolean canAccessType(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
+        CodeAccess code_ = processBegin(_className, _block, _analyzing);
         RootBlock root_ = code_.getRoot();
         if (root_ == null) {
             return access(code_.getCode());
@@ -51,20 +51,20 @@ public final class ContextUtil {
         String rootPkg_ = root_.getPackageName();
         if (_block.getAccess() == AccessEnum.PROTECTED) {
             if (!parName_.isEmpty()) {
-                if (root_.isSubTypeOf(parName_,_context.getAnalyzing())) {
+                if (root_.isSubTypeOf(parName_, _analyzing)) {
                     return true;
                 }
             }
-            return processNormalProtected(_block, _context, root_, belongPkg_, rootPkg_);
+            return processNormalProtected(_block, root_, belongPkg_, rootPkg_, _analyzing);
         }
         return processPackagePrivate(_block, root_, belongPkg_, rootPkg_);
     }
-    private static CodeAccess processBegin(String _className, AccessibleBlock _block, ContextEl _context) {
+    private static CodeAccess processBegin(String _className, AccessibleBlock _block, AnalyzedPageEl _analyzing) {
         if (_block.getAccess() == AccessEnum.PUBLIC) {
             return new CodeAccess(2,null);
         }
         String baseClass_ = StringExpUtil.getIdFromAllTypes(_className);
-        RootBlock root_ = _context.getAnalyzing().getAnaClassBody(baseClass_);
+        RootBlock root_ = _analyzing.getAnaClassBody(baseClass_);
         if (root_ == null) {
             return new CodeAccess(0,null);
         }
@@ -119,7 +119,7 @@ public final class ContextUtil {
                 call_.setFileName(file_);
                 call_.setIndexFile(fileIndex_);
                 //type len
-                call_.buildError(_an.getAnalysisMessages().getIllegalCtorEnum());
+                call_.buildError(_an.getAnalyzing().getAnalysisMessages().getIllegalCtorEnum());
                 _an.getAnalyzing().getLocalizer().addError(call_);
                 _op.setResultClass(new ClassArgumentMatching(_realClassName));
                 _op.getErrs().add(call_.getBuiltError());
@@ -167,43 +167,43 @@ public final class ContextUtil {
                 ||((OverridableBlock) _fct).getKind() == MethodKind.FALSE_OPERATOR);
     }
 
-    public static boolean idDisjointToken(ContextEl _cont, String _id) {
-        return isNotVar(_cont,_id);
+    public static boolean idDisjointToken(String _id, AnalyzedPageEl _analyzing) {
+        return isNotVar(_id, _analyzing);
     }
 
-    public static boolean isNotVar(ContextEl _cont, String _id) {
-        return !_cont.getAnalyzing().getInfosVars().contains(_id);
+    public static boolean isNotVar(String _id, AnalyzedPageEl _analyzing) {
+        return !_analyzing.getInfosVars().contains(_id);
     }
 
-    public static StringMap<StringList> getCurrentConstraints(ContextEl _cont) {
+    public static StringMap<StringList> getCurrentConstraints(AnalyzedPageEl _analyzing) {
         StringMap<StringList> vars_ = new StringMap<StringList>();
-        for (EntryCust<String,TypeVar> e: getCurrentConstraintsFull(_cont).entryList()) {
+        for (EntryCust<String,TypeVar> e: getCurrentConstraintsFull(_analyzing).entryList()) {
             vars_.addEntry(e.getKey(), e.getValue().getConstraints());
         }
         return vars_;
     }
 
-    public static void buildCurrentConstraintsFull(ContextEl _cont) {
-        StringMap<TypeVar> vars_ = getCurrentConstraintsFull(_cont);
-        _cont.getAnalyzing().getAvailableVariables().clear();
+    public static void buildCurrentConstraintsFull(AnalyzedPageEl _page) {
+        StringMap<TypeVar> vars_ = getCurrentConstraintsFull(_page);
+        _page.getAvailableVariables().clear();
         for (EntryCust<String,TypeVar> e: vars_.entryList()) {
-            _cont.getAnalyzing().getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
+            _page.getAvailableVariables().addEntry(e.getKey(),e.getValue().getOffset());
         }
     }
 
-    private static StringMap<TypeVar> getCurrentConstraintsFull(ContextEl _cont) {
-        if (_cont.isAnnotAnalysis()) {
+    private static StringMap<TypeVar> getCurrentConstraintsFull(AnalyzedPageEl _page) {
+        if (_page.isAnnotAnalysis()) {
             return new StringMap<TypeVar>();
         }
-        Block bl_ = _cont.getAnalyzing().getCurrentBlock();
-        AccessedBlock r_ =_cont.getCurrentGlobalBlock();
+        Block bl_ = _page.getCurrentBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<TypeVar> vars_ = new StringMap<TypeVar>();
 
         boolean static_;
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            MemberCallingsBlock fct_ = _cont.getAnalyzing().getCurrentFct();
+            MemberCallingsBlock fct_ = _page.getCurrentFct();
             if (fct_ == null) {
                 static_ = true;
             } else if (isExplicitFct(fct_)){
@@ -225,15 +225,16 @@ public final class ContextUtil {
     }
 
     public static void appendParts(ContextEl _cont,int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.isGettingParts()) {
+        if (!_cont.getAnalyzing().isGettingParts()) {
             return;
         }
-        AnaGeneType g_ = _cont.getAnalyzing().getAnaGeneType(_in);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnaGeneType g_ = page_.getAnaGeneType(_in);
         if (!isFromCustFile(g_)) {
             return;
         }
-        AccessedBlock r_ = _cont.getCurrentGlobalBlock();
-        int rc_ = _cont.getCurrentLocationIndex();
+        AccessedBlock r_ = page_.getImporting();
+        int rc_ = _cont.getAnalyzing().getTraceIndex();
         String curr_ = ((Block)r_).getFile().getRenderFileName();
         String ref_ = ((RootBlock) g_).getFile().getRenderFileName();
         String rel_ = LinkageUtil.relativize(curr_,ref_);
@@ -243,10 +244,10 @@ public final class ContextUtil {
     }
 
     public static void appendTitleParts(ContextEl _cont, int _begin, int _end, String _in, CustList<PartOffset> _parts) {
-        if (!_cont.isGettingParts()) {
+        if (!_cont.getAnalyzing().isGettingParts()) {
             return;
         }
-        int rc_ = _cont.getCurrentLocationIndex();
+        int rc_ = _cont.getAnalyzing().getTraceIndex();
         _parts.add(new PartOffset("<a title=\""+LinkageUtil.transform(_in)+"\">",rc_+_begin));
         _parts.add(new PartOffset("</a>",rc_+_end));
     }
@@ -258,11 +259,22 @@ public final class ContextUtil {
         return !((RootBlock)_g).getFile().isPredefined();
     }
     public static boolean isFinalField(ContextEl _cont, ClassField _classField) {
-        FieldInfo fieldInfo_ = getFieldInfo(_cont, _classField);
-        if (fieldInfo_ == null) {
-            return false;
+        String fullName_ = _classField.getClassName();
+        String search_ = _classField.getFieldName();
+        RootBlock cust_ = _cont.getAnalyzing().getAnaClassBody(fullName_);
+        boolean finalField_ = false;
+        for (Block b: ClassesUtil.getDirectChildren(cust_)) {
+            if (!(b instanceof InfoBlock)) {
+                continue;
+            }
+            InfoBlock i_ = (InfoBlock) b;
+            int ind_ = StringList.indexOf(i_.getFieldName(), search_);
+            if (ind_ < 0) {
+                continue;
+            }
+            finalField_ = i_.isFinalField();
         }
-        return fieldInfo_.isFinalField();
+        return finalField_;
     }
     public static FieldInfo getFieldInfo(ContextEl _cont, ClassField _classField) {
         String fullName_ = _classField.getClassName();

@@ -959,9 +959,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
     private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
-        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
+        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(_cont));
         ClassesUtil.validateInheritingClasses(_cont);
-        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), _cont.isEmptyErrors());
+        assertTrue(_cont.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(_cont));
         return _cont;
     }
 

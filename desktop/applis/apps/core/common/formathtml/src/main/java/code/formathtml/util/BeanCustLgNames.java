@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
@@ -230,7 +231,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     public void buildIterables(Configuration _context) {
         _context.getImporting().add(new ImportingPage());
-        _context.setupInts();
+        Configuration.setupInts(_context.getContext().getAnalyzing(), _context.getAnalyzingDoc());
         StringMap<String> args_ = new StringMap<String>();
         StringList l_ = new StringList();
         String locName_ = tr(l_);
@@ -494,7 +495,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> files_ = super.buildFiles(_context);
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -829,25 +830,25 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return candidate_;
     }
     private static String tr(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trLoop(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trParam(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
     private static String trLoc(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
@@ -868,15 +869,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setupRendClasses(_conf,_files);
         _nav.initInstancesPattern();
         _nav.setupRenders();
-        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
-        if (!messages_.isEmptyErrors()) {
+        AnalyzedPageEl page_ = _conf.getContext().getAnalyzing();
+        ReportedMessages messages_ = page_.getMessages();
+        if (!messages_.isAllEmptyErrors()) {
             return messages_;
         }
-        Classes.forwardAndClear(_conf.getContext());
+        Classes.forwardAndClear(_conf.getContext(), page_);
         buildIterables(_conf);
-        AnalysisMessages analysisMessages_ = _conf.getContext().getAnalyzing().getAnalysisMessages();
-        Options options_ = _conf.getContext().getAnalyzing().getOptions();
-        _conf.getContext().setNullAnalyzing();
+        AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
+        Options options_ = page_.getOptions();
+        _conf.setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_, options_);
         _conf.getContext().setFullStack(new AdvancedFullStack(_conf));

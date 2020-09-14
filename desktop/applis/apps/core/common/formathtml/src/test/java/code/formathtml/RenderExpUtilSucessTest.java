@@ -6810,7 +6810,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     private static Argument processElNormal(String _el, Configuration _cont) {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
+            _cont.getContext().getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
         }
         Argument arg_ = processEl(_el, 0, _cont);
         assertNull(getException(_cont));
@@ -6829,7 +6829,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
         CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
-        assertTrue(context_.isEmptyErrors());
+        assertTrue(isEmptyErrors(context_));
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         Argument arg_ = RenderExpUtil.calculateReuse(out_, _conf);
         assertNull(getException(_conf));
@@ -6870,7 +6870,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
         Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_, cont_.getAnalyzing().getOptions());

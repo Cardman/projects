@@ -23,18 +23,18 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
     @Override
     public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
         RendParentBlock b_ = getParent();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (!(b_ instanceof RendSwitchBlock)) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDef(),
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseDef(),
                     _cont.getKeyWords().getKeyWordDefault(),
                     EMPTY_STRING,
                     _cont.getKeyWords().getKeyWordSwitch());
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else {
             RendSwitchBlock s_ = (RendSwitchBlock) b_;
             String instanceTest_ = s_.getInstanceTest();
@@ -43,13 +43,13 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
                 while (first_ != this) {
                     if (first_ instanceof RendDefaultCondition) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         //key word len
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDefDup(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
                                 _cont.getKeyWords().getKeyWordDefault(),
                                 _cont.getKeyWords().getKeyWordSwitch());
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                         break;
                     }
                     first_ = first_.getNextSibling();
@@ -59,22 +59,22 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
             setImportedClassName(instanceTest_);
             if (getNextSibling() != null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDefDup(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
                         _cont.getKeyWords().getKeyWordDefault(),
                         _cont.getKeyWords().getKeyWordSwitch());
-                _cont.addError(un_);
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
-            TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(), getVariableName());
+            TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(getVariableName(), page_);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_cont.getCurrentFileName());
+                d_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                _cont.addError(d_);
+                Configuration.addError(d_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 return;
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();

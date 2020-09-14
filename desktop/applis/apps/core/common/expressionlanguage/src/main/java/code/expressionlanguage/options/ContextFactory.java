@@ -58,9 +58,9 @@ public final class ContextFactory {
         _context.getAnalyzing().setCoverage(_context.getCoverage());
         _context.getAnalyzing().setTabWidth(_context.getTabWidth());
         _context.getAnalyzing().setGettingErrors(_options.isGettingErrors());
-        _context.getAnalyzing().getCoverage().setKeyWords(_context,_definedKw);
+        _context.getAnalyzing().getCoverage().setKeyWords(_definedKw);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
-        if (!_context.isEmptyMessageError()) {
+        if (!_context.getAnalyzing().isEmptyMessageError()) {
             return;
         }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
@@ -103,7 +103,7 @@ public final class ContextFactory {
         ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(_context, merge_);
-        if (!_context.isEmptyStdError()) {
+        if (!_context.getAnalyzing().isEmptyStdError()) {
             return;
         }
         _definedLgNames.build();

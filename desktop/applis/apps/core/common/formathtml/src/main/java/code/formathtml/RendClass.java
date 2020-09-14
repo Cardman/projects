@@ -18,23 +18,23 @@ public final class RendClass extends RendParentBlock {
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         if (!(getParent() instanceof RendPackage)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordClass(),
                     _cont.getRendKeyWords().getKeyWordPackage());
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else {
             RendPackage par_ = (RendPackage) getParent();
             fullName = StringList.concat(par_.getName(),DOT,name);
             fullName = StringExpUtil.removeDottedSpaces(fullName);
             if (_cont.getContext().getAnalyzing().getAnaGeneType(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                         fullName);
-                _cont.addError(un_);
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
     }

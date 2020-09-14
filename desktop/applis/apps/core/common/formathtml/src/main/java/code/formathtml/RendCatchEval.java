@@ -42,13 +42,13 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_cont.getCurrentFileName());
+            b_.setFileName(_cont.getAnalyzingDoc().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            _cont.addError(b_);
+            Configuration.addError(b_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             return;
         }
         page_.setGlobalOffset(classNameOffset);
@@ -62,31 +62,31 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             if (!(pBlock_ instanceof RendTryEval)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getCurrentFileName());
+                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _cont.getContext().getKeyWords().getKeyWordCatch(),
+                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
                             StringList.join(
                                     new StringList(
-                                            _cont.getContext().getKeyWords().getKeyWordCatch(),
-                                            _cont.getContext().getKeyWords().getKeyWordTry()
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
                                     ),
                                     OR_ERR));
-                    _cont.addError(un_);
+                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _cont.getContext().getKeyWords().getKeyWordCatch(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
                                 StringList.join(
                                         new StringList(
-                                                _cont.getContext().getKeyWords().getKeyWordCatch(),
-                                                _cont.getContext().getKeyWords().getKeyWordTry()
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
                                         ),
                                         OR_ERR));
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                 }
             }

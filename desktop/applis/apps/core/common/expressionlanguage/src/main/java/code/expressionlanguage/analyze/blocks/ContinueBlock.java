@@ -37,7 +37,7 @@ public final class ContinueBlock extends AbruptBlock {
         ExecContinueBlock exec_ = new ExecContinueBlock(getOffset(),label);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkLoop(ContextEl _cont) {
@@ -66,33 +66,33 @@ public final class ContinueBlock extends AbruptBlock {
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getKeyWords().getKeyWordContinue(),
+                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordContinue(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordIter(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             } else {
                 //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getKeyWords().getKeyWordContinue(),
+                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordContinue(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordIter(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             }
-            _cont.addError(un_);
+            _cont.getAnalyzing().addLocError(un_);
             if (label.isEmpty()) {
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());

@@ -55,11 +55,11 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
                     exp_.setMemberNumberTest(trueOp_.getMemberNumber());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getCurrentFileName());
+                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     un_.setIndexFile(conditionOffset);
-                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(exp_.getNames(),AND_ERR));
-                    _cont.addError(un_);
+                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         }

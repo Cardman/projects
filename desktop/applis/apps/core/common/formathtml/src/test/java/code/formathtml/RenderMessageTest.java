@@ -35,7 +35,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -68,7 +68,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click(2)\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -103,7 +103,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"link\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -136,7 +136,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<br/>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -169,7 +169,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &amp;lt;Text&amp;gt;&lt;br/&gt;After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -202,7 +202,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a name=\"link\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -235,7 +235,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -268,7 +268,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc <Text/><a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -301,7 +301,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc '{'Text'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -334,7 +334,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc '{'2'}'<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -367,7 +367,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc &lt;Text&gt;<a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -399,7 +399,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -443,7 +443,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>desc 2<a href=\"link\" n-a=\"0\">two</a>After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -487,7 +487,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -519,7 +519,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>true;false</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -551,7 +551,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -581,7 +581,7 @@ public final class RenderMessageTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

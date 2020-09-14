@@ -496,7 +496,7 @@ public final class RenderInitNavTest extends CommonRender {
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
     private static boolean setupRendClassesInit(Navigation _nav) {
-        return _nav.setupRendClassesInit().isEmptyErrors();
+        return _nav.setupRendClassesInit().isAllEmptyErrors();
     }
     @Test
     public void process1FailTest() {

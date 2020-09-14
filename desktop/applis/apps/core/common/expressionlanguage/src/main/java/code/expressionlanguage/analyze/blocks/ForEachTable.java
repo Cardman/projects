@@ -137,19 +137,19 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
 
     }
 
     private void checkMatchs(ContextEl _cont, ClassArgumentMatching _el) {
         if (Argument.isNullValue(argument)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_cont.getCurrentFileName());
-            static_.setIndexFile(_cont.getCurrentLocationIndex());
+            static_.setFileName(_cont.getAnalyzing().getCurrentBlock().getFile().getFileName());
+            static_.setIndexFile(_cont.getAnalyzing().getTraceIndex());
             //separator char
-            static_.buildError(_cont.getAnalysisMessages().getNullValue(),
+            static_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNullValue(),
                     _cont.getAnalyzing().getStandards().getAliasNullPe());
-            _cont.addError(static_);
+            _cont.getAnalyzing().addLocError(static_);
             sepErrors.add(static_.getBuiltError());
         } else {
             StringList names_ = _el.getNames();
@@ -178,35 +178,35 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        TokenErrorMessage resOne_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableNameFirst);
+        TokenErrorMessage resOne_ = ManageTokens.partVar(page_).checkTokenVar(variableNameFirst, page_);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetFirst);
             //first variable name
             b_.setBuiltError(resOne_.getMessage());
-            _cont.addError(b_);
+            _cont.getAnalyzing().addLocError(b_);
             nameErrorsFirst.add(b_.getBuiltError());
             okVarFirst = false;
         }
-        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableNameSecond);
+        TokenErrorMessage resTwo_ = ManageTokens.partVar(_cont.getAnalyzing()).checkTokenVar(variableNameSecond, page_);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffsetSecond);
             //second variable name
             b_.setBuiltError(resTwo_.getMessage());
-            _cont.addError(b_);
+            _cont.getAnalyzing().addLocError(b_);
             nameErrorsSecond.add(b_.getBuiltError());
             okVarSecond = false;
         }
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         page_.setGlobalOffset(classNameOffsetFirst);
         page_.setOffset(0);
@@ -227,14 +227,14 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        page_.getCoverage().putBlockOperationsLoops(_cont,this);
+        page_.getCoverage().putBlockOperationsLoops(this);
         return static_;
     }
 
     public void checkIterableCandidates(StringList _types,ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_types.onlyOneElt()) {
-            KeyWords keyWords_ = _cont.getKeyWords();
+            KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
@@ -258,10 +258,10 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
-                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameFirst);
-                    _cont.addError(cast_);
+                    _cont.getAnalyzing().addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -286,10 +286,10 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
-                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameSecond);
-                    _cont.addError(cast_);
+                    _cont.getAnalyzing().addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -298,10 +298,10 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //separator char before expression
-            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     page_.getStandards().getAliasObject(),
                     page_.getStandards().getAliasIterableTable());
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             sepErrors.add(cast_.getBuiltError());
         }
     }
@@ -313,9 +313,9 @@ public final class ForEachTable extends BracedBlock implements Loop,ImportForEac
                 d_.setFileName(getFile().getFileName());
                 d_.setIndexFile(variableNameOffsetSecond);
                 //second variable name len
-                d_.buildError(_cont.getAnalysisMessages().getDuplicatedVariableName(),
+                d_.buildError(_cont.getAnalyzing().getAnalysisMessages().getDuplicatedVariableName(),
                         variableNameFirst);
-                _cont.addError(d_);
+                _cont.getAnalyzing().addLocError(d_);
                 nameErrorsSecond.add(d_.getBuiltError());
                 return;
             }

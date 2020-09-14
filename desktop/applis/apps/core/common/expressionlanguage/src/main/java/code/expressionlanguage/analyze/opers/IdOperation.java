@@ -5,8 +5,6 @@ import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -42,7 +40,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //first comma
-                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
                 page_.getLocalizer().addError(un_);
@@ -65,7 +63,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //first comma
-                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
                 page_.getLocalizer().addError(un_);
@@ -91,7 +89,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                     un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     un_.setIndexFile(i_);
                     //i comma
-                    un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                             Integer.toString(1),
                             Integer.toString(children_.size()));
                     page_.getLocalizer().addError(un_);
@@ -130,7 +128,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(i_);
                 //i comma
-                un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                         Integer.toString(1),
                         Integer.toString(children_.size()));
                 page_.getLocalizer().addError(un_);
@@ -150,7 +148,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //left par
-            un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(0));
             page_.getLocalizer().addError(un_);
@@ -172,7 +170,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 undef_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undef_.setIndexFile(0);
                 //current type len
-                undef_.buildError(_conf.getAnalysisMessages().getCallCtorIntInherits(),
+                undef_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
                         _cl
                 );

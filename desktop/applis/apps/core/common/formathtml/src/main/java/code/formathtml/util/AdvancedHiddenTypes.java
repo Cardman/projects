@@ -1,16 +1,15 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.types.AbstractHiddenTypes;
-import code.formathtml.Configuration;
 
 public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
-    private final Configuration configuration;
+    private final AnalyzedPageEl configuration;
 
-    public AdvancedHiddenTypes(Configuration configuration) {
+    public AdvancedHiddenTypes(AnalyzedPageEl configuration) {
         this.configuration = configuration;
     }
 
@@ -20,6 +19,6 @@ public final class AdvancedHiddenTypes implements AbstractHiddenTypes {
             return false;
         }
         Accessed a_ = new Accessed(_type.getAccess(), _type.getPackageName(), _type.getParentFullName(), _type.getFullName(), _type.getOuterFullName());
-        return _global.isTypeHidden(a_, configuration.getContext());
+        return _global.isTypeHidden(a_, configuration);
     }
 }

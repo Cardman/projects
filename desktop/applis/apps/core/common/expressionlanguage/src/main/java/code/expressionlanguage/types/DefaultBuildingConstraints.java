@@ -1,12 +1,12 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 
 public final class DefaultBuildingConstraints implements AbstractBuildingConstraints {
-    private final ContextEl context;
+    private final AnalyzedPageEl context;
 
-    public DefaultBuildingConstraints(ContextEl _context) {
+    public DefaultBuildingConstraints(AnalyzedPageEl _context) {
         context = _context;
     }
 

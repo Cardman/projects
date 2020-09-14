@@ -27,11 +27,11 @@ public final class InternGlobalOperation extends LeafOperation {
         String arg_ = configuration.getInternGlobalClass();
         if (configuration.getAnalyzing().isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(configuration.getCurrentFileName());
-            static_.setIndexFile(configuration.getCurrentLocationIndex());
-            static_.buildError(configuration.getContext().getAnalysisMessages().getStaticAccess(),
-                    configuration.getContext().getKeyWords().getKeyWordThis());
-            configuration.addError(static_);
+            static_.setFileName(configuration.getAnalyzingDoc().getFileName());
+            static_.setIndexFile(Configuration.getCurrentLocationIndex(configuration.getContext().getAnalyzing(), configuration.getAnalyzingDoc()));
+            static_.buildError(configuration.getContext().getAnalyzing().getAnalysisMessages().getStaticAccess(),
+                    configuration.getContext().getAnalyzing().getKeyWords().getKeyWordThis());
+            Configuration.addError(static_, configuration.getAnalyzingDoc(), configuration.getContext().getAnalyzing());
         }
         setResultClass(new ClassArgumentMatching(arg_));
     }

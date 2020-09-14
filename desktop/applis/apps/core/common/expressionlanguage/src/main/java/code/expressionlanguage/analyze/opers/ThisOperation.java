@@ -4,10 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -40,8 +38,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 static_.setFileName(page_.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
-                        _conf.getKeyWords().getKeyWordThis());
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccessPrev(),
+                        _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                 page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(arg_));
@@ -57,8 +55,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                 static_.setFileName(page_.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
-                        _conf.getKeyWords().getKeyWordThis());
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccessPrev(),
+                        _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                 page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
                 setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
@@ -80,8 +78,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             static_.setFileName(page_.getLocalizer().getCurrentFileName());
                             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                             //key word len
-                            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
-                                    _conf.getKeyWords().getKeyWordThis());
+                            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccess(),
+                                    _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                             page_.getLocalizer().addError(static_);
                             getErrs().add(static_.getBuiltError());
                         } else if (nbAncestors == 0){
@@ -89,8 +87,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             static_.setFileName(page_.getLocalizer().getCurrentFileName());
                             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                             //key word len
-                            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
-                                    _conf.getKeyWords().getKeyWordThis());
+                            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccess(),
+                                    _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                             page_.getLocalizer().addError(static_);
                             getErrs().add(static_.getBuiltError());
                         }
@@ -106,8 +104,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getAnalysisMessages().getStaticAccessPrev(),
-                    _conf.getKeyWords().getKeyWordThis());
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccessPrev(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordThis());
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
             int off_ = StringList.getFirstPrintableCharIndex(access_);
@@ -122,8 +120,8 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getAnalysisMessages().getStaticAccess(),
-                    _conf.getKeyWords().getKeyWordThis());
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getStaticAccess(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordThis());
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
         }

@@ -1,14 +1,15 @@
 package code.expressionlanguage.types;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 
 public final class DefaultLoopDeclaring implements AbstractLoopDeclaring {
-    private final ContextEl context;
+    private final AnalyzedPageEl page;
 
-    public DefaultLoopDeclaring(ContextEl _context) {
-        context = _context;
+    public DefaultLoopDeclaring(AnalyzedPageEl _page) {
+        page = _page;
     }
 
     @Override
@@ -22,16 +23,16 @@ public final class DefaultLoopDeclaring implements AbstractLoopDeclaring {
     }
 
     public boolean hasLoop() {
-        Block bl_ =  context.getAnalyzing().getCurrentBlock();
+        Block bl_ =  page.getCurrentBlock();
         return bl_ instanceof ForMutableIterativeLoop;
     }
 
     public void setupLoopClass(String _className) {
-        Block bl_ =  context.getAnalyzing().getCurrentBlock();
+        Block bl_ =  page.getCurrentBlock();
         ((ForMutableIterativeLoop)bl_).setImportedClassName(_className);
     }
     @Override
     public String getIndexClassName() {
-        return context.getIndexClassName();
+        return ((ForMutableIterativeLoop)page.getCurrentBlock()).getImportedClassIndexName();
     }
 }

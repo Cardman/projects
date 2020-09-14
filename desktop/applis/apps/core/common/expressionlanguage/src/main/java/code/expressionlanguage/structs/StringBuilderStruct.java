@@ -34,6 +34,10 @@ public final class StringBuilderStruct extends CharSequenceStruct {
     }
 
     @Override
+    public StringStruct getDisplayedString(ContextEl _an) {
+        return new StringStruct(toStringInstance());
+    }
+    @Override
     public String toStringInstance() {
         return instance.toString();
     }

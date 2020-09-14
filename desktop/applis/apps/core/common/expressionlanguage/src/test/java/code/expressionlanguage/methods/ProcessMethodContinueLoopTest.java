@@ -43,7 +43,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -82,7 +82,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -117,7 +117,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -153,7 +153,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -194,7 +194,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -236,7 +236,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -280,7 +280,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -324,7 +324,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -367,7 +367,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -411,7 +411,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -453,7 +453,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -492,7 +492,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -526,7 +526,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -567,7 +567,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -611,7 +611,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -656,7 +656,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -697,7 +697,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument62FailTest() {
@@ -734,7 +734,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument63FailTest() {
@@ -774,7 +774,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument64FailTest() {
@@ -810,7 +810,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument65FailTest() {
@@ -851,7 +851,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument66FailTest() {
@@ -889,7 +889,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument67FailTest() {
@@ -916,7 +916,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument68FailTest() {
@@ -942,7 +942,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument69FailTest() {
@@ -968,7 +968,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument70FailTest() {
@@ -995,7 +995,7 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 
     @Test
@@ -1010,6 +1010,6 @@ public final class ProcessMethodContinueLoopTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

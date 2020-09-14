@@ -33,7 +33,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -64,7 +64,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -94,7 +94,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.textField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -124,7 +124,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.textField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -154,7 +154,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input id=\"myId0\" type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -184,7 +184,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input c:groupId=\"myId{0}\\\" type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -214,7 +214,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -247,7 +247,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -280,7 +280,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -313,7 +313,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -343,7 +343,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"number\" name=\"bean_one.numberField\" n-i=\"0\" value=\"10\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -373,7 +373,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"range\" name=\"bean_one.numberField\" n-i=\"0\" value=\"10\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -403,7 +403,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><input type=\"text\" name=\"textField\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -433,7 +433,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"number\" name=\"bean_one.a[0]\" n-i=\"0\" value=\"1\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -463,7 +463,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"number\" name=\"bean_one.a[0]\" n-i=\"1\" value=\"1\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -493,7 +493,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"number\" name=\"bean_one.a[0]\" n-i=\"0\" value=\"1\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -529,7 +529,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField[0]\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -559,7 +559,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -587,7 +587,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -615,7 +615,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -643,7 +643,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -674,7 +674,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -703,7 +703,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -732,7 +732,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -760,7 +760,7 @@ public final class RenderStdInputTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

@@ -38,8 +38,8 @@ public final class InternOverrideBlock extends Leaf {
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(i);
             //underline index char
-            b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
-            _context.addError(b_);
+            b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
+            _context.getAnalyzing().addLocError(b_);
             setReachableError(true);
             getErrorsBlock().add(b_.getBuiltError());
         }
@@ -116,7 +116,7 @@ public final class InternOverrideBlock extends Leaf {
                 RootBlock root_ = analyzing_.getAnaClassBody(cl_);
                 CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(root_);
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
-                int rc_ = _context.getCurrentLocationIndex();
+                int rc_ = _context.getAnalyzing().getTraceIndex();
                 for (OverridableBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {
                         ClassMethodId ref_ = new ClassMethodId(cl_,m.getId());

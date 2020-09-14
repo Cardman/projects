@@ -51,7 +51,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //operator
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedAffect(),
                     oper);
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
@@ -67,7 +67,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
@@ -105,7 +105,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //operator
-                cast_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());

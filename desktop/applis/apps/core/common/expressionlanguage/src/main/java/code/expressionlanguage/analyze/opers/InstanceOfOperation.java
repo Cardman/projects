@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -32,7 +31,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
         int begin_ = keyWordInstanceof_.length() + className.indexOf(keyWordInstanceof_);
         String sub_ = className.substring(begin_);
@@ -45,7 +44,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_conf.getAnalysisMessages().getEmptyType());
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getEmptyType());
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             className = page_.getStandards().getAliasObject();

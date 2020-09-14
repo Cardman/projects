@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.sml.*;
@@ -104,11 +103,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(offMessage_);
                     badEl_.buildError(_cont.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
                 callsExps.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);

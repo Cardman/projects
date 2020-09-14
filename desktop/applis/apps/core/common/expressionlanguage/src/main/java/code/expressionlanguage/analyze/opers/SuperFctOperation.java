@@ -125,7 +125,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             cast_.setFileName(page_.getLocalizer().getCurrentFileName());
             //type len
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
             page_.getLocalizer().addError(cast_);
@@ -196,7 +196,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             abs_.setFileName(page_.getLocalizer().getCurrentFileName());
             //method name len
             abs_.buildError(
-                    _conf.getAnalysisMessages().getAbstractMethodRef(),
+                    _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
                     clMeth_.getRealClass(),
                     clMeth_.getRealId().getSignature(page_));
             page_.getLocalizer().addError(abs_);

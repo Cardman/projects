@@ -56,8 +56,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperationsConditions(_cont,this);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperationsConditions(this);
+        page_.getCoverage().putBlockOperations(exec_,this);
         ExecOperationNode last_ = opCondition_.last();
         processBoolean(_cont, last_);
         argument = last_.getArgument();
@@ -89,9 +89,9 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                     un_.setFileName(getFile().getFileName());
                     un_.setIndexFile(conditionOffset);
                     //key word len
-                    un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(resultClass_.getNames(),"&"));
-                    _cont.addError(un_);
+                    _cont.getAnalyzing().addLocError(un_);
                     setReachableError(true);
                     getErrorsBlock().add(un_.getBuiltError());
                 }

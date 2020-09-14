@@ -1290,13 +1290,6 @@ public final class NumParsers {
         return ";";
     }
 
-    public static DisplayableStruct getDisplayableStruct(Struct _previous) {
-        if (_previous instanceof DisplayableStruct) {
-            return (DisplayableStruct) _previous;
-        }
-        return new StringStruct("");
-    }
-
     public static StringStruct getString(Struct _previous) {
         if (_previous instanceof StringStruct) {
             return (StringStruct) _previous;

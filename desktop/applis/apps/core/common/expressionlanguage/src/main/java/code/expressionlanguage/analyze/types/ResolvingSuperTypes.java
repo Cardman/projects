@@ -28,8 +28,8 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getEmptyType());
-            _context.addError(un_);
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyType());
+            _context.getAnalyzing().addLocError(un_);
             _ana.addNameErrors(un_);
             return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
@@ -39,9 +39,9 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getVoidType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
             _ana.addNameErrors(un_);
             return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
@@ -65,18 +65,18 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location+i.getIndex());
             //part len
-            un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
                     i.getType(),gl_);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
         }
         if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getUnknownType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnknownType(),
                     _in);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
             return new AnaResultPartType(page_.getStandards().getAliasObject(),null);
         }
         return resType_;
@@ -94,10 +94,10 @@ public final class ResolvingSuperTypes {
                 call_.setFileName(_ana.getFile().getFileName());
                 call_.setIndexFile(_location);
                 //_in len
-                call_.buildError(_context.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
+                call_.buildError(_context.getAnalyzing().getAnalysisMessages().getIllegalGenericSuperTypeBound(),
                         p,
                         resType_.getResult());
-                _context.addError(call_);
+                _context.getAnalyzing().addLocError(call_);
                 _ana.addNameErrors(call_);
             }
             if (p.startsWith(Templates.SUP_TYPE)) {
@@ -105,10 +105,10 @@ public final class ResolvingSuperTypes {
                 call_.setFileName(_ana.getFile().getFileName());
                 call_.setIndexFile(_location);
                 //_in len
-                call_.buildError(_context.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
+                call_.buildError(_context.getAnalyzing().getAnalysisMessages().getIllegalGenericSuperTypeBound(),
                         p,
                         resType_.getResult());
-                _context.addError(call_);
+                _context.getAnalyzing().addLocError(call_);
                 _ana.addNameErrors(call_);
             }
         }
@@ -123,8 +123,8 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getEmptyType());
-            _context.addError(un_);
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyType());
+            _context.getAnalyzing().addLocError(un_);
             _ana.addNameErrors(un_);
             return null;
         }
@@ -134,9 +134,9 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getVoidType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
             _ana.addNameErrors(un_);
             return null;
         }
@@ -160,18 +160,18 @@ public final class ResolvingSuperTypes {
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location+i.getIndex());
             //part len
-            un_.buildError(_context.getAnalysisMessages().getInaccessibleType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
                     i.getType(),gl_);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
         }
         if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_ana.getFile().getFileName());
             un_.setIndexFile(_location);
             //_in len
-            un_.buildError(_context.getAnalysisMessages().getUnknownType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnknownType(),
                     _in);
-            _context.addError(un_);
+            _context.getAnalyzing().addLocError(un_);
             return null;
         }
         return resType_;

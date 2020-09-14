@@ -1,13 +1,13 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.IntStruct;
@@ -137,17 +137,17 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     @Override
-    public void forwardAndClear() {
-        super.forwardAndClear();
-        LgNamesGui standards_ = (LgNamesGui) getAnalyzing().getStandards();
+    public void forwardAndClear(AnalyzedPageEl _ana) {
+        super.forwardAndClear(_ana);
+        LgNamesGui standards_ = (LgNamesGui) _ana.getStandards();
         String aliasActListener_ = standards_.getAliasActionListener();
-        actionListener = getAnalyzing().getClasses().getClassBody(aliasActListener_);
+        actionListener = _ana.getClasses().getClassBody(aliasActListener_);
         String actionEvent_ = standards_.getAliasActionEvent();
         MethodId fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasActionPerformed(),new StringList(actionEvent_));
         actionPerformed = ExecBlock.getMethodBodiesById(actionListener,fct_).first();
         String aliasMouseListener_ = standards_.getAliasMouseListener();
-        mouseListener = getAnalyzing().getClasses().getClassBody(aliasMouseListener_);
+        mouseListener = _ana.getClasses().getClassBody(aliasMouseListener_);
         String mouseEvent_ = standards_.getAliasMouseEvent();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasMouseClicked(),new StringList(mouseEvent_));
@@ -171,13 +171,13 @@ public final class GuiContextEl extends RunnableContextEl {
                 standards_.getAliasMouseMoved(),new StringList(mouseEvent_));
         mouseMoved = ExecBlock.getMethodBodiesById(mouseListener,fct_).first();
         String aliasWheelListener_ = standards_.getAliasWheelListener();
-        wheelListener = getAnalyzing().getClasses().getClassBody(aliasWheelListener_);
+        wheelListener = _ana.getClasses().getClassBody(aliasWheelListener_);
         String wheelEvent_ = standards_.getAliasWheelEvent();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasWheelMove(),new StringList(wheelEvent_));
         wheelMove = ExecBlock.getMethodBodiesById(wheelListener,fct_).first();
         String aliasWindowListener_ = standards_.getAliasWindowListener();
-        windowListener = getAnalyzing().getClasses().getClassBody(aliasWindowListener_);
+        windowListener = _ana.getClasses().getClassBody(aliasWindowListener_);
         String windowEvent_ = standards_.getAliasWindowEvent();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasWindowOpened(),new StringList(windowEvent_));
@@ -201,28 +201,28 @@ public final class GuiContextEl extends RunnableContextEl {
                 standards_.getAliasWindowDeiconified(),new StringList(windowEvent_));
         windowDeiconified = ExecBlock.getMethodBodiesById(windowListener,fct_).first();
         String aliasListSelection_ = standards_.getAliasListSelection();
-        listSelection = getAnalyzing().getClasses().getClassBody(aliasListSelection_);
+        listSelection = _ana.getClasses().getClassBody(aliasListSelection_);
         String ind_ = standards_.getAliasPrimInteger();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasValueChanged(),new StringList(ind_,ind_));
         valueChanged = ExecBlock.getMethodBodiesById(listSelection,fct_).first();
         String aliasChangeListener_ = standards_.getAliasChangeListener();
-        changeListener = getAnalyzing().getClasses().getClassBody(aliasChangeListener_);
+        changeListener = _ana.getClasses().getClassBody(aliasChangeListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasStateChanged(),new StringList());
         stateChanged = ExecBlock.getMethodBodiesById(changeListener,fct_).first();
         String aliasTreeListener_ = standards_.getAliasTreeListener();
-        treeListener = getAnalyzing().getClasses().getClassBody(aliasTreeListener_);
+        treeListener = _ana.getClasses().getClassBody(aliasTreeListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasTreeListenerValueChanged(),new StringList(standards_.getAliasTreeNode()));
         treeListenerValueChanged = ExecBlock.getMethodBodiesById(treeListener,fct_).first();
         String aliasTableListener_ = standards_.getAliasTableListener();
-        tableListener = getAnalyzing().getClasses().getClassBody(aliasTableListener_);
+        tableListener = _ana.getClasses().getClassBody(aliasTableListener_);
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasTableValueTableChanged(),new StringList(ind_,ind_));
         tableValueTableChanged = ExecBlock.getMethodBodiesById(tableListener,fct_).first();
         String aliasKeyListener_ = standards_.getAliasKeyListener();
-        keyListener = getAnalyzing().getClasses().getClassBody(aliasKeyListener_);
+        keyListener = _ana.getClasses().getClassBody(aliasKeyListener_);
         String keyEvent_ = standards_.getAliasKeyEvent();
         fct_ = new MethodId(MethodAccessKind.INSTANCE,
                 standards_.getAliasKeyReleased(),new StringList(keyEvent_));
@@ -234,7 +234,7 @@ public final class GuiContextEl extends RunnableContextEl {
                 standards_.getAliasKeyTyped(),new StringList(keyEvent_));
         keyTyped = ExecBlock.getMethodBodiesById(keyListener,fct_).first();
         String aliasPaint_ = standards_.getAliasPaint();
-        paint = getAnalyzing().getClasses().getClassBody(aliasPaint_);
+        paint = _ana.getClasses().getClassBody(aliasPaint_);
         fct_ = new MethodId(MethodAccessKind.STATIC,
                 standards_.getAliasPaintRefresh(),new StringList(standards_.getAliasGrList()));
         paintRefresh = ExecBlock.getMethodBodiesById(paint,fct_).first();

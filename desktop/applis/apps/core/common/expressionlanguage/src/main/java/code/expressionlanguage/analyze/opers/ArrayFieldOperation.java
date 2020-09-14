@@ -38,7 +38,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         und_.setFileName(page_.getLocalizer().getCurrentFileName());
         und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //str_ len
-        und_.buildError(_conf.getAnalysisMessages().getUndefinedAccessibleField(),
+        und_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedAccessibleField(),
                 str_,
                 StringList.join(cl_.getNames(), "&"));
         page_.getLocalizer().addError(und_);

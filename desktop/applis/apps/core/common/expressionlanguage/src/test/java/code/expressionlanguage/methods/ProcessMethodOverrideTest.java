@@ -49,7 +49,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -87,7 +87,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -125,7 +125,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -164,7 +164,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -203,7 +203,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -242,7 +242,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -286,7 +286,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.ExThree",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -324,7 +324,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -369,7 +369,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(22, getNumber(ret_));
@@ -405,7 +405,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(9, getNumber(ret_));
@@ -443,7 +443,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -488,7 +488,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(34, getNumber(ret_));
@@ -533,7 +533,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(225, getNumber(ret_));
@@ -572,7 +572,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -624,7 +624,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(20, getNumber(ret_));
@@ -666,7 +666,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -720,7 +720,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -762,7 +762,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -810,7 +810,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         files_.put("pkg/Int", xml_.toString());
         ContextEl cont_ = contextElEnum();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -856,7 +856,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -894,7 +894,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -930,6 +930,6 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

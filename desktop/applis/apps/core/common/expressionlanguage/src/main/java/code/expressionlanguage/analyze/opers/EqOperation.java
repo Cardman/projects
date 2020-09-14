@@ -43,7 +43,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             int index_ = page_.getLocalizer().getCurrentLocationIndex();
             badEl_.setIndexFile(index_);
             //oper len
-            badEl_.buildError(_conf.getAnalysisMessages().getBadOperatorRef(),
+            badEl_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
             page_.getLocalizer().addError(badEl_);
             CustList<PartOffset> err_ = new CustList<PartOffset>();

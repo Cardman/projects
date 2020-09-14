@@ -45,7 +45,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(3),
                     Integer.toString(types_.size())
             );
@@ -69,11 +69,11 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             Argument arg_ = getFirstChild().getArgument();
             checkNull(arg_,_conf);
         }
-        if (types_.size() == 2 && StringList.quickEq(types_.last(),_conf.getKeyWords().getKeyWordId())) {
+        if (types_.size() == 2 && StringList.quickEq(types_.last(), _conf.getAnalyzing().getKeyWords().getKeyWordId())) {
             return;
         }
         ClassMethodId uniq_;
-        String exp_ = _conf.getKeyWords().getKeyWordCast();
+        String exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordCast();
         if (types_.size() == 2){
             //add a type for full id
             String arg_ = types_.last();
@@ -86,7 +86,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
                 //_in len
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                         className);
                 page_.getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
@@ -114,7 +114,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     className);
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
@@ -154,8 +154,8 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
         undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //_name len
-        String exp_ = _conf.getKeyWords().getKeyWordCast();
-        undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+        String exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordCast();
+        undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(MethodAccessKind.STATIC, exp_, classesNames_).getSignature(page_));
         page_.getLocalizer().addError(undefined_);
         getErrs().add(undefined_.getBuiltError());

@@ -8,11 +8,8 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecEnumBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
@@ -61,7 +58,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //className len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     clName_);
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
@@ -72,12 +69,12 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         numberEnum = r_.getNumberAll();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentFullName(), clName_, r_.getOuterFullName());
-        if (!ContextUtil.canAccessType(curClassBase_,a_, _conf)) {
+        if (!ContextUtil.canAccessType(curClassBase_,a_, page_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(page_.getLocalizer().getCurrentFileName());
             //className len
-            badAccess_.buildError(_conf.getAnalysisMessages().getInaccessibleType(),
+            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
                     clName_,
                     curClassBase_);
             page_.getLocalizer().addError(badAccess_);
@@ -90,7 +87,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //separator after className
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(argCl_.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());

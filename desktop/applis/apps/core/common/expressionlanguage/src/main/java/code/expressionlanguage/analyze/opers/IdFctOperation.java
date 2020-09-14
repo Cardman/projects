@@ -49,11 +49,11 @@ public final class IdFctOperation extends LeafOperation {
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordId());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordId());
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -64,11 +64,11 @@ public final class IdFctOperation extends LeafOperation {
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getUnexpectedLeaf(),
-                    _conf.getKeyWords().getKeyWordId());
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedLeaf(),
+                    _conf.getAnalyzing().getKeyWords().getKeyWordId());
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsets.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordId().length()));
+            partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
@@ -88,8 +88,8 @@ public final class IdFctOperation extends LeafOperation {
                 setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
-            String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-            String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+            String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
             MethodAccessId idUpdate_ = new MethodAccessId(1);
             idUpdate_.setupInfos(1,args_,keyWordStatic_,keyWordStaticCall_);
             static_ = idUpdate_.getKind();
@@ -98,8 +98,8 @@ public final class IdFctOperation extends LeafOperation {
         } else {
             cl_ = ((ExplicitOperatorOperation)m_).getFrom();
             if (!cl_.isEmpty()) {
-                String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-                String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+                String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
+                String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
                 MethodAccessId idUpdate_ = new MethodAccessId(0);
                 idUpdate_.setupInfos(0,args_,keyWordStatic_,keyWordStaticCall_);
                 static_ = idUpdate_.getKind();
@@ -184,7 +184,7 @@ public final class IdFctOperation extends LeafOperation {
                     int i_ = off_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
                     varg_.setIndexFile(i_);
                     //three dots
-                    varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
+                    varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
                     _partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
                     _partOffsets.add(new PartOffset("</a>",i_+3));

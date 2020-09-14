@@ -62,7 +62,7 @@ public final class ConstantOperation extends LeafOperation {
                 badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
+                badFormat_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             }
@@ -77,7 +77,7 @@ public final class ConstantOperation extends LeafOperation {
                 badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
+                badFormat_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             } else if (!originalStr_.isEmpty()) {
@@ -88,7 +88,7 @@ public final class ConstantOperation extends LeafOperation {
                 badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
                 badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //constant len
-                badFormat_.buildError(_conf.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
+                badFormat_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
                 page_.getLocalizer().addError(badFormat_);
                 getErrs().add(badFormat_.getBuiltError());
             }
@@ -103,7 +103,7 @@ public final class ConstantOperation extends LeafOperation {
             badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
             badFormat_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //constant len
-            badFormat_.buildError(_conf.getAnalysisMessages().getBadNbFormat(),
+            badFormat_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadNbFormat(),
                     str_);
             page_.getLocalizer().addError(badFormat_);
             getErrs().add(badFormat_.getBuiltError());

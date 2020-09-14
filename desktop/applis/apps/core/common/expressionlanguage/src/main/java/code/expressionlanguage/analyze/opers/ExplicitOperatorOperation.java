@@ -106,7 +106,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
                     Integer.toString(2),
                     Integer.toString(args_.size())
             );
@@ -144,7 +144,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             for (ClassArgumentMatching c: name_.getAll()) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
             }
-            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(page_));
             page_.getLocalizer().addError(undefined_);
             getErrs().add(undefined_.getBuiltError());

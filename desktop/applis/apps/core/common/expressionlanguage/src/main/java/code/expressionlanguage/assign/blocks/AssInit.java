@@ -8,7 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.assign.util.AssignmentsUtil;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.assign.util.SimpleAssignment;
 import code.util.EntryCust;
 import code.util.IdMap;
@@ -72,11 +71,11 @@ public final class AssInit extends AssMemberCallingsBlock {
         if (!a_.isAssignedAfter() && !a_.isUnassignedAfter()) {
             //error
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_an.getCurrentFileName());
-            un_.setIndexFile(_an.getCurrentLocationIndex());
-            un_.buildError(_an.getAnalysisMessages().getUnassignedFinalField(),
+            un_.setFileName(_an.getAnalyzing().getCurrentBlock().getFile().getFileName());
+            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);
-            _an.addError(un_);
+            _an.getAnalyzing().addLocError(un_);
         }
         if (a_.isAssignedAfter() && _add) {
             _an.getAnalyzing().getInitFields().add(name_);

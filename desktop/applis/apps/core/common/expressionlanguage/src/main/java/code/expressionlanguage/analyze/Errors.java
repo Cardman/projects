@@ -8,7 +8,7 @@ public final class Errors {
     private CustList<FileBlock> files = new CustList<FileBlock>();
 
     public void putFile(ContextEl _context, FileBlock _file) {
-        if (!_context.isGettingErrors()) {
+        if (!_context.getAnalyzing().isGettingErrors()) {
             return;
         }
         files.add(_file);

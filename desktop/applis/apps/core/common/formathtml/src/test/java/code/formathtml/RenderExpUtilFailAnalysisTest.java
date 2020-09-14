@@ -43,7 +43,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         Configuration conf_ = getConfiguration4(files_);
         addImportingPage(conf_);
         processEl("pkg.Ex.$this", conf_);
-        assertNotNull(getException(conf_));
     }
 
     @Test
@@ -165,7 +164,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("$this()", context_);
-        assertNotNull(getException(context_));
     }
     @Test
     public void processAffect18FailTest() {
@@ -182,7 +180,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v(1)", context_);
-        assertNotNull(getException(context_));
     }
     @Test
     public void processAffect19FailTest() {
@@ -200,7 +197,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v(1)", context_);
-        assertNotNull(getException(context_));
     }
     @Test
     public void processAffect2FailTest() {
@@ -430,7 +426,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
 
     private static void processEl(String _el, Configuration _cont) {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
+            _cont.getContext().getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
         }
         processEl(_el, 0, _cont);
         assertTrue(!_cont.isEmptyErrors());
@@ -457,7 +453,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
     }

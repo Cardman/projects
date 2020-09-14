@@ -139,7 +139,7 @@ public abstract class OperationNode {
     }
     private static OperationNode createOperationNodeBis(int _index,
                                                         int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         AnalyzedPageEl page_ = _an.getAnalyzing();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -291,10 +291,10 @@ public abstract class OperationNode {
             if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
                 return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
             }
-            if (StringExpUtil.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordExplicit())) {
+            if (StringExpUtil.startsWithKeyWord(value_, _an.getAnalyzing().getKeyWords().getKeyWordExplicit())) {
                 return new ExplicitOperation(_index, _indexChild, _m, _op);
             }
-            if (StringExpUtil.startsWithKeyWord(value_, _an.getKeyWords().getKeyWordCast())) {
+            if (StringExpUtil.startsWithKeyWord(value_, _an.getAnalyzing().getKeyWords().getKeyWordCast())) {
                 String clName_ = _op.getOperators().firstValue();
                 String extract_ = clName_.substring(clName_.indexOf(PAR_LEFT)+1, clName_.lastIndexOf(PAR_RIGHT));
                 StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
@@ -371,7 +371,7 @@ public abstract class OperationNode {
     }
 
     private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         ConstType ct_ = _op.getConstType();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -494,7 +494,8 @@ public abstract class OperationNode {
         return _str;
     }
     static void checkClassAccess(OperationNode _op,ContextEl _conf, String _glClass, String _classStr) {
-        RootBlock r_ = _conf.getAnalyzing().getAnaClassBody(_classStr);
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        RootBlock r_ = page_.getAnaClassBody(_classStr);
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(_glClass);
         Accessed a_;
         if (r_ != null) {
@@ -502,15 +503,15 @@ public abstract class OperationNode {
         } else {
             a_ = new Accessed(AccessEnum.PUBLIC,"", "","");
         }
-        if (!ContextUtil.canAccessType(curClassBase_, a_, _conf)) {
+        if (!ContextUtil.canAccessType(curClassBase_, a_, page_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
+            badAccess_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setFileName(page_.getLocalizer().getCurrentFileName());
             //className len
-            badAccess_.buildError(_conf.getAnalysisMessages().getInaccessibleType(),
+            badAccess_.buildError(page_.getAnalysisMessages().getInaccessibleType(),
                     _classStr,
                     curClassBase_);
-            _conf.getAnalyzing().getLocalizer().addError(badAccess_);
+            page_.getLocalizer().addError(badAccess_);
             _op.getErrs().add(badAccess_.getBuiltError());
         }
     }
@@ -544,7 +545,7 @@ public abstract class OperationNode {
         access_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
         access_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
         //_name len
-        access_.buildError(_cont.getAnalysisMessages().getUndefinedAccessibleField(),
+        access_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
                 StringList.join(_class.getNames(),"&"));
         _cont.getAnalyzing().getLocalizer().addError(access_);
@@ -566,7 +567,7 @@ public abstract class OperationNode {
         int i_ = _cont.getAnalyzing().getLocalizer().getCurrentLocationIndex()+_offset;
         access_.setIndexFile(i_);
         //_name len
-        access_.buildError(_cont.getAnalysisMessages().getUndefinedAccessibleField(),
+        access_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
                 StringList.join(_class.getNames(),"&"));
         _cont.getAnalyzing().getLocalizer().addError(access_);
@@ -801,7 +802,7 @@ public abstract class OperationNode {
             undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedCtor(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(clCurName_, classesNames_, false).getSignature(page_));
             page_.getLocalizer().addError(undefined_);
             _oper.getErrs().add(undefined_.getBuiltError());
@@ -893,7 +894,7 @@ public abstract class OperationNode {
             undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedCtor(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedCtor(),
                     new ConstructorId(clCurName_, classesNames_, false).getSignature(page_));
             page_.getLocalizer().addError(undefined_);
             _op.getErrs().add(undefined_.getBuiltError());
@@ -955,7 +956,7 @@ public abstract class OperationNode {
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //leaf or header parent or first operator
-            static_.buildError(_conf.getAnalysisMessages().getNullValue(),
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getNullValue(),
                     page_.getStandards().getAliasNullPe());
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
@@ -981,7 +982,7 @@ public abstract class OperationNode {
         undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
         undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //_name len
-        undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+        undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(page_));
         page_.getLocalizer().addError(undefined_);
         _op.getErrs().add(undefined_.getBuiltError());
@@ -1009,7 +1010,7 @@ public abstract class OperationNode {
         undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
         undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //_name len
-        undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+        undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(page_));
         page_.getLocalizer().addError(undefined_);
         _op.getErrs().add(undefined_.getBuiltError());
@@ -1036,7 +1037,7 @@ public abstract class OperationNode {
         undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
         undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //_name len
-        undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+        undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(page_));
         page_.getLocalizer().addError(undefined_);
         _op.getErrs().add(undefined_.getBuiltError());
@@ -1099,7 +1100,7 @@ public abstract class OperationNode {
             return new ClassMethodIdReturn(false);
         }
         ClassMethodIdReturn res_;
-        if (StringList.quickEq(_name,_conf.getKeyWords().getKeyWordTrue())) {
+        if (StringList.quickEq(_name, _conf.getAnalyzing().getKeyWords().getKeyWordTrue())) {
             res_ = fetchTrueOperator(_conf,_classes,_argsClass[0],_uniqueId);
         } else {
             res_ = fetchFalseOperator(_conf,_classes,_argsClass[0],_uniqueId);
@@ -1779,7 +1780,6 @@ public abstract class OperationNode {
         return uniq_;
     }
     static CustList<MethodInfo> getOperators(ContextEl _cont, ClassMethodId _cl){
-        String objType_ = _cont.getAnalyzing().getStandards().getAliasObject();
         CustList<MethodInfo> methods_;
         methods_ = new CustList<MethodInfo>();
         for (EntryCust<OperatorBlock,ExecOperatorBlock> e: _cont.getAnalyzing().getMapOperators().entryList()) {
@@ -1793,7 +1793,7 @@ public abstract class OperationNode {
             }
             ParametersGroup p_ = new ParametersGroup();
             MethodInfo mloc_ = new MethodInfo();
-            mloc_.setClassName(objType_);
+            mloc_.setClassName("");
             mloc_.setStatic(true);
             mloc_.setConstraints(id_);
             mloc_.setParameters(p_);

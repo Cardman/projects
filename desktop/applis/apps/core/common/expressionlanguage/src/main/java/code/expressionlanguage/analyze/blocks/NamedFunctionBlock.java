@@ -89,7 +89,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                               OffsetsBlock _offset) {
         super(_offset);
         importedParametersTypes = new StringList();
-        name = _importingPage.getKeyWords().getKeyWordLambda();
+        name = _importingPage.getAnalyzing().getKeyWords().getKeyWordLambda();
         nameOffset = _fctName;
         parametersTypes = new StringList();
         access = AccessEnum.PUBLIC;
@@ -167,11 +167,11 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalysisMessages().getMissingAbrupt(),
-                        _an.getKeyWords().getKeyWordThrow(),
-                        _an.getKeyWords().getKeyWordReturn(),
+                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
-                _an.addError(miss_);
+                _an.getAnalyzing().addLocError(miss_);
                 addNameErrors(miss_);
             }
         }

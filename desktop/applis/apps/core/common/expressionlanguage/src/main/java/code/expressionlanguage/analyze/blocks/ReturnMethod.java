@@ -56,7 +56,7 @@ public final class ReturnMethod extends AbruptBlock {
             ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), true,expressionOffset,null, retType_);
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
-            page_.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(exec_,this);
             return;
         }
         MethodAccessKind stCtx_ = f_.getStaticContext();
@@ -73,7 +73,7 @@ public final class ReturnMethod extends AbruptBlock {
         root = page_.getCurrentRoot();
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private String processReturnValue(ContextEl _cont) {
@@ -110,9 +110,9 @@ public final class ReturnMethod extends AbruptBlock {
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //original type
-            cast_.buildError(_cont.getAnalysisMessages().getVoidType(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getVoidType(),
                     _retType);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             getErrorsBlock().add(cast_.getBuiltError());
             setReachableError(true);
             return;
@@ -130,10 +130,10 @@ public final class ReturnMethod extends AbruptBlock {
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //original type
-                cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(ret_.getNames(), "&"),
                         _retType);
-                _cont.addError(cast_);
+                _cont.getAnalyzing().addLocError(cast_);
                 setReachableError(true);
                 getErrorsBlock().add(cast_.getBuiltError());
             }

@@ -39,7 +39,7 @@ public final class DimensionArrayInstancing extends
 
     @Override
     public void preAnalyze(ContextEl _an) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String methodName_ = getMethodName();
         String className_ = methodName_.trim().substring(newKeyWord_.length());
@@ -235,7 +235,7 @@ public final class DimensionArrayInstancing extends
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
@@ -264,7 +264,7 @@ public final class DimensionArrayInstancing extends
                     un_.setIndexFile(i_);
                     un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //first part child bracket
-                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(resCh_.getNames(),"&"));
                     page_.getLocalizer().addError(un_);
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));

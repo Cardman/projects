@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.Initializer;
@@ -9,7 +10,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
@@ -39,14 +39,16 @@ public class RunnableContextEl extends ContextEl implements Locking {
                                 CustInitializer _init, Options _options, ExecutingOptions _exec,
                                 LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _options, _stds, _tabWidth);
+        setFullStack(new DefaultFullStack(this));
         custInit = _init;
         executingOptions = _exec;
         interrupt = _exec.getInterrupt();
         setThread();
     }
     protected RunnableContextEl(ContextEl _context) {
+        super(_context);
+        setFullStack(new DefaultFullStack(this));
         getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
-        setExecutionInfos(_context.getExecutionInfos());
         executingOptions = ((RunnableContextEl)_context).executingOptions;
         interrupt = ((RunnableContextEl)_context).interrupt;
         executeType = ((RunnableContextEl)_context).executeType;
@@ -61,19 +63,19 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     @Override
-    public void forwardAndClear() {
-        super.forwardAndClear();
-        LgNamesUtils standards_ = (LgNamesUtils) getAnalyzing().getStandards();
+    public void forwardAndClear(AnalyzedPageEl _ana) {
+        super.forwardAndClear(_ana);
+        LgNamesUtils standards_ = (LgNamesUtils) _ana.getStandards();
         String aliasExecute_ = standards_.getAliasExecute();
-        executeType = getAnalyzing().getClasses().getClassBody(aliasExecute_);
+        executeType = _ana.getClasses().getClassBody(aliasExecute_);
         String infoTest_ = standards_.getAliasInfoTest();
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC,
                 standards_.getAliasExecuteTests(),new StringList(infoTest_));
         executeMethod = ExecBlock.getMethodBodiesById(executeType,fct_).first();
-        formatType = getAnalyzing().getClasses().getClassBody(standards_.getAliasFormatType());
+        formatType = _ana.getClasses().getClassBody(standards_.getAliasFormatType());
         formatObject = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasObject()))).first();
         formatObjectTwo = ExecBlock.getMethodBodiesById(formatType,new MethodId(MethodAccessKind.STATIC, standards_.getAliasPrint(),new StringList(standards_.getAliasString(),standards_.getAliasObject()),true)).first();
-        runnableType = getAnalyzing().getClasses().getClassBody(standards_.getAliasRunnable());
+        runnableType = _ana.getClasses().getClassBody(standards_.getAliasRunnable());
         runMethod = ExecBlock.getMethodBodiesById(runnableType,new MethodId(MethodAccessKind.INSTANCE, standards_.getAliasRun(),new StringList())).first();
     }
 

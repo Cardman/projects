@@ -113,7 +113,7 @@ public abstract class QuickOperation extends MethodOperation {
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //oper len
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(getResultClass().getNames(),"&"),
                             StringList.join(leftRes_.getNames(),"&"));
                     page_.getLocalizer().addError(cast_);
@@ -133,7 +133,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(leftRes_.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);
@@ -147,7 +147,7 @@ public abstract class QuickOperation extends MethodOperation {
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first operator char or second operator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(rightRes_.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _conf);

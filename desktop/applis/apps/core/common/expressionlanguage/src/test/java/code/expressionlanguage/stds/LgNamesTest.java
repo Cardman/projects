@@ -42,7 +42,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail2Test() {
@@ -57,7 +57,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
         assertTrue(kw_.getKeyWordIntern().isEmpty());
     }
     @Test
@@ -73,7 +73,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail4Test() {
@@ -88,7 +88,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         kw_.validateKeyWordContents(s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail5Test() {
@@ -105,7 +105,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         kw_.validateEscapingsContents(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail6Test() {
@@ -122,7 +122,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateKeyWordContents(s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         kw_.validateEscapingsContents(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
 
     @Test
@@ -142,7 +142,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateEscapingsContents(s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail8Test() {
@@ -161,7 +161,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateEscapingsContents(s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail9Test() {
@@ -180,7 +180,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateEscapingsContents(s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail10Test() {
@@ -200,7 +200,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail11Test() {
@@ -220,7 +220,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail12Test() {
@@ -240,7 +240,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail13Test() {
@@ -260,7 +260,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail14Test() {
@@ -280,7 +280,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail15Test() {
@@ -300,7 +300,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail16Test() {
@@ -320,7 +320,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail17Test() {
@@ -340,7 +340,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail18Test() {
@@ -360,7 +360,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail19Test() {
@@ -380,7 +380,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail20Test() {
@@ -400,7 +400,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail21Test() {
@@ -420,7 +420,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail22Test() {
@@ -440,7 +440,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail23Test() {
@@ -460,7 +460,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail24Test() {
@@ -480,7 +480,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         kw_.validateNbWordContents(s_, nbWords_);
         kw_.validateBinarySeparators(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail25Test() {
@@ -502,7 +502,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateBinarySeparators(s_);
         StringMap<String> prims_ = lgName_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail26Test() {
@@ -524,7 +524,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateBinarySeparators(s_);
         StringMap<String> prims_ = lgName_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail27Test() {
@@ -546,7 +546,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateBinarySeparators(s_);
         StringMap<String> prims_ = lgName_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail28Test() {
@@ -568,7 +568,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateBinarySeparators(s_);
         StringMap<String> prims_ = lgName_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail29Test() {
@@ -592,7 +592,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail30Test() {
@@ -616,7 +616,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail31Test() {
@@ -640,7 +640,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail32Test() {
@@ -664,7 +664,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail33Test() {
@@ -688,7 +688,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail34Test() {
@@ -712,7 +712,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail35Test() {
@@ -736,7 +736,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail36Test() {
@@ -760,7 +760,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail37Test() {
@@ -786,7 +786,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail38Test() {
@@ -812,7 +812,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail39Test() {
@@ -838,7 +838,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail40Test() {
@@ -864,7 +864,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail41Test() {
@@ -890,7 +890,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         StringMap<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail42Test() {
@@ -918,7 +918,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail43Test() {
@@ -946,7 +946,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail44Test() {
@@ -974,7 +974,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail45Test() {
@@ -1002,7 +1002,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail46Test() {
@@ -1030,7 +1030,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsContents(s_, methods_, prims_);
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail47Test() {
@@ -1059,7 +1059,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<CustList<KeyValueMemberName>> fields_ = lgName_.allTableTypeFieldNames();
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail48Test() {
@@ -1089,7 +1089,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail49Test() {
@@ -1119,7 +1119,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail50Test() {
@@ -1149,7 +1149,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail51Test() {
@@ -1179,7 +1179,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail52Test() {
@@ -1210,7 +1210,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail53Test() {
@@ -1240,7 +1240,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsContents(s_, fields_, prims_);
         kw_.validateKeyWordDuplicates(s_, keyWords_);
         kw_.validateEscapingsDuplicates(s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail54Test() {
@@ -1274,7 +1274,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.validateNbWordDuplicates(s_, nbWordsDec_);
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         kw_.validateNbWordDuplicates(s_, nbWordsBin_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail55Test() {
@@ -1309,7 +1309,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         kw_.validateNbWordDuplicates(s_, nbWordsBin_);
         kw_.validateStartsPrefixesDuplicates(s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail56Test() {
@@ -1351,7 +1351,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeDuplicates(s_, refTypes_);
         ValidatorStandard.validateMethodsDuplicates(s_, methods_);
         ValidatorStandard.validateFieldsDuplicates(s_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail57Test() {
@@ -1375,7 +1375,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail58Test() {
@@ -1399,7 +1399,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = lgName_.allRefTypes();
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail59Test() {
@@ -1445,7 +1445,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsDuplicates(s_, methods_);
         ValidatorStandard.validateFieldsDuplicates(s_, fields_);
         ValidatorStandard.validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail60Test() {
@@ -1488,7 +1488,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateMethodsDuplicates(s_, methods_);
         ValidatorStandard.validateFieldsDuplicates(s_, fields_);
         ValidatorStandard.validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail61Test() {
@@ -1514,7 +1514,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail62Test() {
@@ -1540,7 +1540,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail63Test() {
@@ -1566,7 +1566,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail64Test() {
@@ -1592,7 +1592,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail65Test() {
@@ -1618,7 +1618,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateRefTypeContents(s_, refTypes_, prims_);
         CustList<CustList<KeyValueMemberName>> methods_ = lgName_.allTableTypeMethodParamNames();
         ValidatorStandard.validateParamtersContents(s_, methods_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail66Test() {
@@ -1662,7 +1662,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = lgName_.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail67Test() {
@@ -2165,7 +2165,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = lgName_.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.isEmptyStdError());
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void success1Test() {
@@ -2190,8 +2190,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
-        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
-        assertTrue(contextEl_.isEmptyErrors());
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
+        assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = contextEl_.getClasses().getClassBody("pkg.Ex");
@@ -2223,8 +2223,8 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         ContextEl contextEl_ = getCtx(lk_, di_, kw_, lgName_, options_);
-        ContextFactory.validate(contextEl_.getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
-        assertTrue(contextEl_.isEmptyErrors());
+        ContextFactory.validate(contextEl_.getAnalyzing().getAnalysisMessages(),kw_,lgName_,all_,contextEl_,"src", new CustList<CommentDelimiters>(),options_);
+        assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = contextEl_.getClasses().getClassBody("pkg.Ex");
@@ -2242,7 +2242,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ctx_.getAnalyzing().setKeyWords(kw_);
         ctx_.getAnalyzing().setStandards(lgName_);
         AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
-        assertTrue(ctx_.isEmptyMessageError());
+        assertTrue(ctx_.getAnalyzing().isEmptyMessageError());
         return ctx_;
     }
 

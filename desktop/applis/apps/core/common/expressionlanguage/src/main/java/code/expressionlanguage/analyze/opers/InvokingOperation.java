@@ -67,9 +67,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             b_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             b_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //param name len
-            b_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
+            b_.buildError(_conf.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
                     name_);
-            _conf.addError(b_);
+            _conf.getAnalyzing().addLocError(b_);
             o.getErrs().add(b_.getBuiltError());
         }
     }
@@ -294,7 +294,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     protected static void filterByReturnType(ContextEl _an, String typeAff_, CustList<CustList<MethodInfo>> _methodInfos) {
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(typeAff_, keyWordVar_)) {
             return;
@@ -336,8 +336,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return f_;
     }
     public static boolean isTrueFalseKeyWord(ContextEl _an, String _trimMeth) {
-        return StringList.quickEq(_trimMeth,_an.getKeyWords().getKeyWordTrue())
-                ||StringList.quickEq(_trimMeth,_an.getKeyWords().getKeyWordFalse());
+        return StringList.quickEq(_trimMeth, _an.getAnalyzing().getKeyWords().getKeyWordTrue())
+                ||StringList.quickEq(_trimMeth, _an.getAnalyzing().getKeyWords().getKeyWordFalse());
     }
     protected static boolean isNotCorrectDim(String cp_) {
         return cp_ == null||cp_.startsWith("[");

@@ -122,8 +122,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorEnd());
+            _conf.getAnalyzing().addLocError(call_);
             getErrs().add(call_.getBuiltError());
         } else {
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
@@ -132,8 +132,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getAnalysisMessages().getCallCtor());
-                _conf.addError(call_);
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtor());
+                _conf.getAnalyzing().addLocError(call_);
                 getErrs().add(call_.getBuiltError());
             } else if (!(curBlock_ instanceof Line)) {
                 //error
@@ -141,8 +141,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 call_.setFileName(curBlock_.getFile().getFileName());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
-                call_.buildError(_conf.getAnalysisMessages().getCallCtorBeforeBlock());
-                _conf.addError(call_);
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorBeforeBlock());
+                _conf.getAnalyzing().addLocError(call_);
                 getErrs().add(call_.getBuiltError());
             } else {
                 checkPosition(_conf);
@@ -156,8 +156,8 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             call_.setFileName(curBlock_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorFirstLine());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorFirstLine());
+            _conf.getAnalyzing().addLocError(call_);
             getErrs().add(call_.getBuiltError());
         }
     }

@@ -61,7 +61,7 @@ public final class MultOperation extends NumericOperation {
         un_.setIndexFile(index_);
         un_.setFileName(page_.getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_cont.getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(_a.getNames(),"&"),
                         StringList.join(_b.getNames(),"&")

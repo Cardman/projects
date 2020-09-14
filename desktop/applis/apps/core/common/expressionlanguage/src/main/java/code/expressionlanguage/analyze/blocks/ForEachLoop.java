@@ -150,26 +150,26 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());
-            _cont.addError(b_);
+            _cont.getAnalyzing().addLocError(b_);
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (!StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
@@ -180,13 +180,13 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         MethodAccessKind static_ = f_.getStaticContext();
-        page_.getCoverage().putBlockOperationsLoops(_cont,this);
+        page_.getCoverage().putBlockOperationsLoops(this);
         return static_;
     }
 
     public void inferArrayClass(ContextEl _cont, ClassArgumentMatching _elt) {
         ClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_elt);
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
@@ -199,9 +199,9 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(expressionOffset);
                 //separator char
-                cast_.buildError(_cont.getAnalysisMessages().getUnknownType(),
+                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnknownType(),
                         className.trim());
-                _cont.addError(cast_);
+                _cont.getAnalyzing().addLocError(cast_);
                 sepErrors.add(cast_.getBuiltError());
             } else {
                 mapping_.setArg(compo_);
@@ -213,10 +213,10 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),"&"),
                             importedClassName);
-                    _cont.addError(cast_);
+                    _cont.getAnalyzing().addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -240,18 +240,18 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkMatchs(ContextEl _cont, ClassArgumentMatching _elt) {
         if (Argument.isNullValue(argument)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_cont.getCurrentFileName());
-            static_.setIndexFile(_cont.getCurrentLocationIndex());
+            static_.setFileName(_cont.getAnalyzing().getCurrentBlock().getFile().getFileName());
+            static_.setIndexFile(_cont.getAnalyzing().getTraceIndex());
             //separator char
-            static_.buildError(_cont.getAnalysisMessages().getNullValue(),
+            static_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNullValue(),
                     _cont.getAnalyzing().getStandards().getAliasNullPe());
-            _cont.addError(static_);
+            _cont.getAnalyzing().addLocError(static_);
             sepErrors.add(static_.getBuiltError());
         } else {
             if (_elt.isArray()) {
@@ -282,7 +282,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             } else if (paramArg_.startsWith(Templates.SUP_TYPE)){
                 paramArg_ = page_.getStandards().getAliasObject();
             }
-            KeyWords keyWords_ = _cont.getKeyWords();
+            KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = paramArg_;
@@ -296,10 +296,10 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
                     cast_.setFileName(getFile().getFileName());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
-                    cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    _cont.addError(cast_);
+                    _cont.getAnalyzing().addLocError(cast_);
                     sepErrors.add(cast_.getBuiltError());
                 }
             }
@@ -308,10 +308,10 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(expressionOffset);
             //separator char
-            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     page_.getStandards().getAliasObject(),
                     page_.getStandards().getAliasIterable());
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             sepErrors.add(cast_.getBuiltError());
         }
     }

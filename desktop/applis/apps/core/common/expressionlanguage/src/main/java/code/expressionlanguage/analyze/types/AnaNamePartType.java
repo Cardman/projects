@@ -12,7 +12,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
 
@@ -304,21 +304,22 @@ final class AnaNamePartType extends AnaLeafPartType {
     private static CustList<InaccessibleType> checkAccessIntern(ContextEl _an, String _found, String _owner, int _indexInType) {
         String idOwner_ = StringExpUtil.getIdFromAllTypes(_owner);
         String idFound_ = StringExpUtil.getIdFromAllTypes(_found);
-        RootBlock found_ = _an.getAnalyzing().getAnaClassBody(idFound_);
+        AnalyzedPageEl page_ = _an.getAnalyzing();
+        RootBlock found_ = page_.getAnaClassBody(idFound_);
         if (found_ == null) {
             return new CustList<InaccessibleType>();
         }
         CustList<InaccessibleType> l_ = new CustList<InaccessibleType>();
-        ExecAccessingImportingBlock gl_ = _an.getAnalyzing().getCurrentGlobalBlock().getImportingAcces();
-        if (_an.getAnalyzing().getHiddenTypes().isHidden(gl_,found_)) {
+        ExecAccessingImportingBlock gl_ = page_.getCurrentGlobalBlock().getImportingAcces();
+        if (page_.getHiddenTypes().isHidden(gl_,found_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
-            _an.getAnalyzing().getCurrentBadIndexes().add(i_);
+            page_.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
         Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentFullName(), found_.getFullName(), found_.getOuterFullName());
-        if (new TypeAccessor(idOwner_).isTypeHidden(a_,_an)) {
+        if (new TypeAccessor(idOwner_).isTypeHidden(a_,page_)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
-            _an.getAnalyzing().getCurrentBadIndexes().add(i_);
+            page_.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
         return l_;
@@ -375,7 +376,7 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
 
     void processOffsets(ContextEl _an, AccessedBlock _rooted) {
-        if (!_an.isGettingParts()) {
+        if (!_an.getAnalyzing().isGettingParts()) {
             return;
         }
         String curr_ = ((Block)_rooted).getFile().getRenderFileName();
@@ -391,11 +392,11 @@ final class AnaNamePartType extends AnaLeafPartType {
         }
     }
     void processInaccessibleOffsets(ContextEl _an, String _gl) {
-        if (!_an.isGettingParts()) {
+        if (!_an.getAnalyzing().isGettingParts()) {
             return;
         }
         for (InaccessibleType i: getInaccessibleTypes()) {
-            getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getInaccessibleType(),
+            getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
                     i.getType(),_gl));
         }
     }

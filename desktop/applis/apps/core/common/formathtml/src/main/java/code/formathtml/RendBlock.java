@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.exec.EndCallValue;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -519,11 +520,11 @@ public abstract class RendBlock implements AnalyzedBlock {
         String fileName_ = getProperty(_cont, var_);
         if (fileName_ == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_cont.getCurrentFileName());
+            badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
             badEl_.setIndexFile(_offset);
             badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
                     var_);
-            _cont.addError(badEl_);
+            Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             return new StringMap<String>();
         }
         StringMap<String> pres_ = new StringMap<String>();
@@ -538,13 +539,13 @@ public abstract class RendBlock implements AnalyzedBlock {
             }
             if (index_ >= 0) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_offset);
-                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                         " ",
                         Integer.toString(index_),
                         content_);
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 return new StringMap<String>();
             }
             StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
@@ -552,11 +553,11 @@ public abstract class RendBlock implements AnalyzedBlock {
             String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
             if (format_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
                         key_);
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 return new StringMap<String>();
             }
             pres_.addEntry(l,format_);
@@ -960,7 +961,8 @@ public abstract class RendBlock implements AnalyzedBlock {
     protected static String lookForVar(Configuration _cont, StringList _varNames) {
         String varLoc_ = TMP_LOC;
         int indexLoc_ = 0;
-        while (!ContextUtil.isNotVar(_cont.getContext(),varLoc_) || StringList.contains(_varNames,varLoc_)) {
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
+        while (!ContextUtil.isNotVar(varLoc_, page_) || StringList.contains(_varNames,varLoc_)) {
             varLoc_ = StringList.concatNbs(TMP_LOC,indexLoc_);
             indexLoc_++;
         }

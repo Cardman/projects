@@ -49,7 +49,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -103,7 +103,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -153,7 +153,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -206,7 +206,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -262,7 +262,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -318,7 +318,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -376,7 +376,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -434,7 +434,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -495,7 +495,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -557,7 +557,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -625,7 +625,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -689,7 +689,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -746,7 +746,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -807,7 +807,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -875,7 +875,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -935,7 +935,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -992,7 +992,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
@@ -1024,7 +1024,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
@@ -1059,7 +1059,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExOne", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExOne");
 
@@ -1089,7 +1089,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExEnum", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1122,7 +1122,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         files_.put("pkg/ExEnum", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1167,7 +1167,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1215,7 +1215,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1263,7 +1263,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1306,7 +1306,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1346,7 +1346,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1394,7 +1394,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1441,7 +1441,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1481,7 +1481,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -1521,7 +1521,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -1564,7 +1564,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1598,7 +1598,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1631,7 +1631,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1666,7 +1666,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1701,7 +1701,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1745,7 +1745,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1789,7 +1789,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1837,7 +1837,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1882,7 +1882,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1941,7 +1941,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -2000,7 +2000,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -2039,7 +2039,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -2095,7 +2095,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2170,7 +2170,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2245,7 +2245,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2320,7 +2320,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2388,7 +2388,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2437,7 +2437,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2486,7 +2486,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2546,7 +2546,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2606,7 +2606,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2671,7 +2671,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2733,7 +2733,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2799,7 +2799,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2842,7 +2842,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
 
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
@@ -2876,7 +2876,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
 
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
         Struct field_ = cont_.getClasses().getStaticField(new ClassField("pkg.ExThree", "ance"));
@@ -2926,7 +2926,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2997,7 +2997,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3066,7 +3066,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3165,7 +3165,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3250,7 +3250,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3297,7 +3297,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3345,7 +3345,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3402,7 +3402,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3457,7 +3457,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3498,7 +3498,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3540,7 +3540,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3584,7 +3584,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3632,7 +3632,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3673,7 +3673,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3720,7 +3720,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3767,7 +3767,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3814,7 +3814,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3861,7 +3861,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3908,7 +3908,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3942,7 +3942,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgumentNullPe() {
@@ -3963,7 +3963,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         calculateError("pkg.ExThree", id_, args_, cont_);
@@ -3991,7 +3991,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         calculateError("pkg.ExThree", id_, args_, cont_);
@@ -4019,7 +4019,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         calculateError("pkg.ExThree", id_, args_, cont_);
@@ -4044,7 +4044,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         calculateError("pkg.ExThree", id_, args_, cont_);
@@ -4069,7 +4069,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         calculateError("pkg.ExThree", id_, args_, cont_);
@@ -4097,7 +4097,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument74Test() {
@@ -4123,7 +4123,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("execute");
         Argument ret_;
@@ -4161,7 +4161,7 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument22FailTest() {
@@ -4195,6 +4195,6 @@ public final class ProcessMethodInstanceLinearInheritTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

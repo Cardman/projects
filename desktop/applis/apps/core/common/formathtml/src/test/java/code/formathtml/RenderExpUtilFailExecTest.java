@@ -2447,7 +2447,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
 
     private static void processEl(String _el, Configuration _cont) {
         if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().setGlobalClass(_cont.getLastPage().getGlobalClass());
+            _cont.getContext().getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
         }
         processEl(_el, 0, _cont);
         assertTrue(_cont.isEmptyErrors());
@@ -2488,7 +2488,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         Classes.validateWithoutInit(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
         ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
         Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_, cont_.getAnalyzing().getOptions());

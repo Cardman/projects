@@ -43,12 +43,12 @@ public final class RendForm extends RendElement {
                 m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(rowsGrId_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.last().getResultClass().getNames(),AND_ERR),
                             _cont.getStandards().getAliasLong());
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
             int l_ = opExp.size();

@@ -17,6 +17,10 @@ public final class AnalyzingDoc {
     private String fileName="";
     private RendDocumentBlock currentDoc;
 
+    public String getLocationFile(String _fileName, int _sum) {
+        return StringList.concat(Integer.toString(_sum));
+    }
+
     public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
         int delta_ = getDelta(_offset, _currentBlock, _attribute);
         return _glOffset+_offset+delta_;
@@ -64,6 +68,10 @@ public final class AnalyzingDoc {
             return t.getValue();
         }
         return null;
+    }
+
+    public boolean isInternGlobal() {
+        return !getInternGlobalClass().isEmpty();
     }
 
     public void setAttribute(String _attribute) {

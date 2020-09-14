@@ -1,6 +1,5 @@
 package code.formathtml.errors;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.ErrorCat;
@@ -329,7 +328,7 @@ public final class RendKeyWords {
     private String styleUnitEm="em";
     private String styleUnitSolid="solid";
     public void validateTagContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -352,7 +351,7 @@ public final class RendKeyWords {
         }
     }
     public void validateDuplicates(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         StringList keyWords_ = new StringList(_list.values());
         if (keyWords_.hasDuplicates()) {
             for (EntryCust<String,String> e: _list.entryList()) {
@@ -365,7 +364,7 @@ public final class RendKeyWords {
         }
     }
     public void validateAttrContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -396,7 +395,7 @@ public final class RendKeyWords {
         }
     }
     public void validateValueContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -409,7 +408,7 @@ public final class RendKeyWords {
         }
     }
     public void validateStyleValueContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -432,7 +431,7 @@ public final class RendKeyWords {
         }
     }
     public void validateStyleUnitContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalysisMessages();
+        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();

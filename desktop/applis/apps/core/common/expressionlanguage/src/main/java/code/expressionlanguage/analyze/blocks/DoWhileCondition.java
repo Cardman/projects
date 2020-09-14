@@ -66,10 +66,10 @@ public final class DoWhileCondition extends Condition {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_an.getAnalysisMessages().getDoWhileNotEmpty(),
-                    _an.getKeyWords().getKeyWordWhile(),
-                    _an.getKeyWords().getKeyWordDo());
-            _an.addError(un_);
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getDoWhileNotEmpty(),
+                    _an.getAnalyzing().getKeyWords().getKeyWordWhile(),
+                    _an.getAnalyzing().getKeyWords().getKeyWordDo());
+            _an.getAnalyzing().addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         }

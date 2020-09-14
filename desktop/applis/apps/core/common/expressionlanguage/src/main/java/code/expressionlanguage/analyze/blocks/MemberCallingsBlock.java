@@ -68,12 +68,12 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         page_.setExecDeclareVariable(null);
         page_.setCurrentBlock(this);
         _cont.getAnalyzing().setCurrentFct(this);
-        StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_cont);
+        StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(page_);
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
         AnalyzingEl anEl_ = new AnalyzingEl(mapping_);
         anEl_.getMappingBracedMembers().put(this,_mem);
-        page_.getCoverage().putBlockOperations(_cont,_mem,this);
+        page_.getCoverage().putBlockOperations(_mem,this);
         _cont.getAnalyzing().setAnalysisAss(anEl_);
         anEl_.setRoot(this);
         Block en_ = this;
@@ -95,7 +95,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             page_.setCurrentAnaBlock(en_);
             anEl_.putLabel(this);
             addPossibleEmpty(en_);
-            page_.getCoverage().putBlockOperations(_cont,en_);
+            page_.getCoverage().putBlockOperations(en_);
             if (en_ == this) {
                 anEl_.reach(this);
             } else {
@@ -160,8 +160,8 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(i);
             //underline index char
-            b_.buildError(_cont.getAnalysisMessages().getBadIndexInParser());
-            _cont.addError(b_);
+            b_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
+            _cont.getAnalyzing().addLocError(b_);
             en_.setReachableError(true);
             en_.getErrorsBlock().add(b_.getBuiltError());
         }
@@ -188,9 +188,9 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
             deadCode_.setFileName(getFile().getFileName());
             deadCode_.setIndexFile(_en.getOffset().getOffsetTrim());
             //all header expression
-            deadCode_.buildError(_cont.getAnalysisMessages().getDeadCode(),
+            deadCode_.buildError(_cont.getAnalyzing().getAnalysisMessages().getDeadCode(),
                     getPseudoSignature(_cont));
-            _cont.addError(deadCode_);
+            _cont.getAnalyzing().addLocError(deadCode_);
             _en.getErrorsBlock().add(deadCode_.getBuiltError());
             _en.setReachableError(true);
         }

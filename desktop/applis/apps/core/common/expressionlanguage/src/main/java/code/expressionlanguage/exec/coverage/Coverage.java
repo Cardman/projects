@@ -7,8 +7,6 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
-import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
@@ -44,39 +42,39 @@ public final class Coverage {
         this.covering = covering;
     }
 
-    public void putFile(ContextEl _context, FileBlock _file) {
+    public void putFile(FileBlock _file) {
         if (!isCovering()) {
             return;
         }
         files.add(_file);
     }
 
-    public void putType(ContextEl _context, RootBlock _type) {
+    public void putType(RootBlock _type) {
         if (!isCovering()) {
             return;
         }
         refFoundTypes.add(_type);
     }
 
-    public void putOperator(ContextEl _context, OperatorBlock _type) {
+    public void putOperator(OperatorBlock _type) {
         if (!isCovering()) {
             return;
         }
         refOperators.add(_type);
     }
-    public void putBlockOperationsLoops(ContextEl _context, Block _block) {
+    public void putBlockOperationsLoops(Block _block) {
         if (!isCovering()) {
             return;
         }
         coverLoops.put(_block,new BooleanCoverageResult());
     }
-    public void putBlockOperationsConditions(ContextEl _context, Block _block) {
+    public void putBlockOperationsConditions(Block _block) {
         if (!isCovering()) {
             return;
         }
         coversConditions.put(_block,new BooleanCoverageResult());
     }
-    public void putBlockOperationsSwitchs(ContextEl _context, Block _block, boolean _def) {
+    public void putBlockOperationsSwitchs(Block _block, boolean _def) {
         if (!isCovering()) {
             return;
         }
@@ -85,42 +83,41 @@ public final class Coverage {
             coverNoDefSwitchs.put(_block,new StandardCoverageResult());
         }
     }
-    public void putBlockOperationsSwitchs(ContextEl _context, Block _block, Block _child) {
+    public void putBlockOperationsSwitchs(Block _block, Block _child) {
         if (!isCovering()) {
             return;
         }
         coverSwitchs.getVal(_block).put(_child, new StandardCoverageResult());
     }
-    public void putBlockOperations(ContextEl _context, Block _block) {
+    public void putBlockOperations(Block _block) {
         if (!isCovering()) {
             return;
         }
         covers.put(_block, new IdMap<OperationNode, AbstractCoverageResult>());
         getMapping().put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
-    public void putBlockOperations(ContextEl _context, ExecBlock _exec,Block _block) {
+    public void putBlockOperations(ExecBlock _exec, Block _block) {
         if (!isCovering()) {
             return;
         }
         getMappingBlocks().put(_exec,_block);
     }
-    public void putBlockOperationsField(ContextEl _context, Block _block) {
+    public void putBlockOperationsField(AnalyzedPageEl _analyzing, Block _block) {
         if (!isCovering()) {
             return;
         }
-        if (_context.isAnnotAnalysisField()) {
+        if (_analyzing.isAnnotAnalysisField()) {
             mappingAnnot.put(_block,new IdMap<ExecOperationNode, OperationNode>());
             return;
         }
         mappingAnnotMembers.put(_block,new IdMap<ExecOperationNode, OperationNode>());
     }
-    public void putBlockOperation(ContextEl _context, Block _block,  OperationNode _root,OperationNode _op, ExecOperationNode _exec) {
+    public void putBlockOperation(AnalyzedPageEl _analyzing, Block _block, OperationNode _op, ExecOperationNode _exec) {
         if (!isCovering()) {
             return;
         }
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        if (_context.isAnnotAnalysis()) {
-            if (_context.isAnnotAnalysisField()) {
+        if (_analyzing.isAnnotAnalysis()) {
+            if (_analyzing.isAnnotAnalysisField()) {
                 IdMap<ExecOperationNode, OperationNode> mapping_ = mappingAnnot.getVal(_block);
                 mapping_.put(_exec,_op);
                 return;
@@ -141,7 +138,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof NullSafeOperation) {
             if (_op.getArgument() == null) {
-                if (_op.getResultClass().isBoolType(page_)) {
+                if (_op.getResultClass().isBoolType(_analyzing)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -154,7 +151,7 @@ public final class Coverage {
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
             if (StringList.quickEq(c_.getOper(),Block.NULL_EQ)) {
-                if (_op.getResultClass().isBoolType(page_)) {
+                if (_op.getResultClass().isBoolType(_analyzing)) {
                     instr_.put(_op, new NullBooleanCoverageResult());
                 } else {
                     instr_.put(_op, new NullCoverageResult());
@@ -162,33 +159,33 @@ public final class Coverage {
                 return;
             }
         }
-        String b_ = page_.getStandards().getAliasPrimBoolean();
+        String b_ = _analyzing.getStandards().getAliasPrimBoolean();
         if ((_op.getResultClass().matchClass(b_) || !_op.getResultClass().getImplicitsTest().isEmpty())&& _op.getArgument() == null) {
             instr_.put(_op,new BooleanCoverageResult());
         } else {
             instr_.put(_op,new StandardCoverageResult());
         }
     }
-    public void putCalls(ContextEl _context, String _type) {
+    public void putCalls(String _type) {
         if (!isCovering()) {
             return;
         }
         calls.put(_type,new IdMap<NamedFunctionBlock,Boolean>());
     }
-    public void putCalls(ContextEl _context, String _type,NamedFunctionBlock _block) {
+    public void putCalls(String _type, NamedFunctionBlock _block) {
         if (!isCovering()) {
             return;
         }
         calls.getVal(_type).put(_block,false);
     }
-    public void putCatches(ContextEl _context, Block _block) {
+    public void putCatches(Block _block) {
         if (!isCovering()) {
             return;
         }
         catches.put(_block,false);
     }
 
-    public void putToStringOwner(ContextEl _context, String _owner) {
+    public void putToStringOwner(String _owner) {
         if (!isCovering()) {
             return;
         }
@@ -244,9 +241,6 @@ public final class Coverage {
             return;
         }
         AbstractPageEl lastPage_ = _context.getLastPage();
-        if (lastPage_ instanceof ReflectAnnotationPageEl || lastPage_ instanceof ReflectGetDefaultValuePageEl) {
-            return;
-        }
         ReadWrite rw_ = lastPage_.getReadWrite();
         ExecBlock en_ = rw_.getBlock();
         IdMap<OperationNode,AbstractCoverageResult> instr_;
@@ -266,17 +260,14 @@ public final class Coverage {
             result_.cover(_value);
         }
     }
-    public void passCalls(ContextEl _context, String _type,ExecNamedFunctionBlock _block) {
+    public void passCalls(String _type, ExecNamedFunctionBlock _block) {
         if (!isCovering()) {
             return;
         }
         IdMap<NamedFunctionBlock, Boolean> val_ = calls.getVal(_type);
-        if (val_ == null) {
-            val_ = calls.getVal("");
-        }
         val_.set((NamedFunctionBlock)mappingBlocks.getVal(_block),true);
     }
-    public void passCatches(ContextEl _context, ExecBlock _block) {
+    public void passCatches(ExecBlock _block) {
         if (!isCovering()) {
             return;
         }
@@ -357,7 +348,7 @@ public final class Coverage {
         return keyWords;
     }
 
-    public void setKeyWords(ContextEl _cont,KeyWords keyWords) {
+    public void setKeyWords(KeyWords keyWords) {
         if (!isCovering()) {
             return;
         }

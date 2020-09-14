@@ -82,18 +82,18 @@ public final class ElseIfCondition extends Condition implements BlockCondition {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getKeyWords().getKeyWordElseif(),
+                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordElseif(),
                         StringList.join(
                                 new StringList(
-                                        _an.getKeyWords().getKeyWordIf(),
-                                        _an.getKeyWords().getKeyWordElseif()
+                                        _an.getAnalyzing().getKeyWords().getKeyWordIf(),
+                                        _an.getAnalyzing().getKeyWords().getKeyWordElseif()
                                 ),
                                 "|"));
                 //key word len
                 getErrorsBlock().add(un_.getBuiltError());
                 setReachableError(true);
-                _an.addError(un_);
+                _an.getAnalyzing().addLocError(un_);
             }
         }
     }

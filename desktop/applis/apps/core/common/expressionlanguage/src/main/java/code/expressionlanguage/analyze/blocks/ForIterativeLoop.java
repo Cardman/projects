@@ -194,14 +194,14 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
-        page_.getCoverage().putBlockOperationsLoops(_cont,this);
+        page_.getCoverage().putBlockOperationsLoops(this);
         ExecForIterativeLoop exec_ = new ExecForIterativeLoop(getOffset(),label, importedClassName,
                 importedClassIndexName,variableName,variableNameOffset, initOffset,
                 expressionOffset, stepOffset,eq,init_,exp_,step_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset) {
@@ -221,10 +221,10 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 cast_.setFileName(getFile().getFileName());
                 cast_.setIndexFile(_offset);
                 //char before expression
-                cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(arg_.getNames(),"&"),
                         _elementClass);
-                _cont.addError(cast_);
+                _cont.getAnalyzing().addLocError(cast_);
                 setReachableError(true);
                 getErrorsBlock().add(cast_.getBuiltError());
             }
@@ -242,9 +242,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
-            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
@@ -258,22 +258,22 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classNameOffset);
             //className len
-            cast_.buildError(_cont.getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             setReachableError(true);
             getErrorsBlock().add(cast_.getBuiltError());
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());
-            _cont.addError(b_);
+            _cont.getAnalyzing().addLocError(b_);
             nameErrors.add(b_.getBuiltError());
             return false;
         }

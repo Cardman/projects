@@ -1,6 +1,6 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.opers.AnnotationInstanceOperation;
 import code.expressionlanguage.analyze.opers.AssocationOperation;
@@ -9,9 +9,9 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.StringList;
 
 public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalysis {
-    private final ContextEl context;
+    private final AnalyzedPageEl context;
 
-    public DefaultAnnotationAnalysis(ContextEl context) {
+    public DefaultAnnotationAnalysis(AnalyzedPageEl context) {
         this.context = context;
     }
 
@@ -20,9 +20,9 @@ public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalys
         return isAnnotAnalysis(context,_op,_seq);
     }
 
-    private static boolean isAnnotAnalysis(ContextEl _cont, OperationNode _op, OperationsSequence _seq) {
+    private static boolean isAnnotAnalysis(AnalyzedPageEl _cont, OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
-        if ((_cont.getAnalyzing().getCurrentBlock() instanceof AnnotationMethodBlock && _op == null)
+        if ((_cont.getCurrentBlock() instanceof AnnotationMethodBlock && _op == null)
                 || _op instanceof AssocationOperation
                 || _op instanceof AnnotationInstanceOperation) {
             ok_ = true;

@@ -1,33 +1,37 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.instr.PartOffset;
+import code.util.CustList;
 
 public final class DefaultCurrentGlobalBlock implements AbstractCurrentGlobalBlock {
-    private final ContextEl context;
+    private final AnalyzedPageEl page;
 
-    public DefaultCurrentGlobalBlock(ContextEl context) {
-        this.context = context;
+    public DefaultCurrentGlobalBlock(AnalyzedPageEl page) {
+        this.page = page;
     }
 
     @Override
     public AccessedBlock getCurrentGlobalBlockImporting() {
-        return context.getCurrentGlobalBlockImporting();
+        return page.getImportingTypes();
     }
 
     @Override
     public ExecAccessingImportingBlock getImportingAcces() {
-        return context.getImportingAcces();
+        return page.getImportingAcces();
     }
 
     @Override
     public AccessedBlock getCurrentGlobalBlock() {
-        return context.getCurrentGlobalBlock();
+        return page.getImporting();
     }
 
     @Override
     public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
-        return context.getCurrentGlobalBlock(_bl);
+        CustList<PartOffset> offs_ = page.getCurrentParts();
+        offs_.clear();
+        return _bl;
     }
 }

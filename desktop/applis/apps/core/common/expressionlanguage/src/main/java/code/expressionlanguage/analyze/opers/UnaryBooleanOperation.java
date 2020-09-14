@@ -58,7 +58,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //operator
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
                         StringList.join(clMatch_.getNames(),"&"),
                         oper_);
                 if (!MethodOperation.isEmptyError(getFirstChild())){

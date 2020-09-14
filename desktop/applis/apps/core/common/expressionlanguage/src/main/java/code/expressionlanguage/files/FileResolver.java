@@ -42,7 +42,7 @@ public final class FileResolver {
     public static void parseFile(FileBlock _block, String _fileName, String _file, ContextEl _context) {
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String keyWordPackage_ = keyWords_.getKeyWordPackage();
         String keyWordPrivate_ = keyWords_.getKeyWordPrivate();
@@ -164,8 +164,8 @@ public final class FileResolver {
                 b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //if empty file => add underlined space
                 //else underline last char
-                b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
-                _context.addError(b_);
+                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
+                _context.getAnalyzing().addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
                 _block.getErrorsFiles().add(g_);
@@ -181,8 +181,8 @@ public final class FileResolver {
                 b_.setFileName(_fileName);
                 b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //underline index char
-                b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
-                _context.addError(b_);
+                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
+                _context.getAnalyzing().addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
                 _block.getErrorsFiles().add(g_);
@@ -262,7 +262,7 @@ public final class FileResolver {
                                                        String _file) {
         ResultCreation out_ = new ResultCreation();
         int len_ = _file.length();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String packageName_ = _pkgName;
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
@@ -554,7 +554,7 @@ public final class FileResolver {
     private static EndInstruction endInstruction(BracedBlock _parent, StringBuilder _instruction,
                                                  boolean _enableByEndLine, ContextEl _context) {
         String tr_ = _instruction.toString().trim();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         if (_parent == null) {
             if (tr_.isEmpty()) {
                 return EndInstruction.DECLARE_TYPE;
@@ -853,7 +853,7 @@ public final class FileResolver {
         String found_ = _instruction.toString();
         String trimmedInstruction_ = found_.trim();
         int instructionRealLocation_ = instructionLocation_;
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
@@ -1097,7 +1097,7 @@ public final class FileResolver {
                     //insert interfaces static initialization for class and enums
                     String substring_ = afterImports_;
                     InterfacesPart interfacesPart_ = new InterfacesPart(substring_,nextIndex_);
-                    interfacesPart_.parse(_context.getKeyWords(),nextIndex_,_offset);
+                    interfacesPart_.parse(_context.getAnalyzing().getKeyWords(),nextIndex_,_offset);
                     StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
                     Ints staticInitInterfacesOffset_ = interfacesPart_.getStaticInitInterfacesOffset();
                     boolean okType_ = interfacesPart_.isOk();
@@ -1544,7 +1544,7 @@ public final class FileResolver {
                                                String _trimmedInstruction,
                                                AccessEnum _defAccess) {
         //Inner types
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         AccessEnum accessFct_ = _defAccess;
         String word_ = EMPTY_STRING;
         int trFound_ = StringList.getFirstPrintableCharIndex(_found);
@@ -1739,7 +1739,7 @@ public final class FileResolver {
         Ints annotationsIndexes_ = new Ints();
         StringList annotations_ = new StringList();
         int deltaAccess_ = 0;
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
@@ -2002,35 +2002,35 @@ public final class FileResolver {
                 String trimMeth_ = methodName_.trim();
                 MethodKind kind_;
                 OverridableBlock ov_;
-                if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordFalse())) {
+                if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordFalse())) {
                     kind_ = MethodKind.FALSE_OPERATOR;
                     ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                } else if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordTrue())) {
+                } else if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordTrue())) {
                     kind_ = MethodKind.TRUE_OPERATOR;
                     ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                } else if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordExplicit())) {
+                } else if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordExplicit())) {
                     kind_ = MethodKind.EXPLICIT_CAST;
                     ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                } else if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordCast())) {
+                } else if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordCast())) {
                     kind_ = MethodKind.IMPLICIT_CAST;
                     ov_ = new OverridableBlock(_context, new OffsetAccessInfo(accessOffest_+_offset, accessFct_),
                             new OffsetStringInfo(typeOffset_+_offset, retType_),
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_), parametersType_, offestsTypes_,
                             parametersName_, offestsParams_, new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
-                } else if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordThis())) {
+                } else if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordThis())) {
                     boolean get_ = !StringList.quickEq(retType_,_context.getAnalyzing().getStandards().getAliasVoid());
                     if (!get_) {
                         kind_ = MethodKind.SET_INDEX;
@@ -2046,7 +2046,7 @@ public final class FileResolver {
                             new OffsetsBlock(instructionRealLocation_+_offset, instructionLocation_+_offset));
                     ov_.setMatchParamNames(false);
                 } else {
-                    if (StringList.quickEq(trimMeth_,_context.getKeyWords().getKeyWordToString())
+                    if (StringList.quickEq(trimMeth_, _context.getAnalyzing().getKeyWords().getKeyWordToString())
                             &&!StringList.quickEq(modifier_,keyWordStatic_)
                             &&!StringList.quickEq(modifier_,keyWordStaticCall_)
                             &&parametersType_.isEmpty()) {
@@ -2146,7 +2146,7 @@ public final class FileResolver {
                                                  int _offset,
                                                  int _instructionLocation,
                                                  int _instructionRealLocation, int _i, BracedBlock _currentParent, String _trimmedInstruction) {
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String keyWordBreak_ = keyWords_.getKeyWordBreak();
         String keyWordCase_ = keyWords_.getKeyWordCase();
         String keyWordCatch_ = keyWords_.getKeyWordCatch();

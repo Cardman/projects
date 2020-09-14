@@ -15,12 +15,12 @@ public final class RendImportForm extends RendParentBlock {
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         if (!(getParent() instanceof RendImport)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordForm(),
                     _cont.getRendKeyWords().getKeyWordImport());
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
     }
 

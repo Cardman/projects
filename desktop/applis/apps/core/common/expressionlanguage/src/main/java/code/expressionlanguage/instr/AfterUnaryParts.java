@@ -129,7 +129,7 @@ final class AfterUnaryParts {
     void setInstance(String _string, ContextEl _conf) {
         anonymousResults = _conf.getAnalyzing().getAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
             instance = true;

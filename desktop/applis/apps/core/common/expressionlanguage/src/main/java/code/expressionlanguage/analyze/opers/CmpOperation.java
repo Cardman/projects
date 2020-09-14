@@ -50,7 +50,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             int index_ = page_.getLocalizer().getCurrentLocationIndex();
             badNb_.setIndexFile(index_);
             //first oper
-            badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
+            badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(2),
                     Integer.toString(chidren_.size()),
                     op
@@ -120,7 +120,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         un_.setIndexFile(index_);
         un_.setFileName(page_.getLocalizer().getCurrentFileName());
         //oper
-        un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringList.join(new StringList(
                         StringList.join(first_.getNames(),"&"),
                         StringList.join(second_.getNames(),"&")

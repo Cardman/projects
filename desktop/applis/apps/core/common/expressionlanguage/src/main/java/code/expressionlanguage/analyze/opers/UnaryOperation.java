@@ -72,7 +72,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
             page_.getLocalizer().addError(un_);

@@ -29,20 +29,19 @@ public final class LinkageUtil {
 
     private LinkageUtil(){
     }
-    public static StringMap<String> errors(ContextEl _cont) {
+    public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedPageEl analyzing_ = _cont.getAnalyzing();
-        KeyWords keyWords_ = analyzing_.getKeyWords();
-        Coverage cov_ = analyzing_.getCoverage();
-        LgNames standards_ = analyzing_.getStandards();
-        CustList<RootBlock> refFoundTypes_ = analyzing_.getRefFoundTypes();
-        StringList toStringOwners_ = analyzing_.getToStringOwners();
-        CustList<OperatorBlock> operators_ = analyzing_.getMapOperators().getKeys();
-        for (FileBlock f: analyzing_.getErrors().getFiles()) {
+        KeyWords keyWords_ = _analyzing.getKeyWords();
+        Coverage cov_ = _analyzing.getCoverage();
+        LgNames standards_ = _analyzing.getStandards();
+        CustList<RootBlock> refFoundTypes_ = _analyzing.getRefFoundTypes();
+        StringList toStringOwners_ = _analyzing.getToStringOwners();
+        CustList<OperatorBlock> operators_ = _analyzing.getMapOperators().getKeys();
+        for (FileBlock f: _analyzing.getErrors().getFiles()) {
             if (f.isPredefined()) {
                 continue;
             }
-            String value_ = analyzing_.getClasses().getResources().getVal(f.getFileName());
+            String value_ = _analyzing.getClasses().getResources().getVal(f.getFileName());
             String fileExp_ = f.getFileName() + ".html";
             CustList<PartOffset> listStr_ = processError(refFoundTypes_,operators_,toStringOwners_,f,fileExp_, cov_,keyWords_, standards_);
             StringBuilder xml_ = build(f, value_, listStr_);

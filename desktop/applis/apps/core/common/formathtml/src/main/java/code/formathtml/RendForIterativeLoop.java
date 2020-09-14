@@ -118,11 +118,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -134,21 +134,21 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             mapping_.setArg(elementClass_);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(classNameOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_cont.getCurrentFileName());
+            b_.setFileName(_cont.getAnalyzingDoc().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            _cont.addError(b_);
+            Configuration.addError(b_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
@@ -163,12 +163,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             mapping_.setArg(initEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(initOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(initEl_.getResultClass().getNames(),AND_ERR));
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
@@ -182,12 +182,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             mapping_.setArg(expressionEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(expressionEl_.getResultClass().getNames(),AND_ERR));
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
@@ -201,12 +201,12 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             mapping_.setArg(stepEl_.getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(stepOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(elementClass_.getNames(),AND_ERR),
                     StringList.join(stepEl_.getResultClass().getNames(),AND_ERR));
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();

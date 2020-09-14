@@ -67,7 +67,7 @@ public final class CustContextFactory {
         RunnableContextEl rCont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(rCont_,_definedLgNames,_options,_exec, reportedMessages_);
-        if (!reportedMessages_.isEmptyErrors()) {
+        if (!reportedMessages_.isAllEmptyErrors()) {
             _progressingTests.showErrors(rCont_,reportedMessages_,_options,_exec);
             return;
         }

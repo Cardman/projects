@@ -33,31 +33,31 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
             if (!(pBlock_ instanceof RendElseIfCondition)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getCurrentFileName());
+                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                            _cont.getContext().getKeyWords().getKeyWordElseif(),
+                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
                             StringList.join(
                                     new StringList(
-                                            _cont.getContext().getKeyWords().getKeyWordIf(),
-                                            _cont.getContext().getKeyWords().getKeyWordElseif()
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordIf(),
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
                                     ),
                                     OR_ERR));
-                    _cont.addError(un_);
+                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                                _cont.getContext().getKeyWords().getKeyWordElseif(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
                                 StringList.join(
                                         new StringList(
-                                                _cont.getContext().getKeyWords().getKeyWordIf(),
-                                                _cont.getContext().getKeyWords().getKeyWordElseif()
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordIf(),
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
                                         ),
                                         OR_ERR));
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                 }
             }

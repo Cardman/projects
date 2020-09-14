@@ -6379,9 +6379,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
-        assertTrue( _cont.isEmptyErrors());
+        assertTrue( isEmptyErrors(_cont));
         ClassesUtil.validateInheritingClasses(_cont);
-        assertTrue( _cont.isEmptyErrors());
+        assertTrue( isEmptyErrors(_cont));
         return _cont;
     }
 

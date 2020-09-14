@@ -4,12 +4,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperation;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
-import code.expressionlanguage.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.opers.ExecStdVariableOperation;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -70,9 +67,9 @@ public final class AssStdVariableOperation extends AssLeafOperation implements A
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                    un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                             varName_);
-                    _conf.addError(un_);
+                    _conf.getAnalyzing().addLocError(un_);
                 }
             }
         }

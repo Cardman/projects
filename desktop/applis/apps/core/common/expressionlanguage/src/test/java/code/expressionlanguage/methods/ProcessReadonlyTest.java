@@ -39,7 +39,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -66,7 +66,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -93,7 +93,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -119,7 +119,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -158,7 +158,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -203,7 +203,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -248,7 +248,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -293,7 +293,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -338,7 +338,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -384,7 +384,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -415,7 +415,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -439,7 +439,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -473,7 +473,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put(CUST_PAIR_PATH, getCustomPair());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -515,7 +515,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -544,7 +544,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDefaultSingle();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
@@ -575,7 +575,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDefaultSingle();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
@@ -609,7 +609,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -635,7 +635,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElReadOnlyDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();

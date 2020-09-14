@@ -33,31 +33,31 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
             if (!(nBlock_ instanceof RendFinallyEval)) {
                 if (!(nBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getCurrentFileName());
+                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                            _cont.getContext().getKeyWords().getKeyWordTry(),
+                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry(),
                             StringList.join(
                                     new StringList(
-                                            _cont.getContext().getKeyWords().getKeyWordCatch(),
-                                            _cont.getContext().getKeyWords().getKeyWordFinally()
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                            _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFinally()
                                     ),
                                     OR_ERR));
-                    _cont.addError(un_);
+                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 } else if (!(nBlock_.getNextSibling() instanceof RendAbstractCatchEval)){
                     if (!(nBlock_.getNextSibling() instanceof RendFinallyEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                                _cont.getContext().getKeyWords().getKeyWordTry(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry(),
                                 StringList.join(
                                         new StringList(
-                                                _cont.getContext().getKeyWords().getKeyWordCatch(),
-                                                _cont.getContext().getKeyWords().getKeyWordFinally()
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFinally()
                                         ),
                                         OR_ERR));
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                 }
             }

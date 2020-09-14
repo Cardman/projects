@@ -57,7 +57,7 @@ public final class ReadConfiguration {
         ContextEl context_ = ContextFactory.build(stack_,lk_, di_, opt_, a_, kw_, _stds,tab_);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
-        if (!context_.isEmptyMessageError()) {
+        if (!context_.getAnalyzing().isEmptyMessageError()) {
             _conf.setContext(null);
             return;
         }
@@ -79,7 +79,7 @@ public final class ReadConfiguration {
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
         rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
         rkw_.validateDuplicates(_conf,allStyleUnits_);
-        if (!context_.isEmptyStdError()) {
+        if (!context_.getAnalyzing().isEmptyStdError()) {
             _conf.setContext(null);
             return;
         }

@@ -5,7 +5,6 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.util.StringList;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
@@ -73,37 +72,37 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
         RendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                    _cont.getContext().getKeyWords().getKeyWordDo(),
-                    _cont.getContext().getKeyWords().getKeyWordWhile());
-            _cont.addError(un_);
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
             if (!(pBlock_ instanceof RendPossibleEmpty)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getKeyWords().getKeyWordWhile());
-                _cont.addError(un_);
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             } else if (pBlock_.getNextSibling() == null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getKeyWords().getKeyWordWhile());
-                _cont.addError(un_);
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedDoTry(),
-                        _cont.getContext().getKeyWords().getKeyWordDo(),
-                        _cont.getContext().getKeyWords().getKeyWordWhile());
-                _cont.addError(un_);
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
     }

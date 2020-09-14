@@ -104,22 +104,22 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
-        TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(),variableName);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_cont.getCurrentFileName());
+            b_.setFileName(_cont.getAnalyzingDoc().getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            _cont.addError(b_);
+            Configuration.addError(b_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!toInfer(_cont)) {
@@ -140,11 +140,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             if (importedClassName.isEmpty()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_cont.getCurrentFileName());
+                cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 cast_.setIndexFile(expressionOffset);
-                cast_.buildError(_cont.getContext().getAnalysisMessages().getUnknownType(),
+                cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                         className.trim());
-                _cont.addError(cast_);
+                Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
@@ -153,12 +153,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_cont.getCurrentFileName());
+                    cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),AND_ERR),
                             importedClassName);
-                    _cont.addError(cast_);
+                    Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         }
@@ -170,11 +170,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_cont.getCurrentFileName());
+            static_.setFileName(_cont.getAnalyzingDoc().getFileName());
             static_.setIndexFile(expressionOffset);
-            static_.buildError(_cont.getContext().getAnalysisMessages().getNullValue(),
+            static_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
-            _cont.addError(static_);
+            Configuration.addError(static_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else if (el_.getResultClass().isArray()) {
             inferArrayClass(_cont);
         } else {
@@ -212,12 +212,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_cont.getCurrentFileName());
+                    cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     cast_.setIndexFile(expressionOffset);
-                    cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    _cont.addError(cast_);
+                    Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         } else {
@@ -225,12 +225,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             mapping_.setArg(_cont.getStandards().getAliasObject());
             mapping_.setParam(_cont.getStandards().getAliasIterable());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
     }
     private boolean toInfer(Configuration _cont) {

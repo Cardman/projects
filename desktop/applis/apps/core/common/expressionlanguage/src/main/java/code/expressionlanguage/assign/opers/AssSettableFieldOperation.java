@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
@@ -62,26 +61,26 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
                 }
             }
         }
-        if (_conf.isAssignedStaticFields()) {
+        if (_conf.getAnalyzing().isAssignedStaticFields()) {
             if (fieldMetaInfo.isStaticField()) {
                 procField_ = false;
             }
         }
-        if (_conf.isAssignedFields()) {
+        if (_conf.getAnalyzing().isAssignedFields()) {
             procField_ = false;
         }
         if (procField_) {
             for (EntryCust<String, AssignmentBefore> e: assF_.entryList()) {
                 if (StringList.quickEq(e.getKey(),cl_.getFieldName()) && !e.getValue().isAssignedBefore()) {
-                    if (ContextUtil.isFinalField(_conf,cl_) && !declare) {
+                    if (fieldMetaInfo.isFinalField() && !declare) {
                         //error if final field
                         setRelativeOffsetPossibleAnalyzable(_conf);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(page_.getLocalizer().getCurrentFileName());
                         un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
-                        _conf.addError(un_);
+                        _conf.getAnalyzing().addLocError(un_);
                     }
                 }
             }
@@ -131,5 +130,9 @@ public final class AssSettableFieldOperation extends AssLeafOperation implements
 
     public boolean matchFieldId(ClassField key_) {
         return fieldMetaInfo.getClassField().eq(key_);
+    }
+
+    public FieldInfo getFieldMetaInfo() {
+        return fieldMetaInfo;
     }
 }

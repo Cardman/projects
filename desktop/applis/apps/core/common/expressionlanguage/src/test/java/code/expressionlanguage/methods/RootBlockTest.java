@@ -133,9 +133,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
         files_.put("pkg/ExFour", xml_.toString());
         ContextEl cont_ = getRootContextEl();
         parseCustomFiles(files_, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( !cont_.isEmptyErrors());
+        assertTrue( !isEmptyErrors(cont_));
     }
 
 
@@ -1461,7 +1461,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test9Fail() {
@@ -1484,7 +1484,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test10Fail() {
@@ -1509,7 +1509,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test11Fail() {
@@ -1534,7 +1534,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test12Fail() {
@@ -1557,7 +1557,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test13Fail() {
@@ -1580,7 +1580,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test14Fail() {
@@ -1615,7 +1615,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 
 
@@ -1640,7 +1640,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test16Fail() {
@@ -1661,7 +1661,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test17Fail() {
@@ -1675,7 +1675,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test18Fail() {
@@ -1696,7 +1696,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void test19Fail() {
@@ -1775,24 +1775,24 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = getContextEl(files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 
     private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = getRootContextEl();
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
 
 
     private static void checkOverrides(ContextEl _cont) {
         ClassesUtil.validateIds(_cont);
-        assertTrue( _cont.isEmptyErrors());
+        assertTrue( isEmptyErrors(_cont));
         ClassesUtil.validateOverridingInherit(_cont);
-        assertTrue( _cont.isEmptyErrors());
+        assertTrue( isEmptyErrors(_cont));
     }
 
     private boolean failOverridesValue(StringMap<String> _files) {
@@ -1802,10 +1802,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static boolean checkErrorsValue(ContextEl _cont) {
         ClassesUtil.validateIds(_cont);
-        assertTrue( _cont.isEmptyErrors());
+        assertTrue( isEmptyErrors(_cont));
         ClassesUtil.validateOverridingInherit(_cont);
         ClassesUtil.postValidation(_cont);
-        return !_cont.isEmptyErrors();
+        return !isEmptyErrors(_cont);
     }
 
     private static ContextEl getContextEl(StringMap<String> _files) {

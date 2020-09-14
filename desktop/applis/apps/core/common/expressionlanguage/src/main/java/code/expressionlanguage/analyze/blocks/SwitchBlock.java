@@ -89,7 +89,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void processAfterEl(ContextEl _cont) {
@@ -100,9 +100,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(valueOffset);
             //one char => change to first left par
-            un_.buildError(_cont.getAnalysisMessages().getUnknownType(),
+            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnknownType(),
                     type_);
-            _cont.addError(un_);
+            _cont.getAnalyzing().addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
         } else {
@@ -124,9 +124,9 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                             un_.setFileName(getFile().getFileName());
                             un_.setIndexFile(valueOffset);
                             //one char => change to first left par
-                            un_.buildError(_cont.getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            _cont.addError(un_);
+                            _cont.getAnalyzing().addLocError(un_);
                             setReachableError(true);
                             getErrorsBlock().add(un_.getBuiltError());
                         }
@@ -155,20 +155,20 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedSwitch(),
-                    _cont.getKeyWords().getKeyWordSwitch(),
+            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
+                    _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
                     StringList.join(
                             new StringList(
-                                    _cont.getKeyWords().getKeyWordCase(),
-                                    _cont.getKeyWords().getKeyWordDefault()
+                                    _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
+                                    _cont.getAnalyzing().getKeyWords().getKeyWordDefault()
                             ),
                             "|"));
-            _cont.addError(un_);
+            _cont.getAnalyzing().addLocError(un_);
             first_.getErrorsBlock().add(un_.getBuiltError());
             first_.setReachableError(true);
             first_ = first_.getNextSibling();
         }
-        page_.getCoverage().putBlockOperationsSwitchs(_cont,this,def_);
+        page_.getCoverage().putBlockOperationsSwitchs(this,def_);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package code.expressionlanguage.assign.blocks;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.opers.*;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
@@ -62,11 +61,6 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 continue;
             }
             String key_ = e.getKey();
-            String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
-            ClassField id_ = new ClassField(cl_,key_);
-            if (!ContextUtil.isFinalField(_an,id_)) {
-                continue;
-            }
             processFinalFields(this, false, _an, _root, key_);
             for (EntryCust<AssBlock, AssignedVariables> d: _allDesc.entryList()) {
                 vars_ = d.getValue();
@@ -118,10 +112,10 @@ public abstract class AssBracedStack extends AssBracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(_an);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_an.getCurrentLocationIndex());
-            un_.buildError(_an.getAnalysisMessages().getFinalField(),
+            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getFinalField(),
                     str_);
-            _an.addError(un_);
+            _an.getAnalyzing().addLocError(un_);
         }
     }
 
@@ -132,6 +126,9 @@ public abstract class AssBracedStack extends AssBracedBlock {
                 continue;
             }
             AssSettableFieldOperation cst_ = (AssSettableFieldOperation) set_;
+            if (!cst_.getFieldMetaInfo().isFinalField()) {
+                continue;
+            }
             String cl_ = StringExpUtil.getIdFromAllTypes(_an.getAnalyzing().getGlobalClass());
             ClassField key_ = new ClassField(cl_,_field);
             if (!cst_.matchFieldId(key_)) {
@@ -140,10 +137,10 @@ public abstract class AssBracedStack extends AssBracedBlock {
             cst_.setRelativeOffsetPossibleAnalyzable(_an);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
-            un_.setIndexFile(_an.getCurrentLocationIndex());
-            un_.buildError(_an.getAnalysisMessages().getFinalField(),
+            un_.setIndexFile(_an.getAnalyzing().getTraceIndex());
+            un_.buildError(_an.getAnalyzing().getAnalysisMessages().getFinalField(),
                     _field);
-            _an.addError(un_);
+            _an.getAnalyzing().addLocError(un_);
         }
     }
     protected StringMap<AssignmentBefore> buildAssListFieldBeforeIncrPart(ContextEl _an, AssignedVariablesBlock _anEl) {

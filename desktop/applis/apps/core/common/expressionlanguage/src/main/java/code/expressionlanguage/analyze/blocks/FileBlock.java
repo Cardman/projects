@@ -77,9 +77,9 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                 badCharsStr_.add(Integer.toString(i));
             }
             //first bad character
-            d_.buildError(_context.getAnalysisMessages().getIllegalCharacter(),
+            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getIllegalCharacter(),
                     StringList.join(badCharsStr_,","));
-            _context.addError(d_);
+            _context.getAnalyzing().addLocError(d_);
             for (int i: getBinChars()) {
                 d_.setIndexFile(i);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);

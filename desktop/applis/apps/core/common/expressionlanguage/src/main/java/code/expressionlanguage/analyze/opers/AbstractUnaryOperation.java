@@ -27,7 +27,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //first operator part
-            un_.buildError(_conf.getAnalysisMessages().getSplitDiff(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitDiff(),
                     Integer.toString(1),
                     Integer.toString(children_.size()));
             page_.getLocalizer().addError(un_);

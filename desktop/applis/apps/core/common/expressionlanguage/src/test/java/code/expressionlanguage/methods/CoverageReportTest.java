@@ -16599,7 +16599,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         validate(cont_,files_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 
     private static String getCustomPair() {

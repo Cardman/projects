@@ -63,32 +63,32 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDef(),
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseDef(),
                     _cont.getKeyWords().getKeyWordCase(),
                     value,
                     _cont.getKeyWords().getKeyWordSwitch());
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
             return;
         }
         RendSwitchBlock sw_ = (RendSwitchBlock) par_;
         if (!sw_.getInstanceTest().isEmpty()) {
-            if (StringList.quickEq(value, _cont.getContext().getKeyWords().getKeyWordNull())) {
+            if (StringList.quickEq(value, _cont.getContext().getAnalyzing().getKeyWords().getKeyWordNull())) {
                 setImportedClassName("");
                 return;
             }
             page_.setGlobalOffset(classNameOffset);
             setImportedClassName(ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className));
-            TokenErrorMessage res_ = ManageTokens.partVar(_cont.getContext()).checkTokenVar(_cont.getContext(), getVariableName());
+            TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(getVariableName(), page_);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_cont.getCurrentFileName());
+                d_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                _cont.addError(d_);
+                Configuration.addError(d_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 return;
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -131,12 +131,12 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                     return;
                 }
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(valueOffset);
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseVar(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseVar(),
                         _cont.getKeyWords().getKeyWordCase(),
                         value);
-                _cont.addError(un_);
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 return;
             }
         }
@@ -146,12 +146,12 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(valueOffset);
-            un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseVar(),
+            un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseVar(),
                     _cont.getKeyWords().getKeyWordCase(),
                     value);
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else {
             checkDuplicateCase(_cont, arg_);
             Mapping m_ = new Mapping();
@@ -159,13 +159,13 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
             m_.setParam(resSwitch_);
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getCurrentFileName());
+                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 un_.setIndexFile(valueOffset);
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseValue(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(arg_,_cont.getContext()),
                         StringList.join(resSwitch_.getNames(),AND_ERR));
-                _cont.addError(un_);
+                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
     }
@@ -181,13 +181,13 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                 if (a_ != null) {
                     if (_arg.getStruct().sameReference(a_.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseDup(),
                                 _cont.getKeyWords().getKeyWordCase(),
                                 AnaApplyCoreMethodUtil.getString(_arg,_cont.getContext()),
                                 _cont.getKeyWords().getKeyWordSwitch());
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                         break;
                     }
                 }
@@ -204,13 +204,13 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
                 String v_ = c_.value.trim();
                 if (StringList.quickEq(v_, value.trim())) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getCurrentFileName());
+                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     un_.setIndexFile(getValueOffset()+ getOffset().getOffsetTrim());
-                    un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedCaseDup(),
+                    un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseDup(),
                             _cont.getKeyWords().getKeyWordCase(),
                             value.trim(),
                             _cont.getKeyWords().getKeyWordSwitch());
-                    _cont.addError(un_);
+                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     break;
                 }
 

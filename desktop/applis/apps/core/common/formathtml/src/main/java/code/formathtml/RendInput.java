@@ -64,12 +64,12 @@ public abstract class RendInput extends RendElement {
                 m_.setParam(opsRead.last().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
                             StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         } else {
@@ -78,23 +78,23 @@ public abstract class RendInput extends RendElement {
                 if (!_cont.getAdvStandards().isConveritble(clName_)) {
                     int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             clName_,
                             clName_);
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             } else if (!opsRead.isEmpty()) {
                 if (!_cont.getAdvStandards().isConveritble(opsRead.last().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR),
                             clName_);
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         }
@@ -119,12 +119,12 @@ public abstract class RendInput extends RendElement {
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(attr_);
-                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
                         _cont.getStandards().getAliasCharSequence());
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
     }

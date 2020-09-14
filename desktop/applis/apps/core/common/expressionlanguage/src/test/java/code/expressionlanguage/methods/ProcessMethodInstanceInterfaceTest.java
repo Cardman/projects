@@ -69,7 +69,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -158,7 +158,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -250,7 +250,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -341,7 +341,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -435,7 +435,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -526,7 +526,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -595,7 +595,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -649,7 +649,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -706,7 +706,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -762,7 +762,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -818,7 +818,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -874,7 +874,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -931,7 +931,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -992,7 +992,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1052,7 +1052,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1109,7 +1109,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1149,7 +1149,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExTwo");
 
@@ -1201,7 +1201,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1254,7 +1254,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1304,7 +1304,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1380,7 +1380,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1478,7 +1478,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1551,7 +1551,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1616,7 +1616,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1679,7 +1679,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1758,7 +1758,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1851,7 +1851,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1943,7 +1943,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2002,7 +2002,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2041,7 +2041,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2080,7 +2080,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2119,7 +2119,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2160,7 +2160,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElSingle();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2199,7 +2199,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2238,7 +2238,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2277,7 +2277,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2316,7 +2316,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2349,7 +2349,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2425,7 +2425,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2491,7 +2491,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2536,7 +2536,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2581,7 +2581,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2627,7 +2627,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2673,7 +2673,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2720,7 +2720,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2768,7 +2768,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2817,7 +2817,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2866,7 +2866,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -2920,7 +2920,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -2992,7 +2992,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -3084,7 +3084,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3181,7 +3181,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3278,7 +3278,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3378,7 +3378,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3490,7 +3490,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3556,7 +3556,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -3595,7 +3595,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -3690,7 +3690,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
@@ -3751,7 +3751,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -3777,7 +3777,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
@@ -3824,7 +3824,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3875,7 +3875,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -3914,7 +3914,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -3953,7 +3953,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -3980,7 +3980,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4007,7 +4007,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4036,7 +4036,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4065,7 +4065,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4092,7 +4092,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4120,7 +4120,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4149,7 +4149,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4177,7 +4177,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4204,7 +4204,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4232,7 +4232,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4260,7 +4260,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4299,7 +4299,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4338,7 +4338,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4371,7 +4371,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4404,7 +4404,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4441,7 +4441,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -4503,7 +4503,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $static $int res = 0; $static {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4591,7 +4591,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $static $final $int res = -1;}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4672,7 +4672,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -4765,7 +4765,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4870,7 +4870,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4961,7 +4961,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument96Test() {
@@ -5011,7 +5011,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument97Test() {
@@ -5064,7 +5064,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument98Test() {
@@ -5117,7 +5117,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument99Test() {
@@ -5172,7 +5172,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculateArgument100Test() {
@@ -5227,7 +5227,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument101Test() {
@@ -5286,7 +5286,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5380,7 +5380,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5474,7 +5474,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5568,7 +5568,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5641,7 +5641,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -5695,7 +5695,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument2FailTest() {
@@ -5731,7 +5731,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         files_.put("pkg/ExCont", xml_.toString());
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument3FailTest() {
@@ -5799,7 +5799,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument4FailTest() {
@@ -5867,7 +5867,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument5FailTest() {
@@ -5936,7 +5936,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument6FailTest() {
@@ -6003,7 +6003,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument7FailTest() {
@@ -6071,7 +6071,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument8FailTest() {
@@ -6139,7 +6139,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument9FailTest() {
@@ -6207,7 +6207,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument10FailTest() {
@@ -6274,7 +6274,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument11FailTest() {
@@ -6344,7 +6344,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument12FailTest() {
@@ -6414,7 +6414,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument13FailTest() {
@@ -6484,7 +6484,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument14FailTest() {
@@ -6530,7 +6530,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument15FailTest() {
@@ -6576,7 +6576,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument16FailTest() {
@@ -6622,7 +6622,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument17FailTest() {
@@ -6668,7 +6668,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument18FailTest() {
@@ -6714,7 +6714,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void instanceArgument19FailTest() {
@@ -6760,6 +6760,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

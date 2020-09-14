@@ -824,7 +824,7 @@ public final class SubmitFormTest extends CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         conf_.setContext(cont_);
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;

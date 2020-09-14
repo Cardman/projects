@@ -92,11 +92,11 @@ public final class AnonymousFunctionBlock extends NamedFunctionBlock implements 
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalysisMessages().getMissingAbrupt(),
-                        _an.getKeyWords().getKeyWordThrow(),
-                        _an.getKeyWords().getKeyWordReturn(),
+                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
-                _an.addError(miss_);
+                _an.getAnalyzing().addLocError(miss_);
                 addNameErrors(miss_);
             }
         }

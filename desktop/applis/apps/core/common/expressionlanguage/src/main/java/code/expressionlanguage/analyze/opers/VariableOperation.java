@@ -86,7 +86,7 @@ public final class VariableOperation extends LeafOperation implements
             }
             ref = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             String c_ = _conf.getAnalyzing().getCurrentVarSetting();
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(c_, keyWordVar_)) {
                 _conf.getAnalyzing().getVariablesNamesToInfer().add(str_);

@@ -108,7 +108,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
     private void checkInterfaces(ContextEl _an) {
         Block firstChild_ = getFirstChild();
         StringList ints_ = new StringList();
-        StringList filteredCtor_ = _an.getNeedInterfaces();
+        StringList filteredCtor_ = _an.getAnalyzing().getNeedInterfaces();
         boolean checkThis_ = false;
         while (firstChild_ != null) {
             if (!(firstChild_ instanceof Line)) {
@@ -136,9 +136,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //left par of ctor
-                        undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNeed(),
+                        undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustCallIntCtorNeed(),
                                 n);
-                        _an.addError(undef_);
+                        _an.getAnalyzing().addLocError(undef_);
                         addNameErrors(undef_);
                     }
                 }
@@ -149,9 +149,9 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                         undef_.setFileName(getFile().getFileName());
                         undef_.setIndexFile(0);
                         //constructor ref header len
-                        undef_.buildError(_an.getAnalysisMessages().getMustCallIntCtorNotNeed(),
+                        undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustCallIntCtorNotNeed(),
                                 n);
-                        _an.addError(undef_);
+                        _an.getAnalyzing().addLocError(undef_);
                         addNameErrors(undef_);
                     }
                 }
@@ -163,8 +163,8 @@ public final class ConstructorBlock extends NamedFunctionBlock implements GeneCo
                 undef_.setFileName(getFile().getFileName());
                 undef_.setIndexFile(0);
                 //first constructor ref header len
-                undef_.buildError(_an.getAnalysisMessages().getMustNotCallIntCtorAfterThis());
-                _an.addError(undef_);
+                undef_.buildError(_an.getAnalyzing().getAnalysisMessages().getMustNotCallIntCtorAfterThis());
+                _an.getAnalyzing().addLocError(undef_);
                 addNameErrors(undef_);
             }
         }

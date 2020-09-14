@@ -36,7 +36,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
@@ -52,7 +52,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
@@ -64,7 +64,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
@@ -75,7 +75,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
@@ -91,7 +91,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorEnd());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorEnd());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
         }

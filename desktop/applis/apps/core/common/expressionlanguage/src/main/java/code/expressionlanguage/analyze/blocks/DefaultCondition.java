@@ -35,7 +35,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(exec_,this);
         }
     }
 
@@ -49,16 +49,16 @@ public final class DefaultCondition extends SwitchPartBlock {
             un_.setFileName(getFile().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             //key word len
-            un_.buildError(_cont.getAnalysisMessages().getUnexpectedCaseDef(),
-                    _cont.getKeyWords().getKeyWordDefault(),
+            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseDef(),
+                    _cont.getAnalyzing().getKeyWords().getKeyWordDefault(),
                     "",
-                    _cont.getKeyWords().getKeyWordSwitch());
-            _cont.addError(un_);
+                    _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
+            _cont.getAnalyzing().addLocError(un_);
             setReachableError(true);
             getErrorsBlock().add(un_.getBuiltError());
             return true;
         } else {
-            page_.getCoverage().putBlockOperationsSwitchs(_cont,b_,this);
+            page_.getCoverage().putBlockOperationsSwitchs(b_,this);
             SwitchBlock s_ = (SwitchBlock) b_;
             String instanceTest_ = s_.getInstanceTest();
             if (instanceTest_.isEmpty()) {
@@ -69,10 +69,10 @@ public final class DefaultCondition extends SwitchPartBlock {
                         un_.setFileName(getFile().getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         //key word len
-                        un_.buildError(_cont.getAnalysisMessages().getUnexpectedDefDup(),
-                                _cont.getKeyWords().getKeyWordDefault(),
-                                _cont.getKeyWords().getKeyWordSwitch());
-                        _cont.addError(un_);
+                        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
+                                _cont.getAnalyzing().getKeyWords().getKeyWordDefault(),
+                                _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
+                        _cont.getAnalyzing().addLocError(un_);
                         setReachableError(true);
                         getErrorsBlock().add(un_.getBuiltError());
                         break;
@@ -87,21 +87,21 @@ public final class DefaultCondition extends SwitchPartBlock {
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedDefDup(),
-                        _cont.getKeyWords().getKeyWordDefault(),
-                        _cont.getKeyWords().getKeyWordSwitch());
-                _cont.addError(un_);
+                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordDefault(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
+                _cont.getAnalyzing().addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }
-            TokenErrorMessage res_ = ManageTokens.partVar(_cont).checkTokenVar(_cont, variableName);
+            TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
                 d_.setFileName(getFile().getFileName());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                _cont.addError(d_);
+                _cont.getAnalyzing().addLocError(d_);
                 nameErrors.add(d_.getBuiltError());
                 if (variableName.trim().isEmpty()) {
                     setReachableError(true);
@@ -113,7 +113,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-            page_.getCoverage().putBlockOperations(_cont, exec_,this);
+            page_.getCoverage().putBlockOperations(exec_,this);
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(instanceTest_);
             lv_.setRef(variableOffset);

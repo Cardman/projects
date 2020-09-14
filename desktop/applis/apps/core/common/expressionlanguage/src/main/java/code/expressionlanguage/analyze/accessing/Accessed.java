@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.accessing;
 
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.exec.blocks.AccessibleBlock;
+import code.expressionlanguage.analyze.blocks.AccessibleBlock;
 
 public final class Accessed implements AccessibleBlock {
     private final AccessEnum access;

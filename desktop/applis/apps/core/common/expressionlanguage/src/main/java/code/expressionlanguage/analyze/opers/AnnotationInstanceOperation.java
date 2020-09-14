@@ -137,7 +137,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             un_.setIndexFile(i_);
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     page_.getStandards().getAliasObject());
             page_.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -157,7 +157,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 un_.setIndexFile(i_);
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //first separator char
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                         className);
                 page_.getLocalizer().addError(un_);
                 partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
@@ -181,7 +181,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(i_);
                     //first separator char child
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
                     page_.getLocalizer().addError(cast_);
@@ -212,7 +212,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             call_.setIndexFile(i_);
             //text header after @
-            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAnnotation(),
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorAnnotation(),
                     methodName.trim().substring(AROBASE.length()).trim());
             page_.getLocalizer().addError(call_);
             partOffsetsErr.add(new PartOffset("<a title=\""+call_.getBuiltError()+"\" class=\"e\">",i_));
@@ -267,7 +267,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     int k_ = operators_.firstKey();
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex()+k_);
                     //first parenthese
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(arg_.getNames(),"&"),
                             StringList.join(param_.getNames(),"&"));
                     page_.getLocalizer().addError(cast_);
@@ -289,7 +289,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int k_ = operators_.lastKey();
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex()+k_);
             //last parenthese
-            cast_.buildError(_conf.getAnalysisMessages().getAnnotFieldNotUniq());
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getAnnotFieldNotUniq());
             page_.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
             StringList deep_ = getErrs();
@@ -306,7 +306,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int k_ = operators_.lastKey();
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex()+k_);
             //last parenthese
-            cast_.buildError(_conf.getAnalysisMessages().getAnnotFieldNotUniq());
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getAnnotFieldNotUniq());
             page_.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
         }
@@ -329,7 +329,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //key len at operation
-                cast_.buildError(_conf.getAnalysisMessages().getDupSuppliedAnnotField(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getDupSuppliedAnnotField(),
                         e.getKey().getFieldName()
                 );
                 page_.getLocalizer().addError(cast_);
@@ -362,7 +362,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 }
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex()+ k_);
                 //last parenthese
-                cast_.buildError(_conf.getAnalysisMessages().getAnnotFieldMust(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getAnnotFieldMust(),
                         e.getKey());
                 page_.getLocalizer().addError(cast_);
                 getErrs().add(cast_.getBuiltError());
@@ -411,7 +411,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //equal char
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(arg_.getNames(),"&"),
                             StringList.join(param_.getNames(),"&"));
                     page_.getLocalizer().addError(cast_);

@@ -36,7 +36,7 @@ public final class RendAnalysisMessagesTest {
         s_.setAnalyzing();
         s_.getAnalyzing().setAnalysisMessages(new AnalysisMessages());
         AnalysisMessages.validateMessageContents(s_,def_.allMessages());
-        assertTrue(!s_.isEmptyMessageError());
+        assertTrue(!s_.getAnalyzing().isEmptyMessageError());
     }
 
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {

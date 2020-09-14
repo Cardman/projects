@@ -1,15 +1,14 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
 
 public final class DefaultHiddenTypes implements AbstractHiddenTypes {
-    private final ContextEl context;
+    private final AnalyzedPageEl context;
 
-    public DefaultHiddenTypes(ContextEl context) {
+    public DefaultHiddenTypes(AnalyzedPageEl context) {
         this.context = context;
     }
 

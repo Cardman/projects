@@ -207,13 +207,13 @@ public abstract class ProcessMethodCommon {
 
     public static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, ContextEl _cont) {
         ReportedMessages report_ = validate(_cont, _files);
-        assertTrue(!_cont.isEmptyErrors());
+        assertTrue(!isEmptyErrors(_cont));
         return getErrors(_cont,report_);
     }
 
     public static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, ContextEl _cont) {
         ReportedMessages report_ = validate(_cont, _files);
-        assertTrue(_cont.isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
         return getErrors(_cont,report_);
     }
 
@@ -473,7 +473,7 @@ public abstract class ProcessMethodCommon {
         Classes.validateWithoutInit(_files, cont_);
         ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
         headers_.displayErrors();
-        return !cont_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
     protected static ContextEl contextElSingleDotDefault(int... _m) {
         Options opt_ = new Options();
@@ -516,14 +516,14 @@ public abstract class ProcessMethodCommon {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateIds(cont_);
         ClassesUtil.validateOverridingInherit(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.initStaticFields(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
 
@@ -532,9 +532,9 @@ public abstract class ProcessMethodCommon {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
     protected ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
@@ -542,9 +542,9 @@ public abstract class ProcessMethodCommon {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
 
@@ -552,9 +552,9 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        return !cont_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected boolean failValidateInheritingClassesSingleValue(StringMap<String> _files) {
@@ -562,9 +562,9 @@ public abstract class ProcessMethodCommon {
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
-        return !cont_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
@@ -597,7 +597,7 @@ public abstract class ProcessMethodCommon {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
         context_.getAnalyzing().putFileBlock(_fileName, fileBlock_);
-        context_.getCoverage().putFile(context_,fileBlock_);
+        context_.getCoverage().putFile(fileBlock_);
         context_.getAnalyzing().getErrors().putFile(context_,fileBlock_);
         fileBlock_.processLinesTabsWithError(context_,_file);
         if (fileBlock_.getBinChars().isEmpty()) {
@@ -638,10 +638,10 @@ public abstract class ProcessMethodCommon {
     }
     protected static void validateAndCheckValid(StringMap<String> _files, ContextEl _cont) {
         validate(_cont, _files);
-        assertTrue(_cont.isEmptyErrors());
+        assertTrue(isEmptyErrors(_cont));
     }
     protected static ReportedMessages validate(ContextEl _c, StringMap<String> _f) {
-        return validate(_c.getAnalysisMessages(),_c.getKeyWords(),_c.getStandards(),_f,_c);
+        return validate(_c.getAnalyzing().getAnalysisMessages(), _c.getAnalyzing().getKeyWords(),_c.getStandards(),_f,_c);
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
@@ -676,5 +676,9 @@ public abstract class ProcessMethodCommon {
             }
         }
         return methods_;
+    }
+
+    protected static boolean isEmptyErrors(ContextEl cont_) {
+        return cont_.getAnalyzing() == null || (cont_.getAnalyzing().isEmptyErrors());
     }
 }

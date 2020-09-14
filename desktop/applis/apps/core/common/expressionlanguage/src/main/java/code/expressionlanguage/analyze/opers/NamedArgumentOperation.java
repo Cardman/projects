@@ -44,7 +44,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
             varg_.setFileName(page_.getLocalizer().getCurrentFileName());
             varg_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            varg_.buildError(_conf.getAnalysisMessages().getDuplicatedParamName(),
+            varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
                     name);
             page_.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());

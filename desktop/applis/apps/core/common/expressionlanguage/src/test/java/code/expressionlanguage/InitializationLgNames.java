@@ -54,7 +54,7 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.isEmptyStdError());
+        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
     public static ContextEl buildToString(int _stack, LgNames _lgNames, Options _opt) {
@@ -64,14 +64,14 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
         ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.isEmptyStdError());
+        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
     private static ContextEl buildLg(String _lang, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl out_ = buildDefKw(_lang, lk_, di_, _opt, _lgNames,4);
-        Assert.assertTrue(out_.isEmptyStdError());
+        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
     public static ContextEl builExp(LgNames _lgNames, Options _opt) {
@@ -82,7 +82,7 @@ public final class InitializationLgNames {
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
         ContextEl out_ = ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.isEmptyStdError());
+        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
     public static void basicStandards(LgNames _lgNames) {

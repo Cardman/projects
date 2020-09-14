@@ -1,27 +1,25 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.types.AbstractTokenValidation;
-import code.formathtml.Configuration;
 
 public final class AdvancedTokenValidation implements AbstractTokenValidation {
-    private final Configuration context;
+    private final AnalyzedPageEl context;
 
-    public AdvancedTokenValidation(Configuration context) {
+    public AdvancedTokenValidation(AnalyzedPageEl context) {
         this.context = context;
     }
 
     @Override
     public boolean isStaticAccess() {
-        return context.isStaticAccess();
+        return context.isStaticContext();
     }
 
     @Override
     public TokenErrorMessage isValidSingleToken(String _id) {
-        ContextEl ctx_ = this.context.getContext();
-        return ManageTokens.partVar(ctx_).checkTokenVar(ctx_,_id);
+        return ManageTokens.partVar(context).checkTokenVar(_id, context);
     }
 
 }

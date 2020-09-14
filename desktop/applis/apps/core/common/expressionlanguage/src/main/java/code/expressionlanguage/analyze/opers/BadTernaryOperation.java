@@ -28,17 +28,17 @@ public final class BadTernaryOperation extends MethodOperation {
         badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
         badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //=> move to BadTernaryOperation (underline key word)
-        badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
+        badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
                 Integer.toString(BOOLEAN_ARGS),
                 Integer.toString(chidren_.size()),
-                _conf.getKeyWords().getKeyWordBool()
+                _conf.getAnalyzing().getKeyWords().getKeyWordBool()
         );
         page_.getLocalizer().addError(badNb_);
         getErrs().add(badNb_.getBuiltError());
         StringList deep_ = getErrs();
         int i_ = page_.getLocalizer().getCurrentLocationIndex();
         getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
-        getPartOffsetsEnd().add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordBool().length()));
+        getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordBool().length()));
         setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
     }
 

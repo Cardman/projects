@@ -9608,7 +9608,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
         assertEq(0, countCustomTypes(context_));
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile171Test() {
@@ -9640,7 +9640,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile2FailTest() {
@@ -9651,7 +9651,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile3FailTest() {
@@ -9673,12 +9673,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(context_.isEmptyErrors());
+        assertTrue(isEmptyErrors(context_));
         ContextEl contextBis_ = getRootContextEl();
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("my_file",file_.toString());
         Classes.validateWithoutInit(files_,contextBis_);
-        assertTrue(!contextBis_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(contextBis_));
     }
     @Test
     public void parseFile4FailTest() {
@@ -9687,7 +9687,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", true);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile5FailTest() {
@@ -9698,7 +9698,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile6FailTest() {
@@ -9707,7 +9707,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile7FailTest() {
@@ -9716,7 +9716,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile8FailTest() {
@@ -9725,7 +9725,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile9FailTest() {
@@ -9734,7 +9734,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile10FailTest() {
@@ -9743,7 +9743,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile11FailTest() {
@@ -9754,7 +9754,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile12FailTest() {
@@ -9769,7 +9769,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile13FailTest() {
@@ -9783,7 +9783,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile14FailTest() {
@@ -9794,7 +9794,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile15FailTest() {
@@ -9805,7 +9805,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile16FailTest() {
@@ -9813,7 +9813,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$annotation []");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile17FailTest() {
@@ -9821,7 +9821,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$annotation [");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile18FailTest() {
@@ -9829,7 +9829,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(context_.isEmptyErrors());
+        assertTrue(isEmptyErrors(context_));
     }
     @Test
     public void parseFile19FailTest() {
@@ -9842,7 +9842,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
-        assertTrue(context_.isEmptyErrors());
+        assertTrue(isEmptyErrors(context_));
     }
 
     private static int countCustomTypes(ContextEl _cont) {

@@ -57,12 +57,12 @@ public final class RendRadio extends RendInput {
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(attr_);
-                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
                         _cont.getStandards().getAliasCharSequence());
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
     }

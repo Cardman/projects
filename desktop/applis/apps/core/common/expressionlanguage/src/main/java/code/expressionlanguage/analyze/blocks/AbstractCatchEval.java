@@ -63,16 +63,16 @@ public abstract class AbstractCatchEval extends BracedBlock implements Eval {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getKeyWords().getKeyWordCatch(),
+                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordCatch(),
                         StringList.join(
                                 new StringList(
-                                        _an.getKeyWords().getKeyWordCatch(),
-                                        _an.getKeyWords().getKeyWordTry()
+                                        _an.getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                        _an.getAnalyzing().getKeyWords().getKeyWordTry()
                                 ),
                                 "|"));
                 //key word len
-                _an.addError(un_);
+                _an.getAnalyzing().addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }

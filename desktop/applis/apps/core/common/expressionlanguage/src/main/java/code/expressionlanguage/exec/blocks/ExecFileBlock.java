@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
-import code.expressionlanguage.analyze.blocks.ImportingBlock;
 import code.util.*;
 
 public final class ExecFileBlock extends ExecBracedBlock {
@@ -29,8 +29,8 @@ public final class ExecFileBlock extends ExecBracedBlock {
         return fileName;
     }
 
-    public static StringMap<String> errors(ContextEl _cont) {
-        return LinkageUtil.errors(_cont);
+    public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
+        return LinkageUtil.errors(_analyzing);
     }
     public static StringMap<String> export(ContextEl _cont) {
         return LinkageUtil.export(_cont);

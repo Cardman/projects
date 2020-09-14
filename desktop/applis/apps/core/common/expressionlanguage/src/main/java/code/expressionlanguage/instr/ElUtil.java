@@ -135,8 +135,8 @@ public final class ElUtil {
             badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
             badEl_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //badOffset char
-            badEl_.buildError(_conf.getAnalysisMessages().getEmptyPart());
-            _conf.addError(badEl_);
+            badEl_.buildError(_conf.getAnalyzing().getAnalysisMessages().getEmptyPart());
+            _conf.getAnalyzing().addLocError(badEl_);
             page_.setCurrentEmptyPartErr(badEl_.getBuiltError());
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
@@ -178,11 +178,11 @@ public final class ElUtil {
             badEl_.setFileName(page_.getLocalizer().getCurrentFileName());
             badEl_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //badOffset char
-            badEl_.buildError(_conf.getAnalysisMessages().getBadExpression(),
+            badEl_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadExpression(),
                     " ",
                     Integer.toString(badOffset_),
                     _el);
-            _conf.addError(badEl_);
+            _conf.getAnalyzing().addLocError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -315,10 +315,10 @@ public final class ElUtil {
                         &&!(_current instanceof AffectationOperation)) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_context.getCurrentFileName());
-                    b_.setIndexFile(_context.getCurrentLocationIndex());
-                    b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
-                    _context.addError(b_);
+                    b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                    b_.setIndexFile(_context.getAnalyzing().getTraceIndex());
+                    b_.buildError(_context.getAnalyzing().getAnalysisMessages().getNotRetrievedFields());
+                    _context.getAnalyzing().addLocError(b_);
                     _current.getErrs().add(b_.getBuiltError());
                 }
             } else {
@@ -326,10 +326,10 @@ public final class ElUtil {
                     if (!(_current instanceof StandardFieldOperation)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
-                        b_.setFileName(_context.getCurrentFileName());
-                        b_.setIndexFile(_context.getCurrentLocationIndex());
-                        b_.buildError(_context.getAnalysisMessages().getNotRetrievedFields());
-                        _context.addError(b_);
+                        b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
+                        b_.setIndexFile(_context.getAnalyzing().getTraceIndex());
+                        b_.buildError(_context.getAnalyzing().getAnalysisMessages().getNotRetrievedFields());
+                        _context.getAnalyzing().addLocError(b_);
                         _current.getErrs().add(b_.getBuiltError());
                     }
                 }
@@ -466,7 +466,7 @@ public final class ElUtil {
         }
         return isDeclaringVariable(_par);
     }
-    static boolean isDeclaringLoopVariable(ContextEl _an) {
+    private static boolean isDeclaringLoopVariable(ContextEl _an) {
         if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
@@ -487,13 +487,13 @@ public final class ElUtil {
         }
         return isDeclaringVariable(_par);
     }
-    static boolean isDeclaringVariable(ContextEl _an) {
+    private static boolean isDeclaringVariable(ContextEl _an) {
         if (!_an.getAnalyzing().isMerged()) {
             return false;
         }
         return _an.getAnalyzing().getLocalDeclaring().hasDeclarator();
     }
-    public static boolean isDeclaringVariable(OperationNode _var) {
+    private static boolean isDeclaringVariable(OperationNode _var) {
         MethodOperation par_ = _var.getParent();
         if (par_ == null) {
             return true;
@@ -541,9 +541,9 @@ public final class ElUtil {
     }
     private static boolean checkFinalReadOnly(ContextEl _conf, SettableAbstractFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
         boolean checkFinal_;
-        if (_conf.isAssignedFields()) {
+        if (_conf.getAnalyzing().isAssignedFields()) {
             checkFinal_ = true;
-        } else if (_conf.isAssignedStaticFields()) {
+        } else if (_conf.getAnalyzing().isAssignedStaticFields()) {
             if (_meta.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {
@@ -586,11 +586,10 @@ public final class ElUtil {
     }
 
     public static void tryCalculate(FieldBlock _field, CustList<OperationNode> _ops, ContextEl _context, String _fieldName) {
-        CustList<OperationNode> nodes_ = _ops;
-        OperationNode root_ = nodes_.last();
+        OperationNode root_ = _ops.last();
         CustList<OperationNode> sub_;
         if (!(root_ instanceof DeclaringOperation)) {
-            sub_ = nodes_;
+            sub_ = _ops;
         } else {
             MethodOperation m_ = (MethodOperation)root_;
             int index_ = StringList.indexOf(_field.getFieldName(),_fieldName);
@@ -603,7 +602,7 @@ public final class ElUtil {
             } else {
                 from_ = ch_.get(index_-1).getOrder() + 1;
             }
-            sub_ = nodes_.sub(from_, to_);
+            sub_ = _ops.sub(from_, to_);
         }
         int ind_ = 0;
         int len_ = sub_.size();
@@ -633,13 +632,13 @@ public final class ElUtil {
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an);
         setImplicits(exp_,_an);
         page_.setCurrentRoot(root_);
-        page_.getCoverage().putBlockOperation(_an,bl_,root_,current_,exp_);
+        page_.getCoverage().putBlockOperation(page_, bl_, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                 setImplicits(loc_,_an);
-                page_.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
+                page_.getCoverage().putBlockOperation(page_, bl_, op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -660,7 +659,7 @@ public final class ElUtil {
                 if (op_ != null) {
                     ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
                     setImplicits(loc_,_an);
-                    page_.getCoverage().putBlockOperation(_an,bl_,root_,op_,loc_);
+                    page_.getCoverage().putBlockOperation(page_, bl_, op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {

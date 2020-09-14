@@ -32,7 +32,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -62,7 +62,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -91,7 +91,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -119,7 +119,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -150,7 +150,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -185,7 +185,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -221,7 +221,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -253,7 +253,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -285,7 +285,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -316,7 +316,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
@@ -351,7 +351,7 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
         assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));

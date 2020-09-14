@@ -1,27 +1,31 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.types.AbstractLoopDeclaring;
-import code.formathtml.Configuration;
+import code.formathtml.RendBlock;
+import code.formathtml.RendForMutableIterativeLoop;
 
 public final class AdvancedLoopDeclaring implements AbstractLoopDeclaring {
-    private final Configuration configuration;
+    private final AnalyzingDoc configuration;
 
-    public AdvancedLoopDeclaring(Configuration _configuration) {
+    public AdvancedLoopDeclaring(AnalyzingDoc _configuration) {
         configuration = _configuration;
     }
 
     @Override
     public boolean hasLoopDeclarator() {
-        return configuration.hasLoopDeclarator();
+        RendBlock currentBlock_ = configuration.getCurrentBlock();
+        return currentBlock_ instanceof RendForMutableIterativeLoop;
     }
 
     @Override
     public void setupLoopDeclaratorClass(String _className) {
-        configuration.setupLoopDeclaratorClass(_className);
+        RendBlock currentBlock_ = configuration.getCurrentBlock();
+        ((RendForMutableIterativeLoop)currentBlock_).setImportedClassName(_className);
     }
 
     @Override
     public String getIndexClassName() {
-        return configuration.getIndexClassName();
+        RendBlock currentBlock_ = configuration.getCurrentBlock();
+        return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
     }
 }

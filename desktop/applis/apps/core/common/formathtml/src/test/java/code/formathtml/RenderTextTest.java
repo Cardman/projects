@@ -237,7 +237,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>txt</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -276,7 +276,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>txt,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -317,7 +317,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -358,7 +358,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -399,7 +399,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -441,7 +441,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -488,7 +488,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -537,7 +537,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -577,7 +577,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -617,7 +617,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -658,7 +658,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -699,7 +699,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -739,7 +739,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -779,7 +779,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -819,7 +819,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -859,7 +859,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -908,7 +908,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -957,7 +957,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -997,7 +997,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1037,7 +1037,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1077,7 +1077,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1118,7 +1118,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1158,7 +1158,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1198,7 +1198,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1247,7 +1247,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1287,7 +1287,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1338,7 +1338,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1389,7 +1389,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>1,5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1445,7 +1445,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>10,10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1501,7 +1501,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>5,5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1557,7 +1557,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1614,7 +1614,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -1675,7 +1675,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1736,7 +1736,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1774,7 +1774,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1812,7 +1812,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1863,7 +1863,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1914,7 +1914,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1965,7 +1965,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -1989,7 +1989,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -2036,7 +2036,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -2061,7 +2061,7 @@ public final class RenderTextTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

@@ -98,7 +98,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //after first arg separator len
-                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(clMatch_.getNames(),"&"));
                     page_.getLocalizer().addError(un_);
                     getErrs().add(un_.getBuiltError());

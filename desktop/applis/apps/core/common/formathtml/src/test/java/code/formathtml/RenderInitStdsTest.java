@@ -17,7 +17,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-public final class RenderInitStdsTest {
+public final class RenderInitStdsTest extends CommonRender {
     @Test
     public void process1Test() {
         BeanLgNames b_ = new BeanCustLgNamesImpl();
@@ -60,7 +60,7 @@ public final class RenderInitStdsTest {
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return cont_.isEmptyErrors();
+        return isEmptyErrors(cont_);
     }
 
     private static void basicStandards(BeanLgNames _lgNames) {

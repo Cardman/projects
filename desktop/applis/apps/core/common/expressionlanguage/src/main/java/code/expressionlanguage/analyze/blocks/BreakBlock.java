@@ -37,7 +37,7 @@ public final class BreakBlock extends AbruptBlock {
         ExecBreakBlock exec_ = new ExecBreakBlock(getOffset(),label);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void checkBreakable(ContextEl _cont) {
@@ -69,41 +69,41 @@ public final class BreakBlock extends AbruptBlock {
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getKeyWords().getKeyWordBreak(),
+                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordBreak(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordSwitch(),
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordIter(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             } else {
                 //key word len
-                un_.buildError(_cont.getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getKeyWords().getKeyWordBreak(),
+                un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
+                        _cont.getAnalyzing().getKeyWords().getKeyWordBreak(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordSwitch(),
-                                        _cont.getKeyWords().getKeyWordTry(),
-                                        _cont.getKeyWords().getKeyWordCatch(),
-                                        _cont.getKeyWords().getKeyWordFinally(),
-                                        _cont.getKeyWords().getKeyWordIf(),
-                                        _cont.getKeyWords().getKeyWordElseif(),
-                                        _cont.getKeyWords().getKeyWordElse(),
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordIter(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordSwitch(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordTry(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordFinally(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordIf(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordElseif(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordElse(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordIter(),
+                                        _cont.getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 "|"));
             }
-            _cont.addError(un_);
+            _cont.getAnalyzing().addLocError(un_);
             if (label.isEmpty()) {
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());

@@ -31,7 +31,7 @@ public final class RendStyle extends RendElement {
         }
         StringList filesContents_ = new StringList();
         for (String r: refs_) {
-            StringMap<String> files_ = _cont.getAnalyzingDoc().getFiles();
+            StringMap<String> files_ = _cont.getFiles();
             String file_ = files_.getVal(r);
             if (file_ != null) {
                 filesContents_.add(file_);

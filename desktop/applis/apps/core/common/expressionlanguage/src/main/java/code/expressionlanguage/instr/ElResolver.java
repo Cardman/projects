@@ -160,7 +160,7 @@ public final class ElResolver {
             _d.setBadOffset(i_);
             return _d;
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         StringInfo si_ = new StringInfo();
         i_ = _minIndex;
         int nbChars_ = 0;
@@ -420,7 +420,7 @@ public final class ElResolver {
                 int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
                 if (!StringExpUtil.nextCharIs(_string,n_,len_,DOT_VAR)) {
                     if (isDigitOrDot(_string,n_)) {
-                        KeyWords keyWords_ = _conf.getKeyWords();
+                        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
                         NumberInfosOutput res_ = processNb(keyWords_, from_ + 1, len_, _string, true);
                         from_ = res_.getNextIndex();
                         continue;
@@ -441,7 +441,7 @@ public final class ElResolver {
     private static int processAfterInstuctionKeyWordQuick(String _string, int _i, Ints _callings, Ints _indexesNew, ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _i;
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
@@ -712,7 +712,7 @@ public final class ElResolver {
     private static int processWordsQuick(String _string, int _i, char _prevOp, char _curChar, Ints _callings, ContextEl _an, RootBlock _globalDirType) {
         int len_ = _string.length();
         int i_ = _i;
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
             NumberInfosOutput res_ = processNb(keyWords_, i_, len_, _string, false);
             return res_.getNextIndex();
@@ -1016,7 +1016,7 @@ public final class ElResolver {
     private static void processAfterInstuctionKeyWord(int _beginIndex,String _string,Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers,ContextEl _conf) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
@@ -1895,7 +1895,7 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         boolean ctorCall_ = _out.isCallCtor();
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
         resTmp_.setNextIndex(i_);
         if (isPossibleDigit(_string,_d) && StringExpUtil.isDigit(_curChar)) {
@@ -2024,12 +2024,12 @@ public final class ElResolver {
         int len_ = _string.length();
         ResultAfterDoubleDotted doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         int nbChars_;
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
         char curChar_ = _string.charAt(i_);
-        if (_conf.isAnnotAnalysis() && curChar_ == ANNOT) {
+        if (_conf.getAnalyzing().isAnnotAnalysis() && curChar_ == ANNOT) {
             int j_ = i_ + 1;
             int last_ = i_;
             while (j_ < len_) {
@@ -3203,7 +3203,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordThis_ = keyWords_.getKeyWordThis();

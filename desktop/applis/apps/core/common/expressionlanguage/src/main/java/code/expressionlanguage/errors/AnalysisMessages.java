@@ -464,7 +464,7 @@ public final class AnalysisMessages {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
             if (keyWordValue_.isEmpty()) {
-                _cont.addMessageError(key_);
+                _cont.getAnalyzing().addMessageError(key_);
             }
         }
     }

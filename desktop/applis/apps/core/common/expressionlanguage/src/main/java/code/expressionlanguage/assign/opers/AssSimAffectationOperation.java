@@ -56,9 +56,9 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                                         str_);
-                                _conf.addError(un_);
+                                _conf.getAnalyzing().addLocError(un_);
                                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                                     int opLocat_ = analyzed.getFoundOffset();
                                     CustList<PartOffset> err_ = new CustList<PartOffset>();
@@ -75,9 +75,9 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
-                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                         str_);
-                _conf.addError(un_);
+                _conf.getAnalyzing().addLocError(un_);
                 if (analyzed.getPartOffsetsChildren().isEmpty()) {
                     int opLocat_ = analyzed.getFoundOffset();
                     CustList<PartOffset> err_ = new CustList<PartOffset>();

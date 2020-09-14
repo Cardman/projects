@@ -66,7 +66,7 @@ public final class StandardInstancingOperation extends
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         int j_ = realClassName_.indexOf("}");
@@ -104,7 +104,7 @@ public final class StandardInstancingOperation extends
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
@@ -123,7 +123,7 @@ public final class StandardInstancingOperation extends
                     call_.setFileName(page_.getLocalizer().getCurrentFileName());
                     call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //key word len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             o);
                     page_.getLocalizer().addError(call_);
@@ -135,7 +135,7 @@ public final class StandardInstancingOperation extends
                     call_.setFileName(page_.getLocalizer().getCurrentFileName());
                     call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //key word len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             o);
                     page_.getLocalizer().addError(call_);
@@ -160,7 +160,7 @@ public final class StandardInstancingOperation extends
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
             static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //idClass_ len
-            static_.buildError(_conf.getAnalysisMessages().getNotResolvedOwner(),
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getNotResolvedOwner(),
                     idClass_
             );
             page_.getLocalizer().addError(static_);
@@ -197,7 +197,7 @@ public final class StandardInstancingOperation extends
             call_.setFileName(page_.getLocalizer().getCurrentFileName());
             call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorUnknown(),
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             page_.getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
@@ -216,7 +216,7 @@ public final class StandardInstancingOperation extends
                 call_.setFileName(page_.getLocalizer().getCurrentFileName());
                 call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
                 page_.getLocalizer().addError(call_);
@@ -227,7 +227,7 @@ public final class StandardInstancingOperation extends
                 call_.setFileName(page_.getLocalizer().getCurrentFileName());
                 call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //part type len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _realClassName);
                 page_.getLocalizer().addError(call_);
@@ -239,7 +239,7 @@ public final class StandardInstancingOperation extends
             call_.setFileName(page_.getLocalizer().getCurrentFileName());
             call_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAbstract(),
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorAbstract(),
                     base_);
             page_.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());

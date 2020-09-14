@@ -171,8 +171,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             b_.setFileName(getFile().getFileName());
             b_.setIndexFile(getOffset().getOffsetTrim());
             //value len
-            b_.buildError(_cont.getAnalysisMessages().getNotRetrievedFields());
-            _cont.addError(b_);
+            b_.buildError(_cont.getAnalyzing().getAnalysisMessages().getNotRetrievedFields());
+            _cont.getAnalyzing().addLocError(b_);
             addNameRetErrors(b_);
         }
         checkFieldsNames(_cont, this, _fieldNames, names_);
@@ -197,11 +197,12 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     static CustList<StringList> checkFieldsNames(ContextEl _cont, Block _bl, StringList _fieldNames, CustList<PartOffsetAffect> _names) {
         StringList idsField_ = new StringList(_fieldNames);
         CustList<StringList> found_ = new CustList<StringList>();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         for (PartOffsetAffect n: _names) {
             PartOffset p_ = n.getPartOffset();
             String trName_ = p_.getPart();
             StringList err_ = new StringList();
-            TokenErrorMessage mess_ = ManageTokens.partField(_cont).checkToken(_cont, trName_);
+            TokenErrorMessage mess_ = ManageTokens.partField(page_).checkToken(trName_, page_);
             if (mess_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
@@ -209,7 +210,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                 b_.setIndexFile(_bl.getOffset().getOffsetTrim());
                 //trName_ len
                 b_.setBuiltError(mess_.getMessage());
-                _cont.addError(b_);
+                _cont.getAnalyzing().addLocError(b_);
                 err_.add(b_.getBuiltError());
             }
             for (String m: idsField_) {
@@ -220,9 +221,9 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     duplicate_.setIndexFile(r_);
                     duplicate_.setFileName(_bl.getFile().getFileName());
                     //trName_ len
-                    duplicate_.buildError(_cont.getAnalysisMessages().getDuplicateField(),
+                    duplicate_.buildError(_cont.getAnalyzing().getAnalysisMessages().getDuplicateField(),
                             trName_);
-                    _cont.addError(duplicate_);
+                    _cont.getAnalyzing().addLocError(duplicate_);
                     err_.add(duplicate_.getBuiltError());
                 }
             }
@@ -257,8 +258,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     private void processPutCoverage(ContextEl _cont, ExecFieldBlock _exec) {
-        _cont.getAnalyzing().getCoverage().putBlockOperations(_cont,_exec,this);
-        _cont.getAnalyzing().getCoverage().putBlockOperations(_cont,this);
+        _cont.getAnalyzing().getCoverage().putBlockOperations(_exec,this);
+        _cont.getAnalyzing().getCoverage().putBlockOperations(this);
     }
 
     public void buildAnnotations(ContextEl _context, ExecAnnotableBlock _ex) {

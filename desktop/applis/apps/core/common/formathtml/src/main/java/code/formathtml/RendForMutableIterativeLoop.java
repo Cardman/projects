@@ -111,11 +111,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getCurrentFileName());
+            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
-            cast_.buildError(_cont.getContext().getAnalysisMessages().getNotPrimitiveWrapper(),
+            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            _cont.addError(cast_);
+            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -182,11 +182,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                         exp_.setMemberNumberTest(trueOp_.getMemberNumber());
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getCurrentFileName());
+                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         un_.setIndexFile(expressionOffset);
-                        un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedType(),
+                        un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(exp_.getNames(),AND_ERR));
-                        _cont.addError(un_);
+                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                 }
             }

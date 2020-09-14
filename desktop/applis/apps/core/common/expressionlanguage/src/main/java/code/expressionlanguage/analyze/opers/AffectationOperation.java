@@ -61,7 +61,7 @@ public final class AffectationOperation extends MethodOperation {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedAffect(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedAffect(),
                     "=");
             page_.getLocalizer().addError(un_);
             IntTreeMap< String> ops_ = getOperations().getOperators();
@@ -120,7 +120,7 @@ public final class AffectationOperation extends MethodOperation {
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //field name len
-                un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 page_.getLocalizer().addError(un_);
                 IntTreeMap< String> ops_ = getOperations().getOperators();
@@ -150,7 +150,7 @@ public final class AffectationOperation extends MethodOperation {
             cast_.setFileName(page_.getLocalizer().getCurrentFileName());
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //oper
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clMatchRight_.getNames(),"&"),
                     StringList.join(clMatchLeft_.getNames(),"&"));
             page_.getLocalizer().addError(cast_);
@@ -180,7 +180,7 @@ public final class AffectationOperation extends MethodOperation {
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //oper
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clMatchRight_.getNames(),"&"),
                         StringList.join(clMatchLeft_.getNames(),"&"));
                 page_.getLocalizer().addError(cast_);
@@ -205,12 +205,12 @@ public final class AffectationOperation extends MethodOperation {
 
     public static String processInfer(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
-        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+        if (StringList.quickEq(_import, _cont.getAnalyzing().getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //'var' len
-            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
+            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnassignedInferingType(),
                     _import,
                     StringList.join(vars_,"&"));
             _cont.getAnalyzing().getLocalizer().addError(un_);
@@ -225,12 +225,12 @@ public final class AffectationOperation extends MethodOperation {
 
     public static String processInferLoop(ContextEl _cont, String _import) {
         StringList vars_ = _cont.getAnalyzing().getVariablesNames();
-        if (StringList.quickEq(_import,_cont.getKeyWords().getKeyWordVar())) {
+        if (StringList.quickEq(_import, _cont.getAnalyzing().getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(_cont.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_cont.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //'var' len
-            un_.buildError(_cont.getAnalysisMessages().getUnassignedInferingType(),
+            un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnassignedInferingType(),
                     _import,
                     StringList.join(vars_,"&"));
             _cont.getAnalyzing().getLocalizer().addError(un_);

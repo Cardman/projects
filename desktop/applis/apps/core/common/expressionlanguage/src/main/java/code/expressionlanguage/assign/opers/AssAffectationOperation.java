@@ -3,7 +3,6 @@ package code.expressionlanguage.assign.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.*;
 import code.expressionlanguage.common.ClassField;
@@ -69,9 +68,9 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(page_.getLocalizer().getCurrentFileName());
                         un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                        un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                                 str_);
-                        _conf.addError(un_);
+                        _conf.getAnalyzing().addLocError(un_);
                     }
                 }
                 variablesAfter_.put(e.getKey(),Assignment.assign(str_,e.getKey(),isBool_, e.getValue()));
@@ -89,15 +88,15 @@ public final class AssAffectationOperation extends AssMultMethodOperation {
             StringMap<Assignment> fieldsAfterLast_ = vars_.getFields().getVal(lastChild_);
             ClassField cl_ = cst_.getFieldId();
             if (AssUtil.checkFinalField(_conf, _ass,cst_, fieldsAfterLast_)) {
-                if (ContextUtil.isFinalField(_conf,cl_)) {
+                if (cst_.getFieldMetaInfo().isFinalField()) {
                     //error if final field
                     firstChild_.setRelativeOffsetPossibleAnalyzable(_conf);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(page_.getLocalizer().getCurrentFileName());
                     un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
-                    un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                             cl_.getFieldName());
-                    _conf.addError(un_);
+                    _conf.getAnalyzing().addLocError(un_);
                 }
             }
         }

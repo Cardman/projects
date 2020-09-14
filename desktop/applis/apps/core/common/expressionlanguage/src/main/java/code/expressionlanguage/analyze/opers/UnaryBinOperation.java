@@ -54,7 +54,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //oper
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedOperandTypes(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringList.join(clMatch_.getNames(),"&"),
                     oper_);
             page_.getLocalizer().addError(un_);

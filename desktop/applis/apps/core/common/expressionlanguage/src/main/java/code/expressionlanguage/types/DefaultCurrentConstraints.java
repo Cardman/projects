@@ -1,14 +1,14 @@
 package code.expressionlanguage.types;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class DefaultCurrentConstraints implements AbstractCurrentConstraints {
-    private final ContextEl context;
+    private final AnalyzedPageEl context;
 
-    public DefaultCurrentConstraints(ContextEl context) {
+    public DefaultCurrentConstraints(AnalyzedPageEl context) {
         this.context = context;
     }
 

@@ -43,10 +43,10 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedAbrupt(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
                         _cont.getKeyWords().getKeyWordContinue(),
                         StringList.join(
                                 new StringList(
@@ -57,7 +57,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
                                 ),
                                 OR_ERR));
             } else {
-                un_.buildError(_cont.getContext().getAnalysisMessages().getUnexpectedAbruptLab(),
+                un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
                         _cont.getKeyWords().getKeyWordContinue(),
                         label,
                         StringList.join(
@@ -69,7 +69,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
                                 ),
                                 OR_ERR));
             }
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         }
     }
 

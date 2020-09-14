@@ -42,7 +42,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
@@ -52,7 +52,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
@@ -71,7 +71,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
             badAccess_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             badAccess_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             //type len
-            badAccess_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            badAccess_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     classStr_);
             _conf.getAnalyzing().getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());

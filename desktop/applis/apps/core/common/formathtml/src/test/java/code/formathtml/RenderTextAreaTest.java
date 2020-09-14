@@ -33,7 +33,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -64,7 +64,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -94,7 +94,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -124,7 +124,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -154,7 +154,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -187,7 +187,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -220,7 +220,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -253,7 +253,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -283,7 +283,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea c:groupId=\"myId\" n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -313,7 +313,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -343,7 +343,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\" rows=\"40\" cols=\"40\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -373,7 +373,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -414,7 +414,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -446,7 +446,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.i.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -478,7 +478,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -517,7 +517,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -558,7 +558,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -590,7 +590,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -621,7 +621,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -653,7 +653,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -683,7 +683,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }
@@ -711,7 +711,7 @@ public final class RenderTextAreaTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

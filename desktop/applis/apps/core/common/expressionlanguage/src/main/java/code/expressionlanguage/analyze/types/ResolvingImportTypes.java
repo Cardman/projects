@@ -44,7 +44,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
             partOffsets_.clear();
@@ -60,7 +60,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
@@ -94,7 +94,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
                     _in);
             page_.getLocalizer().addError(un_);
             return page_.getStandards().getAliasObject();
@@ -104,7 +104,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getBadParamerizedType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                     _in);
             page_.getLocalizer().addError(un_);
             return page_.getStandards().getAliasObject();
@@ -150,7 +150,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
             partOffsets_.clear();
@@ -166,7 +166,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
@@ -195,7 +195,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_+i.getIndex());
             //part len
-            un_.buildError(_analyzable.getAnalysisMessages().getInaccessibleType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getInaccessibleType(),
                     i.getType(),gl_);
             page_.getLocalizer().addError(un_);
         }
@@ -211,7 +211,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
             partOffsets_.clear();
@@ -226,7 +226,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
             page_.getLocalizer().addError(un_);
             CustList<PartOffset> partOffsets_ = page_.getCurrentParts();
@@ -255,7 +255,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
                     _in);
             page_.getLocalizer().addError(un_);
             return page_.getStandards().getAliasObject();
@@ -265,7 +265,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getBadParamerizedType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                     _in);
             page_.getLocalizer().addError(un_);
             return page_.getStandards().getAliasObject();
@@ -297,7 +297,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getVoidType(),
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getVoidType(),
                     void_);
             page_.getLocalizer().addError(un_);
             partOffsets_.clear();
@@ -312,7 +312,7 @@ public final class ResolvingImportTypes {
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(rc_);
             //_in len
-            un_.buildError(_analyzable.getAnalysisMessages().getEmptyType());
+            un_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getEmptyType());
             page_.getLocalizer().addError(un_);
             String err_ = un_.getBuiltError();
             String pref_ = "<a title=\""+err_+"\" class=\"e\">";
@@ -334,7 +334,7 @@ public final class ResolvingImportTypes {
                     undef_.setFileName(page_.getLocalizer().getCurrentFileName());
                     undef_.setIndexFile(rc_);
                     //_in len
-                    undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
+                    undef_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
                             _in);
                     page_.getLocalizer().addError(undef_);
                     String err_ = undef_.getBuiltError();
@@ -370,7 +370,7 @@ public final class ResolvingImportTypes {
                 undef_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undef_.setIndexFile(rc_);
                 //_in len
-                undef_.buildError(_analyzable.getAnalysisMessages().getUnknownType(),
+                undef_.buildError(_analyzable.getAnalyzing().getAnalysisMessages().getUnknownType(),
                         _in);
                 page_.getLocalizer().addError(undef_);
                 String err_ = undef_.getBuiltError();
@@ -463,7 +463,7 @@ public final class ResolvingImportTypes {
 
     private static boolean stopLookup(ContextEl _an,StringList _types, String _import, String _look, ReadyTypes _ready) {
         String beginImp_ = StringExpUtil.removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
-        String keyWordStatic_ = _an.getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _an.getAnalyzing().getKeyWords().getKeyWordStatic();
         boolean stQualifier_ = false;
         if (StringExpUtil.startsWithKeyWord(beginImp_, keyWordStatic_)) {
             beginImp_ = beginImp_.substring(keyWordStatic_.length()).trim();
@@ -507,7 +507,7 @@ public final class ResolvingImportTypes {
         AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
-        String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _analyzable.getAnalyzing().getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
             for (String i: t) {
@@ -625,7 +625,7 @@ public final class ResolvingImportTypes {
         AccessedBlock type_ = _analyzable.getAnalyzing().getCurrentGlobalBlock().getCurrentGlobalBlockImporting();
         CustList<StringList> imports_ = new CustList<StringList>();
         fetchImports(type_, imports_);
-        String keyWordStatic_ = _analyzable.getKeyWords().getKeyWordStatic();
+        String keyWordStatic_ = _analyzable.getAnalyzing().getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {
                 String tr_ = i.trim();

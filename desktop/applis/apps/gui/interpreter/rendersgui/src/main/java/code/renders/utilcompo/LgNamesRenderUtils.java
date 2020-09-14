@@ -7,7 +7,6 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.*;
@@ -20,7 +19,6 @@ import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -145,7 +143,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     @Override
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String int_ = getAliasPrimInteger();
@@ -257,7 +255,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         return stds_;
     }
     private static String tr(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getKeyWords().allKeyWords().values();
+        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
         allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
         allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
         String candidate_ = _var;

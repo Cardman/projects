@@ -1,23 +1,26 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.types.AbstractLocalDeclaring;
-import code.expressionlanguage.types.AbstractLoopDeclaring;
-import code.formathtml.Configuration;
+import code.formathtml.RendBlock;
+import code.formathtml.RendDeclareVariable;
 
 public final class AdvancedLocalDeclaring implements AbstractLocalDeclaring {
-    private final Configuration configuration;
+    private final AnalyzingDoc configuration;
 
-    public AdvancedLocalDeclaring(Configuration _configuration) {
+    public AdvancedLocalDeclaring(AnalyzingDoc _configuration) {
         configuration = _configuration;
     }
 
     @Override
     public boolean hasDeclarator() {
-        return configuration.hasDeclarator();
+        RendBlock currentBlock_ = configuration.getCurrentBlock();
+        return currentBlock_.getPreviousSibling() instanceof RendDeclareVariable;
     }
 
     @Override
     public void setupDeclaratorClass(String _className) {
-        configuration.setupDeclaratorClass(_className);
+        RendBlock currentBlock_ = configuration.getCurrentBlock();
+        RendBlock previousSibling_ = currentBlock_.getPreviousSibling();
+        ((RendDeclareVariable)previousSibling_).setImportedClassName(_className);
     }
 }

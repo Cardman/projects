@@ -71,13 +71,13 @@ public final class ResultText {
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(_off);
-                    badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                             Character.toString(RIGHT_EL),
                             Integer.toString(i_),
                             _expression);
-                    _conf.addError(badEl_);
+                    Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
@@ -90,13 +90,13 @@ public final class ResultText {
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_off);
-                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                         Character.toString(RIGHT_EL),
                         Integer.toString(i_),
                         _expression);
-                _conf.addError(badEl_);
+                Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                 return;
             }
             str_.append(cur_);
@@ -132,13 +132,13 @@ public final class ResultText {
                     continue;
                 }
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_begin);
-                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                         Character.toString(cur_),
                         Integer.toString(i_),
                         _expression);
-                _conf.addError(badEl_);
+                Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                 return;
             }
             if (cur_ == ESCAPED) {
@@ -153,13 +153,13 @@ public final class ResultText {
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_conf.getCurrentFileName());
+                    badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(_begin);
-                    badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                    badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                             " ",
                             Integer.toString(i_),
                             _expression);
-                    _conf.addError(badEl_);
+                    Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
@@ -172,13 +172,13 @@ public final class ResultText {
             if (cur_ == RIGHT_EL){
 //                _conf.getLastPage().setOffset(i_);
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_conf.getCurrentFileName());
+                badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_begin);
-                badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+                badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                         " ",
                         Integer.toString(i_),
                         _expression);
-                _conf.addError(badEl_);
+                Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                 return;
             }
             str_.append(cur_);
@@ -205,12 +205,12 @@ public final class ResultText {
                 m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(colsGrId_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.last().getResultClass().getNames(),RendBlock.AND_ERR),
                             _cont.getStandards().getAliasLong());
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
             int l_ = opExp_.size();

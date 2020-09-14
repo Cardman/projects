@@ -58,14 +58,14 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
         page_.setExecDeclareVariable(exec_);
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     private void processVariable(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;

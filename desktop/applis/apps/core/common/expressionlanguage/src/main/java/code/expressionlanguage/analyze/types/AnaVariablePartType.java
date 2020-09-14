@@ -39,7 +39,7 @@ final class AnaVariablePartType extends AnaLeafPartType {
     }
 
     void processOffsets(ContextEl _an, AccessedBlock _rooted) {
-        if (!_an.isGettingParts()) {
+        if (!_an.getAnalyzing().isGettingParts()) {
             return;
         }
         String curr_ = ((Block)_rooted).getFile().getRenderFileName();

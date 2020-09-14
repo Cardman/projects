@@ -69,7 +69,7 @@ public final class AnonymousLambdaOperation extends
         } else {
             typeAff_ = InvokingOperation.tryGetTypeAff(m_);
         }
-        String keyWordVar_ = _conf.getKeyWords().getKeyWordVar();
+        String keyWordVar_ = _conf.getAnalyzing().getKeyWords().getKeyWordVar();
         String foundType_ = EMPTY_STRING;
         if (!InvokingOperation.isUndefined(typeAff_, keyWordVar_)) {
             String cp_ = StringExpUtil.getQuickComponentType(typeAff_, nbParentsInfer_);

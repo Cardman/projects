@@ -44,7 +44,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _an);
         AnalyzedPageEl page_ = _an.getAnalyzing();
         setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = me_.trim().substring(new_.length());
         int local_ = StringList.getFirstPrintableCharIndex(className_);
@@ -245,7 +245,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         setClassName(page_.getStandards().getAliasObject());
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String new_ = keyWords_.getKeyWordNew();
         String className_ = m_.trim().substring(new_.length());
         if (typeInfer.isEmpty()) {
@@ -260,7 +260,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //key word len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     className_);
             page_.getLocalizer().addError(un_);
             IntTreeMap<String> operators_ = getOperations().getOperators();
@@ -300,7 +300,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     int i_ = page_.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(argType_.getNames(),"&"),
                             eltType_);
                     page_.getLocalizer().addError(cast_);

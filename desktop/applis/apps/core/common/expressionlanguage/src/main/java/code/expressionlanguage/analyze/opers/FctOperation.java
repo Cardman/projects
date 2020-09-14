@@ -79,7 +79,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         String trimMeth_ = methodName.trim();
         boolean accessSuperTypes_ = true;
         boolean accessFromSuper_ = false;
-        KeyWords keyWords_ = _an.getKeyWords();
+        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
@@ -147,7 +147,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
         boolean accessFromSuper_ = false;
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
@@ -179,7 +179,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 cast_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //type len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(clCur_.getNames(),"&"),
                         className_);
                 page_.getLocalizer().addError(cast_);
@@ -213,7 +213,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //trimMeth_ len
-                undefined_.buildError(_conf.getAnalysisMessages().getArrayCloneOnly(),
+                undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getArrayCloneOnly(),
                         stds_.getAliasClone(),
                         StringList.join(arrayBounds_,"&"));
                 page_.getLocalizer().addError(undefined_);
@@ -275,7 +275,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
                 abs_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //method name len
                 abs_.buildError(
-                        _conf.getAnalysisMessages().getAbstractMethodRef(),
+                        _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
                         clMeth_.getRealClass(),
                         clMeth_.getRealId().getSignature(page_));
                 page_.getLocalizer().addError(abs_);
@@ -306,7 +306,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
 
     private void setDelta(ContextEl _conf) {
         String trimMeth_ = methodName.trim();
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();

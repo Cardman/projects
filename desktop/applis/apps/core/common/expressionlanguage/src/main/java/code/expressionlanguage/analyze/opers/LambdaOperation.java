@@ -88,7 +88,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setFileName(page_.getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //last parenthesis
-            badCall_.buildError(_conf.getAnalysisMessages().getSplitComa(),
+            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComa(),
                     Integer.toString(2),
                     Integer.toString(len_)
             );
@@ -110,7 +110,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int len_ = _args.size();
         MethodOperation m_ = getParent();
         String fromType_ = StringExpUtil.removeDottedSpaces(_args.first());
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String operator_ = keyWords_.getKeyWordOperator();
         String new_ = keyWords_.getKeyWordNew();
         if (StringList.quickEq(fromType_, operator_)) {
@@ -136,32 +136,32 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         CustList<ClassArgumentMatching> methodTypes_ = new CustList<ClassArgumentMatching>();
         StringList str_;
         String name_ = _name;
-        if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())
-                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())
-                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())
-                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordFalse())) {
+        if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordExplicit())
+                || StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordCast())
+                || StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordTrue())
+                || StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordFalse())) {
             String exp_;
-            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
-                exp_ = _conf.getKeyWords().getKeyWordExplicit();
-            } else if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordCast())) {
-                exp_ = _conf.getKeyWords().getKeyWordCast();
-            } else if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())){
-                exp_ = _conf.getKeyWords().getKeyWordTrue();
+            if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordExplicit())){
+                exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordExplicit();
+            } else if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordCast())) {
+                exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordCast();
+            } else if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordTrue())){
+                exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordTrue();
             } else {
-                exp_ = _conf.getKeyWords().getKeyWordFalse();
+                exp_ = _conf.getAnalyzing().getKeyWords().getKeyWordFalse();
             }
             int i_ = 2;
             ClassMethodId feed_ = null;
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
             String keyWordId_ = keyWords_.getKeyWordId();
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
-            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())
-                || StringList.quickEq(name_,_conf.getKeyWords().getKeyWordFalse())) {
+            if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordTrue())
+                || StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordFalse())) {
                 String type_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,offset_,_fromType);
                 partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
                 ClassMethodIdReturn resMethod_;
-                if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordTrue())){
+                if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordTrue())){
                     resMethod_ = tryGetDeclaredTrue(_conf, type_);
                 } else {
                     resMethod_ = tryGetDeclaredFalse(_conf, type_);
@@ -172,7 +172,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     un_.setIndexFile(rc_);
                     //_in len
-                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             type_);
                     _conf.getAnalyzing().getLocalizer().addError(un_);
                     getErrs().add(un_.getBuiltError());
@@ -214,7 +214,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     un_.setIndexFile(rc_);
                     //_in len
-                    un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                    un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             type_);
                     _conf.getAnalyzing().getLocalizer().addError(un_);
                     getErrs().add(un_.getBuiltError());
@@ -263,7 +263,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
                         Integer.toString(2),
                         Integer.toString(argsRes_.getParametersTypes().size())
                 );
@@ -277,7 +277,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_conf.getAnalysisMessages().getSplitComaLow(),
+                static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComaLow(),
                         Integer.toString(1),
                         Integer.toString(argsRes_.getParametersTypes().size())
                 );
@@ -309,7 +309,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 methodTypes_.add(0, new ClassArgumentMatching(type_));
             }
             ClassMethodIdReturn id_;
-            if (StringList.quickEq(name_,_conf.getKeyWords().getKeyWordExplicit())){
+            if (StringList.quickEq(name_, _conf.getAnalyzing().getKeyWords().getKeyWordExplicit())){
                 id_ = tryGetDeclaredCast(_conf,type_, feed_, OperationNode.toArgArray(methodTypes_));
             } else {
                 id_ = tryGetDeclaredImplicitCast(_conf,type_, feed_, OperationNode.toArgArray(methodTypes_));
@@ -360,7 +360,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             boolean staticChoiceMethod_ = false;
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
             String keyWordSuper_ = keyWords_.getKeyWordSuper();
             String keyWordThat_ = keyWords_.getKeyWordThat();
             String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -392,8 +392,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             ClassMethodIdAncestor feed_ = null;
             if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
                 MethodAccessId idUpdate_ = new MethodAccessId(i_);
-                String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-                String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+                String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
+                String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
                 idUpdate_.setupInfos(i_ + 1,_args,keyWordStatic_,keyWordStaticCall_);
                 MethodAccessKind staticFlag_ = idUpdate_.getKind();
                 i_ = idUpdate_.getIndex();
@@ -417,7 +417,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                         static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                         //key word id len
-                        static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
+                        static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadParameTypeForId(),
                                 s);
                         _conf.getAnalyzing().getLocalizer().addError(static_);
                         getErrs().add(static_.getBuiltError());
@@ -474,7 +474,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                             //argument len
-                            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                     StringList.join(p.getNames(),"&"));
                             _conf.getAnalyzing().getLocalizer().addError(un_);
                             getErrs().add(un_.getBuiltError());
@@ -486,7 +486,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                             //argument len
-                            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                     cp_);
                             _conf.getAnalyzing().getLocalizer().addError(un_);
                             getErrs().add(un_.getBuiltError());
@@ -563,7 +563,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             int vararg_ = -1;
             MethodId argsRes_;
             ClassMethodIdAncestor feed_ = null;
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
             String keyWordId_ = keyWords_.getKeyWordId();
             MethodAccessKind kind_;
             if (stAcc_) {
@@ -636,7 +636,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         boolean staticChoiceMethod_ = false;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -667,8 +667,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ClassMethodIdAncestor feed_ = null;
         if (matchIdKeyWord(_args, _len, i_, keyWordId_)) {
             MethodAccessId idUpdate_ = new MethodAccessId(i_);
-            String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-            String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+            String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
             idUpdate_.setupInfos(i_ + 1,_args,keyWordStatic_,keyWordStaticCall_);
             stCtx_ = idUpdate_.getKind();
             i_ = idUpdate_.getIndex();
@@ -692,7 +692,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //key word id len
-                    static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
+                    static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _conf.getAnalyzing().getLocalizer().addError(static_);
                     getErrs().add(static_.getBuiltError());
@@ -749,7 +749,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                         un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                         //arg len
-                        un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(p.getNames(),"&"));
                         _conf.getAnalyzing().getLocalizer().addError(un_);
                         getErrs().add(un_.getBuiltError());
@@ -761,7 +761,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                         un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                         //arg len
-                        un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                        un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                 cp_);
                         _conf.getAnalyzing().getLocalizer().addError(un_);
                         getErrs().add(un_.getBuiltError());
@@ -812,7 +812,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(bounds_,"&"),
                     StringList.join(str_,"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -865,7 +865,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             undefined_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //_name len
-            undefined_.buildError(_conf.getAnalysisMessages().getArrayCloneOnly(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getArrayCloneOnly(),
                     _stds.getAliasClone(),
                     StringList.join(_str,"&"));
             _conf.getAnalyzing().getLocalizer().addError(undefined_);
@@ -893,7 +893,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 abs_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //method name len
                 abs_.buildError(
-                        _conf.getAnalysisMessages().getAbstractMethodRef(),
+                        _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
                         _id.getRealClass(),
                         _id.getRealId().getSignature(page_));
                 page_.getLocalizer().addError(abs_);
@@ -919,7 +919,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int vararg_ = -1;
         MethodId argsRes_;
         ConstructorId feed_ = null;
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         boolean foundId_ = false;
         String type_ = EMPTY_STRING;
@@ -941,7 +941,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //key word id len
-                    static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
+                    static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     _conf.getAnalyzing().getLocalizer().addError(static_);
                     getErrs().add(static_.getBuiltError());
@@ -972,7 +972,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //_fromType len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAbstract(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorAbstract(),
                         id_);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
@@ -985,7 +985,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //_fromType len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             clFrom_);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -996,7 +996,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //_fromType len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             clFrom_);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -1055,7 +1055,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorArray(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorArray(),
                         o);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
                 getErrs().add(call_.getBuiltError());
@@ -1068,7 +1068,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //key word len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -1080,7 +1080,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //key word len
-                    call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                    call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                             p,
                             o);
                     _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -1104,7 +1104,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             static_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             static_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            static_.buildError(_conf.getAnalysisMessages().getNotResolvedOwner(),
+            static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getNotResolvedOwner(),
                     idClass_
             );
             _conf.getAnalyzing().getLocalizer().addError(static_);
@@ -1142,7 +1142,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len or _fromType
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _cl);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -1153,7 +1153,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len or _fromType
-                call_.buildError(_conf.getAnalysisMessages().getIllegalCtorBound(),
+                call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorBound(),
                         p,
                         _cl);
                 _conf.getAnalyzing().getLocalizer().addError(call_);
@@ -1167,7 +1167,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len or _fromType
-            call_.buildError(_conf.getAnalysisMessages().getIllegalCtorAbstract(),
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorAbstract(),
                     id_);
             _conf.getAnalyzing().getLocalizer().addError(call_);
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
@@ -1214,14 +1214,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalysisMessages().getSplitComa(),
+            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComa(),
                     Integer.toString(3),
                     Integer.toString(_len)
             );
             _conf.getAnalyzing().getLocalizer().addError(badCall_);
             int i_ = _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex();
             partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(badCall_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsetsEnd.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordLambda().length()));
+            partOffsetsEnd.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordLambda().length()));
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1239,7 +1239,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             boolean accessFromSuper_ = false;
             boolean accessSuper_ = true;
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
             String keyWordSuper_ = keyWords_.getKeyWordSuper();
             String keyWordThat_ = keyWords_.getKeyWordThat();
             String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -1335,7 +1335,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //field name len
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             arg_,
                             out_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -1395,7 +1395,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                     cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                     //field name len
-                    cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                    cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             arg_,
                             out_);
                     _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -1413,7 +1413,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int i_ = 3;
         boolean accessFromSuper_ = false;
         boolean accessSuper_ = true;
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -1445,7 +1445,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //key word len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(bounds_,"&"),
                         StringList.join(str_,"&"));
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -1498,7 +1498,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(bounds_,"&"),
                     StringList.join(str_,"&"));
             _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -1547,7 +1547,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //field name len
-                cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         arg_,
                         out_);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);
@@ -1581,7 +1581,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //field name len
-            un_.buildError(_conf.getAnalysisMessages().getFinalField(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFinalField(),
                     _id.getClassField().getFieldName());
             _conf.getAnalyzing().getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
@@ -1601,12 +1601,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(previousResultClass.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             int i_ = page_.getLocalizer().getCurrentLocationIndex();
             partOffsetsEnd.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
-            partOffsetsEnd.add(new PartOffset("</a>",i_+_conf.getKeyWords().getKeyWordLambda().length()));
+            partOffsetsEnd.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordLambda().length()));
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
@@ -1633,10 +1633,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         int count_ = partOffsets.size();
         if (!StringExpUtil.isOper(operator_)) {
             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-            badMeth_.setFileName(_conf.getCurrentFileName());
+            badMeth_.setFileName(_conf.getAnalyzing().getCurrentBlock().getFile().getFileName());
             badMeth_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //key word len
-            badMeth_.buildError(_conf.getAnalysisMessages().getBadOperatorName(),
+            badMeth_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadOperatorName(),
                     operator_);
             page_.getLocalizer().addError(badMeth_);
             int j_ = page_.getLocalizer().getCurrentLocationIndex()+sum_;
@@ -1645,7 +1645,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new ClassArgumentMatching(_stds.getAliasObject()));
             return;
         }
-        KeyWords keyWords_ = _conf.getKeyWords();
+        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         int vararg_ = -1;
         MethodId argsRes_;
@@ -1655,8 +1655,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (_len > j_ &&StringList.quickEq(_args.get(j_).trim(), keyWordId_)) {
             i_++;
             MethodAccessId idUpdate_ = new MethodAccessId(i_);
-            String keyWordStatic_ = _conf.getKeyWords().getKeyWordStatic();
-            String keyWordStaticCall_ = _conf.getKeyWords().getKeyWordStaticCall();
+            String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
+            String keyWordStaticCall_ = _conf.getAnalyzing().getKeyWords().getKeyWordStaticCall();
             idUpdate_.setupInfos(i_,_args,keyWordStatic_,keyWordStaticCall_);
             staticFlag_ = idUpdate_.getKind();
             int k_ = idUpdate_.getIndex();
@@ -1691,7 +1691,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     static_.setFileName(page_.getLocalizer().getCurrentFileName());
                     static_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                     //key word id len
-                    static_.buildError(_conf.getAnalysisMessages().getBadParameTypeForId(),
+                    static_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadParameTypeForId(),
                             s);
                     page_.getLocalizer().addError(static_);
                     getErrs().add(static_.getBuiltError());
@@ -1726,7 +1726,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 for (ClassArgumentMatching c: methodTypes_) {
                     classesNames_.add(StringList.join(c.getNames(), "&"));
                 }
-                undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+                undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                         new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(page_));
                 page_.getLocalizer().addError(undefined_);
                 int k_ = page_.getLocalizer().getCurrentLocationIndex()+sum_+1;
@@ -1761,7 +1761,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             for (ClassArgumentMatching c: methodTypes_) {
                 classesNames_.add(StringList.join(c.getNames(), "&"));
             }
-            undefined_.buildError(_conf.getAnalysisMessages().getUndefinedMethod(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, "", classesNames_).getSignature(page_));
             page_.getLocalizer().addError(undefined_);
             int k_ = page_.getLocalizer().getCurrentLocationIndex()+sum_+1;
@@ -1817,7 +1817,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 un_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 un_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 //arg_ len
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                         StringList.join(clArg_.getNames(),"&"));
                 _conf.getAnalyzing().getLocalizer().addError(un_);
                 getErrs().add(un_.getBuiltError());
@@ -1830,7 +1830,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             badCall_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             badCall_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            badCall_.buildError(_conf.getAnalysisMessages().getSplitComa(),
+            badCall_.buildError(_conf.getAnalyzing().getAnalysisMessages().getSplitComa(),
                     Integer.toString(3),
                     Integer.toString(_len)
             );
@@ -1880,7 +1880,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     int i_ = off_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
                     varg_.setIndexFile(i_);
                     //three dots
-                    varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
+                    varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
@@ -1926,7 +1926,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     int i_ = offset_ + _conf.getAnalyzing().getLocalizer().getCurrentLocationIndex() + param_.lastIndexOf("...");
                     varg_.setIndexFile(i_);
                     //three dots
-                    varg_.buildError(_conf.getAnalysisMessages().getUnexpectedVararg());
+                    varg_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedVararg());
                     _conf.getAnalyzing().getLocalizer().addError(varg_);
                     setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
                     partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));

@@ -44,7 +44,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -80,7 +80,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -118,7 +118,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -154,7 +154,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -195,7 +195,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -234,7 +234,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -274,7 +274,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -313,7 +313,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -351,7 +351,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -387,7 +387,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -423,7 +423,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
         addInnerPage(conf_);
@@ -464,7 +464,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -507,7 +507,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         conf_.setMessagesFolder(folder_);
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_, conf_);
         addInnerPage(conf_);
@@ -549,7 +549,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -602,7 +602,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         RendBlock.getRes(rendDocumentBlock_,conf_);

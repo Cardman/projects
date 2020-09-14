@@ -52,7 +52,7 @@ public final class SuperFromFieldOperation extends
             cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             cast_.setFileName(page_.getLocalizer().getCurrentFileName());
             //type len
-            cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(clCur_.getNames(),"&"),
                     className_);
             page_.getLocalizer().addError(cast_);

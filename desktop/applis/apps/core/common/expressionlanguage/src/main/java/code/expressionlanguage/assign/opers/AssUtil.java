@@ -222,9 +222,9 @@ public final class AssUtil {
     }
     private static boolean checkFinalReadOnly(ContextEl _conf, AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, FieldInfo _meta) {
         boolean checkFinal_;
-        if (_conf.isAssignedFields()) {
+        if (_conf.getAnalyzing().isAssignedFields()) {
             checkFinal_ = true;
-        } else if (_conf.isAssignedStaticFields()) {
+        } else if (_conf.getAnalyzing().isAssignedStaticFields()) {
             if (_meta.isStaticField()) {
                 checkFinal_ = true;
             } else if (!_fromCurClass) {

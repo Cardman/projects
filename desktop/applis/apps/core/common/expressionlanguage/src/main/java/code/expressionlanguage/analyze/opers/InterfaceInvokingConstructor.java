@@ -35,8 +35,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().addLocError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
@@ -48,8 +48,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //type len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntFromSuperInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntFromSuperInt());
+            _conf.getAnalyzing().addLocError(call_);
             getErrs().add(call_.getBuiltError());
             return null;
         }
@@ -66,8 +66,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             call_.setFileName(curLine_.getFile().getFileName());
             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
             //key word len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntNotFromInt());
-            _conf.addError(call_);
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntNotFromInt());
+            _conf.getAnalyzing().addLocError(call_);
             getErrs().add(call_.getBuiltError());
         }
         Block f_ = br_.getFirstChild();
@@ -92,8 +92,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         call_.setFileName(curLine_.getFile().getFileName());
                         call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         //key word len
-                        call_.buildError(_conf.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                        _conf.addError(call_);
+                        call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntAfterSuperThis());
+                        _conf.getAnalyzing().addLocError(call_);
                         getErrs().add(call_.getBuiltError());
                     } else {
                         if (!((Line)f_).isCallFromCtorToCtor()|| ((Line)f_).isCallThis()) {
@@ -102,8 +102,8 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             call_.setFileName(curLine_.getFile().getFileName());
                             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                             //key word len
-                            call_.buildError(_conf.getAnalysisMessages().getCallCtorIntAfterSuperThis());
-                            _conf.addError(call_);
+                            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntAfterSuperThis());
+                            _conf.getAnalyzing().addLocError(call_);
                             getErrs().add(call_.getBuiltError());
                         }
                     }
@@ -143,11 +143,11 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 undef_.setFileName(_n.getFile().getFileName());
                 undef_.setIndexFile(0);
                 //current type len
-                undef_.buildError(_conf.getAnalysisMessages().getCallCtorIntInherits(),
+                undef_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,
                         _cl
                 );
-                _conf.addError(undef_);
+                _conf.getAnalyzing().addLocError(undef_);
                 _op.getErrs().add(undef_.getBuiltError());
             }
         }

@@ -54,7 +54,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
         super(_access, _retType, _fctName, _paramTypes, _paramTypesOffset, _paramNames, _paramNamesOffset, _offset);
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
-        KeyWords keyWords_ = _importingPage.getKeyWords();
+        KeyWords keyWords_ = _importingPage.getAnalyzing().getKeyWords();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
@@ -166,11 +166,11 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 miss_.setIndexFile(getOffset().getOffsetTrim());
                 miss_.setFileName(getFile().getFileName());
                 //return type len
-                miss_.buildError(_an.getAnalysisMessages().getMissingAbrupt(),
-                        _an.getKeyWords().getKeyWordThrow(),
-                        _an.getKeyWords().getKeyWordReturn(),
+                miss_.buildError(_an.getAnalyzing().getAnalysisMessages().getMissingAbrupt(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordThrow(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordReturn(),
                         getPseudoSignature(_an));
-                _an.addError(miss_);
+                _an.getAnalyzing().addLocError(miss_);
                 addNameErrors(miss_);
             }
         }
@@ -240,7 +240,7 @@ public final class OverridableBlock extends NamedFunctionBlock implements GeneCu
                 sum_ += o.length()+1;
                 continue;
             }
-            int rc_ = _context.getCurrentLocationIndex()+off_;
+            int rc_ = _context.getAnalyzing().getTraceIndex() +off_;
             for (OverridableBlock m: methods_) {
                 if (m.isAbstractMethod()) {
                     continue;

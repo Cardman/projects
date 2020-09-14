@@ -119,7 +119,7 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(fieldNameOffest);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String fullInstance_ = StringList.concat(fieldName,"=",newKeyWord_, PAR_LEFT, value, PAR_RIGHT);
         int trOffset_ = valueOffest  -1 -fieldName.length()- fieldNameOffest - 1 - newKeyWord_.length();
@@ -127,9 +127,9 @@ public final class InnerElementBlock extends ImmutableNameRootBlock implements I
         _exec.setTrOffset(trOffset_);
         page_.setTranslatedOffset(trOffset_);
         int index_ = getIndex();
-        _cont.setCurrentChildTypeIndex(index_);
-        page_.getCoverage().putBlockOperations(_cont, (ExecBlock) _exec,this);
-        page_.getCoverage().putBlockOperations(_cont,this);
+        page_.setIndexChildType(index_);
+        page_.getCoverage().putBlockOperations((ExecBlock) _exec,this);
+        page_.getCoverage().putBlockOperations(this);
         _exec.setOpValue(ElUtil.getAnalyzedOperationsReadOnly(fullInstance_, _cont, new Calculation(fieldName)));
         root = page_.getCurrentRoot();
         page_.setTranslatedOffset(0);

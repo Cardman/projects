@@ -579,7 +579,7 @@ public final class AnaTemplates {
             un_.setIndexFile(rc_);
             //original type len
             String realClassName_ = getRealClassName(_className, _parts);
-            un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
+            un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                     realClassName_);
             page_.getLocalizer().addError(un_);
             _errs.add(un_.getBuiltError());

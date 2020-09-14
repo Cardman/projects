@@ -20,7 +20,6 @@ import code.gui.OtherDialog;
 import code.resources.ResourceFiles;
 import code.sml.stream.ExtractFromFiles;
 import code.util.CustList;
-import code.util.ObjectMap;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -4643,7 +4642,7 @@ public class LgNamesGui extends LgNamesUtils {
     public StringMap<String> buildFiles(ContextEl _context) {
         StringMap<String> stds_ = super.buildFiles(_context);
         String content_ = ResourceFiles.ressourceFichier("resources_lg_gui/action_event.txt");
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String class_ = keyWords_.getKeyWordClass();

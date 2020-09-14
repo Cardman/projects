@@ -30,7 +30,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -54,7 +54,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -79,7 +79,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -104,7 +104,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -134,7 +134,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -166,7 +166,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -189,7 +189,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -216,7 +216,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -239,7 +239,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -269,7 +269,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -301,7 +301,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -336,7 +336,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -374,7 +374,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -412,7 +412,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -450,7 +450,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -489,7 +489,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -513,7 +513,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -545,7 +545,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -585,7 +585,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -614,7 +614,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
@@ -643,7 +643,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
@@ -669,7 +669,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -696,7 +696,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -723,7 +723,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -746,7 +746,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate1FailTest() {
@@ -763,7 +763,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate2FailTest() {
@@ -781,7 +781,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate3FailTest() {
@@ -799,7 +799,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate4FailTest() {
@@ -817,7 +817,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate5FailTest() {
@@ -835,7 +835,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate6FailTest() {
@@ -854,7 +854,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate7FailTest() {
@@ -872,7 +872,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate8FailTest() {
@@ -888,7 +888,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate9FailTest() {
@@ -902,7 +902,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate10FailTest() {
@@ -918,7 +918,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate11FailTest() {
@@ -934,7 +934,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
     @Test
     public void calculate12FailTest() {
@@ -950,6 +950,6 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = contextElReadOnlyDef();
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.isEmptyErrors());
+        assertTrue(!isEmptyErrors(cont_));
     }
 }

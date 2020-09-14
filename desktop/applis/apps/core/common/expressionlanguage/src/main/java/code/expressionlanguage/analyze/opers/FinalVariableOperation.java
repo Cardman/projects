@@ -2,7 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -82,7 +81,7 @@ public final class FinalVariableOperation extends LeafOperation {
         und_.setFileName(page_.getLocalizer().getCurrentFileName());
         und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //variable name len
-        und_.buildError(_conf.getAnalysisMessages().getUndefinedVariable(),
+        und_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedVariable(),
                 variableName);
         page_.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());

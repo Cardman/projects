@@ -35,12 +35,12 @@ public final class NullCatchEval extends AbstractCatchEval {
     @Override
     public void buildExpressionLanguageReadOnly(ContextEl _cont) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        page_.getCoverage().putCatches(_cont,this);
+        page_.getCoverage().putCatches(this);
         ExecNullCatchEval exec_ = new ExecNullCatchEval(getOffset());
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
 }

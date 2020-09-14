@@ -40,7 +40,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
         exec_.setFile(page_.getBlockToWrite().getFile());
         page_.getBlockToWrite().appendChild(exec_);
         page_.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-        page_.getCoverage().putBlockOperations(_cont, exec_,this);
+        page_.getCoverage().putBlockOperations(exec_,this);
     }
 
     @Override
@@ -51,16 +51,16 @@ public final class FinallyEval extends BracedBlock implements Eval {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFileName(getFile().getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
-                un_.buildError(_an.getAnalysisMessages().getUnexpectedCatchElseFinally(),
-                        _an.getKeyWords().getKeyWordFinally(),
+                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
+                        _an.getAnalyzing().getKeyWords().getKeyWordFinally(),
                         StringList.join(
                                 new StringList(
-                                        _an.getKeyWords().getKeyWordCatch(),
-                                        _an.getKeyWords().getKeyWordTry()
+                                        _an.getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                        _an.getAnalyzing().getKeyWords().getKeyWordTry()
                                 ),
                                 "|"));
                 //key word len
-                _an.addError(un_);
+                _an.getAnalyzing().addLocError(un_);
                 setReachableError(true);
                 getErrorsBlock().add(un_.getBuiltError());
             }

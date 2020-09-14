@@ -1,12 +1,12 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
-import code.expressionlanguage.exec.blocks.AccessibleBlock;
-import code.expressionlanguage.exec.blocks.ExecAccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.AccessibleBlock;
+import code.expressionlanguage.analyze.blocks.ExecAccessingImportingBlock;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -46,7 +46,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
         } else {
             page_.setGlobalClass("");
-            page_.setGlobalType(null);
+            page_.setGlobalType((RootBlock)null);
         }
         RendBlock root_ = this;
         RendBlock en_ = this;
@@ -165,17 +165,17 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
-                bad_.setFileName(_conf.getCurrentFileName());
+                bad_.setFileName(_conf.getAnalyzingDoc().getFileName());
                 bad_.setIndexFile(_block.getOffset().getOffsetTrim());
-                bad_.buildError(_conf.getContext().getAnalysisMessages().getBadLabel());
-                _conf.addError(bad_);
+                bad_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadLabel());
+                Configuration.addError(bad_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
-                    dup_.setFileName(_conf.getCurrentFileName());
+                    dup_.setFileName(_conf.getAnalyzingDoc().getFileName());
                     dup_.setIndexFile(_block.getOffset().getOffsetTrim());
-                    dup_.buildError(_conf.getContext().getAnalysisMessages().getDuplicatedLabel());
-                    _conf.addError(dup_);
+                    dup_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getDuplicatedLabel());
+                    Configuration.addError(dup_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
                 } else {
                     _labels.add(label_);
                 }
@@ -214,7 +214,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
     }
 
     @Override
-    public boolean isTypeHidden(AccessibleBlock _class, ContextEl _analyzable) {
+    public boolean isTypeHidden(AccessibleBlock _class, AnalyzedPageEl _analyzable) {
         return _class.getAccess() != AccessEnum.PUBLIC;
     }
 }

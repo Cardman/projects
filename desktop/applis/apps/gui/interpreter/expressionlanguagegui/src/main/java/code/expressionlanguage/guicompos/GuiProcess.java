@@ -92,13 +92,7 @@ public final class GuiProcess implements Runnable {
         GuiContextEl cont_ = res_.getRunnable();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(cont_,stds_,opt_,exec_, reportedMessages_);
-        if (!reportedMessages_.isEmptyErrors()) {
-            String time_ = Clock.getDateTimeText("_", "_", "_");
-            String dtPart_ = time_+".txt";
-            StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayErrors());
-            return null;
-        }
-        if (!cont_.isEmptyErrors()) {
+        if (!reportedMessages_.isAllEmptyErrors()) {
             String time_ = Clock.getDateTimeText("_", "_", "_");
             String dtPart_ = time_+".txt";
             StreamTextFile.logToFile(folder_+"/_"+dtPart_, time_+":"+ reportedMessages_.displayErrors());

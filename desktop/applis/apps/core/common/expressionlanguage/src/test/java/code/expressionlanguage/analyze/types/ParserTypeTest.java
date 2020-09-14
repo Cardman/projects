@@ -878,10 +878,10 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         ContextEl cont_ = contextEnElDefault();
         parseCustomFiles(_files, cont_);
-        assertTrue( cont_.isEmptyErrors());
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
+        assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClassesId(cont_);
-        assertTrue( cont_.isEmptyErrors());
+        assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
 

@@ -6070,7 +6070,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static ContextEl contextEl(StringMap<String> _files) {
         ContextEl cont_ = getSimpleContextEl();
         Classes.validateAll(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         return cont_;
     }
 }

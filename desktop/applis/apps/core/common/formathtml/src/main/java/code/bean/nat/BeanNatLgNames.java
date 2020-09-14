@@ -416,7 +416,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         _nav.initInstancesPattern();
         _nav.setupRenders();
         ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
-        _conf.getContext().setNullAnalyzing();
+        _conf.setNullAnalyzing();
         return messages_;
     }
     public abstract Struct wrapStd(Object _element);

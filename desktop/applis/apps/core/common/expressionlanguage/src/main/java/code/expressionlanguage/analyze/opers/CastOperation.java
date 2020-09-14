@@ -48,7 +48,7 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
                 un_.setFileName(_an.getAnalyzing().getLocalizer().getCurrentFileName());
                 un_.setIndexFile(rc_);
                 //_in len
-                un_.buildError(_an.getAnalysisMessages().getEmptyType());
+                un_.buildError(_an.getAnalyzing().getAnalysisMessages().getEmptyType());
                 CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
                 String err_ = un_.getBuiltError();
                 String pref_ = "<a title=\""+err_+"\" class=\"e\">";

@@ -93,9 +93,9 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         cast_.setFileName(page_.getLocalizer().getCurrentFileName());
         cast_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //return type len
-        cast_.buildError(_stds.getAnalysisMessages().getUnexpectedRetType(),
+        cast_.buildError(_stds.getAnalyzing().getAnalysisMessages().getUnexpectedRetType(),
                 itype_,getSignature(_stds));
-        _stds.addError(cast_);
+        _stds.getAnalyzing().addLocError(cast_);
         addNameErrors(cast_);
     }
 
@@ -132,7 +132,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         }
         page_.setGlobalOffset(defaultValueOffset);
         page_.setOffset(0);
-        page_.getCoverage().putBlockOperationsField(_cont,this);
+        page_.getCoverage().putBlockOperationsField(page_, this);
         CustList<ExecOperationNode> ops_ = ElUtil.getAnalyzedOperationsReadOnly(defaultValue, _cont, Calculation.staticCalculation(MethodAccessKind.STATIC));
         root = page_.getCurrentRoot();
         _exec.setOpValue(ops_);
@@ -148,10 +148,10 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
-            cast_.buildError(_cont.getAnalysisMessages().getBadImplicitCast(),
+            cast_.buildError(_cont.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     StringList.join(arg_.getNames(),"&"),
                     import_);
-            _cont.addError(cast_);
+            _cont.getAnalyzing().addLocError(cast_);
             addNameErrors(cast_);
         }
         if (AnaTypeUtil.isPrimitive(import_, page_)) {

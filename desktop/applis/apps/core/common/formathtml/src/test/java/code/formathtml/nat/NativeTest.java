@@ -491,7 +491,7 @@ public final class NativeTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         conf_.getAdvStandards().preInitBeans(conf_);
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_, conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, bean_, beanTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());

@@ -11,7 +11,7 @@ public final class PredefinedClasses {
     }
     public static String getBracedIterableType(ContextEl _context) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -30,7 +30,7 @@ public final class PredefinedClasses {
 
     public static String getBracedIteratorType(ContextEl _context) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -53,7 +53,7 @@ public final class PredefinedClasses {
 
     public static String getBracedIterableTableType(ContextEl _context) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -73,7 +73,7 @@ public final class PredefinedClasses {
 
     public static String getBracedIteratorTableType(ContextEl _context) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -98,7 +98,7 @@ public final class PredefinedClasses {
 
     public static String getBracedPairType(ContextEl _context) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -121,7 +121,7 @@ public final class PredefinedClasses {
     }
     public static String getBracedEnumType(ContextEl _context) {
         LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
@@ -162,7 +162,7 @@ public final class PredefinedClasses {
 
     public static String getBracedEnumParamType(ContextEl _context) {
         LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String type_ = stds_.getAliasEnumParam();
@@ -177,7 +177,7 @@ public final class PredefinedClasses {
 
     public static String getBracedSeedGeneratorType(ContextEl _context) {
         LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -196,7 +196,7 @@ public final class PredefinedClasses {
 
     public static String getBracedSeedDoubleGeneratorType(ContextEl _context) {
         LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getKeyWords();
+        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();

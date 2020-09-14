@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.common.*;
@@ -67,33 +68,35 @@ public final class Classes {
     /**Resources are possibly added before analyzing file types*/
     public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context) {
         validateWithoutInit(_files, _context);
-        ReportedMessages messages_ = _context.getAnalyzing().getMessages();
-        if (!_context.isEmptyErrors()) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        ReportedMessages messages_ = page_.getMessages();
+        if (!page_.isEmptyErrors()) {
             //all errors are logged here
             return messages_;
         }
-        forwardAndClear(_context);
-        AnalysisMessages analysisMessages_ = _context.getAnalyzing().getAnalysisMessages();
-        Options options_ = _context.getAnalyzing().getOptions();
+        forwardAndClear(_context, page_);
+        AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
+        Options options_ = page_.getOptions();
         _context.setNullAnalyzing();
         tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
         return messages_;
     }
 
-    public static void forwardAndClear(ContextEl _context) {
-        _context.forwardAndClear();
+    public static void forwardAndClear(ContextEl _context, AnalyzedPageEl _analyzing) {
+        _context.forwardAndClear(_analyzing);
     }
 
     public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
-        if (!_context.isEmptyStdError() || !_context.isEmptyMessageError()) {
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        if (!page_.isEmptyErrors()) {
             //all standards errors are logged here
             return;
         }
         ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
-        if (_context.isGettingErrors()) {
-            ReportedMessages messages_ = _context.getAnalyzing().getMessages();
-            messages_.setErrors(ExecFileBlock.errors(_context));
+        if (page_.isGettingErrors()) {
+            ReportedMessages messages_ = page_.getMessages();
+            messages_.setErrors(ExecFileBlock.errors(page_));
         }
     }
 

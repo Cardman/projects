@@ -1,6 +1,5 @@
 package code.expressionlanguage.structs;
 
-import code.expressionlanguage.ContextEl;
 
 public abstract class CharSequenceStruct extends WithoutParentStruct implements DisplayableStruct {
 
@@ -14,11 +13,6 @@ public abstract class CharSequenceStruct extends WithoutParentStruct implements 
 
     public boolean isCorrectSub(int begin_, int end_) {
         return begin_ < 0 || end_ > length() || begin_ > end_;
-    }
-
-    @Override
-    public StringStruct getDisplayedString(ContextEl _an) {
-        return new StringStruct(toStringInstance());
     }
 
 

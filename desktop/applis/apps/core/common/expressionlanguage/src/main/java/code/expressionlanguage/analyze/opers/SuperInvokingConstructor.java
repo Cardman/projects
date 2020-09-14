@@ -26,7 +26,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
             call_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
             call_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
             //key word len
-            call_.buildError(_conf.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
+            call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
             _conf.getAnalyzing().getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
             return null;

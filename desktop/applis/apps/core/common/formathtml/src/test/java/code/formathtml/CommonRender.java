@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.MethodHeaders;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -75,7 +76,7 @@ public abstract class CommonRender {
         } else {
             _configuration.getContext().setAnalyzing();
         }
-        _configuration.setupInts();
+        Configuration.setupInts(_configuration.getContext().getAnalyzing(), _configuration.getAnalyzingDoc());
         _configuration.getContext().getAnalyzing().setGlobalClass(globalClass_);
         _configuration.getContext().getAnalyzing().setGlobalType(_configuration.getContext().getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
         for (EntryCust<String,LocalVariable> e: _configuration.getLastPage().getValueVars().entryList()) {
@@ -117,9 +118,13 @@ public abstract class CommonRender {
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
-        assertTrue(cont_.isEmptyErrors());
+        assertTrue(isEmptyErrors(cont_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         return conf_;
+    }
+
+    protected static boolean isEmptyErrors(ContextEl cont_) {
+        return cont_.getAnalyzing() == null || (cont_.getAnalyzing().isEmptyErrors());
     }
     protected static MethodHeaders getHeaders(StringMap<String> _files,ContextEl _cont) {
         Classes.validateWithoutInit(_files,_cont);
@@ -199,7 +204,7 @@ public abstract class CommonRender {
     }
 
     protected static void setupAna(Configuration context_) {
-        context_.setupInts();
+        Configuration.setupInts(context_.getContext().getAnalyzing(), context_.getAnalyzingDoc());
     }
 
     protected static RendDocumentBlock buildTwoPagesTwo(String html_, String htmlTwo_, Configuration context_) {
@@ -281,10 +286,11 @@ public abstract class CommonRender {
 
     protected static void tryInitStaticlyTypes(Configuration _context) {
         if (_context.isEmptyErrors()) {
-            Classes.forwardAndClear(_context.getContext());
-            AnalysisMessages analysisMessages_ = _context.getContext().getAnalyzing().getAnalysisMessages();
-            ReportedMessages messages_ = _context.getContext().getAnalyzing().getMessages();
-            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_, _context.getContext().getAnalyzing().getOptions());
+            AnalyzedPageEl page_ = _context.getContext().getAnalyzing();
+            Classes.forwardAndClear(_context.getContext(), page_);
+            AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
+            ReportedMessages messages_ = page_.getMessages();
+            Classes.tryInitStaticlyTypes(_context.getContext(),analysisMessages_,messages_, page_.getOptions());
         }
         addInnerPage(_context);
     }
@@ -306,25 +312,22 @@ public abstract class CommonRender {
     public static Argument processEl(String _el, int _index, Configuration _conf) {
         ContextEl context_ = _conf.getContext();
         CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf);
+        AnalyzedPageEl page_ = context_.getAnalyzing();
         if (!_conf.isEmptyErrors()) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            badEl_.setLocationFile(_conf.getLocationFile(badEl_.getFileName(),badEl_.getIndexFile()));
-            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
-                    " ",
-                    Integer.toString(_index),
-                    _el);
-            _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
             return Argument.createVoid();
         }
-        Classes.forwardAndClear(context_);
+        Classes.forwardAndClear(context_, page_);
         for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(context_, name_), c);
         }
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         return RenderExpUtil.calculateReuse(out_, _conf);
+    }
+
+    protected static void setFiles(StringMap<String> files_, Configuration conf_) {
+        conf_.getAnalyzingDoc().setFiles(files_);
+        conf_.setFiles(files_);
     }
 
     private static CustList<RendDynOperationNode> getAnalyzed(String _el, int _index, Configuration _conf) {
@@ -337,13 +340,13 @@ public abstract class CommonRender {
         if (badOffset_ >= 0) {
             _conf.getLastPage().setOffset(badOffset_);
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_conf.getCurrentFileName());
-            badEl_.setIndexFile(_conf.getCurrentLocationIndex());
-            badEl_.buildError(_conf.getContext().getAnalysisMessages().getBadExpression(),
+            badEl_.setFileName(_conf.getAnalyzingDoc().getFileName());
+            badEl_.setIndexFile(Configuration.getCurrentLocationIndex(_conf.getContext().getAnalyzing(), _conf.getAnalyzingDoc()));
+            badEl_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                     " ",
                     Integer.toString(badOffset_),
                     _el);
-            _conf.addError(badEl_);
+            Configuration.addError(badEl_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
             _conf.setException(new ErrorStruct(_conf.getContext(), badEl_.display(), _conf.getStandards().getAliasIllegalArg()));
             return new CustList<RendDynOperationNode>();
         }

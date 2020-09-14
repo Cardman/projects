@@ -1,12 +1,10 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.structs.BeanInfo;
@@ -17,7 +15,6 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.errors.stds.StdWordError;
-import code.expressionlanguage.instr.*;
 
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
@@ -107,6 +104,7 @@ public final class Configuration {
     private final RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private final RendKeyWords rendKeyWords = new RendKeyWords();
     private RendDocumentBlock rendDocumentBlock;
+    private StringMap<String> files = new StringMap<String>();
 
     public ArrayStruct newStackTraceElementArray() {
         int count_ = importing.size();
@@ -147,7 +145,8 @@ public final class Configuration {
     public void setupRenders(StringMap<String> _files) {
         renders.clear();
         analyzingDoc.setFiles(_files);
-        setupInts();
+        setFiles(_files);
+        setupInts(getContext().getAnalyzing(), getAnalyzingDoc());
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
@@ -155,11 +154,11 @@ public final class Configuration {
             Document document_ = res_.getDocument();
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(getCurrentFileName());
-                badEl_.setIndexFile(getCurrentLocationIndex());
+                badEl_.setFileName(getAnalyzingDoc().getFileName());
+                badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), getAnalyzingDoc()));
                 badEl_.buildError(getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
-                addError(badEl_);
+                addError(badEl_, getAnalyzingDoc(), context.getAnalyzing());
                 continue;
             }
             currentUrl = link_;
@@ -173,11 +172,11 @@ public final class Configuration {
         rendDocumentBlock = getRenders().getVal(realFilePath_);
         if (rendDocumentBlock == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(getCurrentFileName());
-            badEl_.setIndexFile(getCurrentLocationIndex());
+            badEl_.setFileName(getAnalyzingDoc().getFileName());
+            badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), getAnalyzingDoc()));
             badEl_.buildError(getRendAnalysisMessages().getInexistantFile(),
                     realFilePath_);
-            addError(badEl_);
+            addError(badEl_, getAnalyzingDoc(), context.getAnalyzing());
         }
     }
     public void initForms() {
@@ -197,7 +196,10 @@ public final class Configuration {
         formsNames = new StringList();
         currentForm = 0;
     }
-
+    public void setNullAnalyzing() {
+        context.setNullAnalyzing();
+        analyzingDoc = null;
+    }
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
         if (context.hasException()) {
@@ -378,18 +380,14 @@ public final class Configuration {
         return getAnalyzing().getGlobalClass();
     }
 
-    public String getLocationFile(String _fileName, int _sum) {
-        return StringList.concat(Integer.toString(_sum));
+    public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
+        _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
+        _analyzing.addWarning(_warning);
     }
 
-    public void addWarning(FoundWarningInterpret _warning) {
-        _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
-        context.getAnalyzing().addWarning(_warning);
-    }
-
-    public void addError(FoundErrorInterpret _error) {
-        _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile()));
-        context.getAnalyzing().addError(_error);
+    public static void addError(FoundErrorInterpret _error, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
+        _error.setLocationFile(_analyzingDoc.getLocationFile(_error.getFileName(),_error.getIndexFile()));
+        _analyzing.addError(_error);
     }
 
     public RendAnalysisMessages getRendAnalysisMessages() {
@@ -416,19 +414,11 @@ public final class Configuration {
         return getContext().getClasses();
     }
 
-    public String getCurrentFileName() {
-        return analyzingDoc.getFileName();
-    }
-
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
     public void setOpOffset(int _offset) {
         getLastPage().setOpOffset(_offset);
-    }
-
-    public boolean isStaticAccess() {
-        return context.getAnalyzing().isStaticContext();
     }
 
     public int getNextIndex() {
@@ -437,27 +427,6 @@ public final class Configuration {
 
     public void setNextIndex(int _nextIndex) {
         nextIndex = _nextIndex;
-    }
-
-    public boolean hasDeclarator() {
-        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
-        return currentBlock_.getPreviousSibling() instanceof RendDeclareVariable;
-    }
-
-    public void setupDeclaratorClass(String _className) {
-        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
-        RendBlock previousSibling_ = currentBlock_.getPreviousSibling();
-        ((RendDeclareVariable)previousSibling_).setImportedClassName(_className);
-    }
-
-    public boolean hasLoopDeclarator() {
-        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
-        return currentBlock_ instanceof RendForMutableIterativeLoop;
-    }
-
-    public void setupLoopDeclaratorClass(String _className) {
-        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
-        ((RendForMutableIterativeLoop)currentBlock_).setImportedClassName(_className);
     }
 
     public PageEl getPageEl() {
@@ -469,7 +438,7 @@ public final class Configuration {
     }
 
     public boolean isInternGlobal() {
-        return !analyzingDoc.getInternGlobalClass().isEmpty();
+        return analyzingDoc.isInternGlobal();
     }
 
     public Struct getInternGlobal() {
@@ -480,16 +449,6 @@ public final class Configuration {
         return analyzingDoc.getInternGlobalClass();
     }
 
-    private static AccessedBlock getAccessingImportingBlock(AccessedBlock _r, RootBlock _root) {
-        AccessedBlock a_;
-        if (_root != null) {
-            a_ = _root;
-        } else {
-            a_ = _r;
-        }
-        return a_;
-    }
-
     public AnalyzedPageEl getAnalyzing() {
         return context.getAnalyzing();
     }
@@ -498,54 +457,29 @@ public final class Configuration {
         return context.getAnalyzing().getInfosVars();
     }
 
-    public String getIndexClassName() {
-        RendBlock currentBlock_ = analyzingDoc.getCurrentBlock();
-        return ((RendForMutableIterativeLoop)currentBlock_).getImportedClassIndexName();
-    }
-
     public KeyWords getKeyWords() {
-        return context.getKeyWords();
+        return context.getAnalyzing().getKeyWords();
     }
 
-    public int getCurrentLocationIndex() {
-        AnalyzedPageEl analyzing_ = context.getAnalyzing();
-        int offset_ = analyzing_.getOffset();
-        return analyzingDoc.getSum(offset_)+analyzing_.getTraceIndex()-offset_;
+    public static int getCurrentLocationIndex(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {
+        int offset_ = _analyzing.getOffset();
+        return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
     }
 
-    public void processInternKeyWord(String _string, int _fr,
-            ResultAfterInstKeyWord _out) {
-        KeyWords keyWords_ = getKeyWords();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
-        String sub_ = _string.substring(_fr);
-        int i_ = _fr;
-        if (isInternGlobal()) {
-            if (StringExpUtil.startsWithKeyWord(sub_, keyWordIntern_)) {
-                int afterSuper_ = i_ + keyWordIntern_.length();
-                String trim_ = _string.substring(afterSuper_).trim();
-                if (trim_.startsWith(".")) {
-                    //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                    i_ = _string.indexOf('.',afterSuper_);
-                    _out.setNextIndex(i_);
-                }
-            }
-        }
-    }
-
-    public void setupInts() {
-        context.getAnalyzing().getMappingLocal().clear();
-        context.getAnalyzing().setCurrentRoot(null);
-        context.getAnalyzing().setCurrentAnaBlock(null);
-        context.getAnalyzing().setProcessKeyWord(new AdvancedProcessKeyWord(this));
-        context.getAnalyzing().setHiddenTypes(new AdvancedHiddenTypes(this));
-        context.getAnalyzing().setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(this));
-        context.getAnalyzing().setCurrentConstraints(new AdvancedCurrentConstraints());
-        context.getAnalyzing().setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
-        context.getAnalyzing().setLoopDeclaring(new AdvancedLoopDeclaring(this));
-        context.getAnalyzing().setLocalDeclaring(new AdvancedLocalDeclaring(this));
-        context.getAnalyzing().setBuildingConstraints(new AdvancedBuildingConstraints(this));
-        context.getAnalyzing().setLocalizer(new AdvancedLocalizer(this));
-        context.getAnalyzing().setTokenValidation(new AdvancedTokenValidation(this));
+    public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
+        _page.getMappingLocal().clear();
+        _page.setCurrentRoot(null);
+        _page.setCurrentAnaBlock(null);
+        _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
+        _page.setHiddenTypes(new AdvancedHiddenTypes(_page));
+        _page.setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_page, _analyzingDoc));
+        _page.setCurrentConstraints(new AdvancedCurrentConstraints());
+        _page.setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
+        _page.setLoopDeclaring(new AdvancedLoopDeclaring(_analyzingDoc));
+        _page.setLocalDeclaring(new AdvancedLocalDeclaring(_analyzingDoc));
+        _page.setBuildingConstraints(new AdvancedBuildingConstraints(_page));
+        _page.setLocalizer(new AdvancedLocalizer(_page, _analyzingDoc));
+        _page.setTokenValidation(new AdvancedTokenValidation(_page));
     }
 
     public StringList getAddedFiles() {
@@ -691,22 +625,16 @@ public final class Configuration {
     }
 
 
-    public RendDocumentBlock getCurrentGlobalBlock() {
-        return getAnalyzingDoc().getCurrentDoc();
-    }
-
-
-    public AccessedBlock getCurrentGlobalBlock(AccessedBlock _bl) {
-        String gl_ = getGlobalClass();
-        RootBlock root_ = getContext().getAnalyzing().getAnaClassBody(StringExpUtil.getIdFromAllTypes(gl_));
-        return getAccessingImportingBlock(_bl, root_);
-    }
-
-    public void buildCurrentConstraintsFull() {
-        context.getAnalyzing().getAvailableVariables().clear();
-    }
-
     public RendDocumentBlock getRendDocumentBlock() {
         return rendDocumentBlock;
     }
+
+    public void setFiles(StringMap<String> _files) {
+        files = _files;
+    }
+
+    public StringMap<String> getFiles() {
+        return files;
+    }
+
 }

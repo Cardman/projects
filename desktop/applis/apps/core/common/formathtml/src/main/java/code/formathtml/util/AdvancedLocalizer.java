@@ -1,34 +1,37 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.types.AbstractLocalizer;
 import code.formathtml.Configuration;
 
 public final class AdvancedLocalizer implements AbstractLocalizer {
-    private final Configuration context;
+    private final AnalyzedPageEl page;
+    private final AnalyzingDoc analyzingDoc;
 
-    public AdvancedLocalizer(Configuration context) {
-        this.context = context;
+    public AdvancedLocalizer(AnalyzedPageEl page, AnalyzingDoc analyzingDoc) {
+        this.page = page;
+        this.analyzingDoc = analyzingDoc;
     }
 
     @Override
     public String getCurrentFileName() {
-        return context.getCurrentFileName();
+        return analyzingDoc.getFileName();
     }
 
     @Override
     public int getCurrentLocationIndex() {
-        return context.getCurrentLocationIndex();
+        return Configuration.getCurrentLocationIndex(page, analyzingDoc);
     }
 
     @Override
     public void addWarning(FoundWarningInterpret _warning) {
-        context.addWarning(_warning);
+        Configuration.addWarning(_warning, analyzingDoc, page);
     }
 
     @Override
     public void addError(FoundErrorInterpret _error) {
-        context.addError(_error);
+        Configuration.addError(_error,analyzingDoc, page);
     }
 }

@@ -35,10 +35,10 @@ public final class ResultInput {
             RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
             if (!(settable_ instanceof RendPossibleIntermediateDotted)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             } else {
                 className = ((RendDynOperationNode)settable_).getResultClass().getSingleNameOrEmpty();
                 if (settable_ instanceof RendSettableFieldOperation) {
@@ -46,19 +46,19 @@ public final class ResultInput {
                     ClassField clField_ = infoField_.getClassField();
                     if (infoField_.isStaticField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
+                        badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
-                        _cont.addError(badEl_);
+                        Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                     if (infoField_.isFinalField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getCurrentFileName());
+                        badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
-                        badEl_.buildError(_cont.getContext().getAnalysisMessages().getFinalField(),
+                        badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getFinalField(),
                                 clField_.getFieldName());
-                        _cont.addError(badEl_);
+                        Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                     }
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
@@ -192,10 +192,10 @@ public final class ResultInput {
             String type_ = _read.getAttribute(_cont.getRendKeyWords().getAttrType());
             if (!StringList.quickEq(type_,_cont.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
         if (_read.hasAttribute(_varValue)) {

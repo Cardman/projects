@@ -114,11 +114,11 @@ public final class AnaTypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getNameOffset());
                         //sub method name len
-                        err_.buildError(_context.getAnalysisMessages().getDuplicatedFinal(),
+                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedFinal(),
                                 supId_.getBlock().getId().getSignature(page_),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
-                        _context.addError(err_);
+                        _context.getAnalyzing().addLocError(err_);
                         continue;
                     }
                     if (supId_.getBlock().getAccess().isStrictMoreAccessibleThan(subId_.getBlock().getAccess())) {
@@ -127,13 +127,13 @@ public final class AnaTypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getAccessOffset());
                         //key word access or method name
-                        err_.buildError(_context.getAnalysisMessages().getMethodsAccesses(),
+                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getMethodsAccesses(),
                                 supId_.getGeneString(),
                                 supId_.getBlock().getId().getSignature(page_),
                                 subId_.getGeneString(),
                                 subId_.getBlock().getId().getSignature(page_));
                         subId_.getBlock().addNameErrors(err_);
-                        _context.addError(err_);
+                        _context.getAnalyzing().addLocError(err_);
                         continue;
                     }
                     if (supId_.getBlock().getKind() != MethodKind.STD_METHOD) {
@@ -143,7 +143,7 @@ public final class AnaTypeUtil {
                             err_.setFileName(fileName_);
                             err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                             //sub return type len
-                            err_.buildError(_context.getAnalysisMessages().getBadReturnTypeIndexer(),
+                            err_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadReturnTypeIndexer(),
                                     formattedRetBase_,
                                     supId_.getBlock().getId().getSignature(page_),
                                     supId_.getGeneString(),
@@ -151,7 +151,7 @@ public final class AnaTypeUtil {
                                     subId_.getBlock().getId().getSignature(page_),
                                     subId_.getGeneString());
                             subId_.getBlock().addNameErrors(err_);
-                            _context.addError(err_);
+                            _context.getAnalyzing().addLocError(err_);
                             continue;
                         }
                         addClass(_type.getAllOverridingMethods(), key_, subId_);
@@ -164,7 +164,7 @@ public final class AnaTypeUtil {
                         err_.setFileName(fileName_);
                         err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                         //sub return type len
-                        err_.buildError(_context.getAnalysisMessages().getBadReturnTypeInherit(),
+                        err_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadReturnTypeInherit(),
                                 formattedRetDer_,
                                 subId_.getBlock().getId().getSignature(page_),
                                 subId_.getGeneString(),
@@ -172,7 +172,7 @@ public final class AnaTypeUtil {
                                 supId_.getBlock().getId().getSignature(page_),
                                 supId_.getGeneString());
                         subId_.getBlock().addNameErrors(err_);
-                        _context.addError(err_);
+                        _context.getAnalyzing().addLocError(err_);
                         continue;
                     }
                     addClass(_type.getAllOverridingMethods(), key_, subId_);
@@ -258,11 +258,11 @@ public final class AnaTypeUtil {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);
-                enum_.setIndexFile(_context.getCurrentLocationIndex());
+                enum_.setIndexFile(_context.getAnalyzing().getTraceIndex());
                 //original id len
-                enum_.buildError(_context.getAnalysisMessages().getCallIntNoNeed(),
+                enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNoNeed(),
                         c.getFullName());
-                _context.addError(enum_);
+                _context.getAnalyzing().addLocError(enum_);
                 c.addNameErrors(enum_);
             }
             for (int i = 0; i < len_; i++) {
@@ -281,11 +281,11 @@ public final class AnaTypeUtil {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
-                    enum_.setIndexFile(_context.getCurrentLocationIndex());
+                    enum_.setIndexFile(_context.getAnalyzing().getTraceIndex());
                     //interface len
-                    enum_.buildError(_context.getAnalysisMessages().getCallIntOnly(),
+                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntOnly(),
                             base_);
-                    _context.addError(enum_);
+                    _context.getAnalyzing().addLocError(enum_);
                     if (!base_.isEmpty()) {
                         c.addNameErrors(enum_);
                     }
@@ -332,10 +332,10 @@ public final class AnaTypeUtil {
                         int offset_ = c.getStaticInitInterfacesOffset().get(j);
                         undef_.setIndexFile(offset_);
                         //interface j len
-                        undef_.buildError(_context.getAnalysisMessages().getCallIntInherits(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntInherits(),
                                 sup_,
                                 sub_);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }
@@ -399,9 +399,9 @@ public final class AnaTypeUtil {
                         undef_.setFileName(un_.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //last parenthese
-                        undef_.buildError(_context.getAnalysisMessages().getCallIntNeedType(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNeedType(),
                                 s);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }
@@ -412,9 +412,9 @@ public final class AnaTypeUtil {
                         undef_.setFileName(un_.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //type len
-                        undef_.buildError(_context.getAnalysisMessages().getCallIntNoNeedType(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getCallIntNoNeedType(),
                                 s);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         c.addNameErrors(undef_);
                     }
                 }

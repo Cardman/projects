@@ -57,11 +57,11 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 if (converterValue_.trim().isEmpty()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(getOffset().getOffsetTrim());
                     badEl_.buildError(_cont.getRendAnalysisMessages().getEmptyAttr(),
                             StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
                 String string_ = _cont.getStandards().getAliasString();
                 StringList varNames_ = new StringList();
@@ -81,12 +81,12 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 m_.setParam(opsRead.last().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getCurrentFileName());
+                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                     badEl_.setIndexFile(attr_);
-                    badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                    badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(opsConverter.last().getResultClass().getNames(),AND_ERR),
                             StringList.join(opsRead.last().getResultClass().getNames(),AND_ERR));
-                    _cont.addError(badEl_);
+                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
                 }
             }
         }
@@ -111,12 +111,12 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getCurrentFileName());
+                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
                 badEl_.setIndexFile(attr_);
-                badEl_.buildError(_cont.getContext().getAnalysisMessages().getBadImplicitCast(),
+                badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterField.last().getResultClass().getNames(),AND_ERR),
                         _cont.getStandards().getAliasCharSequence());
-                _cont.addError(badEl_);
+                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
             }
         }
         String id_ = elt.getAttribute(_cont.getRendKeyWords().getAttrId());

@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
@@ -537,7 +536,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.BeanOne");
+        conf_.getAnalyzing().setGlobalType("pkg.BeanOne");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
@@ -1945,7 +1944,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.BeanOne");
+        conf_.getAnalyzing().setGlobalType("pkg.BeanOne");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         Block field_ = r_.getFirstChild();
@@ -3280,7 +3279,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
@@ -3335,7 +3334,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
@@ -3380,7 +3379,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
@@ -3427,7 +3426,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
@@ -3482,7 +3481,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();
@@ -3529,7 +3528,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ContextEl conf_ = prepare(files_);
         addImportingPage(conf_);
-        conf_.setGlobalClass("pkg.ExTwo");
+        conf_.getAnalyzing().setGlobalType("pkg.ExTwo");
         Classes classes_ = conf_.getClasses();
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         Block b_ = r_.getFirstChild();

@@ -36,7 +36,7 @@ public final class RendImg extends RendElement {
         }
         String lg_ = _cont.getCurrentLanguage();
         String link_ = RendExtractFromResources.getRealFilePath(lg_,pageName_);
-        String file_ = _cont.getAnalyzingDoc().getFiles().getVal(link_);
+        String file_ = _cont.getFiles().getVal(link_);
         if (file_ == null) {
             return;
         }

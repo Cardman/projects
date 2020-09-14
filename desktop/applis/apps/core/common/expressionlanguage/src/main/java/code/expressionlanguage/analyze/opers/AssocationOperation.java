@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.blocks.AnnotationMethodBlock;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.util.*;
 import code.util.StringList;
@@ -73,7 +70,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
                 cast_.setFileName(_conf.getAnalyzing().getLocalizer().getCurrentFileName());
                 cast_.setIndexFile(_conf.getAnalyzing().getLocalizer().getCurrentLocationIndex());
                 //fieldName len
-                cast_.buildError(_conf.getAnalysisMessages().getUndefinedAccessibleField(),
+                cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedAccessibleField(),
                         fieldName,
                         annotationClass_);
                 _conf.getAnalyzing().getLocalizer().addError(cast_);

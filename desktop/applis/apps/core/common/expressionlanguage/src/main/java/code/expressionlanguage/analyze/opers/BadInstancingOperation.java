@@ -24,7 +24,7 @@ public final class BadInstancingOperation extends LeafOperation {
         emptyPart_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
         //if parent is null => all text
         //if parent is not null => use parent header
-        emptyPart_.buildError(_conf.getAnalysisMessages().getEmptyExpressionPart());
+        emptyPart_.buildError(_conf.getAnalyzing().getAnalysisMessages().getEmptyExpressionPart());
         getErrs().add(emptyPart_.getBuiltError());
         page_.getLocalizer().addError(emptyPart_);
         argClName_ = page_.getStandards().getAliasObject();

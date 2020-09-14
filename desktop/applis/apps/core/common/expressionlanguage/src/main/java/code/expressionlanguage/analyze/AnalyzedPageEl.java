@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
@@ -14,6 +13,8 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.FileMetrics;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.errors.custom.FoundWarningInterpret;
@@ -204,6 +205,10 @@ public final class AnalyzedPageEl {
         return globalClass;
     }
 
+    public void setGlobalType(String _globalClass) {
+        setGlobalClass(_globalClass);
+        setGlobalType(getAnaClassBody(StringExpUtil.getIdFromAllTypes(_globalClass)));
+    }
     public void setGlobalClass(String _globalClass) {
         globalClass = _globalClass;
     }
@@ -695,7 +700,26 @@ public final class AnalyzedPageEl {
     }
 
     public boolean isEmptyErrors() {
-        return messages.isEmptyErrors();
+        return messages.isAllEmptyErrors();
+    }
+
+
+    public void addLocWarning(FoundWarningInterpret _warning) {
+        _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile(), this));
+        addWarning(_warning);
+    }
+
+    public void addLocError(FoundErrorInterpret _error) {
+        _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile(), this));
+        addError(_error);
+    }
+
+    private static String getLocationFile(String _fileName, int _sum, AnalyzedPageEl analyzing) {
+        FileBlock file_ = analyzing.getFileBody(_fileName);
+        FileMetrics metrics_ = file_.getMetrics(analyzing.getTabWidth());
+        int r_ = metrics_.getRowFile(_sum);
+        int c_ = metrics_.getColFile(_sum,r_);
+        return StringList.concat( Integer.toString(r_),",",Integer.toString(c_),",",Integer.toString(_sum));
     }
 
     public void addError(FoundErrorInterpret _error) {
@@ -844,6 +868,14 @@ public final class AnalyzedPageEl {
 
     public void setKeyWords(KeyWords keyWords) {
         this.keyWords = keyWords;
+    }
+
+    public boolean isGettingParts() {
+        return isCovering() || isGettingErrors();
+    }
+
+    public boolean isCovering() {
+        return getCoverage().isCovering();
     }
 
     public boolean isGettingErrors() {

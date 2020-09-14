@@ -135,14 +135,14 @@ abstract class AnaPartType {
     }
 
     void processBadFormedOffsets(ContextEl _an) {
-        if (!_an.isGettingParts()) {
+        if (!_an.getAnalyzing().isGettingParts()) {
             return;
         }
-        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
+        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),getAnalyzedType()));
     }
 
     void processInexistType(ContextEl _an, String _in) {
-        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalysisMessages().getUnknownType(),_in));
+        getErrs().add(FoundErrorInterpret.buildARError(_an.getAnalyzing().getAnalysisMessages().getUnknownType(),_in));
     }
     void buildOffsetPartDefault(ContextEl _an) {
         int begin_ = _an.getAnalyzing().getLocalInType() + getIndexInType();

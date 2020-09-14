@@ -53,7 +53,7 @@ public final class ClassesUtil {
     public static void postValidation(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         StringMap<PolymorphMethod> toStringMethodsToCallBodies_ = page_.getClasses().getToStringMethodsToCallBodies();
-        _context.setAnnotAnalysis(false);
+        _context.getAnalyzing().setAnnotAnalysis(false);
         if (!page_.getOptions().isReadOnly()) {
             validateFinals(_context);
         } else {
@@ -67,7 +67,7 @@ public final class ClassesUtil {
                 String fullName_ = e.getKey().getFullName();
                 toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
                 page_.getToStringOwners().add(fullName_);
-                page_.getCoverage().putToStringOwner(_context,fullName_);
+                page_.getCoverage().putToStringOwner(fullName_);
             }
         }
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
@@ -127,11 +127,11 @@ public final class ClassesUtil {
                                 err_.setIndexFile(root_.getIdRowCol());
                                 //type id
                                 err_.buildError(
-                                        _context.getAnalysisMessages().getAbstractMethodImpl(),
+                                        _context.getAnalyzing().getAnalysisMessages().getAbstractMethodImpl(),
                                         base_,
                                         m.getSignature(_context),
                                         root_.getFullName());
-                                _context.addError(err_);
+                                _context.getAnalyzing().addLocError(err_);
                                 root_.addNameErrors(err_);
                             }
                         }
@@ -375,10 +375,10 @@ public final class ClassesUtil {
                         undef_.setFileName(block_.getFile().getFileName());
                         undef_.setIndexFile(e.getKey().getIndex());
                         //original type len
-                        undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
                                 base_);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         block_.addNameErrors(undef_);
                     }
                     if (StringList.quickEq(enumClassName_, base_)) {
@@ -387,10 +387,10 @@ public final class ClassesUtil {
                         undef_.setFileName(block_.getFile().getFileName());
                         undef_.setIndexFile(e.getKey().getIndex());
                         //original type len
-                        undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
                                 block_.getFullName(),
                                 base_);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         block_.addNameErrors(undef_);
                     }
                 }
@@ -492,7 +492,7 @@ public final class ClassesUtil {
                 page_.getCache().getLoopVariables().clear();
                 page_.getCache().getLocalVariables().addAllElts(method_.getCache().getLocalVariables());
                 page_.getCache().getLoopVariables().addAllElts(method_.getCache().getLoopVariables());
-                page_.getCoverage().putCalls(_context,c_.getFullName(),method_);
+                page_.getCoverage().putCalls(c_.getFullName(),method_);
                 StringList params_ = method_.getParametersNames();
                 StringList types_ = method_.getImportedParametersTypes();
                 prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
@@ -526,9 +526,9 @@ public final class ClassesUtil {
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalysisMessages().getDuplicatedType(),
+            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedType(),
                     fullName_);
-            _context.addError(d_);
+            _context.getAnalyzing().addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
@@ -542,22 +542,22 @@ public final class ClassesUtil {
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getBegin());
             //key word category len
-            badCl_.buildError(_context.getAnalysisMessages().getEmptyPackage());
-            _context.addError(badCl_);
+            badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyPackage());
+            _context.getAnalyzing().addLocError(badCl_);
             _root.addNameErrors(badCl_);
             ok_ = false;
         } else {
             StringList elements_ = StringList.splitChars(packageName_, DOT);
             for (String e: elements_) {
                 String tr_ = e.trim();
-                TokenErrorMessage res_ = ManageTokens.partClass(_context).checkToken(_context, tr_);
+                TokenErrorMessage res_ = ManageTokens.partClass(page_).checkToken(tr_, page_);
                 if (res_.isError()) {
                     FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                     badCl_.setFileName(_root.getFile().getFileName());
                     badCl_.setIndexFile(_root.getIdRowCol());
                     //pkg part or dot
                     badCl_.setBuiltError(res_.getMessage());
-                    _context.addError(badCl_);
+                    _context.getAnalyzing().addLocError(badCl_);
                     _root.addNameErrors(badCl_);
                     ok_ = false;
                 }
@@ -565,14 +565,14 @@ public final class ClassesUtil {
         }
         String className_;
         className_ = _root.getName().trim();
-        TokenErrorMessage resClName_ = ManageTokens.partClass(_context).checkToken(_context, className_);
+        TokenErrorMessage resClName_ = ManageTokens.partClass(page_).checkToken(className_, page_);
         if (resClName_.isError()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
             badCl_.setFileName(_root.getFile().getFileName());
             badCl_.setIndexFile(_root.getIdRowCol());
             //name part if possible or original type
             badCl_.setBuiltError(resClName_.getMessage());
-            _context.addError(badCl_);
+            _context.getAnalyzing().addLocError(badCl_);
             _root.addNameErrors(badCl_);
             ok_ = false;
         }
@@ -594,8 +594,8 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //char after def
-                badCl_.buildError(_context.getAnalysisMessages().getEmptyPartClassName());
-                _context.addError(badCl_);
+                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getEmptyPartClassName());
+                _context.getAnalyzing().addLocError(badCl_);
                 StringList constraints_ = new StringList();
                 Ints ct_ = new Ints();
                 ct_.add(0);
@@ -610,14 +610,14 @@ public final class ClassesUtil {
                 tempOff_ += p.length() + 1;
                 continue;
             }
-            TokenErrorMessage res_ = ManageTokens.partVarClass(_context).checkToken(_context, id_);
+            TokenErrorMessage res_ = ManageTokens.partVarClass(page_).checkToken(id_, page_);
             if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.setBuiltError(res_.getMessage());
-                _context.addError(badCl_);
+                _context.getAnalyzing().addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(varTypes_, id_)) {
@@ -625,10 +625,10 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalysisMessages().getDuplicatedPartVarClassName(),
+                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
-                _context.addError(badCl_);
+                _context.getAnalyzing().addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             if (StringList.contains(namesFromParent_, id_)) {
@@ -636,10 +636,10 @@ public final class ClassesUtil {
                 badCl_.setFileName(_root.getFile().getFileName());
                 badCl_.setIndexFile(offId_);
                 //id_ len
-                badCl_.buildError(_context.getAnalysisMessages().getDuplicatedPartVarClassName(),
+                badCl_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedPartVarClassName(),
                         id_
                 );
-                _context.addError(badCl_);
+                _context.getAnalyzing().addLocError(badCl_);
                 type_.getErrors().add(badCl_.getBuiltError());
             }
             varTypes_.add(id_);
@@ -707,9 +707,9 @@ public final class ClassesUtil {
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalysisMessages().getDuplicatedTypeStd(),
+            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypeStd(),
                     fullName_);
-            _context.addError(d_);
+            _context.getAnalyzing().addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
@@ -718,16 +718,16 @@ public final class ClassesUtil {
             d_.setFileName(_root.getFile().getFileName());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
-            d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePrim(),
+            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypePrim(),
                     fullName_);
-            _context.addError(d_);
+            _context.getAnalyzing().addLocError(d_);
             _root.addNameErrors(d_);
             ok_ = false;
         }
         page_.getFoundTypes().add(_root);
         if (ok_) {
             page_.getRefFoundTypes().add(_root);
-            page_.getCoverage().putType(_context,_root);
+            page_.getCoverage().putType(_root);
         }
         RootBlock parentType_ = _root.getParentType();
         int index_ = -1;
@@ -942,7 +942,7 @@ public final class ClassesUtil {
             fileBlock_.setFileName(file_);
             AnalyzedPageEl page_ = _context.getAnalyzing();
             page_.putFileBlock(file_, fileBlock_);
-            page_.getCoverage().putFile(_context,fileBlock_);
+            page_.getCoverage().putFile(fileBlock_);
             page_.getErrors().putFile(_context,fileBlock_);
             fileBlock_.processLinesTabsWithError(_context,content_);
             fileBlock_.setNumberFile(_out.size());
@@ -1012,7 +1012,7 @@ public final class ClassesUtil {
                 page_.getFoundOperators().add(r_);
                 r_.setNameNumber(page_.getMapOperators().size());
                 page_.getMapOperators().put(r_,e_);
-                page_.getCoverage().putOperator(_context,r_);
+                page_.getCoverage().putOperator(r_);
                 Block c_ = r_;
                 if (r_.getFirstChild() != null) {
                     while (true) {
@@ -1023,9 +1023,9 @@ public final class ClassesUtil {
                             d_.setFileName(r_.getFile().getFileName());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
-                            d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                     s_);
-                            _context.addError(d_);
+                            _context.getAnalyzing().addLocError(d_);
                             cur_.addNameErrors(d_);
                         }
                         Block fc_ = c_.getFirstChild();
@@ -1073,10 +1073,10 @@ public final class ClassesUtil {
                     d_.setFileName(_r.getFile().getFileName());
                     d_.setIndexFile(r_.getIdRowCol());
                     //original id len
-                    d_.buildError(_context.getAnalysisMessages().getDuplicatedTypePkg(),
+                    d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedTypePkg(),
                             fullName_,
                             p);
-                    _context.addError(d_);
+                    _context.getAnalyzing().addLocError(d_);
                     r_.addNameErrors(d_);
                     addPkg_ = false;
                 }
@@ -1114,9 +1114,9 @@ public final class ClassesUtil {
                             d_.setFileName(_r.getFile().getFileName());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
-                            d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                            d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                     s_);
-                            _context.addError(d_);
+                            _context.getAnalyzing().addLocError(d_);
                             cur_.addNameErrors(d_);
                             add_ = false;
                         }
@@ -1129,9 +1129,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.addError(d_);
+                                _context.getAnalyzing().addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             }
@@ -1141,9 +1141,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.addError(d_);
+                                _context.getAnalyzing().addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             }
@@ -1154,9 +1154,9 @@ public final class ClassesUtil {
                                 d_.setFileName(_r.getFile().getFileName());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
-                                d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                                d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                         s_);
-                                _context.addError(d_);
+                                _context.getAnalyzing().addLocError(d_);
                                 cur_.addNameErrors(d_);
                                 add_ = false;
                             } else {
@@ -1180,9 +1180,9 @@ public final class ClassesUtil {
                         d_.setFileName(_r.getFile().getFileName());
                         d_.setIndexFile(cur_.getIdRowCol());
                         //s_ len
-                        d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                        d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                 s_);
-                        _context.addError(d_);
+                        _context.getAnalyzing().addLocError(d_);
                         cur_.addNameErrors(d_);
                         add_ = false;
                         addPkg_ = false;
@@ -1192,9 +1192,9 @@ public final class ClassesUtil {
                         d_.setFileName(_r.getFile().getFileName());
                         d_.setIndexFile(cur_.getIdRowCol());
                         //s_ len
-                        d_.buildError(_context.getAnalysisMessages().getDuplicatedInnerType(),
+                        d_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedInnerType(),
                                 s_);
-                        _context.addError(d_);
+                        _context.getAnalyzing().addLocError(d_);
                         cur_.addNameErrors(d_);
                         add_ = false;
                     }
@@ -1404,10 +1404,10 @@ public final class ClassesUtil {
                     enum_.setFileName(c.getFile().getFileName());
                     enum_.setIndexFile(c.getIdRowCol());
                     //super type len
-                    enum_.buildError(_context.getAnalysisMessages().getBadInheritsType(),
+                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsType(),
                             c.getFullName(),
                             s);
-                    _context.addError(enum_);
+                    _context.getAnalyzing().addLocError(enum_);
                     c.addNameErrors(enum_);
                 }
             }
@@ -1449,10 +1449,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
-                            undef_.buildError(_context.getAnalysisMessages().getBadInheritsType(),
+                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsType(),
                                     c,
                                     idSuper_);
-                            _context.addError(undef_);
+                            _context.getAnalyzing().addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1490,9 +1490,9 @@ public final class ClassesUtil {
                         undef_.setFileName(r.getFile().getFileName());
                         undef_.setIndexFile(offset_);
                         //_in len
-                        undef_.buildError(_context.getAnalysisMessages().getVoidType(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getVoidType(),
                                 void_);
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         r.addNameErrors(undef_);
                         index_++;
                         continue;
@@ -1504,10 +1504,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
-                            undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
                                     c,
                                     idSuper_);
-                            _context.addError(undef_);
+                            _context.getAnalyzing().addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1547,10 +1547,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //original type len
-                            undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
                                     c,
                                     foundType_);
-                            _context.addError(undef_);
+                            _context.getAnalyzing().addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1561,10 +1561,10 @@ public final class ClassesUtil {
                             undef_.setFileName(r.getFile().getFileName());
                             undef_.setIndexFile(offset_);
                             //original type len
-                            undef_.buildError(_context.getAnalysisMessages().getReservedType(),
+                            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getReservedType(),
                                     c,
                                     foundType_);
-                            _context.addError(undef_);
+                            _context.getAnalyzing().addLocError(undef_);
                             r.addNameErrors(undef_);
                             index_++;
                             continue;
@@ -1594,9 +1594,9 @@ public final class ClassesUtil {
                         undef_.setFileName(r.getFile().getFileName());
                         undef_.setIndexFile(0);
                         //original type len
-                        undef_.buildError(_context.getAnalysisMessages().getDuplicateSuper(),
+                        undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicateSuper(),
                                 c,e.getKey(),Integer.toString(e.getValue()));
-                        _context.addError(undef_);
+                        _context.getAnalyzing().addLocError(undef_);
                         r.addNameErrors(undef_);
                         hasDuplicates_ = true;
                     }
@@ -1622,10 +1622,10 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
-                            enum_.buildError(_context.getAnalysisMessages().getBadInheritsTypeInn(),
+                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeInn(),
                                     c,
                                     k_);
-                            _context.addError(enum_);
+                            _context.getAnalyzing().addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                     } else {
@@ -1637,12 +1637,12 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
-                            enum_.buildError(_context.getAnalysisMessages().getBadInheritsTypeAsInn(),
+                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeAsInn(),
                                     c,
                                     k_,
                                     Integer.toString(subSise_-1),
                                     Integer.toString(supSise_-1));
-                            _context.addError(enum_);
+                            _context.getAnalyzing().addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                     }
@@ -1653,9 +1653,9 @@ public final class ClassesUtil {
                             enum_.setFileName(r.getFile().getFileName());
                             enum_.setIndexFile(offset_);
                             //original type len
-                            enum_.buildError(_context.getAnalysisMessages().getBadInheritsTypeInt(),
+                            enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadInheritsTypeInt(),
                                     c,k_);
-                            _context.addError(enum_);
+                            _context.getAnalyzing().addLocError(enum_);
                             r.addNameErrors(enum_);
                         }
                         r.getImportedDirectBaseSuperTypes().put(ind_,k_);
@@ -1671,9 +1671,9 @@ public final class ClassesUtil {
                         enum_.setFileName(r.getFile().getFileName());
                         enum_.setIndexFile(offset_);
                         //original type len
-                        enum_.buildError(_context.getAnalysisMessages().getFinalType(),
+                        enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getFinalType(),
                                 c,k_);
-                        _context.addError(enum_);
+                        _context.getAnalyzing().addLocError(enum_);
                         r.addNameErrors(enum_);
                     }
                     r.getImportedDirectBaseSuperTypes().put(ind_,k_);
@@ -1684,9 +1684,9 @@ public final class ClassesUtil {
                     enum_.setFileName(r.getFile().getFileName());
                     enum_.setIndexFile(r.getIdRowCol());
                     //second super class
-                    enum_.buildError(_context.getAnalysisMessages().getSuperClass(),
+                    enum_.buildError(_context.getAnalyzing().getAnalysisMessages().getSuperClass(),
                             c,Integer.toString(nbDirectSuperClass_));
-                    _context.addError(enum_);
+                    _context.getAnalyzing().addLocError(enum_);
                     r.addNameErrors(enum_);
                 }
                 r.getAllSuperTypes().addAllElts(dup_);
@@ -1712,9 +1712,9 @@ public final class ClassesUtil {
                     undef_.setFileName(r.getFile().getFileName());
                     undef_.setIndexFile(0);
                     //id len
-                    undef_.buildError(_context.getAnalysisMessages().getUnknownSuperType(),
+                    undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnknownSuperType(),
                             r.getFullName());
-                    _context.addError(undef_);
+                    _context.getAnalyzing().addLocError(undef_);
                     r.addNameErrors(undef_);
                 }
                 break;
@@ -1743,9 +1743,9 @@ public final class ClassesUtil {
                 b_.setFileName(s.getFile().getFileName());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
-                b_.buildError(_context.getAnalysisMessages().getAnnotationParam(),
+                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getAnnotationParam(),
                         c);
-                _context.addError(b_);
+                _context.getAnalyzing().addLocError(b_);
                 s.addNameErrors(b_);
                 continue;
             }
@@ -1757,9 +1757,9 @@ public final class ClassesUtil {
                 b_.setFileName(s.getFile().getFileName());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
-                b_.buildError(_context.getAnalysisMessages().getCyclicMapping(),
+                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getCyclicMapping(),
                         c);
-                _context.addError(b_);
+                _context.getAnalyzing().addLocError(b_);
                 s.addNameErrors(b_);
                 continue;
             }
@@ -1774,9 +1774,9 @@ public final class ClassesUtil {
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalysisMessages().getUnexpectedTypeBound(),
+                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
-                        _context.addError(un_);
+                        _context.getAnalyzing().addLocError(un_);
                         s.addNameErrors(un_);
                     }
                     if (AnaTypeUtil.isPrimitive(b,page_)) {
@@ -1784,9 +1784,9 @@ public final class ClassesUtil {
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalysisMessages().getUnexpectedTypeBound(),
+                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnexpectedTypeBound(),
                                 b);
-                        _context.addError(un_);
+                        _context.getAnalyzing().addLocError(un_);
                         s.addNameErrors(un_);
                     }
                     String baseParams_ = StringExpUtil.getIdFromAllTypes(b);
@@ -1804,9 +1804,9 @@ public final class ClassesUtil {
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     //type var len => at def
-                    un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
+                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                             c);
-                    _context.addError(un_);
+                    _context.getAnalyzing().addLocError(un_);
                     s.addNameErrors(un_);
                     okLoc_ = false;
                     ok_ = false;
@@ -1824,9 +1824,9 @@ public final class ClassesUtil {
                             duplicate_.setFileName(s.getFile().getFileName());
                             duplicate_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
+                            duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                                     StringList.join(e.getValue(),"&"));
-                            _context.addError(duplicate_);
+                            _context.getAnalyzing().addLocError(duplicate_);
                             s.addNameErrors(duplicate_);
                         }
                     }
@@ -1874,9 +1874,9 @@ public final class ClassesUtil {
                             inh_.setFileName(s.getFile().getFileName());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            inh_.buildError(_context.getAnalysisMessages().getAbsMapping(),
+                            inh_.buildError(_context.getAnalyzing().getAnalysisMessages().getAbsMapping(),
                                     Integer.toString(nbAbs_));
-                            _context.addError(inh_);
+                            _context.getAnalyzing().addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;
                         }
@@ -1887,9 +1887,9 @@ public final class ClassesUtil {
                             inh_.setFileName(s.getFile().getFileName());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
-                            inh_.buildError(_context.getAnalysisMessages().getFinalMapping(),
+                            inh_.buildError(_context.getAnalyzing().getAnalysisMessages().getFinalMapping(),
                                     Integer.toString(nbFinal_));
-                            _context.addError(inh_);
+                            _context.getAnalyzing().addLocError(inh_);
                             s.addNameErrors(inh_);
                             ok_ = false;
                         }
@@ -1911,9 +1911,9 @@ public final class ClassesUtil {
                         un_.setFileName(s.getFile().getFileName());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
-                        un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
+                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                                 b.getResult());
-                        _context.addError(un_);
+                        _context.getAnalyzing().addLocError(un_);
                         s.addNameErrors(un_);
                     }
                 }
@@ -1924,9 +1924,9 @@ public final class ClassesUtil {
                     un_.setFileName(s.getFile().getFileName());
                     un_.setIndexFile(s.getIdRowCol());
                     // char : before super type
-                    un_.buildError(_context.getAnalysisMessages().getBadParamerizedType(),
+                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadParamerizedType(),
                             t.getResult());
-                    _context.addError(un_);
+                    _context.getAnalyzing().addLocError(un_);
                     s.addNameErrors(un_);
                 }
             }
@@ -1947,9 +1947,9 @@ public final class ClassesUtil {
                     duplicate_.setFileName(i.getFile().getFileName());
                     duplicate_.setIndexFile(i.getIdRowCol());
                     //original id len
-                    duplicate_.buildError(_context.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
+                    duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedGenericSuperTypes(),
                             StringList.join(e.getValue(),"&"));
-                    _context.addError(duplicate_);
+                    _context.getAnalyzing().addLocError(duplicate_);
                     i.addNameErrors(duplicate_);
                 }
             }
@@ -2031,7 +2031,7 @@ public final class ClassesUtil {
         }
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         page_.setGlobalClass("");
-        page_.setGlobalType(null);
+        page_.setGlobalType((RootBlock) null);
         for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
             ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
             String name_ = o.getName();
@@ -2043,12 +2043,12 @@ public final class ClassesUtil {
             value_.buildImportedTypes(o);
             if (!StringExpUtil.isOper(name_)) {
                 FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                badMeth_.setFileName(_context.getCurrentFileName());
+                badMeth_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
                 badMeth_.setIndexFile(o.getNameOffset());
                 //key word len
-                badMeth_.buildError(_context.getAnalysisMessages().getBadOperatorName(),
+                badMeth_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadOperatorName(),
                         name_);
-                _context.addError(badMeth_);
+                _context.getAnalyzing().addLocError(badMeth_);
                 o.addNameErrors(badMeth_);
             }
             MethodId id_ = o.getId();
@@ -2057,11 +2057,11 @@ public final class ClassesUtil {
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(o.getOffset().getOffsetTrim());
-                    duplicate_.setFileName(_context.getCurrentFileName());
+                    duplicate_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
                     //key word len
-                    duplicate_.buildError(_context.getAnalysisMessages().getDuplicateOperator(),
+                    duplicate_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicateOperator(),
                             id_.getSignature(page_));
-                    _context.addError(duplicate_);
+                    _context.getAnalyzing().addLocError(duplicate_);
                     o.addNameErrors(duplicate_);
                 }
             }
@@ -2071,26 +2071,26 @@ public final class ClassesUtil {
             int i_ = 0;
             for (String v: l_) {
                 o.addParamErrors();
-                TokenErrorMessage res_ = ManageTokens.partParam(_context).checkToken(_context, v);
+                TokenErrorMessage res_ = ManageTokens.partParam(page_).checkToken(v, page_);
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_context.getCurrentFileName());
+                    b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
                     b_.setIndexFile(o.getOffset().getOffsetTrim());
                     //param name len
                     b_.setBuiltError(res_.getMessage());
-                    _context.addError(b_);
+                    _context.getAnalyzing().addLocError(b_);
                     o.addParamErrors(i_,b_);
                 }
                 if (StringList.contains(seen_, v)){
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_context.getCurrentFileName());
+                    b_.setFileName(_context.getAnalyzing().getCurrentBlock().getFile().getFileName());
                     b_.setIndexFile(o.getOffset().getOffsetTrim());
                     //param name len
-                    b_.buildError(_context.getAnalysisMessages().getDuplicatedParamName(),
+                    b_.buildError(_context.getAnalyzing().getAnalysisMessages().getDuplicatedParamName(),
                             v);
-                    _context.addError(b_);
+                    _context.getAnalyzing().addLocError(b_);
                     o.addParamErrors(i_,b_);
                 } else {
                     seen_.add(v);
@@ -2184,8 +2184,8 @@ public final class ClassesUtil {
                 b_.setFileName(c.getFile().getFileName());
                 b_.setIndexFile(Math.max(0,Math.min(c.getFile().getLength()-1,i)));
                 //underline index char
-                b_.buildError(_context.getAnalysisMessages().getBadIndexInParser());
-                _context.addError(b_);
+                b_.buildError(_context.getAnalyzing().getAnalysisMessages().getBadIndexInParser());
+                _context.getAnalyzing().addLocError(b_);
                 GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
                 g_.setLength(1);
                 c.getGlobalErrorsPars().add(g_);
@@ -2269,7 +2269,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.setAssignedStaticFields(true);
+        _context.getAnalyzing().setAssignedStaticFields(true);
         for (RootBlock c: page_.getFoundTypes()) {
             Members mem_ = page_.getMapMembers().getVal(c);
             page_.setImporting(c);
@@ -2279,7 +2279,7 @@ public final class ClassesUtil {
             page_.getAssignedDeclaredFields().clear();
             page_.getAllDeclaredFields().clear();
             String fullName_ = c.getFullName();
-            page_.getCoverage().putCalls(_context,fullName_);
+            page_.getCoverage().putCalls(fullName_);
             CustList<Block> bl_ = getDirectChildren(c);
             for (Block b: bl_) {
                 if (b instanceof InfoBlock) {
@@ -2337,7 +2337,7 @@ public final class ClassesUtil {
                     page_.setGlobalType(c);
                     page_.setGlobalDirType(c);
                     ConstructorBlock method_ = (ConstructorBlock) b;
-                    page_.getCoverage().putCalls(_context,fullName_,method_);
+                    page_.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
@@ -2350,7 +2350,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.setAssignedFields(true);
+        _context.getAnalyzing().setAssignedFields(true);
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2367,7 +2367,7 @@ public final class ClassesUtil {
                     page_.setGlobalClass(c.getGenericString());
                     page_.setGlobalType(c);
                     page_.setGlobalDirType(c);
-                    page_.getCoverage().putCalls(_context,fullName_,method_);
+                    page_.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, types_, method_.isVarargs());
@@ -2381,7 +2381,7 @@ public final class ClassesUtil {
                     page_.setGlobalClass(c.getGenericString());
                     page_.setGlobalType(c);
                     page_.setGlobalDirType(c);
-                    page_.getCoverage().putCalls(_context,fullName_,method_);
+                    page_.getCoverage().putCalls(fullName_,method_);
                     StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(page_, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, types_, method_.isVarargs());
@@ -2396,17 +2396,17 @@ public final class ClassesUtil {
             }
         }
         page_.setGlobalClass("");
-        page_.setGlobalType(null);
+        page_.setGlobalType((RootBlock)null);
         page_.setGlobalDirType(null);
         putCallOperator(_context);
         for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
             page_.setImporting(o);
             page_.setImportingAcces(new OperatorAccessor());
             page_.setImportingTypes(o);
-            page_.getCoverage().putCalls(_context,"",o);
+            page_.getCoverage().putCalls("",o);
             StringList params_ = o.getParametersNames();
             StringList types_ = o.getImportedParametersTypes();
-            ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
+            ExecOperatorBlock value_ = page_.getMapOperators().getValue(o.getNameNumber());
             prepareParams(page_,o.getParametersNamesOffset(),o.getParamErrors(), params_, types_, o.isVarargs());
             page_.getMappingLocal().clear();
             o.buildFctInstructionsReadOnly(_context,value_);
@@ -2414,7 +2414,7 @@ public final class ClassesUtil {
             a_.setVariableIssue(page_.isVariableIssue());
             page_.getResultsAnaOperator().addEntry(o,a_);
         }
-        _context.setAnnotAnalysis(true);
+        page_.setAnnotAnalysis(true);
         for (RootBlock c: page_.getFoundTypes()) {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2428,59 +2428,59 @@ public final class ClassesUtil {
                 annotated_.add(c);
             }
             annotated_.addAllElts(getDirectChildren(c));
-            page_.getCoverage().putBlockOperations(_context,page_.getMapTypes().getVal(c),c);
+            page_.getCoverage().putBlockOperations(page_.getMapTypes().getVal(c),c);
             page_.getMappingLocal().clear();
             page_.getMappingLocal().putAllMap(c.getMappings());
             for (Block b:annotated_) {
                 page_.setCurrentBlock(b);
                 page_.setCurrentAnaBlock(b);
                 if (b instanceof AnnotationMethodBlock) {
-                    _context.setAnnotAnalysisField(true);
+                    page_.setAnnotAnalysisField(true);
                     page_.setGlobalDirType(c);
                     ((AnnotationMethodBlock)b).buildExpressionLanguage(_context,mem_.getAllAnnotMethods().getVal(((AnnotationMethodBlock)b)));
-                    page_.getCoverage().putBlockOperations(_context, mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
-                    _context.setAnnotAnalysisField(false);
+                    page_.getCoverage().putBlockOperations(mem_.getAllAnnotMethods().getVal((AnnotationMethodBlock) b),b);
+                    page_.setAnnotAnalysisField(false);
                 }
                 if (b instanceof RootBlock) {
-                    _context.setAnnotAnalysisField(false);
+                    page_.setAnnotAnalysisField(false);
                     page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(_context,b);
+                    page_.getCoverage().putBlockOperationsField(page_, b);
                     ((RootBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));
                 }
                 if (b instanceof NamedFunctionBlock) {
-                    _context.setAnnotAnalysisField(false);
+                    page_.setAnnotAnalysisField(false);
                     page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(_context,b);
+                    page_.getCoverage().putBlockOperationsField(page_, b);
                     ((NamedFunctionBlock)b).buildAnnotations(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_context,mem_.getAllNamed().getVal((NamedFunctionBlock) b));
                 }
                 if (b instanceof InfoBlock) {
-                    _context.setAnnotAnalysisField(false);
+                    page_.setAnnotAnalysisField(false);
                     page_.setGlobalDirType(c);
-                    page_.getCoverage().putBlockOperationsField(_context,b);
-                    page_.getCoverage().putBlockOperations(_context, (ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
+                    page_.getCoverage().putBlockOperationsField(page_, b);
+                    page_.getCoverage().putBlockOperations((ExecBlock) mem_.getAllFields().getVal((InfoBlock) b),b);
                     ((InfoBlock)b).buildAnnotations(_context,mem_.getAllAnnotables().getVal((AnnotableBlock) b));
                 }
             }
         }
         page_.setGlobalClass("");
-        page_.setGlobalType(null);
+        page_.setGlobalType((RootBlock)null);
         page_.setGlobalDirType(null);
         page_.setCurrentFct(null);
-        for (OperatorBlock o: _context.getAnalyzing().getFoundOperators()) {
+        for (OperatorBlock o: page_.getFoundOperators()) {
             page_.setImporting(o);
             page_.setImportingAcces(new OperatorAccessor());
             page_.setImportingTypes(o);
             page_.setCurrentBlock(o);
             page_.setCurrentAnaBlock(o);
-            _context.setAnnotAnalysisField(false);
-            page_.getCoverage().putBlockOperationsField(_context,o);
+            page_.setAnnotAnalysisField(false);
+            page_.getCoverage().putBlockOperationsField(page_, o);
             page_.getMappingLocal().clear();
             ExecOperatorBlock value_ = _context.getAnalyzing().getMapOperators().getValue(o.getNameNumber());
             o.buildAnnotations(_context,value_);
             o.buildAnnotationsParameters(_context,value_);
         }
-        _context.setAnnotAnalysis(false);
+        page_.setAnnotAnalysis(false);
         //init annotations here
         for (RootBlock c: page_.getFoundTypes()) {
             c.validateConstructors(_context);
@@ -2490,8 +2490,8 @@ public final class ClassesUtil {
     private static void validateFinals(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
-        _context.setAssignedStaticFields(false);
-        _context.setAssignedFields(false);
+        _context.getAnalyzing().setAssignedStaticFields(false);
+        _context.getAnalyzing().setAssignedFields(false);
         for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2562,14 +2562,14 @@ public final class ClassesUtil {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFileName(c.getFile().getFileName());
                     un_.setIndexFile(c.getOffset().getOffsetTrim());
-                    un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
+                    un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
                             key_,fullName_);
-                    _context.addError(un_);
+                    _context.getAnalyzing().addLocError(un_);
                 }
             }
 
         }
-        _context.setAssignedStaticFields(true);
+        _context.getAnalyzing().setAssignedStaticFields(true);
         for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
             page_.setGlobalClass(c.getGenericString());
@@ -2663,9 +2663,9 @@ public final class ClassesUtil {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                                 un_.setFileName(c.getFile().getFileName());
                                 un_.setIndexFile(((InfoBlock) b).getFieldNameOffset());
-                                un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
+                                un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
                                         fieldName_,fullName_);
-                                _context.addError(un_);
+                                _context.getAnalyzing().addLocError(un_);
                             }
                         }
                     }
@@ -2694,15 +2694,15 @@ public final class ClassesUtil {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFileName(c.getFile().getFileName());
                         un_.setIndexFile(m_.getNameOffset());
-                        un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
+                        un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
                                 fieldName_,fullName_);
-                        _context.addError(un_);
+                        _context.getAnalyzing().addLocError(un_);
                     }
                     page_.clearAllLocalVars(assVars_);
                 }
             }
         }
-        _context.setAssignedFields(true);
+        _context.getAnalyzing().setAssignedFields(true);
         assVars_.getFinalVariablesGlobal().getFields().clear();
         assVars_.getFinalVariablesGlobal().getFieldsRoot().clear();
         assVars_.getFinalVariablesGlobal().getFieldsRootBefore().clear();
@@ -2746,7 +2746,7 @@ public final class ClassesUtil {
         }
         assVars_.setCache(new AnaCache());
         page_.setGlobalClass("");
-        page_.setGlobalType(null);
+        page_.setGlobalType((RootBlock)null);
         page_.setGlobalDirType(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
@@ -2766,8 +2766,8 @@ public final class ClassesUtil {
     private static void validateSimFinals(ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
-        _context.setAssignedStaticFields(false);
-        _context.setAssignedFields(false);
+        _context.getAnalyzing().setAssignedStaticFields(false);
+        _context.getAnalyzing().setAssignedFields(false);
         for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
             page_.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2790,7 +2790,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.setAssignedStaticFields(true);
+        _context.getAnalyzing().setAssignedStaticFields(true);
         for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
             page_.setGlobalClass(c.getGenericString());
@@ -2825,7 +2825,7 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.setAssignedFields(true);
+        _context.getAnalyzing().setAssignedFields(true);
 
         for (RootBlock c: page_.getMapTypes().getKeys()) {
             page_.setImporting(c);
@@ -2864,7 +2864,7 @@ public final class ClassesUtil {
         }
         assVars_.setCache(new AnaCache());
         page_.setGlobalClass("");
-        page_.setGlobalType(null);
+        page_.setGlobalType((RootBlock)null);
         page_.setGlobalDirType(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: page_.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
@@ -2893,7 +2893,7 @@ public final class ClassesUtil {
         if (page_.getFoundOperators().isEmpty()) {
             return;
         }
-        page_.getCoverage().putCalls(_context,"");
+        page_.getCoverage().putCalls("");
     }
 
     private static StringList getErFields(InfoBlock f_, int v_) {
@@ -2911,7 +2911,7 @@ public final class ClassesUtil {
 
     private static void processValueParam(ContextEl _context, AnalyzedPageEl _page, RootBlock _cl, OverridableBlock _method) {
         if (_method.getKind() == MethodKind.SET_INDEX) {
-            String p_ = _context.getKeyWords().getKeyWordValue();
+            String p_ = _context.getAnalyzing().getKeyWords().getKeyWordValue();
             CustList<OverridableBlock> getIndexers_ = new CustList<OverridableBlock>();
             for (Block d: getDirectChildren(_cl)) {
                 if (!(d instanceof OverridableBlock)) {
@@ -2980,17 +2980,17 @@ public final class ClassesUtil {
                 }
             }
         }
-        _context.getNeedInterfaces().clear();
-        _context.getNeedInterfaces().addAllElts(filteredCtor_);
+        _context.getAnalyzing().getNeedInterfaces().clear();
+        _context.getAnalyzing().getNeedInterfaces().addAllElts(filteredCtor_);
         if (!hasCtor_ && !filteredCtor_.isEmpty()) {
             FoundErrorInterpret undef_;
             undef_ = new FoundErrorInterpret();
             undef_.setFileName(_cl.getFile().getFileName());
             undef_.setIndexFile(0);
             //original id len
-            undef_.buildError(_context.getAnalysisMessages().getMustCallIntCtor(),
+            undef_.buildError(_context.getAnalyzing().getAnalysisMessages().getMustCallIntCtor(),
                     _cl.getFullName());
-            _context.addError(undef_);
+            _context.getAnalyzing().addLocError(undef_);
             _cl.addNameErrors(undef_);
         }
     }
@@ -3043,9 +3043,9 @@ public final class ClassesUtil {
                 un_.setFileName(_cl.getFile().getFileName());
                 un_.setIndexFile(_cl.getOffset().getOffsetTrim());
                 //field name len
-                un_.buildError(_context.getAnalysisMessages().getUnassignedFinalField(),
+                un_.buildError(_context.getAnalyzing().getAnalysisMessages().getUnassignedFinalField(),
                         _field,_clName);
-                _context.addError(un_);
+                _context.getAnalyzing().addLocError(un_);
                 _err.add(un_.getBuiltError());
             }
         }

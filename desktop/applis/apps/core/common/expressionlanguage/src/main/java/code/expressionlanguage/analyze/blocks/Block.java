@@ -69,8 +69,8 @@ public abstract class Block implements AnalyzedBlock {
                 bad_.setFileName(getFile().getFileName());
                 bad_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                 //label_ len
-                bad_.buildError(_an.getAnalysisMessages().getBadLabel());
-                _an.addError(bad_);
+                bad_.buildError(_an.getAnalyzing().getAnalysisMessages().getBadLabel());
+                _an.getAnalyzing().addLocError(bad_);
                 errorsLabels.add(bad_.getBuiltError());
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_anEl.getLabels(), label_)) {
@@ -78,8 +78,8 @@ public abstract class Block implements AnalyzedBlock {
                     dup_.setFileName(getFile().getFileName());
                     dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                     //label_ len
-                    dup_.buildError(_an.getAnalysisMessages().getDuplicatedLabel());
-                    _an.addError(dup_);
+                    dup_.buildError(_an.getAnalyzing().getAnalysisMessages().getDuplicatedLabel());
+                    _an.getAnalyzing().addLocError(dup_);
                     errorsLabels.add(dup_.getBuiltError());
                 } else {
                     _anEl.getLabels().add(label_);
@@ -123,7 +123,7 @@ public abstract class Block implements AnalyzedBlock {
             exec_.setFile(page_.getBlockToWrite().getFile());
             page_.getBlockToWrite().appendChild(exec_);
             page_.getAnalysisAss().getMappingBracedMembers().put((BracedBlock) _block,exec_);
-            page_.getCoverage().putBlockOperations(_cont, exec_,_block);
+            page_.getCoverage().putBlockOperations(exec_,_block);
             return true;
         }
         if (_block instanceof RootBlock) {
@@ -133,8 +133,8 @@ public abstract class Block implements AnalyzedBlock {
         un_.setFileName(_block.getFile().getFileName());
         un_.setIndexFile(_block.getOffset().getOffsetTrim());
         //defined len first key words
-        un_.buildError(_cont.getAnalysisMessages().getUnexpectedBlockExp());
-        _cont.addError(un_);
+        un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedBlockExp());
+        _cont.getAnalyzing().addLocError(un_);
         _block.setReachableError(true);
         _block.getErrorsBlock().add(un_.getBuiltError());
         return false;

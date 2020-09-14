@@ -176,7 +176,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     abs_.setFileName(page_.getLocalizer().getCurrentFileName());
                     //method name len
                     abs_.buildError(
-                            _conf.getAnalysisMessages().getAbstractMethodRef(),
+                            _conf.getAnalyzing().getAnalysisMessages().getAbstractMethodRef(),
                             clMeth_.getRealClass(),
                             clMeth_.getRealId().getSignature(page_));
                     page_.getLocalizer().addError(abs_);
@@ -210,7 +210,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             badNb_.setFileName(page_.getLocalizer().getCurrentFileName());
             badNb_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //second separator char
-            badNb_.buildError(_conf.getAnalysisMessages().getOperatorNbDiff(),
+            badNb_.buildError(_conf.getAnalyzing().getAnalysisMessages().getOperatorNbDiff(),
                     Integer.toString(1),
                     Integer.toString(chidren_.size()),
                     "[]"
@@ -249,7 +249,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 un_.setFileName(page_.getLocalizer().getCurrentFileName());
                 //first separator char
-                un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+                un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                         StringList.join(indexClass_.getNames(),"&"));
                 page_.getLocalizer().addError(un_);
                 nbErr = un_.getBuiltError();
@@ -261,7 +261,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             un_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
             //first separator char
-            un_.buildError(_conf.getAnalysisMessages().getUnexpectedType(),
+            un_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                     StringList.join(class_.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());

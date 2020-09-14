@@ -25,7 +25,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -47,7 +47,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -69,7 +69,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         conf_.setProperties(new StringMap<String>());
         conf_.getProperties().put("msg_example", relative_);
         
-        conf_.getAnalyzingDoc().setFiles(files_);
+        setFiles(files_,conf_);
         buildRendWithoutBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
     }

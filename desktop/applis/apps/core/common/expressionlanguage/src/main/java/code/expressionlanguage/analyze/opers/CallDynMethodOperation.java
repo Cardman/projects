@@ -44,7 +44,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
-                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
                         page_.getStandards().getAliasFct());
@@ -61,7 +61,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
-                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(0),
                         Integer.toString(chidren_.size()),
                         page_.getStandards().getAliasFct());
@@ -76,7 +76,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             und_.setFileName(page_.getLocalizer().getCurrentFileName());
             und_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //fctName_ len
-            und_.buildError(_conf.getAnalysisMessages().getFunctionalApplyOnly(),
+            und_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFunctionalApplyOnly(),
                     page_.getStandards().getAliasCall(),
                     page_.getStandards().getAliasFct());
             page_.getLocalizer().addError(und_);
@@ -103,7 +103,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                 undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
                 undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
-                undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+                undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFunctionalApplyNbDiff(),
                         Integer.toString(param_.size()),
                         Integer.toString(firstArgs_.size()),
                         page_.getStandards().getAliasFct());
@@ -117,7 +117,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
             undefined_.setFileName(page_.getLocalizer().getCurrentFileName());
             undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //unexpected coma or right parenthese
-            undefined_.buildError(_conf.getAnalysisMessages().getFunctionalApplyNbDiff(),
+            undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getFunctionalApplyNbDiff(),
                     Integer.toString(param_.size()),
                     Integer.toString(firstArgs_.size()),
                     page_.getStandards().getAliasFct());
@@ -160,7 +160,7 @@ public final class CallDynMethodOperation extends InvokingOperation {
                         int i_ = page_.getLocalizer().getCurrentLocationIndex();
                         cast_.setIndexFile(i_);
                         //character before
-                        cast_.buildError(_conf.getAnalysisMessages().getBadImplicitCast(),
+                        cast_.buildError(_conf.getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                                 StringList.join(a_.getNames(),"&"),
                                 StringList.join(p_.getNames(),"&"));
                         page_.getLocalizer().addError(cast_);

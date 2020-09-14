@@ -21,12 +21,12 @@ public final class RendField extends RendParentBlock {
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
         if (!(getParent() instanceof RendClass)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getCurrentFileName());
+            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordField(),
                     _cont.getRendKeyWords().getKeyWordClass());
-            _cont.addError(un_);
+            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
         } else {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
