@@ -10,14 +10,13 @@ import aiki.map.pokemon.CriteriaForSearchingMove;
 import aiki.util.SortingMove;
 import code.util.CustList;
 import code.util.*;
-import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
 import code.util.ints.Listable;
 
 public final class PaginationMove extends
-        Pagination<SortingMove, String> {
+        Pagination {
 
     public static final int NB_CMPARATORS = 6;
 
@@ -131,18 +130,17 @@ public final class PaginationMove extends
         calculateRendered();
     }
 
-    @Override
     protected boolean match(String _move) {
-        if (!getCriteria().matchName(_move)) {
-            return false;
-        }
-        return true;
+        return getCriteria().matchName(_move);
     }
 
     public CriteriaForSearchingMove getCriteria() {
         return criteria;
     }
 
+    protected void clearRendered() {
+        getRendered().clear();
+    }
     @Override
     protected boolean sortable() {
         Ints priorities_;
@@ -177,6 +175,13 @@ public final class PaginationMove extends
         moves = items_;
     }
 
+    public String currentObject() {
+        int index_ = getIndex();
+        if (!getResults().getKeys().isValidIndex(index_)) {
+            return "";
+        }
+        return getResults().getValue(index_);
+    }
     public StringFieldComparator getCmpName() {
         return cmpName;
     }
@@ -200,13 +205,46 @@ public final class PaginationMove extends
     public EnumFieldComparator<TargetChoice> getCmpTargetChoice() {
         return cmpTargetChoice;
     }
+    protected void excludeResults() {
+        Listable<SortingMove> list_ = getResults().getKeys();
+        for (SortingMove k: list_) {
+            String value_ = getResults().getVal(k);
+            if (match(value_)) {
+                continue;
+            }
+            getResults().removeKey(k);
+        }
+    }
 
     @Override
+    protected boolean hasNoRendered() {
+        return getRendered().isEmpty();
+    }
+    protected boolean hasNoResult() {
+        return getResults().isEmpty();
+    }
+    protected void updateRendered(int end_) {
+        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), end_));
+    }
+    protected void clearResults() {
+        getResults().clear();
+    }
+    protected int getResultsSize() {
+        return getResults().size();
+    }
+
+    protected int getIndex(int index_) {
+        return getResults().getKey(index_).getIndex();
+    }
+
+    protected boolean isValidIndex(int index_) {
+        return getResults().getKeys().isValidIndex(index_);
+    }
+
     protected TreeMap<SortingMove, String> getResults() {
         return moves;
     }
 
-    @Override
     protected CustList<SortingMove> getRendered() {
         return rendered;
     }

@@ -1,9 +1,7 @@
 package aiki.facade;
 import code.util.CustList;
-import code.util.TreeMap;
-import code.util.ints.Listable;
 
-public abstract class Pagination<T extends Sorting,U> {
+public abstract class Pagination {
 
     public static final int NO_PRIORITY = 0;
 
@@ -18,35 +16,40 @@ public abstract class Pagination<T extends Sorting,U> {
     private int delta = 1;
 
     public void clear() {
-        getResults().clear();
+        clearResults();
         setLine(CustList.INDEX_NOT_FOUND_ELT);
         setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
-        getRendered().clear();
+        clearRendered();
     }
 
-    protected abstract boolean match(U _object);
+    protected abstract void clearRendered();
 
     protected abstract boolean sortable();
 
     protected abstract void sort();
 
     public void newSearch(){
-        Listable<T> list_ = getResults().getKeys();
-        for (T k: list_) {
-            U value_ = getResults().getVal(k);
-            if (match(value_)) {
-                continue;
-            }
-            getResults().removeKey(k);
-        }
+        excludeResults();
+        afterNewSeach();
+    }
+
+    protected abstract void excludeResults();
+
+    private void afterNewSeach() {
         checkLine(CustList.INDEX_NOT_FOUND_ELT);
-        if (!getResults().isEmpty()) {
+        if (hasResults()) {
             begin();
         } else {
             setNumberPage(CustList.INDEX_NOT_FOUND_ELT);
-            getRendered().clear();
+            clearRendered();
         }
     }
+
+    protected boolean hasResults(){
+        return !hasNoResult();
+    }
+
+    protected abstract boolean hasNoResult();
 
     public void checkLine(int _line) {
         if (line == _line) {
@@ -57,27 +60,36 @@ public abstract class Pagination<T extends Sorting,U> {
     }
 
     public int currentIndex() {
+        int index_ = getIndex();
+        if (!isValidIndex(index_)) {
+            return index_;
+        }
+        return getIndex(index_);
+    }
+
+    protected abstract int getIndex(int index_);
+
+    protected abstract boolean isValidIndex(int index_);
+
+    protected int getIndex() {
         if (line == CustList.INDEX_NOT_FOUND_ELT) {
             return line;
         }
-        int index_ = numberPage * nbResultsPerPage + line;
-        return getResults().getKey(index_).getIndex();
-    }
-
-    public U currentObject() {
-        if (line == CustList.INDEX_NOT_FOUND_ELT) {
-            return null;
-        }
-        int index_ = numberPage * nbResultsPerPage + line;
-        return getResults().getValue(index_);
+        return numberPage * nbResultsPerPage + line;
     }
 
     public void changeNbResultsPerPage(int _nbResultsPerPage) {
         nbResultsPerPage = _nbResultsPerPage;
-        if (!getRendered().isEmpty()) {
+        if (hasRendered()) {
             begin();
         }
     }
+
+    protected boolean hasRendered() {
+        return !hasNoRendered();
+    }
+
+    protected abstract boolean hasNoRendered();
 
     public boolean enabledPrevious() {
         return numberPage > CustList.FIRST_INDEX;
@@ -120,28 +132,34 @@ public abstract class Pagination<T extends Sorting,U> {
     }
 
     public void calculateRendered() {
-        Listable<T> list_ = getResults().getKeys();
+        int size_ = getResultsSize();
         int end_ = nbResultsPerPage * (numberPage+1);
-        if (end_ > list_.size()) {
-            end_ = list_.size();
+        if (end_ > size_) {
+            end_ = size_;
         }
-        getRendered().clear();
-        if (end_ < nbResultsPerPage * numberPage) {
+        clearRendered();
+        if (end_ < getFullCount()) {
             return;
         }
-        getRendered().addAllElts(list_.sub(nbResultsPerPage * numberPage, end_));
+        updateRendered(end_);
+    }
+
+    protected abstract void updateRendered(int end_);
+
+    protected int getFullCount() {
+        return nbResultsPerPage * numberPage;
     }
 
     public int pages() {
-        if (getResults().size() % nbResultsPerPage == 0) {
-            return getResults().size() / nbResultsPerPage;
+        if (getResultsSize() % nbResultsPerPage == 0) {
+            return getResultsSize() / nbResultsPerPage;
         }
-        return getResults().size() / nbResultsPerPage + 1;
+        return getResultsSize() / nbResultsPerPage + 1;
     }
 
-    protected abstract TreeMap<T,U> getResults();
+    protected abstract void clearResults();
+    protected abstract int getResultsSize();
 
-    protected abstract CustList<T> getRendered();
 
     public int getNumberPage() {
         return numberPage;

@@ -12,10 +12,11 @@ import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.ints.Listable;
 
 public final class PaginationPokemonPlayer
         extends
-        Pagination<SortingPokemonPlayer, PokemonPlayer> {
+        Pagination {
 
     public static final int NB_COMPARATORS = 6;
 
@@ -105,7 +106,6 @@ public final class PaginationPokemonPlayer
         calculateRendered();
     }
 
-    @Override
     protected boolean match(PokemonPlayer _pk) {
         if (!getCriteria().matchName(translatedPokemon.getVal(_pk.getName()))) {
             return false;
@@ -136,15 +136,16 @@ public final class PaginationPokemonPlayer
         if (!getCriteria().matchMoves(list_)) {
             return false;
         }
-        if (!getCriteria()
-                .matchNbPossEvos(_pk.getDirectEvolutions(data).size())) {
-            return false;
-        }
-        return true;
+        return getCriteria()
+                .matchNbPossEvos(_pk.getDirectEvolutions(data).size());
     }
 
     public CriteriaForSearchingPokemon getCriteria() {
         return criteria;
+    }
+
+    protected void clearRendered() {
+        getRendered().clear();
     }
     @Override
     protected boolean sortable() {
@@ -180,6 +181,13 @@ public final class PaginationPokemonPlayer
         pokemon = eggs_;
     }
 
+    public PokemonPlayer currentObject() {
+        int index_ = getIndex();
+        if (!getResults().getKeys().isValidIndex(index_)) {
+            return null;
+        }
+        return getResults().getValue(index_);
+    }
     public LongFieldComparator getCmpLevel() {
         return cmpLevel;
     }
@@ -203,13 +211,46 @@ public final class PaginationPokemonPlayer
     public LongFieldComparator getCmpPossEvos() {
         return cmpPossEvos;
     }
+    protected void excludeResults() {
+        Listable<SortingPokemonPlayer> list_ = getResults().getKeys();
+        for (SortingPokemonPlayer k: list_) {
+            PokemonPlayer value_ = getResults().getVal(k);
+            if (match(value_)) {
+                continue;
+            }
+            getResults().removeKey(k);
+        }
+    }
 
     @Override
+    protected boolean hasNoRendered() {
+        return getRendered().isEmpty();
+    }
+    protected boolean hasNoResult() {
+        return getResults().isEmpty();
+    }
+    protected void updateRendered(int end_) {
+        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), end_));
+    }
+    protected void clearResults() {
+        getResults().clear();
+    }
+    protected int getResultsSize() {
+        return getResults().size();
+    }
+
     protected CustList<SortingPokemonPlayer> getRendered() {
         return rendered;
     }
 
-    @Override
+    protected int getIndex(int index_) {
+        return getResults().getKey(index_).getIndex();
+    }
+
+    protected boolean isValidIndex(int index_) {
+        return getResults().getKeys().isValidIndex(index_);
+    }
+
     protected TreeMap<SortingPokemonPlayer, PokemonPlayer> getResults() {
         return pokemon;
     }

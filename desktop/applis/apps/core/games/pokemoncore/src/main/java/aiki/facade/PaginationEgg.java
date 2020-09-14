@@ -10,9 +10,10 @@ import code.util.CustList;
 import code.util.Ints;
 import code.util.StringMap;
 import code.util.TreeMap;
+import code.util.ints.Listable;
 
 public final class PaginationEgg extends
-        Pagination<SortingEgg, Egg> {
+        Pagination {
 
     public static final int NB_COMPARATORS = 2;
 
@@ -71,19 +72,19 @@ public final class PaginationEgg extends
         calculateRendered();
     }
 
-    @Override
     protected boolean match(Egg _egg) {
         if (!getCriteria().matchName(translatedPokemon.getVal(_egg.getName()))) {
             return false;
         }
-        if (!getCriteria().matchSteps(_egg.getSteps())) {
-            return false;
-        }
-        return true;
+        return getCriteria().matchSteps(_egg.getSteps());
     }
 
     public CriteriaForSearchingEgg getCriteria() {
         return criteria;
+    }
+
+    protected void clearRendered() {
+        getRendered().clear();
     }
     @Override
     protected boolean sortable() {
@@ -106,6 +107,13 @@ public final class PaginationEgg extends
         eggs = eggs_;
     }
 
+    public Egg currentObject() {
+        int index_ = getIndex();
+        if (!getResults().getKeys().isValidIndex(index_)) {
+            return null;
+        }
+        return getResults().getValue(index_);
+    }
     public LongFieldComparator getCmpSteps() {
         return cmpSteps;
     }
@@ -113,13 +121,47 @@ public final class PaginationEgg extends
     public StringFieldComparator getCmpName() {
         return cmpName;
     }
+    protected void excludeResults() {
+        Listable<SortingEgg> list_ = getResults().getKeys();
+        for (SortingEgg k: list_) {
+            Egg value_ = getResults().getVal(k);
+            if (match(value_)) {
+                continue;
+            }
+            getResults().removeKey(k);
+        }
+    }
 
     @Override
+    protected boolean hasNoRendered() {
+        return getRendered().isEmpty();
+    }
+
+    protected boolean hasNoResult() {
+        return getResults().isEmpty();
+    }
+    protected void updateRendered(int end_) {
+        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), end_));
+    }
+    protected void clearResults() {
+        getResults().clear();
+    }
+    protected int getResultsSize() {
+        return getResults().size();
+    }
+
     protected CustList<SortingEgg> getRendered() {
         return rendered;
     }
 
-    @Override
+    protected int getIndex(int index_) {
+        return getResults().getKey(index_).getIndex();
+    }
+
+    protected boolean isValidIndex(int index_) {
+        return getResults().getKeys().isValidIndex(index_);
+    }
+
     protected TreeMap<SortingEgg, Egg> getResults() {
         return eggs;
     }

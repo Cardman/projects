@@ -312,6 +312,7 @@ public class PaginationItemTest extends InitializationDataBase {
         pagination_.getCriteria().setSelectedClass(Berry.ITEM);
         pagination_.setInventory(inv_);
         pagination_.search(items_, data);
+        assertTrue(!pagination_.hasNoRendered());
         assertEq(1, pagination_.getResults().size());
         String itemName_;
         CustList<SortingItem> sorted_;
@@ -327,6 +328,11 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
+        assertEq(-1, pagination_.currentIndex());
+        assertEq("", pagination_.currentObject());
+        pagination_.checkLine(0);
+        assertEq(1, pagination_.currentIndex());
+        assertEq(BAIE_MEPO, pagination_.currentObject());
     }
 
     @Test
@@ -613,6 +619,42 @@ public class PaginationItemTest extends InitializationDataBase {
         assertEq(1000, sorted_.get(1).getPrice());
         assertEq(ItemForBattle.ITEM, sorted_.get(1).getItemClass());
         assertEq(LgInt.zero(), sorted_.get(1).getNumber());
+        assertEq(0, pagination_.getNumberPage());
+        assertEq(-1, pagination_.getLine());
+    }
+
+    @Test
+    public void newSearch1Test() {
+        StringList items_;
+        items_ = new StringList();
+        items_.add(BAIE_ORAN);
+        items_.add(BAIE_MEPO);
+        items_.add(MULTI_EXP);
+        Inventory inv_;
+        inv_ = new Inventory(data);
+        inv_.getItem(BAIE_MEPO);
+        PaginationItem pagination_;
+        pagination_ = new PaginationItem();
+        pagination_.setNbResultsPerPage(1);
+        pagination_.setTranslation(data, LANGUAGE);
+        pagination_.setInventory(inv_);
+        pagination_.search(items_, data);
+        pagination_.getCriteria().setSearchModeName(SearchingMode.SUBSTRING);
+        pagination_.getCriteria().setContentOfName("BAIE");
+        pagination_.newSearch();
+        assertEq(2, pagination_.getResults().size());
+        String itemName_;
+        CustList<SortingItem> sorted_;
+        sorted_ = new CustList<SortingItem>(pagination_.getResults().getKeys());
+        itemName_ = pagination_.getResults().getVal(sorted_.get(0));
+        assertEq(BAIE_ORAN, itemName_);
+        sorted_ = pagination_.getRendered();
+        assertEq(1, sorted_.size());
+        assertEq(BAIE_ORAN, sorted_.get(0).getName());
+        assertEq(BAIE_ORAN, sorted_.get(0).getKeyName());
+        assertEq(200, sorted_.get(0).getPrice());
+        assertEq(LgInt.zero(), sorted_.get(0).getNumber());
+        assertEq(Berry.ITEM, sorted_.get(0).getItemClass());
         assertEq(0, pagination_.getNumberPage());
         assertEq(-1, pagination_.getLine());
     }

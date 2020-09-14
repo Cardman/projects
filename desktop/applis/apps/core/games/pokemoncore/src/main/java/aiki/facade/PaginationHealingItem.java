@@ -25,7 +25,7 @@ import code.util.TreeMap;
 import code.util.ints.Listable;
 
 public final class PaginationHealingItem extends
-        Pagination<SortingHealingItem, String> {
+        Pagination {
 
     public static final int NB_COMPARATORS = 13;
 
@@ -250,14 +250,14 @@ public final class PaginationHealingItem extends
     public CriteriaForSearchingHealingItem getCriteria() {
         return criteria;
     }
-    @Override
+
     protected boolean match(String _item) {
-        if (!getCriteria().matchName(_item)) {
-            return false;
-        }
-        return true;
+        return getCriteria().matchName(_item);
     }
 
+    protected void clearRendered() {
+        getRendered().clear();
+    }
     @Override
     protected boolean sortable() {
         Ints priorities_;
@@ -315,6 +315,13 @@ public final class PaginationHealingItem extends
         items = items_;
     }
 
+    public String currentObject() {
+        int index_ = getIndex();
+        if (!getResults().getKeys().isValidIndex(index_)) {
+            return "";
+        }
+        return getResults().getValue(index_);
+    }
     public StringFieldComparator getCmpName() {
         return cmpName;
     }
@@ -366,13 +373,46 @@ public final class PaginationHealingItem extends
     public BooleanFieldComparator getCmpKo() {
         return cmpKo;
     }
+    protected void excludeResults() {
+        Listable<SortingHealingItem> list_ = getResults().getKeys();
+        for (SortingHealingItem k: list_) {
+            String value_ = getResults().getVal(k);
+            if (match(value_)) {
+                continue;
+            }
+            getResults().removeKey(k);
+        }
+    }
 
     @Override
+    protected boolean hasNoRendered() {
+        return getRendered().isEmpty();
+    }
+    protected boolean hasNoResult() {
+        return getResults().isEmpty();
+    }
+    protected void updateRendered(int end_) {
+        getRendered().addAllElts(getResults().getKeys().sub(getFullCount(), end_));
+    }
+    protected void clearResults() {
+        getResults().clear();
+    }
+    protected int getResultsSize() {
+        return getResults().size();
+    }
+
+    protected int getIndex(int index_) {
+        return getResults().getKey(index_).getIndex();
+    }
+
+    protected boolean isValidIndex(int index_) {
+        return getResults().getKeys().isValidIndex(index_);
+    }
+
     protected TreeMap<SortingHealingItem, String> getResults() {
         return items;
     }
 
-    @Override
     protected CustList<SortingHealingItem> getRendered() {
         return rendered;
     }

@@ -819,6 +819,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         pagination_.getCmpAbility().setPriority(1);
         pagination_.getCmpAbility().setIncreasing(SelectedBoolean.YES);
         pagination_.search(player_.getBox());
+        assertTrue(!pagination_.hasNoRendered());
         assertEq(7, pagination_.getResults().size());
         CustList<SortingPokemonPlayer> sorted_;
         sorted_ = new CustList<SortingPokemonPlayer>(pagination_.getResults().getKeys());
@@ -884,6 +885,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         assertEq(1, sorted_.get(1).getIndex());
         assertEq(CustList.FIRST_INDEX, pagination_.getNumberPage());
         assertEq(CustList.INDEX_NOT_FOUND_ELT, pagination_.getLine());
+        assertEq(-1, pagination_.currentIndex());
     }
 
     @Test
