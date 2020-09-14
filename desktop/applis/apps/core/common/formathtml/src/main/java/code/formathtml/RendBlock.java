@@ -514,23 +514,22 @@ public abstract class RendBlock implements AnalyzedBlock {
         return new RendStdElement(elt_,new OffsetsBlock(_begin,_begin));
     }
 
-    static StringMap<String> getPre(Configuration _cont, String _value, int _offset) {
+    static StringMap<String> getPre(Configuration _cont, String _value, int _offset, AnalyzingDoc _analyzingDoc) {
         StringList elts_ = StringList.splitStrings(_value, COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(_cont, var_);
         if (fileName_ == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            badEl_.setFileName(_analyzingDoc.getFileName());
             badEl_.setIndexFile(_offset);
             badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
                     var_);
-            Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(badEl_, _analyzingDoc, _cont.getContext().getAnalyzing());
             return new StringMap<String>();
         }
         StringMap<String> pres_ = new StringMap<String>();
-        AnalyzingDoc a_ = _cont.getAnalyzingDoc();
-        for (String l: a_.getLanguages()) {
-            StringMap<String> files_ = a_.getFiles();
+        for (String l: _analyzingDoc.getLanguages()) {
+            StringMap<String> files_ = _cont.getFiles();
             String content_ = RendExtractFromResources.tryGetContent(_cont, l, fileName_, files_);
             int index_ = RendExtractFromResources.indexCorrectMessages(content_);
             String cont_ = content_;
@@ -539,13 +538,13 @@ public abstract class RendBlock implements AnalyzedBlock {
             }
             if (index_ >= 0) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                badEl_.setFileName(_analyzingDoc.getFileName());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadExpression(),
                         " ",
                         Integer.toString(index_),
                         content_);
-                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _analyzingDoc, _cont.getContext().getAnalyzing());
                 return new StringMap<String>();
             }
             StringMap<String> messages_ = RendExtractFromResources.getMessages(content_);
@@ -553,11 +552,11 @@ public abstract class RendBlock implements AnalyzedBlock {
             String format_ = RendExtractFromResources.getQuickFormat(messages_, key_);
             if (format_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                badEl_.setFileName(_analyzingDoc.getFileName());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_cont.getRendAnalysisMessages().getInexistantKey(),
                         key_);
-                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _analyzingDoc, _cont.getContext().getAnalyzing());
                 return new StringMap<String>();
             }
             pres_.addEntry(l,format_);
@@ -643,12 +642,12 @@ public abstract class RendBlock implements AnalyzedBlock {
         }
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
     }
-    public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc);
+    public abstract void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc);
     private static OffsetBooleanInfo newOffsetBooleanInfo(Element _elt, String _key) {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
     }
-    protected static void tryBuildExpressionLanguage(RendBlock _block, Configuration _cont,RendDocumentBlock _doc) {
-        _block.buildExpressionLanguage(_cont,_doc);
+    protected static void tryBuildExpressionLanguage(RendBlock _block, Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _analyzingDoc) {
+        _block.buildExpressionLanguage(_cont,_doc, _analyzingDoc);
     }
 
     static void appendChild(Document _doc, Node _parent, Element _read) {

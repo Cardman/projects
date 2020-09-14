@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -18,9 +19,9 @@ public final class RendAnchor extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list);
+        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list, _anaDoc);
         varNames = res_.getVarNames();
         opExp = res_.getOpExp();
         opExpAnch = res_.getOpExpAnchor();

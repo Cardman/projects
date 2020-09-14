@@ -18,6 +18,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AdvancedFullStack;
+import code.formathtml.util.AnalyzingDoc;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -641,19 +642,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl100Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", context_, 2);
+        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"} ", 43);
         assertEq("9 hello world {every body ;)",getString(arg_));
-        assertEq(43, context_.getNextIndex());
     }
     @Test
     public void processEl101Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(" {(\"hello \"+\"world\").length()} ", context_, 2);
+        Argument arg_ = processDelimiters(" {(\"hello \"+\"world\").length()} ", 30);
         assertEq(11, getNumber(arg_));
-        assertEq(30, context_.getNextIndex());
     }
     @Test
     public void processEl105Test() {
@@ -822,30 +817,25 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl126Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, 2);
+        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 43);
         assertEq("9 hello world {every body ;)",getString(arg_));
-        int nextIndex_ = context_.getNextIndex();
-        assertEq(43, nextIndex_);
-        arg_ = processElNormal(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", context_, nextIndex_+1);
+    }
+    @Test
+    public void processEl126_Test() {
+        Argument arg_ = processDoubleDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\"}{5*8} ", 44, 48);
         assertEq(40, getNumber(arg_));
-        nextIndex_ = context_.getNextIndex();
-        assertEq(48, nextIndex_);
     }
     @Test
     public void processEl127Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(" {(\"hello \"+\"world\").length()}{5*8} ", context_, 2);
+        Argument arg_ = processDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 30);
         assertEq(11, getNumber(arg_));
-        int nextIndex_ = context_.getNextIndex();
-        assertEq(30, nextIndex_);
-        arg_ = processElNormal(" {(\"hello \"+\"world\").length()}{5*8} ", context_, nextIndex_+1);
-        assertEq(40, getNumber(arg_));
-        nextIndex_ = context_.getNextIndex();
-        assertEq(35, nextIndex_);
     }
+    @Test
+    public void processEl127_Test() {
+        Argument arg_ = processDoubleDelimiters(" {(\"hello \"+\"world\").length()}{5*8} ", 31, 35);
+        assertEq(40, getNumber(arg_));
+    }
+
     @Test
     public void processEl128Test() {
         Configuration context_ = getConfiguration4();
@@ -3526,12 +3516,28 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl317Test() {
+        Argument arg_ = processDelimiters(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", 73);
+        assertEq("9 hello world {every body ;)\\\"2",getString(arg_));
+    }
+
+    private static Argument processDoubleDelimiters(String s, int i, int i2) {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
-        Argument arg_ = processElNormal(" {(1+2)*3+\" hello\"+\" world {every body ;)\\\\\\\"\"+$new $int[]{0i,1i}.length} ", context_, 2);
-        assertEq("9 hello world {every body ;)\\\"2",getString(arg_));
-        assertEq(73, context_.getNextIndex());
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        processElNormal(s, context_, 2, analyzingDoc_);
+        Argument arg_ = processElNormal(s, context_, i, analyzingDoc_);
+        assertEq(i2, analyzingDoc_.getNextIndex());
+        return arg_;
     }
+    private static Argument processDelimiters(String s, int i) {
+        Configuration context_ = getConfiguration4();
+        addImportingPage(context_);
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        Argument arg_ = processElNormal(s, context_, 2, analyzingDoc_);
+        assertEq(i, analyzingDoc_.getNextIndex());
+        return arg_;
+    }
+
     @Test
     public void processEl318Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -6371,7 +6377,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -6397,11 +6403,16 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(BooleanStruct.isFalse(lv_.getStruct()));
     }
+
+    private static CustList<OperationNode> getSortedDescNodes(Configuration context_, OperationNode op_) {
+        return RenderExpUtil.getSortedDescNodes(op_, context_, new AnalyzingDoc());
+    }
+
     @Test
     public void processEl181Test() {
         Configuration context_ = getConfiguration4();
@@ -6423,7 +6434,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
@@ -6449,7 +6460,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertTrue(arg_.isFalse());
@@ -6475,7 +6486,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -6502,7 +6513,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -6531,7 +6542,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -6560,7 +6571,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(6, ((NumberStruct) in_[0]).intStruct());
@@ -6587,7 +6598,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
@@ -6616,7 +6627,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(8, ((NumberStruct) in_[0]).intStruct());
@@ -6647,7 +6658,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -6679,7 +6690,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -6711,7 +6722,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -6743,7 +6754,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -6755,7 +6766,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         Configuration context_ = getConfiguration4();
         addImportingPage(context_);
         ContextEl ctx_ = context_.getContext();
-        setupAna(context_);
+        setupAna(context_, new AnalyzingDoc());
         String elr_ = "+1y";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6765,7 +6776,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(1, getNumber(arg_));
@@ -6800,7 +6811,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
         assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
@@ -6816,18 +6827,18 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertNull(getException(_cont));
         return arg_;
     }
-    private static Argument processElNormal(String _el, Configuration _conf, int _minIndex) {
+    private static Argument processElNormal(String _el, Configuration _conf, int _minIndex, AnalyzingDoc _analyzingDoc) {
         ContextEl context_ = _conf.getContext();
         setupAnalyzing(_conf);
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf.getContext(), _minIndex);
         assertTrue(d_.getBadOffset() < 0);
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
-        _conf.setNextIndex(end_+2);
+        _analyzingDoc.setNextIndex(end_+2);
         String el_ = _el.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_);
-        OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf);
+        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_, _analyzingDoc);
+        OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf, _analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_conf, op_);
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
         assertTrue(isEmptyErrors(context_));
         out_ = RenderExpUtil.getReducedNodes(out_.last());

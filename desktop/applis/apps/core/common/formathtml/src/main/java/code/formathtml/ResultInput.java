@@ -5,6 +5,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.formathtml.exec.*;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -21,10 +22,10 @@ public final class ResultInput {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read,String _varValue) {
+    public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read, String _varValue, AnalyzingDoc _anaDoc) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont);
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc);
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -35,10 +36,10 @@ public final class ResultInput {
             RendSettableElResult settable_ = RendAffectationOperation.castDottedTo(res_);
             if (!(settable_ instanceof RendPossibleIntermediateDotted)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
             } else {
                 className = ((RendDynOperationNode)settable_).getResultClass().getSingleNameOrEmpty();
                 if (settable_ instanceof RendSettableFieldOperation) {
@@ -46,19 +47,19 @@ public final class ResultInput {
                     ClassField clField_ = infoField_.getClassField();
                     if (infoField_.isStaticField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        badEl_.setFileName(_anaDoc.getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_cont.getRendAnalysisMessages().getStaticInputName(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                     if (infoField_.isFinalField()) {
                         FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        badEl_.setFileName(_anaDoc.getFileName());
                         badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                         badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getFinalField(),
                                 clField_.getFieldName());
-                        Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
@@ -192,15 +193,15 @@ public final class ResultInput {
             String type_ = _read.getAttribute(_cont.getRendKeyWords().getAttrType());
             if (!StringList.quickEq(type_,_cont.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()));
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
-                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
             }
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont);
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc);
         }
     }
 

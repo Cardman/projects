@@ -22,10 +22,8 @@ public final class RenderSubmitTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ = contextElFive(new StringMap<String>());
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
 
 
         setFiles(files_,conf_);
@@ -55,10 +53,8 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -77,10 +73,8 @@ public final class RenderSubmitTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
 
 
         setFiles(files_,conf_);
@@ -110,10 +104,8 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
@@ -139,10 +131,8 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());
@@ -168,10 +158,8 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", StringList.concat(relative_, "2"));
+
+        setup(folder_, StringList.concat(relative_, "2"), conf_);
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(!conf_.isEmptyErrors());

@@ -343,10 +343,8 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         String html_ = xml_.toString();
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
@@ -380,16 +378,15 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         String html_ = xml_.toString();
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
         assertNull(getException(conf_));
     }
+
     @Test
     public void process16Test() {
         StringMap<String> files_ = new StringMap<String>();

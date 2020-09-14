@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.IterableAnalysisResult;
@@ -48,11 +47,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     protected static final String TYPE_ITERATOR = "code.util.SimpleItr";
     protected static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
-    private static final String NO_PARAM = "()";
     private StringMapObject storedForms;
     private StringMap<String> iterables = new StringMap<String>();
     private Object dataBase;
-    private StringMap<Bean> beans = new StringMap<Bean>();
+    private final StringMap<Bean> beans = new StringMap<Bean>();
     private StringMap<Validator> validators = new StringMap<Validator>();
 
     public BeanNatLgNames() {
@@ -493,10 +491,6 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     public StringMap<Bean> getBeans() {
         return beans;
-    }
-
-    public void setBeans(StringMap<Bean> _beans) {
-        beans = _beans;
     }
 
     public StringMap<Validator> getValidators() {

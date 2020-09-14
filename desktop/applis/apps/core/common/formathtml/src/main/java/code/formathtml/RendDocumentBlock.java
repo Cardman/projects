@@ -31,7 +31,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         fileName = _fileName;
     }
 
-    public void buildFctInstructions(Configuration _cont) {
+    public void buildFctInstructions(Configuration _cont, AnalyzingDoc _anaDoc) {
         beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
         imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
         AnalyzedPageEl page_ = _cont.getAnalyzing();
@@ -55,18 +55,17 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         CustList<RendLoop> parentsContinuable_ = new CustList<RendLoop>();
         CustList<RendEval> parentsReturnable_ = new CustList<RendEval>();
         StringList labels_ = new StringList();
-        AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
-        analyzingDoc_.setFileName(fileName);
-        analyzingDoc_.setCurrentDoc(this);
+        _anaDoc.setFileName(fileName);
+        _anaDoc.setCurrentDoc(this);
         while (true) {
-            analyzingDoc_.setCurrentBlock(en_);
+            _anaDoc.setCurrentBlock(en_);
             page_.setCurrentAnaBlock(en_);
             if (en_ instanceof RendStdElement) {
                 if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),_cont.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);
                 }
             }
-            checkBreakable(en_,_cont,labels_);
+            checkBreakable(en_,_cont,labels_, _anaDoc);
             if (en_ instanceof RendParentBlock) {
                 RendBlock first_ = en_.getFirstChild();
                 if (first_ == null) {
@@ -98,7 +97,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             }
             RendBlock n_ = en_.getFirstChild();
             if (en_ != root_) {
-                tryBuildExpressionLanguage(en_, _cont,this);
+                tryBuildExpressionLanguage(en_, _cont,this, _anaDoc);
                 reduce(en_,_cont);
             }
             if (n_ != null) {
@@ -152,7 +151,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             ((RendReducableOperations)_block).reduce(_cont);
         }
     }
-    static void checkBreakable(RendBlock _block,Configuration _conf,StringList _labels) {
+    private static void checkBreakable(RendBlock _block, Configuration _conf, StringList _labels, AnalyzingDoc _anaDoc) {
         if (_block instanceof RendBreakableBlock) {
             String label_ = ((RendBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
@@ -165,17 +164,17 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
-                bad_.setFileName(_conf.getAnalyzingDoc().getFileName());
+                bad_.setFileName(_anaDoc.getFileName());
                 bad_.setIndexFile(_block.getOffset().getOffsetTrim());
                 bad_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadLabel());
-                Configuration.addError(bad_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
+                Configuration.addError(bad_, _anaDoc, _conf.getContext().getAnalyzing());
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
-                    dup_.setFileName(_conf.getAnalyzingDoc().getFileName());
+                    dup_.setFileName(_anaDoc.getFileName());
                     dup_.setIndexFile(_block.getOffset().getOffsetTrim());
                     dup_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getDuplicatedLabel());
-                    Configuration.addError(dup_, _conf.getAnalyzingDoc(), _conf.getContext().getAnalyzing());
+                    Configuration.addError(dup_, _anaDoc, _conf.getContext().getAnalyzing());
                 } else {
                     _labels.add(label_);
                 }
@@ -196,7 +195,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
     }
 
     public String getFile() {

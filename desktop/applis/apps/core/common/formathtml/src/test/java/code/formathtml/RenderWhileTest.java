@@ -16,9 +16,7 @@ public final class RenderWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;=2'>{i}<br/><c:set value='i++'/></c:while></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -33,9 +31,7 @@ public final class RenderWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2'>{i}<br/><c:set value='i++'/></c:while></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -49,9 +45,7 @@ public final class RenderWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;2'><c:set className='$var' value='j=0'/><c:while condition='j&lt;2'>{i}-{j}<br/><c:set value='j++'/></c:while><br/><c:set value='i++'/></c:while></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -65,9 +59,7 @@ public final class RenderWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2/0'>{i}<br/><c:set value='i++'/></c:while></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -81,9 +73,7 @@ public final class RenderWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2/(i-1)'>{i}<br/><c:set value='i++'/></c:while></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -103,9 +93,7 @@ public final class RenderWhileTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -124,9 +112,7 @@ public final class RenderWhileTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));

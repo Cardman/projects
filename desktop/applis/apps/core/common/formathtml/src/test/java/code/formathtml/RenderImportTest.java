@@ -34,9 +34,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -53,10 +51,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -72,10 +68,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -91,10 +85,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>1After</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -110,10 +102,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -129,10 +119,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
@@ -148,10 +136,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>NextAfter</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -167,10 +153,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><pre> </pre></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -204,9 +188,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -222,10 +204,8 @@ public final class RenderImportTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, conf_);
         assertTrue(conf_.isEmptyErrors());
         assertEq("<html><body><td>Content</td>1Exc</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
@@ -263,9 +243,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body>3</body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -304,9 +282,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -347,9 +323,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -383,9 +357,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -419,9 +391,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -455,9 +425,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -491,9 +459,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -527,9 +493,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -569,9 +533,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -614,9 +576,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -659,9 +619,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -705,9 +663,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -756,9 +712,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -806,9 +760,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -860,9 +812,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -911,9 +861,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -944,9 +892,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = builtTwoPagesOne(html_, htmlTwo_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -990,9 +936,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}\n");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(context_.isEmptyErrors());
         context_.setCurrentUrl("page1.html");
@@ -1032,9 +976,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1070,9 +1012,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1108,9 +1048,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1146,9 +1084,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1177,9 +1113,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1208,9 +1142,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -1242,9 +1174,7 @@ public final class RenderImportTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, context_);
         assertTrue(!context_.isEmptyErrors());
     }

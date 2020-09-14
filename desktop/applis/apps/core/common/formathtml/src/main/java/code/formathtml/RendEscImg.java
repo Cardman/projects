@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.StringList;
@@ -11,7 +12,7 @@ public final class RendEscImg extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
     }
 
     @Override

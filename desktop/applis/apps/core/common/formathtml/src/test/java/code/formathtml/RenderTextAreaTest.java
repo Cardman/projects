@@ -26,12 +26,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -57,12 +53,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -87,12 +79,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -117,12 +105,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -147,12 +131,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -180,12 +160,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -213,12 +189,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -246,12 +218,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -276,12 +244,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -306,12 +270,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -336,12 +296,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -366,12 +322,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -407,12 +359,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -439,12 +387,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -471,12 +415,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -510,12 +450,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -551,12 +487,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -584,11 +516,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         buildRendWithOneBean(html_, conf_);
@@ -615,11 +543,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         buildRendWithOneBean(html_, conf_);
@@ -646,12 +570,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -676,12 +596,8 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
@@ -705,11 +621,7 @@ public final class RenderTextAreaTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
 
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);

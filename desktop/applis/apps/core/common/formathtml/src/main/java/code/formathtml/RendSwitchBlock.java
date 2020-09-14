@@ -18,6 +18,7 @@ import code.expressionlanguage.structs.EnumerableStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -52,22 +53,22 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont);
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc);
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(valueOffset);
             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                     type_);
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(id_);
@@ -84,11 +85,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                             instanceTest = type_;
                         } else {
                             FoundErrorInterpret un_ = new FoundErrorInterpret();
-                            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                            un_.setFileName(_anaDoc.getFileName());
                             un_.setIndexFile(valueOffset);
                             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                     id_);
-                            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                         }
                     } else {
                         enumTest = true;
@@ -114,7 +115,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
                     _cont.getKeyWords().getKeyWordSwitch(),
@@ -124,7 +125,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
                                     _cont.getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             first_ = first_.getNextSibling();
         }
     }

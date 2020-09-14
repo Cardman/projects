@@ -61,8 +61,6 @@ public final class Configuration {
     private String prefix = EMPTY_STRING;
     private BeanLgNames standards;
 
-    private int nextIndex;
-
     private final StringMap<Struct> builtBeans = new StringMap<Struct>();
     private final StringMap<Struct> builtValidators = new StringMap<Struct>();
 
@@ -78,7 +76,6 @@ public final class Configuration {
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
 
-    private AnalyzingDoc analyzingDoc = new AnalyzingDoc();
     private RendLocalThrowing rendLocalThrowing = new RendLocalThrowing();
     private StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
 
@@ -142,11 +139,10 @@ public final class Configuration {
         renderFiles.add(firstUrl);
     }
 
-    public void setupRenders(StringMap<String> _files) {
+    public void setupRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc) {
         renders.clear();
-        analyzingDoc.setFiles(_files);
         setFiles(_files);
-        setupInts(getContext().getAnalyzing(), getAnalyzingDoc());
+        setupInts(getContext().getAnalyzing(), _analyzingDoc);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
@@ -154,29 +150,29 @@ public final class Configuration {
             Document document_ = res_.getDocument();
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(getAnalyzingDoc().getFileName());
-                badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), getAnalyzingDoc()));
+                badEl_.setFileName(_analyzingDoc.getFileName());
+                badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), _analyzingDoc));
                 badEl_.buildError(getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
-                addError(badEl_, getAnalyzingDoc(), context.getAnalyzing());
+                addError(badEl_, _analyzingDoc, context.getAnalyzing());
                 continue;
             }
             currentUrl = link_;
             renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
-            d.getValue().buildFctInstructions(this);
+            d.getValue().buildFctInstructions(this, _analyzingDoc);
         }
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = RendExtractFromResources.getRealFilePath(currentLanguage, currentUrl_);
         rendDocumentBlock = getRenders().getVal(realFilePath_);
         if (rendDocumentBlock == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(getAnalyzingDoc().getFileName());
-            badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), getAnalyzingDoc()));
+            badEl_.setFileName(_analyzingDoc.getFileName());
+            badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), _analyzingDoc));
             badEl_.buildError(getRendAnalysisMessages().getInexistantFile(),
                     realFilePath_);
-            addError(badEl_, getAnalyzingDoc(), context.getAnalyzing());
+            addError(badEl_, _analyzingDoc, context.getAnalyzing());
         }
     }
     public void initForms() {
@@ -198,7 +194,6 @@ public final class Configuration {
     }
     public void setNullAnalyzing() {
         context.setNullAnalyzing();
-        analyzingDoc = null;
     }
     Struct newBean(String _language, Struct _bean, BeanInfo _info) {
         Argument arg_ = RenderExpUtil.calculateReuse(_info.getExps(), this);
@@ -421,14 +416,6 @@ public final class Configuration {
         getLastPage().setOpOffset(_offset);
     }
 
-    public int getNextIndex() {
-        return nextIndex;
-    }
-
-    public void setNextIndex(int _nextIndex) {
-        nextIndex = _nextIndex;
-    }
-
     public PageEl getPageEl() {
         return importing.last().getPageEl();
     }
@@ -437,20 +424,12 @@ public final class Configuration {
         context.setException(_struct);
     }
 
-    public boolean isInternGlobal() {
-        return analyzingDoc.isInternGlobal();
-    }
-
     public Struct getInternGlobal() {
         return getLastPage().getInternGlobal();
     }
 
-    public String getInternGlobalClass() {
-        return analyzingDoc.getInternGlobalClass();
-    }
-
     public AnalyzedPageEl getAnalyzing() {
-        return context.getAnalyzing();
+        return getContext().getAnalyzing();
     }
 
     public StringMap<AnaLocalVariable> getLocalVars() {
@@ -514,10 +493,6 @@ public final class Configuration {
 
     public boolean hasPages() {
         return !noPages();
-    }
-
-    public AnalyzingDoc getAnalyzingDoc() {
-        return analyzingDoc;
     }
 
     public RendLocalThrowing getRendLocalThrowing() {

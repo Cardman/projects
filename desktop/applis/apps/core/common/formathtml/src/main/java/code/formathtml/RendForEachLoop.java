@@ -29,6 +29,7 @@ import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -97,28 +98,28 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     public String getImportedClassName() {
         return importedClassName;
     }
-    public void buildEl(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
         if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
         }
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -129,10 +130,10 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrList());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont);
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc);
     }
-    public void inferArrayClass(Configuration _cont) {
+    public void inferArrayClass(Configuration _cont, AnalyzingDoc _anaDoc) {
         RendDynOperationNode el_ = opList.last();
         ClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(el_.getResultClass());
         if (toInfer(_cont) && compo_.getNames().onlyOneElt()) {
@@ -140,11 +141,11 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         } else {
             if (importedClassName.isEmpty()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                cast_.setFileName(_anaDoc.getFileName());
                 cast_.setIndexFile(expressionOffset);
                 cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                         className.trim());
-                Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
             } else {
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
@@ -153,34 +154,34 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(compo_.getNames(),AND_ERR),
                             importedClassName);
-                    Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
             }
         }
     }
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
-        buildEl(_cont,_doc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+        buildEl(_cont,_doc, _anaDoc);
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            static_.setFileName(_anaDoc.getFileName());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
-            Configuration.addError(static_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(static_, _anaDoc, _cont.getContext().getAnalyzing());
         } else if (el_.getResultClass().isArray()) {
-            inferArrayClass(_cont);
+            inferArrayClass(_cont, _anaDoc);
         } else {
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getInferredIterable(names_, _cont);
-            checkIterableCandidates(out_, _cont);
+            checkIterableCandidates(out_, _cont, _anaDoc);
         }
         if (!okVar) {
             return;
@@ -191,7 +192,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         IterableAnalysisResult it_ = _cont.getStandards().getCustomType(_types,importedClassName, _cont.getContext());
         return it_.getClassName();
     }
-    public void checkIterableCandidates(StringList _types,Configuration _cont) {
+    public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc) {
         if (_types.onlyOneElt()) {
             String type_ = _types.first();
             Mapping mapping_ = new Mapping();
@@ -212,12 +213,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    cast_.setFileName(_anaDoc.getFileName());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
             }
         } else {
@@ -225,12 +226,12 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             mapping_.setArg(_cont.getStandards().getAliasObject());
             mapping_.setParam(_cont.getStandards().getAliasIterable());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                     _cont.getStandards().getAliasObject(),
                     _cont.getStandards().getAliasIterable());
-            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
         }
     }
     private boolean toInfer(Configuration _cont) {

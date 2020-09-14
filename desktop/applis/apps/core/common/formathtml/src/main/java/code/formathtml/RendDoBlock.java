@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 
 public final class RendDoBlock extends RendParentBlock implements RendLoop {
 
@@ -68,41 +69,41 @@ public final class RendDoBlock extends RendParentBlock implements RendLoop {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         RendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                     _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
                     _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else if (!(pBlock_ instanceof RendDoWhileCondition)) {
             if (!(pBlock_ instanceof RendPossibleEmpty)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             } else if (pBlock_.getNextSibling() == null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getOffset().getOffsetTrim());
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             } else if (!(pBlock_.getNextSibling() instanceof RendDoWhileCondition)){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset().getOffsetTrim());
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
                         _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile());
-                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             }
         }
     }

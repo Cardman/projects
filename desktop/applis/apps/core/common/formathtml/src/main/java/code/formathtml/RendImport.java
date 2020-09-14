@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -28,14 +29,14 @@ public final class RendImport extends RendParentBlock implements RendWithEl, Ren
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         ResultText res_ = new ResultText();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(pageOffset);
         page_.setOffset(0);
         String pageName_ = elt.getAttribute(_cont.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrPage());
-        res_.build(pageName_,_cont,rowsGrId_,_doc);
+        res_.build(pageName_,_cont,rowsGrId_,_doc, _anaDoc);
         opExp = res_.getOpExp();
         texts = res_.getTexts();
     }

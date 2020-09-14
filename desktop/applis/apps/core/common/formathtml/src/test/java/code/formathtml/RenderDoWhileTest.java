@@ -19,9 +19,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do><c:while condition='i&lt;=2'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -40,9 +38,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do><c:while condition='i&gt;=2'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -56,9 +52,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do><c:while condition='i&gt;=2/0'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -72,9 +66,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do>\n<c:while condition='i&lt;=2'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -88,9 +80,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do><c:set className='$var' value='j=0'/><c:do>{i}-{j}<br/><c:set value='j++'/></c:do><c:while condition='j&lt;2'/>+<c:set value='i++'/></c:do><c:while condition='i&lt;2'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -104,9 +94,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do>\n</body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -118,9 +106,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -132,9 +118,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do>\n<br/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
@@ -146,9 +130,7 @@ public final class RenderDoWhileTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:do>{i}<br/><c:set value='i++'/></c:do><br/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);

@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;
 import code.sml.MutableNode;
 import code.sml.Node;
@@ -20,7 +21,7 @@ public final class RendEmptyText extends RendLeaf implements RendWithEl,RendBuil
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _conf,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _conf, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         if (getNextSibling() instanceof RendElseIfCondition) {
             add = false;
         } else if (getNextSibling() instanceof RendElseCondition) {

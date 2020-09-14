@@ -6,6 +6,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.formathtml.util.NodeContainer;
 import code.sml.Element;
 import code.sml.MutableNode;
@@ -25,7 +26,7 @@ public final class RendForm extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
         _list.removeAllString(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         _list.removeAllString(_cont.getRendKeyWords().getAttrAction());
         opExp = new CustList<CustList<RendDynOperationNode>>();
@@ -34,7 +35,7 @@ public final class RendForm extends RendElement {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-            r_.build(lk_,_cont,rowsGrId_,_doc);
+            r_.build(lk_,_cont,rowsGrId_,_doc, _anaDoc);
             texts = r_.getTexts();
             opExp = r_.getOpExp();
             for (CustList<RendDynOperationNode> e: opExp) {
@@ -43,12 +44,12 @@ public final class RendForm extends RendElement {
                 m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                             StringList.join(e.last().getResultClass().getNames(),AND_ERR),
                             _cont.getStandards().getAliasLong());
-                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
             }
             int l_ = opExp.size();
@@ -71,7 +72,7 @@ public final class RendForm extends RendElement {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont);
+            opForm = RenderExpUtil.getAnalyzedOperations(pref_,rowsGrId_,0,_cont, _anaDoc);
             for (String v:varNames_) {
                 _cont.getLocalVars().removeKey(v);
             }

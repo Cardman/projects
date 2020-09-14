@@ -8,6 +8,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendRemovableVars;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendContinueBlock extends RendLeaf implements RendBuildableElMethod,RendCallingFinally {
@@ -22,7 +23,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         boolean childOfLoop_ = false;
         RendParentBlock b_ = getParent();
         while (b_ != null) {
@@ -43,7 +44,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
@@ -69,7 +70,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
                                 ),
                                 OR_ERR));
             }
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         }
     }
 

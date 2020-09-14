@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -25,9 +26,9 @@ public final class RendTitledAnchor extends RendElement {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
-        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list);
+        ResultText res_ = ResultText.buildAnchor(_cont,this, _doc, _read, _list, _anaDoc);
         varNames = res_.getVarNames();
         opExpAnch = res_.getOpExpAnchor();
         opExp = res_.getOpExp();
@@ -35,7 +36,7 @@ public final class RendTitledAnchor extends RendElement {
         _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
         String value_ = _read.getAttribute(_cont.getRendKeyWords().getAttrValue());
         int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
-        preformatted = getPre(_cont,value_,offMessage_);
+        preformatted = getPre(_cont,value_,offMessage_, _anaDoc);
         if (preformatted.isEmpty()) {
             removeUseLess(_cont,_read, _list);
             return;
@@ -50,7 +51,7 @@ public final class RendTitledAnchor extends RendElement {
             String attribute_ = _read.getAttribute(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
             int rowsGrId_ = getAttributeDelimiter(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            r_.build(attribute_,_cont,rowsGrId_,_doc);
+            r_.build(attribute_,_cont,rowsGrId_,_doc, _anaDoc);
             opExpTitle.addEntry(StringList.concat(_cont.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }

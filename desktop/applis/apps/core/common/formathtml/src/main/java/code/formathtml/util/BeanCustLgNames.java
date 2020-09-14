@@ -231,7 +231,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     public void buildIterables(Configuration _context) {
         _context.getImporting().add(new ImportingPage());
-        Configuration.setupInts(_context.getContext().getAnalyzing(), _context.getAnalyzingDoc());
         StringMap<String> args_ = new StringMap<String>();
         StringList l_ = new StringList();
         String locName_ = tr(l_);

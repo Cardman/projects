@@ -989,11 +989,8 @@ public final class SubmitFormTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ = contextElThird(filesSec_);
-        conf_.setMessagesFolder(folder_);
+        setup(folder_,relative_,conf_);
         conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1008,7 +1005,7 @@ public final class SubmitFormTest extends CommonRender {
 
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(_nav.getSession());
+        setupAna(_nav.getSession(), new AnalyzingDoc());
         _nav.initInstancesPattern();
         _nav.getSession().setPrefix("c:");
         _nav.setupRenders();

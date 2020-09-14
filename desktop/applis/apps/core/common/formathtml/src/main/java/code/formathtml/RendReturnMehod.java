@@ -4,7 +4,7 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
-import code.formathtml.stacks.RendTryBlockStack;
+import code.formathtml.util.AnalyzingDoc;
 
 public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendBuildableElMethod {
     RendReturnMehod(OffsetsBlock _offset) {
@@ -33,7 +33,7 @@ public final class RendReturnMehod extends RendLeaf implements RendCallingFinall
         return new RendAbruptCallingFinally(this);
     }
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
 
     }
 }

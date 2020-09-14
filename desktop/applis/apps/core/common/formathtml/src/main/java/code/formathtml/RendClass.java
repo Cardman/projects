@@ -4,6 +4,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendClass extends RendParentBlock {
@@ -15,26 +16,26 @@ public final class RendClass extends RendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         if (!(getParent() instanceof RendPackage)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordClass(),
                     _cont.getRendKeyWords().getKeyWordPackage());
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else {
             RendPackage par_ = (RendPackage) getParent();
             fullName = StringList.concat(par_.getName(),DOT,name);
             fullName = StringExpUtil.removeDottedSpaces(fullName);
             if (_cont.getContext().getAnalyzing().getAnaGeneType(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                un_.setFileName(_anaDoc.getFileName());
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnknownType(),
                         fullName);
-                Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             }
         }
     }

@@ -22,10 +22,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
@@ -41,10 +39,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
@@ -60,10 +56,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -113,10 +107,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration context_ = contextElFive(filesSec_);
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>1</li><li>2</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -133,10 +125,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul/></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -152,10 +142,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0-1</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -172,10 +160,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li><ol><li>1</li></ol></li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -191,10 +177,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
@@ -303,10 +287,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElFive(filesSec_);
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -331,10 +313,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElFive(filesSec_);
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
@@ -350,10 +330,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
@@ -393,10 +371,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -458,10 +434,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -475,10 +449,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -492,10 +464,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration context_ = contextElFive();
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }
@@ -527,10 +497,8 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
         Configuration context_ = contextElFive(filesSec_);
-        
-        context_.setMessagesFolder(folder_);
-        context_.setProperties(new StringMap<String>());
-        context_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, context_);
         buildRendWithOneBean(html_, context_);
         assertTrue(!context_.isEmptyErrors());
     }

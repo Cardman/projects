@@ -8,6 +8,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendDeclareVariable extends RendLeaf implements RendBuildableElMethod {
@@ -35,7 +36,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);

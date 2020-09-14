@@ -6,6 +6,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 
 public final class RendThrowing extends RendLeaf implements RendBuildableElMethod, RendReducableOperations {
@@ -22,12 +23,12 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont);
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc);
 
     }
     @Override

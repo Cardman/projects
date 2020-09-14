@@ -13,6 +13,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -30,12 +31,16 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+        buildConditions(_cont, _anaDoc);
+    }
+
+    protected void buildConditions(Configuration _cont, AnalyzingDoc _analyzingDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont);
+        _analyzingDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc);
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = page_.getStandards();
         ClassArgumentMatching exp_ = elCondition_.getResultClass();
@@ -55,11 +60,11 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
                     exp_.setMemberNumberTest(trueOp_.getMemberNumber());
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    un_.setFileName(_analyzingDoc.getFileName());
                     un_.setIndexFile(conditionOffset);
                     un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                             StringList.join(exp_.getNames(),AND_ERR));
-                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _analyzingDoc, _cont.getContext().getAnalyzing());
                 }
             }
         }

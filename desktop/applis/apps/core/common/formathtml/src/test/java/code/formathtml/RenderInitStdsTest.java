@@ -40,7 +40,7 @@ public final class RenderInitStdsTest extends CommonRender {
     @Test
     public void process6Test() {
         RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
-        doc_.buildExpressionLanguage(null,null);
+        doc_.buildExpressionLanguage(null,null, null);
         assertNull(doc_.getFirstChild());
     }
     private boolean contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {

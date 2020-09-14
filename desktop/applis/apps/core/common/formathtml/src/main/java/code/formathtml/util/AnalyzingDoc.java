@@ -8,7 +8,6 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AnalyzingDoc {
-    private StringMap<String> files = new StringMap<String>();
     private StringList languages = new StringList();
 
     private RendBlock currentBlock;
@@ -16,6 +15,8 @@ public final class AnalyzingDoc {
     private String attribute="";
     private String fileName="";
     private RendDocumentBlock currentDoc;
+
+    private int nextIndex;
 
     public String getLocationFile(String _fileName, int _sum) {
         return StringList.concat(Integer.toString(_sum));
@@ -78,14 +79,6 @@ public final class AnalyzingDoc {
         attribute = _attribute;
     }
 
-    public void setFiles(StringMap<String> _files) {
-        files = _files;
-    }
-
-    public StringMap<String> getFiles() {
-        return files;
-    }
-
     public StringList getLanguages() {
         return languages;
     }
@@ -124,5 +117,13 @@ public final class AnalyzingDoc {
 
     public void setCurrentDoc(RendDocumentBlock _currentDoc) {
         currentDoc = _currentDoc;
+    }
+
+    public int getNextIndex() {
+        return nextIndex;
+    }
+
+    public void setNextIndex(int nextIndex) {
+        this.nextIndex = nextIndex;
     }
 }

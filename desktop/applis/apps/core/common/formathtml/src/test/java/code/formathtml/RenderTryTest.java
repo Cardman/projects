@@ -16,9 +16,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>Text</c:try><c:catch className='java.lang.Object' var='ex'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -32,9 +30,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>Text</c:try><c:catch/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -48,9 +44,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -64,9 +58,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='$null'/></c:try><c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -80,9 +72,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>{1/0}</c:catch></c:try><c:catch className='java.lang.Object' var='ex2'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -96,9 +86,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:try><c:throw value='$null'/></c:try><c:catch><c:throw value='$null'/></c:catch></c:try><c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -112,9 +100,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='code.util.exceptions.NullObjectException' var='ex'>Npe</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -128,9 +114,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='$null'/></c:try><c:catch className='code.util.exceptions.NullObjectException' var='ex'>Npe</c:catch><c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -144,9 +128,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch>Ne</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -160,9 +142,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch>Ne</c:catch></c:try><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -176,9 +156,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='1/0'/></c:try><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -192,9 +170,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>Exc<c:return/></c:catch></c:try><c:catch className='java.lang.Object' var='ex'>Sec</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -208,9 +184,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>Text</c:try>\n<c:catch className='java.lang.Object' var='ex'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -224,9 +198,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>Text</c:try>\n<c:catch/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -240,9 +212,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try>\n<c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -256,9 +226,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='$null'/></c:try>\n<c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -273,9 +241,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try>\n<c:catch>First</c:catch>\n<c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -289,9 +255,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='$null'/></c:try>\n<c:catch className='java.lang.Object' var='ex'>First</c:catch>\n<c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -305,9 +269,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>{$Class.getClass(ex).getName()}</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -321,9 +283,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body>\n<c:catch className='java.lang.Object' var='ex'>First</c:catch>\n<c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -335,9 +295,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:catch className='java.lang.Object' var='ex'>First</c:catch>\n<c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -349,9 +307,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>{1/0}</c:try>\n</body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -363,9 +319,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try><c:throw value='$null'/></c:try></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -377,9 +331,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body>\n<c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -391,9 +343,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:catch>Exc</c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -405,9 +355,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>Text</c:try><c:catch className='java.lang.Object' var='#ex'/></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -419,9 +367,7 @@ public final class RenderTryTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:try>1</c:try><c:catch className='java.lang.Object' var='ex'><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>{1/0}</c:catch></c:catch></body></html>";
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_);
 
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);

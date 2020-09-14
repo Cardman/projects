@@ -10,6 +10,7 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.MutableNode;
 import code.util.CustList;
@@ -23,8 +24,8 @@ public final class RendRadio extends RendInput {
     }
 
     @Override
-    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list) {
-        processAnaInput(_cont,_doc,_read);
+    protected void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc) {
+        processAnaInput(_cont,_doc,_read, _anaDoc);
         _list.removeAllString(_cont.getRendKeyWords().getAttrChecked());
         _list.removeAllString(_cont.getRendKeyWords().getAttrValue());
         _list.removeAllString(_cont.getRendKeyWords().getAttrName());
@@ -48,7 +49,7 @@ public final class RendRadio extends RendInput {
             _cont.getLocalVars().addEntry(varLoc_,lv_);
             String preRend_ = StringList.concat(converterFieldValue_,RendBlock.LEFT_PAR, varLoc_,RendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrConvertFieldValue()));
-            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont);
+            opsConverterFieldValue = RenderExpUtil.getAnalyzedOperations(preRend_,attr_,0,_cont, _anaDoc);
             for (String v:varNames_) {
                 _cont.getLocalVars().removeKey(v);
             }
@@ -57,12 +58,12 @@ public final class RendRadio extends RendInput {
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                badEl_.setFileName(_anaDoc.getFileName());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
                         StringList.join(opsConverterFieldValue.last().getResultClass().getNames(),AND_ERR),
                         _cont.getStandards().getAliasCharSequence());
-                Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
             }
         }
     }

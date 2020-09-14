@@ -25,6 +25,7 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendLoopBlockStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -101,7 +102,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
@@ -111,11 +112,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            Configuration.addError(cast_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
         }
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
@@ -137,13 +138,13 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.getVariablesNamesToInfer().clear();
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrInit());
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrInit());
         page_.setForLoopPartState(ForLoopPart.INIT);
         page_.setAcceptCommaInstr(true);
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
-            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont);
+            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc);
         }
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
@@ -155,12 +156,12 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setAcceptCommaInstr(false);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrCondition());
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
         page_.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
-            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont);
+            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc);
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
@@ -182,25 +183,25 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                         exp_.setMemberNumberTest(trueOp_.getMemberNumber());
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(expressionOffset);
                         un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedType(),
                                 StringList.join(exp_.getNames(),AND_ERR));
-                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                 }
             }
             exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
             RenderExpUtil.setImplicits(elCondition_,_cont.getContext());
         }
-        buildIncrementPart(_cont,_doc);
+        buildIncrementPart(_cont,_doc, _anaDoc);
     }
 
     public String getImportedClassIndexName() {
         return importedClassIndexName;
     }
 
-    public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc) {
+    public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _an.getAnalyzing();
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
@@ -208,11 +209,11 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setForLoopPartState(ForLoopPart.STEP);
         page_.setMerged(true);
         page_.setAcceptCommaInstr(true);
-        _an.getAnalyzingDoc().setAttribute(_an.getRendKeyWords().getAttrStep());
+        _anaDoc.setAttribute(_an.getRendKeyWords().getAttrStep());
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {
-            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an);
+            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc);
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);

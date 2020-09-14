@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -22,12 +23,12 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
-        _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont);
+        _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
+        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0,_cont, _anaDoc);
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
             RendDeclareVariable declaring_ = (RendDeclareVariable) getPreviousSibling();

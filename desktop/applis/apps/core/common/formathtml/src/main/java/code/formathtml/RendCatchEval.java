@@ -9,6 +9,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendCatchEval extends RendAbstractCatchEval {
@@ -38,17 +39,17 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            b_.setFileName(_anaDoc.getFileName());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            Configuration.addError(b_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(b_, _anaDoc, _cont.getContext().getAnalyzing());
             return;
         }
         page_.setGlobalOffset(classNameOffset);
@@ -62,7 +63,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
             if (!(pBlock_ instanceof RendTryEval)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
@@ -72,11 +73,11 @@ public final class RendCatchEval extends RendAbstractCatchEval {
                                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof RendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
@@ -86,7 +87,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
                                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                 }
             }

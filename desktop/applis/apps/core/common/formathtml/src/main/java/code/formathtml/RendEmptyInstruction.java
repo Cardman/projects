@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.files.OffsetsBlock;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.IntTreeMap;
 import code.util.StringMap;
 
@@ -11,7 +12,7 @@ public final class RendEmptyInstruction extends RendLeaf implements RendBuildabl
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
 
     }
 

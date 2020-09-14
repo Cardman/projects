@@ -5,6 +5,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendTryBlockStack;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendTryEval extends RendParentBlock implements RendEval {
@@ -27,13 +28,13 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         RendBlock nBlock_ = getNextSibling();
         if (!(nBlock_ instanceof RendAbstractCatchEval)) {
             if (!(nBlock_ instanceof RendFinallyEval)) {
                 if (!(nBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry(),
@@ -43,11 +44,11 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
                                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFinally()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                 } else if (!(nBlock_.getNextSibling() instanceof RendAbstractCatchEval)){
                     if (!(nBlock_.getNextSibling() instanceof RendFinallyEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDoTry(),
                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry(),
@@ -57,7 +58,7 @@ public final class RendTryEval extends RendParentBlock implements RendEval {
                                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFinally()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                 }
             }

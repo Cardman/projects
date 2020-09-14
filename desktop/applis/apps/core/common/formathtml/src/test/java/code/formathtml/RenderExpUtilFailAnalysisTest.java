@@ -1,12 +1,14 @@
 package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.util.AdvancedFullStack;
+import code.formathtml.util.AnalyzingDoc;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
@@ -40,198 +42,89 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("pkg.Ex.$this", conf_);
+        assertTrue(hasErr(getConfiguration(files_), "pkg.Ex.$this"));
     }
 
     @Test
     public void processEl6FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        processEl("1&&0", context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "1&&0"));
     }
     @Test
     public void processEl9FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        processEl("$true<$false", context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "$true<$false"));
     }
     @Test
     public void processEl20FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".$classchoice(Number)format(\"6\")";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".$classchoice(Number)format(\"6\")"));
     }
     @Test
     public void processEl21FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".$superaccess(Number)format(\"6\")";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".$superaccess(Number)format(\"6\")"));
     }
     @Test
     public void processEl24FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "$firstopt(6)*(7+8)";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "$firstopt(6)*(7+8)"));
     }
     @Test
     public void processEl25FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".format(\"6\",$vararg(6))";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".format(\"6\",$vararg(6))"));
     }
     @Test
     public void processEl26FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".format($vararg(6),\"6\")";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".format($vararg(6),\"6\")"));
     }
     @Test
     public void processEl27FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "$vararg(java.lang.Object)*(7+8)";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "$vararg(java.lang.Object)*(7+8)"));
     }
     @Test
     public void processEl28FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".format($vararg(6),\"6\")";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".format($vararg(6),\"6\")"));
     }
     @Test
     public void processEl29FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "\"\".format($firstopt(6),\"6\")";
-        processEl(el_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".format($firstopt(6),\"6\")"));
     }
     @Test
     public void processEl30FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        String el_ = "";
-        processEl(el_, context_);
-        assertNotNull(getException(context_));
+        assertTrue(hasErr(getConfiguration(), ""));
     }
 
     @Test
     public void processEl33FailTest() {
-        Configuration conf_ = getConfiguration4();
-        addImportingPage(conf_);
-        String el_ = "1<2<3";
-        processEl(el_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "1<2<3"));
     }
 
     @Test
     public void processEl34FailTest() {
-        Configuration conf_ = getConfiguration4();
-        addImportingPage(conf_);
-        String el_ = "f(,)";
-        processEl(el_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "f(,)"));
     }
     @Test
     public void processAffect17FailTest() {
-        Configuration context_ = getConfiguration4();
-        LgNames custLgNames_ = context_.getContext().getStandards();
-        String primIntType_ = custLgNames_.getAliasPrimInteger();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] exp_ = new Struct[1];
-        exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processEl("$this()", context_);
+        assertTrue(hasErr(getConfiguration(), "$this()"));
     }
     @Test
     public void processAffect18FailTest() {
-        Configuration context_ = getConfiguration4();
-        LgNames custLgNames_ = context_.getContext().getStandards();
-        String primIntType_ = custLgNames_.getAliasPrimInteger();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] exp_ = new Struct[1];
-        exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processEl("v(1)", context_);
+        assertTrue(hasErr(getConfiguration(), "v(1)"));
     }
     @Test
     public void processAffect19FailTest() {
-        Configuration context_ = getConfiguration4();
-        LgNames custLgNames_ = context_.getContext().getStandards();
-        String primIntType_ = custLgNames_.getAliasPrimInteger();
-        addImportingPage(context_);
-        context_.getLastPage().setGlobalArgumentStruct(NullStruct.NULL_VALUE,context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] exp_ = new Struct[1];
-        exp_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(primIntType_)));
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processEl("v(1)", context_);
+        assertTrue(hasErr(getConfiguration(), "v(1)"));
     }
     @Test
     public void processAffect2FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
-        processEl("v=12i 1", context_);
+        Configuration context_ = getCheckedConfigurationVar("$int", "v=12i 1");
         assertTrue(!context_.isEmptyErrors());
     }
+
     @Test
     public void processAffect3FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct[] c_ = new Struct[1];
-        c_[0] = new IntStruct(0);
-        lv_.setStruct(new ArrayStruct(c_, ARR_INT));
-        lv_.setClassName(ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processEl("v[0i]=\"12i\"", context_);
+        Configuration context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"");
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl200Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        processEl("$($byte)$null", context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "$($byte)$null"));
     }
     @Test
     public void processEl384FailTest() {
@@ -257,10 +150,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex(5).inst=10", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex(5).inst=10"));
     }
     @Test
     public void processEl453Test() {
@@ -277,17 +167,11 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.ExTwo()", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.ExTwo()"));
     }
     @Test
     public void processEl453_Test() {
-        Configuration conf_ = getConfiguration4();
-        addImportingPage(conf_);
-        processEl("\"\".()", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(), "\"\".()"));
     }
     @Test
     public void processEl455Test() {
@@ -300,10 +184,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,S),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,S),15)"));
     }
     @Test
     public void processEl456Test() {
@@ -316,10 +197,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)"));
     }
     @Test
     public void processEl457Test() {
@@ -332,10 +210,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)"));
     }
     @Test
     public void processEl458Test() {
@@ -348,10 +223,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)"));
     }
     @Test
     public void processEl459Test() {
@@ -364,10 +236,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Ex<$int>().res($id(pkg.ExInex),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.ExInex),15)"));
     }
     @Test
     public void processEl461Test() {
@@ -382,10 +251,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration5(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Outer.Ex<$int>().res($id($void,T),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Outer.Ex<$int>().res($id($void,T),15)"));
     }
     @Test
     public void processEl462Test() {
@@ -400,10 +266,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,T),15)", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,T),15)"));
     }
     @Test
     public void processEl464Test() {
@@ -418,32 +281,55 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        processEl("$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()", conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(getConfiguration(files_), "$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()"));
     }
 
-    private static void processEl(String _el, Configuration _cont) {
-        if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
+    private static boolean hasErr(Configuration configuration, String s) {
+        Configuration conf_ = getCheckedConfiguration(configuration, s);
+        return !conf_.isEmptyErrors();
+    }
+
+    private static Configuration getCheckedConfigurationVar(String _intType, String s) {
+        Configuration context_ = getConfiguration();
+        AnaLocalVariable lv_ = new AnaLocalVariable();
+        lv_.setClassName(_intType);
+        processFail(s, context_, new PairVar("v", lv_));
+        return context_;
+    }
+    private static Configuration getCheckedConfiguration(Configuration configuration, String s) {
+        processFail(s, configuration);
+        return configuration;
+    }
+    private static void processFail(String _el, Configuration _cont,PairVar... _vars) {
+        processFail(_el, 0, _cont,_vars);
+    }
+    private static void processFail(String _el, int _index, Configuration _conf, PairVar... _vars) {
+        AnalyzedPageEl page_ = _conf.getContext().getAnalyzing();
+        boolean merged_ = page_.isMerged();
+        boolean accept_ = page_.isAcceptCommaInstr();
+        String currentVarSetting_ = page_.getCurrentVarSetting();
+        String globalClass_ = page_.getGlobalClass();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        Configuration.setupInts(page_, analyzingDoc_);
+        page_.setGlobalClass(globalClass_);
+        page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(globalClass_)));
+        for (PairVar e: _vars) {
+            AnaLocalVariable a_ = new AnaLocalVariable();
+            a_.setClassName(e.getLocal().getClassName());
+            a_.setConstType(ConstType.LOC_VAR);
+            page_.getInfosVars().put(e.getName(), a_);
         }
-        processEl(_el, 0, _cont);
-        assertTrue(!_cont.isEmptyErrors());
+        page_.setMerged(merged_);
+        page_.setAcceptCommaInstr(accept_);
+        page_.setCurrentVarSetting(currentVarSetting_);
+        page_.setAccessStaticContext(MethodId.getKind(true));
+        getList(_el, _index, _conf, analyzingDoc_);
+    }
+    private static Configuration getConfiguration() {
+        return getConfiguration(new StringMap<String>());
     }
 
-    private static Configuration getConfiguration4() {
-        return getConfiguration4(new StringMap<String>());
-    }
-    private static Configuration getConfiguration4(StringMap<String> _files) {
-        return getConfiguration4(_files,true);
-    }
-    private static Configuration getConfiguration4(StringMap<String> _files, boolean _init) {
-        Configuration conf_ = getConfiguration(_files, _init);
-        return conf_;
-    }
-
-    private static Configuration getConfiguration(StringMap<String> _files, boolean _init) {
+    private static Configuration getConfiguration(StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -455,14 +341,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
-    }
-
-    private static Configuration getConfiguration5(StringMap<String> _files) {
-        return getConfiguration5(_files,true);
-    }
-    private static Configuration getConfiguration5(StringMap<String> _files, boolean _init) {
-        Configuration conf_ = getConfiguration(_files, _init);
         return conf_;
     }
 

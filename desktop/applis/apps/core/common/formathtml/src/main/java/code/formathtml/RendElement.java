@@ -3,7 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
-import code.formathtml.stacks.RendRemovableVars;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -19,7 +19,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont,RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         String prefixWrite_ = _cont.getPrefix();
 //        String beanName_ = _ip.getBeanName();
         StringList attributesNames_ = new StringList();
@@ -33,7 +33,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         if (!id_.isEmpty()) {
             ResultText r_ = new ResultText();
             int off_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrId());
-            r_.buildId(id_,_cont,off_,_doc);
+            r_.buildId(id_,_cont,off_,_doc, _anaDoc);
             attributesText.put(_cont.getRendKeyWords().getAttrId(),r_);
         }
         String prefGr_ = StringList.concat(prefixWrite_, _cont.getRendKeyWords().getAttrGroupId());
@@ -42,10 +42,10 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         if (!groupId_.isEmpty()) {
             ResultText r_ = new ResultText();
             int off_ = getAttributeDelimiter(prefGr_);
-            r_.buildId(groupId_,_cont,off_,_doc);
+            r_.buildId(groupId_,_cont,off_,_doc, _anaDoc);
             attributesText.put(prefGr_,r_);
         }
-        processAttributes(_cont,_doc,read,attributesNames_);
+        processAttributes(_cont,_doc,read,attributesNames_, _anaDoc);
         for (String a: attributesNames_) {
             String attr_ = read.getAttribute(a);
             if (attr_.trim().isEmpty()) {
@@ -53,7 +53,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
             }
             ResultText r_ = new ResultText();
             int rowsGrId_ = getAttributeDelimiter(a);
-            r_.build(attr_,_cont,rowsGrId_,_doc);
+            r_.build(attr_,_cont,rowsGrId_,_doc, _anaDoc);
             attributes.addEntry(a,r_);
         }
     }
@@ -65,7 +65,7 @@ public abstract class RendElement extends RendParentBlock implements RendWithEl,
         }
     }
 
-    protected abstract void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list);
+    protected abstract void processAttributes(Configuration _cont, RendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc);
 
     public final Element getRead() {
         return read;

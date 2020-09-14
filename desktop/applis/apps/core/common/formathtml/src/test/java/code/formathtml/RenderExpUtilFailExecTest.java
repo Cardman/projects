@@ -63,7 +63,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -90,7 +90,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -117,7 +117,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -149,7 +149,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertNotNull(getException(context_));
@@ -216,7 +216,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
@@ -242,7 +242,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
@@ -271,7 +271,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
@@ -301,12 +301,17 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         assertNotNull(op_);
         Argument argGl_ = context_.getPageEl().getGlobalArgument();
         boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, context_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
         assertTrue(context_.isEmptyErrors());
         assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
     }
+
+    private static CustList<OperationNode> getSortedDescNodes(Configuration context_, OperationNode op_) {
+        return RenderExpUtil.getSortedDescNodes(op_, context_, new AnalyzingDoc());
+    }
+
     @Test
     public void processEl242Test() {
         Configuration context_ = getConfiguration4();

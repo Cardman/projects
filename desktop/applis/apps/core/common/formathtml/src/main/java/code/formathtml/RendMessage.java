@@ -6,6 +6,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 import code.sml.*;
 import code.util.*;
 
@@ -29,11 +30,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
         String value_ = elt.getAttribute(_cont.getRendKeyWords().getAttrValue());
         int offMessage_ = getAttributeDelimiter(_cont.getRendKeyWords().getAttrValue());
-        preformatted = getPre(_cont,value_,offMessage_);
+        preformatted = getPre(_cont,value_,offMessage_, _anaDoc);
         if (preformatted.isEmpty()) {
             return;
         }
@@ -58,7 +59,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 escaped.add(false);
             }
-            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -92,7 +93,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringList.concat(href_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
                             }
-                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont);
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc);
                             callExpsLoc_.add(expsCall_);
                         } else {
                             callExpsLoc_.add(new CustList<RendDynOperationNode>());
@@ -103,11 +104,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(offMessage_);
                     badEl_.buildError(_cont.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
-                    Configuration.addError(badEl_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
                 callsExps.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);

@@ -17,9 +17,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -34,9 +33,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -51,9 +49,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -68,9 +65,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -85,9 +81,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -102,9 +97,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -120,9 +114,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -137,9 +130,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main1.css", ".classTest{color:blue;}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -154,9 +146,8 @@ public final class RenderStyleTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
+
+        setup(folder_, conf_);
         setFiles(files_,conf_);
 
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);

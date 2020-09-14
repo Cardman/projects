@@ -20,10 +20,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -42,10 +40,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         
         setFiles(files_,conf_);
         RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
@@ -64,10 +60,8 @@ public final class RenderTitledAnchorTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         Configuration conf_ = contextElFive();
-        
-        conf_.setMessagesFolder(folder_);
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+
+        setup(folder_, relative_, conf_);
         
         setFiles(files_,conf_);
         buildRendWithoutBean(html_, conf_);

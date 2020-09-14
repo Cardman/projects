@@ -6,6 +6,7 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
 public final class RendElseIfCondition extends RendCondition implements RendBreakableBlock {
@@ -26,14 +27,14 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
-        super.buildExpressionLanguage(_cont, _doc);
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+        buildConditions(_cont, _anaDoc);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendIfCondition)) {
             if (!(pBlock_ instanceof RendElseIfCondition)) {
                 if (!(pBlock_ instanceof RendPossibleEmpty)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                    un_.setFileName(_anaDoc.getFileName());
                     un_.setIndexFile(getOffset().getOffsetTrim());
                     un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
@@ -43,11 +44,11 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
                                             _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
                                     ),
                                     OR_ERR));
-                    Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                    Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                 } else if (!(pBlock_.getPreviousSibling() instanceof RendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof RendElseIfCondition)){
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+                        un_.setFileName(_anaDoc.getFileName());
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
@@ -57,7 +58,7 @@ public final class RendElseIfCondition extends RendCondition implements RendBrea
                                                 _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif()
                                         ),
                                         OR_ERR));
-                        Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+                        Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                     }
                 }
             }

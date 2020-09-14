@@ -4,7 +4,6 @@ import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -127,18 +126,20 @@ public final class Navigation {
     public void setupRenders() {
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.preInitBeans(session);
-        session.getAnalyzingDoc().setLanguages(languages);
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setLanguages(languages);
         session.setCurrentLanguage(language);
-        session.setupRenders(files);
+        session.setupRenders(files, analyzingDoc_);
     }
 
     public void initInstancesPattern() {
         String keyWordNew_ = session.getKeyWords().getKeyWordNew();
+        AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
                     StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session);
+                    0, session, anaDoc_);
             info_.setResolvedClassName(exps_.last().getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
@@ -146,7 +147,7 @@ public final class Navigation {
             ValidatorInfo v_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
                     StringList.concat(keyWordNew_, " ", v_.getClassName(),RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session);
+                    0, session, anaDoc_);
             v_.setExps(exps_);
         }
     }

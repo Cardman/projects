@@ -38,11 +38,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -88,11 +84,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -129,11 +121,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -180,11 +168,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -253,10 +237,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -287,11 +268,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -332,11 +309,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
@@ -393,11 +366,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
@@ -454,11 +423,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
@@ -515,11 +480,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click2()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click2()").addEntry("val1","page2.html");
@@ -576,11 +537,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
@@ -642,11 +599,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html");
@@ -707,11 +660,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click()",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click()").addEntry("val1","page2.html#sampleName");
@@ -771,11 +720,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
         files_.put("page3.html", htmlThree_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.click(,)",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.click(,)").addEntry("val1","page2.html");
@@ -851,11 +796,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -938,11 +879,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1037,11 +974,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1126,11 +1059,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1220,11 +1149,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1317,11 +1242,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1419,11 +1340,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1510,11 +1427,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1595,11 +1508,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1686,11 +1595,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1769,11 +1674,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
 
 
         Navigation nav_ = newNavigation(conf_);
@@ -1867,10 +1768,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -1964,10 +1862,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2061,10 +1956,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2167,10 +2059,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2264,10 +2153,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2362,10 +2248,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2468,10 +2351,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2564,10 +2444,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2668,10 +2545,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2786,10 +2660,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2883,10 +2754,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -2980,10 +2848,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3077,10 +2942,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3174,10 +3036,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3246,10 +3105,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3355,10 +3211,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3463,10 +3316,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3536,10 +3386,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3609,10 +3456,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3675,10 +3519,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3748,10 +3589,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3806,11 +3644,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
 
 
         Navigation nav_ = newNavigation(conf_);
@@ -3901,11 +3735,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -3986,11 +3816,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4061,11 +3887,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4136,11 +3958,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4211,11 +4029,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4261,11 +4075,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4324,11 +4134,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4387,11 +4193,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4449,11 +4251,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4511,11 +4309,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4584,11 +4378,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4658,11 +4448,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4732,11 +4518,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4836,10 +4618,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -4941,10 +4720,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5013,10 +4789,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5089,10 +4862,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5200,10 +4970,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5308,10 +5075,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5380,10 +5144,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5453,10 +5214,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5526,10 +5284,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5629,14 +5384,10 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
+        setup(folder_, relative_, conf_, "page1.html");
         conf_.setNavigation(new StringMap<StringMap<String>>());
         conf_.getNavigation().addEntry("bean_one.validate",new StringMap<String>());
         conf_.getNavigation().getVal("bean_one.validate").addEntry("val1","page2.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5672,6 +5423,12 @@ public final class RenderNavigationTest extends CommonRender {
         nav_.processRendFormRequest();
         assertEq("page1.html", nav_.getCurrentUrl());
     }
+
+    private static void setup(String folder_, String relative_, Configuration conf_, String s) {
+        conf_.setFirstUrl(s);
+        setup(folder_,relative_,conf_);
+    }
+
     @Test
     public void form56Test() {
         String locale_ = "en";
@@ -5724,10 +5481,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5826,10 +5580,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -5928,10 +5679,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6002,11 +5750,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6077,11 +5821,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6147,11 +5887,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6215,11 +5951,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6257,11 +5989,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setup(folder_, relative_, conf_, "page.html");
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6287,11 +6015,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         Configuration conf_ = contextElFive(filesSec_);
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6316,11 +6040,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         Configuration conf_ = contextElFive();
-        conf_.setMessagesFolder(folder_);
-        conf_.setFirstUrl("page1.html");
-        
-        conf_.setProperties(new StringMap<String>());
-        conf_.getProperties().put("msg_example", relative_);
+        setupFirstUrl(folder_, relative_, conf_);
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
         nav_.setSession(conf_);
@@ -6334,6 +6054,11 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(!nav_.getSession().isEmptyErrors());
 
     }
+
+    private static void setupFirstUrl(String folder_, String relative_, Configuration conf_) {
+        setup(folder_, relative_, conf_, "page1.html");
+    }
+
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
@@ -6477,7 +6202,7 @@ public final class RenderNavigationTest extends CommonRender {
     }
     private static void initSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(_nav.getSession());
+        setupAna(_nav.getSession(), new AnalyzingDoc());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         tryInitStaticlyTypes(_nav.getSession());
@@ -6485,14 +6210,14 @@ public final class RenderNavigationTest extends CommonRender {
     }
     private static void initFailSession(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(_nav.getSession());
+        setupAna(_nav.getSession(), new AnalyzingDoc());
         _nav.initInstancesPattern();
         _nav.setupRenders();
         assertTrue(!_nav.setupRendClassesInit().isAllEmptyErrors());
     }
     private static void initSessionFail(Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(_nav.getSession());
+        setupAna(_nav.getSession(), new AnalyzingDoc());
         _nav.initInstancesPattern();
         _nav.setupRenders();
     }

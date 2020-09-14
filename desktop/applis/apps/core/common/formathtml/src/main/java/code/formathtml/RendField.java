@@ -5,6 +5,7 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 
 public final class RendField extends RendParentBlock {
@@ -18,25 +19,25 @@ public final class RendField extends RendParentBlock {
     }
 
     @Override
-    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc) {
+    public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         if (!(getParent() instanceof RendClass)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_cont.getAnalyzingDoc().getFileName());
+            un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _cont.getRendKeyWords().getKeyWordField(),
                     _cont.getRendKeyWords().getKeyWordClass());
-            Configuration.addError(un_, _cont.getAnalyzingDoc(), _cont.getContext().getAnalyzing());
+            Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
-            _cont.getAnalyzingDoc().setInternGlobalClass(intern_);
+            _anaDoc.setInternGlobalClass(intern_);
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);
-            _cont.getAnalyzingDoc().setAttribute(_cont.getRendKeyWords().getAttrPrepare());
-            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont);
-            _cont.getAnalyzingDoc().setInternGlobalClass(EMPTY_STRING);
+            _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());
+            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc);
+            _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }
 
