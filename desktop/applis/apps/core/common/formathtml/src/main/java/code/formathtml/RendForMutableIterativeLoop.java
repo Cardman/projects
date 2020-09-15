@@ -103,7 +103,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
@@ -202,7 +202,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
     }
 
     public void buildIncrementPart(Configuration _an, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+        AnalyzedPageEl page_ = _an.getContext().getAnalyzing();
         page_.setMerged(false);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);

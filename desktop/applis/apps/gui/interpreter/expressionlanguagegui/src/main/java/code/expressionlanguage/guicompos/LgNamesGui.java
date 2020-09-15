@@ -2393,7 +2393,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof EventStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = StringExpUtil.getIdFromAllTypes(className_);
@@ -4639,10 +4639,10 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public StringMap<String> buildFiles(ContextEl _context) {
-        StringMap<String> stds_ = super.buildFiles(_context);
+    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
+        StringMap<String> stds_ = super.buildFiles(_page);
         String content_ = ResourceFiles.ressourceFichier("resources_lg_gui/action_event.txt");
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String class_ = keyWords_.getKeyWordClass();
@@ -4671,7 +4671,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{actionPerformed}", aliasActionPerformed);
         map_.put("{ActionEvent}", aliasActionEvent);
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasActionListener);
@@ -4697,7 +4697,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{valueChanged}", aliasTreeListenerValueChanged);
         map_.put("{TreeNode}", aliasTreeNode);
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasTreeListener);
@@ -4711,8 +4711,8 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{valueChanged}", aliasTableValueTableChanged);
         map_.put("{int}", getAliasPrimInteger());
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
-        map_.put("{f}", tr("f",_context));
+        map_.put("{e}", tr("e", _page));
+        map_.put("{f}", tr("f", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasTableListener);
@@ -4732,7 +4732,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{mouseMoved}", aliasMouseMoved);
         map_.put("{MouseEvent}", aliasMouseEvent);
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasMouseListener);
@@ -4745,7 +4745,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{WheelListener}", aliasWheelListener);
         map_.put("{mouseMoveWheel}", aliasWheelMove);
         map_.put("{MouseWheelEvent}", aliasWheelEvent);
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{void}", getAliasVoid());
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
@@ -4762,7 +4762,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{keyReleased}", aliasKeyReleased);
         map_.put("{KeyEvent}", aliasKeyEvent);
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasKeyListener);
@@ -4782,7 +4782,7 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{windowDeactivated}", aliasWindowDeactivated);
         map_.put("{WindowEvent}", aliasWindowEvent);
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
+        map_.put("{e}", tr("e", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasWindowListener);
@@ -4796,8 +4796,8 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{valueChanged}", aliasValueChanged);
         map_.put("{int}", getAliasPrimInteger());
         map_.put("{void}", getAliasVoid());
-        map_.put("{e}", tr("e",_context));
-        map_.put("{f}", tr("f",_context));
+        map_.put("{e}", tr("e", _page));
+        map_.put("{f}", tr("f", _page));
         map_.put("{endLine}", endLine_);
         content_ = StringList.formatQuote(content_, map_);
         getPredefinedClasses().add(aliasListSelection);
@@ -4841,23 +4841,23 @@ public class LgNamesGui extends LgNamesUtils {
         map_.put("{next}", aliasGetNextCompo);
         map_.put("{getParent}", aliasGetParentCompo);
         map_.put("{getPainting}", aliasComponentGetPaint);
-        map_.put("{e}", tr("e",_context));
-        map_.put("{c}", tr("c",_context));
-        map_.put("{p}", tr("p",_context));
-        map_.put("{r}", tr("r",_context));
-        map_.put("{o}", tr("o",_context));
-        map_.put("{i}", tr("i",_context));
-        map_.put("{l}", tr("l",_context));
-        map_.put("{la}", tr("la",_context));
-        map_.put("{h}", tr("h",_context));
-        map_.put("{hf}", tr("hf",_context));
-        map_.put("{lf}", tr("lf",_context));
-        map_.put("{pf}", tr("pf",_context));
-        map_.put("{par}", tr("par",_context));
-        map_.put("{pan}", tr("pan",_context));
-        map_.put("{fct}", tr("fct",_context));
-        map_.put("{nb}", tr("nb",_context));
-        map_.put("{img}", tr("img",_context));
+        map_.put("{e}", tr("e", _page));
+        map_.put("{c}", tr("c", _page));
+        map_.put("{p}", tr("p", _page));
+        map_.put("{r}", tr("r", _page));
+        map_.put("{o}", tr("o", _page));
+        map_.put("{i}", tr("i", _page));
+        map_.put("{l}", tr("l", _page));
+        map_.put("{la}", tr("la", _page));
+        map_.put("{h}", tr("h", _page));
+        map_.put("{hf}", tr("hf", _page));
+        map_.put("{lf}", tr("lf", _page));
+        map_.put("{pf}", tr("pf", _page));
+        map_.put("{par}", tr("par", _page));
+        map_.put("{pan}", tr("pan", _page));
+        map_.put("{fct}", tr("fct", _page));
+        map_.put("{nb}", tr("nb", _page));
+        map_.put("{img}", tr("img", _page));
         map_.put("{endLine}", endLine_);
         map_.put("{suffix}", suffix_);
         map_.put("{getRender}",aliasGrListGetRender);

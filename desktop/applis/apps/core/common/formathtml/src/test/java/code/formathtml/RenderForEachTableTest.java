@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -23,7 +24,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -34,10 +34,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getRes(files_, html_));
     }
     @Test
     public void process2Test() {
@@ -47,7 +44,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -57,10 +53,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process3Test() {
@@ -70,7 +63,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -80,10 +72,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
 
 
@@ -95,7 +84,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPairFailFirst());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -105,10 +93,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process5Test() {
@@ -118,7 +103,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPairFailSecond());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -128,10 +112,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process6Test() {
@@ -141,7 +122,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailHas());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -151,10 +131,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
 
     @Test
@@ -165,7 +142,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailNext());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -175,10 +151,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process8Test() {
@@ -188,7 +161,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTableFail());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\"/>");
@@ -198,10 +170,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process9Test() {
@@ -211,7 +180,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;\" value=\"inst\"/>");
@@ -220,10 +188,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
     @Test
     public void process10Test() {
@@ -233,7 +198,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTableFailBis());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;java.lang.Integer,java.lang.Integer&gt;()\">");
@@ -241,11 +205,9 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(files_, html_));
     }
+
     @Test
     public void process11Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -254,7 +216,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -265,10 +226,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getRes(files_, html_));
     }
     @Test
     public void process12Test() {
@@ -278,7 +236,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -289,10 +246,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getRes(files_, html_));
     }
     @Test
     public void process13Test() {
@@ -302,7 +256,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -313,10 +266,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getRes(files_, html_));
     }
 
     @Test
@@ -342,14 +292,8 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getRes(filesSec_, html_));
     }
 
     @Test
@@ -377,14 +321,8 @@ public final class RenderForEachTableTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getRes(filesSec_, html_));
     }
 
     @Test
@@ -395,7 +333,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:for key=\"k\" keyClassName=\"$int\" value=\"v\" varClassName=\"$int\" map=\"$new pkg.CustTable&lt;&gt;()\">");
@@ -403,11 +340,17 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><table/></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><table/></body></html>", getRes(files_, html_));
     }
+
+    private Struct getEx(StringMap<String> files_, String html_) {
+        return getCommEx(html_,files_);
+    }
+
+    private String getRes(StringMap<String> files_, String html_) {
+        return getCommRes(html_,files_);
+    }
+
     @Test
     public void process1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
@@ -416,7 +359,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -427,8 +369,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process2FailTest() {
@@ -438,7 +379,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -449,8 +389,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process3FailTest() {
@@ -460,7 +399,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -471,8 +409,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process4FailTest() {
@@ -482,7 +419,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -493,8 +429,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process5FailTest() {
@@ -504,7 +439,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -515,8 +449,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process6FailTest() {
@@ -526,7 +459,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -539,8 +471,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process7FailTest() {
@@ -550,7 +481,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -563,8 +493,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process8FailTest() {
@@ -574,7 +503,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -587,8 +515,7 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
     @Test
     public void process9FailTest() {
@@ -598,7 +525,6 @@ public final class RenderForEachTableTest extends CommonRender {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration context_ = contextElFive(files_);
         StringBuilder xml_ = new StringBuilder();
         xml_.append("<html><body><table>");
         xml_.append("<c:set className=\"pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;\" value=\"inst=$new pkg.CustTable&lt;java.lang.String,java.lang.Integer&gt;()\"/>");
@@ -609,9 +535,13 @@ public final class RenderForEachTableTest extends CommonRender {
         xml_.append("</c:for>");
         xml_.append("</table></body></html>");
         String html_ = xml_.toString();
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(files_, html_));
     }
+
+    private boolean hasErr(StringMap<String> files_, String html_) {
+        return hasCommErr(html_, files_);
+    }
+
     private static String getCustomPairFailFirst() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

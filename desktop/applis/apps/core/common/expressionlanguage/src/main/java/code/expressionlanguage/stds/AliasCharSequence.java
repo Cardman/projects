@@ -82,7 +82,7 @@ public final class AliasCharSequence {
         }
         Struct arg_ = NumParsers.getArg(list_, _args);
         if (NumParsers.isDisplay(list_, arg_)) {
-            _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont).getDisplayedString(_cont));
+            _res.setResult(ExecCatOperation.getDisplayable(new Argument(arg_), _cont));
             return;
         }
         if (!(arg_ instanceof ArrayStruct)) {
@@ -619,13 +619,13 @@ public final class AliasCharSequence {
         _out.setResult(_instance);
     }
 
-    private static void append(StringBuilderStruct _instance, DisplayableStruct _b, ContextEl _an, ResultErrorStd _out) {
+    private static void append(StringBuilderStruct _instance, StringStruct _b, ContextEl _an, ResultErrorStd _out) {
         ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
             cont_.getInitializingTypeInfos().failInitEnums();
             return;
         }
-        _instance.getInstance().append(_b.getDisplayedString(_an).getInstance());
+        _instance.getInstance().append(_b.getInstance());
         _out.setResult(_instance);
     }
 
@@ -778,7 +778,7 @@ public final class AliasCharSequence {
         _out.setResult(_instance);
     }
 
-    private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, DisplayableStruct _s, ContextEl _an, ResultErrorStd _out) {
+    private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, StringStruct _s, ContextEl _an, ResultErrorStd _out) {
         ContextEl cont_ = _an;
         if (cont_.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
             cont_.getInitializingTypeInfos().failInitEnums();
@@ -795,7 +795,7 @@ public final class AliasCharSequence {
             _out.setError(lgNames_.getAliasBadIndex());
             return;
         }
-        _instance.getInstance().insert(index_, _s.getDisplayedString(_an).getInstance());
+        _instance.getInstance().insert(index_, _s.getInstance());
         _out.setResult(_instance);
     }
 

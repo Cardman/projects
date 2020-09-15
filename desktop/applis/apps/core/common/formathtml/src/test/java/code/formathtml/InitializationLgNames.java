@@ -1,6 +1,8 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.formathtml.util.BeanCustLgNames;
 import org.junit.Assert;
 
@@ -10,7 +12,6 @@ import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
@@ -19,22 +20,24 @@ public final class InitializationLgNames {
     private InitializationLgNames(){
     }
 
-    public static ContextEl buildStdThree(Options _opt) {
-        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
-        basicCustStandards(lgNames_);
-        basicStandards(lgNames_);
-        lgNames_.setAliasMath("java.lang.$math");
-        ContextEl context_ = build(CustList.INDEX_NOT_FOUND_ELT,lgNames_, _opt);
-        Assert.assertTrue(context_.getAnalyzing().isEmptyStdError());
-        return context_;
-    }
-    public static ContextEl build(int _stack,LgNames _lgNames, Options _opt) {
+    public static AnalyzedTestContext buildStdThree(Options _opt) {
+        BeanCustLgNames lgNames_ = getBeanCustLgNames();
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_,kw_, _lgNames,4);
-        return out_;
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, kw_, lgNames_, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, lgNames_, new CustList<CommentDelimiters>(), _opt);
+        Assert.assertTrue(page_.isEmptyStdError());
+        return new AnalyzedTestContext(contextEl_,page_);
+    }
+
+    private static BeanCustLgNames getBeanCustLgNames() {
+        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
+        basicCustStandards(lgNames_);
+        basicStandards(lgNames_);
+        lgNames_.setAliasMath("java.lang.$math");
+        return lgNames_;
     }
 
     private static void basicCustStandards(BeanCustLgNames _lgNames) {

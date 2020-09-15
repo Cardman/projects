@@ -1,6 +1,7 @@
 package code.expressionlanguage.files;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.AccessEnum;
@@ -9890,8 +9891,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static ContextEl simpleContextEnDefault() {
         //key words in some language
         ContextEl cont_ = getEnContextEl();
-        LgNames stds_ = cont_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_,name_, true, content_);
@@ -9901,8 +9903,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static ContextEl simpleContextEnDefaultComment() {
         //key words in some language
         ContextEl cont_ = getEnContextElComment();
-        LgNames stds_ = cont_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_,name_,  true, content_);
@@ -9912,8 +9915,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static ContextEl simpleContextFrDefault() {
         //key words in some language
         ContextEl cont_ = getFrContextEl();
-        LgNames stds_ = cont_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);

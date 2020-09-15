@@ -39,12 +39,12 @@ public final class ExecCatOperation extends ExecNumericOperation {
         return new Argument(new StringStruct(str_.toString()));
     }
     public static String getString(Argument _value,ContextEl _cont) {
-        return getDisplayable(_value,_cont).getDisplayedString(_cont).getInstance();
+        return getDisplayable(_value,_cont).getInstance();
     }
-    public static DisplayableStruct getDisplayable(Argument _value,ContextEl _cont) {
+    public static StringStruct getDisplayable(Argument _value,ContextEl _cont) {
         Struct a_ = _value.getStruct();
         if (a_ instanceof DisplayableStruct) {
-            return ((DisplayableStruct)a_);
+            return ((DisplayableStruct)a_).getDisplayedString(_cont);
         }
         return _cont.getStandards().getStringOfObject(_cont,a_);
     }

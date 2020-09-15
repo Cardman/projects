@@ -55,7 +55,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
@@ -95,7 +95,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(getImportedClassName());
             lv_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(getVariableName(), lv_);
+            _cont.getContext().getAnalyzing().getInfosVars().put(getVariableName(), lv_);
             return;
         }
         ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();

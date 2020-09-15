@@ -40,7 +40,7 @@ public final class RendContinueBlock extends RendLeaf implements RendBuildableEl
             b_ = b_.getParent();
         }
         if (!childOfLoop_) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();

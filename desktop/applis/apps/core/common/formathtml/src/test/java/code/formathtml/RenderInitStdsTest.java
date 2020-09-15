@@ -2,15 +2,18 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultFullStack;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
+import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -51,16 +54,19 @@ public final class RenderInitStdsTest extends CommonRender {
         conf_.setPrefix("c");
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
-        ContextEl cont_ = ContextFactory.build(-1,lk_, di_, _opt, _mess,_kw, _beanLgNames,4);
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _opt, _kw, _beanLgNames, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, _mess, _kw, _beanLgNames, new CustList<CommentDelimiters>(), _opt);
+        ContextEl cont_ = contextEl_;
+        AnalyzedTestContext a_ = new AnalyzedTestContext(contextEl_,page_);
         conf_.setContext(cont_);
         cont_.setFullStack(new DefaultFullStack(cont_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        CommonRender.getHeaders(_files, cont_);
+        CommonRender.getHeaders(_files, a_);
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return isEmptyErrors(cont_);
+        return isEmptyErrors(a_);
     }
 
     private static void basicStandards(BeanLgNames _lgNames) {

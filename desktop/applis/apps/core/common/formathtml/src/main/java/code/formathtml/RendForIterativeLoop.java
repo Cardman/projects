@@ -110,7 +110,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
@@ -212,11 +212,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+            _cont.getContext().getAnalyzing().getLoopsVars().put(variableName, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
+            _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
     }
 

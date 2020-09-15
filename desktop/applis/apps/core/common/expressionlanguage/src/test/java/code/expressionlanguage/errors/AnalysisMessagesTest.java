@@ -1,5 +1,6 @@
 package code.expressionlanguage.errors;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.InitializationLgNames;
@@ -246,10 +247,10 @@ public final class AnalysisMessagesTest {
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
-        s_.setAnalyzing();
-        s_.getAnalyzing().setAnalysisMessages(def_);
+        AnalyzedPageEl page_ = s_.setAnalyzing();
+        page_.setAnalysisMessages(def_);
         AnalysisMessages.validateMessageContents(s_,def_.allMessages());
-        assertTrue(!s_.getAnalyzing().isEmptyMessageError());
+        assertTrue(!page_.isEmptyMessageError());
     }
 
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {

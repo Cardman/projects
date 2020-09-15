@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -14,36 +15,21 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className=\"$int\" value=\"arg=2,arg2=4\"/>{arg},{arg2}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process0Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new $int[]{0,1}}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>[$int</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>[$int</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process1Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new $int[]{0,1}.length}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
 
     @Test
@@ -51,60 +37,35 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{escaped}'</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>{escaped}</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>{escaped}</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process3Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{escaped}'{1+1}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>{escaped}2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>{escaped}2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process4Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>'{''escaped}'{1+1}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>{'escaped}2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>{'escaped}2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process5Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>''{1+1}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>'2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>'2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process6Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new $int[]{0,1}.length}</body></html>";
-        Configuration conf_ = contextElFive(new StringMap<String>());
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process7Test() {
@@ -121,12 +82,7 @@ public final class RenderTextTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, files_));
     }
     @Test
     public void process8Test() {
@@ -142,12 +98,7 @@ public final class RenderTextTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body></body></html>", getRes2(folder_, relative_, html_, files_));
     }
 
     @Test
@@ -165,25 +116,16 @@ public final class RenderTextTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(folder_, relative_, html_, files_));
     }
     @Test
     public void process10Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$bool($true,1,0)}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
+
     @Test
     public void process11Test() {
         String locale_ = "en";
@@ -205,15 +147,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>txt</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>txt</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process12Test() {
@@ -240,15 +174,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>txt,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>txt,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process13Test() {
@@ -277,15 +203,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process14Test() {
@@ -314,15 +232,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process15Test() {
@@ -351,15 +261,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process16Test() {
@@ -389,15 +291,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process17Test() {
@@ -432,15 +326,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>maniere,1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process18Test() {
@@ -477,15 +363,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process19Test() {
@@ -513,15 +391,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process20Test() {
@@ -549,15 +419,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>11,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process21Test() {
@@ -586,15 +448,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process22Test() {
@@ -623,15 +477,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>11,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process23Test() {
@@ -659,15 +505,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process24Test() {
@@ -695,15 +533,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>11,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process25Test() {
@@ -731,15 +561,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process26Test() {
@@ -767,15 +589,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>11,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process27Test() {
@@ -812,15 +626,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process28Test() {
@@ -857,15 +663,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>11,11</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>11,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process29Test() {
@@ -893,15 +691,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process30Test() {
@@ -929,15 +719,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process31Test() {
@@ -965,15 +747,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>16,16</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process32Test() {
@@ -1002,15 +776,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>16,16</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process33Test() {
@@ -1038,15 +804,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>16,16</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process34Test() {
@@ -1074,15 +832,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>16,16</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process35Test() {
@@ -1119,15 +869,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>16,16</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>16,16</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process36Test() {
@@ -1155,15 +897,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process37Test() {
@@ -1202,15 +936,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,10</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process38Test() {
@@ -1249,15 +975,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1,5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1,5</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process39Test() {
@@ -1301,15 +1019,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10,10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10,10</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process40Test() {
@@ -1353,15 +1063,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>5,5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>5,5</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process41Test() {
@@ -1405,15 +1107,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process42Test() {
@@ -1458,15 +1152,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process43Test() {
@@ -1515,15 +1201,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>5</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process44Test() {
@@ -1572,15 +1250,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>5</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>5</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process45Test() {
@@ -1606,15 +1276,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process46Test() {
@@ -1640,15 +1302,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>0</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>0</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process47Test() {
@@ -1687,15 +1341,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>true</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process48Test() {
@@ -1734,15 +1380,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>true</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process49Test() {
@@ -1781,15 +1419,7 @@ public final class RenderTextTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>true</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>true</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process50Test() {
@@ -1801,28 +1431,17 @@ public final class RenderTextTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ = contextElFive();
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1</body></html>", getRes(folder_, relative_, html_, files_, new StringMap<String>()));
     }
+
     @Test
     public void process51Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className=\"StringBuilder\" value=\"arg\"/>{arg.append(0)}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(folder_, relative_, html_, new StringMap<String>()));
     }
+
     @Test
     public void process52Test() {
         String locale_ = "en";
@@ -1842,16 +1461,25 @@ public final class RenderTextTest extends CommonRender {
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
+    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
+    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
+        return getCommRes(folder_,relative_,html_,files_,_files);
+    }
+
+
+    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+    private Struct getEx(String folder_, String relative_, String html_, StringMap<String> _files) {
+        return getCommEx(folder_, relative_, html_, _files);
+    }
+
     @Test
     public void process0FailTest() {
         String locale_ = "en";
@@ -1862,84 +1490,57 @@ public final class RenderTextTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        StringMap<String> filesSec_ = new StringMap<String>();
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_));
     }
+
     @Test
     public void process1FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{1+1</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process2FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>}1+1</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process3FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set value='{(1})'/></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process4FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>1+1{</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process5FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>1+1{}<br/>'</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process6FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set value=\"({)}&quot;&quot;\"/></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process7FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$(Inexist)$null}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process8FailTest() {
@@ -1956,9 +1557,12 @@ public final class RenderTextTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, files_));
     }
+
+    private boolean hasErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_) {
+        StringMap<String> filesSec_ = new StringMap<String>();
+        return hasCommErrOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
 }

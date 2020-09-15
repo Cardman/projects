@@ -36,7 +36,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
     }
 
     protected void buildConditions(Configuration _cont, AnalyzingDoc _analyzingDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         _analyzingDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());

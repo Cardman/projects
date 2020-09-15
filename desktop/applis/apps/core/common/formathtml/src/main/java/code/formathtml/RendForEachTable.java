@@ -135,7 +135,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     public void buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
         if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
@@ -203,7 +203,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassNameFirst);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -229,7 +229,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassNameSecond);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -270,7 +270,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         if (okVarFirst) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
-            _cont.getAnalyzing().getLoopsVars().put(variableNameFirst, lv_);
+            _cont.getContext().getAnalyzing().getLoopsVars().put(variableNameFirst, lv_);
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             if (!importedClassNameFirst.isEmpty()) {
                 lInfo_.setClassName(importedClassNameFirst);
@@ -278,7 +278,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
+            _cont.getContext().getAnalyzing().getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
@@ -290,7 +290,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
                 lInfo_.setClassName(_cont.getStandards().getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
+            _cont.getContext().getAnalyzing().getInfosVars().put(variableNameSecond, lInfo_);
         }
     }
 

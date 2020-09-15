@@ -178,7 +178,7 @@ public final class RenderExpUtil {
         }
         OperationNode current_ = _current;
         while (true) {
-            _context.getAnalyzing().setOkNumOp(true);
+            _context.getContext().getAnalyzing().setOkNumOp(true);
             processAnalyze(_context, current_, _anaDoc);
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context.getContext());
@@ -205,10 +205,10 @@ public final class RenderExpUtil {
                 return next_;
             }
             if (par_ == _root) {
-                _context.getAnalyzing().setOkNumOp(true);
+                _context.getContext().getAnalyzing().setOkNumOp(true);
                 processAnalyze(_context, par_, _anaDoc);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                if (AnaTypeUtil.isPrimitive(cl_, _context.getAnalyzing())) {
+                if (AnaTypeUtil.isPrimitive(cl_, _context.getContext().getAnalyzing())) {
                     cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context.getContext());

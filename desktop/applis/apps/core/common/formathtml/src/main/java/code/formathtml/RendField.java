@@ -32,7 +32,7 @@ public final class RendField extends RendParentBlock {
             RendClass cl_ = (RendClass) getParent();
             String intern_ = cl_.getFullName();
             _anaDoc.setInternGlobalClass(intern_);
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);
             _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());

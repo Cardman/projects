@@ -2,6 +2,7 @@ package code.renders.utilcompo;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.KeyValueMemberName;
@@ -141,9 +142,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
     }
 
     @Override
-    public StringMap<String> buildFiles(ContextEl _context) {
-        StringMap<String> stds_ = super.buildFiles(_context);
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
+        StringMap<String> stds_ = super.buildFiles(_page);
+        KeyWords keyWords_ = _page.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String int_ = getAliasPrimInteger();
@@ -171,10 +172,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         map_.put("{E}", aliasListVar);
         map_.put("{int}", int_);
         map_.put("{boolean}", boolean_);
-        map_.put("{i}", tr("i",_context));
-        map_.put("{p}", tr("p",_context));
-        map_.put("{out}", tr("out",_context));
-        map_.put("{ind}", tr("ind",_context));
+        map_.put("{i}", tr("i", _page));
+        map_.put("{p}", tr("p", _page));
+        map_.put("{out}", tr("out", _page));
+        map_.put("{ind}", tr("ind", _page));
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
         map_.put("{loop}", suffixLoop_);
@@ -219,8 +220,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         map_.put("{getSecond}",getAliasGetSecond());
         map_.put("{setFirst}",aliasSetFirst);
         map_.put("{setSecond}",aliasSetSecond);
-        map_.put("{f}", tr("f",_context));
-        map_.put("{s}", tr("s",_context));
+        map_.put("{f}", tr("f", _page));
+        map_.put("{s}", tr("s", _page));
         map_.put("{CustIterTable}", aliasCustIterTable);
         map_.put("{IterTypeTable}", getAliasIteratorTableType());
         map_.put("{listItrTa}", aliasListIterTable);
@@ -254,10 +255,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames {
         getPredefinedInterfacesInitOrder().add(aliasTable);
         return stds_;
     }
-    private static String tr(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
+    private static String tr(String _var, AnalyzedPageEl analyzing) {
+        CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
+        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         String candidate_ = _var;
         int index_ = 0;
         while (StringList.contains(allKeysWords_,candidate_)) {

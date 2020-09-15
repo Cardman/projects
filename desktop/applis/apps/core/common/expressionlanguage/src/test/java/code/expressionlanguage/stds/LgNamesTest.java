@@ -1,6 +1,7 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
@@ -2237,12 +2238,12 @@ public class LgNamesTest extends ProcessMethodCommon {
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options _options) {
         AnalysisMessages mess_ = new AnalysisMessages();
         SingleContextEl ctx_ = new SingleContextEl(-1, lk_, di_, _options, kw_, lgName_, 4);
-        ctx_.setAnalyzing();
-        ctx_.getAnalyzing().setAnalysisMessages(mess_);
-        ctx_.getAnalyzing().setKeyWords(kw_);
-        ctx_.getAnalyzing().setStandards(lgName_);
+        AnalyzedPageEl page_ = ctx_.setAnalyzing();
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        page_.setStandards(lgName_);
         AnalysisMessages.validateMessageContents(ctx_,mess_.allMessages());
-        assertTrue(ctx_.getAnalyzing().isEmptyMessageError());
+        assertTrue(page_.isEmptyMessageError());
         return ctx_;
     }
 

@@ -1,5 +1,6 @@
 package code.formathtml.render;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.ContextEl;
@@ -811,25 +812,6 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
-    Configuration contextElThird(StringMap<String> _files) {
-        Configuration conf_ =  EquallableExUtil.newConfiguration();
-        conf_.setPrefix("c;");
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        
-        
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        getHeaders(_files, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        conf_.setContext(cont_);
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
-    }
-
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");
@@ -973,23 +955,25 @@ public final class SubmitFormTest extends CommonRender {
     }
 
     private Navigation initWithoutValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
-        Navigation nav_ = initCommon(locale_, folder_, relative_, content_, html_, filesSec_);
-        initSession(nav_);
-        return nav_;
-    }
-    private Navigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
-        Navigation nav_ = initCommon(locale_, folder_, relative_, content_, html_, filesSec_);
-        addVal(nav_,"valRef","pkg.MyVal");
-        initSession(nav_);
-        return nav_;
-    }
-
-    private Navigation initCommon(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ = contextElThird(filesSec_);
-        setup(folder_,relative_,conf_);
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c;");
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+
+
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        conf_.setContext(cont_.getContext());
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        conf_.setContext(cont_.getContext());
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(conf_);
         nav_.setLanguage(locale_);
@@ -1000,17 +984,54 @@ public final class SubmitFormTest extends CommonRender {
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        analyze(nav_, page_);
+        tryInitStaticlyTypes(cont_,nav_.getSession());
+        nav_.initializeRendSession();
+        return nav_;
+    }
+    private Navigation initWithValidator(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_) {
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
+        files_.put("page1.html", html_);
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c;");
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+
+
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        conf_.setContext(cont_.getContext());
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        conf_.setContext(cont_.getContext());
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        setup(folder_, relative_,conf_);
+        conf_.setFirstUrl("page1.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+        nav_.setSession(conf_);
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        addVal(nav_,"valRef","pkg.MyVal");
+        analyze(nav_, page_);
+        tryInitStaticlyTypes(cont_,nav_.getSession());
+        nav_.initializeRendSession();
         return nav_;
     }
 
-    private static void initSession(Navigation _nav) {
+    private static void analyze(Navigation _nav, AnalyzedPageEl page_) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
-        setupAna(_nav.getSession(), new AnalyzingDoc());
+        setupAna(new AnalyzingDoc(), page_);
         _nav.initInstancesPattern();
         _nav.getSession().setPrefix("c:");
         _nav.setupRenders();
-        tryInitStaticlyTypes(_nav.getSession());
-        _nav.initializeRendSession();
     }
 
 

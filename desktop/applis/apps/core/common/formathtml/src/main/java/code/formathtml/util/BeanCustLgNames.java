@@ -467,7 +467,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _context.getAnalyzing().getClasses().getClassBody(id_);
+        ExecRootBlock classBody_ = _context.getContext().getAnalyzing().getClasses().getClassBody(id_);
         CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
         ExecNamedFunctionBlock fct_ = list_.first();
         RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
@@ -492,9 +492,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public StringMap<String> buildFiles(ContextEl _context) {
-        StringMap<String> files_ = super.buildFiles(_context);
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
+        StringMap<String> files_ = super.buildFiles(_page);
+        KeyWords keyWords_ = _page.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -611,26 +611,26 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 .append(".").append(length_).append("-1]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(setKey_).append("(")
-                .append(int_).append(" ").append(tr("i",_context)).append(",").append(string_)
-                .append(" ").append(tr("k",_context)).append("){");
-        file_.append(this_).append(".").append(keys_).append("[").append(trParam("i",_context))
-                .append("]=").append(trParam("k",_context)).append(endLine_);
+                .append(int_).append(" ").append(trLoc("i", _page)).append(",").append(string_)
+                .append(" ").append(trLoc("k", _page)).append("){");
+        file_.append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page))
+                .append("]=").append(trLoc("k", _page)).append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(string_).append(" ").append(getKey_)
-                .append("(").append(int_).append(" ").append(tr("i",_context)).append("){");
+                .append("(").append(int_).append(" ").append(trLoc("i", _page)).append("){");
         file_.append(return_).append(" ").append(this_).append(".").append(keys_).append("[")
-                .append(trParam("i",_context)).append("]").append(endLine_);
+                .append(trLoc("i", _page)).append("]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(setValue_)
-                .append("(").append(int_).append(" ").append(tr("i",_context))
-                .append(",").append(object_).append(" ").append(tr("v",_context)).append("){");
-        file_.append(this_).append(".").append(values_).append("[").append(trParam("i",_context))
-                .append("]=").append(trParam("v",_context)).append(endLine_);
+                .append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append(",").append(object_).append(" ").append(trLoc("v", _page)).append("){");
+        file_.append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
+                .append("]=").append(trLoc("v", _page)).append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(object_).append(" ").append(getValue_).append("(")
-                .append(int_).append(" ").append(tr("i",_context)).append("){");
+                .append(int_).append(" ").append(trLoc("i", _page)).append("){");
         file_.append(return_).append(" ").append(this_).append(".").append(values_)
-                .append("[").append(trParam("i",_context)).append("]").append(endLine_);
+                .append("[").append(trLoc("i", _page)).append("]").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(aliasMapClear).append("(){");
         file_.append(keys_).append("=").append(new_).append(" ").append(string_)
@@ -647,128 +647,128 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ")
                 .append(put_).append("(").append(string_).append(" ")
-                .append(tr("k",_context)).append(",").append(object_)
-                .append(" ").append(tr("v",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context)).append("=")
-                .append(indexOfEntry_).append("(").append(trParam("k",_context)).append(")")
+                .append(trLoc("k", _page)).append(",").append(object_)
+                .append(" ").append(trLoc("v", _page)).append("){");
+        file_.append(int_).append(" ").append(trLoc("index", _page)).append("=")
+                .append(indexOfEntry_).append("(").append(trLoc("k", _page)).append(")")
                 .append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
-        file_.append(addEntry_).append("(").append(trParam("k",_context)).append(", ")
-                .append(trParam("v",_context)).append(")").append(endLine_);
+        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
+        file_.append(addEntry_).append("(").append(trLoc("k", _page)).append(", ")
+                .append(trLoc("v", _page)).append(")").append(endLine_);
         file_.append(return_).append(endLine_);
         file_.append("}");
-        file_.append(setValue_).append("(").append(trLoc("index",_context)).append(", ")
-                .append(trParam("v",_context)).append(")").append(endLine_);
+        file_.append(setValue_).append("(").append(trLoc("index", _page)).append(", ")
+                .append(trLoc("v", _page)).append(")").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(boolean_).append(" ").append(aliasMapContains)
-                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
+                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
         file_.append(return_).append(" ").append(indexOfEntry_).append("(")
-                .append(trParam("k",_context)).append(") != -1").append(endLine_);
+                .append(trLoc("k", _page)).append(") != -1").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(object_).append(" ").append(getVal_).append("(")
-                .append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context)).append("=").append(indexOfEntry_)
-                .append("(").append(trParam("k",_context)).append(")").append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
+                .append(string_).append(" ").append(trLoc("k", _page)).append("){");
+        file_.append(int_).append(" ").append(trLoc("index", _page)).append("=").append(indexOfEntry_)
+                .append("(").append(trLoc("k", _page)).append(")").append(endLine_);
+        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
         file_.append(return_).append(" ").append(null_).append(endLine_);
         file_.append("}");
-        file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index",_context))
+        file_.append(return_).append(" ").append(getValue_).append("(").append(trLoc("index", _page))
                 .append(")").append(endLine_);
         file_.append("}");
 
         file_.append(public_).append(" ").append(void_).append(" ")
                 .append(addEntry_).append("(").append(string_).append(" ")
-                .append(tr("k",_context)).append(",").append(object_)
-                .append(" ").append(tr("v",_context)).append("){");
+                .append(trLoc("k", _page)).append(",").append(object_)
+                .append(" ").append(trLoc("v", _page)).append("){");
         file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
                 .append(" ").append(string_).append("[").append(this_)
                 .append(".").append(keys_).append(".").append(length_)
                 .append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
-                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
                 .append(this_).append(".")
                 .append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoop("i",_context)).append("++){");
-        file_.append(trLoc(keys_,_context)).append("[").append(trLoop("i",_context))
+                .append(trLoc("i", _page)).append("++){");
+        file_.append(trLoc(keys_, _page)).append("[").append(trLoc("i", _page))
                 .append("]=").append(this_).append(".").append(keys_).append("[")
-                .append(trLoop("i",_context)).append("]").append(endLine_);
+                .append(trLoc("i", _page)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(trLoc(keys_,_context)).append("[").append(this_).append(".").append(keys_)
-                .append(".").append(length_).append("]=").append(trParam("k",_context)).append(endLine_);
-        file_.append(this_).append(".").append(keys_).append("=").append(trLoc(keys_,_context)).append(endLine_);
+        file_.append(trLoc(keys_, _page)).append("[").append(this_).append(".").append(keys_)
+                .append(".").append(length_).append("]=").append(trLoc("k", _page)).append(endLine_);
+        file_.append(this_).append(".").append(keys_).append("=").append(trLoc(keys_, _page)).append(endLine_);
         file_.append(object_).append("[] ").append(values_).append("=").append(new_).append(" ")
                 .append(object_).append("[").append(this_).append(".").append(values_).append(".")
                 .append(length_).append("+1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
-                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
                 .append(this_).append(".").append(values_).append(".").append(length_).append(endLine_)
-                .append(trLoop("i",_context)).append("++){");
-        file_.append(trLoc(values_,_context)).append("[").append(trLoop("i",_context))
+                .append(trLoc("i", _page)).append("++){");
+        file_.append(trLoc(values_, _page)).append("[").append(trLoc("i", _page))
                 .append("]=").append(this_).append(".").append(values_).append("[")
-                .append(trLoop("i",_context)).append("]").append(endLine_);
+                .append(trLoc("i", _page)).append("]").append(endLine_);
         file_.append("}");
-        file_.append(trLoc(values_,_context)).append("[").append(this_).append(".").append(values_)
-                .append(".").append(length_).append("]=").append(trParam("v",_context)).append(endLine_);
-        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_,_context))
+        file_.append(trLoc(values_, _page)).append("[").append(this_).append(".").append(values_)
+                .append(".").append(length_).append("]=").append(trLoc("v", _page)).append(endLine_);
+        file_.append(this_).append(".").append(values_).append("=").append(trLoc(values_, _page))
                 .append(endLine_);
         file_.append("}");
 
         file_.append(public_).append(" ").append(int_).append(" ").append(indexOfEntry_)
-                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
+                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
         file_.append(for_).append("(").append(int_)
-                .append(" ").append(tr("i",_context)).append("=0")
-                .append(endLine_).append(trLoop("i",_context)).append("<").append(this_)
+                .append(" ").append(trLoc("i", _page)).append("=0")
+                .append(endLine_).append(trLoc("i", _page)).append("<").append(this_)
                 .append(".").append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoop("i",_context)).append("++){");
-        file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]==").append(trParam("k",_context)).append("){");
-        file_.append(return_).append(" ").append(trLoop("i",_context)).append(endLine_);
+                .append(trLoc("i", _page)).append("++){");
+        file_.append(if_).append("(").append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page)).append("]==").append(trLoc("k", _page)).append("){");
+        file_.append(return_).append(" ").append(trLoc("i", _page)).append(endLine_);
         file_.append("}");
         file_.append("}");
         file_.append(return_).append(" -1").append(endLine_);
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(putAll_).append("(")
-                .append(getAliasStringMapObject()).append(" ").append(tr("m",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("len",_context)).append("=").append("(")
-                .append(trParam("m",_context)).append(").").append(keys_).append(".")
+                .append(getAliasStringMapObject()).append(" ").append(trLoc("m", _page)).append("){");
+        file_.append(int_).append(" ").append(trLoc("len", _page)).append("=").append("(")
+                .append(trLoc("m", _page)).append(").").append(keys_).append(".")
                 .append(length_).append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
-                .append("=0").append(endLine_).append(trLoop("i",_context)).append("<")
-                .append(trLoc("len",_context)).append(endLine_).append(trLoop("i",_context)).append("++){");
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append("=0").append(endLine_).append(trLoc("i", _page)).append("<")
+                .append(trLoc("len", _page)).append(endLine_).append(trLoc("i", _page)).append("++){");
         file_.append(" ").append(put_).append("(").append("(")
-                .append(trParam("m",_context)).append(").")
-                .append(keys_).append("[").append(trLoop("i",_context))
-                .append("], ").append("(").append(trParam("m",_context))
-                .append(").").append(values_).append("[").append(trLoop("i",_context))
+                .append(trLoc("m", _page)).append(").")
+                .append(keys_).append("[").append(trLoc("i", _page))
+                .append("], ").append("(").append(trLoc("m", _page))
+                .append(").").append(values_).append("[").append(trLoc("i", _page))
                 .append("])").append(endLine_);
         file_.append("}");
         file_.append("}");
         file_.append(public_).append(" ").append(void_).append(" ").append(removeKey_)
-                .append("(").append(string_).append(" ").append(tr("k",_context)).append("){");
-        file_.append(int_).append(" ").append(tr("index",_context))
-                .append("=").append(indexOfEntry_).append("(").append(trParam("k",_context))
+                .append("(").append(string_).append(" ").append(trLoc("k", _page)).append("){");
+        file_.append(int_).append(" ").append(trLoc("index", _page))
+                .append("=").append(indexOfEntry_).append("(").append(trLoc("k", _page))
                 .append(")").append(endLine_);
-        file_.append(if_).append("(").append(trLoc("index",_context)).append("==-1){");
+        file_.append(if_).append("(").append(trLoc("index", _page)).append("==-1){");
         file_.append(return_).append(endLine_);
         file_.append("}");
         file_.append(string_).append("[] ").append(keys_).append("=").append(new_)
                 .append(" ").append(string_).append("[").append(this_).append(".").append(keys_)
                 .append(".").append(length_).append("-1]").append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0")
-                .append(endLine_).append(trLoop("i",_context))
-                .append("<").append(trLoc("index",_context))
-                .append(endLine_).append(trLoop("i",_context))
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page)).append("=0")
+                .append(endLine_).append(trLoc("i", _page))
+                .append("<").append(trLoc("index", _page))
+                .append(endLine_).append(trLoc("i", _page))
                 .append("++){");
-        file_.append(keys_).append("[").append(trLoop("i",_context)).append("]=")
-                .append(this_).append(".").append(keys_).append("[").append(trLoop("i",_context))
+        file_.append(keys_).append("[").append(trLoc("i", _page)).append("]=")
+                .append(this_).append(".").append(keys_).append("[").append(trLoc("i", _page))
                 .append("]").append(endLine_);
         file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
-                .append("=").append(trLoc("index",_context)).append("+1").append(endLine_)
-                .append(trLoop("i",_context)).append("<").append(this_).append(".")
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append("=").append(trLoc("index", _page)).append("+1").append(endLine_)
+                .append(trLoc("i", _page)).append("<").append(this_).append(".")
                 .append(keys_).append(".").append(length_).append(endLine_)
-                .append(trLoop("i",_context)).append("++){");
-        file_.append(keys_).append("[").append(trLoop("i",_context)).append("-1]=").append(this_)
-                .append(".").append(keys_).append("[").append(trLoop("i",_context)).append("]")
+                .append(trLoc("i", _page)).append("++){");
+        file_.append(keys_).append("[").append(trLoc("i", _page)).append("-1]=").append(this_)
+                .append(".").append(keys_).append("[").append(trLoc("i", _page)).append("]")
                 .append(endLine_);
         file_.append("}");
         file_.append(this_).append(".").append(keys_).append("=").append(keys_).append(endLine_);
@@ -777,21 +777,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 .append(object_).append("[").append(this_).append(".")
                 .append(values_).append(".").append(length_).append("-1]")
                 .append(endLine_);
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context)).append("=0")
-                .append(endLine_).append(trLoop("i",_context))
-                .append("<").append(trLoc("index",_context))
-                .append(endLine_).append(trLoop("i",_context))
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page)).append("=0")
+                .append(endLine_).append(trLoc("i", _page))
+                .append("<").append(trLoc("index", _page))
+                .append(endLine_).append(trLoc("i", _page))
                 .append("++){");
-        file_.append(values_).append("[").append(trLoop("i",_context)).append("]=")
-                .append(this_).append(".").append(values_).append("[").append(trLoop("i",_context))
+        file_.append(values_).append("[").append(trLoc("i", _page)).append("]=")
+                .append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
                 .append("]").append(endLine_);
         file_.append("}");
-        file_.append(for_).append("(").append(int_).append(" ").append(tr("i",_context))
-                .append("=").append(trLoc("index",_context)).append("+1").append(endLine_)
-                .append(trLoop("i",_context)).append("<").append(this_).append(".").append(values_)
-                .append(".").append(length_).append(endLine_).append(trLoop("i",_context)).append("++){");
-        file_.append(values_).append("[").append(trLoop("i",_context)).append("-1]=")
-                .append(this_).append(".").append(values_).append("[").append(trLoop("i",_context))
+        file_.append(for_).append("(").append(int_).append(" ").append(trLoc("i", _page))
+                .append("=").append(trLoc("index", _page)).append("+1").append(endLine_)
+                .append(trLoc("i", _page)).append("<").append(this_).append(".").append(values_)
+                .append(".").append(length_).append(endLine_).append(trLoc("i", _page)).append("++){");
+        file_.append(values_).append("[").append(trLoc("i", _page)).append("-1]=")
+                .append(this_).append(".").append(values_).append("[").append(trLoc("i", _page))
                 .append("]").append(endLine_);
         file_.append("}");
         file_.append(this_).append(".").append(values_).append("=").append(values_).append(endLine_);
@@ -804,12 +804,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 .append(aliasValidator).append("{");
         file_.append(public_).append(" ").append(getAliasMessage()).append(" ")
                 .append(aliasValidate).append("(");
-        file_.append(object_).append(" ").append(tr("newValue",_context)).append(",");
-        file_.append(object_).append(" ").append(tr("oldValue",_context)).append(",");
-        file_.append(object_).append(" ").append(tr("bean",_context)).append(",");
-        file_.append(object_).append("[] ").append(tr("form",_context)).append(",");
-        file_.append(string_).append(" ").append(tr("className",_context)).append(",");
-        file_.append(string_).append(" ").append(tr("fieldName",_context));
+        file_.append(object_).append(" ").append(trLoc("newValue", _page)).append(",");
+        file_.append(object_).append(" ").append(trLoc("oldValue", _page)).append(",");
+        file_.append(object_).append(" ").append(trLoc("bean", _page)).append(",");
+        file_.append(object_).append("[] ").append(trLoc("form", _page)).append(",");
+        file_.append(string_).append(" ").append(trLoc("className", _page)).append(",");
+        file_.append(string_).append(" ").append(trLoc("fieldName", _page));
         file_.append(")");
         file_.append(endLine_);
         file_.append("}");
@@ -828,29 +828,20 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _list.add(candidate_);
         return candidate_;
     }
-    private static String tr(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
+    private static String tr(String _var, AnalyzedPageEl analyzing) {
+        CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
+        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         return getCandidate(_var, allKeysWords_);
     }
-    private static String trLoop(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
-        return getCandidate(_var, allKeysWords_);
+    private static String trLoop(String _var, AnalyzedPageEl analyzing) {
+        return tr(_var, analyzing);
     }
-    private static String trParam(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
-        return getCandidate(_var, allKeysWords_);
+    private static String trParam(String _var, AnalyzedPageEl analyzing) {
+        return trLoop(_var, analyzing);
     }
-    private static String trLoc(String _var, ContextEl _context) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
-        return getCandidate(_var, allKeysWords_);
+    private static String trLoc(String _var, AnalyzedPageEl analyzing) {
+        return trParam(_var, analyzing);
     }
 
     private static String getCandidate(String _var, CustList<String> allKeysWords_) {

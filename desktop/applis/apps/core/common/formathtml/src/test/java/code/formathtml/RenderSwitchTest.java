@@ -2,6 +2,7 @@ package code.formathtml;
 
 
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -16,14 +17,7 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
 
     @Test
@@ -31,392 +25,196 @@ public final class RenderSwitchTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process3Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process4Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process5Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'>Text</c:case><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process6Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>Text</c:case><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process7Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/><c:case value='8'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process8Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:case value='10'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process9Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process10Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process11Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process12Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default><c:case value='10'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process13Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process14Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process15Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process16Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process17Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process18Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'>Text</c:case><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process19Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'>Text</c:case><c:case value='\"8\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process20Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/><c:case value='\"8\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process21Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/><c:case value='\"10\"'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process22Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process23Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process24Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"8\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process25Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:default>Text</c:default><c:case value='\"10\"'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process26Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='\"10\"'><c:case value='\"10\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process27Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='\"10\"'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process28Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='(java.lang.String)$null'/><c:default>Text</c:default></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process29Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='(java.lang.String)$null'><c:case value='(java.lang.String)$null'>Text</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process30Test() {
@@ -429,14 +227,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process31Test() {
@@ -449,14 +240,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process32Test() {
@@ -469,14 +253,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process33Test() {
@@ -489,14 +266,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process34Test() {
@@ -509,14 +279,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process35Test() {
@@ -529,14 +292,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Other</body></html>", getRes(html_, files_));
     }
     @Test
     public void process36Test() {
@@ -549,28 +305,14 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process37Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default>Text</c:default><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process38Test() {
@@ -584,98 +326,50 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Other</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Other</body></html>", getRes(html_, files_));
     }
     @Test
     public void process39Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='1/0'><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(html_, new StringMap<String>()));
     }
+
     @Test
     public void process40Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='10'>10<c:break/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process41Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10' label='label'><c:case value='10'>10<c:break label='label'/></c:case><c:case value='8'>8</c:case></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process42Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'>Text</c:case>\n<c:case value='10'/>\n</c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process43Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'>\n<c:case value='8'/>\n<c:default>Text</c:default>\n</c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process44Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:if condition='$true' label='myllabel'><c:switch value='10'><c:case value='10'>Text<c:break label='myllabel'/></c:case></c:switch>Not Displayed</c:if></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process45Test() {
@@ -692,14 +386,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10</body></html>", getRes(html_, files_));
     }
     @Test
     public void process46Test() {
@@ -716,14 +403,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10 Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10 Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process47Test() {
@@ -740,14 +420,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process48Test() {
@@ -764,14 +437,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process49Test() {
@@ -788,14 +454,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, files_));
     }
     @Test
     public void process50Test() {
@@ -812,14 +471,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process51Test() {
@@ -836,14 +488,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>1</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>1</body></html>", getRes(html_, files_));
     }
     @Test
     public void process52Test() {
@@ -860,14 +505,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10 Text</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>10 Text</body></html>", getRes(html_, files_));
     }
     @Test
     public void process53Test() {
@@ -884,14 +522,15 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
+        assertEq("<html><body>10</body></html>", getRes(html_, files_));
+    }
 
+    private String getRes(String html_, StringMap<String> files_) {
+        return getCommRes(html_, files_);
+    }
 
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>10</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+    private Struct getEx(String html_, StringMap<String> _files) {
+        return getCommEx(html_, _files);
     }
 
     @Test
@@ -900,12 +539,7 @@ public final class RenderSwitchTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='\"ONE\"'/></c:switch></body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process1FailTest() {
@@ -919,12 +553,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void proces2FailTest() {
@@ -938,36 +567,21 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process3FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:case value='8'/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process4FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:default/><c:default/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process5FailTest() {
@@ -980,12 +594,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process6FailTest() {
@@ -998,12 +607,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process7FailTest() {
@@ -1019,12 +623,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process8FailTest() {
@@ -1039,12 +638,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process9FailTest() {
@@ -1059,12 +653,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process10FailTest() {
@@ -1080,12 +669,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process11FailTest() {
@@ -1101,12 +685,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process12FailTest() {
@@ -1122,24 +701,14 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process13FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:switch value='10'><c:case value='8'/><c:if condition=\"$true\"/></c:switch></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process14FailTest() {
@@ -1151,12 +720,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process15FailTest() {
@@ -1170,36 +734,21 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process16FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:break/></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process17FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:continue/></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process18FailTest() {
@@ -1216,12 +765,7 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process19FailTest() {
@@ -1233,11 +777,10 @@ public final class RenderSwitchTest extends CommonRender {
         enum_.append("}");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("ex_enum",enum_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
+        assertTrue(hasErr(html_, files_));
+    }
 
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+    private boolean hasErr(String html_, StringMap<String> files_) {
+        return hasCommErr(html_, files_);
     }
 }

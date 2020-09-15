@@ -39,12 +39,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -73,12 +68,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -109,12 +99,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -143,12 +128,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -182,12 +162,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -219,12 +194,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -257,12 +227,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -294,12 +259,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -330,21 +290,12 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
         RendRequestUtil.redirect(conf_, new Argument(build_), 0);
         assertNotNull(getException(conf_));
-    }
-
-    private static void simpleSetup(String folder_, String relative_, Configuration conf_) {
-        setup(folder_, relative_, conf_);
     }
 
     @Test
@@ -369,12 +320,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -403,12 +349,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         conf_.getLastPage().setGlobalArgumentStruct(build_,conf_);
@@ -440,13 +381,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_, "page1.html");
-        setFiles(files_,conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = conf_.getContainersMap().firstValue().getValue(1);
@@ -481,12 +416,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        simpleSetup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_, conf_);
+        Configuration conf_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_, nCont_,new IntStruct(2));
@@ -519,13 +449,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_, "page1.html");
-        setFiles(files_,conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(9));
@@ -568,13 +492,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_, "page1.html");
-        setFiles(files_,conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        RendBlock.getRes(rendDocumentBlock_,conf_);
+        Configuration conf_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
         addInnerPage(conf_);
         NodeContainer nCont_ = conf_.getContainersMap().firstValue().getValue(0);
         RendRequestUtil.setRendObject(conf_,nCont_,new IntStruct(9));
@@ -587,9 +505,5 @@ public final class RenderRequestUtilTest extends CommonRender {
         assertEq(6, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbersTwo"))).getInstance()[2]).intStruct());
     }
 
-    private static void setup(String folder_, String relative_, Configuration conf_, String _firstUrl) {
-        conf_.setFirstUrl(_firstUrl);
-        setup(folder_, relative_, conf_);
-    }
 
 }

@@ -1,6 +1,6 @@
 package code.expressionlanguage.options;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.stds.LgNames;
 
 
@@ -9,13 +9,13 @@ public final class PredefinedClasses {
     private static final String SPACE = " ";
     private PredefinedClasses() {
     }
-    public static String getBracedIterableType(ContextEl _context) {
+    public static String getBracedIterableType(AnalyzedPageEl analyzing) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+        LgNames stds_ = analyzing.getStandards();
         String var_ = stds_.getAliasIterableVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
@@ -28,13 +28,13 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedIteratorType(ContextEl _context) {
+    public static String getBracedIteratorType(AnalyzedPageEl analyzing) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+        LgNames stds_ = analyzing.getStandards();
         String var_ = stds_.getAliasIteratorTypeVar();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
         iterable_.append(interface_).append(SPACE);
@@ -51,13 +51,13 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedIterableTableType(ContextEl _context) {
+    public static String getBracedIterableTableType(AnalyzedPageEl analyzing) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+        LgNames stds_ = analyzing.getStandards();
         String first_ = stds_.getAliasIterableTableVarFirst();
         String second_ = stds_.getAliasIterableTableVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
@@ -71,13 +71,13 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedIteratorTableType(ContextEl _context) {
+    public static String getBracedIteratorTableType(AnalyzedPageEl analyzing) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+        LgNames stds_ = analyzing.getStandards();
         String first_ = stds_.getAliasIteratorTableTypeVarFirst();
         String second_ = stds_.getAliasIteratorTableTypeVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
@@ -96,13 +96,13 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedPairType(ContextEl _context) {
+    public static String getBracedPairType(AnalyzedPageEl analyzing) {
         char endLine_ = ';';
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
+        LgNames stds_ = analyzing.getStandards();
         String first_ = stds_.getAliasPairTypeVarFirst();
         String second_ = stds_.getAliasPairTypeVarSecond();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
@@ -119,9 +119,9 @@ public final class PredefinedClasses {
         iterable_.append("}\n");
         return iterable_.toString();
     }
-    public static String getBracedEnumType(ContextEl _context) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public static String getBracedEnumType(AnalyzedPageEl analyzing) {
+        LgNames stds_ = analyzing.getStandards();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         StringBuilder iterable_ = new StringBuilder(public_).append(SPACE);
@@ -160,9 +160,9 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedEnumParamType(ContextEl _context) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public static String getBracedEnumParamType(AnalyzedPageEl analyzing) {
+        LgNames stds_ = analyzing.getStandards();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String type_ = stds_.getAliasEnumParam();
@@ -175,9 +175,9 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedSeedGeneratorType(ContextEl _context) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public static String getBracedSeedGeneratorType(AnalyzedPageEl analyzing) {
+        LgNames stds_ = analyzing.getStandards();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();
@@ -194,9 +194,9 @@ public final class PredefinedClasses {
         return iterable_.toString();
     }
 
-    public static String getBracedSeedDoubleGeneratorType(ContextEl _context) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+    public static String getBracedSeedDoubleGeneratorType(AnalyzedPageEl analyzing) {
+        LgNames stds_ = analyzing.getStandards();
+        KeyWords keyWords_ = analyzing.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String interface_ = keyWords_.getKeyWordInterface();
         String abstract_ = keyWords_.getKeyWordAbstract();

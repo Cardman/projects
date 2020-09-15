@@ -54,7 +54,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
@@ -71,7 +71,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
-            AnaGeneType classBody_ = _cont.getAnalyzing().getAnaGeneType(id_);
+            AnaGeneType classBody_ = _cont.getContext().getAnalyzing().getAnaGeneType(id_);
             boolean final_ = true;
             if (classBody_ != null) {
                 final_ = ContextUtil.isFinalType(classBody_);

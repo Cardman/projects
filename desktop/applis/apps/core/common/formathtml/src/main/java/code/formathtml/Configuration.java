@@ -371,10 +371,6 @@ public final class Configuration {
     }
 
 
-    public String getGlobalClass() {
-        return getAnalyzing().getGlobalClass();
-    }
-
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));
         _analyzing.addWarning(_warning);
@@ -426,10 +422,6 @@ public final class Configuration {
 
     public Struct getInternGlobal() {
         return getLastPage().getInternGlobal();
-    }
-
-    public AnalyzedPageEl getAnalyzing() {
-        return getContext().getAnalyzing();
     }
 
     public StringMap<AnaLocalVariable> getLocalVars() {

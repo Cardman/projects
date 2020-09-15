@@ -1,6 +1,7 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
@@ -40,28 +41,33 @@ public final class ContextFactory {
 
     public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
                                   Options _options, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
-        ContextEl contextEl_ = new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames,_tabWidth);
+        ContextEl contextEl_ = simpleBuild(_stack, _lock, _init, _options, _definedKw, _definedLgNames, _tabWidth);
         validateStds(contextEl_,_mess,_definedKw,_definedLgNames, new CustList<CommentDelimiters>(),_options);
         return contextEl_;
     }
-    public static void validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
+
+    public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
+        return new SingleContextEl(_stack, _lock, _init, _options, _definedKw, _definedLgNames,_tabWidth);
+    }
+
+    public static AnalyzedPageEl validateStds(ContextEl _context, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames,
                                     CustList<CommentDelimiters> _comments, Options _options) {
-        _context.setAnalyzing();
-        _context.getAnalyzing().setOptions(_options);
+        AnalyzedPageEl page_ = _context.setAnalyzing();
+        page_.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
-        _context.getAnalyzing().setComments(comments_);
-        _context.getAnalyzing().setAnalysisMessages(_mess);
-        _context.getAnalyzing().setKeyWords(_definedKw);
-        _context.getAnalyzing().setStandards(_definedLgNames);
-        _context.getAnalyzing().setClasses(_context.getClasses());
-        _context.getAnalyzing().setCoverage(_context.getCoverage());
-        _context.getAnalyzing().setTabWidth(_context.getTabWidth());
-        _context.getAnalyzing().setGettingErrors(_options.isGettingErrors());
-        _context.getAnalyzing().getCoverage().setKeyWords(_definedKw);
+        page_.setComments(comments_);
+        page_.setAnalysisMessages(_mess);
+        page_.setKeyWords(_definedKw);
+        page_.setStandards(_definedLgNames);
+        page_.setClasses(_context.getClasses());
+        page_.setCoverage(_context.getCoverage());
+        page_.setTabWidth(_context.getTabWidth());
+        page_.setGettingErrors(_options.isGettingErrors());
+        page_.getCoverage().setKeyWords(_definedKw);
         AnalysisMessages.validateMessageContents(_context,_mess.allMessages());
-        if (!_context.getAnalyzing().isEmptyMessageError()) {
-            return;
+        if (!page_.isEmptyMessageError()) {
+            return page_;
         }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
         _definedKw.validateKeyWordContents(_context, keyWords_);
@@ -86,7 +92,7 @@ public final class ContextFactory {
         ValidatorStandard.validateRefTypeContents(_context, refTypes_, prims_);
         boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(_context, refTypes_);
         if (dup_) {
-            return;
+            return page_;
         }
         StringMap<CustList<KeyValueMemberName>> methods_ = _definedLgNames.allTableTypeMethodNames();
         ValidatorStandard.validateMethodsContents(_context, methods_, prims_);
@@ -103,10 +109,11 @@ public final class ContextFactory {
         ValidatorStandard.validateVarTypesDuplicates(_context, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = _definedLgNames.allMergeTableTypeMethodNames();
         ValidatorStandard.validateMergedDuplicates(_context, merge_);
-        if (!_context.getAnalyzing().isEmptyStdError()) {
-            return;
+        if (!page_.isEmptyStdError()) {
+            return page_;
         }
         _definedLgNames.build();
         ValidatorStandard.setupOverrides(_context);
+        return page_;
     }
 }

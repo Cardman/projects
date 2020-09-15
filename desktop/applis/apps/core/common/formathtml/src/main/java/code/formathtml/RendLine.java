@@ -24,7 +24,7 @@ public final class RendLine extends RendLeaf implements RendWithEl, RendReducabl
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());

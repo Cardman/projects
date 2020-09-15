@@ -2030,8 +2030,7 @@ public final class CustBeanLgNames extends BeanNatLgNames {
         ResultErrorStd res_ = new ResultErrorStd();
         if (!(_instance instanceof RealInstanceStruct)) {
             Struct arg_ = Argument.getNull(_instance);
-            Struct disp_ = ExecCatOperation.getDisplayable(new Argument(arg_), _cont);
-            res_.setResult(disp_);
+            res_.setResult(arg_);
             return res_;
         }
         if (((RealInstanceStruct)_instance).getInstance() instanceof EnumNumber) {

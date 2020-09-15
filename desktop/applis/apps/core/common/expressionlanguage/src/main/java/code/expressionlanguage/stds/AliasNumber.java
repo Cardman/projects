@@ -346,7 +346,7 @@ public final class AliasNumber {
                 return;
             }
             if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
-                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
+                StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
                 if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                     _res.setResult(BooleanStruct.of(true));
                     return;
@@ -367,7 +367,7 @@ public final class AliasNumber {
                 _res.setResult(_args[0]);
                 return;
             }
-            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont).getDisplayedString(_cont);
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
             if (StringList.quickEq(disp_.getInstance(),lgNames_.getDisplayedStrings().getTrueString())) {
                 _res.setResult(BooleanStruct.of(true));
                 return;
@@ -642,8 +642,7 @@ public final class AliasNumber {
                 _res.setResult(instance_.getDisplayedString(_cont));
                 return;
             }
-            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont)
-                    .getDisplayedString(_cont);
+            StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
             _res.setResult(disp_);
         }
     }

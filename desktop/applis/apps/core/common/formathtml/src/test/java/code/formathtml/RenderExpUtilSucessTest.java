@@ -2,16 +2,17 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -36,102 +37,75 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     @Test
     public void processEl1Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "5");
         assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl2Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static(java.lang.Long).MAX_VALUE", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Long).MAX_VALUE");
         assertEq(Long.MAX_VALUE, getNumber(arg_));
     }
     @Test
     public void processEl3Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(1+2)*3", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(1+2)*3");
         assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl4Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1- -1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1- -1");
         assertEq(2L, getNumber(arg_));
     }
     @Test
     public void processEl5Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+2*3", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+2*3");
         assertEq(7L, getNumber(arg_));
     }
     @Test
     public void processEl6Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("- -1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "- -1");
         assertEq(1L, getNumber(arg_));
     }
     @Test
     public void processEl7Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(-8l)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8l)");
         assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl8Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(8l)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8l)");
         assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl10Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("40908c", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "40908c");
         assertEq(40908, getNumber(arg_));
     }
     @Test
     public void processEl11Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\\u9fcb'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\\u9fcb'");
         assertEq(40907, getNumber(arg_));
     }
     @Test
     public void processEl12Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\\\\'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\\\\'");
         assertEq('\\', getNumber(arg_));
     }
     @Test
     public void processEl13Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\\''", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\\''");
         assertEq('\'', getNumber(arg_));
     }
     @Test
     public void processEl14Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\"'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\"'");
         assertEq('"', getNumber(arg_));
     }
     @Test
     public void processEl15Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\\n'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\\n'");
         assertEq('\n', getNumber(arg_));
     }
+
     @Test
     public void processEl16Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -140,19 +114,24 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        Argument arg_ = processElNormalField(files_, new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(2), "v", "pkg.Ex");
+        assertEq(2, getNumber(arg_));
+    }
+
+    private static Argument processElNormalField(StringMap<String> files_, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        Struct str_ = initAndSet(context_, _keyField, _value, _init);
         lv_.setStruct(str_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
+        lv_.setClassName(_clasName);
+        localVars_.put(_varName, lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("v.inst", context_);
-        assertEq(2, getNumber(arg_));
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
+        return fwdCalculate(context_, out_);
     }
+
     @Test
     public void processEl17Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -161,136 +140,102 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         context_.getLastPage().getValueVars().put("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
-        Argument arg_ = processElNormal("v.inst", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl18Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("5 $instanceof java.lang.Number", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "5 $instanceof java.lang.Number");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl19Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'5' $instanceof java.lang.Number", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'5' $instanceof java.lang.Number");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl20Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("!('5' $instanceof java.lang.Number)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "!('5' $instanceof java.lang.Number)");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl21Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1==2", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1==2");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl22Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1!=2", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1!=2");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl23Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1==2&&1+0==8", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1==2&&1+0==8");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl24Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1!=2||1+7==8", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1!=2||1+7==8");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl25Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1==2&&(1+0==8||3*3==9)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1==2&&(1+0==8||3*3==9)");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl26Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1==2||1+6==8&&1==1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1==2||1+6==8&&1==1");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl29Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1+1==2||1/0>8", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1+1==2||1/0>8");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl31Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(-8i)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8i)");
         assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl32Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(8i)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8i)");
         assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl33Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(-8I)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8I)");
         assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl34Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(8I)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8I)");
         assertEq(8, getNumber(arg_));
     }
     @Test
     public void processEl35Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(-8L)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(-8L)");
         assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl36Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).abs(8L)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).abs(8L)");
         assertEq(8L, getNumber(arg_));
     }
     @Test
     public void processEl39Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$null $instanceof java.lang.Object", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$null $instanceof java.lang.Object");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl58Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         String stringType_ = context_.getStandards().getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -307,34 +252,28 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
     public void processEl59Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         String stringType_ = context_.getStandards().getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("7"));
-        lv_.setClassName(stringType_);
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("8"));
-        lv_.setClassName(stringType_);
-        localVars_.put("2", lv_);
-        lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("f.format($vararg(java.lang.CharSequence))", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format($vararg(java.lang.CharSequence))", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
     @Test
     public void processEl60Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         String stringType_ = context_.getStandards().getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -351,69 +290,63 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("f.format(v,d,v)", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format(v,d,v)", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq("varargs;7 8 7",getString(arg_));
     }
     @Test
     public void processEl61Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         String stringType_ = context_.getStandards().getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("7"));
-        lv_.setClassName(stringType_);
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("8"));
-        lv_.setClassName(stringType_);
-        localVars_.put("2", lv_);
-        lv_ = new LocalVariable();
         lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("f.format()", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("f.format()", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq("varargs;{0} {1} {2}",getString(arg_));
     }
+
+    private static Argument processElNormal3(String el, StringMap<String> files) {
+        AnalyzedTestConfiguration context_ = getConfiguration(files);
+        addImportingPage(context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(el, context_);
+        return fwdCalculate(context_, out_);
+    }
+
     @Test
     public void processEl63Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[1i]", context_);
+        Argument arg_ = processElNormal3("$new $int[1i]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertEq(0, ((NumberStruct) (((ArrayStruct) res_).getInstance())[0]).intStruct());
     }
     @Test
     public void processEl64Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[1i][]", context_);
+        Argument arg_ = processElNormal3("$new $int[1i][]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
     }
     @Test
     public void processEl65Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new java.lang.Integer[2i]", context_);
+        Argument arg_ = processElNormal3("$new java.lang.Integer[2i]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INTEGER, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(2, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[1]);
     }
     @Test
     public void processEl66Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new java.lang.Integer[2i][]", context_);
+        Argument arg_ = processElNormal3("$new java.lang.Integer[2i][]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_ARR_INTEGER, res_.getClassName(context_.getContext()));
+        assertEq(ARR_ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(2, (((ArrayStruct) res_).getInstance()).length);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[1]);
@@ -428,10 +361,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(ints_,ARR_INT));
         lv_.setClassName(ARR_INT);
         localVars_.put("arrays", lv_);
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("arrays[0i]", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("arrays[0i]", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(0, getNumber(arg_));
     }
     @Test
@@ -450,57 +384,46 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setStruct(new ArrayStruct(ints_,ARR_ARR_INT));
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("arrays", lv_);
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("arrays[0i].length", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("arrays[0i].length", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl70Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("!!$false", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "!!$false");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl72Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static(java.lang.Byte).MAX_VALUE", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Byte).MAX_VALUE");
         assertEq((byte)127, getNumber(arg_));
     }
     @Test
     public void processEl77Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(\"Hello\\\\\"+\"World\").length()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\\\"+\"World\").length()");
         assertEq(11, getNumber(arg_));
     }
     @Test
     public void processEl78Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(\"Hello\\\"\"+\"World\").length()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\"\"+\"World\").length()");
         assertEq(11, getNumber(arg_));
     }
     @Test
     public void processEl79Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(\"Hello\\\\\"+'\\\\').length()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\\\"+'\\\\').length()");
         assertEq(7, getNumber(arg_));
     }
     @Test
     public void processEl80Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(\"Hello\\\"\"+'\\'').length()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\"\"+'\\'').length()");
         assertEq(7, getNumber(arg_));
     }
     @Test
     public void processEl81Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         String stringType_ = context_.getStandards().getAliasString();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -517,12 +440,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(stringType_);
         localVars_.put("f", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl82Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -532,12 +456,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("$static($math).abs(v[0i]+2)*2", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$static($math).abs(v[0i]+2)*2", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(20L, getNumber(arg_));
     }
     @Test
     public void processEl83Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -547,72 +472,49 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("(v[0i]+2)*2", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v[0i]+2)*2", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(20L, getNumber(arg_));
     }
     @Test
     public void processEl87Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("$bool(1>0,0i,1i)", context_);
+        Argument arg_ = processElNormal3("$bool(1>0,0i,1i)", new StringMap<String>());
         assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl88Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("$bool(1<0,0i,1i)", context_);
+        Argument arg_ = processElNormal3("$bool(1<0,0i,1i)", new StringMap<String>());
         assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl89Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("$bool(1>0,0i,1i/0i)", context_);
+        Argument arg_ = processElNormal3("$bool(1>0,0i,1i/0i)", new StringMap<String>());
         assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl90Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("$bool(1<0,1i/0i,1i)", context_);
+        Argument arg_ = processElNormal3("$bool(1<0,1i/0i,1i)", new StringMap<String>());
         assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl95Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("($new $int[1i])[0i]", context_);
+        Argument arg_ = processElNormal3("($new $int[1i])[0i]", new StringMap<String>());
         assertEq(0, getNumber(arg_));
     }
     @Test
     public void processEl96Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[]{2i}", context_);
+        Argument arg_ = processElNormal3("$new $int[]{2i}", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(1, o_.length);
         assertEq(2, ((NumberStruct)o_[0]).intStruct());
     }
     @Test
     public void processEl97Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[]{3i,7i}", context_);
+        Argument arg_ = processElNormal3("$new $int[]{3i,7i}", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
         assertEq(3, ((NumberStruct)o_[0]).intStruct());
@@ -620,21 +522,17 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl98Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[]{}", context_);
+        Argument arg_ = processElNormal3("$new $int[]{}", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INT, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(0, o_.length);
     }
     @Test
     public void processEl99Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new java.lang.Integer[]{3i,7i}", context_);
+        Argument arg_ = processElNormal3("$new java.lang.Integer[]{3i,7i}", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_INTEGER, res_.getClassName(context_.getContext()));
+        assertEq(ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         Struct[] o_ = ((ArrayStruct) res_).getInstance();
         assertEq(2, o_.length);
         assertEq(3, ((NumberStruct)o_[0]).intStruct());
@@ -662,9 +560,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth()");
         assertEq(9, getNumber(arg_));
     }
     @Test
@@ -679,9 +575,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth(6i)", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(6i)");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -696,11 +590,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex()", cont_);
-        Struct res_ = arg_.getStruct();
-        assertEq("pkg.Ex",res_.getClassName(cont_.getContext()));
+        processElNormal("$new pkg.Ex()", cont_,"pkg.Ex");
     }
     @Test
     public void processEl109Test() {
@@ -714,9 +606,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$classchoice(pkg.Ex)exmeth(6i)", cont_);
+        Argument arg_ = processEl(files_, "$classchoice(pkg.Ex)exmeth(6i)");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -732,9 +622,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$classchoice(pkg.Ex)inst", cont_);
+        Argument arg_ = processEl(files_, "$classchoice(pkg.Ex)inst");
         assertEq(2, getNumber(arg_));
     }
     @Test
@@ -745,74 +633,58 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
+        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         lv_.setStruct(str_);
         lv_.setClassName("pkg.Ex");
         localVars_.put("v", lv_);
         context_.getLastPage().getPageEl().getValueVars().putAllMap(localVars_);
-        Argument arg_ = processElNormal("v.inst", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.inst", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(2, getNumber(arg_));
     }
     @Test
     public void processEl119Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(1y+2y)*3", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(1y+2y)*3");
         assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl120Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("(1s+2y)*3", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "(1s+2y)*3");
         assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl121Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("- -1y", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "- -1y");
         assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl122Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-1y", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-1y");
         assertEq(-1, getNumber(arg_));
     }
     @Test
     public void processEl123Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "java.lang.Byte.MAX_VALUE+java.lang.Byte.MAX_VALUE");
         int max_ = Byte.MAX_VALUE+Byte.MAX_VALUE;
         assertEq(max_, getNumber(arg_));
     }
     @Test
     public void processEl123FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("+1y", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "+1y");
         assertEq(1, getNumber(arg_));
     }
     @Test
     public void processEl124Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("+-1y", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "+-1y");
         assertEq(-1, getNumber(arg_));
     }
     @Test
     public void processEl125Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.25e0+.5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.25e0+.5");
         assertEq(0.25d, getDouble(arg_));
     }
     @Test
@@ -838,374 +710,275 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     @Test
     public void processEl128Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1_0+2*3", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1_0+2*3");
         assertEq(16L, getNumber(arg_));
     }
     @Test
     public void processEl129Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).mod(-8l,3l)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).mod(-8l,3l)");
         assertEq(1L, getNumber(arg_));
     }
     @Test
     public void processEl130Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($math).quot(-8l,3l)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($math).quot(-8l,3l)");
         assertEq(-3L, getNumber(arg_));
     }
     @Test
     public void processEl131Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new $int[1i][1i]", context_);
+        Argument arg_ = processElNormal3("$new $int[1i][1i]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_ARR_INT, res_.getClassName(context_.getContext()));
+        assertEq(ARR_ARR_INT, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
-        assertEq(ARR_INT, (((ArrayStruct) res_).getInstance())[0].getClassName(context_.getContext()));
+        assertEq(ARR_INT, ((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getClassName());
         assertEq(1, (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance()).length);
         assertEq(0, ((NumberStruct) (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance())[0]).intStruct());
     }
     @Test
     public void processEl132Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$new java.lang.Integer[1i][1i]", context_);
+        Argument arg_ = processElNormal3("$new java.lang.Integer[1i][1i]", new StringMap<String>());
         Struct res_ = arg_.getStruct();
-        assertEq(ARR_ARR_INTEGER, res_.getClassName(context_.getContext()));
+        assertEq(ARR_ARR_INTEGER, ((ArrayStruct) res_).getClassName());
         assertEq(1, (((ArrayStruct) res_).getInstance()).length);
-        assertEq(ARR_INTEGER, (((ArrayStruct) res_).getInstance())[0].getClassName(context_.getContext()));
+        assertEq(ARR_INTEGER, ((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getClassName());
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct)(((ArrayStruct) res_).getInstance())[0]).getInstance())[0]);
     }
     @Test
     public void processEl133Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("($double)(1 + 2) * 3.0", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "($double)(1 + 2) * 3.0");
         assertEq(9L, getNumber(arg_));
     }
     @Test
     public void processEl134Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(" 2.0 + ($double)$static($math). quot( -8l, 3l) + 3.0", context_);
+        Argument arg_ = processEl(new StringMap<String>(), " 2.0 + ($double)$static($math). quot( -8l, 3l) + 3.0");
         assertEq(2L, getNumber(arg_));
     }
     @Test
     public void processEl135Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1 + 2 ", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1 + 2 ");
         assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl136Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1. + 2. ", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1. + 2. ");
         assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl137Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1.d + 2.d ", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1.d + 2.d ");
         assertEq(3L, getNumber(arg_));
     }
     @Test
     public void processEl138Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.2_5e0+.5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.2_5e0+.5");
         assertEq(0.25d, getDouble(arg_));
     }
     @Test
     public void processEl139Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.25e0_0+.5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.25e0_0+.5");
         assertEq(0.25d, getDouble(arg_));
     }
     @Test
     public void processEl140Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1_0.d + 2.d ", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1_0.d + 2.d ");
         assertEq(12L, getNumber(arg_));
     }
     @Test
     public void processEl141Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1.05e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1.05e1");
         assertEq(10.5d, getDouble(arg_));
     }
     @Test
     public void processEl142Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1.00625e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1.00625e1");
         assertEq(10.0625d, getDouble(arg_));
     }
     @Test
     public void processEl143Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("100.625e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "100.625e-1");
         assertEq(10.0625d, getDouble(arg_));
     }
     @Test
     public void processEl144Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("100.625", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "100.625");
         assertEq(100.625d, getDouble(arg_));
     }
     @Test
     public void processEl145Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.0", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.0");
         assertEq(1.2345678912345678912e26, getDouble(arg_));
     }
     @Test
     public void processEl147Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.");
         assertEq(1.2345678912345678912e26, getDouble(arg_));
     }
     @Test
     public void processEl148Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.e-1");
         assertEq(1.2345678912345678912e25, getDouble(arg_));
     }
     @Test
     public void processEl149Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.e1");
         assertEq(1.2345678912345678912e27, getDouble(arg_));
     }
     @Test
     public void processEl150Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456.e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456.e1");
         assertEq(1234560, getDouble(arg_));
     }
     @Test
     public void processEl151Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".078125e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".078125e-1");
         assertEq(.078125e-1, getDouble(arg_));
     }
     @Test
     public void processEl152Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.0e-36", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.0e-36");
         assertEq(1.2345678912345678912e-10, getDouble(arg_));
     }
     @Test
     public void processEl153Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("0.0e-36", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "0.0e-36");
         assertEq(0.0, getDouble(arg_));
     }
     @Test
     public void processEl154Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-0.0e-36", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-0.0e-36");
         assertEq(-0.0, getDouble(arg_));
     }
     @Test
     public void processEl155Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("0.625e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "0.625e-1");
         assertEq(0.0625, getDouble(arg_));
     }
     @Test
     public void processEl156Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".625e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".625e-1");
         assertEq(0.0625, getDouble(arg_));
     }
     @Test
     public void processEl157Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("0.625e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "0.625e1");
         assertEq(6.25, getDouble(arg_));
     }
     @Test
     public void processEl158Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".625e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".625e1");
         assertEq(6.25, getDouble(arg_));
     }
     @Test
     public void processEl159Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("0.625e0", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "0.625e0");
         assertEq(0.625, getDouble(arg_));
     }
     @Test
     public void processEl160Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".625e0", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".625e0");
         assertEq(0.625, getDouble(arg_));
     }
     @Test
     public void processEl161Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.625e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.625e1");
         assertEq(-6.25, getDouble(arg_));
     }
     @Test
     public void processEl162Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.6e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.6e1");
         assertEq(-6.0, getDouble(arg_));
     }
     @Test
     public void processEl163Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-.60e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-.60e1");
         assertEq(-6.0, getDouble(arg_));
     }
     @Test
     public void processEl164Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".6e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".6e1");
         assertEq(6.0, getDouble(arg_));
     }
     @Test
     public void processEl165Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal(".6e2", context_);
+        Argument arg_ = processEl(new StringMap<String>(), ".6e2");
         assertEq(60.0, getDouble(arg_));
     }
     @Test
     public void processEl166Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("123456789123456789123456789.1e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "123456789123456789123456789.1e1");
         assertEq(1.2345678912345678912e27, getDouble(arg_));
     }
     @Test
     public void processEl167Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("100.e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "100.e-1");
         assertEq(10.0, getDouble(arg_));
     }
     @Test
     public void processEl168Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-100.e-1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-100.e-1");
         assertEq(-10.0, getDouble(arg_));
     }
     @Test
     public void processEl169Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-1.e1", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-1.e1");
         assertEq(-10.0, getDouble(arg_));
     }
     @Test
     public void processEl170Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-1.", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-1.");
         assertEq(-1.0, getDouble(arg_));
     }
     @Test
     public void processEl171Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1e-123456789123456789123", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1e-123456789123456789123");
         assertEq(0.0, getDouble(arg_));
     }
     @Test
     public void processEl172Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-1e-123456789123456789123", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-1e-123456789123456789123");
         assertEq(-0.0, getDouble(arg_));
     }
     @Test
     public void processEl173Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("1e123456789123456789123", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "1e123456789123456789123");
         assertEq(Double.POSITIVE_INFINITY, getDouble(arg_));
     }
     @Test
     public void processEl174Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("-1e123456789123456789123", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "-1e123456789123456789123");
         assertEq(Double.NEGATIVE_INFINITY, getDouble(arg_));
     }
     @Test
     public void processEl175Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'\\u9FCB'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'\\u9FCB'");
         assertEq(40907, getNumber(arg_));
     }
     @Test
     public void processEl176Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("\"\\u9FCB\"", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "\"\\u9FCB\"");
         assertEq("\u9fcb",getString(arg_));
     }
     @Test
     public void processEl177Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("\"\\u9fcb\"", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "\"\\u9fcb\"");
         assertEq("\u9fcb",getString(arg_));
     }
     @Test
     public void processEl178Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static(java.lang.Long) .MAX_VALUE", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static(java.lang.Long) .MAX_VALUE");
         assertEq(Long.MAX_VALUE, getNumber(arg_));
     }
 
     @Test
     public void processEl331Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getStandards().getAliasPrimInteger()));
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("arg={2}", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("arg={2}", context_);
+        fwdCalculate(context_, out_);
         ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
         assertEq(1,struct_.getInstance().length);
         assertEq(2,((NumberStruct)struct_.getInstance()[0]).intStruct());
@@ -1213,356 +986,140 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     @Test
     public void processEl332Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(2));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg<<2", context_);
+        Argument argument_ = processElNormal1Int(2, "arg<<2", "arg");
         assertEq(8,getNumber(argument_));
     }
 
     @Test
     public void processEl333Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(8));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg>>2", context_);
+        Argument argument_ = processElNormal1Int(8, "arg>>2", "arg");
         assertEq(2,getNumber(argument_));
     }
 
     @Test
     public void processEl334Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(2));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg<<<2", context_);
+        Argument argument_ = processElNormal1Int(2, "arg<<<2", "arg");
         assertEq(8,getNumber(argument_));
     }
 
     @Test
     public void processEl335Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(8));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg>>>2", context_);
+        Argument argument_ = processElNormal1Int(8, "arg>>>2", "arg");
         assertEq(2,getNumber(argument_));
     }
 
     @Test
     public void processEl336Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(2));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg<<<<2", context_);
+        Argument argument_ = processElNormal1Int(2, "arg<<<<2", "arg");
         assertEq(8,getNumber(argument_));
     }
 
     @Test
     public void processEl337Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(8));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg>>>>2", context_);
+        Argument argument_ = processElNormal1Int(8, "arg>>>>2", "arg");
         assertEq(2,getNumber(argument_));
     }
 
     @Test
     public void processEl338Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(8));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg>2", context_);
+        Argument argument_ = processElNormal1Int(8, "arg>2", "arg");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl339Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&&arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&arg2");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl340Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&&arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&arg2");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl341Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&&arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(true, true, "arg&&arg2");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl342Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(10));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&3", context_);
+        Argument argument_ = processElNormal1Int(10, "arg&3", "arg");
         assertEq(2,getNumber(argument_));
     }
 
     @Test
     public void processEl343Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(8));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg|2", context_);
+        Argument argument_ = processElNormal1Int(8, "arg|2", "arg");
         assertEq(10,getNumber(argument_));
     }
 
     @Test
     public void processEl344Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(5));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg^3", context_);
+        Argument argument_ = processElNormal1Int(5, "arg^3", "arg");
         assertEq(6,getNumber(argument_));
     }
 
     @Test
     public void processEl345Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg||arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(true, true, "arg||arg2");
         assertTrue(argument_.isTrue());
     }
     @Test
     public void processEl346Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg||arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(false, true, "arg||arg2");
         assertTrue(argument_.isTrue());
     }
     @Test
     public void processEl347Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg||arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg||arg2");
         assertTrue(argument_.isFalse());
     }
 
     @Test
     public void processEl348Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasString());
-        lv_.setStruct(new StringStruct("8"));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg>\"2\"", context_);
+        Argument argument_ = processElNormal1String("arg>\"2\"");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl349Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(5));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("~arg", context_);
+        Argument argument_ = processElNormal1Int(5, "~arg", "arg");
         assertEq(-6,getNumber(argument_));
     }
 
     @Test
     public void processEl350Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(5));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("+arg", context_);
+        Argument argument_ = processElNormal1Int(5, "+arg", "arg");
         assertEq(5,getNumber(argument_));
     }
 
     @Test
     public void processEl351Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("!arg", context_);
+        Argument argument_ = processElNormalBool(true, "!arg");
         assertTrue(argument_.isFalse());
     }
 
     @Test
     public void processEl352Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("!arg", context_);
+        Argument argument_ = processElNormalBool(false, "!arg");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl353Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$bool(arg,5,6)", context_);
+        Argument argument_ = processElNormalBool(false, "$bool(arg,5,6)");
         assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl354Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$bool(arg,5,6)", context_);
+        Argument argument_ = processElNormalBool(true, "$bool(arg,5,6)");
         assertEq(5,getNumber(argument_));
     }
 
     @Test
     public void processEl355Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(5));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg%3", context_);
+        Argument argument_ = processElNormal1Int(5, "arg%3", "arg");
         assertEq(2,getNumber(argument_));
     }
     @Test
@@ -1573,305 +1130,164 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
-        context_.getLastPage().setGlobalArgumentStruct(str_,context_);
-        Argument arg_ = processElNormal("$this.inst", context_);
+        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+        context_.getLastPage().setGlobalArgumentStruct(str_,context_.getConfiguration());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$this.inst", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         assertEq(2, getNumber(arg_));
+    }
+
+    private static Struct initAndSet(Configuration context_, ClassField _keyField, Struct _value, String _className) {
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, _className,context_.getContext().getClasses().getClassBody(_className), "", -1);
+        setStruct(str_, _keyField, _value);
+        return str_;
+    }
+
+    private static Struct initAndSet(AnalyzedTestConfiguration context_, ClassField _keyField, Struct _value, String _className) {
+        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, _className,context_.getContext().getClasses().getClassBody(_className), "", -1);
+        setStruct(str_, _keyField, _value);
+        return str_;
     }
 
     @Test
     public void processEl357Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$bool(arg,5+arg2,6+arg2)", context_);
+        Argument argument_ = processElNormalBoolInt(false, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0));
         assertEq(6,getNumber(argument_));
     }
     @Test
     public void processEl358Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$bool(arg,5+arg2,6+arg2)", context_);
+        Argument argument_ = processElNormalBoolInt(true, "$bool(arg,5+arg2,6+arg2)", new IntStruct(0));
         assertEq(5,getNumber(argument_));
     }
+
     @Test
     public void processEl500Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&&=1/0>1", context_);
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg&&=1/0>1");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl500_Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg??=1/0>1", context_);
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg??=1/0>1");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl501_Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
-        lv_.setStruct(NullStruct.NULL_VALUE);
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg??=arg2", context_);
+        Argument argument_ = processElNormal2BooleanVars("arg??=arg2");
         assertTrue(argument_.isFalse());
     }
+
     @Test
     public void processEl500__Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg??arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(false, false, "arg??arg2");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl501__Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
-        lv_.setStruct(NullStruct.NULL_VALUE);
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg??arg2", context_);
+        Argument argument_ = processElNormal2BooleanVars("arg??arg2");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl501Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg||=1/0>1", context_);
+        Argument argument_ = processElNormal2BoolVars(true, false, "arg||=1/0>1");
         assertTrue(argument_.isTrue());
     }
     @Test
     public void processEl502Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg&&=arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(true, false, "arg&&=arg2");
         assertTrue(argument_.isFalse());
     }
     @Test
     public void processEl503Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(false));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg||=arg2", context_);
+        Argument argument_ = processElNormal2BoolVars(false, true, "arg||=arg2");
         assertTrue(argument_.isTrue());
     }
+
     @Test
     public void processEl198Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$(java.lang.Number)5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$(java.lang.Number)5");
         assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl199Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$($byte)5", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$($byte)5");
         assertEq(5L, getNumber(arg_));
     }
     @Test
     public void processEl201Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$(java.lang.Byte)$null", context_);
-        assertTrue(context_.isEmptyErrors());
-        assertNull(getException(context_));
+        Argument arg_ = processElNormal3("$(java.lang.Byte)$null", new StringMap<String>());
         assertSame(NullStruct.NULL_VALUE, arg_.getStruct());
     }
+
     @Test
     public void processEl203Test() {
-        Configuration conf_ = getConfiguration4();
-        addImportingPage(conf_);
-        String el_ = "1!=2!=3";
-        Argument arg_ = processElNormal(el_, conf_);
+        Argument arg_ = processEl(new StringMap<String>(), "1!=2!=3");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl210Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'+'2'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'+'2'");
         assertEq(99, getNumber(arg_));
     }
     @Test
     public void processEl211Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "\"\"+$new $char[]{'1','2'}[0]+$new $char[]{'1','2'}[1]");
         assertEq("12",getString(arg_));
     }
     @Test
     public void processEl212Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("('1'+'2')*3i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "('1'+'2')*3i");
         assertEq(297, getNumber(arg_));
     }
     @Test
     public void processEl213Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'>1i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'>1i");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl214Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'<1i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'<1i");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl215Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'<1i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'<1i");
         assertTrue(arg_.isFalse());
     }
     @Test
     public void processEl216Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'>1i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'>1i");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl217Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("'1'==49i", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "'1'==49i");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl218Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("49i=='1'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "49i=='1'");
         assertTrue(arg_.isTrue());
     }
     @Test
     public void processEl213FailTest() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("('1'+'2')*'3'", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "('1'+'2')*'3'");
         assertEq(5049, getNumber(arg_));
     }
     @Test
     public void processEl219Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("6 + $($int) - $static($math).quot(8,5) - 2", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "6 + $($int) - $static($math).quot(8,5) - 2");
         assertEq(3, getNumber(arg_));
     }
     @Test
     public void processEl220Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class($int).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class($int).getName()");
         assertEq("$int",getString(arg_));
     }
     @Test
     public void processEl221Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.Integer).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class(java.lang.Integer).getName()");
         assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
@@ -1887,9 +1303,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$class(pkg.Ex).getName()", cont_);
+        Argument arg_ = processEl(files_, "$class(pkg.Ex).getName()");
         assertEq("pkg.Ex",getString(arg_));
     }
     @Test
@@ -1899,9 +1313,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$class(pkg.Ex).getName()", cont_);
+        Argument arg_ = processEl(files_, "$class(pkg.Ex).getName()");
         assertEq("pkg.Ex",getString(arg_));
     }
     @Test
@@ -1914,9 +1326,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
         assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
@@ -1929,32 +1339,23 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
         assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl226Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).getClass(\"\").getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass(\"\").getName()");
         assertEq("java.lang.String",getString(arg_));
     }
     @Test
     public void processEl227Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).getClass(1i).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass(1i).getName()");
         assertEq("java.lang.Integer",getString(arg_));
     }
     @Test
     public void processEl228Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).getClass($null)", context_);
+        Argument arg_ = processElNormal3("$static($Class).getClass($null)", new StringMap<String>());
         assertTrue(arg_.isNull());
-        assertNull(getException(context_));
     }
     @Test
     public void processEl229Test() {
@@ -1966,23 +1367,17 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()", cont_);
+        Argument arg_ = processEl(files_, "$static($Class).getClass($new pkg.Ex<java.lang.Integer>()).getName()");
         assertEq("pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl230Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class($int[]).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class($int[]).getName()");
         assertEq("[$int",getString(arg_));
     }
     @Test
     public void processEl231Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.Integer[]).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class(java.lang.Integer[]).getName()");
         assertEq("[java.lang.Integer",getString(arg_));
     }
     @Test
@@ -1998,9 +1393,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$class(pkg.Ex[]).getName()", cont_);
+        Argument arg_ = processEl(files_, "$class(pkg.Ex[]).getName()");
         assertEq("[pkg.Ex",getString(arg_));
     }
     @Test
@@ -2010,9 +1403,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$class(pkg.Ex[]).getName()", cont_);
+        Argument arg_ = processEl(files_, "$class(pkg.Ex[]).getName()");
         assertEq("[pkg.Ex",getString(arg_));
     }
     @Test
@@ -2022,9 +1413,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$class(pkg.Ex<java.lang.Integer>[]).getName()", cont_);
+        Argument arg_ = processEl(files_, "$class(pkg.Ex<java.lang.Integer>[]).getName()");
         assertEq("[pkg.Ex<java.lang.Integer>",getString(arg_));
     }
     @Test
@@ -2037,9 +1426,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
         assertEq("[java.lang.Integer",getString(arg_));
     }
     @Test
@@ -2052,16 +1439,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex<java.lang.Integer>().exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$new pkg.Ex<java.lang.Integer>().exmeth()");
         assertEq("pkg.Ex<[java.lang.Integer>",getString(arg_));
     }
     @Test
     public void processEl237Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).getClass($new $int[]{1i}).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getClass($new $int[]{1i}).getName()");
         assertEq("[$int",getString(arg_));
     }
     @Test
@@ -2077,9 +1460,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static($Class).forName(\"pkg.Ex\",$true).getName()", cont_);
+        Argument arg_ = processEl(files_, "$static($Class).forName(\"pkg.Ex\",$true).getName()");
         assertEq("pkg.Ex",getString(arg_));
     }
     @Test
@@ -2103,24 +1484,21 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq("pkg.Ex",getString(arg_));
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = fwdCalculate(cont_, out_);
         assertEq(14, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        assertEq("pkg.Ex",getString(arg_));
     }
     @Test
     public void processEl240Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class($void).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class($void).getName()");
         assertEq("$void",getString(arg_));
     }
     @Test
     public void processEl241Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).forName(\"$void\",$true).getName()", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).forName(\"$void\",$true).getName()");
         assertEq("$void",getString(arg_));
     }
     @Test
@@ -2158,16 +1536,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(14, getNumber(arg_));
     }
     @Test
     public void processEl251Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)");
         assertEq(1, getNumber(arg_));
     }
     @Test
@@ -2204,12 +1578,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = fwdCalculate(cont_, out_);
+        assertEq(14, ((NumberStruct) cont_.getContext().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
         assertEq(15, getNumber(arg_));
-        NumberStruct res_ = (NumberStruct) cont_.getContext().getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        assertEq(14, res_.intStruct());
     }
     @Test
     public void processEl253Test() {
@@ -2245,9 +1619,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(14, getNumber(arg_));
     }
     @Test
@@ -2284,9 +1656,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq("out",getString(arg_));
     }
     @Test
@@ -2325,9 +1695,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq("super",getString(arg_));
     }
     @Test
@@ -2369,9 +1737,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
@@ -2410,9 +1776,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(14, getNumber(arg_));
     }
     @Test
@@ -2454,9 +1818,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
@@ -2500,9 +1862,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(9, getNumber(arg_));
     }
     @Test
@@ -2547,9 +1907,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
@@ -2597,13 +1955,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.isEmptyErrors());
-        assertTrue(arg_.isNull());
-        assertNull(getException(cont_));
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = fwdCalculate(cont_, out_);
         assertEq(10, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"))).intStruct());
+        assertTrue(arg_.isNull());
     }
     @Test
     public void processEl267Test() {
@@ -2645,9 +2002,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
@@ -2693,9 +2048,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(22, getNumber(arg_));
     }
     @Test
@@ -2741,9 +2094,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(28, getNumber(arg_));
     }
     @Test
@@ -2791,9 +2142,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(32, getNumber(arg_));
     }
     @Test
@@ -2843,9 +2192,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
 
@@ -2894,9 +2241,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
@@ -2940,16 +2285,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
     @Test
     public void processEl277Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$static($Class).getAllClasses().length > 10", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$static($Class).getAllClasses().length > 10");
         assertTrue(arg_.isTrue());
     }
     @Test
@@ -2995,9 +2336,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -3040,9 +2379,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -3085,9 +2422,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq("hello", getString(arg_));
     }
     @Test
@@ -3131,12 +2466,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
-        assertTrue(cont_.isEmptyErrors());
+        Argument arg_ = processElNormal3("$static(pkg.ExTwo).exmeth()", files_);
         assertTrue(arg_.isNull());
-        assertNull(getException(cont_));
     }
     @Test
     public void processEl291Test() {
@@ -3180,9 +2511,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ =processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(16, getNumber(arg_));
     }
     @Test
@@ -3227,12 +2556,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ =processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processElNormal3("$static(pkg.ExTwo).exmeth()", files_);
         assertTrue(arg_.isNull());
-        assertTrue(cont_.isEmptyErrors());
-        assertNull(getException(cont_));
     }
     @Test
     public void processEl293Test() {
@@ -3276,9 +2601,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ =processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(16, getNumber(arg_));
     }
     @Test
@@ -3315,9 +2638,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $protected $static $final $int sup=15i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -3357,9 +2678,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -3399,9 +2718,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
@@ -3441,60 +2758,43 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExAbs", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(15, getNumber(arg_));
     }
     @Test
     public void processEl307Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", context_);
-        assertTrue(context_.isEmptyErrors());
+        Argument arg_ = processElNormal3("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.Number[]{})", new StringMap<String>());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.Number",arg_.getStruct().getClassName(context_.getContext()));
+        assertEq("[java.lang.Number",((ArrayStruct)arg_.getStruct()).getClassName());
         assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
     }
+
     @Test
     public void processEl308Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})", context_);
-        assertTrue(context_.isEmptyErrors());
+        Argument arg_ = processElNormal3("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{})", new StringMap<String>());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_.getContext()));
+        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
         assertEq(0,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
     }
     @Test
     public void processEl309Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", context_);
-        assertTrue(context_.isEmptyErrors());
+        Argument arg_ = processElNormal3("$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_.getContext()));
+        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
-        assertEq("java.lang.String",(((ArrayStruct)arg_.getStruct()).getInstance())[0].getClassName(context_.getContext()));
         assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl310Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", context_);
-        assertTrue(context_.isEmptyErrors());
+        Argument arg_ = processElNormal3("$class(java.lang.Object[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke($new java.lang.String[]{\"sample\"})", new StringMap<String>());
         assertTrue(arg_.getStruct() instanceof ArrayStruct);
-        assertEq("[java.lang.String",arg_.getStruct().getClassName(context_.getContext()));
+        assertEq("[java.lang.String",((ArrayStruct)arg_.getStruct()).getClassName());
         assertEq(1,(((ArrayStruct)arg_.getStruct()).getInstance()).length);
-        assertEq("java.lang.String",(((ArrayStruct)arg_.getStruct()).getInstance())[0].getClassName(context_.getContext()));
         assertEq("sample",((StringStruct)(((ArrayStruct)arg_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
     public void processEl311Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        Argument arg_ = processElNormal("$math.abs(-8l)", context_);
+        Argument arg_ = processEl(new StringMap<String>(), "$math.abs(-8l)");
         assertEq(8L, getNumber(arg_));
     }
     @Test
@@ -3509,9 +2809,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.Ex.exmeth()", cont_);
+        Argument arg_ = processEl(files_, "pkg.Ex.exmeth()");
         assertEq(9, getNumber(arg_));
     }
     @Test
@@ -3521,19 +2819,67 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Argument processDoubleDelimiters(String s, int i, int i2) {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        Configuration conf_ = context_.getConfiguration();
         addImportingPage(context_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        processElNormal(s, context_, 2, analyzingDoc_);
-        Argument arg_ = processElNormal(s, context_, i, analyzingDoc_);
+        ContextEl context_2 = context_.getContext();
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        Delimiters d_1 = ElResolver.checkSyntaxDelimiters(s, context_.getContext(), 2);
+        assertTrue(d_1.getBadOffset() < 0);
+        int beg_1 = d_1.getIndexBegin();
+        int end_1 = d_1.getIndexEnd();
+        analyzingDoc_.setNextIndex(end_1 +2);
+        String el_1 = s.substring(beg_1, end_1 +1);
+        OperationsSequence opTwo_1 = RenderExpUtil.getOperationsSequence(2, el_1, context_.getConfiguration(), d_1, analyzingDoc_);
+        OperationNode op_1 = RenderExpUtil.createOperationNode(2, CustList.FIRST_INDEX, null, opTwo_1, context_.getConfiguration(), analyzingDoc_);
+        CustList<OperationNode> all_1 = getSortedDescNodes(context_, op_1);
+        CustList<RendDynOperationNode> out_1 = RenderExpUtil.getExecutableNodes(all_1, context_.getContext());
+        assertTrue(isEmptyErrors(context_));
+        out_1 = RenderExpUtil.getReducedNodes(out_1.last());
+        Argument arg_2 = RenderExpUtil.calculateReuse(out_1, conf_);
+        assertNull(getException(conf_));
+        ContextEl context_1 = context_.getContext();
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(s, context_.getContext(), i);
+        assertTrue(d_.getBadOffset() < 0);
+        int beg_ = d_.getIndexBegin();
+        int end_ = d_.getIndexEnd();
+        analyzingDoc_.setNextIndex(end_+2);
+        String el_ = s.substring(beg_,end_+1);
+        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(i, el_, conf_, d_, analyzingDoc_);
+        OperationNode op_ = RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_, analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_, context_.getContext());
+        assertTrue(isEmptyErrors(context_));
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        Argument arg_1 = RenderExpUtil.calculateReuse(out_, conf_);
+        assertNull(getException(conf_));
+        Argument arg_ = arg_1;
         assertEq(i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
     private static Argument processDelimiters(String s, int i) {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        Argument arg_ = processElNormal(s, context_, 2, analyzingDoc_);
+        ContextEl context_1 = context_.getContext();
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(s, context_.getContext(), 2);
+        assertTrue(d_.getBadOffset() < 0);
+        int beg_ = d_.getIndexBegin();
+        int end_ = d_.getIndexEnd();
+        analyzingDoc_.setNextIndex(end_+2);
+        String el_ = s.substring(beg_,end_+1);
+        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(2, el_, context_.getConfiguration(), d_, analyzingDoc_);
+        OperationNode op_ = RenderExpUtil.createOperationNode(2, CustList.FIRST_INDEX, null, opTwo_, context_.getConfiguration(), analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_, context_.getContext());
+        assertTrue(isEmptyErrors(context_));
+        out_ = RenderExpUtil.getReducedNodes(out_.last());
+        Argument arg_1 = RenderExpUtil.calculateReuse(out_, context_.getConfiguration());
+        assertNull(getException(context_.getConfiguration()));
+        Argument arg_ = arg_1;
         assertEq(i, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -3559,11 +2905,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq("[pkg.Ex",getString(arg_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
     }
     @Test
     public void processEl319Test() {
@@ -3586,12 +2929,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()", cont_);
+        Argument arg_ = processElNormalNotInit(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq("[pkg.Ex",getString(arg_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
     }
+
     @Test
     public void processEl320Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3614,12 +2955,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.ExTwo).exmeth()+pkg.Ex.inst", cont_);
+        Argument arg_ = processElNormalInit(files_, "$static(pkg.ExTwo).exmeth()+pkg.Ex.inst");
         assertEq(6,getNumber(arg_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl321Test() {
@@ -3643,12 +2980,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_,false);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new{} pkg.Ex().inst", cont_);
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst");
         assertEq(1,getNumber(arg_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl322Test() {
@@ -3675,12 +3008,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.Ex().$new Inner().inst", cont_);
+        Argument arg_ = processElNormalInit(files_, "$new pkg.Ex().$new Inner().inst");
         assertEq(5,getNumber(arg_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl359Test() {
@@ -3704,12 +3033,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_,false);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("$new{} pkg.Ex().inst", conf_);
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex().inst");
         assertEq(1,getNumber(arg_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
 
     @Test
@@ -3737,16 +3062,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_,false);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("$new{} pkg.Ex(5).inst", conf_);
+        Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex(5).inst");
         assertEq(5,getNumber(arg_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl361Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(context_.getStandards().getAliasPrimLong());
@@ -3754,7 +3075,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("arg", lv_);
         addImportingPage(context_);
         CommonRender.setVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("([arg])", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("([arg])", context_);
+        Argument argument_ = fwdCalculate(context_, out_);
         assertEq(5,getNumber(argument_));
     }
 
@@ -3773,43 +3095,26 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.ExTwo.exmeth($vararg($int),4,$firstopt(8))", cont_);
+        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt(8))");
         assertEq(12,getNumber(arg_));
     }
     @Test
     public void processEl365Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("($boolean)arg", context_);
+        Argument argument_ = processElNormalBoolInt(true, "($boolean)arg", new IntStruct(0));
         assertTrue(argument_.isTrue());
     }
     @Test
     public void processEl366Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getStandards().getAliasString());
         lv_.setStruct(new StringStruct("str"));
         localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
         addImportingPage(context_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("(String)arg", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(String)arg", context_);
+        Argument argument_ = fwdCalculate(context_, out_);
         assertEq("str",getString(argument_));
     }
     @Test
@@ -3820,9 +3125,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("1 $instanceof pkg.ExTwo", cont_);
+        Argument arg_ = processEl(files_, "1 $instanceof pkg.ExTwo");
         assertTrue(arg_.isFalse());
     }
     @Test
@@ -3833,71 +3136,37 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("$public $class pkg.ExTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$new pkg.ExTwo<java.lang.Object>() $instanceof pkg.ExTwo", cont_);
+        Argument arg_ = processEl(files_, "$new pkg.ExTwo<java.lang.Object>() $instanceof pkg.ExTwo");
         assertTrue(arg_.isTrue());
     }
 
     @Test
     public void processEl371Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasString());
-        lv_.setStruct(new StringStruct("8"));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg!=\"2\"", context_);
+        Argument argument_ = processElNormal1String("arg!=\"2\"");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl372Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasString());
-        lv_.setStruct(new StringStruct("8"));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg==\"2\"", context_);
+        Argument argument_ = processElNormal1String("arg==\"2\"");
         assertTrue(argument_.isFalse());
     }
 
     @Test
     public void processEl373Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasString());
-        lv_.setStruct(new StringStruct("8"));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg!=\"8\"", context_);
+        Argument argument_ = processElNormal1String("arg!=\"8\"");
         assertTrue(argument_.isFalse());
     }
 
     @Test
     public void processEl374Test() {
-        Configuration context_ = getConfiguration4();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasString());
-        lv_.setStruct(new StringStruct("8"));
-        localVars_.put("arg", lv_);
-        addImportingPage(context_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("arg==\"8\"", context_);
+        Argument argument_ = processElNormal1String("arg==\"8\"");
         assertTrue(argument_.isTrue());
     }
 
     @Test
     public void processEl376Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -3907,7 +3176,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument arg_ = processElNormal("v.clone()", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.clone()", context_);
+        Argument arg_ = fwdCalculate(context_, out_);
         ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
         assertEq(1, arr_.getInstance().length);
         assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
@@ -3927,9 +3197,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)", cont_);
+        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int...),4,8)");
         assertEq(12,getNumber(arg_));
     }
     @Test
@@ -3943,9 +3211,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)", cont_);
+        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)");
         assertEq(12,getNumber(arg_));
     }
     @Test
@@ -3956,19 +3222,18 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
-        Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(str_,new ClassField("pkg.Ex","inst"), new IntStruct(2));
-        context_.getLastPage().setGlobalArgumentStruct(str_,context_);
+        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+        context_.getLastPage().setGlobalArgumentStruct(str_,context_.getConfiguration());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(0));
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("(v)=$this.inst", context_);
-        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v)=$this.inst", context_);
+        fwdCalculate(context_, out_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
     @Test
@@ -3979,18 +3244,18 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration context_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration context_ = getConfiguration(files_);
         addImportingPage(context_);
         Struct str_ = context_.getContext().getInit().processInit(context_.getContext(), NullStruct.NULL_VALUE, "pkg.Ex",context_.getContext().getClasses().getClassBody("pkg.Ex"), "", -1);
-        context_.getLastPage().setGlobalArgumentStruct(str_,context_);
+        context_.getLastPage().setGlobalArgumentStruct(str_,context_.getConfiguration());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(2));
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("$this.inst=(v)", context_);
-        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$this.inst=(v)", context_);
+        fwdCalculate(context_, out_);
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
     @Test
@@ -4018,12 +3283,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("++pkg.Ex.inst", conf_);
+        Argument arg_ = processElNormalInit(files_, "++pkg.Ex.inst");
         assertEq(2,getNumber(arg_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl380Test() {
@@ -4050,12 +3311,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("pkg.Ex.inst++", conf_);
+        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst++");
         assertEq(1,getNumber(arg_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
     @Test
     public void processEl381Test() {
@@ -4082,13 +3339,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("pkg.Ex.inst+=5", conf_);
+        Argument arg_ = processElNormalInit(files_, "pkg.Ex.inst+=5");
         assertEq(6,getNumber(arg_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
     }
+
     @Test
     public void processEl384Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4113,9 +3367,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_,false);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new{} pkg.Ex(5).inst=10", conf_);
+        Argument argument_ = processEl(files_, "$new{} pkg.Ex(5).inst=10");
         assertEq(10,getNumber(argument_));
     }
     @Test
@@ -4142,9 +3394,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_,false);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("pkg.Ex.inst=10", conf_);
+        Argument argument_ = processEl(files_, "pkg.Ex.inst=10");
         assertEq(10,getNumber(argument_));
     }
     @Test
@@ -4174,9 +3424,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_,false);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new{} pkg.Ex(52).$that.res(8)", conf_);
+        Argument argument_ = processEl(files_, "$new{} pkg.Ex(52).$that.res(8)");
         assertEq(60,getNumber(argument_));
     }
     @Test
@@ -4207,9 +3455,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("pkg.Ex.res(8)", conf_);
+        Argument argument_ = processEl(files_, "pkg.Ex.res(8)");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -4239,11 +3485,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$classchoice(pkg.Ex)res(8)");
         assertEq(60,getNumber(argument_));
     }
+
     @Test
     public void processEl394Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4272,9 +3517,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("pkg.Ex.$classchoice(pkg.Ex)res(8)", conf_);
+        Argument argument_ = processEl(files_, "pkg.Ex.$classchoice(pkg.Ex)res(8)");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -4304,9 +3547,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Ex(52).$superaccess(pkg.Ex)res(8)");
         assertEq(60,getNumber(argument_));
     }
     @Test
@@ -4337,9 +3578,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("pkg.Ex.$superaccess(pkg.Ex)res(8)", conf_);
+        Argument argument_ = processEl(files_, "pkg.Ex.$superaccess(pkg.Ex)res(8)");
         assertEq(9,getNumber(argument_));
     }
     @Test
@@ -4357,9 +3596,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$values(pkg.ExTwo).length", conf_);
+        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length");
         assertEq(2,getNumber(argument_));
     }
     @Test
@@ -4378,9 +3615,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$valueOf(pkg.ExTwo,\"ONE\").myval", conf_);
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4399,9 +3634,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$valueOf(pkg.ExTwo,\"TWO\").myval", conf_);
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4413,9 +3646,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" ONE,TWO\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$values(pkg.ExTwo).length", conf_);
+        Argument argument_ = processEl(files_, "$values(pkg.ExTwo).length");
         assertEq(2,getNumber(argument_));
     }
     @Test
@@ -4428,9 +3659,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $int myval;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$valueOf(pkg.ExTwo,\"ONE\").myval", conf_);
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"ONE\").myval");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4443,9 +3672,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" $public $int myval;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$valueOf(pkg.ExTwo,\"TWO\").myval", conf_);
+        Argument argument_ = processEl(files_, "$valueOf(pkg.ExTwo,\"TWO\").myval");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4456,9 +3683,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$lambda(pkg.Ex,,inst,$int).call(4)", conf_);
+        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,$int).call(4)");
         assertEq(4,getNumber(argument_));
     }
     @Test
@@ -4469,9 +3694,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$lambda(java.lang.String,length).call(\"mystr\")", conf_);
+        Argument argument_ = processEl(files_, "$lambda(java.lang.String,length).call(\"mystr\")");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4482,9 +3705,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("((java.lang.String)$lambda(java.lang.String,$new,$char...).call($new $char[]{'m','y','s','t','r'})).length()", conf_);
+        Argument argument_ = processEl(files_, "((java.lang.String)$lambda(java.lang.String,$new,$char...).call($new $char[]{'m','y','s','t','r'})).length()");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4495,9 +3716,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("\"mystr\".$lambda(java.lang.String,length).call()", conf_);
+        Argument argument_ = processEl(files_, "\"mystr\".$lambda(java.lang.String,length).call()");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4515,9 +3734,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("pkg.Ex.inst.$lambda(java.lang.String,length).call()", conf_);
+        Argument argument_ = processEl(files_, "pkg.Ex.inst.$lambda(java.lang.String,length).call()");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4535,9 +3752,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")", conf_);
+        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,,inst,java.lang.String).call(\"mystr\")");
         assertEq("mystr",getString(argument_));
     }
     @Test
@@ -4557,9 +3772,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($new pkg.Ex(6)+$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "($new pkg.Ex(6)+$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4579,9 +3792,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "$operator(+)($new pkg.Ex(6),$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4601,9 +3812,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$operator(+,pkg.Ex)($new pkg.Ex(6),$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "$operator(+,pkg.Ex)($new pkg.Ex(6),$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4614,9 +3823,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)", conf_);
+        Argument argument_ = processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int)())).pl(6,8)");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4629,9 +3836,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)", conf_);
+        Argument argument_ = processEl(files_, "($(pkg.Int)($static().$lambda($math,plus,$int,$int),$interfaces(pkg.Int2)(),$interfaces(pkg.Int)())).pl(6,8)");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4643,9 +3848,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$($int)(1??2)", conf_);
+        Argument argument_ = processEl(files_, "$($int)(1??2)");
         assertEq(1,getNumber(argument_));
     }
     @Test
@@ -4657,9 +3860,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$($int)($null??2)", conf_);
+        Argument argument_ = processEl(files_, "$($int)($null??2)");
         assertEq(2,getNumber(argument_));
     }
     @Test
@@ -4671,25 +3872,19 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("\"\"?.length()", conf_);
+        Argument argument_ = processEl(files_, "\"\"?.length()");
         assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl_424___Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()", conf_);
+        Argument argument_ = processEl(files_, "($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()");
         assertEq(0,getNumber(argument_));
     }
     @Test
     public void processEl_425___Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($(java.lang.String)(($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()==0?$null:$null))?.$lambda(java.lang.String,length).call()", conf_);
+        Argument argument_ = processEl(files_, "($(java.lang.String)(($(java.lang.String)$null)?.$lambda(java.lang.String,length).call()==0?$null:$null))?.$lambda(java.lang.String,length).call()");
         assertEq(0,getNumber(argument_));
     }
     @Test
@@ -4700,9 +3895,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($new pkg.Cl().str)?.length()", conf_);
+        Argument argument_ = processEl(files_, "($new pkg.Cl().str)?.length()");
         assertEq(0,getNumber(argument_));
     }
     @Test
@@ -4713,9 +3906,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Cl()?.str=\"hello\"", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str=\"hello\"");
         assertEq("hello",getString(argument_));
     }
     @Test
@@ -4729,10 +3920,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.ClOwner()?.owner?.str=\"hello\"", conf_);
-        assertNull(getException(conf_));
+        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str=\"hello\"", files_);
+        
         assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
     }
     @Test
@@ -4743,9 +3932,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Cl()?.str+=\"hello\"", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str+=\"hello\"");
         assertEq("hello",getString(argument_));
     }
     @Test
@@ -4759,10 +3946,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.ClOwner()?.owner?.str+=\"hello\"", conf_);
-        assertNull(getException(conf_));
+        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str+=\"hello\"", files_);
+        
         assertSame(NullStruct.NULL_VALUE,argument_.getStruct());
     }
     @Test
@@ -4773,9 +3958,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Cl()?.str++", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Cl()?.str++");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -4786,9 +3969,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("++$new pkg.Cl()?.str", conf_);
+        Argument argument_ = processEl(files_, "++$new pkg.Cl()?.str");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -4802,12 +3983,11 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.ClOwner()?.owner?.str++", conf_);
-        assertNull(getException(conf_));
+        Argument argument_ = processElNormal3("$new pkg.ClOwner()?.owner?.str++", files_);
+        
         assertEq(0,getNumber(argument_));
     }
+
     @Test
     public void processEl433___Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4819,10 +3999,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("++$new pkg.ClOwner()?.owner?.str", conf_);
-        assertNull(getException(conf_));
+        Argument argument_ = processElNormal3("++$new pkg.ClOwner()?.owner?.str", files_);
+        
         assertEq(0,getNumber(argument_));
     }
     @Test
@@ -4843,9 +4021,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res+=$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res+=$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4866,9 +4042,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res++).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res++).inst");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -4889,9 +4063,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(++pkg.Ex.res).inst", conf_);
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res).inst");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4912,9 +4084,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res[0]+=$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res[0]+=$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -4935,9 +4105,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res[0]++).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res[0]++).inst");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -4958,9 +4126,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(++pkg.Ex.res[0]).inst", conf_);
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res[0]).inst");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -4984,9 +4150,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]+=$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -5010,9 +4174,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res.res[0]++).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res[0]++).inst");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -5036,9 +4198,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(++pkg.Ex.res.res[0]).inst", conf_);
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res[0]).inst");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -5062,9 +4222,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res.res+=$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res+=$new pkg.Ex(8)).inst");
         assertEq(14,getNumber(argument_));
     }
     @Test
@@ -5088,9 +4246,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(pkg.Ex.res.res++).inst", conf_);
+        Argument argument_ = processEl(files_, "(pkg.Ex.res.res++).inst");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -5114,9 +4270,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("(++pkg.Ex.res.res).inst", conf_);
+        Argument argument_ = processEl(files_, "(++pkg.Ex.res.res).inst");
         assertEq(7,getNumber(argument_));
     }
     @Test
@@ -5140,7 +4294,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5151,7 +4305,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("(v+=$new pkg.Ex(8)).inst", conf_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v+=$new pkg.Ex(8)).inst", conf_);
+        Argument argument_ = fwdCalculate(conf_, out_);
         assertEq(14,getNumber(argument_));
         assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -5177,7 +4332,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5188,7 +4343,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("(v++).inst", conf_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v++).inst", conf_);
+        Argument argument_ = fwdCalculate(conf_, out_);
         assertEq(6,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -5213,7 +4369,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
         ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5224,7 +4380,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         addImportingPage(conf_);
         CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("(++v).inst", conf_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(++v).inst", conf_);
+        Argument argument_ = fwdCalculate(conf_, out_);
         assertEq(7,getNumber(argument_));
         assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
     }
@@ -5246,18 +4403,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.Ex(5)[0]", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -5278,18 +4424,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.Ex(5)[0]=15", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0]=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(15,getNumber(argument_));
     }
     @Test
@@ -5310,18 +4445,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.Ex(5)[0]+=15", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0]+=15", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(20,getNumber(argument_));
     }
     @Test
@@ -5342,18 +4466,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("++$new pkg.Ex(5)[0]", conf_);
+        Argument argument_ = processElNormalVar2(files_, "++$new pkg.Ex(5)[0]", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -5374,18 +4487,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.Ex(5)[0]++", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0]++", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -5413,18 +4515,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.Ex(5)[0].myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.Ex(5)[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -5452,18 +4543,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "($new pkg.Ex(5)[0]=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(15,getNumber(argument_));
     }
     @Test
@@ -5496,18 +4576,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "($new pkg.Ex(5)[0]+=$new pkg.ExTwo(15)).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(20,getNumber(argument_));
     }
     @Test
@@ -5540,18 +4609,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("(++$new pkg.Ex(5)[0]).myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "(++$new pkg.Ex(5)[0]).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(6,getNumber(argument_));
     }
     @Test
@@ -5584,18 +4642,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex", cont_.getClasses().getClassBody("pkg.Ex"),"", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("($new pkg.Ex(5)[0]++).myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "($new pkg.Ex(5)[0]++).myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
     @Test
@@ -5629,20 +4676,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        ContextEl cont_ = conf_.getContext();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        addImportingPage(conf_);
-        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
-        Argument argument_ = processElNormal("$new pkg.ExSub(5).$super[0].myval", conf_);
+        Argument argument_ = processElNormalVar2(files_, "$new pkg.ExSub(5).$super[0].myval", new ClassField("pkg.Ex", "inst"), "pkg.Ex", new IntStruct(6), "v", "pkg.Ex");
         assertEq(5,getNumber(argument_));
     }
+
     @Test
     public void processEl449Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -5661,17 +4698,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.Apply.test()", cont_);
+        Argument arg_ = processEl(files_, "pkg.Apply.test()");
         assertEq("2,4",getString(arg_));
     }
     @Test
     public void processEl452Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument argument_ = processElNormal("$defaultValue($char)", cont_);
+        Argument argument_ = processEl(files_, "$defaultValue($char)");
         assertEq(0,getChar(argument_));
     }
     @Test
@@ -5685,9 +4718,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Ex<$int>().res($id(pkg.Ex,T),15)", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,T),15)");
         assertEq(29,getNumber(argument_));
     }
     @Test
@@ -5703,9 +4734,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)");
         assertEq(29,getNumber(argument_));
     }
     @Test
@@ -5721,21 +4750,17 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration5(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)", conf_);
+        Argument argument_ = processEl(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.Ex,T),15)");
         assertEq(29,getNumber(argument_));
     }
     @Test
     public void processEl465Test() {
-        StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("explicit($int)5", conf_);
-        assertTrue(conf_.isEmptyErrors());
+        Argument arg_ = processElNormal3("explicit($int)5", new StringMap<String>());
+        
         assertEq(5, getNumber(arg_));
 
     }
+
     @Test
     public void processEl466Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -5749,12 +4774,9 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("explicit(pkg.Ex)5", conf_);
-        assertTrue(conf_.isEmptyErrors());
+        Argument arg_ = processElNormal2(files_, "explicit(pkg.Ex)5", "pkg.Ex");
+        
         Struct struct_ = arg_.getStruct();
-        assertEq("pkg.Ex", struct_.getClassName(conf_.getContext()));
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
 
     }
@@ -5770,9 +4792,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$staticCall(pkg.Ex).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$staticCall(pkg.Ex).exmeth()");
         assertEq(9, getNumber(arg_));
     }
 
@@ -5784,9 +4804,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)", cont_);
+        Argument arg_ = processEl(files_, "((pkg.Interface) $static($math).$lambda($math,plus,$int,$int)).opTwo(1,2)");
         assertEq(3, getNumber(arg_));
     }
     @Test
@@ -5801,17 +4819,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$staticCall(pkg.Ex<$int>).exmeth()", cont_);
+        Argument arg_ = processEl(files_, "$staticCall(pkg.Ex<$int>).exmeth()");
         assertEq(9, getNumber(arg_));
     }
     @Test
     public void processEl471Test() {
         StringMap<String> files_ = new StringMap<String>();
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument argument_ = processElNormal("$default(0)", cont_);
+        Argument argument_ = processEl(files_, "$default(0)");
         assertEq(0,getNumber(argument_));
     }
 
@@ -5827,9 +4841,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("pkg.ExTwo.exmeth($vararg($int),4,$firstopt($null))", cont_);
+        Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($vararg($int),4,$firstopt($null))");
         assertEq(12,getNumber(arg_));
     }
     @Test
@@ -5845,15 +4857,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument arg_ = processElNormal("$(pkg.Ex,$int)5", conf_);
-        assertTrue(conf_.isEmptyErrors());
+        Argument arg_ = processElNormal2(files_, "$(pkg.Ex,$int)5", "pkg.Ex");
+        
         Struct struct_ = arg_.getStruct();
-        assertEq("pkg.Ex", struct_.getClassName(conf_.getContext()));
         assertEq(5, ((IntStruct)getStruct(struct_,new ClassField("pkg.Ex","field"))).intStruct());
 
     }
+
     @Test
     public void processEl474Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -5862,9 +4872,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($($Field)$lambda(pkg.Ex,,inst,$int).metaInfo()).getType().getName()", conf_);
+        Argument argument_ = processEl(files_, "($($Field)$lambda(pkg.Ex,,inst,$int).metaInfo()).getType().getName()");
         assertEq("$int",getString(argument_));
     }
     @Test
@@ -5875,9 +4883,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("($Class.getClass($(pkg.Ex)$new pkg.Ex().$lambda(pkg.Ex,,inst,$int).instance())).getName()", conf_);
+        Argument argument_ = processEl(files_, "($Class.getClass($(pkg.Ex)$new pkg.Ex().$lambda(pkg.Ex,,inst,$int).instance())).getName()");
         assertEq("pkg.Ex",getString(argument_));
     }
     @Test
@@ -5888,9 +4894,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = getConfiguration4(files_);
-        addImportingPage(conf_);
-        Argument argument_ = processElNormal("$lambda(pkg.Ex,inst).call()", conf_);
+        Argument argument_ = processEl(files_, "$lambda(pkg.Ex,inst).call()");
         assertEq(4,getNumber(argument_));
     }
     @Test
@@ -5905,9 +4909,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth(k:5,j:3)", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(k:5,j:3)");
         assertEq(9, getNumber(arg_));
     }
     @Test
@@ -5922,43 +4924,23 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
-        addImportingPage(cont_);
-        Argument arg_ = processElNormal("$static(pkg.Ex).exmeth(j:3,k:5)", cont_);
+        Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(j:3,k:5)");
         assertEq(9, getNumber(arg_));
     }
     @Test
     public void procesAffect00Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(0));
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("(v)=1i", context_);
-        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
+        LocalVariable lv_ = processElNormal1Int2(0, "(v)=1i");
         assertEq(1, ((NumberStruct)lv_.getStruct()).intStruct());
     }
     @Test
     public void processAffect1Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(0));
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v=1i", context_);
-        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
+        LocalVariable lv_ = processElNormal1Int2(0, "v=1i");
         assertEq(1, ((NumberStruct)lv_.getStruct()).intStruct());
     }
 
     @Test
     public void processAffect3Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5968,12 +4950,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v[0i]=12i", context_);
-        assertEq(12, ((NumberStruct) in_[0]).intStruct());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]=12i", context_);
+        fwdCalculate(context_, out_);
+        assertEq(12, ((NumberStruct) ((ArrayStruct)lv_.getStruct()).getInstance()[0]).intStruct());
     }
     @Test
     public void processAffect4Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -5986,21 +4969,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v[0i][0i]=12i", context_);
-        assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]=12i", context_);
+        fwdCalculate(context_, out_);
+        assertEq(12, ((NumberStruct)(((ArrayStruct)((ArrayStruct)lv_.getStruct()).getInstance()[0]).getInstance())[0]).intStruct());
     }
     @Test
     public void processAffect5Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v+=1i", context_);
-        assertEq(context_.getStandards().getAliasPrimInteger(), lv_.getClassName());
+        LocalVariable lv_ = processElNormal1Int2(1, "v+=1i");
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
     @Test
@@ -6011,7 +4986,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -6021,13 +4996,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v.integer-=12i", cont_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.integer-=12i", cont_);
+        Argument res_ = fwdCalculate(cont_, out_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect7Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6037,13 +5013,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v[0i]-=12i", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]-=12i", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(-12, ((NumberStruct) in_[0]).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect8Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6056,13 +5033,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v[0i][0i]-=12i", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]-=12i", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(-12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect9Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6075,13 +5053,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v[0i][0i]++", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]++", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
     @Test
     public void processAffect10Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6094,13 +5073,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v[0i][0i]--", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i][0i]--", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(0, getNumber(res_));
     }
     @Test
     public void processAffect11Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6113,13 +5093,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("++v[0i][0i]", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("++v[0i][0i]", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(1, getNumber(res_));
     }
     @Test
     public void processAffect12Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6132,7 +5113,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("--v[0i][0i]", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("--v[0i][0i]", context_);
+        Argument res_ = fwdCalculate(context_, out_);
         assertEq(-1, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
         assertEq(-1, getNumber(res_));
     }
@@ -6149,18 +5131,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(null);
-        lv_.setClassName(cont_.getStandards().getAliasInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        NumberStruct arg_;
-        processElNormal("$classchoice(pkg.Ex)inst=2i", cont_);
-        arg_ = (NumberStruct) cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        assertEq(2, arg_.intStruct());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$classchoice(pkg.Ex)inst=2i", cont_);
+        fwdCalculate(cont_, out_);
+        Struct fieldValue_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        assertEq(2, ((NumberStruct) fieldValue_).intStruct());
     }
     @Test
     public void processAffect22Test() {
@@ -6175,7 +5151,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6183,14 +5159,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(cont_.getStandards().getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        Struct arg_;
-        processElNormal("$classchoice(pkg.Ex)inst=v", cont_);
-        arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$classchoice(pkg.Ex)inst=v", cont_);
+        fwdCalculate(cont_, out_);
+        Struct arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
         assertSame(NullStruct.NULL_VALUE,arg_);
     }
     @Test
     public void processAffect23Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6198,13 +5174,13 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getStandards().getAliasString());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v+=1i", context_);
-        assertEq(context_.getStandards().getAliasString(), lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v+=1i", context_);
+        fwdCalculate(context_, out_);
         assertEq("add 1", ((StringStruct)lv_.getStruct()).getInstance());
     }
     @Test
     public void processAffect24Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6215,8 +5191,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(arrayType_);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v[0i]+=1i", context_);
-        assertEq(arrayType_, lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v[0i]+=1i", context_);
+        fwdCalculate(context_, out_);
         assertEq("add 1",((StringStruct)(((ArrayStruct) lv_.getStruct()).getInstance())[0]).getInstance());
     }
     @Test
@@ -6230,44 +5206,26 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
-        Struct arg_;
-        Struct[] res_;
-        processElNormal("$static(pkg.Ex).exmeth()[0i]=2i", cont_);
-        arg_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
-        res_ = ((ArrayStruct) arg_).getInstance();
+        CustList<RendDynOperationNode> out_ = fullAnalyze("$static(pkg.Ex).exmeth()[0i]=2i", cont_);
+        fwdCalculate(cont_, out_);
+        Struct fieldValue_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "inst"));
+        Struct[] res_ = ((ArrayStruct) fieldValue_).getInstance();
         assertEq(1,res_.length);
         assertEq(2,((NumberStruct)res_[0]).intStruct());
     }
     @Test
     public void processAffect26Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(BooleanStruct.of(true));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v&=$false", context_);
-        assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
+        LocalVariable lv_ = processElNormal1Bool1(true, "v&=$false");
         assertTrue(BooleanStruct.isFalse(lv_.getStruct()));
     }
     @Test
     public void processAffect27Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(BooleanStruct.of(false));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("v|=$true", context_);
-        assertEq(context_.getStandards().getAliasPrimBoolean(), lv_.getClassName());
+        LocalVariable lv_ = processElNormal1Bool1(false, "v|=$true");
         assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
     }
+
     @Test
     public void processAffect28Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -6276,7 +5234,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -6286,8 +5244,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("v.integer++", cont_);
-        assertEq("pkg.Composite", lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("v.integer++", cont_);
+        Argument res_ = fwdCalculate(cont_, out_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(0, getNumber(res_));
     }
@@ -6299,7 +5257,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -6309,8 +5267,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("++v.integer", cont_);
-        assertEq("pkg.Composite", lv_.getClassName());
+        CustList<RendDynOperationNode> out_ = fullAnalyze("++v.integer", cont_);
+        Argument res_ = fwdCalculate(cont_, out_);
         assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(1, getNumber(res_));
     }
@@ -6323,7 +5281,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration cont_ = getConfiguration4(files_);
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         ContextEl context_ = cont_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -6333,13 +5291,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName("pkg.Composite");
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
-        Argument res_ = processElNormal("(v.integer-=12i)", cont_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v.integer-=12i)", cont_);
+        Argument res_ = fwdCalculate(cont_, out_);
         assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
         assertEq(-12, getNumber(res_));
     }
     @Test
     public void processAffect31Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6352,13 +5311,14 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(ARR_ARR_INT);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        processElNormal("(v[0i][0i])=12i", context_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze("(v[0i][0i])=12i", context_);
+        fwdCalculate(context_, out_);
         assertEq(12, ((NumberStruct)(((ArrayStruct)in_[0]).getInstance())[0]).intStruct());
     }
 
     @Test
     public void processEl179Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6366,7 +5326,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         lv_.setClassName(context_.getStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         ContextEl ctx_ = context_.getContext();
         String elr_ = "v+=1i";
         Delimiters d_ = checkSyntax(ctx_, elr_);
@@ -6375,8 +5335,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         calculate(all_, context_);
@@ -6384,64 +5342,18 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl180Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(BooleanStruct.of(true));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
-        String elr_ = "v&=$false";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
-        assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        calculate(all_, context_);
+        LocalVariable lv_ = getModBoolVar(true, "v&=$false");
         assertTrue(BooleanStruct.isFalse(lv_.getStruct()));
-    }
-
-    private static CustList<OperationNode> getSortedDescNodes(Configuration context_, OperationNode op_) {
-        return RenderExpUtil.getSortedDescNodes(op_, context_, new AnalyzingDoc());
     }
 
     @Test
     public void processEl181Test() {
-        Configuration context_ = getConfiguration4();
-        addImportingPage(context_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(BooleanStruct.of(false));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
-        String elr_ = "v|=$true";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
-        assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        calculate(all_, context_);
+        LocalVariable lv_ = getModBoolVar(false, "v|=$true");
         assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
     }
     @Test
     public void processEl186Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6450,7 +5362,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v==1i";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6458,8 +5370,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6467,7 +5377,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl187Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6476,7 +5386,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v++";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6484,8 +5394,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6494,7 +5402,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl188Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6503,7 +5411,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "++v";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6511,8 +5419,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6521,7 +5427,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl189Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6532,7 +5438,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v[0i]++";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6540,8 +5446,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6550,7 +5454,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl190Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6561,7 +5465,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "++v[0i]";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6569,8 +5473,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6579,7 +5481,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl191Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6588,7 +5490,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v+=2i";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6596,8 +5498,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6606,7 +5506,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl192Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6617,7 +5517,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v[0i]+=3i";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6625,8 +5525,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6635,7 +5533,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl193Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6648,7 +5546,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v+++v2";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6656,8 +5554,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6667,7 +5563,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl194Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6680,7 +5576,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v---v2";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6688,8 +5584,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6699,7 +5593,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl195Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6712,7 +5606,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v=++v2";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6720,8 +5614,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6731,7 +5623,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl196Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6744,7 +5636,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v= ++v2";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6752,8 +5644,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6763,10 +5653,10 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
     @Test
     public void processEl197Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         ContextEl ctx_ = context_.getContext();
-        setupAna(context_, new AnalyzingDoc());
+        setupAna(new AnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6774,8 +5664,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6788,7 +5676,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
 
     @Test
     public void processEl305Test() {
-        Configuration context_ = getConfiguration4();
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
@@ -6801,7 +5689,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         localVars_.put("v2", lv2_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         ContextEl ctx_ = context_.getContext();
-        setupAnalyzing(context_);
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v=v2=4i";
         Delimiters d_ = checkSyntax(ctx_, elr_);
         assertTrue(d_.getBadOffset() < 0);
@@ -6809,8 +5697,6 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
         OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
         assertNotNull(op_);
-        Argument argGl_ = context_.getPageEl().getGlobalArgument();
-        boolean static_ = setupStaticCtx(ctx_, argGl_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
         Argument arg_ = calculate(all_, context_);
@@ -6819,83 +5705,261 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         assertEq(4, getNumber(arg_));
     }
 
-    private static Argument processElNormal(String _el, Configuration _cont) {
-        if (_cont.hasPages() && _cont.getContext().getAnalyzing() != null) {
-            _cont.getContext().getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
-        }
-        Argument arg_ = processEl(_el, 0, _cont);
-        assertNull(getException(_cont));
-        return arg_;
-    }
-    private static Argument processElNormal(String _el, Configuration _conf, int _minIndex, AnalyzingDoc _analyzingDoc) {
-        ContextEl context_ = _conf.getContext();
-        setupAnalyzing(_conf);
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf.getContext(), _minIndex);
-        assertTrue(d_.getBadOffset() < 0);
-        int beg_ = d_.getIndexBegin();
-        int end_ = d_.getIndexEnd();
-        _analyzingDoc.setNextIndex(end_+2);
-        String el_ = _el.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_minIndex, el_, _conf, d_, _analyzingDoc);
-        OperationNode op_ = RenderExpUtil.createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf, _analyzingDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(_conf, op_);
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
-        assertTrue(isEmptyErrors(context_));
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
-        Argument arg_ = RenderExpUtil.calculateReuse(out_, _conf);
-        assertNull(getException(_conf));
-        return arg_;
-    }
-    private static boolean setupStaticCtx(ContextEl _ctx, Argument _argGl) {
-        boolean static_ = _argGl == null || _argGl.isNull();
-        _ctx.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        return static_;
+    private static Argument processElNormal1String(String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasString());
+        lv_.setStruct(new StringStruct("8"));
+        localVars_.put("arg", lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
     }
 
-    private static Argument calculate(CustList<OperationNode> _ops, Configuration _an) {
+    private static Argument processElNormal2BooleanVars(String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(NullStruct.NULL_VALUE);
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setStruct(BooleanStruct.of(false));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
+    }
+
+    private static Argument processElNormalBoolInt(boolean b, String s, IntStruct _sec) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(b));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        lv_.setStruct(_sec);
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
+    }
+
+    private static Argument processElNormalBool(boolean b, String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(b));
+        localVars_.put("arg", lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
+    }
+
+    private static Argument processElNormal1Int(int i, String s, String _varName) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        lv_.setStruct(new IntStruct(i));
+        localVars_.put(_varName, lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
+    }
+
+    private static Argument processElNormal2BoolVars(boolean b, boolean b2, String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(b));
+        localVars_.put("arg", lv_);
+        lv_ = new LocalVariable();
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setStruct(BooleanStruct.of(b2));
+        localVars_.put("arg2", lv_);
+        addImportingPage(context_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        return fwdCalculate(context_, out_);
+    }
+
+    private static Argument processElNormalVar2(StringMap<String> files_, String s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        ContextEl cont_ = conf_.getContext();
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        addVar(_keyField, _className, _value, _varName, _init, cont_, localVars_);
+        addImportingPage(conf_);
+        CommonRender.setLocalVars(conf_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, conf_);
+        return fwdCalculate(conf_, out_);
+    }
+
+    private static void addVar(ClassField _keyField, String _className, Struct _value, String _varName, String _init, ContextEl cont_, StringMap<LocalVariable> localVars_) {
+        LocalVariable lv_ = new LocalVariable();
+        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, _init, cont_.getClasses().getClassBody(_init), "", -1);
+        setStruct(value_, _keyField, _value);
+        lv_.setStruct(value_);
+        lv_.setClassName(_className);
+        localVars_.put(_varName, lv_);
+    }
+
+    private static LocalVariable processElNormal1Bool1(boolean b, String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(BooleanStruct.of(b));
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        localVars_.put("v", lv_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        fwdCalculate(context_, out_);
+        return lv_;
+    }
+
+    private static LocalVariable processElNormal1Int2(int i, String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(new IntStruct(i));
+        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        localVars_.put("v", lv_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, context_);
+        fwdCalculate(context_, out_);
+        return lv_;
+    }
+
+    private static Argument processElNormal(String _el, AnalyzedTestConfiguration _cont, String _expClass) {
+        CustList<RendDynOperationNode> out_ = fullAnalyze(_el, _cont);
+        Argument arg_ = fwdCalculate(_cont, out_);
+        assertEq(_expClass,arg_.getStruct().getClassName(_cont.getContext()));
+        return arg_;
+    }
+
+    private static Argument fwdCalculate(AnalyzedTestConfiguration _cont, CustList<RendDynOperationNode> _out) {
+        forward(_cont.getConfiguration());
+        CustList<RendDynOperationNode> out_ = RenderExpUtil.getReducedNodes(_out.last());
+        Argument arg_ = RenderExpUtil.calculateReuse(out_, _cont.getConfiguration());
+        assertNull(getException(_cont.getConfiguration()));
+        return arg_;
+    }
+
+    private static void forward(Configuration _cont) {
+        for (ClassMetaInfo c: _cont.getContext().getClasses().getClassMetaInfos()) {
+            String name_ = c.getName();
+            ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_cont.getContext(), name_), c);
+        }
+    }
+
+    private static CustList<RendDynOperationNode> fullAnalyze(String _el, AnalyzedTestConfiguration _cont) {
+        if (_cont.hasPages() && _cont.getAnalyzing() != null) {
+            _cont.getAnalyzing().setGlobalType(_cont.getLastPage().getGlobalClass());
+        }
+        CustList<RendDynOperationNode> out_ = getAnalyzed(_el, 0, _cont, new AnalyzingDoc());
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        assertTrue(_cont.isEmptyErrors());
+        Classes.forwardAndClear(_cont.getContext(), page_);
+        return out_;
+    }
+
+    private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
         CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
         out_ = RenderExpUtil.getReducedNodes(out_.last());
-        Argument arg_ = RenderExpUtil.calculateReuse(out_, _an);
-        assertNull(getException(_an));
+        Argument arg_ = RenderExpUtil.calculateReuse(out_, _an.getConfiguration());
+        assertNull(getException(_an.getConfiguration()));
         return arg_;
     }
 
-    private static Configuration getConfiguration4() {
-        return getConfiguration4(new StringMap<String>());
-    }
-    private static Configuration getConfiguration4(StringMap<String> _files) {
-        return getConfiguration4(_files,true);
-    }
-    private static Configuration getConfiguration4(StringMap<String> _files, boolean _init) {
-        Configuration conf_ = getConfiguration(_files, _init);
-        return conf_;
+    private static Argument processElNormal2(StringMap<String> files_, String s, String _expClass) {
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        addImportingPage(conf_);
+        return processElNormal(s, conf_, _expClass);
     }
 
-    private static Configuration getConfiguration(StringMap<String> _files, boolean _init) {
+    private static Argument processElNormalNotInit(StringMap<String> files_, String s) {
+        AnalyzedTestConfiguration cont_ = getConfiguration(files_);
+        addImportingPage(cont_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, cont_);
+        Argument arg_ = fwdCalculate(cont_, out_);
+        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        return arg_;
+    }
+
+    private static Argument processElNormalInit(StringMap<String> files_, String s) {
+        AnalyzedTestConfiguration conf_ = getConfiguration(files_);
+        addImportingPage(conf_);
+        CustList<RendDynOperationNode> out_ = fullAnalyze(s, conf_);
+        Argument arg_ = fwdCalculate(conf_, out_);
+        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        return arg_;
+    }
+
+    private static Argument processEl(StringMap<String> files_, String s) {
+        return processElNormal3(s, files_);
+    }
+
+    private static LocalVariable getModBoolVar(boolean b, String s) {
+        AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
+        addImportingPage(context_);
+        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+        LocalVariable lv_ = new LocalVariable();
+        lv_.setStruct(BooleanStruct.of(b));
+        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        localVars_.put("v", lv_);
+        CommonRender.setLocalVars(context_.getLastPage(), localVars_);
+        ContextEl ctx_ = context_.getContext();
+        setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
+        String elr_ = s;
+        Delimiters d_ = checkSyntax(ctx_, elr_);
+        assertTrue(d_.getBadOffset() < 0);
+        String el_ = elr_;
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
+        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        assertNotNull(op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        assertTrue(context_.isEmptyErrors());
+        calculate(all_, context_);
+        return lv_;
+    }
+
+    private static AnalyzedTestConfiguration getConfiguration(StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        conf_.setContext(cont_.getContext());
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        getHeaders(_files, cont_);
+        //
+        AnalyzedPageEl ana_ = getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        AnalysisMessages analysisMessages_ = cont_.getAnalyzing().getAnalysisMessages();
-        ReportedMessages messages_ = cont_.getAnalyzing().getMessages();
-        Classes.tryInitStaticlyTypes(cont_,analysisMessages_,messages_, cont_.getAnalyzing().getOptions());
+        AnalysisMessages analysisMessages_ = ana_.getAnalysisMessages();
+        ReportedMessages messages_ = ana_.getMessages();
+        Classes.tryInitStaticlyTypes(cont_.getContext(),analysisMessages_,messages_, ana_.getOptions());
         ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
+        return new AnalyzedTestConfiguration(conf_,ana_);
     }
 
-    private static Configuration getConfiguration5(StringMap<String> _files) {
-        return getConfiguration5(_files,true);
+    private static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration context_, OperationNode op_) {
+        return RenderExpUtil.getSortedDescNodes(op_, context_.getConfiguration(), new AnalyzingDoc());
     }
-    private static Configuration getConfiguration5(StringMap<String> _files, boolean _init) {
-        Configuration conf_ = getConfiguration(_files, _init);
-        return conf_;
-    }
+
     private static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
     }

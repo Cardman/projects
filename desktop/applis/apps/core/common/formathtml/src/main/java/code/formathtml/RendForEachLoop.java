@@ -111,7 +111,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                     importedClassIndexName);
             Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
         }
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
         if (res_.isError()) {
             okVar = false;
@@ -150,7 +150,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
                 Mapping mapping_ = new Mapping();
                 mapping_.setArg(compo_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -209,7 +209,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             } else {
                 mapping_.setArg(paramArg_);
                 mapping_.setParam(importedClassName);
-                StringMap<StringList> vars_ = _cont.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
+                StringMap<StringList> vars_ = _cont.getContext().getAnalyzing().getCurrentConstraints().getCurrentConstraints();
                 mapping_.setMapping(vars_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont.getContext())) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -242,7 +242,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     public void putVariable(Configuration _cont) {
         AnaLoopVariable lv_ = new AnaLoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        _cont.getAnalyzing().getLoopsVars().put(variableName, lv_);
+        _cont.getContext().getAnalyzing().getLoopsVars().put(variableName, lv_);
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
@@ -250,7 +250,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             lInfo_.setClassName(_cont.getStandards().getAliasObject());
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
-        _cont.getAnalyzing().getInfosVars().put(variableName, lInfo_);
+        _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lInfo_);
     }
 
     @Override

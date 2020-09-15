@@ -1,6 +1,7 @@
 package code.formathtml;
 
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -15,14 +16,7 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;=2'>{i}<br/><c:set value='i++'/></c:while></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", getRes(html_, new StringMap<String>()));
     }
 
     @Test
@@ -30,57 +24,31 @@ public final class RenderWhileTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2'>{i}<br/><c:set value='i++'/></c:while></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body/></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process4Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&lt;2'><c:set className='$var' value='j=0'/><c:while condition='j&lt;2'>{i}-{j}<br/><c:set value='j++'/></c:while><br/><c:set value='i++'/></c:while></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>0-0<br/>0-1<br/><br/>1-0<br/>1-1<br/><br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>0-0<br/>0-1<br/><br/>1-0<br/>1-1<br/><br/></body></html>", getRes(html_, new StringMap<String>()));
     }
+
     @Test
     public void process5Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2/0'>{i}<br/><c:set value='i++'/></c:while></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(html_, new StringMap<String>()));
     }
     @Test
     public void process6Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className='$var' value='i=0'/><c:while condition='i&gt;=2/(i-1)'>{i}<br/><c:set value='i++'/></c:while></body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-
-
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(html_, new StringMap<String>()));
     }
+
     @Test
     public void process7Test() {
         String folder_ = "messages";
@@ -92,12 +60,7 @@ public final class RenderWhileTest extends CommonRender {
         file_.append(" $public $int nb;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>0<br/>1<br/>2<br/></body></html>", getResOneBean(html_, filesSec_));
     }
 
     @Test
@@ -111,11 +74,18 @@ public final class RenderWhileTest extends CommonRender {
         file_.append(" $public $int nb;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>Loop:0<br/>1<br/>2<br/></body></html>", getResOneBean(html_, filesSec_));
+    }
+
+    private Struct getEx(String html_, StringMap<String> _files) {
+        return getCommEx(html_, _files);
+    }
+
+    private String getRes(String html_, StringMap<String> _files) {
+        return getCommRes(html_,_files);
+    }
+
+    private String getResOneBean(String html_, StringMap<String> filesSec_) {
+        return getCommOneBean(html_, filesSec_);
     }
 }

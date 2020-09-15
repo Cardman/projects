@@ -69,7 +69,7 @@ public final class ResultInput {
                     if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                         pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
                     } else {
-                        pr_ = new ClassArgumentMatching(_cont.getAnalyzing().getGlobalClass());
+                        pr_ = new ClassArgumentMatching(_cont.getContext().getAnalyzing().getGlobalClass());
                     }
                     StringList varNames_ = new StringList();
                     String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
@@ -167,7 +167,7 @@ public final class ResultInput {
                             varParamNames_.add(varParam_);
                             i_++;
                         }
-                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont.getAnalyzing());
+                        String sgn_ = ((RendCustArrOperation) settable_).getClassMethodId().getConstraints().getSignature(_cont.getContext().getAnalyzing());
                         idName = StringList.concat("[]", sgn_);
                         id = StringList.concat(idClass,".",idName);
                         String varLoc_ = RendBlock.lookForVar(_cont, varNames_);

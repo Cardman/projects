@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -409,8 +410,9 @@ public abstract class ProcessMethodCommon {
     }
 
     public static void buildPredefinedBracesBodies(ContextEl _context) {
-        LgNames stds_ = _context.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_context);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(page_);
         builtTypes(files_, _context, true);
     }
 
@@ -426,8 +428,9 @@ public abstract class ProcessMethodCommon {
     public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        LgNames stds_ = _context.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_context);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(page_);
         ClassesUtil.buildFilesBodies(_context,files_,true,out_,outExec_);
         ClassesUtil.buildFilesBodies(_context,_files,false,out_,outExec_);
         ClassesUtil.parseFiles(_context,out_,outExec_);
@@ -579,8 +582,9 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl simpleCtx() {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        LgNames stds_ = cont_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
@@ -616,8 +620,9 @@ public abstract class ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        LgNames stds_ = cont_.getStandards();
-        for (EntryCust<String, String> e: stds_.buildFiles(cont_).entryList()) {
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);

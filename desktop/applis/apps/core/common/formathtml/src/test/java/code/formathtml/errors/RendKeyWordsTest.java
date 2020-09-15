@@ -1,5 +1,6 @@
 package code.formathtml.errors;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.SingleContextEl;
@@ -339,9 +340,9 @@ public final class RendKeyWordsTest {
     }
     private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
         SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        s_.setAnalyzing();
-        s_.getAnalyzing().setAnalysisMessages(new AnalysisMessages());
-        s_.getAnalyzing().setKeyWords(kw_);
+        AnalyzedPageEl page_ = s_.setAnalyzing();
+        page_.setAnalysisMessages(new AnalysisMessages());
+        page_.setKeyWords(kw_);
         return s_;
     }
 }

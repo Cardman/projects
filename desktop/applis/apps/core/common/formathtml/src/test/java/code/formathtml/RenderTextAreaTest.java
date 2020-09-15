@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -25,15 +26,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -52,15 +45,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
@@ -78,15 +63,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4Test() {
@@ -104,15 +81,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process5Test() {
@@ -130,15 +99,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\"></textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process6Test() {
@@ -159,16 +120,9 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
     @Test
     public void process7Test() {
         String locale_ = "en";
@@ -188,15 +142,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process8Test() {
@@ -217,15 +163,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process9Test() {
@@ -243,15 +181,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea c:groupId=\"myId\" n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea c:groupId=\"myId\" n-i=\"0\" name=\"bean_one.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process10Test() {
@@ -269,15 +199,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process11Test() {
@@ -295,15 +217,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\" rows=\"40\" cols=\"40\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.textField\" rows=\"40\" cols=\"40\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process12Test() {
@@ -321,15 +235,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process13Test() {
@@ -358,15 +264,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }\n");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process14Test() {
@@ -386,15 +284,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.i.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.i.textField\">txt</textarea><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process15Test() {
@@ -414,13 +304,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process16Test() {
@@ -449,15 +333,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }\n");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process17Test() {
@@ -486,16 +362,17 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }\n");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
+    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
+    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
     @Test
     public void process1FailTest() {
         String locale_ = "en";
@@ -515,12 +392,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -542,12 +414,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -569,13 +436,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4FailTest() {
@@ -595,13 +456,7 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process5FailTest() {
@@ -619,12 +474,10 @@ public final class RenderTextAreaTest extends CommonRender {
         file_.append(" $public String textField;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
 
-        setup(folder_, relative_, conf_);
-        conf_.setNavigation(new StringMap<StringMap<String>>());
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+    private boolean hasErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return hasCommErrOneBean(folder_,relative_,html_,files_,filesSec_);
     }
 }

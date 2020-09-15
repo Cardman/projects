@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -50,14 +51,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -96,14 +90,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process100Test() {
@@ -141,14 +128,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select id=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select id=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process101Test() {
@@ -186,14 +166,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select c:groupId=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select c:groupId=\"5\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process102Test() {
@@ -234,14 +207,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process103Test() {
@@ -282,14 +248,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process2Test() {
@@ -336,14 +295,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process200Test() {
@@ -393,14 +345,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process201Test() {
@@ -450,14 +395,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process202Test() {
@@ -504,14 +442,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\" rows=\"4\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\" rows=\"4\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process203Test() {
@@ -558,14 +489,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
@@ -606,14 +530,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4Test() {
@@ -667,14 +584,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process5Test() {
@@ -721,14 +631,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process6Test() {
@@ -775,14 +678,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process7Test() {
@@ -826,14 +722,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process700Test() {
@@ -877,14 +766,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process8Test() {
@@ -931,14 +813,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPairFailSecond());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -986,14 +861,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPairFailFirst());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process10Test() {
@@ -1040,14 +908,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailNext());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process11Test() {
@@ -1094,14 +955,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTableFailHas());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process12Test() {
@@ -1148,14 +1002,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTableFail());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process13Test() {
@@ -1197,14 +1044,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process14Test() {
@@ -1252,14 +1092,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process15Test() {
@@ -1301,14 +1134,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process16Test() {
@@ -1353,14 +1179,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process17Test() {
@@ -1399,14 +1218,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process18Test() {
@@ -1444,14 +1256,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process19Test() {
@@ -1492,14 +1297,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process20Test() {
@@ -1540,15 +1338,9 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
     @Test
     public void process21Test() {
         String locale_ = "en";
@@ -1576,14 +1368,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select><select name=\"bean_one.choice2\" n-i=\"1\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select><select name=\"bean_one.choice2\" n-i=\"1\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process22Test() {
@@ -1612,14 +1397,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form><form c:command=\"page1.html\" action=\"\" n-f=\"1\"><select name=\"bean_one.choice2\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form><form c:command=\"page1.html\" action=\"\" n-f=\"1\"><select name=\"bean_one.choice2\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process23Test() {
@@ -1657,15 +1435,17 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><select name=\"choice\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
+    private Struct getExOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommExOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
+    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
     @Test
     public void process1FailTest() {
         String locale_ = "en";
@@ -1701,12 +1481,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process2FailTest() {
@@ -1747,12 +1522,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3FailTest() {
@@ -1793,12 +1563,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4FailTest() {
@@ -1839,12 +1604,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process5FailTest() {
@@ -1885,12 +1645,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process6FailTest() {
@@ -1934,11 +1689,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean2(folder_, relative_, html_, filesSec_));
     }
 
     @Test
@@ -1983,11 +1734,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean2(folder_, relative_, html_, filesSec_));
     }
     @Test
     public void process8FailTest() {
@@ -2031,12 +1778,9 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean2(folder_, relative_, html_, filesSec_));
     }
+
     @Test
     public void process9FailTest() {
         String locale_ = "en";
@@ -2076,12 +1820,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process10FailTest() {
@@ -2122,12 +1861,7 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process11FailTest() {
@@ -2165,13 +1899,13 @@ public final class RenderSelectTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
+    private boolean hasErrOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return hasCommErrOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
     private static String getCustomFailIterator() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustIter<T> :$iterator<T>{\n");

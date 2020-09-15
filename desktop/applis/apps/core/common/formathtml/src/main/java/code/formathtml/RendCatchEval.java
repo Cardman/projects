@@ -40,7 +40,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(variableNameOffset);
         page_.setOffset(0);
         TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(variableName, page_);
@@ -57,7 +57,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setConstType(ConstType.FIX_VAR);
-        _cont.getAnalyzing().getInfosVars().put(variableName, lv_);
+        _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lv_);
         RendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof RendAbstractCatchEval)) {
             if (!(pBlock_ instanceof RendTryEval)) {

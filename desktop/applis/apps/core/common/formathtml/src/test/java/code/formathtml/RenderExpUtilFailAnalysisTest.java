@@ -42,89 +42,89 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "pkg.Ex.$this"));
+        assertTrue(hasEr(files_, "pkg.Ex.$this"));
     }
 
     @Test
     public void processEl6FailTest() {
-        assertTrue(hasErr(getConfiguration(), "1&&0"));
+        assertTrue(hasEr(new StringMap<String>(), "1&&0"));
     }
     @Test
     public void processEl9FailTest() {
-        assertTrue(hasErr(getConfiguration(), "$true<$false"));
+        assertTrue(hasEr(new StringMap<String>(), "$true<$false"));
     }
     @Test
     public void processEl20FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".$classchoice(Number)format(\"6\")"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".$classchoice(Number)format(\"6\")"));
     }
     @Test
     public void processEl21FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".$superaccess(Number)format(\"6\")"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".$superaccess(Number)format(\"6\")"));
     }
     @Test
     public void processEl24FailTest() {
-        assertTrue(hasErr(getConfiguration(), "$firstopt(6)*(7+8)"));
+        assertTrue(hasEr(new StringMap<String>(), "$firstopt(6)*(7+8)"));
     }
     @Test
     public void processEl25FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".format(\"6\",$vararg(6))"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".format(\"6\",$vararg(6))"));
     }
     @Test
     public void processEl26FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".format($vararg(6),\"6\")"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".format($vararg(6),\"6\")"));
     }
     @Test
     public void processEl27FailTest() {
-        assertTrue(hasErr(getConfiguration(), "$vararg(java.lang.Object)*(7+8)"));
+        assertTrue(hasEr(new StringMap<String>(), "$vararg(java.lang.Object)*(7+8)"));
     }
     @Test
     public void processEl28FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".format($vararg(6),\"6\")"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".format($vararg(6),\"6\")"));
     }
     @Test
     public void processEl29FailTest() {
-        assertTrue(hasErr(getConfiguration(), "\"\".format($firstopt(6),\"6\")"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".format($firstopt(6),\"6\")"));
     }
     @Test
     public void processEl30FailTest() {
-        assertTrue(hasErr(getConfiguration(), ""));
+        assertTrue(hasEr(new StringMap<String>(), ""));
     }
 
     @Test
     public void processEl33FailTest() {
-        assertTrue(hasErr(getConfiguration(), "1<2<3"));
+        assertTrue(hasEr(new StringMap<String>(), "1<2<3"));
     }
 
     @Test
     public void processEl34FailTest() {
-        assertTrue(hasErr(getConfiguration(), "f(,)"));
+        assertTrue(hasEr(new StringMap<String>(), "f(,)"));
     }
     @Test
     public void processAffect17FailTest() {
-        assertTrue(hasErr(getConfiguration(), "$this()"));
+        assertTrue(hasEr(new StringMap<String>(), "$this()"));
     }
     @Test
     public void processAffect18FailTest() {
-        assertTrue(hasErr(getConfiguration(), "v(1)"));
+        assertTrue(hasEr(new StringMap<String>(), "v(1)"));
     }
     @Test
     public void processAffect19FailTest() {
-        assertTrue(hasErr(getConfiguration(), "v(1)"));
+        assertTrue(hasEr(new StringMap<String>(), "v(1)"));
     }
     @Test
     public void processAffect2FailTest() {
-        Configuration context_ = getCheckedConfigurationVar("$int", "v=12i 1");
+        Configuration context_ = getCheckedConfigurationVar("$int", "v=12i 1", new StringMap<String>());
         assertTrue(!context_.isEmptyErrors());
     }
 
     @Test
     public void processAffect3FailTest() {
-        Configuration context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"");
+        Configuration context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"", new StringMap<String>());
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
     public void processEl200Test() {
-        assertTrue(hasErr(getConfiguration(), "$($byte)$null"));
+        assertTrue(hasEr(new StringMap<String>(), "$($byte)$null"));
     }
     @Test
     public void processEl384FailTest() {
@@ -150,7 +150,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex(5).inst=10"));
+        assertTrue(hasEr(files_, "$new pkg.Ex(5).inst=10"));
     }
     @Test
     public void processEl453Test() {
@@ -167,11 +167,11 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append(" $public $static $int v;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.ExTwo()"));
+        assertTrue(hasEr(files_, "$new pkg.ExTwo()"));
     }
     @Test
     public void processEl453_Test() {
-        assertTrue(hasErr(getConfiguration(), "\"\".()"));
+        assertTrue(hasEr(new StringMap<String>(), "\"\".()"));
     }
     @Test
     public void processEl455Test() {
@@ -184,7 +184,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,S),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,S),15)"));
     }
     @Test
     public void processEl456Test() {
@@ -197,7 +197,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<pkg.Ex>),15)"));
     }
     @Test
     public void processEl457Test() {
@@ -210,7 +210,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,pkg.Ex<),15)"));
     }
     @Test
     public void processEl458Test() {
@@ -223,7 +223,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Ex<$int>().res($id(pkg.Ex,$void),15)"));
     }
     @Test
     public void processEl459Test() {
@@ -236,7 +236,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Ex<$int>().res($id(pkg.ExInex),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Ex<$int>().res($id(pkg.ExInex),15)"));
     }
     @Test
     public void processEl461Test() {
@@ -251,7 +251,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Outer.Ex<$int>().res($id($void,T),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Outer.Ex<$int>().res($id($void,T),15)"));
     }
     @Test
     public void processEl462Test() {
@@ -266,7 +266,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,T),15)"));
+        assertTrue(hasEr(files_, "$new pkg.Outer.Ex<$int>().res($id(pkg.Outer.ExInex,T),15)"));
     }
     @Test
     public void processEl464Test() {
@@ -281,30 +281,63 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        assertTrue(hasErr(getConfiguration(files_), "$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()"));
+        assertTrue(hasEr(files_, "$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()"));
     }
 
-    private static boolean hasErr(Configuration configuration, String s) {
-        Configuration conf_ = getCheckedConfiguration(configuration, s);
+    private static boolean hasEr(StringMap<String> files_, String s) {
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        setCtx(conf_, cont_);
+        setStack(conf_, cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        AnalyzedPageEl page_ = getHeaders(files_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        getCheckedConfiguration(new AnalyzedTestConfiguration(conf_,page_), s);
         return !conf_.isEmptyErrors();
     }
 
-    private static Configuration getCheckedConfigurationVar(String _intType, String s) {
-        Configuration context_ = getConfiguration();
+    private static void setCtx(Configuration conf_, AnalyzedTestContext cont_) {
+        conf_.setContext(cont_.getContext());
+    }
+
+    private static Configuration getCheckedConfigurationVar(String _intType, String s, StringMap<String> _files) {
+        Configuration conf_ = EquallableExUtil.newConfiguration();
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        setCtx(conf_, cont_);
+        setStack(conf_, cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        AnalyzedPageEl page_ = getHeaders(_files, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        Configuration context_ = conf_;
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
-        processFail(s, context_, new PairVar("v", lv_));
+        processFail(s, new AnalyzedTestConfiguration(context_,page_), new PairVar("v", lv_));
         return context_;
     }
-    private static Configuration getCheckedConfiguration(Configuration configuration, String s) {
+
+    private static void setStack(Configuration conf_, AnalyzedTestContext cont_) {
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
+    }
+
+    private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration configuration, String s) {
         processFail(s, configuration);
         return configuration;
     }
-    private static void processFail(String _el, Configuration _cont,PairVar... _vars) {
+
+    private static void processFail(String _el, AnalyzedTestConfiguration _cont,PairVar... _vars) {
         processFail(_el, 0, _cont,_vars);
     }
-    private static void processFail(String _el, int _index, Configuration _conf, PairVar... _vars) {
-        AnalyzedPageEl page_ = _conf.getContext().getAnalyzing();
+
+    private static void processFail(String _el, int _index, AnalyzedTestConfiguration _conf, PairVar... _vars) {
+        AnalyzedPageEl page_ = _conf.getAnalyzing();
         boolean merged_ = page_.isMerged();
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
@@ -324,24 +357,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));
         getList(_el, _index, _conf, analyzingDoc_);
-    }
-    private static Configuration getConfiguration() {
-        return getConfiguration(new StringMap<String>());
-    }
-
-    private static Configuration getConfiguration(StringMap<String> _files) {
-        Configuration conf_ = EquallableExUtil.newConfiguration();
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        ContextEl cont_ = InitializationLgNames.buildStdThree(opt_);
-        conf_.setContext(cont_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
-        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
-        conf_.setStandards(standards_);
-        getHeaders(_files, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
-        return conf_;
     }
 
 }

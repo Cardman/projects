@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -21,16 +22,7 @@ public final class RenderSubmitTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ = contextElFive(new StringMap<String>());
-
-        setup(folder_, relative_, conf_);
-
-
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><input value=\"desc &amp;lt;text&amp;gt;\" type=\"submit\"/></body></html>", getRes(folder_, relative_, html_, files_));
     }
 
     @Test
@@ -52,14 +44,7 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><input value=\"desc &amp;lt;TITLE2&amp;gt;\" type=\"submit\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -72,17 +57,17 @@ public final class RenderSubmitTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        Configuration conf_ = contextElFive();
-
-        setup(folder_, relative_, conf_);
-
-
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(folder_, relative_, html_, files_, new StringMap<String>()));
     }
+
+    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_) {
+        return getCommRes(folder_,relative_,html_,files_,new StringMap<String>());
+    }
+
+    private String getResOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
+        return getCommOneBean(folder_,relative_,html_,files_,filesSec_);
+    }
+
 
     @Test
     public void process1FailTest() {
@@ -103,12 +88,7 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, relative_));
     }
 
     @Test
@@ -130,12 +110,7 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, relative_));
     }
 
     @Test
@@ -157,11 +132,10 @@ public final class RenderSubmitTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration conf_ = contextElFive(filesSec_);
+        assertTrue(hasErrOneBean(folder_, html_, files_, filesSec_, StringList.concat(relative_, "2")));
+    }
 
-        setup(folder_, StringList.concat(relative_, "2"), conf_);
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+    private boolean hasErrOneBean(String folder_, String html_, StringMap<String> files_, StringMap<String> filesSec_, String concat) {
+        return hasCommErrOneBean(folder_,concat,html_,files_,filesSec_);
     }
 }

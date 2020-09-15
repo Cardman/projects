@@ -1,7 +1,5 @@
 package code.formathtml;
 
-import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -25,12 +23,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process2Test() {
@@ -47,12 +40,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process3Test() {
@@ -70,12 +58,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process4Test() {
@@ -93,12 +76,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process5Test() {
@@ -116,12 +94,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process6Test() {
@@ -139,12 +112,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process7Test() {
@@ -162,12 +130,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process8Test() {
@@ -185,12 +148,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process9Test() {
@@ -207,12 +165,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process10Test() {
@@ -229,12 +182,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process11Test() {
@@ -252,12 +200,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process12Test() {
@@ -275,12 +218,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process13Test() {
@@ -298,12 +236,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process14Test() {
@@ -321,12 +254,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process15Test() {
@@ -344,12 +272,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process16Test() {
@@ -367,12 +290,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>2,4</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>2,4</body></html>", getRes(html_, files_));
     }
     @Test
     public void process17Test() {
@@ -388,12 +306,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process18Test() {
@@ -409,12 +322,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process19Test() {
@@ -430,12 +338,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process20Test() {
@@ -451,12 +354,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process21Test() {
@@ -476,12 +374,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process22Test() {
@@ -501,12 +394,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process23Test() {
@@ -526,12 +414,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process24Test() {
@@ -551,36 +434,21 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process25Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new StringBuilder(\"hello\")}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>hello</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>hello</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process26Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body>{$new StringBuilder(\"hello\")}</body></html>";
-        Configuration conf_ = contextElFive();
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>hello</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>hello</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process27Test() {
@@ -596,12 +464,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process28Test() {
@@ -617,12 +480,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process29Test() {
@@ -638,12 +496,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process30Test() {
@@ -659,12 +512,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process31Test() {
@@ -683,12 +531,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process32Test() {
@@ -707,12 +550,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process33Test() {
@@ -731,12 +569,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process34Test() {
@@ -755,12 +588,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process35Test() {
@@ -782,12 +610,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process36Test() {
@@ -809,12 +632,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process37Test() {
@@ -836,12 +654,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process38Test() {
@@ -863,12 +676,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process39Test() {
@@ -890,12 +698,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process40Test() {
@@ -917,12 +720,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process41Test() {
@@ -944,12 +742,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process42Test() {
@@ -971,12 +764,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process43Test() {
@@ -998,12 +786,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process44Test() {
@@ -1019,12 +802,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process45Test() {
@@ -1040,12 +818,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process46Test() {
@@ -1061,12 +834,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process47Test() {
@@ -1082,12 +850,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process48Test() {
@@ -1103,12 +866,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process49Test() {
@@ -1124,12 +882,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process50Test() {
@@ -1145,12 +898,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process51Test() {
@@ -1164,12 +912,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process52Test() {
@@ -1183,12 +926,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process53Test() {
@@ -1204,12 +942,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process54Test() {
@@ -1225,12 +958,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process55Test() {
@@ -1246,12 +974,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process56Test() {
@@ -1267,12 +990,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>14</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>14</body></html>", getRes(html_, files_));
     }
     @Test
     public void process57Test() {
@@ -1290,12 +1008,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process58Test() {
@@ -1313,12 +1026,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process59Test() {
@@ -1336,12 +1044,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process60Test() {
@@ -1359,12 +1062,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process61Test() {
@@ -1385,12 +1083,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process62Test() {
@@ -1411,12 +1104,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process63Test() {
@@ -1437,12 +1125,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process64Test() {
@@ -1463,12 +1146,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process65Test() {
@@ -1489,12 +1167,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process66Test() {
@@ -1515,12 +1188,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process67Test() {
@@ -1543,12 +1211,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process68Test() {
@@ -1571,12 +1234,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process69Test() {
@@ -1599,12 +1257,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process70Test() {
@@ -1627,12 +1280,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process71Test() {
@@ -1655,12 +1303,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process72Test() {
@@ -1683,12 +1326,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process73Test() {
@@ -1711,12 +1349,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process74Test() {
@@ -1739,12 +1372,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process75Test() {
@@ -1767,12 +1395,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process76Test() {
@@ -1795,12 +1418,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process77Test() {
@@ -1823,12 +1441,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process78Test() {
@@ -1851,12 +1464,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process79Test() {
@@ -1879,12 +1487,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process80Test() {
@@ -1907,12 +1510,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process81Test() {
@@ -1935,12 +1533,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process82Test() {
@@ -1963,12 +1556,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>29</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>29</body></html>", getRes(html_, files_));
     }
     @Test
     public void process83Test() {
@@ -1976,16 +1564,7 @@ public final class RenderAliasTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html c:alias='$static java.lang.$math.plus;'><body>{plus(2,4)}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>6</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
-    }
-
-    protected static RendDocumentBlock build(String html_, Configuration conf_) {
-        return buildRendWithoutBean(html_, conf_);
+        assertEq("<html><body>6</body></html>", getRes(html_, files_));
     }
 
     @Test
@@ -1994,13 +1573,13 @@ public final class RenderAliasTest extends CommonRender {
         String relative_ = "sample/file";
         String html_ = "<html c:alias='$static java.lang.Byte.MAX_VALUE;'><body>{MAX_VALUE}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body>127</body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body>127</body></html>", getRes(html_, files_));
     }
+
+    private String getRes(String html_, StringMap<String> files_) {
+        return getCommRes(html_,files_);
+    }
+
     @Test
     public void process1FailTest() {
         String folder_ = "messages";
@@ -2011,10 +1590,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process2FailTest() {
@@ -2037,10 +1613,7 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process3FailTest() {
@@ -2063,9 +1636,10 @@ public final class RenderAliasTest extends CommonRender {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        Configuration conf_ = contextElFive(files_);
-        setup(folder_, relative_, conf_);
-        RendDocumentBlock rendDocumentBlock_ = build(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
+    }
+
+    private boolean hasErr(String html_, StringMap<String> files_) {
+        return hasCommErr(html_, files_);
     }
 }

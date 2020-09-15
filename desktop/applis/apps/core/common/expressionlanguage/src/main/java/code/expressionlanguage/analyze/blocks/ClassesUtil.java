@@ -509,8 +509,9 @@ public final class ClassesUtil {
     }
 
     public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, ContextEl _context, StringMap<ExecFileBlock> _outExec) {
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        StringMap<String> files_ = stds_.buildFiles(_context);
+        AnalyzedPageEl page_ = _context.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(page_);
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
         buildFilesBodies(_context,files_,true,out_, _outExec);
         buildFilesBodies(_context,_files,false,out_, _outExec);

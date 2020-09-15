@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -19,15 +20,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"TITLE\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElFive();
-
-        setup(folder_, relative_, conf_);
-        
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", RendBlock.getRes(rendDocumentBlock_,conf_));
-        assertNull(getException(conf_));
+        assertEq("<html><body><a title=\"desc &amp;lt;TITLE&amp;gt;\">Content</a></body></html>", getRes(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
     @Test
@@ -39,15 +32,7 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,three\" param0=\"{1/0}\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElFive();
-
-        setup(folder_, relative_, conf_);
-        
-        setFiles(files_,conf_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, conf_);
-        assertTrue(conf_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getEx(folder_, relative_, html_, files_, new StringMap<String>()));
     }
 
     @Test
@@ -59,12 +44,13 @@ public final class RenderTitledAnchorTest extends CommonRender {
         String html_ = "<html><body><c:a value=\"msg_example,five\">Content</c:a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration conf_ = contextElFive();
-
-        setup(folder_, relative_, conf_);
-        
-        setFiles(files_,conf_);
-        buildRendWithoutBean(html_, conf_);
-        assertTrue(!conf_.isEmptyErrors());
+        assertTrue(hasErr(folder_, relative_, html_, files_, new StringMap<String>()));
     }
+
+
+    private String getRes(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
+        return getCommRes(folder_, relative_, html_, files_, _files);
+    }
+
+
 }

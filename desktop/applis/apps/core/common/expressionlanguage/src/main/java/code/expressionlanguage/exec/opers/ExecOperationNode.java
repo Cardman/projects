@@ -848,7 +848,7 @@ public abstract class ExecOperationNode {
         }
         clCall_ = ExecTemplates.getOverridingFullTypeByBases(argClassName_,clCall_,_conf);
         if (methodCallBody_ == null) {
-            return new Argument(ExecCatOperation.getDisplayable(_argument,_conf).getDisplayedString(_conf));
+            return new Argument(ExecCatOperation.getDisplayable(_argument,_conf));
         }
         Parameters parameters_ = new Parameters();
         Argument out_ = new Argument(struct_);

@@ -1,7 +1,6 @@
 package code.formathtml;
 
 import code.formathtml.structs.BeanInfo;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.util.AdvancedFullStack;
@@ -34,11 +33,11 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        ContextEl cont_ = buildStdThree();
-        conf_.setContext(cont_);
+        AnalyzedTestContext cont_ = buildStdThree();
+        conf_.setContext(cont_.getContext());
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -79,11 +78,11 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        ContextEl cont_ = buildStdThree();
-        conf_.setContext(cont_);
+        AnalyzedTestContext cont_ = buildStdThree();
+        conf_.setContext(cont_.getContext());
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -102,7 +101,7 @@ public final class RenderInitNavTest extends CommonRender {
         assertTrue(!setupRendClassesInit(n_));
     }
 
-    private static ContextEl buildStdThree() {
+    private static AnalyzedTestContext buildStdThree() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
 
@@ -129,11 +128,11 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        ContextEl cont_ = buildStdThree();
-        conf_.setContext(cont_);
+        AnalyzedTestContext cont_ = buildStdThree();
+        conf_.setContext(cont_.getContext());
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -170,11 +169,11 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        ContextEl cont_ = buildStdThree();
-        conf_.setContext(cont_);
+        AnalyzedTestContext cont_ = buildStdThree();
+        conf_.setContext(cont_.getContext());
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -471,11 +470,11 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c");
-        ContextEl cont_ = buildStdThree();
-        conf_.setContext(cont_);
+        AnalyzedTestContext cont_ = buildStdThree();
+        conf_.setContext(cont_.getContext());
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        cont_.setFullStack(new AdvancedFullStack(conf_));
+        cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         conf_.setFirstUrl("page1.html");
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

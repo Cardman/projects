@@ -63,7 +63,7 @@ public class CustInitializer extends DefaultInitializer {
                 }
                 if (!_cont.hasException()) {
                     if (convert_) {
-                        out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont).getDisplayedString(_cont));
+                        out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
                     }
                     String text_ = NumParsers.getString(out_.getStruct()).getInstance();
                     log(_cont,text_);

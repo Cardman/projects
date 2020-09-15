@@ -359,7 +359,7 @@ public abstract class LgNames {
         buildOther();
     }
 
-    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
     }
 
@@ -1287,43 +1287,43 @@ public abstract class LgNames {
         return ValidatorStandard.getCustomTableType(_names, _context);
     }
 
-    public StringMap<String> buildFiles(ContextEl _context) {
+    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
         StringMap<String> files_ = new StringMap<String>();
-        LgNames stds_ = _context.getAnalyzing().getStandards();
-        String content_ = PredefinedClasses.getBracedIterableType(_context);
+        LgNames stds_ = _page.getStandards();
+        String content_ = PredefinedClasses.getBracedIterableType(_page);
         String name_;
         name_ = stds_.getAliasIterable();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIteratorType(_context);
+        content_ = PredefinedClasses.getBracedIteratorType(_page);
         name_ = stds_.getAliasIteratorType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIterableTableType(_context);
+        content_ = PredefinedClasses.getBracedIterableTableType(_page);
         name_ = stds_.getAliasIterableTable();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedIteratorTableType(_context);
+        content_ = PredefinedClasses.getBracedIteratorTableType(_page);
         name_ = stds_.getAliasIteratorTableType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedPairType(_context);
+        content_ = PredefinedClasses.getBracedPairType(_page);
         name_ = stds_.getAliasPairType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedEnumType(_context);
+        content_ = PredefinedClasses.getBracedEnumType(_page);
         name_ = stds_.getAliasEnumType();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedEnumParamType(_context);
+        content_ = PredefinedClasses.getBracedEnumParamType(_page);
         name_ = stds_.getAliasEnumParam();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedSeedDoubleGeneratorType(_context);
+        content_ = PredefinedClasses.getBracedSeedDoubleGeneratorType(_page);
         name_ = stds_.getAliasSeedDoubleGenerator();
         predefinedClasses.add(name_);
         files_.put(name_, content_);
-        content_ = PredefinedClasses.getBracedSeedGeneratorType(_context);
+        content_ = PredefinedClasses.getBracedSeedGeneratorType(_page);
         name_ = stds_.getAliasSeedGenerator();
         predefinedClasses.add(name_);
         files_.put(name_, content_);

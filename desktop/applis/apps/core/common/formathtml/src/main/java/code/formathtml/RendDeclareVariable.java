@@ -37,7 +37,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendBuildable
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         KeyWords keyWords_ = _cont.getKeyWords();

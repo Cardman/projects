@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.common.StringExpUtil;
@@ -622,10 +623,10 @@ public class LgNamesUtils extends LgNames {
     }
 
     @Override
-    public StringMap<String> buildFiles(ContextEl _context) {
-        StringMap<String> stds_ = super.buildFiles(_context);
+    public StringMap<String> buildFiles(AnalyzedPageEl _page) {
+        StringMap<String> stds_ = super.buildFiles(_page);
         String content_ = infos.getReader().read("resources_lg/threads/runnable.txt");
-        KeyWords keyWords_ = _context.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String public_ = keyWords_.getKeyWordPublic();
         String private_ = keyWords_.getKeyWordPrivate();
         String interface_ = keyWords_.getKeyWordInterface();
@@ -676,9 +677,9 @@ public class LgNamesUtils extends LgNames {
         map_.put("{liRem}", aliasList0RemoveLi0);
         map_.put("{liInd1}", aliasList0This0);
         map_.put("{liInd2}", aliasList1This0);
-        map_.put("{i}", tr("i",_context,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
-        map_.put("{p}", tr("p",_context));
-        map_.put("{out}", tr("out",_context,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
+        map_.put("{i}", tr("i", _page,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
+        map_.put("{p}", tr("p", _page));
+        map_.put("{out}", tr("out", _page,aliasList0RemoveLi0,aliasList1AddLi0,aliasList1AddLi1));
         map_.put("{param}", suffixParam_);
         map_.put("{local}", suffixLocal_);
         map_.put("{loop}", suffixLoop_);
@@ -739,8 +740,8 @@ public class LgNamesUtils extends LgNames {
         map_.put("{p13}", aliasTable0SetSecond0);
         map_.put("{p14}", aliasTable0SetSecond1);
         map_.put("{p15}", aliasTable0RemoveLi0);
-        map_.put("{f}", tr("f",_context));
-        map_.put("{s}", tr("s",_context));
+        map_.put("{f}", tr("f", _page));
+        map_.put("{s}", tr("s", _page));
         map_.put("{CustIterTable}", aliasCustIterTable);
         map_.put("{IterTypeTable}", getAliasIteratorTableType());
         map_.put("{listItrTa}", aliasListIterTable);
@@ -774,11 +775,11 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasTable);
 
         content_ = infos.getReader().read("resources_lg/tests/run.txt");
-        map_.put("{a}",tr("a",_context,aliasExecute0ExecuteTests0));
-        map_.put("{b}",tr("b",_context,
+        map_.put("{a}",tr("a", _page,aliasExecute0ExecuteTests0));
+        map_.put("{b}",tr("b", _page,
                 aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
         ));
-        map_.put("{c}",tr("c",_context,aliasExecute0ExecuteTests0));
+        map_.put("{c}",tr("c", _page,aliasExecute0ExecuteTests0));
         map_.put("{a11}",aliasAssert0AssertAssert0);
         map_.put("{a12}",aliasAssert0AssertAssert1);
         map_.put("{a21}",aliasAssert1AssertAssert0);
@@ -799,7 +800,7 @@ public class LgNamesUtils extends LgNames {
         map_.put("{a103}",aliasAssert5AssertAssert2);
         map_.put("{a111}",aliasAssert6AssertAssert0);
         map_.put("{a112}",aliasAssert6AssertAssert1);
-        map_.put("{d}",tr("d",_context,
+        map_.put("{d}",tr("d", _page,
                 aliasAssert0AssertAssert0,aliasAssert0AssertAssert1,
                 aliasAssert1AssertAssert0,aliasAssert1AssertAssert1,
                 aliasAssert2AssertAssert0,aliasAssert2AssertAssert1,
@@ -812,24 +813,24 @@ public class LgNamesUtils extends LgNames {
                 aliasAssert5AssertAssert0,aliasAssert5AssertAssert1,aliasAssert5AssertAssert2,
                 aliasAssert6AssertAssert0,aliasAssert6AssertAssert1));
         map_.put("{co}",aliasExecute0ExecuteConvert0);
-        map_.put("{e}",tr("e",_context,aliasExecute0ExecuteTests0,aliasExecute0ExecuteConvert0));
-        map_.put("{f}",tr("f",_context));
-        map_.put("{i}",tr("i",_context,aliasExecute0ExecuteTests0));
-        map_.put("{l}",tr("l",_context,aliasExecute0ExecuteTests0));
-        map_.put("{m}",tr("m",_context,aliasExecute0ExecuteTests0));
-        map_.put("{o}",tr("o",_context,
+        map_.put("{e}",tr("e", _page,aliasExecute0ExecuteTests0,aliasExecute0ExecuteConvert0));
+        map_.put("{f}",tr("f", _page));
+        map_.put("{i}",tr("i", _page,aliasExecute0ExecuteTests0));
+        map_.put("{l}",tr("l", _page,aliasExecute0ExecuteTests0));
+        map_.put("{m}",tr("m", _page,aliasExecute0ExecuteTests0));
+        map_.put("{o}",tr("o", _page,
                 aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
         ));
         map_.put("{r1}",aliasExecute0Run0);
         map_.put("{r2}",aliasExecute0Run1);
         map_.put("{r3}",aliasExecute0Run2);
-        map_.put("{p}",tr("p",_context,aliasExecute0ExecuteTests0));
-        map_.put("{s}",tr("s",_context));
-        map_.put("{t}",tr("t",_context,aliasExecute0ExecuteTests0));
-        map_.put("{tt}",tr("tt",_context,
+        map_.put("{p}",tr("p", _page,aliasExecute0ExecuteTests0));
+        map_.put("{s}",tr("s", _page));
+        map_.put("{t}",tr("t", _page,aliasExecute0ExecuteTests0));
+        map_.put("{tt}",tr("tt", _page,
                 aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2,
                 aliasExecute0ExecuteSetupNoException0));
-        map_.put("{ex}",tr("ex",_context,
+        map_.put("{ex}",tr("ex", _page,
                 aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2));
         map_.put("{et2}",aliasExecute0ExecuteSetupError0);
         map_.put("{et3}",aliasExecute0ExecuteSetupError1);
@@ -838,32 +839,32 @@ public class LgNamesUtils extends LgNames {
         map_.put("{er}",aliasExecute1ExecuteSetupError1);
         map_.put("{et1}",aliasExecute0ExecuteSetupNoException0);
         map_.put("{info}",aliasExecute0ExecuteTests0);
-        map_.put("{res}",tr("res",_context,
+        map_.put("{res}",tr("res", _page,
                 aliasExecute0ExecuteSetupError0,aliasExecute0ExecuteSetupError1,aliasExecute0ExecuteSetupError2,
                 aliasExecute1ExecuteSetupError0,aliasExecute1ExecuteSetupError1,
                 aliasExecute0ExecuteSetupNoException0,aliasExecute0ExecuteTests0));
-        map_.put("{out}",tr("out",_context,aliasExecute0ExecuteTests0));
-        map_.put("{processEx}",tr("processEx",_context,
+        map_.put("{out}",tr("out", _page,aliasExecute0ExecuteTests0));
+        map_.put("{processEx}",tr("processEx", _page,
                 aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
         ));
-        map_.put("{ctor}",tr("ctor",_context,
+        map_.put("{ctor}",tr("ctor", _page,
                 aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
         ));
-        map_.put("{classTest}",tr("classTest",_context,
+        map_.put("{classTest}",tr("classTest", _page,
                 aliasExecute0Run0,aliasExecute0Run1,aliasExecute0Run2
         ));
-        map_.put("{results}",tr("results",_context,aliasExecute0ExecuteTests0));
-        map_.put("{exc}",tr("exc",_context,aliasExecute0ExecuteTests0));
-        map_.put("{nbParams}",tr("nbParams",_context,aliasExecute0ExecuteTests0));
-        map_.put("{params}",tr("params",_context,aliasExecute0ExecuteTests0));
-        map_.put("{arr}",tr("arr",_context,aliasExecute0ExecuteTests0));
-        map_.put("{as}",tr("as",_context,aliasExecute0ExecuteTests0));
-        map_.put("{bs}",tr("bs",_context,aliasExecute0ExecuteTests0));
-        map_.put("{tts}",tr("tts",_context,aliasExecute0ExecuteTests0));
-        map_.put("{locType}",tr("locType",_context,aliasExecute0ExecuteTests0));
-        map_.put("{loc}",tr("loc",_context,aliasExecute0ExecuteTests0));
-        map_.put("{paramAnn}",tr("paramAnn",_context,aliasExecute0ExecuteTests0));
-        map_.put("{aParam}",tr("aParam",_context,aliasExecute0ExecuteTests0));
+        map_.put("{results}",tr("results", _page,aliasExecute0ExecuteTests0));
+        map_.put("{exc}",tr("exc", _page,aliasExecute0ExecuteTests0));
+        map_.put("{nbParams}",tr("nbParams", _page,aliasExecute0ExecuteTests0));
+        map_.put("{params}",tr("params", _page,aliasExecute0ExecuteTests0));
+        map_.put("{arr}",tr("arr", _page,aliasExecute0ExecuteTests0));
+        map_.put("{as}",tr("as", _page,aliasExecute0ExecuteTests0));
+        map_.put("{bs}",tr("bs", _page,aliasExecute0ExecuteTests0));
+        map_.put("{tts}",tr("tts", _page,aliasExecute0ExecuteTests0));
+        map_.put("{locType}",tr("locType", _page,aliasExecute0ExecuteTests0));
+        map_.put("{loc}",tr("loc", _page,aliasExecute0ExecuteTests0));
+        map_.put("{paramAnn}",tr("paramAnn", _page,aliasExecute0ExecuteTests0));
+        map_.put("{aParam}",tr("aParam", _page,aliasExecute0ExecuteTests0));
         map_.put("{final}",keyWords_.getKeyWordFinal());
         map_.put("{static}",keyWords_.getKeyWordStatic());
         map_.put("{for}",keyWords_.getKeyWordFor());
@@ -995,8 +996,8 @@ public class LgNamesUtils extends LgNames {
         map_.put("{fo1}", aliasFormatType0Print0);
         map_.put("{fo2}", aliasFormatType1Print0);
         map_.put("{fo3}", aliasFormatType1Print1);
-        map_.put("{as}", tr("as",_context,aliasFormatType1Print0,aliasFormatType1Print1));
-        map_.put("{e}", tr("e",_context,aliasFormatType1Print0,aliasFormatType1Print1));
+        map_.put("{as}", tr("as", _page,aliasFormatType1Print0,aliasFormatType1Print1));
+        map_.put("{e}", tr("e", _page,aliasFormatType1Print0,aliasFormatType1Print1));
         map_.put("{print}",getAliasPrint());
         map_.put("{format}",getAliasFormat());
         content_ = StringList.formatQuote(content_, map_);
@@ -1005,10 +1006,10 @@ public class LgNamesUtils extends LgNames {
         getPredefinedInterfacesInitOrder().add(aliasFormatType);
         return stds_;
     }
-    protected static String tr(String _var, ContextEl _context, String... _args) {
-        CustList<String> allKeysWords_ = _context.getAnalyzing().getKeyWords().allKeyWords().values();
-        allKeysWords_.addAllElts(_context.getAnalyzing().getStandards().getPrimitiveTypes().getKeys());
-        allKeysWords_.add(_context.getAnalyzing().getStandards().getAliasVoid());
+    protected static String tr(String _var, AnalyzedPageEl analyzing, String... _args) {
+        CustList<String> allKeysWords_ = analyzing.getKeyWords().allKeyWords().values();
+        allKeysWords_.addAllElts(analyzing.getStandards().getPrimitiveTypes().getKeys());
+        allKeysWords_.add(analyzing.getStandards().getAliasVoid());
         for (String p:_args) {
             allKeysWords_.add(p);
         }
@@ -1361,7 +1362,7 @@ public class LgNamesUtils extends LgNames {
         getStandards().addEntry(aliasConcurrentError, stdcl_);
     }
     @Override
-    public DisplayableStruct getStringOfObject(ContextEl _cont, Struct _arg) {
+    public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         if (_arg instanceof RunnableStruct) {
             String className_ = _arg.getClassName(_cont);
             String id_ = StringExpUtil.getIdFromAllTypes(className_);
@@ -2281,7 +2282,7 @@ public class LgNamesUtils extends LgNames {
         if (_struct instanceof DisplayableStruct) {
             return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();
         }
-        return StringList.concat(((StringStruct)_cont.getStandards().getStringOfObject(_cont,_struct)).getInstance(),"...");
+        return StringList.concat(_cont.getStandards().getStringOfObject(_cont,_struct).getInstance(),"...");
     }
     protected void processFailInit(ContextEl _cont) {
         if (_cont.getInitializingTypeInfos().isInitEnums()) {

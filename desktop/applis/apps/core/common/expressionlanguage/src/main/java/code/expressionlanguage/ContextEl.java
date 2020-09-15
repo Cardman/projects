@@ -105,8 +105,9 @@ public abstract class ContextEl {
         return analyzing;
     }
 
-    public void setAnalyzing() {
+    public AnalyzedPageEl setAnalyzing() {
         analyzing = setInnerAnalyzing();
+        return analyzing;
     }
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();

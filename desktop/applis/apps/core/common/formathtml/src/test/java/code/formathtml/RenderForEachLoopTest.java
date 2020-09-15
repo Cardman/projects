@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -21,14 +22,9 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
+
     @Test
     public void process2Test() {
         String locale_ = "en";
@@ -38,13 +34,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.String[]{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='$var'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process3Test() {
@@ -55,38 +45,25 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{$null}\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        Struct exc_ = getEx(html_, new StringMap<String>());
+        assertNotNull(exc_);
     }
     @Test
     public void process4Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", getRes(html_, files_));
     }
 
     @Test
     public void process5Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html/>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html/>", getRes(html_, files_));
     }
     @Test
     public void process6Test() {
@@ -106,13 +83,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Configuration context_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>1</li><li>2</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>1</li><li>2</li></ul></body></html>", getResOneBean(html_, filesSec_));
     }
 
     @Test
@@ -124,13 +95,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{}\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul/></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul/></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process8Test() {
@@ -141,13 +106,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"$new java.lang.Integer[]{0}\" className='$int'><c:for var=\"t\" list=\"$new java.lang.Integer[]{1}\" className='$int'><li>{s}-{t}</li></c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>0-1</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>0-1</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
 
     @Test
@@ -159,13 +118,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:if condition='$true'><li><ol><c:for var=\"t\" list=\"$new java.lang.Integer[]{1}\" className='$int'><li>{t}</li></c:for></ol></li></c:if></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li><ol><li>1</li></ol></li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li><ol><li>1</li></ol></li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process10Test() {
@@ -176,98 +129,66 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:set className='$int[]' value='arr'/><c:for var=\"s\" list=\"arr\" className='$int'><li>{s}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_, context_);
-        assertNotNull(getException(context_));
+        Struct exc_ = getEx(html_, new StringMap<String>());
+        assertNotNull(exc_);
     }
+
     @Test
     public void process11Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomFailIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(html_, files_));
     }
     @Test
     public void process12Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomFailIteratorBis());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(html_, files_));
     }
     @Test
     public void process13Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(html_, files_));
     }
 
     @Test
     public void process14Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;(0,1/0,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(html_, files_));
     }
     @Test
     public void process15Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", getRes(html_, files_));
     }
     @Test
     public void process16Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;!java.lang.Integer&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html>0-1-2-3-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html>0-1-2-3-</html>", getRes(html_, files_));
     }
     @Test
     public void process17Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"(pkg.CustList&lt;?&gt;)$new pkg.CustList&lt;java.lang.Integer&gt;(0,1,2,3)\" className='java.lang.Object'>{i}-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html>0-1-2-3-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html>0-1-2-3-</html>", getRes(html_, files_));
     }
     @Test
     public void process18Test() {
@@ -286,13 +207,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", getResOneBean(html_, filesSec_));
     }
 
     @Test
@@ -312,13 +227,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithOneBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_, context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>0</li><li>1</li><li>2</li><li>3</li></ul></body></html>", getResOneBean(html_, filesSec_));
     }
     @Test
     public void process20Test() {
@@ -329,37 +238,37 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"{&quot;FIRST&quot;,&quot;SECOND&quot;}\" className='java.lang.String'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html><body><ul><li>5</li><li>6</li></ul></body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process21Test() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;&gt;(0,1,2,3)\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", RendBlock.getRes(rendDocumentBlock_,context_));
-        assertNull(getException(context_));
+        assertEq("<html>0-Pair-1-Impair-2-Pair-3-Impair-</html>", getRes(html_, files_));
     }
+
     @Test
     public void process22Test() {
+        String html_ = "<html><c:set className='$var' value='l=$(pkg.CustList&lt;$int&gt;)$null'/><c:for var=\"i\" list=\"l\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:set className='$var' value='l=$(pkg.CustList&lt;$int&gt;)$null'/><c:for var=\"i\" list=\"l\" className='$int'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(context_.isEmptyErrors());
-        RendBlock.getRes(rendDocumentBlock_,context_);
-        assertNotNull(getException(context_));
+        assertNotNull(getEx(html_, files_));
+    }
+
+    private Struct getEx(String html_, StringMap<String> _files) {
+        return getCommEx(html_, _files);
+    }
+
+
+    private String getResOneBean(String html_, StringMap<String> filesSec_) {
+        return getCommOneBean(html_, filesSec_);
+    }
+
+    private String getRes(String html_, StringMap<String> files_) {
+        return getCommRes(html_,files_);
     }
     @Test
     public void process1FailTest() {
@@ -370,26 +279,21 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"s\" list=\"0\" className='java.lang.Integer'><li>{s.length()}</li></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
 
     @Test
     public void process2FailTest() {
+        String html_ = "<html><c:for var=\"i\" list=\"$null\" className='$var'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$null\" className='$var'>{i}-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
 
     @Test
     public void process3FailTest() {
+        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$var'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -401,13 +305,11 @@ public final class RenderForEachLoopTest extends CommonRender {
         xml_.append("$public $class pk.Cl1:Int3{}");
         xml_.append("$public $class pk.Cl2:Int4{}");
         files_.put("my_file",xml_.toString());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$var'>{i}-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process4FailTest() {
+        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$int'>{i}-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
@@ -419,10 +321,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         xml_.append("$public $class pk.Cl1:Int3{}");
         xml_.append("$public $class pk.Cl2:Int4{}");
         files_.put("my_file",xml_.toString());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$bool($true,$new pk.Cl1[]{$new pk.Cl1()},$new pk.Cl2[]{$new pk.Cl2()})\" className='$int'>{i}-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
     @Test
     public void process5FailTest() {
@@ -433,11 +332,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'>0</c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process6FailTest() {
@@ -448,11 +343,7 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'><c:for var=\"#s\" list=\"0\" className='java.lang.Integer'>0</c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process7FailTest() {
@@ -463,22 +354,17 @@ public final class RenderForEachLoopTest extends CommonRender {
         String html_ = "<html><body><ul><c:for className=\"$int\" init=\"s=0\" condition=\"\" step=\"i;++\"><c:for var=\"s\" list=\"0\" className='java.lang.Integer' indexClassName='java.lang.String'>0</c:for></c:for></ul></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
-        Configuration context_ = contextElFive();
-
-        setup(folder_, relative_, context_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, new StringMap<String>()));
     }
     @Test
     public void process8FailTest() {
+        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(files_);
-        String html_ = "<html><c:for var=\"i\" list=\"$new pkg.CustList&lt;java.lang.Integer&gt;()\" className='java.lang.String'>{i}-<c:if condition=\"i%2==0\">Pair</c:if><c:else>Impair</c:else>-</c:for></html>";
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithoutBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErr(html_, files_));
     }
+
     @Test
     public void process9FailTest() {
         String locale_ = "en";
@@ -496,12 +382,13 @@ public final class RenderForEachLoopTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
         filesSec_.put(CUST_LIST_PATH, getCustomList());
-        Configuration context_ = contextElFive(filesSec_);
-
-        setup(folder_, relative_, context_);
-        buildRendWithOneBean(html_, context_);
-        assertTrue(!context_.isEmptyErrors());
+        assertTrue(hasErrOneBean(html_, filesSec_));
     }
+
+    private boolean hasErr(String html_, StringMap<String> files_) {
+        return hasCommErr(html_, files_);
+    }
+
 
     private static String getCustomFailList() {
         StringBuilder xml_ = new StringBuilder();

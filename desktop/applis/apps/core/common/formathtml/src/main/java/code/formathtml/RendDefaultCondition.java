@@ -24,7 +24,7 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         RendParentBlock b_ = getParent();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         if (!(b_ instanceof RendSwitchBlock)) {
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
@@ -81,7 +81,7 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(instanceTest_);
             lv_.setConstType(ConstType.FIX_VAR);
-            _cont.getAnalyzing().getInfosVars().put(getVariableName(), lv_);
+            _cont.getContext().getAnalyzing().getInfosVars().put(getVariableName(), lv_);
         }
     }
 

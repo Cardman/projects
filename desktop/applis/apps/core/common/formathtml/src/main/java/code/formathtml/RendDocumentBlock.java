@@ -34,7 +34,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
     public void buildFctInstructions(Configuration _cont, AnalyzingDoc _anaDoc) {
         beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
         imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(getOffset().getOffsetTrim());
         page_.setOffset(0);
         page_.setAccessStaticContext(MethodAccessKind.STATIC);

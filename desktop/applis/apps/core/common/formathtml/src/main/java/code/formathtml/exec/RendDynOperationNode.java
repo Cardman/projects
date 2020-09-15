@@ -743,7 +743,7 @@ public abstract class RendDynOperationNode {
             return Argument.createVoid();
         }
         if (convert_) {
-            out_ = new Argument(ExecCatOperation.getDisplayable(out_,_conf.getContext()).getDisplayedString(ctx_));
+            out_ = new Argument(ExecCatOperation.getDisplayable(out_,_conf.getContext()));
         }
         return out_;
     }

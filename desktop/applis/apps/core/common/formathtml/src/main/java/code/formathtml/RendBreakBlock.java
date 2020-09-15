@@ -41,7 +41,7 @@ public final class RendBreakBlock extends RendLeaf implements RendBuildableElMet
             b_ = b_.getParent();
         }
         if (!childOfBreakable_) {
-            AnalyzedPageEl page_ = _cont.getAnalyzing();
+            AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
             page_.setGlobalOffset(getOffset().getOffsetTrim());
             page_.setOffset(0);
             FoundErrorInterpret un_ = new FoundErrorInterpret();

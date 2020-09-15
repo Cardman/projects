@@ -24,7 +24,7 @@ public final class RendThrowing extends RendLeaf implements RendBuildableElMetho
 
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());

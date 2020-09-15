@@ -422,7 +422,7 @@ public final class ApplyCoreMethodUtil {
         return new ErrorStruct(_cont,null_);
     }
 
-    public static DisplayableStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {
+    public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {
         String str_;
         if (_arg instanceof EnumerableStruct) {
             str_ = ((EnumerableStruct)_arg).getName();
