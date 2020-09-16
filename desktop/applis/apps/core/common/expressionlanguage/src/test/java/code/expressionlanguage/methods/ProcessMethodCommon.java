@@ -333,15 +333,22 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdExp(opt_);
     }
 
-    private static ContextEl ctxLgReadOnly(String fr) {
+    private static AnalyzedTestContext ctxLgReadOnlyAna(String fr) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
-        return InitializationLgNames.buildStdOne(fr, opt_);
+        return InitializationLgNames.buildStdOneAna(fr, opt_);
     }
 
-    protected static ContextEl contextElDefault(int _m) {
+    protected static ContextEl contextElDefault(StringMap<String> files_, int i) {
+        AnalyzedTestContext cont_ = contextElDefault(i);
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
+    private static AnalyzedTestContext contextElDefault(int _m) {
         Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(_m, opt_);
+        return InitializationLgNames.buildStdOneAna(_m, opt_);
     }
 
     protected static ContextEl contextElTypes(StringMap<String> files_) {
@@ -374,10 +381,10 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_) {
-        ContextEl cont_ = ctxLg(_lg);
-        Classes.validateAll(files_, cont_);
+        AnalyzedTestContext cont_ = ctxLgAna(_lg);
+        Classes.validateAll(files_, cont_.getContext());
         assertTrue(isEmptyErrors(cont_));
-        return cont_;
+        return cont_.getContext();
     }
 
     protected static ContextEl ctxOkQuick(StringMap<String> files_) {
@@ -405,18 +412,18 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOne(opt_);
     }
 
-    protected static ContextEl ctxLg(String _lg) {
+    protected static AnalyzedTestContext ctxLgAna(String _lg) {
         Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(_lg, opt_);
+        return InitializationLgNames.buildStdOneAna(_lg, opt_);
     }
 
-    protected static ContextEl getEnContextElComment() {
+    protected static AnalyzedTestContext getEnContextElComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
 
-        return InitializationLgNames.buildStdOne("en", opt_);
+        return InitializationLgNames.buildStdOneAna("en", opt_);
     }
 
     private static CustList<ExecConstructorBlock> getConstructorBodiesById(ContextEl _context, String _genericClassName, ConstructorId _id) {
@@ -463,15 +470,15 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_) {
-        ContextEl cont_ = ctxLgReadOnly(_lg);
-        Classes.validateAll(files_, cont_);
+        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
+        Classes.validateAll(files_, cont_.getContext());
         assertTrue(isEmptyErrors(cont_));
-        return cont_;
+        return cont_.getContext();
     }
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> files_) {
-        ContextEl cont_ = ctxLgReadOnly(_lg);
-        Classes.validateAll(files_, cont_);
+        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
+        Classes.validateAll(files_, cont_.getContext());
         return !isEmptyErrors(cont_);
     }
 
@@ -482,14 +489,14 @@ public abstract class ProcessMethodCommon {
         return cont_;
     }
 
-    protected static ContextEl ctxReadOnly() {
+    private static ContextEl ctxReadOnly() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
 
         return InitializationLgNames.buildStdOne(opt_);
     }
 
-    protected static ContextEl contextElSingleDotDefaultComment() {
+    private static ContextEl contextElSingleDotDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
@@ -549,7 +556,7 @@ public abstract class ProcessMethodCommon {
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
     }
 
-    protected static ContextEl simpleCtx() {
+    protected static AnalyzedTestContext simpleCtx() {
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
         AnalyzedPageEl page_ = cont_.getAnalyzing();
@@ -559,12 +566,7 @@ public abstract class ProcessMethodCommon {
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
         }
-        return cont_;
-    }
-
-    protected static void parseFile(StringBuilder file_, ContextEl context_, String _myFile, boolean _predefined) {
-        String content_ = file_.toString();
-        parseFile(context_, _myFile, _predefined, content_);
+        return new AnalyzedTestContext(cont_,page_);
     }
 
     protected static void parseFile(StringBuilder file_, AnalyzedTestContext context_, String _myFile, boolean _predefined) {
@@ -572,6 +574,9 @@ public abstract class ProcessMethodCommon {
         parseFile(context_.getContext(), _myFile, _predefined, content_);
     }
 
+    protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file) {
+        parseFile(context_.getContext(),_fileName,_predefined,_file);
+    }
     protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file) {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
@@ -590,7 +595,7 @@ public abstract class ProcessMethodCommon {
         ClassesUtil.fetchByFile(context_,basePkgFound_,pkgFound_,fileBlock_,exFile_);
     }
 
-    protected static ContextEl simpleCtxComment() {
+    protected static AnalyzedTestContext simpleCtxComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
@@ -602,7 +607,7 @@ public abstract class ProcessMethodCommon {
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
         }
-        return cont_;
+        return new AnalyzedTestContext(cont_,page_);
     }
 
     protected static Struct getField(Struct _struct, ClassField _key) {
@@ -718,14 +723,20 @@ public abstract class ProcessMethodCommon {
         return !isEmptyErrors(ctx_);
     }
 
+    protected static boolean hasErrDefCom(StringMap<String> files_) {
+        ContextEl cont_ = contextElSingleDotDefaultComment();
+        Classes.validateAll(files_, cont_);
+        return !isEmptyErrors(cont_);
+    }
+
     protected static boolean hasErr(StringMap<String> files_) {
         ContextEl cont_ = ctxVal(files_);
         return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErrLg(StringMap<String> files_, String _lg) {
-        ContextEl cont_ = ctxLg(_lg);
-        Classes.validateAll(files_, cont_);
+        AnalyzedTestContext cont_ = ctxLgAna(_lg);
+        Classes.validateAll(files_, cont_.getContext());
         return !isEmptyErrors(cont_);
     }
 

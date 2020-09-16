@@ -882,13 +882,13 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     }
 
     private AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {
-        ContextEl cont_ = ctxLg("en");
-        parseCustomFiles(_files, cont_);
+        AnalyzedTestContext cont_ = ctxLgAna("en");
+        parseCustomFiles(_files, cont_.getContext());
         assertTrue( isEmptyErrors(cont_));
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClassesId(cont_);
+        ClassesUtil.validateInheritingClassesId(cont_.getContext());
         assertTrue( isEmptyErrors(cont_));
-        return new AnalyzedTestContext(cont_,cont_.getAnalyzing());
+        return cont_;
     }
 
 }

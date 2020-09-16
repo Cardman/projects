@@ -602,10 +602,8 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault(12);
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElDefault(files_, 12);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();
@@ -995,10 +993,8 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault(2);
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElDefault(files_, 2);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("factrec", cont_.getStandards().getAliasPrimInteger());
         Argument v_ = new Argument();

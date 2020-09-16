@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.NullStruct;
@@ -28,9 +27,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -51,9 +48,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -76,9 +71,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -101,9 +94,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -129,9 +120,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -152,9 +141,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -179,9 +166,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" Object opTwo();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -202,9 +187,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -231,9 +214,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -263,9 +244,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -298,9 +277,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -336,9 +313,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -374,9 +349,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -412,9 +385,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -451,9 +422,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -475,9 +444,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -501,9 +468,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" Object opTwo(String... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -527,9 +492,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" Object opTwo(String... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -556,9 +519,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
@@ -585,9 +546,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ =getMethodId("test");
         Argument ret_;
@@ -611,9 +570,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" String opTwo();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -638,9 +595,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" String opThree();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -665,9 +620,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" String opThree();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -688,9 +641,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -717,9 +668,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" Object opTwo();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -743,9 +692,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" ;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -767,9 +714,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         calculateError("pkg.Apply", id_, args_, cont_);
@@ -788,9 +733,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void calculate2FailTest() {
@@ -805,9 +748,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void calculate4FailTest() {
@@ -822,9 +763,7 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void calculate5FailTest() {
@@ -839,8 +778,6 @@ public final class ProcessMethodFunctionalInterfaceTest extends ProcessMethodCom
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
 }

@@ -727,9 +727,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append("   $case 0:\n");
         xml_.append("   \\\\comment\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDotDefaultComment();
-        Classes.validateAll(files_, cont_);
-        assertTrue( !isEmptyErrors(cont_));
+        assertTrue(hasErrDefCom(files_));
     }
     @Test
     public void validateEl149FailTest() {

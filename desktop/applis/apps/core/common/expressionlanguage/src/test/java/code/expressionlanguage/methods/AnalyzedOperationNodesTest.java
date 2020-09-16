@@ -1,5 +1,6 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -5136,8 +5137,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static void failAna(StringMap<String> files_, String en) {
-        ContextEl cont_ = ctxLg(en);
-        ClassesUtil.buildAllBracesBodies(files_, cont_);
+        AnalyzedTestContext cont_ = ctxLgAna(en);
+        ClassesUtil.buildAllBracesBodies(files_, cont_.getContext());
         assertTrue(!isEmptyErrors(cont_));
     }
 

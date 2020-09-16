@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -21,7 +20,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -47,8 +45,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -71,7 +68,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -97,8 +93,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -121,7 +116,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExFour {\n");
         xml_.append(" $public $static $int ance;\n");
@@ -130,14 +124,12 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExFour","ance"))).intStruct());
     }
     @Test
     public void calculate4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -165,8 +157,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -192,7 +183,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -220,8 +210,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -247,7 +236,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -275,8 +263,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.ExTwo"));
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -316,10 +303,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -347,10 +332,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -360,14 +343,12 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void calculate14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExFour {\n");
         xml_.append(" $public $static $final $int ance = 1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         assertEq(1,((IntStruct)cont_.getClasses().getStaticField(new ClassField("pkg.ExFour","ance"))).intStruct());
     }
     @Test
@@ -386,10 +367,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -410,10 +389,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -435,10 +412,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -459,10 +434,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -490,10 +463,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -524,10 +495,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -557,9 +526,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxReadOnly();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("test");
         Argument ret_;
@@ -578,10 +545,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
@@ -610,10 +575,8 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxReadOnlyOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
@@ -637,7 +600,6 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
     @Test
     public void fail1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree:pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -653,13 +615,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExFour {\n");
         xml_.append(" $public $static $final $int ance=1;\n");
@@ -668,13 +628,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -683,13 +641,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int ance=1;\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree:pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -705,13 +661,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree:pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -727,13 +681,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree:pkg.ExFour {\n");
         xml_.append(" $static {\n");
@@ -749,21 +701,17 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
     @Test
     public void fail8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctxReadOnly();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.ExEnum{\n");
         xml_.append("ONE;\n");
         xml_.append(" $public $static ExEnum TWO = (ONE = $null);\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErrReadOnly(files_));
     }
-    
 }

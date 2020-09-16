@@ -1,7 +1,6 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.common.ClassField;
@@ -21,10 +20,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         ProcessMethod.initializeClass("pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"),cont_);
     }
@@ -36,10 +33,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" ONE;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
 
@@ -51,10 +46,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $int first=4i;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -75,10 +68,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -103,10 +94,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -136,10 +125,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -177,10 +164,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -219,10 +204,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -250,10 +233,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" ONE{$public $int first=4i;};\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -274,10 +255,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -305,10 +284,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $abstract $int custMethod();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "out"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -333,10 +310,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $abstract $int custMethod();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "out"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -367,10 +342,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -406,10 +379,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -446,10 +417,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -533,10 +502,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -592,10 +559,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -624,10 +589,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -655,10 +618,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -685,10 +646,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -717,10 +676,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -748,10 +705,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -781,10 +736,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex", str_.getClassName(cont_));
@@ -815,10 +768,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "ONE"));
         assertEq("pkg.Ex-ONE", str_.getClassName(cont_));
@@ -842,10 +793,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
@@ -866,10 +815,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner.ONE.first;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -894,10 +841,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner.ONE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -919,10 +864,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = INSTANCE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -943,10 +886,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = pkg.Ex.ExInner..ONE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -967,10 +908,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = Ex.ExInner..ONE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -991,10 +930,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner..ONE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -1016,10 +953,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = $static(ONE).first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -1041,10 +976,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner..ONE.FIRST;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -1066,10 +999,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $boolean field = ExInner.ONE $instanceof ExInner..ONE;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -1093,10 +1024,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
         assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
@@ -1135,10 +1064,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $class pkg.ExSuper {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "outOne"));
         assertEq(INTEGER, str_.getClassName(cont_));
@@ -1169,10 +1096,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $static Ex..ONE.Sample INSTANCE = $new Ex..ONE.Sample();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex", "INSTANCE"));
         assertEq("pkg.Ex-ONE..Sample", str_.getClassName(cont_));
     }
@@ -1195,10 +1120,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         assertTrue(!isInitialized(cont_, "pkg.Ex"));
         InitClassState state_ = cont_.getLocks().getState("pkg.Ex");
         assertSame(InitClassState.NOT_YET, state_);
@@ -1258,10 +1181,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass3FailTest() {
@@ -1286,10 +1207,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" $public $abstract $int custMethod();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -1321,10 +1240,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass6FailTest() {
@@ -1337,10 +1254,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = INSTANCE.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass7FailTest() {
@@ -1352,10 +1267,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = pkg.Ex.ExInner..TWO.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass8FailTest() {
@@ -1367,10 +1280,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = Ex.ExInner..TWO.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass9FailTest() {
@@ -1382,10 +1293,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner..TWO.first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass10FailTest() {
@@ -1398,10 +1307,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = $static(TWO).first(2);\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass11FailTest() {
@@ -1414,10 +1321,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $int field = ExInner..TWO.FIRST;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass12FailTest() {
@@ -1430,10 +1335,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $boolean field = ExInner.ONE $instanceof ExInner..TWO;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass13FailTest() {
@@ -1446,10 +1349,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static $boolean field = ExInner.ONE $instanceof Object..TWO;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass14FailTest() {
@@ -1468,10 +1369,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static pkg.Ex.ExInner<$int>..ONE.InnerInner<$int> INSTANCE2;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass15FailTest() {
@@ -1490,10 +1389,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static pkg.Ex.ExInner<$int>..ONE.InnerInner INSTANCE2;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass16FailTest() {
@@ -1512,10 +1409,8 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static pkg.Ex.ExInner..ONE<$int>.InnerInner<$int> INSTANCE2;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void initializeClass17FailTest() {
@@ -1534,9 +1429,7 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         xml_.append("$public $static pkg.Ex.ExInner..ONE<$int>.InnerInner INSTANCE2;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }
