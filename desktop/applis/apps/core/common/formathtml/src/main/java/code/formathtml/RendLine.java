@@ -9,7 +9,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendLine extends RendLeaf implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
+public final class RendLine extends RendLeaf implements RendWithEl, RendReducableOperations {
 
     private final String expression;
 

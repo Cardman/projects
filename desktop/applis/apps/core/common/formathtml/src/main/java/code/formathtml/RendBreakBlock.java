@@ -9,7 +9,7 @@ import code.formathtml.stacks.*;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
-public final class RendBreakBlock extends RendLeaf implements RendBuildableElMethod,RendCallingFinally {
+public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendCallingFinally {
 
     private String label;
     private int labelOffset;

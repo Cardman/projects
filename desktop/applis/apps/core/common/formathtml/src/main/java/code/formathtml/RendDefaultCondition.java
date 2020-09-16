@@ -12,7 +12,7 @@ import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.stacks.RendSwitchBlockStack;
 import code.formathtml.util.AnalyzingDoc;
 
-public final class RendDefaultCondition extends RendSwitchPartCondition implements RendBuildableElMethod {
+public final class RendDefaultCondition extends RendSwitchPartCondition implements RendWithEl {
 
     private final int variableOffset;
     RendDefaultCondition(OffsetStringInfo _variableName, OffsetsBlock _offset) {

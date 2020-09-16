@@ -785,19 +785,17 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             String forId_ = l_.getFormClassName();
             if (forId_.startsWith(ARR)) {
                 Ints dims_ = new Ints();
-                String size_;
-                size_ = lgNames_.getAliasBadSize();
                 for (Argument a: _values) {
                     int dim_ = ClassArgumentMatching.convertToNumber(a.getStruct()).intStruct();
-                    if (dim_ < 0) {
-                        String mess_ = StringList.concat(Long.toString(dim_),"<0");
-                        _conf.setException(new ErrorStruct(_conf,mess_,size_));
-                        return new Argument();
-                    }
                     dims_.add(dim_);
                 }
                 String c_ = forId_.substring(ARR.length());
-                return new Argument(ExecTemplates.newCustomArray(c_, dims_, _conf));
+                Struct res_ = ExecTemplates.newCustomArrayOrExc(c_, dims_, _conf);
+                if (res_ instanceof ErrorStruct) {
+                    _conf.setException(res_);
+                    return new Argument();
+                }
+                return new Argument(res_);
             }
             Argument pr_ = new Argument(l_.getMetaInfo());
             Argument instance_ = l_.getInstanceCall();

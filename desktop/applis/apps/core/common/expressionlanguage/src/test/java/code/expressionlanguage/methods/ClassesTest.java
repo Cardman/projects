@@ -36,7 +36,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         ClassesUtil.getDirectChildren(null);
         ContextUtil.getParamTypesMapValues(null);
-        new SingleContextEl(cont_);
     }
 
     @Test

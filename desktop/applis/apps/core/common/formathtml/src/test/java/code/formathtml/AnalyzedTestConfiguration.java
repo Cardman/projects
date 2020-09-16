@@ -38,7 +38,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public boolean isEmptyErrors() {
-        return configuration.isEmptyErrors();
+        return analyzing.isEmptyErrors();
     }
 
     public Classes getClasses() {

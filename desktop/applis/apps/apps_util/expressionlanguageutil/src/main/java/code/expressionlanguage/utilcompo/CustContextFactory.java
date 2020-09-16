@@ -76,7 +76,7 @@ public final class CustContextFactory {
                 NullStruct.NULL_VALUE, infoTest_,rCont_.getClasses().getClassBody(infoTest_), "", -1);
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
-        ShowUpdates showUpdates_ = rCont_.putInThread(infoStruct_,_progressingTests);
+        ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests);
         new Thread(showUpdates_).start();
         ExecNamedFunctionBlock fctBody_ = rCont_.getExecuteMethod();
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,

@@ -4,10 +4,9 @@ import java.awt.Dimension;
 import javax.swing.WindowConstants;
 
 import aiki.beans.PokemonStandards;
+import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
-import code.formathtml.Navigation;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -66,9 +65,9 @@ public final class FrameHtmlData extends ChildFrame {
         setVisible(false);
     }
 
-    public void initSessionLg(Object _dataBase, Navigation _nav, BeanNatLgNames _bean, String _lg) {
+    public void initSessionLg(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         setVisible(true);
-        session.initializeOnlyConf(_dataBase,_bean,_nav, _lg);
+        session.initializeOnlyConf(_dataBase,_pre.isOk(),_pre.getBeanNatLgNames(),_pre.getNavigation(), _lg);
     }
 
     public ProgressingWebDialog getDialog() {

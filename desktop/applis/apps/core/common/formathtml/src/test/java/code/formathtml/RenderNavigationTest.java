@@ -4915,8 +4915,7 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("$public $abstract $class pkg.BeanOne:code.bean.Bean{");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Navigation nav_ = getStdNavigation6(locale_, folder_, relative_, files_, filesSec_);
-        assertTrue(!nav_.getSession().isEmptyErrors());
+        assertTrue(getStdNavigation6(locale_, folder_, relative_, files_, filesSec_));
 
     }
     @Test
@@ -4929,9 +4928,7 @@ public final class RenderNavigationTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
-        Navigation nav_ = initSession(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne");
-        assertTrue(!nav_.getSession().isEmptyErrors());
-
+        assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
 

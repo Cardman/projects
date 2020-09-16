@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.instr.DefaultProcessKeyWord;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
@@ -37,46 +36,48 @@ public abstract class ContextEl {
     private AbstractFullStack fullStack;
     private Struct seed;
 
-    protected ContextEl(int _stackOverFlow,
-                        DefaultLockingClass _lock, Options _options,
-                        LgNames _stds, int _tabWitdth) {
-        executionInfos = new CommonExecutionInfos(_tabWitdth,_stackOverFlow,_stds,new Classes(),new Coverage(_options.isCovering()));
-        executionInfos.getClasses().setLocks(_lock);
-        initializingTypeInfos = new InitializingTypeInfos();
-        seed = NullStruct.NULL_VALUE;
-    }
-    protected ContextEl(ContextEl _ctx) {
-        executionInfos = _ctx.executionInfos;
-        callingState = null;
-        analyzing = null;
-        fullStack = null;
+    protected ContextEl(CommonExecutionInfos _executionInfos) {
+        executionInfos = _executionInfos;
         initializingTypeInfos = new InitializingTypeInfos();
         seed = NullStruct.NULL_VALUE;
     }
 
     public GeneType getClassBody(String _type) {
-        ExecRootBlock c_ = executionInfos.getClasses().getClassBody(_type);
+        ExecRootBlock c_ = getExecutionInfos().getClasses().getClassBody(_type);
         if (c_ != null) {
             return c_;
         }
-        return executionInfos.getStandards().getStandards().getVal(_type);
+        return getExecutionInfos().getStandards().getStandards().getVal(_type);
     }
-
+    public Initializer getInit() {
+        return getExecutionInfos().getInitializer();
+    }
     public int getStackOverFlow() {
-        return executionInfos.getStackOverFlow();
+        return getExecutionInfos().getStackOverFlow();
     }
 
     public int getTabWidth() {
-        return executionInfos.getTabWidth();
+        return getExecutionInfos().getTabWidth();
     }
 
 
     public Classes getClasses() {
-        return executionInfos.getClasses();
+        return getExecutionInfos().getClasses();
     }
 
     public Coverage getCoverage() {
-        return executionInfos.getCoverage();
+        return getExecutionInfos().getCoverage();
+    }
+
+    public LgNames getStandards() {
+        return getExecutionInfos().getStandards();
+    }
+
+    public DefaultLockingClass getLocks() {
+        return getExecutionInfos().getLocks();
+    }
+    public CommonExecutionInfos getExecutionInfos() {
+        return executionInfos;
     }
 
     public void clearPages() {
@@ -139,10 +140,6 @@ public abstract class ContextEl {
         return importing.last();
     }
 
-    public LgNames getStandards() {
-        return executionInfos.getStandards();
-    }
-
     public void setOffset(int _offset) {
         getLastPage().setOffset(_offset);
     }
@@ -180,8 +177,6 @@ public abstract class ContextEl {
     public void setCallingState(CallingState _callingState) {
         callingState = _callingState;
     }
-
-    public abstract Initializer getInit();
 
     public AbstractFullStack getFullStack() {
         return fullStack;

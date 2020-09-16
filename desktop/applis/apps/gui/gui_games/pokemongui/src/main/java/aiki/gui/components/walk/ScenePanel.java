@@ -75,8 +75,6 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.network.Net;
 import aiki.network.stream.SentPokemon;
-import code.formathtml.Navigation;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.maths.LgInt;
@@ -808,7 +806,7 @@ public class ScenePanel {
         if (thread_ == null || thread_.isAlive() || task_ == null) {
             return;
         }
-        receivedPk.initializeOnlyConf(facade, task_.getBeanNatLgNames(), task_.getNavigation(),facade.getLanguage());
+        receivedPk.initializeOnlyConf(facade,task_.isOk(), task_.getBeanNatLgNames(), task_.getNavigation(),facade.getLanguage());
     }
 
     public void interact() {
@@ -1292,7 +1290,7 @@ public class ScenePanel {
         }
         RenderedPage session_;
         session_ = new RenderedPage(new ScrollPane());
-        showHtmlDialog(window, session_,facade,task_.getNavigation(),task_.getBeanNatLgNames(),facade.getLanguage());
+        showHtmlDialog(window, session_,facade,task_,facade.getLanguage());
     }
 
     public void healPokemon() {
@@ -1461,9 +1459,9 @@ public class ScenePanel {
         fish.setEnabledLabel(facade.isFishArea());
     }
 
-    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, Object _dataBase, Navigation _navigation, BeanNatLgNames _bean, String _lg) {
+    private void showHtmlDialog(MainWindow _parent, RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_navigation,_bean,_lg);
+        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
     }
 
     public void selectPokemon() {

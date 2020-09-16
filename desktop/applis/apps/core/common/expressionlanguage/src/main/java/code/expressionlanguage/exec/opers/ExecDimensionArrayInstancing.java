@@ -7,9 +7,9 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.DimensionArrayInstancing;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -26,9 +26,6 @@ public final class ExecDimensionArrayInstancing extends
     @Override
     Argument getArgument(CustList<Argument> _arguments,
                          ContextEl _conf) {
-        LgNames stds_ = _conf.getStandards();
-        String size_;
-        size_ = stds_.getAliasBadSize();
         CustList<ExecOperationNode> filter_ = getChildrenNodes();
         String m_= getMethodName();
         int off_ = StringList.getFirstPrintableCharIndex(m_);
@@ -42,14 +39,13 @@ public final class ExecDimensionArrayInstancing extends
 
         args_ = new int[filter_.size()];
         int i_ = CustList.FIRST_INDEX;
+        Ints offs_ = new Ints();
         for (ExecOperationNode o: filter_) {
             NumberStruct n_ = ClassArgumentMatching.convertToNumber(_arguments.get(i_).getStruct());
-            setRelativeOffsetPossibleLastPage(o.getIndexInEl()+off_, _conf);
+            int offset_ = getIndexBegin()+o.getIndexInEl() + off_;
+            offs_.add(offset_);
+            _conf.setOffset(offset_);
             int dim_ = n_.intStruct();
-            if (dim_ < 0) {
-                _conf.setException(new ErrorStruct(_conf,StringList.concat(String.valueOf(dim_),RETURN_LINE,String.valueOf(i_),RETURN_LINE),size_));
-                return Argument.createVoid();
-            }
             args_[i_] = dim_;
             i_++;
         }
@@ -58,7 +54,12 @@ public final class ExecDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        return new Argument(ExecTemplates.newCustomArray(className_, dims_, _conf));
+        Struct res_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf);
+        if (res_ instanceof ErrorStruct) {
+            _conf.setException(res_);
+            return new Argument();
+        }
+        return new Argument(res_);
     }
 
 }

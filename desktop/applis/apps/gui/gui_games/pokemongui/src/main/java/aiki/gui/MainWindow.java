@@ -925,7 +925,7 @@ public final class MainWindow extends NetGroupFrame {
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, preparedDiffTask.getBeanNatLgNames(),preparedDiffTask.getNavigation());
+        DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, preparedDiffTask);
     }
 
     @Override
@@ -934,9 +934,7 @@ public final class MainWindow extends NetGroupFrame {
             if (isPaintingScene()) {
                 return false;
             }
-            if (!scenePanel.isMenusVisible()) {
-                return false;
-            }
+            return scenePanel.isMenusVisible();
         } else {
             if (battle != null) {
                 if (isAliveThread()) {
@@ -997,7 +995,7 @@ public final class MainWindow extends NetGroupFrame {
         session_.setProcess(videoLoading.getVideo(getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
-        dialog_.initSessionLg(facade.getData(),preparedDataWebTask.getNavigation(),preparedDataWebTask.getBeanNatLgNames(),facade.getLanguage());
+        dialog_.initSessionLg(facade.getData(),preparedDataWebTask,facade.getLanguage());
         htmlDialogs.add(dialog_);
     }
 
@@ -1008,7 +1006,7 @@ public final class MainWindow extends NetGroupFrame {
 //        if (showErrorMessageDialog(ForwardingJavaCompiler.getMess(Constants.getLanguage()))) {
 //            return;
 //        }
-        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,preparedProgTask.getBeanNatLgNames(),preparedProgTask.getNavigation());
+        DialogGameProgess.setGameProgress(this, messages.getVal(GAME_PROGRESS), facade,preparedProgTask);
     }
 
     private void reinitWebData() {
@@ -1017,7 +1015,7 @@ public final class MainWindow extends NetGroupFrame {
 //        htmlDialogs.first().getSession().setFiles(Resources.ACCESS_TO_DEFAULT_FILES);
 //        htmlDialogs.first().getSession().setDataBase(facade.getData());
 //        htmlDialogs.first().getSession().initializeOnlyConf(Resources.ACCESS_TO_DEFAULT_DATA, new PokemonStandards());
-        htmlDialogs.first().initSessionLg(facade.getData(),preparedDataWebTask.getNavigation(),preparedDataWebTask.getBeanNatLgNames(),facade.getLanguage());
+        htmlDialogs.first().initSessionLg(facade.getData(),preparedDataWebTask,facade.getLanguage());
         htmlDialogs.first().pack();
     }
 

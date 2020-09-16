@@ -96,6 +96,13 @@ public final class Navigation {
     }
 
     public void initializeRendSession() {
+        RendDocumentBlock rendDocumentBlock_ = session.getRendDocumentBlock();
+        initializeRendSession(rendDocumentBlock_);
+    }
+    public void initializeRendSession(RendDocumentBlock _doc) {
+        if (_doc == null) {
+            return;
+        }
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.initBeans(session,language,dataBaseStruct);
         if (session.getContext().hasException()) {
@@ -104,11 +111,7 @@ public final class Navigation {
         String currentUrl_ = session.getFirstUrl();
         session.setCurrentUrl(currentUrl_);
         String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = session.getRendDocumentBlock();
-        if (rendDocumentBlock_ == null) {
-            return;
-        }
-        htmlText = RendBlock.getRes(rendDocumentBlock_,session);
+        htmlText = RendBlock.getRes(_doc,session);
         if (htmlText.isEmpty()) {
             return;
         }

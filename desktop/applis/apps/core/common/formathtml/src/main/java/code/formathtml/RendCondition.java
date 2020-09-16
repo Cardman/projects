@@ -17,7 +17,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
-public abstract class RendCondition extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod {
+public abstract class RendCondition extends RendParentBlock implements RendWithEl, RendReducableOperations {
 
     private String condition;
 

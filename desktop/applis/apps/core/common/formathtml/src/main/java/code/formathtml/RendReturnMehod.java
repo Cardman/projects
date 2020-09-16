@@ -6,7 +6,7 @@ import code.formathtml.stacks.RendAbruptCallingFinally;
 import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.AnalyzingDoc;
 
-public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendBuildableElMethod {
+public final class RendReturnMehod extends RendLeaf implements RendCallingFinally,RendWithEl {
     RendReturnMehod(OffsetsBlock _offset) {
         super(_offset);
     }

@@ -806,7 +806,7 @@ public final class ExecutingUtil {
         }
         ExecRootBlock c_ = classes_.getClassBody(idClass_);
         if (c_ != null) {
-            DefaultLockingClass locks_ = classes_.getLocks();
+            DefaultLockingClass locks_ = _cont.getLocks();
             if (_cont.getInitializingTypeInfos().isInitEnums()) {
                 InitClassState res_ = locks_.getState(idClass_);
                 if (res_ != InitClassState.SUCCESS) {

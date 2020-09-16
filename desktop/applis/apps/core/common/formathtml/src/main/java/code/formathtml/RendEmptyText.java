@@ -9,7 +9,7 @@ import code.sml.MutableNode;
 import code.sml.Node;
 import code.sml.Text;
 
-public final class RendEmptyText extends RendLeaf implements RendWithEl,RendBuildableElMethod,RendPossibleEmpty {
+public final class RendEmptyText extends RendLeaf implements RendWithEl,RendPossibleEmpty {
 
     private final String expression;
 

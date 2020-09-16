@@ -6,7 +6,7 @@ import code.formathtml.stacks.RendIfStack;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
-public final class RendElseCondition extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod,RendBreakableBlock {
+public final class RendElseCondition extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBreakableBlock {
 
     RendElseCondition(OffsetsBlock _offset) {
         super(_offset);

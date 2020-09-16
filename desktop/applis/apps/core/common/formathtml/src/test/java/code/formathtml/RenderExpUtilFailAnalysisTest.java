@@ -113,13 +113,13 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
     @Test
     public void processAffect2FailTest() {
-        Configuration context_ = getCheckedConfigurationVar("$int", "v=12i 1", new StringMap<String>());
+        AnalyzedPageEl context_ = getCheckedConfigurationVar("$int", "v=12i 1", new StringMap<String>());
         assertTrue(!context_.isEmptyErrors());
     }
 
     @Test
     public void processAffect3FailTest() {
-        Configuration context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"", new StringMap<String>());
+        AnalyzedPageEl context_ = getCheckedConfigurationVar(ARR_INT, "v[0i]=\"12i\"", new StringMap<String>());
         assertTrue(!context_.isEmptyErrors());
     }
     @Test
@@ -297,14 +297,14 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         assertTrue(isEmptyErrors(cont_));
         ((BeanCustLgNames)standards_).buildIterables(conf_);
         getCheckedConfiguration(new AnalyzedTestConfiguration(conf_,page_), s);
-        return !conf_.isEmptyErrors();
+        return !page_.isEmptyErrors();
     }
 
     private static void setCtx(Configuration conf_, AnalyzedTestContext cont_) {
         conf_.setContext(cont_.getContext());
     }
 
-    private static Configuration getCheckedConfigurationVar(String _intType, String s, StringMap<String> _files) {
+    private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String s, StringMap<String> _files) {
         Configuration conf_ = EquallableExUtil.newConfiguration();
         Options opt_ = new Options();
         opt_.setReadOnly(true);
@@ -320,7 +320,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
         processFail(s, new AnalyzedTestConfiguration(context_,page_), new PairVar("v", lv_));
-        return context_;
+        return page_;
     }
 
     private static void setStack(Configuration conf_, AnalyzedTestContext cont_) {

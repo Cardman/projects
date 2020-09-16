@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.structs.*;
 import code.util.StringMap;
 import org.junit.Test;
@@ -45,11 +46,16 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExInit"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.ExInit"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
     }
+
+    private static boolean isInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
     @Test
     public void calculate1Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -68,8 +74,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate2Test() {
@@ -89,8 +95,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate3Test() {
@@ -110,8 +116,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate4Test() {
@@ -131,8 +137,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate5Test() {
@@ -152,8 +158,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate6Test() {
@@ -173,8 +179,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate7Test() {
@@ -194,8 +200,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate8Test() {
@@ -215,8 +221,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate9Test() {
@@ -236,8 +242,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate10Test() {
@@ -257,8 +263,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate11Test() {
@@ -278,8 +284,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate12Test() {
@@ -299,8 +305,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate13Test() {
@@ -320,8 +326,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate14Test() {
@@ -341,8 +347,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate15Test() {
@@ -362,8 +368,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate16Test() {
@@ -383,8 +389,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate17Test() {
@@ -404,8 +410,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate18Test() {
@@ -425,8 +431,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate19Test() {
@@ -446,8 +452,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate20Test() {
@@ -463,7 +469,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(0, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -480,7 +486,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -497,7 +503,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(0, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -514,7 +520,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -531,7 +537,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -548,7 +554,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -569,8 +575,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate27Test() {
@@ -586,7 +592,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(1, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -603,7 +609,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(1, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -620,7 +626,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -637,7 +643,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(-1, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -654,7 +660,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(1, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -671,7 +677,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(12, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -688,7 +694,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("hello world", getString(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -705,7 +711,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -722,7 +728,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(12, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -739,7 +745,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -756,7 +762,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(12, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -773,7 +779,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(3, getNumber(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -790,7 +796,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq("12", getString(cont_,"pkg.Ex","inst"));
     }
 
@@ -812,8 +818,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -834,8 +840,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -856,8 +862,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -879,8 +885,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -902,8 +908,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -925,8 +931,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -947,8 +953,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -969,8 +975,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -991,8 +997,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1015,8 +1021,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1039,8 +1045,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1063,8 +1069,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1086,8 +1092,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1109,8 +1115,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
 
     @Test
@@ -1132,8 +1138,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate58Test() {
@@ -1153,8 +1159,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate59Test() {
@@ -1172,7 +1178,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(1,getNumber(cont_,"pkg.Ex","inst",0));
         assertEq(1,getNumber(cont_,"pkg.Ex","ance"));
     }
@@ -1196,8 +1202,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate61Test() {
@@ -1219,8 +1225,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate62Test() {
@@ -1242,8 +1248,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate63Test() {
@@ -1264,8 +1270,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate64Test() {
@@ -1289,8 +1295,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate65Test() {
@@ -1304,7 +1310,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void calculate66Test() {
@@ -1331,8 +1337,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
         assertEq(1, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","t"))).intStruct());
         assertEq(6, ((NumberStruct)cont_.getClasses().getStaticField(new ClassField("pkg.Ex","v"))).intStruct());
     }
@@ -1350,7 +1356,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void calculate68Test() {
@@ -1366,7 +1372,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(!getBoolean(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -1383,7 +1389,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(getBoolean(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -1400,7 +1406,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(getBoolean(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -1417,7 +1423,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertTrue(!getBoolean(cont_,"pkg.Ex","inst"));
     }
     @Test
@@ -1439,7 +1445,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         assertEq(5 ,getNumber(cont_,"pkg.Ex","value"));
     }
     @Test
@@ -1463,8 +1469,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate74Test() {
@@ -1488,8 +1494,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate75Test() {
@@ -1513,8 +1519,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate76Test() {
@@ -1534,8 +1540,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate77Test() {
@@ -1560,9 +1566,9 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.MyEnum"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ann"));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.MyEnum"));
+        assertTrue(isInitialized(cont_, "pkg.Ann"));
+        assertTrue(!isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate78Test() {
@@ -1587,9 +1593,9 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.MyEnum"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ann"));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.MyEnum"));
+        assertTrue(isInitialized(cont_, "pkg.Ann"));
+        assertTrue(!isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculate79Test() {
@@ -1611,8 +1617,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void calculateFailTest() {
@@ -1632,8 +1638,8 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         ReportedMessages reportedMessages_ = Classes.validateAll(files_, cont_);
         assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isAllEmptyErrors());
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = _cont.getClasses().getStaticField(new ClassField(_className,_fieldName));

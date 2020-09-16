@@ -9,7 +9,7 @@ import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 
-public final class RendThrowing extends RendLeaf implements RendBuildableElMethod, RendReducableOperations {
+public final class RendThrowing extends RendLeaf implements RendWithEl, RendReducableOperations {
 
     private final String expression;
 

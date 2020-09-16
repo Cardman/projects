@@ -22,7 +22,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendSwitchBlock extends RendParentBlock implements RendBreakableBlock,RendReducableOperations,RendBuildableElMethod {
+public final class RendSwitchBlock extends RendParentBlock implements RendBreakableBlock,RendReducableOperations,RendWithEl {
 
     private String label;
     private int labelOffset;

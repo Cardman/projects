@@ -11,7 +11,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
-public final class RendDeclareVariable extends RendLeaf implements RendBuildableElMethod {
+public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
 
     private final StringList variableNames = new StringList();
 

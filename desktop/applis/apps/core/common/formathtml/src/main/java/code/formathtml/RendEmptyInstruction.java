@@ -5,7 +5,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.util.IntTreeMap;
 import code.util.StringMap;
 
-public final class RendEmptyInstruction extends RendLeaf implements RendBuildableElMethod,RendPossibleEmpty {
+public final class RendEmptyInstruction extends RendLeaf implements RendWithEl,RendPossibleEmpty {
     RendEmptyInstruction(OffsetsBlock _offset) {
         super(_offset);
         setEscapedChars(new StringMap<IntTreeMap<Integer>>());

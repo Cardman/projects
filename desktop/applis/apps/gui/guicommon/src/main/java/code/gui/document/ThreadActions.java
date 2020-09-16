@@ -57,10 +57,12 @@ public final class ThreadActions implements Runnable {
     private String methodName;
 
     private ThreadActions(){}
-    ThreadActions(RenderedPage _page) {
+    private boolean ok;
+    ThreadActions(RenderedPage _page, boolean _ok) {
         page = _page;
         page.start();
         directFirst = true;
+        ok = _ok;
     }
 
     static ThreadActions inst(RenderedPage _page, BeanLgNames _lgNames, String _anchor, String _fileName, boolean _form, boolean _usedFirstUrl) {
@@ -99,8 +101,7 @@ public final class ThreadActions implements Runnable {
     @Override
     public void run() {
         if (directFirst) {
-            Configuration conf_ = page.getNavigation().getSession();
-            if (!conf_.isEmptyErrors()) {
+            if (!ok) {
                 return;
             }
             page.getNavigation().initializeRendSession();
@@ -123,21 +124,17 @@ public final class ThreadActions implements Runnable {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
                 if (fileNames == null) {
-                    page.updateFiles();
-                    Configuration conf_ = page.getNavigation().getSession();
-                    if (!conf_.isEmptyErrors()) {
-                        return;
-                    }
+                    page.setFiles();
                 } else {
                     page.getNavigation().setFiles(fileNames);
-                    ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit();
-                    if (!reportedMessages_.isAllEmptyErrors()) {
-                        if (page.getArea() != null) {
-                            page.getArea().append(reportedMessages_.displayErrors());
-                        }
-                        finish();
-                        return;
+                }
+                ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit();
+                if (!reportedMessages_.isAllEmptyErrors()) {
+                    if (page.getArea() != null) {
+                        page.getArea().append(reportedMessages_.displayErrors());
                     }
+                    finish();
+                    return;
                 }
                 Configuration conf_ = page.getNavigation().getSession();
                 if (fileNames != null) {

@@ -12,7 +12,7 @@ import code.sml.Text;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendText extends RendLeaf implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
+public final class RendText extends RendLeaf implements RendWithEl, RendReducableOperations {
 
     private final String expression;
 

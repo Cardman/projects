@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.ReflectingType;
@@ -3346,7 +3347,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl319Test() {
@@ -3377,7 +3378,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl320Test() {
@@ -3433,7 +3434,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(16, getNumber(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl321Test() {
@@ -3488,7 +3489,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq(15, getNumber(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl322Test() {
@@ -4115,7 +4116,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
@@ -4158,7 +4159,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument arg_;
@@ -4977,7 +4978,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
+        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -5004,7 +5005,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
+        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -5031,7 +5032,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo..ExThree"));
+        assertTrue(!isInitialized(cont_, "pkg.ExTwo..ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -5086,8 +5087,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl464Test() {
@@ -5116,8 +5117,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl465Test() {
@@ -5146,8 +5147,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex<java.lang.Number,java.lang.String>", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl_465Test() {
@@ -5200,8 +5201,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateError("pkg.Apply", id_, args_, cont_);
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl466Test() {
@@ -5230,8 +5231,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl467Test() {
@@ -5260,8 +5261,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl468Test() {
@@ -5290,8 +5291,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl469Test() {
@@ -5320,8 +5321,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl470Test() {
@@ -5350,8 +5351,8 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.Ex", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
     }
     @Test
     public void processEl471Test() {
@@ -5374,15 +5375,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex..ExTwo", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl472Test() {
@@ -5406,15 +5407,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<pkg.Ex..ExTwo>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl473Test() {
@@ -5439,15 +5440,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExFour<pkg.ExThree<java.lang.Number,pkg.Ex..ExTwo>>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl474Test() {
@@ -5471,15 +5472,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.Ex..ExTwo<java.lang.Number,pkg.ExThree>", getString(ret_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl475Test() {
@@ -5503,15 +5504,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<?pkg.Ex..ExTwo>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl476Test() {
@@ -5535,15 +5536,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<!pkg.Ex..ExTwo>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl478Test() {
@@ -5567,15 +5568,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("pkg.ExThree<?>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl479Test() {
@@ -5599,15 +5600,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("[pkg.ExThree<java.lang.Number,?java.lang.Number>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl480Test() {
@@ -5631,15 +5632,15 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("java.lang.$Fct<java.lang.Number,$void>", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
     @Test
     public void processEl481Test() {
@@ -5663,16 +5664,21 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ContextEl cont_ = contextElDefault();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertEq("$int", getString(ret_));
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex..ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_, "pkg.Ex..ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
     }
+
+    private static boolean isInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
     @Test
     public void processEl1466Test() {
         StringBuilder xml_ = new StringBuilder();

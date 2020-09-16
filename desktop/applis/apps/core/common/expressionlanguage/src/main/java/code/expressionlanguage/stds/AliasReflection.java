@@ -1907,28 +1907,27 @@ public final class AliasReflection {
                     return result_;
                 }
                 Ints dims_ = new Ints();
-                String size_;
-                size_ = lgNames_.getAliasBadSize();
                 Struct inst_ = args_[0];
                 if (!(inst_ instanceof ArrayStruct)) {
                     result_.setError(lgNames_.getAliasNullPe());
                     return result_;
                 }
                 Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
-                if (arrayDim_.length == 0) {
-                    result_.setError(size_);
-                    return result_;
-                }
                 for (Struct s: arrayDim_) {
                     int dim_ = ClassArgumentMatching.convertToNumber(s).intStruct();
-                    if (dim_ < 0) {
-                        result_.setErrorMessage(StringList.concat(Integer.toString(dim_),"<0"));
-                        result_.setError(size_);
-                        return result_;
-                    }
                     dims_.add(dim_);
                 }
-                result_.setResult(ExecTemplates.newCustomArray(clDyn_, dims_, _cont));
+                Struct res_ = ExecTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont);
+                if (res_ instanceof ErrorStruct) {
+                    ErrorStruct err_ = (ErrorStruct)res_;
+                    String messageValue_ = err_.getMessageValue();
+                    if (!messageValue_.isEmpty()) {
+                        result_.setErrorMessage(messageValue_);
+                    }
+                    result_.setError(err_.getClassName());
+                    return result_;
+                }
+                result_.setResult(res_);
                 return result_;
             }
             if (StringList.quickEq(name_, ref_.aliasArrayGetLength)) {

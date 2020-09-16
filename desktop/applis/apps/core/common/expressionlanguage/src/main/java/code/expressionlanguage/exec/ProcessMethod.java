@@ -16,10 +16,10 @@ public final class ProcessMethod {
     }
 
     public static void initializeClass(String _class, ExecRootBlock _rootBlock, ContextEl _cont) {
-        if (_cont.getClasses().isSuccessfulInitialized(_class)) {
+        if (_cont.getLocks().getState(_class) == InitClassState.SUCCESS) {
             return;
         }
-        _cont.getClasses().getLocks().initClass(_class);
+        _cont.getLocks().initClass(_class);
         ExecutingUtil.addPage(_cont,ExecutingUtil.createInstancingClass(_cont,_rootBlock,_class,null));
         _cont.getInit().loopCalling(_cont);
     }

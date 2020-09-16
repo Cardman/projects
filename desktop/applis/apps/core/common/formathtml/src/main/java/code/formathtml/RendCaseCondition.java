@@ -26,7 +26,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendCaseCondition extends RendSwitchPartCondition implements RendBuildableElMethod {
+public final class RendCaseCondition extends RendSwitchPartCondition implements RendWithEl {
 
     private final String value;
     private CustList<RendDynOperationNode> opValue;

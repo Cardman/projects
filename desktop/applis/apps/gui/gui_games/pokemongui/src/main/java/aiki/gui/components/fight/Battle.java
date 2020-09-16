@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import aiki.beans.PokemonStandards;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.gui.threads.*;
@@ -1022,13 +1018,13 @@ public class Battle extends ChildFrame {
         session_ = new RenderedPage(new ScrollPane());
         session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator()));
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
-        dialog_.initSessionLg(facade,fightTask_.getNavigation(),fightTask_.getBeanNatLgNames(),facade.getLanguage());
+        dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
         htmlDialogs.add(dialog_);
     }
 
     private void reinitWebFight(PreparedRenderedPages _task) {
         htmlDialogs.first().setTitle(messages.getVal(TITLE));
-        htmlDialogs.first().initSessionLg(facade,_task.getNavigation(),_task.getBeanNatLgNames(),facade.getLanguage());
+        htmlDialogs.first().initSessionLg(facade,_task,facade.getLanguage());
         htmlDialogs.first().pack();
     }
 

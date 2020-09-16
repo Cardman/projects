@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.CustList;
@@ -1381,7 +1382,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_));
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1423,7 +1424,7 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(!cont_.getClasses().isInitialized("pkg.ExTwo"));
+        assertTrue(!isInitialized(cont_));
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1431,6 +1432,11 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isTrue());
     }
+
+    private static boolean isInitialized(ContextEl cont_) {
+        return cont_.getLocks().getState("pkg.ExTwo") != InitClassState.NOT_YET;
+    }
+
     @Test
     public void calculateArgument1055_Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1463,10 +1469,10 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
         Classes.validateAll(files_, cont_);
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExTwo"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExThree"));
-        assertTrue(cont_.getClasses().isSuccessfulInitialized("pkg.ExFour"));
+        assertTrue(isSuccessfulInitialized(cont_, "pkg.Ex"));
+        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExThree"));
+        assertTrue(isSuccessfulInitialized(cont_, "pkg.ExFour"));
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
@@ -1474,6 +1480,11 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isTrue());
     }
+
+    private static boolean isSuccessfulInitialized(ContextEl cont_, String s) {
+        return cont_.getLocks().getState(s) == InitClassState.SUCCESS;
+    }
+
     @Test
     public void calculateArgument1056Test() {
         StringBuilder xml_ = new StringBuilder();

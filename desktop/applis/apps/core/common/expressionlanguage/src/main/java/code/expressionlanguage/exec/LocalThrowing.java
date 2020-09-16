@@ -66,7 +66,7 @@ public final class LocalThrowing {
                     return;
                 }
             }
-            custCause_ = _conf.getClasses().getLocks().processErrorClass(_conf, custCause_);
+            custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_);
             _conf.removeLastPage();
         }
         _conf.setException(custCause_);

@@ -9,7 +9,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations, RendBuildableElMethod {
+public abstract class RendElement extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private Element read;
     private StringMap<ResultText> attributes = new StringMap<ResultText>();
     private StringMap<ResultText> attributesText = new StringMap<ResultText>();

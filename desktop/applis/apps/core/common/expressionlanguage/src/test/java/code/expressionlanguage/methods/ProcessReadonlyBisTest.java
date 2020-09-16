@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.IntStruct;
@@ -53,7 +54,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -103,7 +104,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -166,9 +167,9 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -221,9 +222,9 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -276,9 +277,9 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         files_.put("pkg/ExThree", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExTwo"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.ExTwo"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -585,7 +586,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -617,7 +618,7 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         ConstructorId id_ = getConstructorId("pkg.Ex");
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -628,6 +629,11 @@ public final class ProcessReadonlyBisTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(2, ((NumberStruct)field_).intStruct());
     }
+
+    private static boolean isInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
     @Test
     public void fail1Test() {
         StringMap<String> files_ = new StringMap<String>();

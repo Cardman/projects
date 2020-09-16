@@ -3,6 +3,7 @@ package code.gui.document;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaAnchorLabel;
@@ -91,17 +92,16 @@ public final class RenderedPage implements ProcessingSession {
             setupText();
             return;
         }
-        updateFiles();
-        Configuration conf_ = navigation.getSession();
-        if (!conf_.isEmptyErrors()) {
+        setFiles();
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit();
+        if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }
         navigation.initializeRendSession();
         setupText();
     }
 
-
-    public void initializeOnlyConf(Object _dataBase, BeanNatLgNames _stds,Navigation _navigation, String _lg) {
+    public void initializeOnlyConf(Object _dataBase, boolean _ok, BeanNatLgNames _stds,Navigation _navigation, String _lg) {
         if (processing.get()) {
             return;
         }
@@ -109,7 +109,7 @@ public final class RenderedPage implements ProcessingSession {
         _stds.setDataBase(_dataBase);
         navigation.setLanguage(_lg);
         standards = _navigation.getSession().getAdvStandards();
-        threadAction = CustComponent.newThread(new ThreadActions(this));
+        threadAction = CustComponent.newThread(new ThreadActions(this,_ok));
         threadAction.start();
         animateProcess();
     }
@@ -158,7 +158,7 @@ public final class RenderedPage implements ProcessingSession {
         animateProcess();
     }
 
-    void updateFiles() {
+    void setFiles() {
         String lg_ = navigation.getLanguage();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
@@ -175,9 +175,8 @@ public final class RenderedPage implements ProcessingSession {
         String realFilePath_ = getRealFilePath(lg_, session_.getFirstUrl());
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(realFilePath_));
         navigation.setFiles(files_);
-        navigation.initInstancesPattern();
-        navigation.setupRenders();
     }
+
     void start() {
         processing.set(true);
     }

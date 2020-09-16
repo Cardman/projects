@@ -3,10 +3,9 @@ import java.awt.Dimension;
 
 import javax.swing.WindowConstants;
 
+import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.MainWindow;
-import code.formathtml.Navigation;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.StringMap;
@@ -40,12 +39,12 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, Object _dataBase, Navigation _navigation, BeanNatLgNames _bean, String _lg) {
+    public static void setDialogHtmlData(MainWindow _window, Dialog _parent, String _title, RenderedPage _session, Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
         DIALOG.init(_window, _parent, _session);
-        DIALOG.initSession(_dataBase,_navigation,_bean,_lg);
+        DIALOG.initSession(_dataBase,_pre,_lg);
     }
 
 //    public static void setDialogHtmlData(GroupFrame _parent, String _title, SessionEditorPane _session, boolean _successCompile) {
@@ -55,12 +54,12 @@ public final class DialogHtmlData extends Dialog {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,Object _dataBase,Navigation _navigation, BeanNatLgNames _bean, String _lg) {
+    public static void setDialogHtmlData(MainWindow _parent, String _title, RenderedPage _session,Object _dataBase,PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         DIALOG.setDialogIcon(_parent);
         DIALOG.setTitle(_title);
         DIALOG.init(_parent, _parent, _session);
-        DIALOG.initSession(_dataBase,_navigation,_bean,_lg);
+        DIALOG.initSession(_dataBase,_pre,_lg);
     }
 
     private void init(MainWindow _window,Dialog _parent, RenderedPage _session) {
@@ -104,9 +103,9 @@ public final class DialogHtmlData extends Dialog {
         pack();
     }
 
-    public void initSession(Object _dataBase, Navigation _navigation, BeanNatLgNames _bean, String _lg) {
+    public void initSession(Object _dataBase, PreparedRenderedPages _pre, String _lg) {
         session.setFrame(this);
-        session.initializeOnlyConf(_dataBase,_bean,_navigation,_lg);
+        session.initializeOnlyConf(_dataBase,_pre.isOk(),_pre.getBeanNatLgNames(),_pre.getNavigation(),_lg);
 
         setVisible(true);
     }

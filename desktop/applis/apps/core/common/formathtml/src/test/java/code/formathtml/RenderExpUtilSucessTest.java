@@ -8,6 +8,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.ExecutingUtil;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.instr.ElResolver;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.exec.Classes;
@@ -5895,8 +5896,12 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(cont_);
         CustList<RendDynOperationNode> out_ = fullAnalyze(s, cont_);
         Argument arg_ = fwdCalculate(cont_, out_);
-        assertTrue(!cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(!isInitialized(cont_));
         return arg_;
+    }
+
+    private static boolean isInitialized(AnalyzedTestConfiguration cont_) {
+        return cont_.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
     }
 
     private static Argument processElNormalInit(StringMap<String> files_, String s) {
@@ -5904,8 +5909,8 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         addImportingPage(conf_);
         CustList<RendDynOperationNode> out_ = fullAnalyze(s, conf_);
         Argument arg_ = fwdCalculate(conf_, out_);
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        assertTrue(isInitialized(conf_));
+        assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
         return arg_;
     }
 

@@ -2,26 +2,19 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.DefaultLockingClass;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.Initializer;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.Struct;
 import code.threads.Locking;
 import code.util.StringList;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class RunnableContextEl extends ContextEl implements Locking {
-
-    private CustInitializer custInit;
-    private AtomicBoolean interrupt;
 
     private ExecutingOptions executingOptions;
 
@@ -38,19 +31,16 @@ public class RunnableContextEl extends ContextEl implements Locking {
     protected RunnableContextEl(int _stackOverFlow, DefaultLockingClass _lock,
                                 CustInitializer _init, Options _options, ExecutingOptions _exec,
                                 LgNames _stds, int _tabWidth) {
-        super(_stackOverFlow, _lock, _options, _stds, _tabWidth);
+        super(new CommonExecutionInfos(_tabWidth, _stackOverFlow, _stds, new Classes(), new Coverage(_options.isCovering()), _lock, _init));
         setFullStack(new DefaultFullStack(this));
-        custInit = _init;
         executingOptions = _exec;
-        interrupt = _exec.getInterrupt();
         setThread();
     }
     protected RunnableContextEl(ContextEl _context) {
-        super(_context);
+        super(_context.getExecutionInfos());
         setFullStack(new DefaultFullStack(this));
         getInitializingTypeInfos().setInitEnums(InitPhase.NOTHING);
         executingOptions = ((RunnableContextEl)_context).executingOptions;
-        interrupt = ((RunnableContextEl)_context).interrupt;
         executeType = ((RunnableContextEl)_context).executeType;
         executeMethod = ((RunnableContextEl)_context).executeMethod;
         formatType = ((RunnableContextEl)_context).formatType;
@@ -58,7 +48,6 @@ public class RunnableContextEl extends ContextEl implements Locking {
         formatObjectTwo = ((RunnableContextEl)_context).formatObjectTwo;
         runnableType = ((RunnableContextEl)_context).runnableType;
         runMethod = ((RunnableContextEl)_context).runMethod;
-        custInit = ((RunnableContextEl)_context).getCustInit();
         setThread();
     }
 
@@ -133,18 +122,11 @@ public class RunnableContextEl extends ContextEl implements Locking {
         idDate = _idDate;
     }
 
-    @Override
-    public Initializer getInit() {
-        return getCustInit();
-    }
 
     public CustInitializer getCustInit() {
-        return custInit;
+        return (CustInitializer)getInit();
     }
 
-    public ShowUpdates putInThread(Struct _info, ProgressingTests _progressingTests) {
-        return new ShowUpdates(_info,this,_progressingTests);
-    }
     public ExecutingOptions getExecutingOptions() {
         return executingOptions;
     }
@@ -158,11 +140,11 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     boolean stopped() {
-        return interrupt.get() || isCurrentThreadEnded();
+        return executingOptions.getInterrupt().get() || isCurrentThreadEnded();
     }
 
     public void interrupt() {
-        interrupt.set(true);
+        executingOptions.getInterrupt().set(true);
     }
 
 }

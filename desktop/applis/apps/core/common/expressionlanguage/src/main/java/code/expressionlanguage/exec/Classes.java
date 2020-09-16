@@ -23,7 +23,6 @@ public final class Classes {
     private StringMap<StringMap<Struct>> staticFields;
     private final StringMap<PolymorphMethod> toStringMethodsToCallBodies = new StringMap<PolymorphMethod>();
 
-    private DefaultLockingClass locks;
     private String iteratorVarCust;
     private String hasNextVarCust;
     private String nextVarCust;
@@ -106,7 +105,7 @@ public final class Classes {
             String name_ = c.getName();
             ClassMetaInfo.forward(ExecutingUtil.getClassMetaInfo(_context,name_),c);
         }
-        DefaultLockingClass dl_ = cl_.getLocks();
+        DefaultLockingClass dl_ = _context.getLocks();
         dl_.init(_context);
         for (ExecRootBlock c: cl_.getClassBodies()) {
             c.reduce(_context);
@@ -201,13 +200,6 @@ public final class Classes {
     }
 
 
-    public boolean isInitialized(String _name) {
-        return getLocks().getState(_name) != InitClassState.NOT_YET;
-    }
-    public boolean isSuccessfulInitialized(String _name) {
-        return getLocks().getState(_name) == InitClassState.SUCCESS;
-    }
-
     public void initializeStaticField(ClassField _clField, Struct _str) {
         getStaticFieldMap(_clField.getClassName()).set(_clField.getFieldName(), _str);
     }
@@ -236,13 +228,6 @@ public final class Classes {
 
     public StringMap<StringMap<Struct>> getStaticFields() {
         return staticFields;
-    }
-
-    public DefaultLockingClass getLocks() {
-        return locks;
-    }
-    public void setLocks(DefaultLockingClass _locks) {
-        locks = _locks;
     }
 
     public String getIteratorVarCust() {

@@ -1271,7 +1271,6 @@ public final class NativeTest extends CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(context_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(context_.getConfiguration(), analyzingDoc_);
-        context_.getConfiguration().setDocument(doc_);
         return !context_.isEmptyErrors();
     }
 
@@ -1286,9 +1285,9 @@ public final class NativeTest extends CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_.getConfiguration(), analyzingDoc_);
+        assertTrue(conf_.isEmptyErrors());
         conf_.getConfiguration().setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res = getSampleRes(conf_.getConfiguration(), rendDocumentBlock_);
         assertNull(getException(conf_));
         return res;

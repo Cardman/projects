@@ -10,13 +10,16 @@ import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.formathtml.exec.RendDimensionArrayInstancing;
 import code.formathtml.util.AdvancedFullStack;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringMap;
 import org.junit.Test;
 
+import static code.formathtml.EquallableExUtil.assertEq;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -42,9 +45,32 @@ public final class RenderInitStdsTest extends CommonRender {
     }
     @Test
     public void process6Test() {
-        RendDocumentBlock doc_ = new RendDocumentBlock(null,null,null,null);
-        doc_.buildExpressionLanguage(null,null, null);
-        assertNull(doc_.getFirstChild());
+        BeanLgNames b_ = new BeanCustLgNamesImpl();
+        basicStandards(b_);
+        AnalysisMessages am_ = new AnalysisMessages();
+        KeyWords k_ = new KeyWords();
+        Configuration conf_ =  EquallableExUtil.newConfiguration();
+        conf_.setPrefix("c");
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        Options options_ = new Options();
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, options_, k_, b_, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, am_, k_, b_, new CustList<CommentDelimiters>(), options_);
+        ContextEl cont_ = contextEl_;
+        AnalyzedTestContext a_ = new AnalyzedTestContext(contextEl_,page_);
+        conf_.setContext(cont_);
+        cont_.setFullStack(new DefaultFullStack(cont_));
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_.setStandards(standards_);
+        CommonRender.getHeaders(new StringMap<String>(), a_);
+        conf_.setContext(cont_);
+        cont_.setFullStack(new AdvancedFullStack(conf_));
+        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), conf_).getClassName(contextEl_);
+        assertEq(standards_.getAliasBadSize(),err_);
+        err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), conf_).getClassName(contextEl_);
+        assertEq(standards_.getAliasBadSize(),err_);
+        new Navigation().initializeRendSession(null);
     }
     private boolean contextEl(BeanLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw);

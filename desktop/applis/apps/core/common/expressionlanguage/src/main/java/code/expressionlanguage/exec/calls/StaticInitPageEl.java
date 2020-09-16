@@ -74,7 +74,7 @@ public final class StaticInitPageEl extends AbstractPageEl {
     public void sucessClass(ContextEl _context) {
         String curClass_ = getGlobalClass();
         String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
-        _context.getClasses().getLocks().successClass(curClassBase_);
+        _context.getLocks().successClass(curClassBase_);
     }
 
     public Argument getFwd() {

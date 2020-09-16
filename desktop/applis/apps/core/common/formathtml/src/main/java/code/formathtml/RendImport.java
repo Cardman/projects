@@ -14,7 +14,7 @@ import code.sml.Node;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
+public final class RendImport extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private Element elt;
 
     private CustList<CustList<RendDynOperationNode>> opExp;

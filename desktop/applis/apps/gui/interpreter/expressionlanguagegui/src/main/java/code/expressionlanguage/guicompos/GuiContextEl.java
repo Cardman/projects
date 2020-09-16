@@ -31,7 +31,6 @@ public final class GuiContextEl extends RunnableContextEl {
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
-    private GuiInitializer guiInit;
     private MainWindow window;
     private ExecRootBlock actionListener;
     private ExecNamedFunctionBlock actionPerformed;
@@ -75,7 +74,6 @@ public final class GuiContextEl extends RunnableContextEl {
                  Options _options, ExecutingOptions _exec,
                  LgNames _stds, int _tabWidth) {
         super(_stackOverFlow, _lock, _init, _options, _exec, _stds, _tabWidth);
-        guiInit = _init;
     }
 
     public void initApplicationParts(StringList _mainArgs, MainWindow _window) {
@@ -86,7 +84,7 @@ public final class GuiContextEl extends RunnableContextEl {
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame = new FrameStruct(fr_);
-        guiInit.getWindows().add(frame,false);
+        getGuiInit().getWindows().add(frame,false);
         confirm = new OtherConfirmDialog();
     }
 
@@ -95,7 +93,6 @@ public final class GuiContextEl extends RunnableContextEl {
         textLabel = ((GuiContextEl)_context).textLabel;
         frame = ((GuiContextEl)_context).frame;
         mainArgs = ((GuiContextEl)_context).mainArgs;
-        guiInit = ((GuiContextEl)_context).guiInit;
         confirm = ((GuiContextEl)_context).confirm;
         window = ((GuiContextEl)_context).window;
         actionListener = ((GuiContextEl)_context).actionListener;
@@ -391,7 +388,7 @@ public final class GuiContextEl extends RunnableContextEl {
     }
 
     public void disposeAll() {
-        for (Struct s: guiInit.getWindows().toSnapshotArray(this).getInstance()) {
+        for (Struct s: getGuiInit().getWindows().toSnapshotArray(this).getInstance()) {
             if (!(s instanceof WindowStruct)) {
                 continue;
             }
@@ -409,7 +406,7 @@ public final class GuiContextEl extends RunnableContextEl {
 
     }
     public GuiInitializer getGuiInit() {
-        return guiInit;
+        return (GuiInitializer)getInit();
     }
 
     public Struct showTextField(Struct _img,Struct _frame, Struct _value, Struct _message, Struct _title, Struct _ok, Struct _cancel) {

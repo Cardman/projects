@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
@@ -47,6 +48,31 @@ public final class ExecTemplates {
     private ExecTemplates(){
     }
 
+    public static Struct newCustomArrayOrExc(String _className, Ints _dims, ContextEl _cont) {
+        return newCustomArrayOrExc(new Ints(),_className,_dims,_cont);
+    }
+    public static Struct newCustomArrayOrExc(Ints _filter, String _className, Ints _dims, ContextEl _cont) {
+        Ints dims_ = new Ints();
+        String size_;
+        LgNames lgNames_ = _cont.getStandards();
+        size_ = lgNames_.getAliasBadSize();
+        if (_dims.isEmpty()) {
+            return new ErrorStruct(_cont,size_);
+        }
+        int j_ = 0;
+        for (int s: _dims) {
+            if (s < 0) {
+                if (_filter.isValidIndex(j_)) {
+                    int off_ = _filter.get(j_);
+                    _cont.setOffset(off_);
+                }
+                return new ErrorStruct(_cont,StringList.concat(Integer.toString(s),"<0"),size_);
+            }
+            dims_.add(s);
+            j_++;
+        }
+        return newCustomArray(_className, dims_, _cont);
+    }
     public static ArrayStruct newCustomArray(String _className, Ints _dims, ContextEl _cont) {
         TreeMap<Ints,Struct> indexesArray_;
         indexesArray_ = new TreeMap<Ints,Struct>(new IndexesComparator());

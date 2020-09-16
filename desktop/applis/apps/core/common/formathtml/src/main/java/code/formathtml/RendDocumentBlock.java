@@ -96,10 +96,8 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 parents_.add((RendParentBlock) en_);
             }
             RendBlock n_ = en_.getFirstChild();
-            if (en_ != root_) {
-                tryBuildExpressionLanguage(en_, _cont,this, _anaDoc);
-                reduce(en_,_cont);
-            }
+            tryBuildExpressionLanguage(en_, _cont,this, _anaDoc);
+            reduce(en_,_cont);
             if (n_ != null) {
                 en_ = n_;
                 continue;

@@ -11,7 +11,7 @@ import code.formathtml.stacks.RendRemovableVars;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.StringList;
 
-public final class RendContinueBlock extends RendLeaf implements RendBuildableElMethod,RendCallingFinally {
+public final class RendContinueBlock extends RendLeaf implements RendWithEl,RendCallingFinally {
 
     private String label;
     private int labelOffset;

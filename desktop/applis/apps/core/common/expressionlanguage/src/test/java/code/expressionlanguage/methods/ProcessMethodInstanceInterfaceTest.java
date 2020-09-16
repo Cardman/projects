@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
@@ -73,10 +74,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -162,10 +163,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -254,10 +255,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -345,10 +346,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -439,10 +440,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -530,10 +531,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1115,7 +1116,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1207,7 +1208,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1260,7 +1261,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1310,7 +1311,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1384,10 +1385,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1482,10 +1483,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1762,10 +1763,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1855,10 +1856,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -1949,7 +1950,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -2429,10 +2430,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3088,10 +3089,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3185,10 +3186,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3282,10 +3283,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3382,10 +3383,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3494,10 +3495,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3693,10 +3694,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3830,7 +3831,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
 
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -3849,6 +3850,11 @@ public final class ProcessMethodInstanceInterfaceTest extends
         Struct elt_ = (((ArrayStruct)field_).getInstance()) [0];
         assertSame(NullStruct.NULL_VALUE,elt_);
     }
+
+    private static boolean isInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
     @Test
     public void calculateArgument76Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4507,10 +4513,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -4595,10 +4601,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -4769,10 +4775,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -4874,10 +4880,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -5290,10 +5296,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -5384,10 +5390,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -5478,10 +5484,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;
@@ -5572,10 +5578,10 @@ public final class ProcessMethodInstanceInterfaceTest extends
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
-        assertTrue(cont_.getClasses().isInitialized("pkg.ExThree"));
+        assertTrue(isInitialized(cont_, "pkg.ExThree"));
         Argument ret_;
         ret_ = instanceNormal("pkg.Ex", null, id_, args_, cont_);
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
         Struct str_ = ret_.getStruct();
         assertEq("pkg.Ex", str_.getClassName(cont_));
         Struct field_;

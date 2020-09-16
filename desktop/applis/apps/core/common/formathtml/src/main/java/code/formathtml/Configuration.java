@@ -397,10 +397,6 @@ public final class Configuration {
         return context.getAnalyzing().isEmptyStdError();
     }
 
-    public boolean isEmptyErrors() {
-        return context.getAnalyzing().isEmptyErrors();
-    }
-
     public Classes getClasses() {
         return getContext().getClasses();
     }
@@ -469,7 +465,7 @@ public final class Configuration {
         String idCl_ = StringExpUtil.getIdFromAllTypes(_className);
         ExecRootBlock c_ = classes_.getClassBody(idCl_);
         if (c_ != null) {
-            InitClassState res_ = classes_.getLocks().getState(getContext(), idCl_);
+            InitClassState res_ = context.getLocks().getState(getContext(), idCl_);
             if (res_ == InitClassState.NOT_YET) {
                 getContext().setCallingState(new NotInitializedClass(idCl_,c_, _arg));
                 return true;

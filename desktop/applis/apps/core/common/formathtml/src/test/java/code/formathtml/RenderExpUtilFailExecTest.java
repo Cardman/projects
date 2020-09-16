@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.formathtml.util.*;
@@ -1491,9 +1492,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(cont_);
         processEl("pkg.ExTwo.exmeth()+pkg.Ex.inst", cont_);
         assertNotNull(getException(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(!cont_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        assertTrue(isInitialized(cont_));
+        assertTrue(!isSuccessfulInitialized(cont_));
     }
+
+    private static boolean isSuccessfulInitialized(AnalyzedTestConfiguration cont_) {
+        return cont_.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
+    }
+
     @Test
     public void processEl362Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1523,8 +1529,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(conf_);
         processEl("$new{} pkg.Ex(5).inst", conf_);
         assertNotNull(getException(conf_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(!conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        assertTrue(isInitialized(conf_));
+        assertTrue(!isSuccessfulInitialized(conf_));
     }
     @Test
     public void processEl363Test() {
@@ -1555,9 +1561,14 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(conf_);
         processEl("$new pkg.Ex(5).inst", conf_);
         assertNotNull(getException(conf_));
-        assertTrue(conf_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(!conf_.getClasses().isSuccessfulInitialized("pkg.Ex"));
+        assertTrue(isInitialized(conf_));
+        assertTrue(!isSuccessfulInitialized(conf_));
     }
+
+    private static boolean isInitialized(AnalyzedTestConfiguration conf_) {
+        return conf_.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
+    }
+
     @Test
     public void processEl367Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());

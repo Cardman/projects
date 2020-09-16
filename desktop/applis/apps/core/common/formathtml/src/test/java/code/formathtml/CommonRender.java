@@ -113,130 +113,8 @@ public abstract class CommonRender {
         return _cont.getAnalyzing();
     }
 
-    protected static RendDocumentBlock buildTwoPages(String html_, String htmlTwo_, AnalyzedTestConfiguration _conf) {
-        Configuration conf_ = _conf.getConfiguration();
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        Document secDoc_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        RendDocumentBlock rendSecDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", secDoc_, htmlTwo_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getRenders().put("page2.html",rendSecDocumentBlock_);
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setLocalFiles(_conf, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        rendSecDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        tryInitStaticlyTypes(_conf);
-        conf_.setDocument(doc_);
-        return rendDocumentBlock_;
-    }
-
-    protected static RendDocumentBlock builtTwoPagesOne(String html_, String htmlTwo_, AnalyzedTestConfiguration _conf) {
-        Configuration context_ = _conf.getConfiguration();
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_, analyzingDoc_);
-        BeanInfo b_ = new BeanInfo();
-        b_.setClassName("pkg.BeanOne");
-        b_.setExps(ops_);
-        b_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
-        context_.getBeansInfos().addEntry("bean_one",b_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
-        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_, htmlTwo_);
-        context_.getRenders().put("page1.html",rendDocumentBlock_);
-        context_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        setLocalFiles(_conf, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_, analyzingDoc_);
-        tryInitStaticlyTypes(_conf);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
-        context_.getBuiltBeans().addEntry("bean_one", bean_);
-        context_.clearPages();
-        context_.setDocument(doc_);
-        return rendDocumentBlock_;
-    }
-
     protected static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl page_) {
         Configuration.setupInts(page_, _analyzingDoc);
-    }
-
-    protected static RendDocumentBlock buildTwoPagesTwo(String html_, String htmlTwo_, AnalyzedTestConfiguration _conf) {
-        Configuration context_ = _conf.getConfiguration();
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_, analyzingDoc_);
-        BeanInfo b1_ = new BeanInfo();
-        b1_.setExps(ops_);
-        b1_.setClassName("pkg.BeanOne");
-        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
-        context_.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_, analyzingDoc_);
-        BeanInfo b2_ = new BeanInfo();
-        b2_.setExps(ops2_);
-        b2_.setClassName("pkg.BeanTwo");
-        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
-        context_.getBeansInfos().addEntry("bean_two", b2_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
-        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_, "c:", docSec_, htmlTwo_);
-        context_.getRenders().put("page1.html",rendDocumentBlock_);
-        context_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        setLocalFiles(_conf, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_, analyzingDoc_);
-        tryInitStaticlyTypes(_conf);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
-        context_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, context_).getStruct();
-        context_.getBuiltBeans().addEntry("bean_two", bean_);
-        context_.clearPages();
-        context_.setDocument(doc_);
-        return rendDocumentBlock_;
-    }
-    protected static RendDocumentBlock buildThree(String html_, String htmlTwo_, String htmlThree_, AnalyzedTestConfiguration context_) {
-        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
-        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
-        Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        Configuration conf_ = context_.getConfiguration();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
-        BeanInfo b1_ = new BeanInfo();
-        b1_.setExps(ops_);
-        b1_.setClassName("pkg.BeanOne");
-        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
-        conf_.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_, analyzingDoc_);
-        BeanInfo b2_ = new BeanInfo();
-        b2_.setExps(ops2_);
-        b2_.setClassName("pkg.BeanTwo");
-        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
-        conf_.getBeansInfos().addEntry("bean_two", b2_);
-        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_, analyzingDoc_);
-        BeanInfo b3_ = new BeanInfo();
-        b3_.setExps(ops3_);
-        b3_.setClassName("pkg.BeanThree");
-        b3_.setResolvedClassName(ops3_.last().getResultClass().getSingleNameOrEmpty());
-        conf_.getBeansInfos().addEntry("bean_three", b3_);
-        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
-        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_, "c:", docSec_, htmlTwo_);
-        RendDocumentBlock rendDocumentBlockThird_ = RendBlock.newRendDocumentBlock(conf_, "c:", docThird_, htmlThree_);
-        conf_.getRenders().put("page1.html",rendDocumentBlock_);
-        conf_.getRenders().put("page2.html",rendDocumentBlockSec_);
-        conf_.getRenders().put("page3.html",rendDocumentBlockThird_);
-        setLocalFiles(context_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(conf_, analyzingDoc_);
-        rendDocumentBlockThird_.buildFctInstructions(conf_, analyzingDoc_);
-        tryInitStaticlyTypes(context_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
-        conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_).getStruct();
-        conf_.getBuiltBeans().addEntry("bean_two", bean_);
-        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_).getStruct();
-        conf_.getBuiltBeans().addEntry("bean_three", bean_);
-        conf_.clearPages();
-        conf_.setDocument(doc_);
-        return rendDocumentBlock_;
     }
 
     protected static void setLocalFiles(AnalyzedTestContext _a,Configuration context_, AnalyzingDoc _analyzingDoc) {
@@ -261,7 +139,7 @@ public abstract class CommonRender {
     }
 
     protected static void tryInitStaticlyTypes(AnalyzedTestContext _cont,Configuration _context) {
-        if (_context.isEmptyErrors()) {
+        if (isEmptyErrors(_cont)) {
             AnalyzedPageEl page_ = _cont.getAnalyzing();
             Classes.forwardAndClear(_context.getContext(), page_);
             AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
@@ -387,11 +265,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res_;
@@ -422,11 +300,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res_;
@@ -457,11 +335,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res;
@@ -489,11 +367,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res;
@@ -520,11 +398,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,context_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         context_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,context_);
         context_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(context_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_, context_);
         return getException(context_);
     }
@@ -551,11 +429,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         return getException(conf_);
     }
@@ -585,11 +463,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         return getException(conf_);
     }
@@ -618,11 +496,11 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         return getException(conf_);
     }
@@ -648,8 +526,7 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,context_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
-        context_.setDocument(doc_);
-        return !context_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErr(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> _files) {
@@ -677,8 +554,7 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        conf_.setDocument(doc_);
-        return !conf_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErr(String folder_, String relative_, String html_, StringMap<String> files_) {
@@ -703,8 +579,7 @@ public abstract class CommonRender {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        conf_.setDocument(doc_);
-        return !conf_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
 
@@ -736,13 +611,13 @@ public abstract class CommonRender {
         context_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,context_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
         context_.getBuiltBeans().addEntry("bean_one", bean_);
         context_.clearPages();
         context_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(context_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, context_);
         assertNull(getException(context_));
         return res_;
@@ -778,13 +653,13 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res_;
@@ -819,13 +694,13 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         RendBlock.getRes(rendDocumentBlock_,conf_);
         return getException(conf_);
     }
@@ -860,12 +735,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        tryInitStaticlyTypes(cont_,conf_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
-        conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        conf_.clearPages();
-        conf_.setDocument(doc_);
-        return !conf_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErrOneBean(String html_, StringMap<String> filesSec_) {
@@ -895,12 +765,7 @@ public abstract class CommonRender {
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,context_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
-        tryInitStaticlyTypes(cont_,context_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
-        context_.getBuiltBeans().addEntry("bean_one", bean_);
-        context_.clearPages();
-        context_.setDocument(doc_);
-        return !context_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErrOneBean2(String folder_, String relative_, String html_, StringMap<String> filesSec_) {
@@ -932,12 +797,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
-        tryInitStaticlyTypes(cont_,conf_);
-        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
-        conf_.getBuiltBeans().addEntry("bean_one", bean_);
-        conf_.clearPages();
-        conf_.setDocument(doc_);
-        return !conf_.isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
     protected static String getAncOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
         Configuration conf_1 =  EquallableExUtil.newConfiguration();
@@ -969,13 +829,13 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
         conf_.clearPages();
         conf_.setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
-        assertTrue(conf_.isEmptyErrors());
         String res_ = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         assertEq(1, conf_.getHtmlPage().getAnchorsArgs().size());
@@ -985,10 +845,6 @@ public abstract class CommonRender {
 
     private static void setStack(Configuration conf_1, ContextEl cont_) {
         cont_.setFullStack(new AdvancedFullStack(conf_1));
-    }
-
-    private static void setCtx(Configuration conf_1, ContextEl cont_) {
-        conf_1.setContext(cont_);
     }
 
     private static void setStack(Configuration conf_1, AnalyzedTestContext cont_) {
@@ -1030,6 +886,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
@@ -1070,6 +927,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
         rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
         conf_.getBuiltBeans().addEntry("bean_one", bean_);
@@ -1130,9 +988,39 @@ public abstract class CommonRender {
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
+    }
+
+    protected static boolean initSessionFail(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_, String _scope, String _className) {
+        Configuration conf_1 =  EquallableExUtil.newConfiguration();
+        conf_1.setPrefix("c:");
+        Options opt_ = new Options();
+        opt_.setReadOnly(true);
+
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdThree(opt_);
+        setCtx(conf_1, cont_);
+        setStack(conf_1, cont_);
+        BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
+        conf_1.setStandards(standards_);
+        getHeaders(filesSec_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        Configuration conf_ = conf_1;
+        setupFirstUrl(folder_, relative_, conf_, "page1.html");
+        Navigation nav_ = newNavigation(conf_);
+        nav_.setLanguage(locale_);
+
+        nav_.setFiles(files_);
+        nav_.getSession().getRenderFiles().add("page1.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope(_scope);
+        i_.setClassName(_className);
+        nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
+        analyze(cont_,nav_);
+        return !isEmptyErrors(cont_);
     }
 
     protected static Navigation initSession2(String locale_, String folder_, String relative_, String content_, String html_, StringMap<String> filesSec_, String _scope, String _className) {
@@ -1166,6 +1054,7 @@ public abstract class CommonRender {
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1204,6 +1093,7 @@ public abstract class CommonRender {
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1246,6 +1136,7 @@ public abstract class CommonRender {
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1284,6 +1175,7 @@ public abstract class CommonRender {
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1315,6 +1207,7 @@ public abstract class CommonRender {
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         addVal(nav_,"valRef","pkg.MyVal");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1350,6 +1243,7 @@ public abstract class CommonRender {
         i_.setClassName(_className);
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1397,6 +1291,7 @@ public abstract class CommonRender {
         i_.setClassName(s4);
         nav_.getSession().getBeansInfos().addEntry("bean_one", i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1444,6 +1339,7 @@ public abstract class CommonRender {
         i_.setClassName("pkg.BeanTwo");
         nav_.getSession().getBeansInfos().addEntry("bean_two",i_);
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1476,6 +1372,7 @@ public abstract class CommonRender {
         nav_.getSession().getRenderFiles().add("page1.html");
         nav_.getSession().getRenderFiles().add("page2.html");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1505,6 +1402,7 @@ public abstract class CommonRender {
         nav_.getSession().getRenderFiles().add("page1.html");
         nav_.getSession().getRenderFiles().add("page2.html");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1536,6 +1434,7 @@ public abstract class CommonRender {
         Navigation nav_ = nav_1;
         nav_.getSession().getRenderFiles().add("page1.html");
         analyze(cont_,nav_);
+        assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,nav_.getSession());
         nav_.initializeRendSession();
         return nav_;
@@ -1563,10 +1462,10 @@ public abstract class CommonRender {
         nav_.setFiles(files_);
         nav_.getSession().getRenderFiles().add("page1.html");
         analyze(cont_,nav_);
-        return !nav_.getSession().isEmptyErrors();
+        return !isEmptyErrors(cont_);
     }
 
-    protected static Navigation getStdNavigation6(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_) {
+    protected static boolean getStdNavigation6(String locale_, String folder_, String relative_, StringMap<String> files_, StringMap<String> filesSec_) {
         Configuration conf_1 =  EquallableExUtil.newConfiguration();
         conf_1.setPrefix("c:");
         Options opt_ = new Options();
@@ -1592,7 +1491,7 @@ public abstract class CommonRender {
         i_.setClassName("pkg.BeanOne");
         nav_.getSession().getBeansInfos().addEntry("bean_one",i_);
         analyze(cont_,nav_);
-        return nav_;
+        return !isEmptyErrors(cont_);
     }
 
     private static void addVal(Navigation _nav, String _valId, String _class) {
@@ -1630,8 +1529,21 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, conf_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, a_);
-        assertTrue(conf_.isEmptyErrors());
+        Configuration conf_2 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document secDoc_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_2, "c:", doc_, html_);
+        RendDocumentBlock rendSecDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_2, "c:", secDoc_, htmlTwo_);
+        conf_2.getRenders().put("page1.html", rendDocumentBlock_1);
+        conf_2.getRenders().put("page2.html",rendSecDocumentBlock_);
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_);
+        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        conf_2.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         RendBlock.getRes(rendDocumentBlock_,conf_);
         return getException(conf_);
     }
@@ -1654,8 +1566,21 @@ public abstract class CommonRender {
 
         setup(folder_, relative_, conf_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildTwoPages(html_, htmlTwo_, a_);
-        assertTrue(conf_.isEmptyErrors());
+        Configuration conf_2 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document secDoc_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_2, "c:", doc_, html_);
+        RendDocumentBlock rendSecDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_2, "c:", secDoc_, htmlTwo_);
+        conf_2.getRenders().put("page1.html", rendDocumentBlock_1);
+        conf_2.getRenders().put("page2.html",rendSecDocumentBlock_);
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_);
+        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        conf_2.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         String res = RendBlock.getRes(rendDocumentBlock_, conf_);
         assertNull(getException(conf_));
         return res;
@@ -1678,8 +1603,38 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, a_);
-        assertTrue(context_.isEmptyErrors());
+        Configuration context_1 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_two", b2_);
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(context_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_1, "c:", docSec_, htmlTwo_);
+        context_1.getRenders().put("page1.html", rendDocumentBlock_1);
+        context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
+        context_1.getBuiltBeans().addEntry("bean_one", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops2_, context_1).getStruct();
+        context_1.getBuiltBeans().addEntry("bean_two", bean_);
+        context_1.clearPages();
+        context_1.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         String res = RendBlock.getRes(rendDocumentBlock_, context_);
         assertNull(getException(context_));
         return res;
@@ -1702,8 +1657,38 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildTwoPagesTwo(html_, htmlTwo_, a_);
-        assertTrue(context_.isEmptyErrors());
+        Configuration context_1 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_two", b2_);
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(context_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_1, "c:", docSec_, htmlTwo_);
+        context_1.getRenders().put("page1.html", rendDocumentBlock_1);
+        context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
+        context_1.getBuiltBeans().addEntry("bean_one", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops2_, context_1).getStruct();
+        context_1.getBuiltBeans().addEntry("bean_two", bean_);
+        context_1.clearPages();
+        context_1.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         RendBlock.getRes(rendDocumentBlock_, context_);
         return getException(context_);
     }
@@ -1725,8 +1710,30 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = builtTwoPagesOne(html_, htmlTwo_, a_);
-        assertTrue(context_.isEmptyErrors());
+        Configuration context_1 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        BeanInfo b_ = new BeanInfo();
+        b_.setClassName("pkg.BeanOne");
+        b_.setExps(ops_);
+        b_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_one",b_);
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(context_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_1, "c:", docSec_, htmlTwo_);
+        context_1.getRenders().put("page1.html", rendDocumentBlock_1);
+        context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
+        context_1.getBuiltBeans().addEntry("bean_one", bean_);
+        context_1.clearPages();
+        context_1.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         String res = RendBlock.getRes(rendDocumentBlock_, context_);
         assertNull(getException(context_));
         return res;
@@ -1750,8 +1757,50 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, a_);
-        assertTrue(context_.isEmptyErrors());
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        Configuration conf_1 = a_.getConfiguration();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_two", b2_);
+        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        BeanInfo b3_ = new BeanInfo();
+        b3_.setExps(ops3_);
+        b3_.setClassName("pkg.BeanThree");
+        b3_.setResolvedClassName(ops3_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_three", b3_);
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docSec_, htmlTwo_);
+        RendDocumentBlock rendDocumentBlockThird_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docThird_, htmlThree_);
+        conf_1.getRenders().put("page1.html", rendDocumentBlock_1);
+        conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_one", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_two", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_three", bean_);
+        conf_1.clearPages();
+        conf_1.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         RendBlock.getRes(rendDocumentBlock_, context_);
         return getException(context_);
     }
@@ -1773,8 +1822,50 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        RendDocumentBlock rendDocumentBlock_ = buildThree(html_, htmlTwo_, htmlThree_, a_);
-        assertTrue(context_.isEmptyErrors());
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        Configuration conf_1 = a_.getConfiguration();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_two", b2_);
+        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        BeanInfo b3_ = new BeanInfo();
+        b3_.setExps(ops3_);
+        b3_.setClassName("pkg.BeanThree");
+        b3_.setResolvedClassName(ops3_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_three", b3_);
+        RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docSec_, htmlTwo_);
+        RendDocumentBlock rendDocumentBlockThird_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docThird_, htmlThree_);
+        conf_1.getRenders().put("page1.html", rendDocumentBlock_1);
+        conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        assertTrue(isEmptyErrors(cont_));
+        tryInitStaticlyTypes(a_);
+        Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_one", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops2_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_two", bean_);
+        bean_ = RenderExpUtil.calculateReuse(ops3_, conf_1).getStruct();
+        conf_1.getBuiltBeans().addEntry("bean_three", bean_);
+        conf_1.clearPages();
+        conf_1.setDocument(doc_);
+        RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
         context_.setCurrentUrl(_currentUrl);
         String res = RendBlock.getRes(rendDocumentBlock_, context_);
         assertNull(getException(context_));
@@ -1798,8 +1889,40 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        buildThree(html_, htmlTwo_, htmlThree_, a_);
-        return !context_.isEmptyErrors();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        Configuration conf_1 = a_.getConfiguration();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_two", b2_);
+        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        BeanInfo b3_ = new BeanInfo();
+        b3_.setExps(ops3_);
+        b3_.setClassName("pkg.BeanThree");
+        b3_.setResolvedClassName(ops3_.last().getResultClass().getSingleNameOrEmpty());
+        conf_1.getBeansInfos().addEntry("bean_three", b3_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docSec_, htmlTwo_);
+        RendDocumentBlock rendDocumentBlockThird_ = RendBlock.newRendDocumentBlock(conf_1, "c:", docThird_, htmlThree_);
+        conf_1.getRenders().put("page1.html",rendDocumentBlock_);
+        conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErrTwoPagesTwo(String folder_, String relative_, String html_, String htmlTwo_, StringMap<String> filesSec_) {
@@ -1819,8 +1942,30 @@ public abstract class CommonRender {
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
-        buildTwoPagesTwo(html_, htmlTwo_, a_);
-        return !context_.isEmptyErrors();
+        Configuration context_1 = a_.getConfiguration();
+        Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
+        Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        BeanInfo b1_ = new BeanInfo();
+        b1_.setExps(ops_);
+        b1_.setClassName("pkg.BeanOne");
+        b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_one",b1_);
+        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        BeanInfo b2_ = new BeanInfo();
+        b2_.setExps(ops2_);
+        b2_.setClassName("pkg.BeanTwo");
+        b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
+        context_1.getBeansInfos().addEntry("bean_two", b2_);
+        RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_1, "c:", doc_, html_);
+        RendDocumentBlock rendDocumentBlockSec_ = RendBlock.newRendDocumentBlock(context_1, "c:", docSec_, htmlTwo_);
+        context_1.getRenders().put("page1.html",rendDocumentBlock_);
+        context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
+        setLocalFiles(a_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        return !isEmptyErrors(cont_);
     }
 
 }

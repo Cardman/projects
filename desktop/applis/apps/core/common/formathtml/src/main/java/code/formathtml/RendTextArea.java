@@ -16,7 +16,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class RendTextArea extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
+public final class RendTextArea extends RendParentBlock implements RendWithEl, RendReducableOperations {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();

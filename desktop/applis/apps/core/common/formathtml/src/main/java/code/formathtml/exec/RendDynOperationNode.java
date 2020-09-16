@@ -129,6 +129,10 @@ public abstract class RendDynOperationNode {
         _cont.setOpOffset(indexBegin+_offset);
     }
 
+    public int getIndexBegin() {
+        return indexBegin;
+    }
+
     public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;

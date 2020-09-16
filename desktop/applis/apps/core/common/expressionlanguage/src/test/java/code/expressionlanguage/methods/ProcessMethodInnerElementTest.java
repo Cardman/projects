@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -33,9 +34,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -43,6 +44,11 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         assertEq(INTEGER, field_.getClassName(cont_));
         assertEq(6, ((NumberStruct)field_).intStruct());
     }
+
+    private static boolean isInitialized(ContextEl cont_, String _cl) {
+        return cont_.getLocks().getState(_cl) != InitClassState.NOT_YET;
+    }
+
     @Test
     public void calculate2Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -63,9 +69,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -92,9 +98,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -120,9 +126,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -151,9 +157,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -186,9 +192,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -222,9 +228,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -254,9 +260,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -286,9 +292,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -317,9 +323,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;
@@ -352,9 +358,9 @@ public final class ProcessMethodInnerElementTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner"));
-        assertTrue(cont_.getClasses().isInitialized("pkg.Ex..ExInner-ONE"));
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner"));
+        assertTrue(isInitialized(cont_, "pkg.Ex..ExInner-ONE"));
         Struct str_ = cont_.getClasses().getStaticField(new ClassField("pkg.Ex..ExInner", "ONE"));
         assertEq("pkg.Ex..ExInner-ONE", str_.getClassName(cont_));
         Struct field_;

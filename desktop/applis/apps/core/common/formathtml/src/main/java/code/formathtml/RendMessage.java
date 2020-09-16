@@ -10,7 +10,7 @@ import code.formathtml.util.AnalyzingDoc;
 import code.sml.*;
 import code.util.*;
 
-public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations,RendBuildableElMethod {
+public final class RendMessage extends RendParentBlock implements RendWithEl, RendReducableOperations {
 
     private Element elt;
     private CustList<CustList<RendDynOperationNode>> opExp;
