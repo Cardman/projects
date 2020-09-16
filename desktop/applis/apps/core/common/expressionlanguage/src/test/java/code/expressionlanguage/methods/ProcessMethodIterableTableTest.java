@@ -44,7 +44,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -82,7 +82,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -120,7 +120,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -155,7 +155,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -201,7 +201,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -237,7 +237,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -266,7 +266,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -294,7 +294,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -328,7 +328,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -369,7 +369,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -410,7 +410,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -451,7 +451,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -491,7 +491,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -529,7 +529,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -567,7 +567,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -605,7 +605,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -643,7 +643,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -684,7 +684,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -725,7 +725,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -768,7 +768,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -800,7 +800,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(isInitialized(cont_));
@@ -821,7 +821,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -859,7 +859,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -885,7 +885,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -919,7 +919,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -947,7 +947,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -975,7 +975,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1004,7 +1004,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1027,7 +1027,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1050,7 +1050,7 @@ public final class ProcessMethodIterableTableTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

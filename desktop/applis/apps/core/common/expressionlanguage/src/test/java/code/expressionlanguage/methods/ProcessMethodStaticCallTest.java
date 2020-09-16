@@ -34,7 +34,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -62,7 +62,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -95,7 +95,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -126,7 +126,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -154,7 +154,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -182,7 +182,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -210,7 +210,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -238,7 +238,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -266,7 +266,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -294,7 +294,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -322,7 +322,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -350,7 +350,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -378,7 +378,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -411,7 +411,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -442,7 +442,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -470,7 +470,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -503,7 +503,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -531,7 +531,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -559,7 +559,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -587,7 +587,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -615,7 +615,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -645,7 +645,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -680,7 +680,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -720,7 +720,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -750,7 +750,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -776,7 +776,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -801,7 +801,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -827,7 +827,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -852,7 +852,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -877,7 +877,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -900,7 +900,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -923,7 +923,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -947,7 +947,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -971,7 +971,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -995,7 +995,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -1031,7 +1031,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1067,7 +1067,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1100,7 +1100,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1136,7 +1136,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1169,7 +1169,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1195,7 +1195,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1225,7 +1225,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1244,7 +1244,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1263,7 +1263,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1277,7 +1277,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1303,7 +1303,7 @@ public final class ProcessMethodStaticCallTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

@@ -37,7 +37,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -64,7 +64,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -91,7 +91,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -117,7 +117,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -157,7 +157,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -202,7 +202,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -247,7 +247,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -292,7 +292,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -337,7 +337,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -383,7 +383,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -413,7 +413,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -437,7 +437,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefault();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -472,7 +472,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -514,7 +514,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=$static(pkg.Ex).doubleValue();\n");
         xml_.append("}\n");
         files_.put("pkg/ExCont", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -542,7 +542,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -573,7 +573,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDefaultSingle();
+        ContextEl cont_ = ctxLgReadOnly("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -611,7 +611,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -637,7 +637,7 @@ public final class ProcessReadonlyTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));

@@ -42,7 +42,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -79,7 +79,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -112,7 +112,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -144,7 +144,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -176,7 +176,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -208,7 +208,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -240,7 +240,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -272,7 +272,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -304,7 +304,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -336,7 +336,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -378,7 +378,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -420,7 +420,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -436,7 +436,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -450,7 +450,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Object inst3=0b1;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -462,7 +462,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Objet inst3=0y;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextFrElDefault();
+        ContextEl cont_ = ctxLg("fr");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -474,7 +474,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" public Objet inst3=0y;\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextFrElDefaultReadOnly();
+        ContextEl cont_ = ctxLgReadOnly("fr");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -505,7 +505,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" protected abstract void this(int p);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -533,7 +533,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -561,7 +561,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -598,7 +598,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -635,7 +635,7 @@ public final class ProcessIndexerBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

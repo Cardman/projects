@@ -31,7 +31,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int inst=2i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -71,7 +71,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -114,7 +114,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -160,7 +160,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -202,7 +202,7 @@ public final class ProcessMethodInstanceGenericTest extends ProcessMethodCommon 
         xml_.append(" $public $int inst=2i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();

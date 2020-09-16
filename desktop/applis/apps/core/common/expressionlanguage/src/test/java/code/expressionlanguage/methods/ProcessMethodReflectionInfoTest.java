@@ -25,7 +25,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -44,7 +44,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -71,7 +71,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -92,7 +92,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -116,7 +116,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -140,7 +140,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -159,7 +159,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -178,7 +178,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -197,7 +197,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -222,7 +222,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -241,7 +241,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -260,7 +260,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -281,7 +281,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -302,7 +302,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -323,7 +323,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -347,7 +347,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -371,7 +371,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -390,7 +390,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -409,7 +409,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -430,7 +430,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -451,7 +451,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -471,7 +471,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -492,7 +492,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -512,7 +512,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -532,7 +532,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -553,7 +553,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -573,7 +573,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -594,7 +594,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -614,7 +614,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -635,7 +635,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -655,7 +655,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -676,7 +676,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -699,7 +699,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -722,7 +722,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -743,7 +743,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -763,7 +763,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -783,7 +783,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -804,7 +804,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -824,7 +824,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -844,7 +844,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -864,7 +864,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -885,7 +885,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -905,7 +905,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -925,7 +925,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -945,7 +945,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -968,7 +968,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" $public T inst;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -991,7 +991,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1013,7 +1013,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1035,7 +1035,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1057,7 +1057,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1081,7 +1081,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1109,7 +1109,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1133,7 +1133,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1153,7 +1153,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1173,7 +1173,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1197,7 +1197,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1221,7 +1221,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1245,7 +1245,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1269,7 +1269,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParamTwo<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1291,7 +1291,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1313,7 +1313,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1335,7 +1335,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1357,7 +1357,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1379,7 +1379,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1401,7 +1401,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1423,7 +1423,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1445,7 +1445,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1467,7 +1467,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1490,7 +1490,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1519,7 +1519,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1547,7 +1547,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1568,7 +1568,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1594,7 +1594,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1624,7 +1624,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1653,7 +1653,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1681,7 +1681,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1709,7 +1709,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1730,7 +1730,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1756,7 +1756,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1786,7 +1786,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1815,7 +1815,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1839,7 +1839,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1863,7 +1863,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1887,7 +1887,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1911,7 +1911,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1935,7 +1935,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1959,7 +1959,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1983,7 +1983,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2006,7 +2006,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2030,7 +2030,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2053,7 +2053,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2075,7 +2075,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2098,7 +2098,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2128,7 +2128,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFive:ExThree:ExFour{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2152,7 +2152,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExFour<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2176,7 +2176,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2200,7 +2200,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2220,7 +2220,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2241,7 +2241,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2262,7 +2262,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2282,7 +2282,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2306,7 +2306,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2331,7 +2331,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2355,7 +2355,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2375,7 +2375,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2397,7 +2397,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2419,7 +2419,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2441,7 +2441,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2463,7 +2463,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2485,7 +2485,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2507,7 +2507,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2529,7 +2529,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2551,7 +2551,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2571,7 +2571,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2591,7 +2591,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2615,7 +2615,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2640,7 +2640,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2664,7 +2664,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2684,7 +2684,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2706,7 +2706,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2728,7 +2728,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2750,7 +2750,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2772,7 +2772,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2794,7 +2794,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2816,7 +2816,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2838,7 +2838,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2860,7 +2860,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2882,7 +2882,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S,T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2904,7 +2904,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2927,7 +2927,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" S inst;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2949,7 +2949,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2971,7 +2971,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -2990,7 +2990,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3012,7 +3012,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3034,7 +3034,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3055,7 +3055,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3076,7 +3076,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3097,7 +3097,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3118,7 +3118,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3139,7 +3139,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3160,7 +3160,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$protected $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3181,7 +3181,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3202,7 +3202,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3221,7 +3221,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3240,7 +3240,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3259,7 +3259,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3278,7 +3278,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3297,7 +3297,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3316,7 +3316,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3335,7 +3335,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3354,7 +3354,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3373,7 +3373,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3392,7 +3392,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3413,7 +3413,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3434,7 +3434,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3455,7 +3455,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3476,7 +3476,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3497,7 +3497,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3518,7 +3518,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3539,7 +3539,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3560,7 +3560,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3583,7 +3583,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3605,7 +3605,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3627,7 +3627,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3648,7 +3648,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3669,7 +3669,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3690,7 +3690,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3712,7 +3712,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3734,7 +3734,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3754,7 +3754,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3775,7 +3775,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3802,7 +3802,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3829,7 +3829,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3856,7 +3856,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3883,7 +3883,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3910,7 +3910,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3932,7 +3932,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3954,7 +3954,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3976,7 +3976,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -3998,7 +3998,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4020,7 +4020,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4042,7 +4042,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4064,7 +4064,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4086,7 +4086,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4108,7 +4108,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4130,7 +4130,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4152,7 +4152,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4174,7 +4174,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4196,7 +4196,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4218,7 +4218,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4240,7 +4240,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4262,7 +4262,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4284,7 +4284,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4306,7 +4306,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4328,7 +4328,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4350,7 +4350,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4372,7 +4372,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4396,7 +4396,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4420,7 +4420,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4444,7 +4444,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4468,7 +4468,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4492,7 +4492,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4516,7 +4516,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4540,7 +4540,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4564,7 +4564,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4588,7 +4588,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4615,7 +4615,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4640,7 +4640,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4664,7 +4664,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4688,7 +4688,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4712,7 +4712,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4736,7 +4736,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4760,7 +4760,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4787,7 +4787,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4814,7 +4814,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4841,7 +4841,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4868,7 +4868,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4895,7 +4895,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4922,7 +4922,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4949,7 +4949,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -4976,7 +4976,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5003,7 +5003,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5030,7 +5030,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5057,7 +5057,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5084,7 +5084,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5111,7 +5111,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5138,7 +5138,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5163,7 +5163,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5188,7 +5188,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5215,7 +5215,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5242,7 +5242,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5266,7 +5266,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5290,7 +5290,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5314,7 +5314,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5338,7 +5338,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5362,7 +5362,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5386,7 +5386,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5410,7 +5410,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5434,7 +5434,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5458,7 +5458,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5482,7 +5482,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5506,7 +5506,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5530,7 +5530,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5555,7 +5555,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5579,7 +5579,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5603,7 +5603,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5627,7 +5627,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5651,7 +5651,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5675,7 +5675,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5699,7 +5699,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5723,7 +5723,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5747,7 +5747,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5771,7 +5771,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5795,7 +5795,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5819,7 +5819,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5842,7 +5842,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5865,7 +5865,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5888,7 +5888,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5911,7 +5911,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5934,7 +5934,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5959,7 +5959,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -5984,7 +5984,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6009,7 +6009,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6034,7 +6034,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6059,7 +6059,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6084,7 +6084,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6109,7 +6109,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6134,7 +6134,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6161,7 +6161,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6186,7 +6186,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6209,7 +6209,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6232,7 +6232,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6255,7 +6255,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6278,7 +6278,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6301,7 +6301,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6324,7 +6324,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6347,7 +6347,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6370,7 +6370,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6393,7 +6393,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6416,7 +6416,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6439,7 +6439,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6462,7 +6462,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6484,7 +6484,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6506,7 +6506,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6527,7 +6527,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6548,7 +6548,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6569,7 +6569,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6590,7 +6590,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6611,7 +6611,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6632,7 +6632,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6653,7 +6653,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6674,7 +6674,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6695,7 +6695,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6716,7 +6716,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6737,7 +6737,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6758,7 +6758,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6779,7 +6779,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6800,7 +6800,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6821,7 +6821,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6842,7 +6842,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6863,7 +6863,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6884,7 +6884,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6905,7 +6905,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6926,7 +6926,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6947,7 +6947,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6968,7 +6968,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -6989,7 +6989,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7010,7 +7010,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7034,7 +7034,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7061,7 +7061,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7088,7 +7088,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7115,7 +7115,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7142,7 +7142,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7169,7 +7169,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7193,7 +7193,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7217,7 +7217,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7241,7 +7241,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7264,7 +7264,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7289,7 +7289,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7314,7 +7314,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7339,7 +7339,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7364,7 +7364,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7387,7 +7387,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7410,7 +7410,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7433,7 +7433,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7454,7 +7454,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7475,7 +7475,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7496,7 +7496,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7517,7 +7517,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7541,7 +7541,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7565,7 +7565,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7586,7 +7586,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7607,7 +7607,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7627,7 +7627,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7647,7 +7647,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7667,7 +7667,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7690,7 +7690,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7714,7 +7714,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7739,7 +7739,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7765,7 +7765,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7787,7 +7787,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7812,7 +7812,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7839,7 +7839,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7868,7 +7868,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7894,7 +7894,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7924,7 +7924,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7951,7 +7951,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7973,7 +7973,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -7998,7 +7998,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8027,7 +8027,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8049,7 +8049,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8074,7 +8074,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8097,7 +8097,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8124,7 +8124,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8147,7 +8147,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8170,7 +8170,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8193,7 +8193,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8214,7 +8214,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8235,7 +8235,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8259,7 +8259,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8283,7 +8283,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8307,7 +8307,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8331,7 +8331,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8355,7 +8355,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8377,7 +8377,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8482,7 +8482,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8503,7 +8503,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8527,7 +8527,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8551,7 +8551,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8575,7 +8575,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8599,7 +8599,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8623,7 +8623,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8647,7 +8647,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8671,7 +8671,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8695,7 +8695,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8722,7 +8722,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8749,7 +8749,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8776,7 +8776,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8803,7 +8803,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8825,7 +8825,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8847,7 +8847,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8869,7 +8869,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8891,7 +8891,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8913,7 +8913,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8935,7 +8935,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8958,7 +8958,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8978,7 +8978,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -8996,7 +8996,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9014,7 +9014,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9034,7 +9034,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9058,7 +9058,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9082,7 +9082,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9105,7 +9105,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9127,7 +9127,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExParam<T:Number> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9151,7 +9151,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9175,7 +9175,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9199,7 +9199,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9223,7 +9223,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9243,7 +9243,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9264,7 +9264,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9285,7 +9285,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9306,7 +9306,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9327,7 +9327,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9348,7 +9348,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9369,7 +9369,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9390,7 +9390,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9411,7 +9411,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9432,7 +9432,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9452,7 +9452,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9472,7 +9472,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9493,7 +9493,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9514,7 +9514,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9535,7 +9535,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9556,7 +9556,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9576,7 +9576,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9596,7 +9596,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9617,7 +9617,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -9638,7 +9638,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();

@@ -27,7 +27,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -65,7 +65,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -95,7 +95,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -116,7 +116,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -146,7 +146,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -178,7 +178,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -205,7 +205,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -228,7 +228,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -266,7 +266,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -297,7 +297,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -326,7 +326,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
+        ContextEl cont_ = contextElCoverageDef();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));

@@ -8,6 +8,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -474,7 +475,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl context_ = ContextFactory.build(-1,lk_, di_, new Options(), a_,kw_, this,4);
+        Options _options = new Options();
+        ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, kw_, this, 4);
+        ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(),_options);
+        ContextEl context_ = contextEl_;
         _conf.setContext(context_);
     }
     public void setDataBase(Object _dataBase){

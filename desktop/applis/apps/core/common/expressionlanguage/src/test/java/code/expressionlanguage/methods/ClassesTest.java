@@ -12,6 +12,7 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -48,7 +49,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getAnalyzing().isEmptyStdError());
         assertTrue(!isEmptyErrors(out_));
@@ -67,7 +69,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.setAliasLe("ge");
         lgName_.setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getAnalyzing().isEmptyStdError());
     }
@@ -83,7 +86,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getAnalyzing().isEmptyMessageError());
         assertTrue(!isEmptyErrors(out_));
@@ -98,7 +102,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        ContextEl out_ = ContextFactory.build(-1,lk_, di_, opts_, a_,kw_, lgName_,4);
+        ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
+        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
         assertTrue(!out_.getAnalyzing().isEmptyMessageError());
         assertTrue(!isEmptyErrors(out_));
@@ -116,14 +121,14 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
         assertEq("pkg.Ex<#T>", types_.last());
     }
 
-    private static StringList getAllGenericClasses(ContextEl context_, String _className) {
+    private static StringList getAllGenericClasses(AnalyzedTestContext context_, String _className) {
         return context_.getAnalyzing().getAnaClassBody(_className).getAllGenericClasses();
     }
 
@@ -141,7 +146,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.Ex;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -162,7 +167,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -188,7 +193,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.Ex;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -210,7 +215,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -232,7 +237,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -255,7 +260,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkgthree.ExFour<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -278,7 +283,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
@@ -303,7 +308,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.ExThree;\n");
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
@@ -328,7 +333,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
@@ -347,7 +352,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -365,7 +370,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -383,7 +388,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -410,7 +415,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -437,7 +442,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -459,7 +464,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?T>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -480,7 +485,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -501,7 +506,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<!T>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -522,7 +527,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?T[]>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -543,7 +548,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<!T[]>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -569,7 +574,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -595,7 +600,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -621,7 +626,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -647,7 +652,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -673,7 +678,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -699,7 +704,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -725,7 +730,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -751,7 +756,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -777,7 +782,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -803,7 +808,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -829,7 +834,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -857,7 +862,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -891,7 +896,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -917,7 +922,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -943,7 +948,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -969,7 +974,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -995,7 +1000,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1023,7 +1028,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1051,7 +1056,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1079,7 +1084,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1105,7 +1110,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1133,7 +1138,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1161,7 +1166,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1187,7 +1192,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1213,7 +1218,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1239,7 +1244,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1265,7 +1270,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1291,7 +1296,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1317,7 +1322,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1343,7 +1348,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer..InnerTwo").getImportedDirectSuperInterfaces();
         assertTrue(StringList.contains(types_, "pkg.OuterThree..InnerThree"));
     }
@@ -1498,7 +1503,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1868,7 +1873,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateInheritingClasses(files_);
+        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -2826,7 +2831,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl ctx_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext ctx_ = unfullValidateInheriting(files_);
         assertEq(1, getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").size());
         assertEq("pkg.Outer..InnerTwo..InnerThree", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
@@ -2847,12 +2852,12 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl ctx_ = unfullValidateInheritingClassesSingle(files_);
+        AnalyzedTestContext ctx_ = unfullValidateInheriting(files_);
         assertEq(1, getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").size());
         assertEq("pkg.Outer..InnerTwo..InnerThree..InnerFour", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
 
-    private static StringList getImportedDirectSuperTypes(ContextEl ctx_, String _className) {
+    private static StringList getImportedDirectSuperTypes(AnalyzedTestContext ctx_, String _className) {
         StringList list_ = new StringList();
         for (AnaFormattedRootBlock l:ctx_.getAnalyzing().getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
             list_.add(l.getFormatted());
@@ -4257,7 +4262,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = validateStaticFields(files_);
+        ContextEl ctx_ = validateStaticFieldsFail(files_);
         assertEq(2, countStaticFields(ctx_));
     }
     @Test
@@ -4300,7 +4305,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final Boolean iOne=$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = validateStaticFields(files_);
+        ContextEl ctx_ = validateStaticFieldsFail(files_);
         assertEq(1, countStaticFields(ctx_));
     }
     @Test
@@ -4314,7 +4319,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = validateStaticFields(files_);
+        ContextEl ctx_ = validateStaticFieldsFail(files_);
         assertEq(2, countStaticFields(ctx_));
     }
     @Test
@@ -4342,7 +4347,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int iTwo=0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = validateStaticFields(files_);
+        ContextEl ctx_ = validateStaticFieldsFail(files_);
         assertEq(2, countStaticFields(ctx_));
     }
     @Test
@@ -5267,7 +5272,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=java.lang.Integer.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
     }
@@ -5280,7 +5285,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=java.lang.Integer.MAX_VALUE $instanceof java.lang.Integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
     }
@@ -5302,7 +5307,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5325,7 +5330,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5348,7 +5353,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5368,7 +5373,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$new Inner().n();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5391,7 +5396,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5414,7 +5419,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5437,7 +5442,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5457,7 +5462,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$new Inner().n());\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
         assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
@@ -5471,7 +5476,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=(5!=4);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
     }
@@ -5485,7 +5490,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=(0s&0s)==0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
     }
@@ -5502,7 +5507,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a1+=5c;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = contextElSingleDot();
+        ContextEl ctx_ = ctx();
         Classes.validateAll(files_,ctx_);
         assertTrue(isEmptyErrors(ctx_));
     }
@@ -5543,7 +5548,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int outer(){$return $void;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5556,7 +5561,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo {\n");
         xml_.append(" $public $static{\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5570,7 +5575,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void outer(){$static{}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5583,7 +5588,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){$public $static $int inner(){$return 0;}$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5596,7 +5601,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public ExTwo(){$this();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5609,7 +5614,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){$public $static $int inner;$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5622,7 +5627,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){$return 0;$return 0;$public $static $class Inn{}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5636,7 +5641,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){((String)$null<(String)$null);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5649,7 +5654,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){($vararg($int));$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5662,7 +5667,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){$new $int[]{$vararg($int)};$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5678,7 +5683,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5691,7 +5696,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(0<\"\");$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5704,7 +5709,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(\"\"<0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5717,7 +5722,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(0<$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5730,7 +5735,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){($false<0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5743,7 +5748,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){($false+0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5756,7 +5761,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(0+$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5769,7 +5774,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){($false-0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5782,7 +5787,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(0-$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5795,7 +5800,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){($false*0);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5808,7 +5813,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int outer(){(0*$false);$return 0;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5846,7 +5851,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a25 = \"\"+(ExTwo)$null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5859,7 +5864,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a1 = $new $int[\"\"];\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5872,7 +5877,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a1 = $new $int[]{\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5885,7 +5890,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a1 = {\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5898,7 +5903,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a1 = $new $int[]{\"\"}.len;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5911,7 +5916,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int a1 = $new $int[]{\"\"}.clo;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5924,7 +5929,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int[] a1 = {\"\"};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5937,7 +5942,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {({});}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5950,7 +5955,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $int[] a1 = {{}};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5963,7 +5968,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" Object a1 = {{}};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5976,7 +5981,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {([unknown]) = {};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -5989,7 +5994,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {([unknown]) = $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6002,7 +6007,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$return $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6015,7 +6020,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void m(){$return $bool($true,5,4);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6029,7 +6034,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$bool(m(),m(),m());tab[,];tab[\"\"];tab[-12345678912l];tab[12345678912l];}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6043,7 +6048,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$static(pkgtwo.ExThree).m();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6062,7 +6067,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $void m(){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6077,7 +6082,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo().$new Inner<String>();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6092,7 +6097,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo().$new InnerInner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6107,7 +6112,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo<?,!Number>().$new Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6122,7 +6127,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo[1].$new Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6137,7 +6142,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo().$new ..Inner();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6151,7 +6156,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExTwo();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6165,7 +6170,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6179,7 +6184,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6193,7 +6198,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new ExThree();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6206,7 +6211,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$new Inexist();$new $int();}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6219,7 +6224,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" {$int v = 5;$if($true){$var v = 5;}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6239,7 +6244,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final Integer a10=Long.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6273,7 +6278,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6290,7 +6295,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6307,7 +6312,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6324,7 +6329,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6341,7 +6346,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6367,7 +6372,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6387,7 +6392,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6407,7 +6412,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6439,7 +6444,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6459,7 +6464,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6472,7 +6477,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = -92233720368547758088L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6485,7 +6490,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 09L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6498,7 +6503,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $char cst = 09C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6511,7 +6516,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 09I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6524,7 +6529,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0400Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6537,7 +6542,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 01111Y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6550,7 +6555,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0400000S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6563,7 +6568,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 01111111S;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6576,7 +6581,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0200000C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6589,7 +6594,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 01111111C;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6602,7 +6607,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 040000000000I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6615,7 +6620,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0111111111111I;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6628,7 +6633,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 02000000000000000000000L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6641,7 +6646,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0111111111111111111111111L;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6654,7 +6659,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 111111111111111111;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6667,7 +6672,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = -111111111111111111;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6680,7 +6685,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 11111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6693,7 +6698,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = -11111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6706,7 +6711,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 11111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6719,7 +6724,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = -11111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6732,7 +6737,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 1111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6745,7 +6750,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = -1111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6758,7 +6763,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = -9223372036854775808;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6771,7 +6776,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $float cst = 1e100f;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6784,7 +6789,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $float cst = -1e100f;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6797,7 +6802,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0b11111111111111111111111111111111111111111111111111111111111111111l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6810,7 +6815,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0b111111111111111111111111111111111i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6823,7 +6828,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0b11111111111111111s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6836,7 +6841,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0b11111111111111111c;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6849,7 +6854,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 0b111111111y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6862,7 +6867,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $int cst = 01$;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -6875,7 +6880,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" static final entier4 cst = 0y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ct_ = getFrContextEl();
+        ContextEl ct_ = ctxLg("fr");
         Classes.validateAll(files_, ct_);
         assertTrue(!isEmptyErrors(ct_));
     }
@@ -6888,7 +6893,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" static final entier4 cst = 0x;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ct_ = getFrContextEl();
+        ContextEl ct_ = ctxLg("fr");
         Classes.validateAll(files_, ct_);
         assertTrue(!isEmptyErrors(ct_));
     }
@@ -6903,7 +6908,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a.$static;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6917,7 +6922,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a.;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6930,7 +6935,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {$long l = 0x0x;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6943,7 +6948,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {$long l = 0x0x+1;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6956,7 +6961,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {$long l = 0x0xy.1;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6969,7 +6974,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0xffffffffffffffff0l;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6982,7 +6987,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0xffffffff0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -6995,7 +7000,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0xffff0xc;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7008,7 +7013,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0xffff0s;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7021,7 +7026,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final $long cst = 0xff0xy;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7034,7 +7039,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a.$static;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7047,7 +7052,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a.;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7060,7 +7065,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1<<<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7073,7 +7078,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1<<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7086,7 +7091,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1<<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7099,7 +7104,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = $true&&;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7112,7 +7117,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1<;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7125,7 +7130,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1&;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7138,7 +7143,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1+;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7151,7 +7156,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1-;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7164,7 +7169,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = 1-+;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7177,7 +7182,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = pkg.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7190,7 +7195,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = pkg;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7203,7 +7208,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = java.lang.Integer.MAX;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7216,7 +7221,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = java.lang.Integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7229,7 +7234,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = java.lang;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7242,7 +7247,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object cst = java. .lang;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElSingleDot();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7259,7 +7264,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static $final Object otherThree = $classchoice(Apply)otherTwo = $null;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7274,7 +7279,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int...) {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7291,7 +7296,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int...) {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7308,7 +7313,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int...) {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7321,7 +7326,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$int;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7334,7 +7339,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$int[];}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7347,7 +7352,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$int ;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7360,7 +7365,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$int[] ;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7373,7 +7378,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$iter($int){}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7386,7 +7391,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$iter($int[]){}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7399,7 +7404,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$iter($int ){}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7412,7 +7417,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$throw;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7425,7 +7430,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$iter($int ){$int j;}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7438,7 +7443,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$foreach;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7451,7 +7456,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$iter;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7464,7 +7469,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$for;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7477,7 +7482,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p() {$int i}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7491,7 +7496,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("$public $class pkg.Apply {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7504,7 +7509,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $class $interfaces Inner{}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7517,7 +7522,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $class $interfaces Inner{}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7530,7 +7535,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $classe Inner{}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7543,7 +7548,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $classe Inner{}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7555,7 +7560,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $classe Inner");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7567,7 +7572,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $int v = m());}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7579,7 +7584,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $int v = m[]];}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7591,7 +7596,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $int v = m({}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7603,7 +7608,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $class");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7615,7 +7620,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $int v = m({}}}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7627,7 +7632,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $int v = m({}}});}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7639,7 +7644,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply {\n");
         xml_.append(" $public $static $class ");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7671,7 +7676,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Apply5 {\n");
         xml_.append(" /* *");
         files_.put("pkg/ExSeven", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7709,7 +7714,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7754,7 +7759,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7783,7 +7788,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7803,7 +7808,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7820,7 +7825,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $protected $abstract $void $this($int p);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7840,7 +7845,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7854,7 +7859,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$new Integer($false);}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
@@ -7867,7 +7872,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null);$new Integer($id(Integer,$int),0);\"\".format($id(CharSequence,CharSequence...),\"\",\"\");}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
     }
@@ -7882,7 +7887,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer2(){$public $static $class Inn{};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7897,7 +7902,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer2(){$public $static $class Inn2{};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7912,7 +7917,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer(){$public $static $class Inn{};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7926,7 +7931,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer(){$public $static $class Inn{};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7939,7 +7944,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer(){$public $static $class Inn{};$public $static $class Inn{};}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7952,7 +7957,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $class Inn{}$public $static $class Inn{};\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7967,7 +7972,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $void outer2(){$public $static $class Inn{}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7982,7 +7987,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $class Inn2{}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -7998,7 +8003,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }}}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -8015,7 +8020,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }}}}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -8034,7 +8039,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }}}}}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -8055,7 +8060,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

@@ -1,16 +1,20 @@
 package code.expressionlanguage.analyze.inherits;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.MethodHeaders;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.DoubleStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.*;
@@ -141,8 +145,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo",new StringMap<String>(), "pkg.ExFive<java.lang.Number>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.Number>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -159,8 +163,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive", new StringMap<String>()));
     }
 
     @Test
@@ -177,8 +181,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         xml_.append("$public $class pkg.ExOther{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExOther", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExOther", new StringMap<String>()));
     }
 
     @Test
@@ -194,8 +198,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -212,8 +216,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -230,8 +234,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -248,8 +252,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?>>", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?>>", new StringMap<String>()));
     }
 
     @Test
@@ -265,8 +269,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<[java.lang.Number>>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<[java.lang.Number>>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -283,8 +287,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<!java.lang.Number>>", new StringMap<String>()));
     }
 
     @Test
@@ -300,8 +304,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<?java.lang.Number>>", new StringMap<String>()));
     }
 
     @Test
@@ -317,8 +321,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", new StringMap<String>()));
     }
 
     @Test
@@ -335,8 +339,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        assertNull(AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExFive<java.lang.$iterable<java.lang.Number>>", cont_));
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        assertNull(tryInfer(cont_, "pkg.ExTwo", "pkg.ExFive<java.lang.$iterable<java.lang.Number>>", new StringMap<String>()));
     }
     @Test
     public void tryInfer13Test() {
@@ -352,8 +356,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         xml_.append("$public $class pkg.ExIter<Z> :$iterable<Z>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo", new StringMap<String>(),"pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.$iterable<java.lang.Number>>", inferred_);
     }
 
@@ -370,8 +374,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.ExTwo",new StringMap<String>(), "pkg.ExTwo<java.lang.Number>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "pkg.ExTwo", "pkg.ExTwo<java.lang.Number>", new StringMap<String>());
         assertEq("pkg.ExTwo<java.lang.Number>", inferred_);
     }
 
@@ -388,8 +392,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("java.lang.$Fct",new StringMap<String>(), "java.lang.$Fct<java.lang.Number>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_, "java.lang.$Fct", "java.lang.$Fct<java.lang.Number>", new StringMap<String>());
         assertEq("java.lang.$Fct<java.lang.Number>", inferred_);
     }
     @Test
@@ -405,16 +409,16 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        String inferred_ = AnaTemplates.tryInfer("",new StringMap<String>(), "", cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        String inferred_ = tryInfer(cont_,"", "", new StringMap<String>());
         assertNull(inferred_);
         assertEq(0,AnaTemplates.getBoundAll(null).size());
     }
     @Test
     public void getVarTypes() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
-        StringMap<String> vars_ = AnaTemplates.getVarTypes(null,"",cont_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        StringMap<String> vars_ = getVarTypes(cont_, null, "");
         assertEq(0, vars_.size());
     }
     @Test
@@ -426,12 +430,17 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class Inner<Y> {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         RootBlock root_ = cont_.getAnalyzing().getAnaClassBody("pkg.Ex");
-        StringMap<String> vars_ = AnaTemplates.getVarTypes(root_,"pkg.Ex<java.lang.Number>",cont_);
-        String inferred_ = AnaTemplates.tryInfer("pkg.Ex..Inner",vars_, "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", cont_);
+        StringMap<String> vars_ = getVarTypes(cont_, root_, "pkg.Ex<java.lang.Number>");
+        String inferred_ = tryInfer(cont_,"pkg.Ex..Inner", "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>",vars_);
         assertEq("pkg.Ex<java.lang.Number>..Inner<java.lang.Number>", inferred_);
     }
+
+    private static StringMap<String> getVarTypes(AnalyzedTestContext cont_, RootBlock root_, String s) {
+        return AnaTemplates.getVarTypes(root_, s, cont_.getContext());
+    }
+
     @Test
     public void getInferForm1Test() {
         assertNull(AnaTemplates.getInferForm("java.lang.Number"));
@@ -460,115 +469,119 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void isCorrect109Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("");
         m_.setParam("");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrectOrNumbers(m_,context_));
+        assertTrue(!isCorrectOrNumbers(context_, m_));
+    }
+
+    private static boolean isCorrectOrNumbers(AnalyzedTestContext context_, Mapping m_) {
+        return AnaTemplates.isCorrectOrNumbers(m_,context_.getContext());
     }
 
     @Test
     public void isCorrect1Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
         m_.setParam("java.lang.Object");
-        assertTrue(AnaTemplates.isCorrect(m_, context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect2Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.String");
         m_.setParam("java.lang.Object");
-        assertTrue(AnaTemplates.isCorrect(m_, context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect3Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
         m_.setParam("java.lang.String");
-        assertTrue(!AnaTemplates.isCorrect(m_, context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect4Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$iterable<java.lang.Object>");
         m_.setParam("java.lang.$iterable<java.lang.Object>");
-        assertTrue(AnaTemplates.isCorrect(m_, context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect5Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$iterable<java.lang.String>");
         m_.setParam("java.lang.$iterable<java.lang.Object>");
-        assertTrue(!AnaTemplates.isCorrect(m_, context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect6Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$iterable<java.lang.Object>");
         m_.setParam("java.lang.$iterable<java.lang.String>");
-        assertTrue(!AnaTemplates.isCorrect(m_, context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect7Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.$Enum<#E>"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect8Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect9Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("[java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("[java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect10Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("[java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
 
@@ -655,13 +668,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>>");
         m_.setParam("java.lang.$Fct<pkg.ExTwo<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -674,60 +687,60 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<pkg.ExTwo<java.lang.Number>,$int>");
         m_.setParam("java.lang.$Fct<pkg.Ex<java.lang.Number>,$int>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<$void>");
         m_.setParam("java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<java.lang.Object>");
         m_.setParam("java.lang.$Fct<$void>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect15_Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<$void>");
         m_.setParam("java.lang.$Fct<java.lang.Integer>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<$void>");
         m_.setParam("java.lang.$Fct<$void>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -740,24 +753,24 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("java.lang.$Fct<pkg.ExTwo<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect17Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#E");
         m_.setParam("java.lang.Number");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("[java.lang.Integer"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -770,13 +783,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("pkg.ExTwo<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -789,17 +802,17 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect20Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam("#S");
@@ -807,11 +820,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect21Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#S");
         m_.setParam("#T");
@@ -819,7 +832,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -832,24 +845,24 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Object");
         m_.setParam("$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect23Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_STRING);
         m_.setParam(ARR_OBJECT);
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -865,13 +878,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?pkg.ExTwo>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -887,13 +900,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.ExTwo>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
 
@@ -910,13 +923,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<pkg.ExTwo>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -932,13 +945,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.ExTwo>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -954,13 +967,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -976,13 +989,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -998,13 +1011,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1020,13 +1033,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1042,13 +1055,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -1064,13 +1077,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!pkg.Ex>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -1086,13 +1099,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -1108,18 +1121,18 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?pkg.Ex>");
         m_.setParam("pkg.Param<pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect36Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_T);
         m_.setParam(ARR_VAR_S);
@@ -1127,12 +1140,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect37Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_S);
         m_.setParam(ARR_VAR_T);
@@ -1140,12 +1153,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect38Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_S);
         m_.setParam(ARR_VAR_T);
@@ -1153,12 +1166,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect39Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg(ARR_VAR_T);
         m_.setParam(ARR_VAR_S);
@@ -1166,7 +1179,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         t_.put("T", new StringList("#S"));
         t_.put("S", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
 
@@ -1183,13 +1196,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!pkg.Ex>");
         m_.setParam("pkg.Param<pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
 
@@ -1207,13 +1220,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?pkg.ExTwo>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1230,13 +1243,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<!pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.ExTwo>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1253,13 +1266,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<pkg.ExTwo>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1276,13 +1289,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.ExTwo>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1299,13 +1312,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1322,13 +1335,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<!pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1345,13 +1358,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?pkg.Ex>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1368,13 +1381,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?>");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1391,13 +1404,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
 
@@ -1452,14 +1465,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void isCorrect50Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#H");
         m_.setParam(context_.getStandards().getAliasObject());
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("H", new StringList());
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
@@ -1476,13 +1489,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<!pkg.Ex>");
         m_.setParam("pkg.Param<?pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect52Test() {
@@ -1491,11 +1504,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.Ex");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1512,13 +1525,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?pkg.Ex>");
         m_.setParam("pkg.Param<!pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect54Test() {
@@ -1527,11 +1540,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Number");
         m_.setParam("pkg.Ex");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1544,11 +1557,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1561,11 +1574,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1578,11 +1591,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1595,11 +1608,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1612,11 +1625,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1629,11 +1642,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1646,11 +1659,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1663,11 +1676,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1680,12 +1693,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
         m_.setParam("pkg.Ex<#T>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1698,12 +1711,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1716,12 +1729,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#T>");
         m_.setParam("pkg.Ex<#T>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1734,12 +1747,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<#T>");
         m_.setParam("pkg.ExTwo<#T>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1752,12 +1765,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("S", new StringList("java.lang.Object"));
         m_.setArg("pkg.ExTwo<#S>");
         m_.setParam("pkg.Ex<#S>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1774,13 +1787,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<?pkg.Ex>");
         m_.setParam("pkg.Param<pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect69Test() {
@@ -1792,14 +1805,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.getMapping().put("U", new StringList("#T"));
         m_.getMapping().put("V", new StringList("#U"));
         m_.setArg("#V");
         m_.setParam("#T");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect70Test() {
@@ -1811,7 +1824,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.getMapping().put("U", new StringList("#T"));
@@ -1820,7 +1833,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         m_.getMapping().put("X", new StringList("#V","#W"));
         m_.setArg("#X");
         m_.setParam("#T");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect71Test() {
@@ -1836,13 +1849,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamTwo<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamTwo<!pkg.Ex>");
         m_.setParam("pkg.Param<pkg.Ex>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect72Test() {
@@ -1854,14 +1867,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.getMapping().put("U", new StringList("#T"));
         m_.getMapping().put("X", new StringList("#V","#W"));
         m_.setArg("#X");
         m_.setParam("#T");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect73Test() {
@@ -1873,12 +1886,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[[pkg.ExTwo<#T>");
         m_.setParam("[pkg.Ex<#T>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1891,12 +1904,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<E> :pkg.Ex<E>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("[java.lang.Object"));
         m_.setArg("[pkg.Ex<#T>");
         m_.setParam("[[pkg.ExTwo<#T>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1909,11 +1922,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ExTwo");
         m_.setParam("pkg.Ex<java.lang.Object>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1926,12 +1939,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Object>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("T", new StringList("java.lang.Object"));
         m_.setArg("pkg.Ex<java.lang.Object>");
         m_.setParam("pkg.ExTwo");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
@@ -1947,12 +1960,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
         m_.setArg("#U");
         m_.setParam("pkg.ExTwo<java.lang.Number>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect78Test() {
@@ -1967,12 +1980,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
         m_.setArg("#U");
         m_.setParam("pkg.Ex<java.lang.Number>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -1988,12 +2001,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
         m_.setArg("[#U");
         m_.setParam("[pkg.ExTwo<java.lang.Number>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
 
     @Test
@@ -2009,12 +2022,12 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("pkg.ExTwo<java.lang.Number>"));
         m_.setArg("[#U");
         m_.setParam("[pkg.Ex<java.lang.Number>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect81Test() {
@@ -2029,13 +2042,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("java.lang.Object"));
         m_.getMapping().put("V", new StringList("pkg.ExTwo<#U>"));
         m_.setArg("[#V");
         m_.setParam("[pkg.Ex<#U>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect82Test() {
@@ -2050,58 +2063,58 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<java.lang.Number>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("java.lang.Object"));
         m_.getMapping().put("V", new StringList("pkg.ExTwo<#U>"));
         m_.setArg("[#V");
         m_.setParam("[pkg.ExThree<#U>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect83Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<?,?>");
         m_.setParam("java.lang.$Fct<?,?>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect84Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<?,java.lang.Number>");
         m_.setParam("java.lang.$Fct<?,?>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect85Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<java.lang.Number,?>");
         m_.setParam("java.lang.$Fct<?,?>");
-        assertTrue(AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect86Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<?,?>");
         m_.setParam("java.lang.$Fct<?,java.lang.Number>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect87Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<?,?>");
         m_.setParam("java.lang.$Fct<java.lang.Number,?>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect88Test() {
@@ -2110,11 +2123,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E,F> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Ex<?java.lang.Integer,java.lang.Integer>");
         m_.setParam("pkg.Ex<?java.lang.Number,java.lang.Number>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect89Test() {
@@ -2129,82 +2142,82 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U,V:pkg.ExTwo<U>>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.getMapping().put("U", new StringList("java.lang.Object"));
         m_.getMapping().put("V", new StringList("pkg.ExTwo<#U>"));
         m_.setArg("[#V");
         m_.setParam("[pkg.ExThree<#U>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
 
     @Test
     public void isCorrect90Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<$void>");
         m_.setParam("java.lang.$Fct");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect91Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct");
         m_.setParam("java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect92Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct");
         m_.setParam("java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect93Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("#T");
         m_.setParam("[#T");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect94Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("[#T");
         m_.setParam("#T");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect95Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.Number");
         m_.setParam("#T");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
     @Test
     public void isCorrect96Test() {
@@ -2213,22 +2226,30 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("$int");
         m_.setParam("pkg.Ex<java.lang.Number>");
-        assertTrue(!AnaTemplates.isCorrect(m_, cont_));
+        assertTrue(!isCorrect(cont_, m_));
     }
     @Test
     public void isCorrect97Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         Mapping m_ = new Mapping();
         m_.setArg("");
         m_.setParam("#T");
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("T", new StringList("java.lang.Object"));
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
+    }
+
+    private static boolean isCorrect(ContextEl context_, Mapping m_) {
+        return AnaTemplates.isCorrect(m_,context_);
+    }
+
+    private static boolean isCorrect(AnalyzedTestContext context_, Mapping m_) {
+        return AnaTemplates.isCorrect(m_,context_.getContext());
     }
 
     @Test
@@ -2238,13 +2259,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?$int>");
         m_.setParam("pkg.Param<?java.lang.Integer>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect99Test() {
@@ -2253,13 +2274,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<?$int>");
         m_.setParam("pkg.Param<?$long>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect100Test() {
@@ -2268,13 +2289,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!java.lang.Integer>");
         m_.setParam("pkg.Param<!$int>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect101Test() {
@@ -2283,13 +2304,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Param<T>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.Param<!$long>");
         m_.setParam("pkg.Param<!$int>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(AnaTemplates.isCorrect(m_,context_));
+        assertTrue(isCorrect(context_, m_));
     }
     @Test
     public void isCorrect102Test() {
@@ -2299,13 +2320,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Param<T>{}\n");
         xml_.append("$public $class pkg.ParamSub<S>:Param<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("pkg.ParamSub");
         m_.setParam("pkg.Param<?>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -2318,13 +2339,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("[java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         m_.setParam("[pkg.ExTwo<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
@@ -2337,67 +2358,67 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<S> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("[pkg.ExTwo<java.lang.Object>");
         m_.setParam("[java.lang.$Fct<pkg.Ex<java.lang.Number>,pkg.Ex<java.lang.Number>>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect105Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<java.lang.Object>");
         m_.setParam("java.lang.$Fct<$void>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect106Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("java.lang.$Fct<java.lang.Object>");
         m_.setParam("[java.lang.Object");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect107Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("[[java.lang.$Fct<java.lang.Object>");
         m_.setParam("[java.lang.$Fct<java.lang.Object>");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void isCorrect108Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         Mapping m_ = new Mapping();
         m_.setArg("");
         m_.setParam("");
         StringMap<StringList> t_ = new StringMap<StringList>();
         m_.setMapping(t_);
-        assertTrue(!AnaTemplates.isCorrect(m_,context_));
+        assertTrue(!isCorrect(context_, m_));
     }
 
     @Test
     public void getSuperTypesSet1Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("$boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$boolean"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "$boolean"));
         assertTrue(StringList.contains(res_, "java.lang.Boolean"));
@@ -2405,8 +2426,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet2Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("$byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$byte"));
         assertEq(10, res_.size());
         assertTrue(StringList.contains(res_, "$byte"));
         assertTrue(StringList.contains(res_, "java.lang.Number"));
@@ -2421,8 +2442,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet3Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("$char"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("$char"));
         assertEq(8, res_.size());
         assertTrue(StringList.contains(res_, "$char"));
         assertTrue(StringList.contains(res_, "java.lang.Number"));
@@ -2435,16 +2456,16 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet4Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("java.lang.Boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Boolean"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "java.lang.Boolean"));
         assertTrue(StringList.contains(res_, "java.lang.Object"));
     }
     @Test
     public void getSuperTypesSet5Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("java.lang.Byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Byte"));
         assertEq(6, res_.size());
         assertTrue(StringList.contains(res_, "java.lang.Byte"));
         assertTrue(StringList.contains(res_, "java.lang.Short"));
@@ -2455,8 +2476,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet6Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("java.lang.Character"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("java.lang.Character"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "java.lang.Character"));
         assertTrue(StringList.contains(res_, "java.lang.Integer"));
@@ -2466,8 +2487,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet7Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[$boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$boolean"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "[$boolean"));
         assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
@@ -2476,8 +2497,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet8Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[$byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$byte"));
         assertEq(11, res_.size());
         assertTrue(StringList.contains(res_, "[$byte"));
         assertTrue(StringList.contains(res_, "[java.lang.Number"));
@@ -2493,8 +2514,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet9Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[$char"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[$char"));
         assertEq(9, res_.size());
         assertTrue(StringList.contains(res_, "[$char"));
         assertTrue(StringList.contains(res_, "[java.lang.Number"));
@@ -2508,8 +2529,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet10Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[java.lang.Boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Boolean"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "[java.lang.Boolean"));
         assertTrue(StringList.contains(res_, "[java.lang.Object"));
@@ -2517,8 +2538,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet11Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[java.lang.Byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Byte"));
         assertEq(7, res_.size());
         assertTrue(StringList.contains(res_, "[java.lang.Byte"));
         assertTrue(StringList.contains(res_, "[java.lang.Short"));
@@ -2530,8 +2551,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet12Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[java.lang.Character"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[java.lang.Character"));
         assertEq(6, res_.size());
         assertTrue(StringList.contains(res_, "[java.lang.Character"));
         assertTrue(StringList.contains(res_, "[java.lang.Integer"));
@@ -2552,9 +2573,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("pkg.ExThree"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExThree"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExThree"));
         assertTrue(StringList.contains(res_, "java.lang.Object"));
@@ -2571,9 +2592,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("pkg.ExTwo"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "pkg.ExThree"));
@@ -2591,9 +2612,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[pkg.ExThree"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[pkg.ExThree"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "[pkg.ExThree"));
         assertTrue(StringList.contains(res_, "[java.lang.Object"));
@@ -2611,9 +2632,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[pkg.ExTwo"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[pkg.ExTwo"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "[pkg.ExThree"));
@@ -2622,10 +2643,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet17Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("#T"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "#T"));
         assertTrue(StringList.contains(res_, "java.lang.Number"));
@@ -2633,11 +2654,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet18Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("S", new StringList("#T"));
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("#S"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("#S"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "#S"));
         assertTrue(StringList.contains(res_, "#T"));
@@ -2646,10 +2667,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet19Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#T"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "[#T"));
         assertTrue(StringList.contains(res_, "[java.lang.Number"));
@@ -2658,11 +2679,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet20Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("S", new StringList("#T"));
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[#S"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#S"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "[#S"));
         assertTrue(StringList.contains(res_, "[#T"));
@@ -2682,10 +2703,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("#T"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "#T"));
         assertTrue(StringList.contains(res_, "pkg.ExTwo"));
@@ -2704,10 +2725,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[#T"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "[#T"));
         assertTrue(StringList.contains(res_, "[pkg.ExTwo"));
@@ -2717,8 +2738,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet23Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[$boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$boolean"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "[[$boolean"));
         assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
@@ -2728,8 +2749,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet24Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[$byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$byte"));
         assertEq(12, res_.size());
         assertTrue(StringList.contains(res_, "[[$byte"));
         assertTrue(StringList.contains(res_, "[[java.lang.Number"));
@@ -2746,8 +2767,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet25Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[$char"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[$char"));
         assertEq(10, res_.size());
         assertTrue(StringList.contains(res_, "[[$char"));
         assertTrue(StringList.contains(res_, "[[java.lang.Number"));
@@ -2762,8 +2783,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet26Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[java.lang.Boolean"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Boolean"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "[[java.lang.Boolean"));
         assertTrue(StringList.contains(res_, "[[java.lang.Object"));
@@ -2772,8 +2793,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet27Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[java.lang.Byte"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Byte"));
         assertEq(8, res_.size());
         assertTrue(StringList.contains(res_, "[[java.lang.Byte"));
         assertTrue(StringList.contains(res_, "[[java.lang.Short"));
@@ -2784,10 +2805,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertTrue(StringList.contains(res_, "[java.lang.Object"));
         assertTrue(StringList.contains(res_, "java.lang.Object"));
     }
+
     @Test
     public void getSuperTypesSet28Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[java.lang.Character"), new StringMap<StringList>(), c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        StringList res_ = getSuperTypesSet(c_, new StringMap<StringList>(), new StringList("[[java.lang.Character"));
         assertEq(7, res_.size());
         assertTrue(StringList.contains(res_, "[[java.lang.Character"));
         assertTrue(StringList.contains(res_, "[[java.lang.Integer"));
@@ -2809,9 +2831,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[pkg.ExThree"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[pkg.ExThree"));
         assertEq(4, res_.size());
         assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
         assertTrue(StringList.contains(res_, "[[java.lang.Object"));
@@ -2830,9 +2852,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[pkg.ExTwo"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[pkg.ExTwo"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "[[pkg.ExThree"));
@@ -2842,10 +2864,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet31Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#T"));
         assertEq(5, res_.size());
         assertTrue(StringList.contains(res_, "[[#T"));
         assertTrue(StringList.contains(res_, "[[java.lang.Number"));
@@ -2855,11 +2877,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     }
     @Test
     public void getSuperTypesSet32Test() {
-        ContextEl c_ = unfullValidateOverridingMethods(new StringMap<String>());
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(new StringMap<String>());
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("S", new StringList("#T"));
         map_.put("T", new StringList("java.lang.Number"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[#S"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#S"));
         assertEq(6, res_.size());
         assertTrue(StringList.contains(res_, "[[#S"));
         assertTrue(StringList.contains(res_, "[[#T"));
@@ -2880,10 +2902,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("[[#T"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("[[#T"));
         assertEq(6, res_.size());
         assertTrue(StringList.contains(res_, "[[#T"));
         assertTrue(StringList.contains(res_, "[[pkg.ExTwo"));
@@ -2904,10 +2926,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList(c_.getStandards().getAliasObject()));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("pkg.ExTwo<?T>"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<?T>"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo<?T>"));
         assertTrue(StringList.contains(res_, "pkg.ExThree<java.lang.$iterable<?T>>"));
@@ -2925,10 +2947,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<S>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("U", new StringList(c_.getStandards().getAliasObject()));
-        StringList res_ = AnaTemplates.getSuperTypesSet(new StringList("pkg.ExTwo<#U>"), map_, c_);
+        StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<#U>"));
         assertEq(3, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo<#U>"));
         assertTrue(StringList.contains(res_, "pkg.ExThree<#U>"));
@@ -2955,13 +2977,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo", "pkg.ExThree"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "pkg.ExThree"));
     }
+
     @Test
     public void getTernarySubclasses2Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -2982,9 +3005,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree","pkg.ExFour","pkg.ExFive"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo","pkg.ExThree","pkg.ExFour","pkg.ExFive"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "pkg.ExThree"));
@@ -3009,9 +3032,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("pkg.ExTwo","pkg.ExThree"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("pkg.ExTwo", "pkg.ExThree"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "pkg.ExTwo"));
         assertTrue(StringList.contains(res_, "pkg.ExThree"));
@@ -3036,11 +3059,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("pkg.ExThree"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("#T","#S"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "#S"));
         assertTrue(StringList.contains(res_, "#T"));
@@ -3065,11 +3088,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("pkg.ExThree"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("#T","#S","pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S","pkg.ExTwo"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "#S"));
         assertTrue(StringList.contains(res_, "#T"));
@@ -3094,11 +3117,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("#T","#S","pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("#T","#S","pkg.ExTwo"));
         assertEq(1, res_.size());
         assertTrue(StringList.contains(res_, "#S"));
     }
@@ -3122,11 +3145,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("pkg.ExThree"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("[#T","[#S"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "[#S"));
         assertTrue(StringList.contains(res_, "[#T"));
@@ -3151,11 +3174,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("pkg.ExThree"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("[#T","[#S","[pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "[#S"));
         assertTrue(StringList.contains(res_, "[#T"));
@@ -3180,11 +3203,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("[#T","[#S","[pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[#S","[pkg.ExTwo"));
         assertEq(1, res_.size());
         assertTrue(StringList.contains(res_, "[#S"));
     }
@@ -3208,11 +3231,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("[[#T","[#S","[pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("[[#T","[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "[#S"));
         assertTrue(StringList.contains(res_, "[[#T"));
@@ -3237,15 +3260,31 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
-        StringList res_ = AnaTemplates.getTernarySubclasses(new StringList("[#T","[[#S","[pkg.ExTwo"), map_, c_);
+        StringList res_ = getTernarySubclasses(c_, map_, new StringList("[#T","[[#S","[pkg.ExTwo"));
         assertEq(2, res_.size());
         assertTrue(StringList.contains(res_, "[[#S"));
         assertTrue(StringList.contains(res_, "[#T"));
     }
+    @Test
+    public void getResultTernary0Test() {
+        StringList one_ = new StringList("$int");
+        StringList two_ = new StringList("java.lang.Integer");
+        Argument argOne_ = new Argument(new IntStruct(0));
+        Argument argTwo_ = new Argument(new IntStruct(0));
+        StringMap<String> files_ = new StringMap<String>();
+        StringMap<StringList> map_ = new StringMap<StringList>();
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
+        assertEq(1, res_.getTypes().size());
+        assertEq("$int", res_.getTypes().first());
+        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
+    }
+
     @Test
     public void getResultTernary1Test() {
         StringList one_ = new StringList("$int");
@@ -3254,8 +3293,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3269,8 +3308,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3284,8 +3323,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Integer", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3299,8 +3338,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Integer", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3314,8 +3353,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Integer", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3329,8 +3368,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Integer", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3344,8 +3383,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3359,8 +3398,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3374,8 +3413,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3389,8 +3428,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3404,8 +3443,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3419,8 +3458,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3434,8 +3473,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3449,8 +3488,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3465,8 +3504,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$byte", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3481,8 +3520,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$byte", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3497,8 +3536,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3513,8 +3552,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3529,8 +3568,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3545,8 +3584,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3561,8 +3600,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3577,8 +3616,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3593,8 +3632,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3609,8 +3648,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3625,8 +3664,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3641,8 +3680,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3657,8 +3696,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3673,8 +3712,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3689,8 +3728,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3705,8 +3744,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3721,8 +3760,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3737,8 +3776,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3753,8 +3792,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3769,8 +3808,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3785,8 +3824,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3801,8 +3840,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -3817,8 +3856,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3833,8 +3872,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3849,8 +3888,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3865,8 +3904,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3881,8 +3920,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3897,8 +3936,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3913,8 +3952,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3929,8 +3968,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(80000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3945,8 +3984,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$byte", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3961,8 +4000,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$byte", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3977,8 +4016,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -3993,8 +4032,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4009,8 +4048,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4025,8 +4064,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4041,8 +4080,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4057,8 +4096,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4073,8 +4112,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4089,8 +4128,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4105,8 +4144,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4121,8 +4160,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4137,8 +4176,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4153,8 +4192,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4169,8 +4208,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4185,8 +4224,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-129));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4201,8 +4240,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4217,8 +4256,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4233,8 +4272,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4249,8 +4288,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4265,8 +4304,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4281,8 +4320,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$char", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4297,8 +4336,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4313,8 +4352,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4329,8 +4368,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4345,8 +4384,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4361,8 +4400,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4377,8 +4416,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(-40000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4393,8 +4432,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4409,8 +4448,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new IntStruct(80000));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4424,8 +4463,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4439,8 +4478,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$int", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4455,8 +4494,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4471,8 +4510,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         argTwo_.setStruct(new DoubleStruct(1));
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
@@ -4498,13 +4537,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
@@ -4531,13 +4570,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("[pkg.ExTwo");
         StringList two_ = new StringList("[pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
         assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
@@ -4564,14 +4603,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList one_ = new StringList("#T");
         StringList two_ = new StringList("pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour"));
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive"));
@@ -4598,14 +4637,14 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         StringList one_ = new StringList("[pkg.ExTwo");
         StringList two_ = new StringList("[pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFour"));
         assertTrue(StringList.contains(res_.getTypes(), "[pkg.ExFive"));
@@ -4632,7 +4671,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
@@ -4640,7 +4679,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringList two_ = new StringList("#S");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "#T"));
         assertTrue(!res_.isUnwrapFirst());
@@ -4666,7 +4705,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
@@ -4674,7 +4713,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringList two_ = new StringList("[#S");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "[#T"));
         assertTrue(!res_.isUnwrapFirst());
@@ -4688,8 +4727,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Integer", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4703,8 +4742,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4718,8 +4757,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4733,8 +4772,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4748,8 +4787,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.Number", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4775,13 +4814,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(2, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFive<java.lang.Object>"));
@@ -4808,13 +4847,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "pkg.ExFour<java.lang.Number>"));
         assertTrue(!res_.isUnwrapFirst());
@@ -4840,13 +4879,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive<U> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("pkg.ExTwo");
         StringList two_ = new StringList("pkg.ExThree");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "java.lang.Object"));
         assertTrue(!res_.isUnwrapFirst());
@@ -4860,8 +4899,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4875,8 +4914,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Argument argTwo_ = null;
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4892,8 +4931,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
         map_.put("U", new StringList("#T"));
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4909,8 +4948,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
         map_.put("U", new StringList("#T"));
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<#T>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4925,8 +4964,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4941,8 +4980,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("java.lang.Number"));
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("java.lang.$Fct<java.lang.Number>", res_.getTypes().first());
         assertTrue(!res_.isUnwrapFirst());
@@ -4968,7 +5007,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList("pkg.ExTwo"));
         map_.put("S", new StringList("#T"));
@@ -4979,7 +5018,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringList two_ = new StringList("#V");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "#V"));
         assertTrue(!res_.isUnwrapFirst());
@@ -5005,7 +5044,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFive {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFive", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList());
         map_.put("S", new StringList("#T"));
@@ -5016,7 +5055,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringList two_ = new StringList("#V");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "#V"));
         assertTrue(!res_.isUnwrapFirst());
@@ -5025,13 +5064,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void getResultTernary101Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext c_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> map_ = new StringMap<StringList>();
         StringList one_ = new StringList("[java.lang.CharSequence");
         StringList two_ = new StringList("[[java.lang.Object");
         Argument argOne_ = null;
         Argument argTwo_ =  null;
-        ResultTernary res_ = AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_);
+        ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertTrue(StringList.contains(res_.getTypes(), "[java.lang.Object"));
         assertTrue(!res_.isUnwrapFirst());
@@ -5040,10 +5079,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void wildCardFormat1Test() {
-        ContextEl context_ = simpleContextEl();
+        AnalyzedTestContext context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_,AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq(second_, wildCardFormatReturn(context_.getContext(), first_, second_));
     }
 
 
@@ -5053,10 +5092,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5065,10 +5104,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5077,10 +5116,18 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
+    }
+
+    private static String wildCardFormatReturn(ContextEl context_, String first_, String second_) {
+        return AnaTemplates.wildCardFormatReturn(first_, second_, context_);
+    }
+
+    private static String wildCardFormatReturn(AnalyzedTestContext context_, String first_, String second_) {
+        return AnaTemplates.wildCardFormatReturn(first_, second_, context_.getContext());
     }
 
 
@@ -5090,10 +5137,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5102,10 +5149,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5114,10 +5161,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<java.lang.Object>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5126,10 +5173,18 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<java.lang.Object>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>", wildCardFormatParam(context_, first_, second_));
+    }
+
+    private static String wildCardFormatParam(ContextEl context_, String first_, String second_) {
+        return AnaTemplates.wildCardFormatParam(first_, second_, context_);
+    }
+
+    private static String wildCardFormatParam(AnalyzedTestContext context_, String first_, String second_) {
+        return AnaTemplates.wildCardFormatParam(first_, second_, context_.getContext());
     }
 
 
@@ -5139,10 +5194,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
-        assertEq("#E",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("#E",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5151,10 +5206,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
-        assertEq("java.lang.String",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.String",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5163,10 +5218,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
-        assertEq("java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5175,10 +5230,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.String",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5187,10 +5242,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
-        assertEq("java.lang.String",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.String",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5199,10 +5254,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "[#T";
-        assertEq("[java.lang.String",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("[java.lang.String",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5211,10 +5266,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("code.util.CustList<#V>",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5223,10 +5278,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:java.lang.Number,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "code.util.CustList<#T>";
-        assertEq("code.util.CustList<java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("code.util.CustList<java.lang.Number>",wildCardFormatReturn(cont_, first_, second_));
     }
     @Test
     public void wildCardFormat17Test() {
@@ -5237,10 +5292,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T:java.lang.Number,U> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.ExTwo<java.lang.Number,java.lang.Number>";
         String second_ = "pkg.Ex<#T,#T>";
-        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("pkg.Ex<java.lang.Number,java.lang.Number>",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5249,10 +5304,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5261,10 +5316,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5273,10 +5328,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5285,10 +5340,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?[java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5297,10 +5352,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5309,10 +5364,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5321,10 +5376,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Number>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<![java.lang.Number>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5333,10 +5388,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5345,10 +5400,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5357,10 +5412,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<!java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<!java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5369,10 +5424,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<?>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5381,10 +5436,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Number>",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("pkg.Ex<![java.lang.Number>", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5393,10 +5448,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<!#T>";
-        assertEq("pkg.Ex<java.lang.Object>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5405,10 +5460,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?#T>";
-        assertEq("pkg.Ex<?java.lang.Number>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<?java.lang.Number>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5417,10 +5472,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<java.lang.Object>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<java.lang.Object>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5429,10 +5484,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Number>",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("pkg.Ex<?[java.lang.Number>", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5441,10 +5496,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5453,10 +5508,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5465,10 +5520,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "pkg.Ex<#T>";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5477,10 +5532,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "#T";
-        assertEq("java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5489,10 +5544,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#T";
-        assertEq("[java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("[java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5501,10 +5556,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.Number",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5513,10 +5568,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Number",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("[java.lang.Number",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5525,10 +5580,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5537,10 +5592,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("[java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5549,10 +5604,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "#T";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5561,10 +5616,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#T";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5573,10 +5628,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#T";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5585,10 +5640,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "[#T";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5597,10 +5652,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("java.lang.Number",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5609,10 +5664,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "[#T";
-        assertEq("[java.lang.Number",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("[java.lang.Number",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5621,10 +5676,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#V";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("",wildCardFormatParam(cont_, first_, second_));
     }
     @Test
     public void wildCardFormat50Test() {
@@ -5632,10 +5687,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "#T";
-        assertEq("java.lang.Number",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("java.lang.Number",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5644,10 +5699,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "#V";
-        assertEq("java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, cont_));
+        assertEq("java.lang.Object",wildCardFormatReturn(cont_, first_, second_));
     }
 
     @Test
@@ -5656,10 +5711,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
-        assertEq("code.util.CustList<#V>",AnaTemplates.wildCardFormatParam(first_, second_, cont_));
+        assertEq("code.util.CustList<#V>",wildCardFormatParam(cont_, first_, second_));
     }
 
     @Test
@@ -5668,10 +5723,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?#E>";
         String second_ = "[#T";
-        assertEq("[#E",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("[#E", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5680,10 +5735,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("java.lang.Object",AnaTemplates.wildCardFormatReturn(first_, second_, context_));
+        assertEq("java.lang.Object", wildCardFormatReturn(context_, first_, second_));
     }
 
     @Test
@@ -5692,10 +5747,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("",AnaTemplates.wildCardFormatParam(first_, second_, context_));
+        assertEq("", wildCardFormatParam(context_, first_, second_));
     }
 
     @Test
@@ -5705,7 +5760,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct"));
     }
@@ -5716,7 +5771,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct<?>"));
     }
@@ -5727,7 +5782,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.$Fct<?,?>"));
     }
@@ -5738,7 +5793,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
@@ -5750,7 +5805,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
@@ -5762,7 +5817,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex"));
     }
@@ -5774,7 +5829,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
@@ -5786,7 +5841,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
@@ -5798,7 +5853,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex[]"));
     }
@@ -5810,7 +5865,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>"));
     }
@@ -5822,7 +5877,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>"));
     }
@@ -5834,7 +5889,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -5846,7 +5901,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -5858,7 +5913,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5871,7 +5926,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5884,7 +5939,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5897,7 +5952,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Integer"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5910,7 +5965,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5923,7 +5978,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("java.lang.Object"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -5936,7 +5991,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -5948,7 +6003,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -5960,7 +6015,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Integer>[]"));
     }
@@ -5972,7 +6027,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -5984,7 +6039,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<java.lang.Object>[]"));
     }
@@ -6002,7 +6057,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -6021,7 +6076,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -6040,7 +6095,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -6059,7 +6114,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>[]"));
@@ -6078,7 +6133,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo>[]"));
     }
@@ -6096,7 +6151,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo>[]"));
     }
@@ -6109,7 +6164,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> {}\n");
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.String>>"));
     }
@@ -6122,29 +6177,30 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<U> {}\n");
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<java.lang.Number,java.lang.String>", false));
     }
 
-    private static boolean isCorrectTemplateAll(ContextEl _cont, StringMap<StringList> _t, String _className, boolean _exact) {
+    private static boolean isCorrectTemplateAll(AnalyzedTestContext _cont, StringMap<StringList> _t, String _className, boolean _exact) {
         return process(_cont, _t, _className, _exact);
     }
 
-    private static boolean process(ContextEl _cont, StringMap<StringList> _t, String _className, boolean _exact) {
+    private static boolean process(AnalyzedTestContext _cont, StringMap<StringList> _t, String _className, boolean _exact) {
         AnaResultPartType resType_;
         _cont.getAnalyzing().getCurrentBadIndexes().clear();
         _cont.getAnalyzing().getAvailableVariables().clear();
         for (EntryCust<String,StringList> s: _t.entryList()) {
             _cont.getAnalyzing().getAvailableVariables().addEntry(s.getKey(),0);
         }
+        ContextEl ctx_ = _cont.getContext();
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", _cont, null,null, -1,new CustList<PartOffset>());
+            resType_ = AnaPartTypeUtil.processAccessAnalyze(_className, false,"", ctx_, null,null, -1,new CustList<PartOffset>());
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className,false,"", _cont,null,null, -1,new CustList<PartOffset>());
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(_className,false,"", ctx_,null,null, -1,new CustList<PartOffset>());
         }
         assertTrue(!resType_.getResult().isEmpty());
-        return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, _cont, _exact);
+        return AnaPartTypeUtil.processAnalyzeConstraints(resType_, _t, ctx_, _exact);
     }
 
     @Test
@@ -6154,7 +6210,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.Number>", false));
     }
@@ -6166,7 +6222,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<java.lang.String>", false));
     }
@@ -6178,7 +6234,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.Ex<pkg.Ex>", false));
     }
@@ -6190,7 +6246,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         xml_.append("$public $class pkg.ExTwo<U,S> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex,pkg.Ex<java.lang.Object>>", false));
     }
@@ -6202,7 +6258,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         xml_.append("$public $class pkg.ExTwo<U> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAll(cont_, t_, "pkg.ExTwo<pkg.Ex<java.lang.Object>>", true));
     }
@@ -6219,7 +6275,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.Object"));
     }
@@ -6237,7 +6293,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, cont_.getStandards().getAliasPrimInteger()));
     }
@@ -6255,7 +6311,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "java.lang.Object[]"));
     }
@@ -6273,7 +6329,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "$int[]"));
     }
@@ -6291,7 +6347,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
@@ -6326,16 +6382,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         t_.put("E", new StringList("pkg.ExTwo"));
         assertTrue(isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<E>"));
     }
-
-    private static boolean isCorrectTemplateAllExact(ContextEl cont_, StringMap<StringList> t_, String _className) {
-        return process(cont_, t_, _className, true);
-    }
-
 
     @Test
     public void isCorrectTemplateAll14Test() {
@@ -6347,7 +6398,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
         assertTrue(!isCorrectTemplateAllExact(cont_, t_, "pkg.Ex<pkg.ExTwo<?pkg.ExTwo<?java.lang.Number>>>"));
     }
@@ -6356,38 +6407,62 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     @Test
     public void getCorrectTemplateAll1() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
         StringMap<StringList> t_ = new StringMap<StringList>();
-        assertTrue(AnaTemplates.getCorrectTemplateAll("",new StringList(),new StringMap<StringList>(),cont_).isEmpty());
+        assertTrue(getCorrectTemplateAll(cont_, t_).isEmpty());
+    }
+
+    private static String getCorrectTemplateAll(AnalyzedTestContext cont_, StringMap<StringList> t_) {
+        return AnaTemplates.getCorrectTemplateAll("",new StringList(),t_,cont_.getContext());
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = getSimpleContextEl();
-        return getContextEl(_files, cont_);
+    private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
+        ContextEl cont_ = ctx();
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_, new StringMap<ExecFileBlock>());
+        assertTrue( isEmptyErrors(cont_));
+        ClassesUtil.validateInheritingClasses(cont_);
+        assertTrue( isEmptyErrors(cont_));
+        return new AnalyzedTestContext(cont_, cont_.getAnalyzing());
     }
 
-    private static ContextEl getContextEl(StringMap<String> _files, ContextEl _cont) {
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
-        assertTrue( isEmptyErrors(_cont));
-        ClassesUtil.validateInheritingClasses(_cont);
-        assertTrue( isEmptyErrors(_cont));
-        return _cont;
+    private static AnalyzedTestContext simpleContextEl() {
+        ContextEl cont_ = ctx();
+        AnalyzedPageEl page_ = cont_.getAnalyzing();
+        LgNames stds_ = page_.getStandards();
+        StringMap<String> files_ = stds_.buildFiles(page_);
+        StringMap<FileBlock> out_ = new StringMap<FileBlock>();
+        StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
+        ClassesUtil.buildFilesBodies(cont_, files_,true,out_,outExec_);
+        ClassesUtil.parseFiles(cont_,out_,outExec_);
+        ClassesUtil.validateInheritingClasses(cont_);
+        ClassesUtil.validateIds(cont_);
+        ClassesUtil.validateOverridingInherit(cont_);
+        ClassesUtil.validateEl(cont_);
+        AnaTypeUtil.checkInterfaces(cont_);
+        return new AnalyzedTestContext(cont_,page_);
     }
 
-    private static ContextEl simpleContextEl() {
-        ContextEl cont_ = getSimpleContextEl();
-        ProcessMethodCommon.buildPredefinedBracesBodies(cont_);
-        return cont_;
+
+    private static boolean isCorrectTemplateAllExact(AnalyzedTestContext cont_, StringMap<StringList> t_, String _className) {
+        return process(cont_, t_, _className, true);
+    }
+
+    private static String tryInfer(AnalyzedTestContext cont_, String s, String s2, StringMap<String> _vars) {
+        return AnaTemplates.tryInfer(s, _vars, s2, cont_.getContext());
+    }
+
+
+    private static ResultTernary getResultTernary(StringList one_, StringList two_, Argument argOne_, Argument argTwo_, StringMap<StringList> map_, AnalyzedTestContext c_) {
+        return AnaTemplates.getResultTernary(one_, argOne_, two_, argTwo_, map_, c_.getContext());
+    }
+
+    private static StringList getSuperTypesSet(AnalyzedTestContext c_, StringMap<StringList> _vars, StringList _list) {
+        return AnaTemplates.getSuperTypesSet(_list, _vars, c_.getContext());
+    }
+
+
+    private static StringList getTernarySubclasses(AnalyzedTestContext c_, StringMap<StringList> map_, StringList _list) {
+        return AnaTemplates.getTernarySubclasses(_list, map_, c_.getContext());
     }
 }

@@ -1,21 +1,18 @@
 package code.expressionlanguage.methods;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.GeneMethod;
-import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.CommentDelimiters;
@@ -25,7 +22,6 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -47,8 +43,8 @@ public abstract class ProcessMethodCommon {
     protected static final String STRING = "java.lang.String";
     protected static final String BOOLEAN = "java.lang.Boolean";
 
-    protected static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl) {
-        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src");
+    protected static ReportedMessages validate(StringMap<String> _files, ContextEl _contextEl, AnalyzedPageEl _page) {
+        return ContextFactory.addResourcesAndValidate(_files,_contextEl,"src", _page);
     }
 
     protected static Argument calculateError(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
@@ -164,192 +160,153 @@ public abstract class ProcessMethodCommon {
         return new ConstructorId(_name, cl_, false);
     }
 
-    protected static ContextEl contextElOtherInit(int... _m) {
-        Options opt_ = new Options();
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-
-    protected static ContextEl contextElCoverageDefault() {
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne(opt_);
-    }
-
-    protected static ContextEl contextElCoverageDefaultEnComment() {
+    protected static AnalyzedTestContext contextElCoverageDefaultEnComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne("en",opt_);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
     }
-    protected static ContextEl contextElCoverageDefaultComment() {
+    protected static AnalyzedTestContext contextElCoverageDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne(opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
-    protected static ContextEl contextElErrorReadOnlyDef() {
+    protected static AnalyzedTestContext contextElErrorReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        return InitializationLgNames.buildStdOne(opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    private static StringMap<String> getErrors(ContextEl _cont,ReportedMessages _report) {
+    private static StringMap<String> getErrors(ReportedMessages _report) {
         return _report.getErrors();
     }
 
-    public static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, ContextEl _cont) {
+    public static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
         ReportedMessages report_ = validate(_cont, _files);
         assertTrue(!isEmptyErrors(_cont));
-        return getErrors(_cont,report_);
+        return getErrors(report_);
     }
 
-    public static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, ContextEl _cont) {
+    public static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
         ReportedMessages report_ = validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
-        return getErrors(_cont,report_);
+        return getErrors(report_);
     }
 
-    protected static ContextEl contextElErrorStdReadOnlyDef() {
+    protected static boolean covErr(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefAna();
+        validate(cont_,files_);
+        return !isEmptyErrors(cont_);
+    }
+
+    protected static StringMap<String> ctxNotErrReadOnly(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
+        return validateAndCheckNoReportErrors(files_, cont_);
+    }
+    protected static StringMap<String> ctxErrReadOnly(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
+        return validateAndCheckReportErrors(files_, cont_);
+    }
+
+    protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDef();
+        return validateAndCheckReportErrors(files_, cont_);
+    }
+    protected static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        return InitializationLgNames.buildStdOne("en",opt_);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
     }
-    protected static ContextEl contextElCoverageReadOnlyDef() {
+    protected static AnalyzedTestContext contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne(opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    protected static ContextEl contextElCoverageReadOnlyDefault() {
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne("en", opt_);
-    }
-
-    protected static ContextEl contextElCoverageDisplayDef() {
+    protected static AnalyzedTestContext contextElCoverageDisplayDef() {
         Options opt_ = new Options();
         opt_.setCovering(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
+        AnalyzedTestContext ct_ = InitializationLgNames.buildStdOneAna(opt_);
         ct_.getStandards().getDisplayedStrings().setTrueString("\"");
         ct_.getStandards().getDisplayedStrings().setFalseString("&");
         return ct_;
     }
 
-    protected static ContextEl contextElCoverageOtherIniDef() {
+    protected static ContextEl contextElCoverageDef() {
         Options opt_ = new Options();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOne(opt_);
     }
-    protected static ContextEl contextElCoverageEnDefault() {
+    protected static AnalyzedTestContext contextElCoverageDefAna() {
         Options opt_ = new Options();
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne("en",opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
-    protected static ContextEl contextElCoverageReadOnlyEnDefault() {
+
+    protected static ContextEl covEnReadOnly(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEn();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne("en",opt_);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
     }
-    protected static ContextEl contextElCoverageEnDefaultSingle() {
+
+    protected static ContextEl covEn(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageEnAna();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+    protected static ContextEl contextElCoverageEn() {
         Options opt_ = new Options();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOne("en",opt_);
     }
-
-    protected static ContextEl contextElSingle(int... _m) {
+    protected static AnalyzedTestContext contextElCoverageEnAna() {
         Options opt_ = new Options();
-        
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
+        opt_.setCovering(true);
+        return InitializationLgNames.buildStdOneAna("en",opt_);
     }
+
     protected static ContextEl contextElEnum() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdEnums(opt_);
-        return ct_;
+        return InitializationLgNames.buildStdEnums(opt_);
     }
 
-    protected static ContextEl contextElReadOnlyDef() {
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
-    }
-    protected static ContextEl contextElReadOnlyDefault() {
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
-    }
-    protected static ContextEl contextElReadOnlyDefaultSingle() {
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        
-        ContextEl ct_ = InitializationLgNames.buildStdOne("en", opt_);
-        return ct_;
-    }
     protected static ContextEl contextElReadOnlyMustInit() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne(opt_);
     }
     protected static ContextEl contextElToString() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdToString(opt_);
-        return ct_;
+        return InitializationLgNames.buildStdToString(opt_);
     }
     protected static ContextEl contextElExp() {
         Options opt_ = new Options();
-        ContextEl ct_ = InitializationLgNames.buildStdExp(opt_);
-        return ct_;
-    }
-    protected static ContextEl contextEnElDefault() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne("en", opt_);
-    }
-    protected static ContextEl contextFrElDefault() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne("fr", opt_);
-    }
-    protected static ContextEl contextFrElDefaultReadOnly() {
-        Options opt_ = new Options();
-        opt_.setReadOnly(true);
-        return InitializationLgNames.buildStdOne("fr", opt_);
-    }
-    protected static ContextEl contextEnElDefaultInternType() {
-        Options opt_ = new Options();
-        
-        return InitializationLgNames.buildStdOne("en", opt_);
+        return InitializationLgNames.buildStdExp(opt_);
     }
 
-    protected static ContextEl contextElDefault(int... _m) {
+    protected static ContextEl ctxLgReadOnly(String fr) {
         Options opt_ = new Options();
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
+        opt_.setReadOnly(true);
+        return InitializationLgNames.buildStdOne(fr, opt_);
+    }
+
+    protected static ContextEl contextElDefault(int _m) {
+        Options opt_ = new Options();
+        return InitializationLgNames.buildStdOne(_m, opt_);
     }
 
     protected static ContextEl contextElTypes(String... _types) {
@@ -360,44 +317,14 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOne(opt_);
     }
 
-    protected static ContextEl getFrContextEl() {
+    protected static ContextEl ctx() {
         Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne("fr",opt_);
-    }
-    protected static ContextEl contextEl(int... _m) {
-        Options opt_ = new Options();
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextElSingleDot(int... _m) {
-        Options opt_ = new Options();
-
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-
-    protected static ContextEl getSimpleContextEl() {
-        Options opt_ = new Options();
-
-
         return InitializationLgNames.buildStdOne(opt_);
     }
 
-    protected static ContextEl getEnContextEl() {
+    protected static ContextEl ctxLg(String _lg) {
         Options opt_ = new Options();
-
-
-        return InitializationLgNames.buildStdOne("en", opt_);
+        return InitializationLgNames.buildStdOne(_lg, opt_);
     }
 
     protected static ContextEl getEnContextElComment() {
@@ -407,33 +334,6 @@ public abstract class ProcessMethodCommon {
 
 
         return InitializationLgNames.buildStdOne("en", opt_);
-    }
-
-    public static void buildPredefinedBracesBodies(ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(page_);
-        builtTypes(files_, _context, true);
-    }
-
-    public static void builtTypes(StringMap<String> _files, ContextEl _context, boolean _predefined) {
-        tryBuildBracedClassesBodies(_files, _context, _predefined);
-        ClassesUtil.validateInheritingClasses(_context);
-        ClassesUtil.validateIds(_context);
-        ClassesUtil.validateOverridingInherit(_context);
-        ClassesUtil.validateEl(_context);
-        AnaTypeUtil.checkInterfaces(_context);
-    }
-
-    public static void tryBuildBracedClassesBodies(StringMap<String> _files, ContextEl _context, boolean _predefined) {
-        StringMap<FileBlock> out_ = new StringMap<FileBlock>();
-        StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        LgNames stds_ = page_.getStandards();
-        StringMap<String> files_ = stds_.buildFiles(page_);
-        ClassesUtil.buildFilesBodies(_context,files_,true,out_,outExec_);
-        ClassesUtil.buildFilesBodies(_context,_files,false,out_,outExec_);
-        ClassesUtil.parseFiles(_context,out_,outExec_);
     }
 
     private static CustList<ExecConstructorBlock> getConstructorBodiesById(ContextEl _context, String _genericClassName, ConstructorId _id) {
@@ -478,59 +378,41 @@ public abstract class ProcessMethodCommon {
         headers_.displayErrors();
         return !isEmptyErrors(cont_);
     }
-    protected static ContextEl contextElSingleDotDefault(int... _m) {
-        Options opt_ = new Options();
 
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
-    }
-    protected static ContextEl contextElSingleDotDefaultReadOnly() {
+    protected static ContextEl ctxReadOnly() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
 
-        ContextEl ct_ = InitializationLgNames.buildStdOne(opt_);
-        return ct_;
+        return InitializationLgNames.buildStdOne(opt_);
     }
-    protected static ContextEl contextElSingleDotDefaultComment(int... _m) {
+
+    protected static ContextEl contextElSingleDotDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
-        ContextEl ct_;
-        if (_m.length == 0) {
-            ct_ = InitializationLgNames.buildStdOne(opt_);
-        } else {
-            ct_ = InitializationLgNames.buildStdOne(_m[0], opt_);
-        }
-        return ct_;
+        return InitializationLgNames.buildStdOne(opt_);
     }
-    protected static ContextEl contextEnElSingleDotDefault() {
-        Options opt_ = new Options();
 
-        return InitializationLgNames.buildStdOne("en",opt_);
-    }
     protected ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        parseCustomFiles(_files, cont_);
+        Classes.validateWithoutInit(_files,cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateIds(cont_);
-        ClassesUtil.validateOverridingInherit(cont_);
-        assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.initStaticFields(cont_);
-        assertTrue( isEmptyErrors(cont_));
+        Classes.forwardAndClear(cont_,cont_.getAnalyzing());
         return cont_;
     }
 
-    protected ContextEl unfullValidateInheritingClasses(StringMap<String> _files) {
+    protected ContextEl validateStaticFieldsFail(StringMap<String> _files) {
+        Options opt_ = new Options();
+
+        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        Classes.validateWithoutInit(_files,cont_);
+        assertTrue(! isEmptyErrors(cont_));
+        return cont_;
+    }
+    protected static AnalyzedTestContext unfullValidateInheriting(StringMap<String> _files) {
         Options opt_ = new Options();
 
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
@@ -538,17 +420,7 @@ public abstract class ProcessMethodCommon {
         assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClasses(cont_);
         assertTrue( isEmptyErrors(cont_));
-        return cont_;
-    }
-    protected ContextEl unfullValidateInheritingClassesSingle(StringMap<String> _files) {
-        Options opt_ = new Options();
-
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        parseCustomFiles(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue( isEmptyErrors(cont_));
-        return cont_;
+        return new AnalyzedTestContext(cont_,cont_.getAnalyzing());
     }
 
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
@@ -572,11 +444,6 @@ public abstract class ProcessMethodCommon {
 
     protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
         ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
-    }
-
-    protected static ContextEl getRootContextEl() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(opt_);
     }
 
     protected static ContextEl simpleCtx() {
@@ -641,12 +508,51 @@ public abstract class ProcessMethodCommon {
         }
         return null;
     }
-    protected static void validateAndCheckValid(StringMap<String> _files, ContextEl _cont) {
+
+    protected static ContextEl cov(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefAna();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static ContextEl covReadOnly(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageReadOnlyDef();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static ContextEl covDisplay(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDisplayDef();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static ContextEl covCom(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefaultComment();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static ContextEl covEnCom(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefaultEnComment();
+        validateAndCheckValid(files_, cont_);
+        return cont_.getContext();
+    }
+
+    protected static ContextEl covVal(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefAna();
+        validate(cont_,files_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
+    protected static void validateAndCheckValid(StringMap<String> _files, AnalyzedTestContext _cont) {
         validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
     }
-    protected static ReportedMessages validate(ContextEl _c, StringMap<String> _f) {
-        return validate(_c.getAnalyzing().getAnalysisMessages(), _c.getAnalyzing().getKeyWords(),_c.getStandards(),_f,_c);
+
+    protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
+        return validate(_f,_c.getContext(), _c.getAnalyzing());
     }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
@@ -684,6 +590,10 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static boolean isEmptyErrors(ContextEl cont_) {
+        return cont_.getAnalyzing() == null || (cont_.getAnalyzing().isEmptyErrors());
+    }
+
+    protected static boolean isEmptyErrors(AnalyzedTestContext cont_) {
         return cont_.getAnalyzing() == null || (cont_.getAnalyzing().isEmptyErrors());
     }
 }

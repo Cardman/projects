@@ -19,7 +19,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|getter(ExTwo)};\n");
@@ -57,7 +57,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<S> :pkg.ExTwo<S>{\n");
         xml_.append(" $intern{getter(S):getter(Ex,S)|getter(ExTwo,T)};\n");
@@ -95,7 +95,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -133,7 +133,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -172,7 +172,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -211,7 +211,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -250,7 +250,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U> :pkg.Ex<U>{\n");
         xml_.append(" $intern{getter(U):getter(Ex,S)|getter(ExTwo,T)};\n");
@@ -294,7 +294,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter()};\n");
@@ -332,7 +332,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|getter(ExTwo);getter2():getter2(Ex)};\n");
@@ -377,7 +377,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{};\n");
@@ -413,7 +413,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -451,7 +451,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -496,7 +496,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -588,7 +588,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V>:pkg.ExThree<V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -682,7 +682,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():[](Ex)|getter(ExTwo);[]:getter(Ex);gett($int):gett2(Ex);gett5():gett5(ExThree)};\n");
@@ -826,7 +826,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate20Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|gette(ExTwo)};\n");
@@ -864,7 +864,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate21Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -902,7 +902,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter()};\n");

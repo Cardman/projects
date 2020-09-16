@@ -24,7 +24,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -50,7 +50,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" $public $int inst=2i;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -75,7 +75,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" $public (){}\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -99,7 +99,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -134,7 +134,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -169,7 +169,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -205,7 +205,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -246,7 +246,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -288,7 +288,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElOtherInit();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -324,7 +324,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -362,7 +362,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElOtherInit();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -397,7 +397,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -418,7 +418,7 @@ public final class ProcessMethodInstanceCoreTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {{$new CharSequence();$new Exception();}}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));

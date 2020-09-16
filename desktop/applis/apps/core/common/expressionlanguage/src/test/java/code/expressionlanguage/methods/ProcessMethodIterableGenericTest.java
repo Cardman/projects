@@ -37,7 +37,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -75,7 +75,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -116,7 +116,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -148,7 +148,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -185,7 +185,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -222,7 +222,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -255,7 +255,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -289,7 +289,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -326,7 +326,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -372,7 +372,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -404,7 +404,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -429,7 +429,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -460,7 +460,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -491,7 +491,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomSecondList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -528,7 +528,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -556,7 +556,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -583,7 +583,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -610,7 +610,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -638,7 +638,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -666,7 +666,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -700,7 +700,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -736,7 +736,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -777,7 +777,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(isInitialized(cont_));
@@ -819,7 +819,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -859,7 +859,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(isInitialized(cont_));
@@ -889,7 +889,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -920,7 +920,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -940,7 +940,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -964,7 +964,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -988,7 +988,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -1018,7 +1018,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1052,7 +1052,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1086,7 +1086,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1106,7 +1106,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1123,7 +1123,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ =  contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1155,7 +1155,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomFailList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1173,7 +1173,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1190,7 +1190,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1207,7 +1207,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -1227,7 +1227,7 @@ public final class ProcessMethodIterableGenericTest extends ProcessMethodCommon 
         files_.put("pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

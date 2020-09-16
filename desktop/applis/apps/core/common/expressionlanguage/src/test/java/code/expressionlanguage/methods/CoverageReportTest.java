@@ -26,9 +26,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -51,9 +50,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -78,9 +76,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -105,9 +102,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -136,9 +132,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -172,9 +167,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -208,9 +202,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -243,9 +236,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -281,9 +273,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -326,9 +317,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -374,9 +364,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -412,9 +401,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -446,9 +434,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -485,9 +472,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -524,9 +510,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -562,9 +547,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -600,9 +584,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -640,9 +623,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -682,9 +664,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -717,9 +698,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -746,9 +726,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -790,9 +769,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -849,9 +827,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -900,9 +877,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -943,9 +919,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -986,9 +961,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1029,9 +1003,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1069,9 +1042,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1106,9 +1078,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1152,9 +1123,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1207,9 +1177,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1262,9 +1231,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1313,9 +1281,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1368,9 +1335,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1434,9 +1400,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1494,9 +1459,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1584,9 +1548,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1707,9 +1670,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1824,9 +1786,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1897,9 +1858,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1927,9 +1887,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1958,9 +1917,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -1990,9 +1948,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2024,9 +1981,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2063,11 +2019,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2109,11 +2064,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2152,11 +2106,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2194,11 +2147,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2245,8 +2197,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2295,8 +2246,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2342,8 +2292,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2388,8 +2337,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2434,9 +2382,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2485,9 +2432,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2534,9 +2480,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2582,9 +2527,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2628,9 +2572,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2671,9 +2614,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2715,9 +2657,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2751,9 +2692,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2776,9 +2716,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2806,9 +2745,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2846,9 +2784,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2891,9 +2828,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2938,9 +2874,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -2983,9 +2918,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3022,9 +2956,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3057,9 +2990,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3095,9 +3027,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3137,9 +3068,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3172,9 +3102,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3199,9 +3128,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3234,11 +3162,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3281,11 +3208,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3358,8 +3284,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3408,8 +3333,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3437,6 +3361,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.getValue(4));
     }
+
+
     @Test
     public void coverage72Test() {
         StringMap<String> files_ = new StringMap<String>();
@@ -3462,8 +3388,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3513,9 +3438,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDisplayDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covDisplay(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3542,6 +3466,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
     @Test
     public void coverage74Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -3557,9 +3482,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3593,9 +3517,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3629,9 +3552,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3667,9 +3589,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3699,9 +3620,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3722,9 +3642,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3745,9 +3664,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3783,9 +3701,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3839,9 +3756,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3887,9 +3803,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3924,9 +3839,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3957,9 +3871,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -3996,11 +3909,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4047,11 +3959,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4086,9 +3997,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4110,9 +4020,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4135,9 +4044,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4162,9 +4070,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4191,9 +4098,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4217,9 +4123,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4240,9 +4145,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4263,9 +4167,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4288,9 +4191,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4317,9 +4219,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4344,9 +4245,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4367,9 +4267,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4393,9 +4292,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4422,9 +4320,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4454,9 +4351,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $int v=5;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4490,9 +4386,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4527,9 +4422,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4567,9 +4461,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4610,9 +4503,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4653,9 +4545,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4697,9 +4588,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4737,9 +4627,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4773,9 +4662,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4821,9 +4709,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4880,9 +4767,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4924,9 +4810,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4953,9 +4838,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -4982,9 +4866,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5012,9 +4895,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5043,9 +4925,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5073,9 +4954,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5105,9 +4985,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5138,9 +5017,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5167,9 +5045,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5196,9 +5073,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5227,9 +5103,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5256,9 +5131,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5285,9 +5159,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5316,9 +5189,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5347,9 +5219,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5378,9 +5249,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5414,9 +5284,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5454,8 +5323,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg2/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5484,8 +5352,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5514,8 +5381,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/inner/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5544,8 +5410,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/com/pkg2/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5574,8 +5439,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/d2/pkg2/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5606,9 +5470,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5651,9 +5514,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5699,9 +5561,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5744,9 +5605,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5789,11 +5649,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5840,11 +5699,10 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
         files_.put(CUST_ITER_PATH, getCustomIterator());
         files_.put(CUST_LIST_PATH, getCustomList());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5884,9 +5742,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5929,8 +5786,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -5967,9 +5823,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6008,9 +5863,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6054,9 +5908,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6100,9 +5953,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6146,9 +5998,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6193,9 +6044,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6241,9 +6091,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6289,9 +6138,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6337,9 +6185,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6379,9 +6226,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6416,9 +6262,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6446,9 +6291,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6469,9 +6313,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6492,9 +6335,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6515,9 +6357,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6539,9 +6380,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6564,9 +6404,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6588,9 +6427,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6612,9 +6450,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6654,9 +6491,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6713,9 +6549,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6757,9 +6592,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6783,9 +6617,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6809,9 +6642,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6843,8 +6675,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex2", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6873,8 +6704,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex2", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6898,9 +6728,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6924,9 +6753,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6952,9 +6780,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -6982,9 +6809,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7007,9 +6833,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7030,9 +6855,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefaultSingle();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7053,9 +6877,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7076,9 +6899,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7102,9 +6924,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7131,9 +6952,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7167,9 +6987,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7208,9 +7027,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7247,9 +7065,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7286,9 +7103,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7325,9 +7141,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7361,9 +7176,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7394,9 +7208,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7427,9 +7240,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7463,9 +7275,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7509,8 +7320,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         files_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         files_.put(CUST_TABLE_PATH, getCustomTable());
         files_.put(CUST_PAIR_PATH, getCustomPair());
-        ContextEl cont_ = contextElCoverageDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7546,9 +7356,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7578,9 +7387,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7610,9 +7418,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7646,9 +7453,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7683,9 +7489,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7719,9 +7524,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7755,9 +7559,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $return $new pkg.Ex();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7790,9 +7593,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7829,9 +7631,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7870,9 +7671,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7906,9 +7706,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7943,9 +7742,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7983,9 +7781,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $return $new pkg.Ex();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8024,9 +7821,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8071,9 +7867,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8124,9 +7919,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $int field;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8167,9 +7961,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8200,9 +7993,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8233,9 +8025,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8266,9 +8057,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8299,9 +8089,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8332,9 +8121,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8366,9 +8154,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8400,9 +8187,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8434,9 +8220,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8468,9 +8253,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8501,9 +8285,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8530,9 +8313,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8558,9 +8340,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8590,9 +8371,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8621,9 +8401,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8650,9 +8429,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8679,9 +8457,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8708,9 +8485,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -8725,6 +8501,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+
     @Test
     public void coverage214Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -8734,9 +8512,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8765,9 +8542,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8804,9 +8580,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8843,9 +8618,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8882,9 +8656,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8922,9 +8695,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -8963,9 +8735,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9009,9 +8780,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9055,9 +8825,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9088,9 +8857,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9113,9 +8881,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9153,9 +8920,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -9193,9 +8959,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9217,9 +8982,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9240,9 +9004,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9263,9 +9026,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9286,9 +9048,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9309,9 +9070,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9332,9 +9092,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9358,9 +9117,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9387,9 +9145,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9416,9 +9173,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9445,9 +9201,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9473,9 +9228,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9500,9 +9254,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9527,9 +9280,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9554,9 +9306,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9581,9 +9332,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9608,9 +9358,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9635,9 +9384,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9662,9 +9410,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9689,9 +9436,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9716,9 +9462,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9743,9 +9488,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9770,9 +9514,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9795,9 +9538,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9819,9 +9561,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9844,9 +9585,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9869,9 +9609,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9895,9 +9634,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9922,9 +9660,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9949,9 +9686,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -9976,9 +9712,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10003,9 +9738,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10030,9 +9764,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10057,9 +9790,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10084,9 +9816,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10111,9 +9842,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10141,9 +9871,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth1");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10170,9 +9899,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10195,9 +9923,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10221,9 +9948,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10246,9 +9972,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10271,9 +9996,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10296,9 +10020,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10324,9 +10047,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10357,9 +10079,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10392,9 +10113,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10425,9 +10145,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10456,9 +10175,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10487,9 +10205,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10519,9 +10236,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10551,9 +10267,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10582,9 +10297,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10613,9 +10327,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10645,9 +10358,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10679,9 +10391,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10712,9 +10423,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10744,9 +10454,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10780,9 +10489,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10819,9 +10527,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10858,9 +10565,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10897,9 +10603,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10939,9 +10644,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -10986,9 +10690,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11033,9 +10736,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11077,9 +10779,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11120,9 +10821,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11164,9 +10864,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11209,9 +10908,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11254,9 +10952,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11302,8 +10999,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -11348,8 +11044,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -11387,9 +11082,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -11426,9 +11120,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageReadOnlyDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -11471,8 +11164,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -11509,9 +11201,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11538,9 +11229,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11567,9 +11257,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11596,9 +11285,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11625,9 +11313,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static int v;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11659,9 +11346,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static int v;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11698,9 +11384,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11734,9 +11419,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11769,9 +11453,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public int v;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11808,9 +11491,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11852,9 +11534,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" int v();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11899,9 +11580,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" int v();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -11952,9 +11632,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" int v();\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12009,9 +11688,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12064,9 +11742,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12119,9 +11796,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12174,9 +11850,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12218,9 +11893,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12251,9 +11925,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12273,7 +11946,6 @@ public final class CoverageReportTest extends ProcessMethodCommon {
     @Test
     public void coverage317Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.Int3;pkg.Int2;] $interfaces(Int3) pkgtwo.Ex :Int2{\n");
         xml_.append("\n");
@@ -12308,7 +11980,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("src/pkg/Int3", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.ExThree", id_, args_, cont_);
@@ -12353,8 +12025,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -12378,9 +12049,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12407,9 +12077,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12436,9 +12105,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12464,9 +12132,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12491,9 +12158,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12519,9 +12185,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static final int CST = 15;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12548,9 +12213,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static final int CST = 15, CST2 = 30;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12577,9 +12241,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static final int CST = 15, CST2 = 30;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12606,9 +12269,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public static final int CST = 15, CST2 = 30;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12643,9 +12305,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12681,9 +12342,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public int content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12712,9 +12372,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" public int content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12751,9 +12410,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12813,8 +12471,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -12893,8 +12550,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -12977,8 +12633,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13059,8 +12714,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13139,8 +12793,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13223,8 +12876,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13305,8 +12957,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13385,8 +13036,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13465,8 +13115,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13545,8 +13194,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13630,8 +13278,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13718,8 +13365,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -13782,8 +13428,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -13822,8 +13467,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -13866,8 +13510,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExThree {\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -13911,8 +13554,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -13955,8 +13597,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -13999,8 +13640,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14043,8 +13683,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14089,8 +13728,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14135,8 +13773,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14181,8 +13818,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14227,8 +13863,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14273,8 +13908,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14319,8 +13953,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14365,8 +13998,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14398,9 +14030,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14421,9 +14052,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14445,9 +14075,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14470,9 +14099,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14495,9 +14123,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14520,9 +14147,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14545,9 +14171,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14570,9 +14195,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14595,9 +14219,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14620,9 +14243,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14644,9 +14266,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14667,9 +14288,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14690,9 +14310,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14713,9 +14332,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -14752,8 +14370,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14804,8 +14421,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14858,8 +14474,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14914,8 +14529,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -14968,8 +14582,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15020,8 +14633,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15072,8 +14684,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15124,8 +14735,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15176,8 +14786,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15228,8 +14837,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("method");
         calculateNormal("pkg.Apply", id_, args_, cont_);
@@ -15287,8 +14895,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15349,8 +14956,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15415,8 +15021,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15494,8 +15099,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15566,8 +15170,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElCoverageEnDefault();
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("getter");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15599,6 +15202,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.getValue(1));
     }
+
     @Test
     public void coverage387Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -15612,9 +15216,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15645,9 +15248,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15678,9 +15280,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15711,9 +15312,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageOtherIniDef();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15751,9 +15351,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
@@ -15805,9 +15404,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
@@ -15859,9 +15457,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15904,9 +15501,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15949,9 +15545,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -15992,9 +15587,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16038,9 +15632,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("public annotation pkg.MyAnnot {\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageEnDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covEn(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("m");
         calculateNormal("pkg.Ext", id_, args_, cont_);
@@ -16066,6 +15659,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
     @Test
     public void coverage398Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -16075,9 +15669,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = cov(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16089,6 +15682,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
     @Test
     public void coverageComment1Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -16099,9 +15693,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16124,9 +15717,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16149,9 +15741,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16174,9 +15765,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16199,9 +15789,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("\\\\comment\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16224,9 +15813,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("\\*comment*\\\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16249,9 +15837,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("\\\\");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16274,9 +15861,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("\\*comment");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16306,9 +15892,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16345,9 +15930,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16384,9 +15968,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16423,9 +16006,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16462,9 +16044,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16501,9 +16082,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16541,9 +16121,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16573,9 +16152,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefaultComment();
         files_.put("src/pkg/Ex", xml_.toString());
-        validateAndCheckValid(files_, cont_);
+        ContextEl cont_ = covCom(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -16587,6 +16165,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+
     @Test
     public void coverageFailTest() {
         StringBuilder xml_ = new StringBuilder();
@@ -16596,10 +16176,8 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElCoverageDefault();
         files_.put("src/pkg/Ex", xml_.toString());
-        validate(cont_,files_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(covErr(files_));
     }
 
     private static String getCustomPair() {
@@ -16737,4 +16315,5 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         return xml_.toString();
     }
+
 }

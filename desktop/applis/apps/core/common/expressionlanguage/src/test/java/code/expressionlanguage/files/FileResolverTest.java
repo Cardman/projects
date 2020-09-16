@@ -9675,7 +9675,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         ContextEl context_ = simpleCtx();
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
-        ContextEl contextBis_ = getRootContextEl();
+        ContextEl contextBis_ = ctx();
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("my_file",file_.toString());
         Classes.validateWithoutInit(files_,contextBis_);
@@ -9890,7 +9890,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static ContextEl simpleContextEnDefault() {
         //key words in some language
-        ContextEl cont_ = getEnContextEl();
+        ContextEl cont_ = ctxLg("en");
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
@@ -9914,7 +9914,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
     private static ContextEl simpleContextFrDefault() {
         //key words in some language
-        ContextEl cont_ = getFrContextEl();
+        ContextEl cont_ = ctxLg("fr");
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {

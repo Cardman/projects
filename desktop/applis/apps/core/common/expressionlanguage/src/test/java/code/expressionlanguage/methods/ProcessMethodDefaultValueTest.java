@@ -31,7 +31,7 @@ public final class ProcessMethodDefaultValueTest extends ProcessMethodCommon {
         xml_.append(" $public S value = $defaultValue(S);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -63,7 +63,7 @@ public final class ProcessMethodDefaultValueTest extends ProcessMethodCommon {
         xml_.append(" $public $iterable<S> value = $defaultValue($iterable<S>);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = contextElDefault();
+        ContextEl cont_ = ctx();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();

@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.types;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -321,15 +322,15 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     }
     @Test
     public void getIndexes1Test(){
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
-        Ints indexes_ = ParserType.getIndexes("int", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        Ints indexes_ = getIndexes(cont_, "int");
         assertEq(0, indexes_.size());
     }
 
     @Test
     public void getIndexes2Test(){
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
-        Ints indexes_ = ParserType.getIndexes("String", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        Ints indexes_ = getIndexes(cont_, "String");
         assertEq(0, indexes_.size());
     }
 
@@ -340,8 +341,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex");
         assertEq(0, indexes_.size());
     }
     @Test
@@ -351,8 +352,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex");
         assertEq(0, indexes_.size());
     }
 
@@ -363,8 +364,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex");
         assertEq(0, indexes_.size());
     }
     @Test
@@ -374,21 +375,21 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex");
         assertEq(0, indexes_.size());
     }
     @Test
     public void getIndexes7Test(){
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
-        Ints indexes_ = ParserType.getIndexes("int[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        Ints indexes_ = getIndexes(cont_, "int[]");
         assertEq(0, indexes_.size());
     }
 
     @Test
     public void getIndexes8Test(){
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
-        Ints indexes_ = ParserType.getIndexes("String[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(new StringMap<String>());
+        Ints indexes_ = getIndexes(cont_, "String[]");
         assertEq(0, indexes_.size());
     }
 
@@ -399,8 +400,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex[]");
         assertEq(0, indexes_.size());
     }
     @Test
@@ -410,8 +411,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex[]");
         assertEq(0, indexes_.size());
     }
 
@@ -422,8 +423,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex[]");
         assertEq(0, indexes_.size());
     }
     @Test
@@ -433,8 +434,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex[]");
         assertEq(0, indexes_.size());
     }
     @Test
@@ -444,8 +445,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<String>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<String>");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(13, indexes_.last());
@@ -457,8 +458,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<String>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<String>[]");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(13, indexes_.last());
@@ -473,8 +474,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo>");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.last());
@@ -489,8 +490,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo>[]");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.last());
@@ -506,8 +507,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,pkg.ExThree>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo,pkg.ExThree>");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -524,8 +525,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,pkg.ExThree>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo,pkg.ExThree>[]");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -541,8 +542,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo>");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.last());
@@ -557,8 +558,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo>[]");
         assertEq(2, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.last());
@@ -573,8 +574,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex<pkg.ExTwo>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex<pkg.ExTwo>");
         assertEq(2, indexes_.size());
         assertEq(2, indexes_.first());
         assertEq(12, indexes_.last());
@@ -589,8 +590,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex<pkg.ExTwo>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex<pkg.ExTwo>[]");
         assertEq(2, indexes_.size());
         assertEq(2, indexes_.first());
         assertEq(12, indexes_.last());
@@ -606,8 +607,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,pkg.ExThree>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo,pkg.ExThree>");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.get(1));
@@ -624,8 +625,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,pkg.ExThree>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo,pkg.ExThree>[]");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.get(1));
@@ -642,8 +643,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,ExThree>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo,ExThree>");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -660,8 +661,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<pkg.ExTwo,ExThree>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<pkg.ExTwo,ExThree>[]");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -678,8 +679,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,ExThree>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo,ExThree>");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.get(1));
@@ -696,8 +697,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex<ExTwo,ExThree>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex<ExTwo,ExThree>[]");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.get(1));
@@ -712,8 +713,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex.Inner", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex.Inner");
         assertEq(1, indexes_.size());
         assertEq(6, indexes_.first());
     }
@@ -726,8 +727,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex.Inner[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex.Inner[]");
         assertEq(1, indexes_.size());
         assertEq(6, indexes_.first());
     }
@@ -740,8 +741,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex.Inner", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex.Inner");
         assertEq(1, indexes_.size());
         assertEq(2, indexes_.first());
     }
@@ -754,8 +755,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex.Inner[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex.Inner[]");
         assertEq(1, indexes_.size());
         assertEq(2, indexes_.first());
     }
@@ -768,8 +769,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append(" public class Inner<T> {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.Ex.Inner<pkg.Ex>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.Ex.Inner<pkg.Ex>");
         assertEq(3, indexes_.size());
         assertEq(6, indexes_.first());
         assertEq(12, indexes_.get(1));
@@ -786,8 +787,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo<U,V> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.ExTwo<pkg.Ex.Inner,pkg.Ex>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.ExTwo<pkg.Ex.Inner,pkg.Ex>[]");
         assertEq(4, indexes_.size());
         assertEq(9, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -805,8 +806,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo<U,V> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("pkg.ExTwo<pkg.Ex.Inner<pkg.Ex>,pkg.Ex>[]", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "pkg.ExTwo<pkg.Ex.Inner<pkg.Ex>,pkg.Ex>[]");
         assertEq(6, indexes_.size());
         assertEq(9, indexes_.first());
         assertEq(16, indexes_.get(1));
@@ -825,8 +826,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex<String,ExTwo>.Inner");
         assertEq(4, indexes_.size());
         assertEq(2, indexes_.first());
         assertEq(9, indexes_.get(1));
@@ -844,8 +845,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner<pkg.ExThree>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex<String,ExTwo>.Inner<pkg.ExThree>");
         assertEq(6, indexes_.size());
         assertEq(2, indexes_.first());
         assertEq(9, indexes_.get(1));
@@ -865,8 +866,8 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         xml_.append("public class pkg.ExTwo {}\n");
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateInheritingClassesDeps(files_);
-        Ints indexes_ = ParserType.getIndexes("Ex<String,ExTwo>.Inner<String>", cont_);
+        AnalyzedTestContext cont_ = unfullValidateInheritingClassesDeps(files_);
+        Ints indexes_ = getIndexes(cont_, "Ex<String,ExTwo>.Inner<String>");
         assertEq(6, indexes_.size());
         assertEq(2, indexes_.first());
         assertEq(9, indexes_.get(1));
@@ -875,14 +876,19 @@ public final class ParserTypeTest extends ProcessMethodCommon {
         assertEq(22, indexes_.get(4));
         assertEq(29, indexes_.last());
     }
-    private ContextEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
-        ContextEl cont_ = contextEnElDefault();
+
+    private static Ints getIndexes(AnalyzedTestContext cont_, String s) {
+        return ParserType.getIndexes(s, cont_.getContext());
+    }
+
+    private AnalyzedTestContext unfullValidateInheritingClassesDeps(StringMap<String> _files) {
+        ContextEl cont_ = ctxLg("en");
         parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
         assertTrue( isEmptyErrors(cont_));
         ClassesUtil.validateInheritingClassesId(cont_);
         assertTrue( isEmptyErrors(cont_));
-        return cont_;
+        return new AnalyzedTestContext(cont_,cont_.getAnalyzing());
     }
 
 }

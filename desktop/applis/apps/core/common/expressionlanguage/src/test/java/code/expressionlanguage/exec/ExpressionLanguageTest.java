@@ -2,23 +2,15 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.MethodPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -6068,7 +6060,7 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {
-        ContextEl cont_ = getSimpleContextEl();
+        ContextEl cont_ = ctx();
         Classes.validateAll(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
         return cont_;

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -41,7 +40,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",new IntStruct(1),c_));
         assertNotNull(getException(c_));
     }
@@ -56,7 +55,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         ExecTemplates.getParent(0,"java.lang.Integer",in_,c_);
@@ -72,7 +71,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         Struct par_  = c_.getInit().processInit(c_,NullStruct.NULL_VALUE,"pkg.Ex",c_.getClasses().getClassBody("pkg.Ex"),"",-1);
         Struct in_ = c_.getInit().processInit(c_,par_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
         Struct inTwo_ = c_.getInit().processInit(c_,in_,"pkg.Ex..Inner",c_.getClasses().getClassBody("pkg.Ex..Inner"),"",-1);
@@ -88,7 +87,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[pkg.Ex",arr_,c_));
         assertNotNull(getException(c_));
@@ -102,7 +101,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"pkg.Ex",arr_,c_));
         assertNotNull(getException(c_));
@@ -116,7 +115,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getParent(0,"[["+c_.getStandards().getAliasObject(),arr_,c_));
         assertNotNull(getException(c_));
@@ -130,7 +129,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl c_ = unfullValidateOverridingMethods(files_);
+        ContextEl c_ = validated(files_);
         ArrayStruct arr_ = ExecTemplates.newCustomArray(c_.getStandards().getAliasPrimInteger(),new Ints(0),c_);
         assertSame(arr_, ExecTemplates.getParent(0,"["+c_.getStandards().getAliasObject(),arr_,c_));
         assertNull(getException(c_));
@@ -138,7 +137,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void newCustomArray1Test() {
-        ContextEl cont_ = simpleContextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustClass{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
         Ints dims_ = new Ints(1);
         ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
@@ -150,7 +155,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void newCustomArray2Test() {
-        ContextEl cont_ = simpleContextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustClass{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
         Ints dims_ = new Ints(2);
         ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_CUST_CLASS, customArray_.getClassName());
@@ -164,7 +175,13 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void newCustomArray3Test() {
-        ContextEl cont_ = simpleContextEl();
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.CustClass{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
         Ints dims_ = new Ints(2,3);
         ArrayStruct customArray_ = ExecTemplates.newCustomArray(CUST_CLASS, dims_, cont_);
         assertEq(ARR_ARR_CUST_CLASS, customArray_.getClassName());
@@ -197,10 +214,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("pkg.Ex<?[java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat2Test() {
@@ -208,10 +225,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("pkg.Ex<![java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat3Test() {
@@ -219,10 +236,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<[#T>";
-        assertEq("pkg.Ex<?>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<?>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat4Test() {
@@ -230,10 +247,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<[#E>";
-        assertEq("pkg.Ex<[#E>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<[#E>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat5Test() {
@@ -241,10 +258,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?>";
         String second_ = "[#E";
-        assertEq("[#E",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("[#E", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat6Test() {
@@ -252,10 +269,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat7Test() {
@@ -263,10 +280,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat8Test() {
@@ -274,10 +291,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<?java.lang.Object>";
         String second_ = "pkg.Ex<?[#T>";
-        assertEq("pkg.Ex<?[java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<?[java.lang.Object>", reflectFormat(context_, first_, second_));
     }
     @Test
     public void reflectFormat9Test() {
@@ -285,10 +302,14 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<!java.lang.Object>";
         String second_ = "pkg.Ex<![#T>";
-        assertEq("pkg.Ex<![java.lang.Object>",ExecTemplates.reflectFormat(first_,second_,context_));
+        assertEq("pkg.Ex<![java.lang.Object>", reflectFormat(context_, first_, second_));
+    }
+
+    private static String reflectFormat(ContextEl context_, String first_, String second_) {
+        return ExecTemplates.reflectFormat(first_,second_,context_);
     }
 
     @Test
@@ -298,10 +319,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
-        String t_ = ExecTemplates.getFullObject(first_, second_, context_);
+        String t_ = getFullObject(context_, first_, second_);
         assertEq("pkg.ExTwo<java.lang.$iterable<?java.lang.Object>>",t_);
     }
 
@@ -312,7 +333,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.Object>";
         String second_ = "[pkg.ExTwo";
         String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_);
@@ -326,7 +347,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "[pkg.Ex<java.lang.Object>";
         String second_ = "pkg.ExTwo";
         String t_ = ExecTemplates.getQuickFullTypeByBases(first_, second_, context_);
@@ -340,11 +361,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "pkg.ExTwo";
-        String t_ = ExecTemplates.getFullObject(first_, second_, context_);
+        String t_ = getFullObject(context_, first_, second_);
         assertEq("",t_);
+    }
+
+    private String getFullObject(ContextEl context_, String first_, String second_) {
+        return ExecTemplates.getFullObject(first_, second_, context_);
     }
 
     @Test
@@ -354,10 +379,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "";
-        String t_ = ExecTemplates.getSuperGeneric(first_, second_, context_);
+        String t_ = getSuperGeneric(context_, first_, second_);
         assertEq("",t_);
     }
 
@@ -369,10 +394,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "";
-        String t_ = ExecTemplates.getSuperGeneric(first_, second_, context_);
+        String t_ = getSuperGeneric(context_, first_, second_);
         assertEq("",t_);
     }
 
@@ -383,11 +408,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.ExAnnot";
         String second_ = "pkg.Ex";
-        String t_ = ExecTemplates.getSuperGeneric(first_, second_, context_);
+        String t_ = getSuperGeneric(context_, first_, second_);
         assertEq("",t_);
+    }
+
+    private static String getSuperGeneric(ContextEl context_, String first_, String second_) {
+        return ExecTemplates.getSuperGeneric(first_, second_, context_);
     }
 
     @Test
@@ -397,10 +426,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "$void";
         String second_ = "pkg.Ex";
-        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        String t_ = getFullTypeByBases(context_, first_, second_);
         assertEq("",t_);
     }
 
@@ -411,10 +440,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "$void";
-        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        String t_ = getFullTypeByBases(context_, first_, second_);
         assertEq("",t_);
     }
 
@@ -425,10 +454,10 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "pkg.Ex";
         String second_ = "[java.lang.Object";
-        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        String t_ = getFullTypeByBases(context_, first_, second_);
         assertEq("",t_);
     }
 
@@ -439,16 +468,21 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = validated(files_);
         String first_ = "";
         String second_ = "";
-        String t_ = ExecTemplates.getFullTypeByBases(first_, second_, context_);
+        String t_ = getFullTypeByBases(context_, first_, second_);
         assertEq("",t_);
     }
+
+    private static String getFullTypeByBases(ContextEl context_, String first_, String second_) {
+        return ExecTemplates.getFullTypeByBases(first_, second_, context_);
+    }
+
     @Test
     public void setCheckedElements1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new IntStruct(0);
         ArrayStruct arr_ = new ArrayStruct(instance_,"[$int");
@@ -460,7 +494,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgs1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("$int"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = NullStruct.NULL_VALUE;
@@ -473,7 +507,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgs2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
@@ -486,7 +520,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgs3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList("java.lang.Number"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
@@ -501,7 +535,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgs4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
@@ -518,7 +552,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList(""),false);
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -533,7 +567,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"method", new StringList("pkg.Ex"),false);
         Struct atr_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex<$int>",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
         CustList<Argument> args_ = new CustList<Argument>();
@@ -544,7 +578,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void okArgs7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC,"method", new StringList(""),false);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(NullStruct.NULL_VALUE));
@@ -558,7 +592,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         Struct[] instance_ = new Struct[1];
         instance_[0] = new StringStruct("");
@@ -576,7 +610,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
@@ -590,7 +624,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
         ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex<$int>",args_, cont_,null);
@@ -603,7 +637,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<E> { $public $int get($int...v){$return 0;}}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = fullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ExecTemplates.okArgs(cont_.getClasses().getClassBody("pkg.Ex"),null,false,"pkg.Ex",args_, cont_,null);
         assertNotNull(getException(cont_));
@@ -611,7 +645,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void getErrorWhenContain1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         Struct[] instance_ = new Struct[1];
         instance_[0] = NullStruct.NULL_VALUE;
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
@@ -620,7 +654,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     @Test
     public void getErrorWhenContain2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = validated(files_);
         Struct[] instance_ = new Struct[1];
         instance_[0] = NullStruct.NULL_VALUE;
         ArrayStruct arr_ = new ArrayStruct(instance_,"[java.lang.Number");
@@ -648,8 +682,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getIndexLoop(cont_,"", cont_.getLastPage(),-1);
         assertNotNull(getException(cont_));
@@ -662,8 +695,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -678,8 +710,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
         LoopVariable loopVariable = new LoopVariable();
@@ -701,8 +732,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.getValue(cont_,"", cont_.getLastPage(),-1);
         assertNotNull(getException(cont_));
@@ -715,8 +745,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -731,8 +760,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
         cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
@@ -751,8 +779,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.setValue(cont_,"", cont_.getLastPage(),null,-1);
         assertNotNull(getException(cont_));
@@ -765,8 +792,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -781,8 +807,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
         cache_.addLocal("myvar", LocalVariable.newLocalVariable(new IntStruct(2),cont_));
@@ -801,8 +826,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_,cont_.getClasses().getClassBody("pkg.Ex"),"pkg.Ex",null));
         ExecTemplates.incrIndexLoop(cont_,"", cont_.getLastPage(), 0);
         assertNotNull(getException(cont_));
@@ -815,8 +839,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         instancingClass_.setCache(new Cache());
         ExecutingUtil.addPage(cont_, instancingClass_);
@@ -831,8 +854,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         Cache cache_ = new Cache();
         LoopVariable loopVariable = new LoopVariable();
@@ -873,8 +895,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecutingUtil.addPage(cont_,ExecutingUtil.createInstancingClass(cont_, classBody_,"pkg.Ex",null));
         ExecNamedFunctionBlock first_ = ExecBlock.getMethodBodiesById(classBody_, new MethodId(MethodAccessKind.STATIC, "m", new StringList("$int"))).first();
@@ -889,8 +910,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         assertTrue(!ExecTemplates.hasBlockBreak(instancingClass_,""));
@@ -904,8 +924,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         assertTrue(!ExecTemplates.hasBlockContinue(cont_,instancingClass_,""));
@@ -919,8 +938,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.setVisited(instancingClass_,null);
@@ -934,8 +952,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.processFinally(cont_,null);
@@ -949,8 +966,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.processElseIf(cont_,null);
@@ -964,8 +980,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.processElse(cont_,null);
@@ -979,8 +994,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.processDo(cont_,null);
@@ -994,29 +1008,19 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex{\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateAll(files_,cont_);
+        ContextEl cont_ = validated(files_);
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(cont_, cont_.getClasses().getClassBody("pkg.Ex"), "pkg.Ex", null);
         ExecutingUtil.addPage(cont_, instancingClass_);
         ExecTemplates.processBlockAndRemove(cont_,null);
         assertNull(instancingClass_.getReadWrite());
     }
-    private ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = getSimpleContextEl();
-        parseCustomFiles(_files, cont_);
+
+    private static ContextEl validated(StringMap<String> files_) {
+        ContextEl cont_ = ctx();
+        Classes.validateWithoutInit(files_,cont_);
         assertTrue(isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
-        assertTrue(isEmptyErrors(cont_));
-        return cont_;
-    }
-    private ContextEl fullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = getSimpleContextEl();
-        Classes.validateWithoutInit(_files,cont_);
-        assertTrue(isEmptyErrors(cont_));
+        Classes.forwardAndClear(cont_,cont_.getAnalyzing());
         return cont_;
     }
 
-    private ContextEl simpleContextEl() {
-        return getSimpleContextEl();
-    }
 }

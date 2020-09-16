@@ -22,11 +22,11 @@ public final class ContextFactory {
 
     public static ReportedMessages validate(AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, StringMap<String> _files, ContextEl _contextEl, String _folder,
                                             CustList<CommentDelimiters> _comments, Options _options) {
-        validateStds(_contextEl, _mess, _definedKw, _definedLgNames,_comments,_options);
-        return addResourcesAndValidate(_files, _contextEl, _folder);
+        AnalyzedPageEl page_ = validateStds(_contextEl, _mess, _definedKw, _definedLgNames, _comments, _options);
+        return addResourcesAndValidate(_files, _contextEl, _folder, page_);
     }
 
-    public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder) {
+    public static ReportedMessages addResourcesAndValidate(StringMap<String> _files, ContextEl _contextEl, String _folder, AnalyzedPageEl _page) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringList.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -35,15 +35,8 @@ public final class ContextFactory {
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
-        _contextEl.getAnalyzing().getClasses().addResources(_files);
+        _page.getClasses().addResources(_files);
         return Classes.validateAll(srcFiles_, _contextEl);
-    }
-
-    public static ContextEl build(int _stack, DefaultLockingClass _lock, Initializer _init,
-                                  Options _options, AnalysisMessages _mess, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {
-        ContextEl contextEl_ = simpleBuild(_stack, _lock, _init, _options, _definedKw, _definedLgNames, _tabWidth);
-        validateStds(contextEl_,_mess,_definedKw,_definedLgNames, new CustList<CommentDelimiters>(),_options);
-        return contextEl_;
     }
 
     public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {

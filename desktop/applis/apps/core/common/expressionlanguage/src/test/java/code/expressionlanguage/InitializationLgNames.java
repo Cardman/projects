@@ -1,10 +1,12 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.classes.CustLgNames;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.Initializer;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.KeyWordsMap;
@@ -17,9 +19,20 @@ import org.junit.Assert;
 public final class InitializationLgNames {
 
     public static ContextEl buildStdOne(Options _opt) {
+        return buildStdOne(CustList.INDEX_NOT_FOUND_ELT, _opt);
+    }
+    public static AnalyzedTestContext buildStdOneAna(Options _opt) {
+        return buildStdOneAna(CustList.INDEX_NOT_FOUND_ELT, _opt);
+    }
+    public static ContextEl buildStdOne(int _stack,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
+        return build(_stack,lgName_, _opt);
+    }
+    public static AnalyzedTestContext buildStdOneAna(int _stack,Options _opt) {
+        LgNames lgName_ = new CustLgNames();
+        basicStandards(lgName_);
+        return buildAna(_stack,lgName_, _opt);
     }
     public static ContextEl buildStdEnums(Options _opt) {
         LgNames lgName_ = new CustLgNames();
@@ -27,6 +40,13 @@ public final class InitializationLgNames {
         lgName_.setAliasEnumName("name");
         lgName_.setAliasEnumOrdinal("ordinal");
         return build(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
+    }
+    public static AnalyzedTestContext buildStdEnumsAna(Options _opt) {
+        LgNames lgName_ = new CustLgNames();
+        basicStandards(lgName_);
+        lgName_.setAliasEnumName("name");
+        lgName_.setAliasEnumOrdinal("ordinal");
+        return buildAna(CustList.INDEX_NOT_FOUND_ELT,lgName_, _opt);
     }
     public static ContextEl buildStdToString(Options _opt) {
         LgNames lgName_ = new CustLgNames();
@@ -43,19 +63,30 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         return buildLg(_lg, lgName_, _opt);
     }
-    public static ContextEl buildStdOne(int _stack,Options _opt) {
+    public static AnalyzedTestContext buildStdOneAna(String _lg,Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
-        return build(_stack,lgName_, _opt);
+        return buildLgAna(_lg, lgName_, _opt);
     }
     public static ContextEl build(int _stack, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        Assert.assertTrue(page_.isEmptyStdError());
         return out_;
+    }
+    public static AnalyzedTestContext buildAna(int _stack, LgNames _lgNames, Options _opt) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        Assert.assertTrue(page_.isEmptyStdError());
+        return new AnalyzedTestContext(out_,page_);
     }
     public static ContextEl buildToString(int _stack, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
@@ -63,14 +94,22 @@ public final class InitializationLgNames {
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
-        ContextEl out_ = ContextFactory.build(_stack,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
+        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        Assert.assertTrue(page_.isEmptyStdError());
         return out_;
     }
     private static ContextEl buildLg(String _lang, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         ContextEl out_ = buildDefKw(_lang, lk_, di_, _opt, _lgNames,4);
+        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
+        return out_;
+    }
+    private static AnalyzedTestContext buildLgAna(String _lang, LgNames _lgNames, Options _opt) {
+        DefaultLockingClass lk_ = new DefaultLockingClass();
+        DefaultInitializer di_ = new DefaultInitializer();
+        AnalyzedTestContext out_ = buildDefKwAna(_lang, lk_, di_, _opt, _lgNames,4);
         Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
         return out_;
     }
@@ -81,10 +120,12 @@ public final class InitializationLgNames {
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
-        ContextEl out_ = ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,lk_, di_, _opt, a_, kw_, _lgNames,4);
-        Assert.assertTrue(out_.getAnalyzing().isEmptyStdError());
+        ContextEl out_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, lk_, di_, _opt, kw_, _lgNames, 4);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
+        Assert.assertTrue(page_.isEmptyStdError());
         return out_;
     }
+
     public static void basicStandards(LgNames _lgNames) {
         _lgNames.setDefaultPkg("java.lang");
         _lgNames.setAliasObject("java.lang.Object");
@@ -413,6 +454,23 @@ public final class InitializationLgNames {
         } else {
             km_.initFrStds(_undefinedLgNames);
         }
-        return ContextFactory.build(CustList.INDEX_NOT_FOUND_ELT,_lock, _init, _options, a_,kwl_, _undefinedLgNames, _tabWidth);
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
+        ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options);
+        return contextEl_;
+    }
+
+    public static AnalyzedTestContext buildDefKwAna(String _lang, DefaultLockingClass _lock, Initializer _init,
+                                       Options _options, LgNames _undefinedLgNames, int _tabWidth) {
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lang);
+        if (StringList.quickEq(_lang, "en")) {
+            km_.initEnStds(_undefinedLgNames);
+        } else {
+            km_.initFrStds(_undefinedLgNames);
+        }
+        ContextEl contextEl_ = ContextFactory.simpleBuild((int) CustList.INDEX_NOT_FOUND_ELT, _lock, _init, _options, kwl_, _undefinedLgNames, _tabWidth);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kwl_, _undefinedLgNames, new CustList<CommentDelimiters>(), _options);
+        return new AnalyzedTestContext(contextEl_,page_);
     }
 }

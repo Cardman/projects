@@ -68,7 +68,7 @@ public final class Navigation {
         }
         session = new Configuration();
         session.setStandards(_lgNames);
-        ReadConfiguration.load(session,_lgCode,doc_);
+        ReadConfiguration.load(session,_lgCode,doc_, _lgNames);
         if (session.getContext() == null) {
             error = true;
             return;

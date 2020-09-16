@@ -27,7 +27,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -50,7 +50,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -75,7 +75,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -98,7 +98,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -121,7 +121,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content=\"hello\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -141,7 +141,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -161,7 +161,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -184,7 +184,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -207,7 +207,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -230,7 +230,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -253,7 +253,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -276,7 +276,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -299,7 +299,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content=\"hello\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -323,7 +323,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content=\"hello\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -346,7 +346,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content=\"hello\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -370,7 +370,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content=\"hello\";\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -390,7 +390,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -410,7 +410,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -431,7 +431,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -452,7 +452,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -478,7 +478,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -504,7 +504,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -532,7 +532,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -560,7 +560,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public String content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -580,7 +580,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -600,7 +600,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -620,7 +620,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -643,7 +643,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public int[] content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -666,7 +666,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public int[] content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -689,7 +689,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public int[] content={0};\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -718,7 +718,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -747,7 +747,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -776,7 +776,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -805,7 +805,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -824,7 +824,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -843,7 +843,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -866,7 +866,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public int content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -889,7 +889,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public int content = 1;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -915,7 +915,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -941,7 +941,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -966,7 +966,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -991,7 +991,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -1014,7 +1014,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" public Integer content;\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -1043,7 +1043,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
@@ -1072,7 +1072,7 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextEnElDefault();
+        ContextEl cont_ = ctxLg("en");
         files_.put("pkg/Ex", xml_.toString());
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));

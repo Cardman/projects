@@ -1,5 +1,7 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.files.CommentDelimiters;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.DefaultInitializer;
@@ -22,9 +24,8 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static void load(Configuration _configuration, String _lgCode,Document _document) {
-        BeanLgNames stds_ = _configuration.getAdvStandards();
-        stds_.load(_configuration,_lgCode,_document);
+    public static void load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds) {
+        _stds.load(_configuration,_lgCode,_document);
     }
     public static void loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
@@ -54,10 +55,11 @@ public final class ReadConfiguration {
                 tab_=(Numbers.parseInt(c.getAttribute("value")));
             }
         }
-        ContextEl context_ = ContextFactory.build(stack_,lk_, di_, opt_, a_, kw_, _stds,tab_);
+        ContextEl context_ = ContextFactory.simpleBuild(stack_, lk_, di_, opt_, kw_, _stds, tab_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(context_, a_, kw_, _stds, new CustList<CommentDelimiters>(), opt_);
         _conf.setContext(context_);
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
-        if (!context_.getAnalyzing().isEmptyMessageError()) {
+        if (!page_.isEmptyMessageError()) {
             _conf.setContext(null);
             return;
         }
@@ -79,7 +81,7 @@ public final class ReadConfiguration {
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
         rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
         rkw_.validateDuplicates(_conf,allStyleUnits_);
-        if (!context_.getAnalyzing().isEmptyStdError()) {
+        if (!page_.isEmptyStdError()) {
             _conf.setContext(null);
             return;
         }

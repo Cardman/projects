@@ -28,7 +28,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -52,7 +52,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -77,7 +77,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -102,7 +102,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -132,7 +132,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -164,7 +164,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -187,7 +187,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -214,7 +214,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" Object opTwo();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -237,7 +237,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -267,7 +267,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -299,7 +299,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -334,7 +334,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" E opTwo(E a,E b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -372,7 +372,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -410,7 +410,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -448,7 +448,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -487,7 +487,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" S opDef(S a,S b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -511,7 +511,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -543,7 +543,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -583,7 +583,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" T opTwo(T a,T b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -612,7 +612,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" T opTwo(T... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -641,7 +641,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" T opTwo(T... args);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -667,7 +667,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" String opTwo($int a);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -694,7 +694,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" String opThree();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -721,7 +721,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" String opThree();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
@@ -744,7 +744,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -761,7 +761,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" Object opTwo();\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -779,7 +779,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -797,7 +797,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -815,7 +815,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -833,7 +833,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -852,7 +852,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" $int opTwo($int a,$int b);\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -870,7 +870,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -886,7 +886,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -900,7 +900,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -916,7 +916,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -932,7 +932,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }
@@ -948,7 +948,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         xml_.append("$public $interface pkg.Interface {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = contextElReadOnlyDef();
+        ContextEl cont_ = ctxReadOnly();
         Classes.validateAll(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
     }

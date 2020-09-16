@@ -73,6 +73,6 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
     }
 
     private ContextEl simpleContextEl() {
-        return getSimpleContextEl();
+        return ctx();
     }
 }
