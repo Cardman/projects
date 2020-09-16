@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -31,10 +30,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -59,10 +56,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -90,10 +85,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -121,10 +114,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -149,10 +140,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -181,10 +170,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -209,10 +196,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -240,10 +225,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -271,10 +254,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -300,10 +281,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -332,10 +311,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -367,10 +344,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -399,10 +374,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -431,10 +404,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -459,10 +430,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -490,10 +459,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -522,10 +489,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -553,10 +518,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -583,10 +546,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -616,10 +577,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -650,10 +609,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -677,10 +634,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -706,10 +661,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -744,10 +697,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -779,10 +730,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_ = new Argument();
@@ -803,10 +752,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument6FailTest() {
@@ -822,10 +769,8 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument7FailTest() {
@@ -843,9 +788,7 @@ public final class ProcessMethodIfElseTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }

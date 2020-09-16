@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.inherits;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.Classes;
@@ -1016,11 +1017,11 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     }
 
     private static ContextEl validated(StringMap<String> files_) {
-        ContextEl cont_ = ctx();
-        Classes.validateWithoutInit(files_,cont_);
+        AnalyzedTestContext cont_ = ctxAna();
+        Classes.validateWithoutInit(files_,cont_.getContext());
         assertTrue(isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_,cont_.getAnalyzing());
-        return cont_;
+        Classes.forwardAndClear(cont_.getContext(),cont_.getAnalyzing());
+        return cont_.getContext();
     }
 
 }

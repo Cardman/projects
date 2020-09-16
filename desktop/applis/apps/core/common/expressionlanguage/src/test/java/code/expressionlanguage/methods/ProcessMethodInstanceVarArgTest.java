@@ -556,7 +556,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument106Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -577,8 +577,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.$that.getter();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -703,7 +702,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument110Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append("}\n");
@@ -721,8 +720,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.getter();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -789,7 +787,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument112Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -815,8 +813,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -832,7 +829,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument113Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=8i;\n");
@@ -858,8 +855,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.superaccess();\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -927,7 +923,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument116Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -948,8 +944,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.$that.getter();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -966,7 +961,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument117Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -987,8 +982,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=(inst.$that.getter());\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -1237,7 +1231,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument124Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1258,8 +1252,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.$that .getter();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -1276,7 +1269,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument125Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1297,8 +1290,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.$that. getter();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 
@@ -1315,7 +1307,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
     @Test
     public void instanceArgument126Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkgtwo.ExTwo{\n");
         xml_.append(" $public $normal $int getter(){\n");
@@ -1336,8 +1328,7 @@ public final class ProcessMethodInstanceVarArgTest extends ProcessMethodCommon {
         xml_.append(" $public $int ance=inst.$that.getter ();\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkgtwo.ExThree");
 

@@ -128,10 +128,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExFour :pkg.ExTwo<java.lang.Number>:pkg.ExThree<java.lang.String>{}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        ContextEl cont_ = ctx();
-        parseCustomFiles(files_, cont_);
+        AnalyzedTestContext cont_ = ctxAna();
+        parseCustomFiles(files_, cont_.getContext());
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_.getContext());
         assertTrue( !isEmptyErrors(cont_));
     }
 
@@ -1734,12 +1734,12 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = ctx();
-        parseCustomFiles(_files, cont_);
+        AnalyzedTestContext cont_ = ctxAna();
+        parseCustomFiles(_files, cont_.getContext());
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_.getContext());
         assertTrue( isEmptyErrors(cont_));
-        return new AnalyzedTestContext(cont_,cont_.getAnalyzing());
+        return cont_;
     }
 
 
@@ -1763,10 +1763,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
     private static boolean checkErrorsValue(AnalyzedTestContext _cont) {
         ContextEl ctx_ = _cont.getContext();
         ClassesUtil.validateIds(ctx_);
-        assertTrue( isEmptyErrors(ctx_));
+        assertTrue( isEmptyErrors(_cont));
         ClassesUtil.validateOverridingInherit(ctx_);
         ClassesUtil.postValidation(ctx_);
-        return !isEmptyErrors(ctx_);
+        return !isEmptyErrors(_cont);
     }
 
 

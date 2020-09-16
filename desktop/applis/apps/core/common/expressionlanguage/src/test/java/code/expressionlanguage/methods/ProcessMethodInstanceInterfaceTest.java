@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -22,7 +21,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument60Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -69,8 +68,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -107,7 +105,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument61Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -158,8 +156,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -196,7 +193,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument62Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -250,8 +247,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -288,7 +284,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument63Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -341,8 +337,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -379,7 +374,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument64Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -435,8 +430,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -473,7 +467,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument65Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -526,8 +520,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -564,7 +557,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument66Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -595,8 +588,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -616,7 +608,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument67Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -649,8 +641,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -670,7 +661,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument68Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -706,8 +697,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -727,7 +717,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument69Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -762,8 +752,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -783,7 +772,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument70Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -818,8 +807,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -839,7 +827,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument71Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -874,8 +862,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -895,7 +882,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument72Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $static $int inst=2i;\n");
@@ -931,8 +918,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -952,7 +938,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument73Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3:pkg.Int2{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -992,8 +978,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1013,7 +998,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument74Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3:pkg.Int2{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1052,8 +1037,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         Argument arg_;
         arg_ = new Argument();
@@ -1073,7 +1057,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument75Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1109,8 +1093,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1165,7 +1148,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument77Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1199,8 +1182,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $class pkg.ExFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1226,7 +1208,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument78Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1252,8 +1234,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1276,7 +1257,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument79Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=sec;\n");
@@ -1302,8 +1283,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1325,7 +1305,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument80Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1378,8 +1358,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1419,7 +1398,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument81Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1476,8 +1455,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1517,7 +1495,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument82Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -1549,8 +1527,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1574,7 +1551,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument83Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -1614,8 +1591,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1639,7 +1615,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument84Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append(" $public(){\n");
@@ -1677,8 +1653,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -1701,7 +1676,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument85Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3:pkg.Int{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1756,8 +1731,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1794,7 +1768,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument86Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3:pkg.Int{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1849,8 +1823,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -1887,7 +1860,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument87Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3:pkg.Int{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -1941,8 +1914,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2345,7 +2317,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument96Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -2403,8 +2375,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -2843,7 +2814,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument106Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -2880,8 +2851,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -2910,7 +2880,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument107Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -2952,8 +2922,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -2988,7 +2957,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument108Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3044,8 +3013,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3085,7 +3053,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument109Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3141,8 +3109,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3182,7 +3149,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument110Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3<java.lang.Integer>{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3238,8 +3205,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3279,7 +3245,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument111Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3338,8 +3304,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3379,7 +3344,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument112Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3450,8 +3415,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -3568,7 +3532,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument115Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -3646,8 +3610,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int4", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
         assertTrue(isInitialized(cont_, "pkg.ExThree"));
@@ -4373,7 +4336,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void calculateArgument94Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4420,8 +4383,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $static $int res = 0; $static {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4461,7 +4423,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1151Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4508,8 +4470,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $static $final $int res = -1;}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4549,7 +4510,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1152Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3,pkg.Int4) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -4589,8 +4550,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -4620,7 +4580,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument116Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4682,8 +4642,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4726,7 +4685,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument117Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4787,8 +4746,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -4831,7 +4789,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void calculateArgument95Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4878,13 +4836,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument96Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4928,13 +4885,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument97Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -4981,13 +4937,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument98Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5034,13 +4989,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument99Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5089,13 +5043,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument100Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5144,13 +5097,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.Int3 {$public $int res = 0; {--res;}}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument101Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5203,8 +5155,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5244,7 +5195,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1010Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5297,8 +5248,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5338,7 +5288,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1011Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5391,8 +5341,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5432,7 +5381,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1020Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5485,8 +5434,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -5526,7 +5474,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument1021Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class [pkg.Int3;pkg.Int2;] $interfaces(Int3) pkgtwo.Ex :Int2{\n");
         xml_.append("\n");
@@ -5558,8 +5506,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExThree");
 
@@ -5650,7 +5597,7 @@ public final class ProcessMethodInstanceInterfaceTest extends
     @Test
     public void instanceArgument3FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5712,13 +5659,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5780,13 +5726,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument5FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5849,13 +5794,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument6FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5916,13 +5860,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument7FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -5984,13 +5927,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument8FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6052,13 +5994,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument9FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6120,13 +6061,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument10FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6187,13 +6127,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=10i;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument11FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6257,13 +6196,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument12FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6327,13 +6265,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument13FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo:pkg.Int3{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -6397,13 +6334,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument14FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6443,13 +6379,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument15FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int2,pkg.Int3) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6489,13 +6424,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument16FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.ExThree) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6535,13 +6469,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument17FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int,pkg.Inexist1) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6581,13 +6514,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument18FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Inexist1) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6627,13 +6559,12 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument19FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class $interfaces(pkg.Int3,pkg.Int4) pkg.Ex :pkg.Int2{\n");
         xml_.append("\n");
@@ -6673,7 +6604,6 @@ public final class ProcessMethodInstanceInterfaceTest extends
         xml_.append(" $public $int common=nb;\n");
         xml_.append("}\n");
         files_.put("pkg/Int3", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }

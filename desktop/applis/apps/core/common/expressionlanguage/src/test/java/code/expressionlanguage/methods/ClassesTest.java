@@ -1,6 +1,8 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -31,8 +33,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
         ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ReportedMessages rep_ = Classes.validateAll(files_, cont_);
+        assertTrue(rep_.isAllEmptyErrors());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         ClassesUtil.getDirectChildren(null);
@@ -50,10 +52,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getAnalyzing().isEmptyStdError());
-        assertTrue(!isEmptyErrors(out_));
+        assertTrue(!page_.isEmptyStdError());
+        assertTrue(!page_.isEmptyErrors());
     }
 
     @Test
@@ -87,10 +89,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.setAliasVoid("");
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getAnalyzing().isEmptyMessageError());
-        assertTrue(!isEmptyErrors(out_));
+        assertTrue(!page_.isEmptyMessageError());
+        assertTrue(!page_.isEmptyErrors());
     }
     @Test
     public void failMessage2(){
@@ -103,10 +105,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getAnalyzing().isEmptyMessageError());
-        assertTrue(!isEmptyErrors(out_));
+        assertTrue(!page_.isEmptyMessageError());
+        assertTrue(!page_.isEmptyErrors());
     }
     @Test
     public void resolve1Test() {
@@ -5272,9 +5274,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=java.lang.Integer.MAX_VALUE;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        assertTrue(ok(files_));
     }
     @Test
     public void calculateStaticField173Test() {
@@ -5285,9 +5285,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=java.lang.Integer.MAX_VALUE $instanceof java.lang.Integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        assertTrue(ok(files_));
     }
     @Test
     public void calculateStaticField174Test() {
@@ -5307,9 +5305,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5330,9 +5326,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5353,9 +5347,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5373,9 +5365,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=pkg.ExTwo.CST.$new Inner().n();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5396,9 +5386,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5419,9 +5407,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(2,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5442,9 +5428,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(1,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5462,9 +5446,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int a1=(pkg.ExTwo.CST.$new Inner().n());\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        ContextEl ctx_ = ctxOk(files_);
         assertEq(3,((NumberStruct) ctx_.getClasses().getStaticField(new ClassField("pkg.ExTwo","a1"))).intStruct());
     }
     @Test
@@ -5476,9 +5458,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=(5!=4);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        assertTrue(ok(files_));
     }
 
     @Test
@@ -5490,9 +5470,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $boolean a1=(0s&0s)==0;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        assertTrue(ok(files_));
     }
     @Test
     public void calculateStaticField188Test() {
@@ -5507,9 +5485,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $static {a1+=5c;}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ctx_ = ctx();
-        Classes.validateAll(files_,ctx_);
-        assertTrue(isEmptyErrors(ctx_));
+        assertTrue(ok(files_));
     }
 
     @Test
@@ -7556,9 +7532,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void p($int... i) {$new Integer($(Integer)$null);$new Integer($id(Integer,$int),0);\"\".format($id(CharSequence,CharSequence...),\"\",\"\");}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctx();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        assertTrue(ok(files_));
     }
     @Test
     public void validateEl182FailTest() {

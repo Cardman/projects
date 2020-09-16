@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -20,7 +19,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -47,8 +46,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -75,7 +73,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -102,8 +100,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -127,7 +124,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -155,8 +152,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -183,7 +179,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append("}\n");
@@ -196,8 +192,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -215,7 +210,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public (){}\n");
@@ -229,8 +224,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -248,7 +242,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument14Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -263,8 +257,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -285,7 +278,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -299,8 +292,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -321,7 +313,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument16Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -338,8 +330,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -359,7 +350,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -386,8 +377,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.Ex");
 
@@ -418,7 +408,7 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
     @Test
     public void instanceArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -446,7 +436,6 @@ public final class ProcessMethodInstanceSimpleInheritTest extends ProcessMethodC
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }

@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
@@ -6060,9 +6061,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {
-        ContextEl cont_ = ctx();
-        Classes.validateAll(_files, cont_);
+        AnalyzedTestContext cont_ = ctxAna();
+        Classes.validateAll(_files, cont_.getContext());
         assertTrue(isEmptyErrors(cont_));
-        return cont_;
+        return cont_.getContext();
     }
 }

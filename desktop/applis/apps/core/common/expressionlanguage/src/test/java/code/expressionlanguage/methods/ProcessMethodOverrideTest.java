@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -19,7 +18,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|getter(ExTwo)};\n");
@@ -48,8 +47,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -57,7 +55,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<S> :pkg.ExTwo<S>{\n");
         xml_.append(" $intern{getter(S):getter(Ex,S)|getter(ExTwo,T)};\n");
@@ -86,8 +84,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -95,7 +92,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -124,8 +121,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -133,7 +129,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -163,8 +159,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -172,7 +167,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate5Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -202,8 +197,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -211,7 +205,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)};\n");
@@ -241,8 +235,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -250,7 +243,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate7Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<U> :pkg.Ex<U>{\n");
         xml_.append(" $intern{getter(U):getter(Ex,S)|getter(ExTwo,T)};\n");
@@ -285,8 +278,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.ExThree",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -294,7 +286,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter()};\n");
@@ -323,8 +315,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -332,7 +323,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate9Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|getter(ExTwo);getter2():getter2(Ex)};\n");
@@ -368,8 +359,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(22, getNumber(ret_));
@@ -377,7 +367,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate10Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{};\n");
@@ -404,8 +394,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $abstract $int getter();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(9, getNumber(ret_));
@@ -413,7 +402,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate11Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -442,8 +431,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -451,7 +439,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate12Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -487,8 +475,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(34, getNumber(ret_));
@@ -496,7 +483,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate13Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V,V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -532,8 +519,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(225, getNumber(ret_));
@@ -586,7 +572,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate15Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<V> :pkg.ExTwo<V>:pkg.ExThree<V>{\n");
         xml_.append(" $public V inst=(V)2i;\n");
@@ -621,8 +607,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(20, getNumber(ret_));
@@ -678,7 +663,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate17Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():[](Ex)|getter(ExTwo);[]:getter(Ex);gett($int):gett2(Ex);gett5():gett5(ExThree)};\n");
@@ -715,8 +700,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -818,7 +802,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate20Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter():getter(Ex)|gette(ExTwo)};\n");
@@ -847,8 +831,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(18, getNumber(ret_));
@@ -856,7 +839,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate21Test() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $public $int inst=2i;\n");
@@ -885,8 +868,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex",getMethodId("getter"),new CustList<Argument>(),cont_);
         assertEq(16, getNumber(ret_));
@@ -894,7 +876,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
     @Test
     public void calculate1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
+        //ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex :pkg.ExTwo{\n");
         xml_.append(" $intern{getter()};\n");
@@ -921,7 +903,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $abstract $int getter();\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
+
 }

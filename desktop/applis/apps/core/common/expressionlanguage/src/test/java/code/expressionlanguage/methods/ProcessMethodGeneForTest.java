@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.StringMap;
@@ -28,10 +27,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -55,10 +52,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -79,10 +74,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -106,10 +99,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -133,10 +124,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -160,10 +149,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -193,10 +180,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -217,10 +202,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -241,10 +224,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -266,10 +247,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -293,10 +272,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -321,10 +298,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -350,10 +325,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -379,10 +352,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -405,10 +376,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -436,10 +405,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -461,10 +428,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -485,10 +450,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -509,10 +472,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -533,10 +494,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -557,10 +516,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -584,10 +541,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -610,10 +565,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -638,10 +591,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -665,10 +616,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -691,10 +640,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -720,10 +667,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = ctxOk(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("catching");
         Argument ret_;
@@ -1016,10 +961,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -1041,10 +984,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -1062,10 +1003,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument8FailTest() {
@@ -1085,10 +1024,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -1111,10 +1048,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -1139,10 +1074,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument132FailTest() {
@@ -1166,10 +1099,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument14FailTest() {
@@ -1185,10 +1116,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument15FailTest() {
@@ -1204,10 +1133,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument16FailTest() {
@@ -1225,10 +1152,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument18FailTest() {
@@ -1247,10 +1172,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument19FailTest() {
@@ -1272,10 +1195,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument20FailTest() {
@@ -1297,10 +1218,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument21FailTest() {
@@ -1323,10 +1242,8 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument22FailTest() {
@@ -1339,9 +1256,7 @@ public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }

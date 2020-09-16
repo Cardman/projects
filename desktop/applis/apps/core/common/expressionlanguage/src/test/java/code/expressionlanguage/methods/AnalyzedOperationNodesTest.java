@@ -3,6 +3,7 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.common.ClassField;
@@ -5132,7 +5133,9 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean hasNot(StringMap<String> files_) {
-        ContextEl cont_ = ctxOkQuick(files_);
+        AnalyzedTestContext cont_ = ctxValQuick(files_);
+        assertTrue(isEmptyErrors(cont_));
+        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing());
         return isEmptyErrors(cont_);
     }
 

@@ -970,12 +970,12 @@ public final class TemplatesTest extends ProcessMethodCommon {
         return cont_;
     }
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
-        ContextEl cont_ = ctx();
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_, new StringMap<ExecFileBlock>());
+        AnalyzedTestContext cont_ = ctxAna();
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_.getContext(), new StringMap<ExecFileBlock>());
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_);
+        ClassesUtil.validateInheritingClasses(cont_.getContext());
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        return new AnalyzedTestContext(cont_, cont_.getAnalyzing());
+        return cont_;
     }
 
     private static AnalyzedTestContext simpleContextEl() {

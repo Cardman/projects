@@ -1,7 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -27,10 +25,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -51,10 +47,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentInexistFieldTest() {
@@ -66,10 +60,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentAnnot2FailTest() {
@@ -91,10 +83,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentAnnot3FailTest() {
@@ -123,10 +113,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor2FailTest() {
@@ -147,10 +135,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor4FailTest() {
@@ -166,10 +152,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor_4FailTest() {
@@ -185,10 +169,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor5FailTest() {
@@ -205,10 +187,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor6FailTest() {
@@ -224,10 +204,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor9FailTest() {
@@ -244,10 +222,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor10FailTest() {
@@ -264,10 +240,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor11FailTest() {
@@ -285,10 +259,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor13FailTest() {
@@ -310,10 +282,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentFor17FailTest() {
@@ -329,10 +299,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument10600Test() {
@@ -343,7 +311,6 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -359,8 +326,7 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument10601Test() {
@@ -371,7 +337,6 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -387,8 +352,7 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument10602Test() {
@@ -399,7 +363,6 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -415,8 +378,7 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument1061Test() {
@@ -427,7 +389,6 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -447,8 +408,7 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentSwitchFailTest() {
@@ -470,10 +430,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgumentCore1FailTest() {
@@ -498,27 +456,22 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument1FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument2FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance;\n");
@@ -530,25 +483,21 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument3FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance;\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument4FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int ance;\n");
@@ -560,13 +509,11 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument5FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance;\n");
@@ -582,13 +529,11 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument6FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance;\n");
@@ -600,13 +545,11 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument7FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $final $int ance;\n");
@@ -618,8 +561,7 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentIf1FailTest() {
@@ -640,10 +582,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentIf2FailTest() {
@@ -664,10 +604,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentIf3FailTest() {
@@ -688,10 +626,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgumentIf4FailTest() {
@@ -712,10 +648,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -731,10 +665,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -750,10 +682,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -769,10 +699,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -788,10 +716,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -807,10 +733,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 
     @Test
@@ -826,10 +750,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument1FailTest() {
@@ -854,10 +776,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument2FailTest() {
@@ -885,10 +805,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument3FailTest() {
@@ -916,11 +834,10 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
+
     @Test
     public void calculateArgument31FailTest() {
         StringBuilder xml_ = new StringBuilder();
@@ -943,10 +860,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument32FailTest() {
@@ -970,10 +885,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument33FailTest() {
@@ -998,10 +911,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument34FailTest() {
@@ -1025,10 +936,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument4FailTest() {
@@ -1058,10 +967,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument5FailTest() {
@@ -1092,10 +999,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument6FailTest() {
@@ -1127,10 +1032,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument43FailTest() {
@@ -1163,10 +1066,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument7FailTest() {
@@ -1190,10 +1091,8 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void calculateArgument8FailTest() {
@@ -1218,15 +1117,12 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         files_.put("pkg/Ex", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument9FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int inst=m(),ance;\n");
@@ -1241,13 +1137,11 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument10FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int inst=ance,ance;\n");
@@ -1262,13 +1156,11 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void instanceArgument11FailTest() {
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = ctx();
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree {\n");
         xml_.append(" $public $static $final $int inst=ance,ance,bis;\n");
@@ -1284,7 +1176,6 @@ public final class ProcessMethodFinalTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        Classes.validateAll(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        assertTrue(hasErr(files_));
     }
 }

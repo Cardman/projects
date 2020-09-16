@@ -211,11 +211,6 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         assertTrue(ok(files_));
     }
 
-    private static boolean ok(StringMap<String> files_) {
-        ContextEl cont_ = ctxVal(files_);
-        return isEmptyErrors(cont_);
-    }
-
     @Test
     public void calculateStaticField191Test() {
         StringMap<String> files_ = new StringMap<String>();
