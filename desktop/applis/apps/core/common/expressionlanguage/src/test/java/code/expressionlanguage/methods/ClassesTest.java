@@ -6880,9 +6880,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" static final entier4 cst = 0y;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ct_ = ctxLg("fr");
-        Classes.validateAll(files_, ct_);
-        assertTrue(!isEmptyErrors(ct_));
+        assertTrue(hasErrLg(files_,"fr"));
     }
     @Test
     public void validateEl101FailTest() {
@@ -6893,9 +6891,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" static final entier4 cst = 0x;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl ct_ = ctxLg("fr");
-        Classes.validateAll(files_, ct_);
-        assertTrue(!isEmptyErrors(ct_));
+        assertTrue(hasErrLg(files_,"fr"));
     }
 
     @Test

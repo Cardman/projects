@@ -160,21 +160,21 @@ public abstract class ProcessMethodCommon {
         return new ConstructorId(_name, cl_, false);
     }
 
-    protected static AnalyzedTestContext contextElCoverageDefaultEnComment() {
+    private static AnalyzedTestContext contextElCoverageDefaultEnComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
-    protected static AnalyzedTestContext contextElCoverageDefaultComment() {
+    private static AnalyzedTestContext contextElCoverageDefaultComment() {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
-    protected static AnalyzedTestContext contextElErrorReadOnlyDef() {
+    private static AnalyzedTestContext contextElErrorReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
@@ -185,13 +185,13 @@ public abstract class ProcessMethodCommon {
         return _report.getErrors();
     }
 
-    public static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
+    private static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
         ReportedMessages report_ = validate(_cont, _files);
         assertTrue(!isEmptyErrors(_cont));
         return getErrors(report_);
     }
 
-    public static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
+    private static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
         ReportedMessages report_ = validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
         return getErrors(report_);
@@ -216,20 +216,20 @@ public abstract class ProcessMethodCommon {
         AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDef();
         return validateAndCheckReportErrors(files_, cont_);
     }
-    protected static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
+    private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
-    protected static AnalyzedTestContext contextElCoverageReadOnlyDef() {
+    private static AnalyzedTestContext contextElCoverageReadOnlyDef() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 
-    protected static AnalyzedTestContext contextElCoverageDisplayDef() {
+    private static AnalyzedTestContext contextElCoverageDisplayDef() {
         Options opt_ = new Options();
         opt_.setCovering(true);
         AnalyzedTestContext ct_ = InitializationLgNames.buildStdOneAna(opt_);
@@ -238,12 +238,7 @@ public abstract class ProcessMethodCommon {
         return ct_;
     }
 
-    protected static ContextEl contextElCoverageDef() {
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne(opt_);
-    }
-    protected static AnalyzedTestContext contextElCoverageDefAna() {
+    private static AnalyzedTestContext contextElCoverageDefAna() {
         Options opt_ = new Options();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna(opt_);
@@ -255,7 +250,7 @@ public abstract class ProcessMethodCommon {
         return cont_.getContext();
     }
 
-    protected static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
+    private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
@@ -267,38 +262,78 @@ public abstract class ProcessMethodCommon {
         validateAndCheckValid(files_, cont_);
         return cont_.getContext();
     }
-    protected static ContextEl contextElCoverageEn() {
-        Options opt_ = new Options();
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOne("en",opt_);
+
+    protected static ContextEl covValEn(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageEnAna();
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
     }
-    protected static AnalyzedTestContext contextElCoverageEnAna() {
+
+    private static AnalyzedTestContext contextElCoverageEnAna() {
         Options opt_ = new Options();
         opt_.setCovering(true);
         return InitializationLgNames.buildStdOneAna("en",opt_);
     }
 
-    protected static ContextEl contextElEnum() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdEnums(opt_);
+    protected static ContextEl contextElEnum(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElEnumAna();
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
     }
 
-    protected static ContextEl contextElReadOnlyMustInit() {
+    private static AnalyzedTestContext contextElEnumAna() {
+        Options opt_ = new Options();
+        return InitializationLgNames.buildStdEnumsAna(opt_);
+    }
+
+    protected static ContextEl ctxMustInitFail(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
+        ReportedMessages reportedMessages_ = Classes.validateAll(files_, cont_.getContext());
+        assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isAllEmptyErrors());
+        return cont_.getContext();
+    }
+
+    protected static ContextEl ctxMustInit(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
+    private static AnalyzedTestContext contextElReadOnlyMustInit() {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         opt_.setFailIfNotAllInit(true);
-        return InitializationLgNames.buildStdOne(opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
-    protected static ContextEl contextElToString() {
+
+    protected static ContextEl contextElToString(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElToStringAna();
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
+    private static AnalyzedTestContext contextElToStringAna() {
         Options opt_ = new Options();
-        return InitializationLgNames.buildStdToString(opt_);
+        return InitializationLgNames.buildStdToStringAna(opt_);
     }
-    protected static ContextEl contextElExp() {
+
+    protected static ContextEl ctxNoErrExp(StringMap<String> files_) {
+        AnalyzedTestContext ctx_ = contextElExp();
+        Classes.validateAll(files_,ctx_.getContext());
+        assertTrue(isEmptyErrors(ctx_));
+        return ctx_.getContext();
+    }
+
+    private static AnalyzedTestContext contextElExp() {
         Options opt_ = new Options();
         return InitializationLgNames.buildStdExp(opt_);
     }
 
-    protected static ContextEl ctxLgReadOnly(String fr) {
+    private static ContextEl ctxLgReadOnly(String fr) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         return InitializationLgNames.buildStdOne(fr, opt_);
@@ -309,13 +344,61 @@ public abstract class ProcessMethodCommon {
         return InitializationLgNames.buildStdOne(_m, opt_);
     }
 
-    protected static ContextEl contextElTypes(String... _types) {
+    protected static ContextEl contextElTypes(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElTypes("pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
+    private static AnalyzedTestContext contextElTypes(String... _types) {
         Options opt_ = new Options();
         for (String t: _types) {
             opt_.getTypesInit().add(t);
         }
-        return InitializationLgNames.buildStdOne(opt_);
+        return InitializationLgNames.buildStdOneAna(opt_);
     }
+
+    protected static ContextEl ctxResOk(StringMap<String> srcFiles_, StringMap<String> all_) {
+        ContextEl cont_ = ctx();
+        cont_.getClasses().addResources(all_);
+        Classes.validateAll(srcFiles_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_;
+    }
+
+    protected static ContextEl ctxOk(StringMap<String> files_) {
+        ContextEl cont_ = ctxVal(files_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_;
+    }
+
+    protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_) {
+        ContextEl cont_ = ctxLg(_lg);
+        Classes.validateAll(files_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_;
+    }
+
+    protected static ContextEl ctxOkQuick(StringMap<String> files_) {
+        ContextEl cont_ = ctxValQuick(files_);
+        assertTrue(isEmptyErrors(cont_));
+        Classes.forwardAndClear(cont_, cont_.getAnalyzing());
+        return cont_;
+    }
+
+    protected static ContextEl ctxVal(StringMap<String> files_) {
+        ContextEl cont_ = ctx();
+        Classes.validateAll(files_, cont_);
+        return cont_;
+    }
+
+    protected static ContextEl ctxValQuick(StringMap<String> files_) {
+        ContextEl cont_ = ctx();
+        Classes.validateWithoutInit(files_, cont_);
+        return cont_;
+    }
+
 
     protected static ContextEl ctx() {
         Options opt_ = new Options();
@@ -377,6 +460,26 @@ public abstract class ProcessMethodCommon {
         ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
         headers_.displayErrors();
         return !isEmptyErrors(cont_);
+    }
+
+    protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_) {
+        ContextEl cont_ = ctxLgReadOnly(_lg);
+        Classes.validateAll(files_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_;
+    }
+
+    protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> files_) {
+        ContextEl cont_ = ctxLgReadOnly(_lg);
+        Classes.validateAll(files_, cont_);
+        return !isEmptyErrors(cont_);
+    }
+
+    protected static ContextEl ctxReadOnlyOk(StringMap<String> files_) {
+        ContextEl cont_ = ctxReadOnly();
+        Classes.validateAll(files_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        return cont_;
     }
 
     protected static ContextEl ctxReadOnly() {
@@ -464,6 +567,11 @@ public abstract class ProcessMethodCommon {
         parseFile(context_, _myFile, _predefined, content_);
     }
 
+    protected static void parseFile(StringBuilder file_, AnalyzedTestContext context_, String _myFile, boolean _predefined) {
+        String content_ = file_.toString();
+        parseFile(context_.getContext(), _myFile, _predefined, content_);
+    }
+
     protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file) {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
@@ -546,6 +654,13 @@ public abstract class ProcessMethodCommon {
         return cont_.getContext();
     }
 
+    protected static ContextEl covVal2(StringMap<String> files_) {
+        AnalyzedTestContext cont_ = contextElCoverageDefAna();
+        Classes.validateAll(files_, cont_.getContext());
+        assertTrue(isEmptyErrors(cont_));
+        return cont_.getContext();
+    }
+
     protected static void validateAndCheckValid(StringMap<String> _files, AnalyzedTestContext _cont) {
         validate(_cont, _files);
         assertTrue(isEmptyErrors(_cont));
@@ -587,6 +702,31 @@ public abstract class ProcessMethodCommon {
             }
         }
         return methods_;
+    }
+
+    protected static ContextEl checkWarn(StringMap<String> files_) {
+        ContextEl cont_ = ctx();
+        ReportedMessages methodHeaders_ = Classes.validateAll(files_, cont_);
+        assertTrue(isEmptyErrors(cont_));
+        assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
+        return cont_;
+    }
+
+    protected static boolean hasErrReadOnly(StringMap<String> files_) {
+        ContextEl ctx_ = ctxReadOnly();
+        Classes.validateAll(files_,ctx_);
+        return !isEmptyErrors(ctx_);
+    }
+
+    protected static boolean hasErr(StringMap<String> files_) {
+        ContextEl cont_ = ctxVal(files_);
+        return !isEmptyErrors(cont_);
+    }
+
+    protected static boolean hasErrLg(StringMap<String> files_, String _lg) {
+        ContextEl cont_ = ctxLg(_lg);
+        Classes.validateAll(files_, cont_);
+        return !isEmptyErrors(cont_);
     }
 
     protected static boolean isEmptyErrors(ContextEl cont_) {

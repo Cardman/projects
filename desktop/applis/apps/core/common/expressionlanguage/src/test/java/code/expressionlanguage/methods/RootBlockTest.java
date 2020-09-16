@@ -1733,14 +1733,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
-    private static boolean hasErr(StringMap<String> files_) {
-        ContextEl ctx_ = ctx();
-        Classes.validateWithoutInit(files_, ctx_);
-        Classes.forwardAndClear(ctx_, ctx_.getAnalyzing());
-        AnalyzedTestContext cont_ = new AnalyzedTestContext(ctx_, ctx_.getAnalyzing());
-        return !isEmptyErrors(cont_);
-    }
-
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
         ContextEl cont_ = ctx();
         parseCustomFiles(_files, cont_);

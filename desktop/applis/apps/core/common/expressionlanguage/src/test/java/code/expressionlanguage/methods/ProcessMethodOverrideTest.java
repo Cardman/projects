@@ -570,9 +570,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $normal $int ordinal(){$return -1;}\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        ContextEl cont_ = contextElEnum();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElEnum(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -664,9 +662,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $normal java.lang.String name()$intern(Ex:name(Int)){$return \"OTHER_TWO_\"+$enums.name((Ex)$this);}\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        ContextEl cont_ = contextElEnum();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElEnum(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -760,9 +756,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $normal java.lang.String name()$intern(Ex:name(Int)){$return \"OTHER_TWO_\"+$enums.name((Ex)$this);}\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        ContextEl cont_ = contextElEnum();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElEnum(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 
@@ -808,9 +802,7 @@ public final class ProcessMethodOverrideTest extends ProcessMethodCommon {
         xml_.append(" $public $normal $int ordinal(){$return -1;}\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        ContextEl cont_ = contextElEnum();
-        Classes.validateAll(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        ContextEl cont_ = contextElEnum(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         ConstructorId id_ = getConstructorId("pkg.ExCont");
 

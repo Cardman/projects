@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.common.ClassField;
@@ -1668,7 +1667,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -1878,7 +1877,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         String g_ = StringList.concat("pkg.ExTwo");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2021,7 +2020,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2048,7 +2047,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2075,7 +2074,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2102,7 +2101,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2129,7 +2128,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2154,7 +2153,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2181,7 +2180,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2206,7 +2205,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2231,7 +2230,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2256,7 +2255,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2281,7 +2280,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2306,7 +2305,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2331,7 +2330,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2356,7 +2355,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2381,7 +2380,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2406,7 +2405,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2432,7 +2431,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2457,7 +2456,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2483,7 +2482,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2509,7 +2508,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecChoiceFctOperation fct_ = getChoiceFct(f_.getExp());
@@ -2534,7 +2533,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2560,7 +2559,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2586,7 +2585,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecSuperFctOperation fct_ = getSuperFct(f_.getExp());
@@ -2617,7 +2616,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" $public $static $void m() {}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2648,7 +2647,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -2826,7 +2825,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2853,7 +2852,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2882,7 +2881,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2911,7 +2910,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2940,7 +2939,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecOperatorBlock r_ = cont_.getClasses().getOperators().first();
         ExecLine f_ = (ExecLine) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -2969,7 +2968,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecOperatorBlock r_ = cont_.getClasses().getOperators().first();
         ExecLine f_ = (ExecLine) r_.getFirstChild();
         ExecStandardInstancingOperation fct_ = getCtor(f_.getExp());
@@ -3006,7 +3005,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecStdFctOperation fct_ = getStdFct(f_.getExp());
@@ -3097,7 +3096,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static ContextEl getSuccessContextEl(StringMap<String> files_) {
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         return cont_;
     }
 
@@ -3112,7 +3111,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -3138,7 +3137,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -3164,7 +3163,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -3190,7 +3189,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -3256,7 +3255,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -3289,7 +3288,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecStdFctOperation fct_ = getStdFct(f_.getExp());
@@ -3323,7 +3322,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.ExTwo");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         ExecStdFctOperation fct_ = getStdFct(f_.getExp());
@@ -3355,7 +3354,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkgtwo.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecFctOperation fct_ = getFct(f_.getExp());
@@ -3385,7 +3384,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody( "pkg.Apply");
         ExecLine f_ = (ExecLine) r_.getFirstChild().getFirstChild();
         ExecStaticFctOperation fct_ = getStaticFct(f_.getExp());
@@ -4654,12 +4653,6 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
-    private static boolean hasErr(StringMap<String> files_) {
-        ContextEl cont_ = ctx();
-        ClassesUtil.buildAllBracesBodies(files_, cont_);
-        return !isEmptyErrors(cont_);
-    }
-
     private static ExecFctOperation getFct(CustList<ExecOperationNode> _f) {
         for (ExecOperationNode o: _f) {
             if (o instanceof ExecFctOperation) {
@@ -4720,7 +4713,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", file());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
@@ -4732,26 +4725,18 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
         return f_.getOpValue();
     }
 
-    private static ContextEl ctxOk(StringMap<String> files_) {
-        ContextEl cont_ = ctx();
-        ClassesUtil.buildAllBracesBodies(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_, cont_.getAnalyzing());
-        return cont_;
-    }
-
     private static CustList<ExecOperationNode> analyzeIndirectLocalVars(String _el, String _var, String _className, String _file) {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className,"", _var));
         files_.put("pkg/Ex", _file);
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
@@ -4761,7 +4746,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/ExTwo", addonFileStaticResult(_el, _className, _param, _var));
         files_.put("pkg/Ex", file());
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         ExecRootBlock r_ = cont_.getClasses().getClassBody("code.formathtml.classes.Apply");
         ExecFieldBlock f_ = (ExecFieldBlock) r_.getFirstChild();
         f_ = (ExecFieldBlock) f_.getNextSibling();
@@ -5146,7 +5131,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean hasNot(StringMap<String> files_) {
-        ContextEl cont_ = ctxOk(files_);
+        ContextEl cont_ = ctxOkQuick(files_);
         return isEmptyErrors(cont_);
     }
 

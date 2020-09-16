@@ -1446,7 +1446,6 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
-        ContextEl cont_ = contextElTypes("pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
         files_.put("pkg/Ex", xml_.toString());
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo {\n");
@@ -1468,12 +1467,11 @@ public final class ProcessMethodFieldTest extends ProcessMethodCommon {
         xml_.append(" $public $static $final $int myf=3i;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        Classes.validateAll(files_, cont_);
+        ContextEl cont_ = contextElTypes(files_);
         assertTrue(isSuccessfulInitialized(cont_, "pkg.Ex"));
         assertTrue(isSuccessfulInitialized(cont_, "pkg.ExTwo"));
         assertTrue(isSuccessfulInitialized(cont_, "pkg.ExThree"));
         assertTrue(isSuccessfulInitialized(cont_, "pkg.ExFour"));
-        assertTrue(isEmptyErrors(cont_));
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument ret_;
