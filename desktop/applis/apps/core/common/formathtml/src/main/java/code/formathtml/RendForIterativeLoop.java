@@ -154,7 +154,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(initOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrFrom());
-        opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc);
+        opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode initEl_ = opInit.last();
         Mapping m_ = new Mapping();
         m_.setArg(initEl_.getResultClass());
@@ -174,7 +174,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrTo());
-        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc);
+        opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode expressionEl_ = opExp.last();
         m_.setArg(expressionEl_.getResultClass());
         m_.setParam(elementClass_);
@@ -193,7 +193,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrStep());
-        opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont, _anaDoc);
+        opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode stepEl_ = opStep.last();
         m_.setArg(stepEl_.getResultClass());
         m_.setParam(elementClass_);

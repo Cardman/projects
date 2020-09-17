@@ -91,7 +91,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
 
     abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
 
-    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, ContextEl _an);
+    abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page);
 
     @Override
     public void quickCalculate(ContextEl _conf) {
@@ -103,12 +103,12 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         IntTreeMap< String> ops_ = getOperations().getOperators();
         Argument c_ = chidren_.last().getArgument();
         Argument r_;
-        r_ = calculateOperAna(a_, ops_.firstValue(), c_, _conf);
+        r_ = calculateOperAna(a_, ops_.firstValue(), c_, _conf.getAnalyzing());
         if (r_.isNull()) {
             return;
         }
         a_ = r_;
-        setSimpleArgumentAna(a_, _conf);
+        setSimpleArgumentAna(a_, _conf.getAnalyzing());
     }
 
     @Override

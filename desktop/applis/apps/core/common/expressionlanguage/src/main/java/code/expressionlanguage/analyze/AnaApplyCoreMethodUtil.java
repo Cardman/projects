@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DoubleInfo;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
@@ -21,24 +20,25 @@ public final class AnaApplyCoreMethodUtil {
     private AnaApplyCoreMethodUtil() {
     }
 
-    public static Struct invokeAnalyzisStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static Struct invokeAnalyzisStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
         Struct result_ = null;
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        AnalyzedPageEl page_ = _page;
+        LgNames lgNames_ = page_.getStandards();
         String mathType_ = lgNames_.getAliasMath();
         String stringType_ = lgNames_.getAliasString();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
             if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNamesLength())) {
-                return ResourcesStruct.getResourceNamesLength(_cont.getAnalyzing());
+                return ResourcesStruct.getResourceNamesLength(page_);
             }
             if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
-                return ResourcesStruct.getResourceIndex(_cont.getAnalyzing(),args_[0]);
+                return ResourcesStruct.getResourceIndex(page_,args_[0]);
             }
             if (StringList.quickEq(name_, lgNames_.getAliasReadResources())) {
-                result_ = ResourcesStruct.getResource(_cont.getAnalyzing(), NumParsers.getString(args_[0]));
+                result_ = ResourcesStruct.getResource(page_, NumParsers.getString(args_[0]));
             }
             return result_;
         }
@@ -54,23 +54,23 @@ public final class AnaApplyCoreMethodUtil {
             }
         }
         if (StringList.quickEq(type_, replType_)) {
-            return ReplacementStruct.calculate(_cont, _method, _struct);
+            return calculateReplacement(_method, _struct, _page);
         }
         if (StringList.quickEq(type_, stringType_)
                 || StringList.quickEq(type_, lgNames_.getAliasCharSequence())) {
-            result_ = invokeAnalyzisCharSequenceStdMethod(_cont, _method, _struct, _args);
+            result_ = invokeAnalyzisCharSequenceStdMethod(_method, _struct, _page, _args);
             return result_;
         }
         if (StringList.quickEq(type_, mathType_)) {
-            return invokeAnalyzisMathStdMethod(_cont, _method, _args);
+            return invokeAnalyzisMathStdMethod(_method, _page, _args);
         }
-        return calculateNumber(_cont, _method, _struct, args_);
+        return calculateNumber(_method, _struct, _page, args_);
     }
 
-    public static Struct newAnalyzisInstanceStd(ContextEl _cont, ConstructorId _method, Argument... _args) {
+    public static Struct newAnalyzisInstanceStd(ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
         String stringType_ = lgNames_.getAliasString();
@@ -99,7 +99,7 @@ public final class AnaApplyCoreMethodUtil {
                 || StringList.quickEq(type_, longType_)
                 || StringList.quickEq(type_, floatType_)
                 || StringList.quickEq(type_, doubleType_)) {
-            return instantiateNumber(_cont, _method, args_);
+            return instantiateNumber(_method, _page, args_);
         }
         return null;
     }
@@ -129,11 +129,11 @@ public final class AnaApplyCoreMethodUtil {
         return NumParsers.getString(_value);
     }
 
-    private static Struct invokeAnalyzisMathStdMethod(ContextEl _cont, ClassMethodId _method, Argument... _args) {
+    private static Struct invokeAnalyzisMathStdMethod(ClassMethodId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = AliasMath.getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        AnalyzedPageEl page_ = _page;
         LgNames lgNames_ = page_.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
         String aliasPrimInteger_ = lgNames_.getAliasPrimInteger();
@@ -294,10 +294,10 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
-    public static Struct instantiateNumber(ContextEl _cont, ConstructorId _method, Struct... _args) {
+    public static Struct instantiateNumber(ConstructorId _method, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getName();
         StringList list_ = _method.getParametersTypes();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
         String stringType_ = lgNames_.getAliasString();
@@ -490,11 +490,12 @@ public final class AnaApplyCoreMethodUtil {
         }
     }
 
-    private static Struct calculateNumber(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    private static Struct calculateNumber(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        AnalyzedPageEl page_ = _page;
+        LgNames lgNames_ = page_.getStandards();
         String booleanType_ = lgNames_.getAliasBoolean();
         String charType_ = lgNames_.getAliasCharacter();
         String byteType_ = lgNames_.getAliasByte();
@@ -529,10 +530,10 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                 if (!list_.isEmpty()) {
-                    return ((ClassArgumentMatching.convertToBoolean(_args[0])).getDisplayedString(_cont.getAnalyzing()));
+                    return ((ClassArgumentMatching.convertToBoolean(_args[0])).getDisplayedString(page_));
                 }
                 BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
-                return (instance_.getDisplayedString(_cont.getAnalyzing()));
+                return (instance_.getDisplayedString(page_));
             }
             if (StringList.quickEq(list_.first(), booleanPrimType_)) {
                 return (_args[0]);
@@ -679,7 +680,7 @@ public final class AnaApplyCoreMethodUtil {
                     return (BooleanStruct.of(Float.isInfinite(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    DisplayedStrings dis_ = _cont.getAnalyzing().getStandards().getDisplayedStrings();
+                    DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
                     NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_args[0]);
                     return NumParsers.getFloatString(nb_,dis_.getInfinity(),
                             dis_.getNan(),
@@ -697,7 +698,7 @@ public final class AnaApplyCoreMethodUtil {
                 return (BooleanStruct.of(Double.isInfinite(one_)));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                DisplayedStrings dis_ = _cont.getAnalyzing().getStandards().getDisplayedStrings();
+                DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
                 NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_args[0]);
                 return NumParsers.getDoubleString(nb_,dis_.getInfinity(),
                         dis_.getNan(),
@@ -755,34 +756,34 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (list_.isEmpty()) {
                 NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
-                return(instance_.getDisplayedString(_cont.getAnalyzing()));
+                return(instance_.getDisplayedString(page_));
             }
             AnaDisplayableStruct instance_ = getAnaDisplayable(_args[0]);
             return(instance_
-                    .getDisplayedString(_cont.getAnalyzing()));
+                    .getDisplayedString(page_));
         }
         return null;
     }
 
-    public static Struct invokeAnalyzisCharSequenceStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument... _args) {
+    public static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         String type_ = _method.getClassName();
         String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(type_, stringType_)) {
-            return calculateString(_cont, _method, _struct, args_);
+            return calculateString(_method, _struct, _page, args_);
         }
-        return calculateCharSeq(_cont, _method, _struct, args_);
+        return calculateCharSeq(_method, _struct, _page, args_);
     }
 
-    public static Struct calculateString(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
             StringStruct str_ = NumParsers.getString(_struct);
-            return calculateLocString(str_,_cont, _method, _args);
+            return calculateLocString(str_, _method, _page, _args);
         }
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
             Struct arg_ = _args[0];
             if (!(arg_ instanceof StringStruct)) {
@@ -793,7 +794,7 @@ public final class AnaApplyCoreMethodUtil {
         }
         Struct arg_ = NumParsers.getArg(list_, _args);
         if (NumParsers.isDisplay(list_, arg_)) {
-            return getAnaDisplayable(arg_).getDisplayedString(_cont.getAnalyzing());
+            return getAnaDisplayable(arg_).getDisplayedString(_page);
         }
         if (!(arg_ instanceof ArrayStruct)) {
             return null;
@@ -819,10 +820,10 @@ public final class AnaApplyCoreMethodUtil {
         return new StringStruct(String.valueOf(arr_,one_,two_));
     }
 
-    private static Struct calculateLocString(StringStruct _str, ContextEl _cont, ClassMethodId _method, Struct... _args) {
+    private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
             return regionMatches(_str,ClassArgumentMatching.convertToBoolean(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]), _args[2],
@@ -920,9 +921,9 @@ public final class AnaApplyCoreMethodUtil {
         return new StringStruct(StringList.replaceMult(_st.getInstance(), seps_));
     }
 
-    public static Struct calculateCharSeq(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct... _args) {
+    public static Struct calculateCharSeq(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         if (!_method.getConstraints().isStaticMethod()) {
-            return calculateLocCharSeq(NumParsers.getCharSeq(_struct), _cont, _method, _args);
+            return calculateLocCharSeq(NumParsers.getCharSeq(_struct), _method, _page, _args);
         }
         if (!(_args[0] instanceof CharSequenceStruct)) {
             return BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE);
@@ -930,10 +931,10 @@ public final class AnaApplyCoreMethodUtil {
         return BooleanStruct.of(NumParsers.sameEq(NumParsers.getCharSeq(_args[0]),_args[1]));
     }
 
-    private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ContextEl _cont, ClassMethodId _method, Struct... _args) {
+    private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         StringList list_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getAnalyzing().getStandards();
+        LgNames lgNames_ = _page.getStandards();
         if (StringList.quickEq(name_, lgNames_.getAliasLength())) {
             return new IntStruct(_charSequence.length());
         }
@@ -1150,19 +1151,31 @@ public final class AnaApplyCoreMethodUtil {
         return new StringStruct(StringList.simpleStringsFormat(_charSequence.toStringInstance(), seps_));
     }
 
-    public static String getString(Argument _value,ContextEl _cont) {
+    public static String getString(Argument _value, AnalyzedPageEl _page) {
         Struct struct_ = _value.getStruct();
         if (struct_ instanceof ReplacementStruct) {
-            return _cont.getAnalyzing().getStandards().getAliasReplacement();
+            return _page.getStandards().getAliasReplacement();
         }
-        return getAnaDisplayable(struct_).getDisplayedString(_cont.getAnalyzing()).getInstance();
+        return getAnaDisplayable(struct_).getDisplayedString(_page).getInstance();
     }
 
-    public static Argument localSumDiff(Argument _a, Argument _b,
-                                        ContextEl _cont) {
+    public static Argument localSumDiff(Argument _a, Argument _b, AnalyzedPageEl _page) {
         StringBuilder str_ = new StringBuilder();
-        str_.append(getString(_a,_cont));
-        str_.append(getString(_b,_cont));
+        str_.append(getString(_a, _page));
+        str_.append(getString(_b, _page));
         return new Argument(new StringStruct(str_.toString()));
+    }
+
+    private static Struct calculateReplacement(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page) {
+        String name_ = _method.getConstraints().getName();
+        LgNames lgNames_ = _page.getStandards();
+        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
+        if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
+            String old_ = rp_.getInstance().getNewString();
+            return Argument.wrapStr(old_);
+        }
+        String new_ = rp_.getInstance().getOldString();
+        return Argument.wrapStr(new_);
+
     }
 }

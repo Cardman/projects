@@ -2861,7 +2861,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
     }
 
     private static Delimiters checkDel(String s, int i, AnalyzedTestConfiguration context_) {
-        return ElResolver.checkSyntaxDelimiters(s, context_.getContext(), i);
+        return ElResolver.checkSyntaxDelimiters(s, context_.getContext(), i, context_.getAnalyzing());
     }
 
     private static Argument processDelimiters(String s, int i) {
@@ -5948,7 +5948,7 @@ public final class RenderExpUtilSucessTest extends CommonRender {
         AnalysisMessages analysisMessages_ = ana_.getAnalysisMessages();
         ReportedMessages messages_ = ana_.getMessages();
         Classes.tryInitStaticlyTypes(cont_.getContext(),analysisMessages_,messages_, ana_.getOptions());
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         return new AnalyzedTestConfiguration(conf_,ana_);
     }
 

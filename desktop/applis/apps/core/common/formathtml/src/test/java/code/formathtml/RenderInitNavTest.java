@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.NullStruct;
@@ -53,7 +54,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_));
+        assertTrue(setupRendClassesInit(n_, cont_.getAnalyzing()));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -98,7 +99,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        assertTrue(!setupRendClassesInit(n_));
+        assertTrue(!setupRendClassesInit(n_, cont_.getAnalyzing()));
     }
 
     private static AnalyzedTestContext buildStdThree() {
@@ -148,7 +149,7 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        assertTrue(!setupRendClassesInit(n_));
+        assertTrue(!setupRendClassesInit(n_, cont_.getAnalyzing()));
     }
     @Test
     public void process4Test() {
@@ -190,7 +191,7 @@ public final class RenderInitNavTest extends CommonRender {
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
         n_.setFiles(files_);
-        assertTrue(!setupRendClassesInit(n_));
+        assertTrue(!setupRendClassesInit(n_, cont_.getAnalyzing()));
     }
     @Test
     public void process5Test() {
@@ -264,9 +265,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "\t</sm>\n" +
                 "</cfg>";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_);
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_));
+        assertTrue(setupRendClassesInit(n_, page_));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,n_.getSession().getAddedFiles().size());
@@ -351,9 +352,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_);
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_));
+        assertTrue(setupRendClassesInit(n_, page_));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -443,9 +444,9 @@ public final class RenderInitNavTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_);
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_));
+        assertTrue(setupRendClassesInit(n_, page_));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
@@ -490,12 +491,12 @@ public final class RenderInitNavTest extends CommonRender {
         Navigation n_ = new Navigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
-        assertTrue(setupRendClassesInit(n_));
+        assertTrue(setupRendClassesInit(n_, cont_.getAnalyzing()));
         n_.initializeRendSession();
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>1</body></html>",n_.getHtmlText());
     }
-    private static boolean setupRendClassesInit(Navigation _nav) {
-        return _nav.setupRendClassesInit().isAllEmptyErrors();
+    private static boolean setupRendClassesInit(Navigation _nav, AnalyzedPageEl _page) {
+        return _nav.setupRendClassesInit(_page).isAllEmptyErrors();
     }
     @Test
     public void process1FailTest() {

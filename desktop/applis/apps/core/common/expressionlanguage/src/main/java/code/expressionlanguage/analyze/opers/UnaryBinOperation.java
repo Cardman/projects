@@ -77,10 +77,10 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
 
     @Override
     public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this,classMethodId,_conf);
+        tryGetArg(this,classMethodId, _conf.getAnalyzing());
     }
 
-    public static void tryGetArg(MethodOperation _par, ClassMethodId _m,ContextEl _conf) {
+    private static void tryGetArg(MethodOperation _par, ClassMethodId _m, AnalyzedPageEl _page) {
         if (_m != null) {
             return;
         }
@@ -91,8 +91,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             return;
         }
         ClassArgumentMatching res_ = _par.getResultClass();
-        Argument out_ = new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _conf.getAnalyzing(), res_));
-        _par.setSimpleArgumentAna(out_, _conf);
+        Argument out_ = new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _page, res_));
+        _par.setSimpleArgumentAna(out_, _page);
     }
 
     @Override

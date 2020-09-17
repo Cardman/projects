@@ -303,12 +303,12 @@ public final class StandardInstancingOperation extends
             return;
         }
         CustList<Argument> firstArgs_ = quickListArguments(filter_, _naturalVararg, _lastType, arguments_);
-        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(_conf, _constId, Argument.toArgArray(firstArgs_));
+        Struct out_ = AnaApplyCoreMethodUtil.newAnalyzisInstanceStd(_constId, _conf.getAnalyzing(), Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }
         Argument arg_ = new Argument(out_);
-        _current.setSimpleArgumentAna(arg_, _conf);
+        _current.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
     }
 
     public String getFieldName() {

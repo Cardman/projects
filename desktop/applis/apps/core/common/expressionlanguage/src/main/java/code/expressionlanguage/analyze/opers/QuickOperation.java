@@ -45,7 +45,7 @@ public abstract class QuickOperation extends MethodOperation {
         getChildren().putAllMap(vs_);
     }
 
-    public static void tryGetResult(ContextEl _conf, MethodOperation _to, boolean _abs, boolean _okNum) {
+    static void tryGetResult(MethodOperation _to, boolean _abs, boolean _okNum, AnalyzedPageEl _page) {
         if (!_okNum) {
             return;
         }
@@ -58,19 +58,19 @@ public abstract class QuickOperation extends MethodOperation {
         Struct v_ = f_.getStruct();
         if (_abs) {
             if (BooleanStruct.isTrue(v_)) {
-                _to.setSimpleArgumentAna(f_, _conf);
+                _to.setSimpleArgumentAna(f_, _page);
                 return;
             }
         } else {
             if (BooleanStruct.isFalse(v_)) {
-                _to.setSimpleArgumentAna(f_, _conf);
+                _to.setSimpleArgumentAna(f_, _page);
                 return;
             }
         }
         if (s_ == null) {
             return;
         }
-        _to.setSimpleArgumentAna(s_, _conf);
+        _to.setSimpleArgumentAna(s_, _page);
     }
     @Override
     public final void analyze(ContextEl _conf) {

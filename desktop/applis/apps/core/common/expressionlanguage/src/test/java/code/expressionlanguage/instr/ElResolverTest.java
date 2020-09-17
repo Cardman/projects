@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.Classes;
 
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.util.*;
@@ -5451,18 +5450,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static OperationsSequence getOperationsSequence(AnalyzedTestContext conf_, String el_, Delimiters d_, int _offset) {
-        return ElResolver.getOperationsSequence(_offset, el_, conf_.getContext(), d_);
+        return ElResolver.getOperationsSequence(_offset, el_, conf_.getContext(), d_, conf_.getAnalyzing());
     }
     private AnalyzedTestContext contextEl() {
         return ctxAna();
     }
 
     private static Delimiters checkSyntax(AnalyzedTestContext conf_, String el_) {
-        return ElResolver.checkSyntax(el_, conf_.getContext(), 0);
+        return ElResolver.checkSyntax(el_, conf_.getContext(), 0, conf_.getAnalyzing());
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext conf_, String el_, int _minIndex) {
-        return ElResolver.checkSyntaxDelimiters(el_, conf_.getContext(), _minIndex);
+        return ElResolver.checkSyntaxDelimiters(el_, conf_.getContext(), _minIndex, conf_.getAnalyzing());
     }
 
     private static RootBlock getAnaClassBody(AnalyzedTestContext classes_, String _className) {

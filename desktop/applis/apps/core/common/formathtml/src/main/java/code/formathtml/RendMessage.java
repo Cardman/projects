@@ -59,7 +59,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             } else {
                 escaped.add(false);
             }
-            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc));
+            opExp.add(RenderExpUtil.getAnalyzedOperations(attribute_,offMessage_,0,_cont, _anaDoc, _cont.getContext().getAnalyzing()));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_cont.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -76,7 +76,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(_cont.getStandards().getAliasPrimInteger());
-                _cont.getLocalVars().addEntry(v,lv_);
+                _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
             }
             for (EntryCust<String,String> e: preformatted.entryList()) {
@@ -93,7 +93,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                             if (href_.indexOf('(') == CustList.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringList.concat(href_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
                             }
-                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc);
+                            CustList<RendDynOperationNode> expsCall_ = RenderExpUtil.getAnalyzedOperations(href_,offMessage_, 1, _cont, _anaDoc, _cont.getContext().getAnalyzing());
                             callExpsLoc_.add(expsCall_);
                         } else {
                             callExpsLoc_.add(new CustList<RendDynOperationNode>());
@@ -114,7 +114,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl, Re
                 locDoc.addEntry(e.getKey(),docLoc_);
             }
             for (String v:varNames_) {
-                _cont.getLocalVars().removeKey(v);
+                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
             }
 
         }

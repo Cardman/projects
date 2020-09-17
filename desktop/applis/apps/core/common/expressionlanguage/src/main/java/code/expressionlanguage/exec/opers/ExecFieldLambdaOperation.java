@@ -28,8 +28,8 @@ public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation 
         staticField = _l.isStaticField();
         finalField = _l.isFinalField();
         affField = _l.isAffField();
-        rootBlock = fetchType(_cont,_l.getRootNumber());
-        infoBlock = fetchField(_l, _cont);
+        rootBlock = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
+        infoBlock = fetchField(_l, _cont.getAnalyzing());
     }
 
     @Override

@@ -66,7 +66,7 @@ public abstract class RendBlock implements AnalyzedBlock {
 
     static String inferOrObject(Configuration _an, String _type) {
         String t_ = _type;
-        if (StringList.quickEq(_type,_an.getKeyWords().getKeyWordVar())) {
+        if (StringList.quickEq(_type, _an.getContext().getAnalyzing().getKeyWords().getKeyWordVar())) {
             t_ = _an.getStandards().getAliasObject();
         }
         return t_;

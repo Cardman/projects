@@ -18,7 +18,7 @@ public final class ExecValuesOperation extends ExecLeafOperation implements
     public ExecValuesOperation(ValuesOperation _v, ContextEl _cont) {
         super(_v);
         argOffset = _v.getArgOffset();
-        rootBlock = fetchType(_cont, _v.getNumberEnum());
+        rootBlock = fetchType(_v.getNumberEnum(), _cont.getAnalyzing());
     }
 
 

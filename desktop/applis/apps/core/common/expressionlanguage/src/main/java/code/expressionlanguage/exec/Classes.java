@@ -65,17 +65,16 @@ public final class Classes {
     	}
     }
     /**Resources are possibly added before analyzing file types*/
-    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context) {
-        validateWithoutInit(_files, _context);
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        ReportedMessages messages_ = page_.getMessages();
-        if (!page_.isEmptyErrors()) {
+    public static ReportedMessages validateAll(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page) {
+        validateWithoutInit(_files, _context, _page);
+        ReportedMessages messages_ = _page.getMessages();
+        if (!_page.isEmptyErrors()) {
             //all errors are logged here
             return messages_;
         }
-        forwardAndClear(_context, page_);
-        AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
-        Options options_ = page_.getOptions();
+        forwardAndClear(_context, _page);
+        AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
+        Options options_ = _page.getOptions();
         _context.setNullAnalyzing();
         tryInitStaticlyTypes(_context,analysisMessages_,messages_, options_);
         return messages_;
@@ -85,17 +84,16 @@ public final class Classes {
         _context.forwardAndClear(_analyzing);
     }
 
-    public static void validateWithoutInit(StringMap<String> _files, ContextEl _context) {
-        AnalyzedPageEl page_ = _context.getAnalyzing();
-        if (!page_.isEmptyErrors()) {
+    public static void validateWithoutInit(StringMap<String> _files, ContextEl _context, AnalyzedPageEl _page) {
+        if (!_page.isEmptyErrors()) {
             //all standards errors are logged here
             return;
         }
         ClassesUtil.buildAllBracesBodies(_files,_context);
         ClassesUtil.postValidation(_context);
-        if (page_.isGettingErrors()) {
-            ReportedMessages messages_ = page_.getMessages();
-            messages_.setErrors(ExecFileBlock.errors(page_));
+        if (_page.isGettingErrors()) {
+            ReportedMessages messages_ = _page.getMessages();
+            messages_.setErrors(ExecFileBlock.errors(_page));
         }
     }
 

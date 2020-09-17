@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -133,7 +134,7 @@ public abstract class RendDynOperationNode {
         return indexBegin;
     }
 
-    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont) {
+    public static RendDynOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont, AnalyzedPageEl _page) {
         if (_anaNode instanceof InternGlobalOperation) {
             InternGlobalOperation m_ = (InternGlobalOperation) _anaNode;
             return new RendInternGlobalOperation(m_);
@@ -168,14 +169,14 @@ public abstract class RendDynOperationNode {
                 if (a_.getStandardMethod() != null) {
                     return new RendStdFctOperation(i_,a_);
                 }
-                ExecRootBlock rootBlock_ = ExecOperationNode.fetchType(_cont, a_.getRootNumber());
+                ExecRootBlock rootBlock_ = ExecOperationNode.fetchType(a_.getRootNumber(), _page);
                 if (a_.isTrueFalse()) {
                     return new RendExplicitOperation(i_,a_,
-                            ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
+                            ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page),
                             rootBlock_);
                 }
                 if (a_.isStaticMethod()) {
-                    return new RendStaticFctOperation(i_,a_, ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
+                    return new RendStaticFctOperation(i_,a_, ExecOperationNode.fetchFunction(a_.getRootNumber(),a_.getMemberNumber(), _page),
                             rootBlock_);
                 }
                 if (rootBlock_ instanceof ExecAnnotationBlock) {
@@ -201,8 +202,8 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = ExecOperationNode.fetchFunction(_cont, s_.getRootNumber(), s_.getMemberNumber());
-            ExecRootBlock rootBlock_ = ExecOperationNode.fetchType(_cont, s_.getRootNumber());
+            ExecNamedFunctionBlock ctor_ = ExecOperationNode.fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page);
+            ExecRootBlock rootBlock_ = ExecOperationNode.fetchType(s_.getRootNumber(), _page);
             if (rootBlock_ == null) {
                 return new RendDirectStandardInstancingOperation(s_);
             }
@@ -214,9 +215,9 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,a_.getRootNumber());
-            ExecNamedFunctionBlock get_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _cont);
-            ExecNamedFunctionBlock set_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _cont);
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(a_.getRootNumber(), _page);
+            ExecNamedFunctionBlock get_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _page);
+            ExecNamedFunctionBlock set_ = ExecOperationNode.fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _page);
             if (a_.getClassMethodId() != null) {
                 return new RendCustArrOperation(a_, get_,set_,ex_);
             }
@@ -247,24 +248,24 @@ public abstract class RendDynOperationNode {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,c_.getRootNumber());
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(c_.getRootNumber(), _page);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(c_, _cont);
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(c_, _page);
                 return new RendChoiceFctOperation(c_, fct_,ex_);
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,s_.getRootNumber());
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(s_.getRootNumber(), _page);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(s_, _cont);
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(s_, _page);
                 return new RendSuperFctOperation(s_, fct_,ex_);
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(f_, _cont);
-            ExecRootBlock ex_ = ExecOperationNode.fetchType(_cont,f_.getRootNumber());
+            ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(f_, _page);
+            ExecRootBlock ex_ = ExecOperationNode.fetchType(f_.getRootNumber(), _page);
             if (ex_ != null) {
                 return new RendFctOperation(f_, fct_,ex_);
             }
@@ -322,7 +323,7 @@ public abstract class RendDynOperationNode {
             if (s_.getFieldId() == null) {
                 return new RendErrorParentOperation(_anaNode);
             }
-            return new RendSettableFieldOperation(s_,ExecOperationNode.fetchType(_cont,s_.getRootNumber()));
+            return new RendSettableFieldOperation(s_,ExecOperationNode.fetchType(s_.getRootNumber(), _page));
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -371,8 +372,8 @@ public abstract class RendDynOperationNode {
             }
             if (n_.getClassMethodId() != null) {
                 return new RendCustNumericOperation(n_, _anaNode,
-                        ExecOperationNode.fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),
-                        ExecOperationNode.fetchType(_cont,n_.getRootNumber()));
+                        ExecOperationNode.fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _page),
+                        ExecOperationNode.fetchType(n_.getRootNumber(), _page));
             }
         }
         if (_anaNode instanceof UnaryOperation) {
@@ -386,14 +387,14 @@ public abstract class RendDynOperationNode {
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new RendExplicitOperation(m_,
-                    ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
-                    ExecOperationNode.fetchType(_cont,m_.getRootNumber()));
+                    ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
+                    ExecOperationNode.fetchType(m_.getRootNumber(), _page));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
             return new RendImplicitOperation(m_,
-                    ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
-                    ExecOperationNode.fetchType(_cont,m_.getRootNumber()));
+                    ExecOperationNode.fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
+                    ExecOperationNode.fetchType(m_.getRootNumber(), _page));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;

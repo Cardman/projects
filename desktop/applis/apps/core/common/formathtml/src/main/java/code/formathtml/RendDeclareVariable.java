@@ -40,7 +40,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
         AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_)) {
             importedClassName = keyWordVar_;

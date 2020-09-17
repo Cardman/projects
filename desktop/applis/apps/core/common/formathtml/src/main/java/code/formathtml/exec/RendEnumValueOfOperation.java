@@ -23,7 +23,7 @@ public final class RendEnumValueOfOperation extends RendAbstractUnaryOperation i
         super(_e);
         className = _e.getClassName();
         argOffset = _e.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_cont, _e.getNumberEnum());
+        rootBlock = ExecOperationNode.fetchType(_e.getNumberEnum(), _cont.getAnalyzing());
     }
 
 

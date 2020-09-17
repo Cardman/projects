@@ -93,10 +93,10 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
 
     @Override
     public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this,classMethodId,oper,_conf);
+        tryGetArg(this,classMethodId,oper, _conf.getAnalyzing());
     }
 
-    public static void tryGetArg(MethodOperation _par, ClassMethodId _m,String _oper,ContextEl _conf) {
+    private static void tryGetArg(MethodOperation _par, ClassMethodId _m, String _oper, AnalyzedPageEl _page) {
         if (_m != null) {
             return;
         }
@@ -107,14 +107,14 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             return;
         }
         ClassArgumentMatching to_ = _par.getResultClass();
-        LgNames stds_ = _conf.getAnalyzing().getStandards();
+        LgNames stds_ = _page.getStandards();
         Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
             out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(nb_), to_, stds_));
         } else {
             out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(nb_), to_, stds_));
         }
-        _par.setSimpleArgumentAna(out_, _conf);
+        _par.setSimpleArgumentAna(out_, _page);
     }
 
     @Override

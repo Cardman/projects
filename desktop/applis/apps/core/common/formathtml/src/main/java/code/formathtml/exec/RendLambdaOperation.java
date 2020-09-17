@@ -61,12 +61,12 @@ public final class RendLambdaOperation extends RendLeafOperation implements Rend
         expCast = _l.isExpCast();
         fileName = _l.getFileName();
         if (method == null && realId == null) {
-            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l,_cont);
+            annotableBlock = ExecAbstractLambdaOperation.fetchField(_l, _cont.getAnalyzing());
         } else {
-            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
-            function = ExecAbstractLambdaOperation.fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+            functionBlock = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+            function = ExecAbstractLambdaOperation.fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
         }
-        declaring = ExecAbstractLambdaOperation.fetchType(_cont,_l.getRootNumber());
+        declaring = ExecAbstractLambdaOperation.fetchType(_l.getRootNumber(), _cont.getAnalyzing());
     }
 
     @Override

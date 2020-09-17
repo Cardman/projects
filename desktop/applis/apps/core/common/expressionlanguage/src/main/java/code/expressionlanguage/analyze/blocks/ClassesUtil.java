@@ -62,8 +62,8 @@ public final class ClassesUtil {
         for (EntryCust<RootBlock,ExecRootBlock> e: page_.getMapTypes().entryList()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(_context, e.getKey());
             if (resDyn_.isFoundMethod()) {
-                ExecRootBlock ex_ = ExecOperationNode.fetchType(_context,resDyn_.getRootNumber());
-                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(),_context);
+                ExecRootBlock ex_ = ExecOperationNode.fetchType(resDyn_.getRootNumber(), _context.getAnalyzing());
+                ExecNamedFunctionBlock fct_ = ExecOperationNode.fetchFunction(resDyn_.getRootNumber(),resDyn_.getMemberNumber(), _context.getAnalyzing());
                 String fullName_ = e.getKey().getFullName();
                 toStringMethodsToCallBodies_.addEntry(fullName_,new PolymorphMethod(ex_,fct_));
                 page_.getToStringOwners().add(fullName_);
@@ -100,7 +100,7 @@ public final class ClassesUtil {
                     continue;
                 }
                 MethodId id_ = key_.getId();
-                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(),_context));
+                ClassMethodIdOverride override_ = new ClassMethodIdOverride(ExecOperationNode.fetchFunction(root_.getNumberAll(),key_.getNameNumber(), _context.getAnalyzing()));
                 StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(root_, id_, _context);
                 map_.putAllMap(key_.getOverrides());
                 for (EntryCust<String,GeneStringOverridable> g: map_.entryList()) {
@@ -119,7 +119,7 @@ public final class ClassesUtil {
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(),_context), root_.getFullName());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _context.getAnalyzing()), root_.getFullName());
                             if (val_ == null) {
                                 FoundErrorInterpret err_;
                                 err_ = new FoundErrorInterpret();
@@ -145,7 +145,7 @@ public final class ClassesUtil {
                     for (OverridableBlock m: ClassesUtil.getMethodExecBlocks(superBl_)) {
                         if (m.isAbstractMethod()) {
                             ExecRootBlock ex_ = page_.getMapTypes().getValue(superBl_.getNumberAll());
-                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(),_context), root_.getFullName());
+                            ExecOverrideInfo val_ = ex_.getRedirections().getVal(ExecOperationNode.fetchFunction(superBl_.getNumberAll(),m.getNameNumber(), _context.getAnalyzing()), root_.getFullName());
                             if (val_ == null) {
                                 ExecOverridableBlock value_ = page_.getMapMembers().getValue(superBl_.getNumberAll()).getAllMethods().getValue(m.getNameOverrideNumber());
                                 e.getValue().getFunctionalBodies().add(new ExecFunctionalInfo(s.getFormatted(),value_));
@@ -1961,11 +1961,11 @@ public final class ClassesUtil {
             }
             ExecRootBlock value_ = _context.getAnalyzing().getMapTypes().getValue(i.getNumberAll());
             if (i instanceof UniqueRootedBlock && genericClasses_.size() > 1) {
-                value_.setUniqueType(ExecOperationNode.fetchType(_context,genericClasses_.get(1).getRootBlock().getNumberAll()));
+                value_.setUniqueType(ExecOperationNode.fetchType(genericClasses_.get(1).getRootBlock().getNumberAll(), _context.getAnalyzing()));
             }
             ConstructorBlock emptyCtor_ = i.getEmptyCtor();
             if (emptyCtor_ != null) {
-                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(),_context));
+                value_.setEmptyCtor(ExecOperationNode.fetchFunction(i.getNumberAll(),emptyCtor_.getNameNumber(), _context.getAnalyzing()));
             }
             i.getAllGenericClassesInfo().addAllElts(genericClasses_);
         }

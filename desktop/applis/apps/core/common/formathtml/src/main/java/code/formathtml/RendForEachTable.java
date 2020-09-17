@@ -183,7 +183,7 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrMap());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont, _anaDoc);
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
     }
 
     public void checkIterableCandidates(StringList _types, Configuration _cont, AnalyzingDoc _anaDoc) {
@@ -295,13 +295,13 @@ public final class RendForEachTable extends RendParentBlock implements RendLoop,
     }
 
     private boolean toInferFirst(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameFirst.trim(), keyWordVar_) || classNameFirst.trim().isEmpty();
     }
 
     private boolean toInferSecond(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(classNameSecond.trim(), keyWordVar_) || classNameSecond.trim().isEmpty();
     }

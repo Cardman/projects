@@ -1,6 +1,7 @@
 package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -31,7 +32,7 @@ public final class PreparedRenderedPages implements Runnable {
         PokemonStandards stds_ = new PokemonStandards();
         beanNatLgNames = stds_;
         String content_ = ResourceFiles.ressourceFichier(conf);
-        navigation.loadConfiguration(content_,"", stds_);
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", stds_);
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = navigation.getSession();
         for (String a: session_.getAddedFiles()) {
@@ -49,7 +50,7 @@ public final class PreparedRenderedPages implements Runnable {
         String rel_ = StringList.concat(relative,realFilePath_);
         files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit();
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_);
         ok = reportedMessages_.isAllEmptyErrors();
     }
 

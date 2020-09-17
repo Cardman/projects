@@ -11,7 +11,7 @@ public final class AndOperation extends QuickOperation {
 
     @Override
     public void tryCalculateNode(ContextEl _conf) {
-        tryGetResult(_conf, this, false, isOkNum());
+        tryGetResult(this, false, isOkNum(), _conf.getAnalyzing());
     }
 
 

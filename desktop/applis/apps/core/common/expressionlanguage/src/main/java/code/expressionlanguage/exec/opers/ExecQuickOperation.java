@@ -24,8 +24,8 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         super(_q);
         kind = getKind(_q.getClassMethodId());
         className = getType(_q.getClassMethodId());
-        named = fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
-        rootBlock = fetchType(_context,_q.getRootNumber());
+        named = fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = fetchType(_q.getRootNumber(), _context.getAnalyzing());
         converter = fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
     }
     @Override

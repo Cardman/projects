@@ -106,7 +106,7 @@ public abstract class CommonRender {
     }
 
     protected static AnalyzedPageEl getHeaders(StringMap<String> _files,AnalyzedTestContext _cont) {
-        Classes.validateWithoutInit(_files,_cont.getContext());
+        Classes.validateWithoutInit(_files,_cont.getContext(), _cont.getAnalyzing());
         return _cont.getAnalyzing();
     }
 
@@ -232,11 +232,11 @@ public abstract class CommonRender {
     }
 
     protected static OperationNode rendOp3(int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationsSequence opTwo_) {
-        return RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf.getConfiguration(), _analyzingDoc);
+        return RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf.getConfiguration(), _analyzingDoc, _conf.getAnalyzing());
     }
 
     protected static OperationNode rendOp2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_.getConfiguration(), analyzingDoc_);
+        return RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_.getConfiguration(), analyzingDoc_, conf_.getAnalyzing());
     }
 
     protected static OperationsSequence rendOpSeq2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
@@ -244,27 +244,27 @@ public abstract class CommonRender {
     }
 
     private static OperationsSequence rendOpSeq3(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
-        return RenderExpUtil.getOperationsSequence(i, el_, conf_.getConfiguration(), d_, analyzingDoc_);
+        return RenderExpUtil.getOperationsSequence(i, el_, conf_.getConfiguration(), d_, analyzingDoc_, conf_.getAnalyzing());
     }
 
     protected static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationNode op_) {
-        return RenderExpUtil.getSortedDescNodes(op_, _conf.getConfiguration(), _analyzingDoc);
+        return RenderExpUtil.getSortedDescNodes(op_, _conf.getConfiguration(), _analyzingDoc, _conf.getAnalyzing());
     }
 
     protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
-        return RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
+        return RenderExpUtil.getExecutableNodes(_ops,_an.getContext(), _an.getAnalyzing());
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String el_, AnalyzedTestConfiguration ctx_, Delimiters d_) {
-        return ElResolver.getOperationsSequence(_offset, el_, ctx_.getContext(), d_);
+        return ElResolver.getOperationsSequence(_offset, el_, ctx_.getContext(), d_, ctx_.getAnalyzing());
     }
 
     protected static Delimiters checkSyntax(AnalyzedTestConfiguration ctx_, String elr_, int _off) {
-        return ElResolver.checkSyntax(elr_, ctx_.getContext(), _off);
+        return ElResolver.checkSyntax(elr_, ctx_.getContext(), _off, ctx_.getAnalyzing());
     }
 
     protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence opTwo_, AnalyzedTestConfiguration ctx_) {
-        return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getContext());
+        return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getContext(), ctx_.getAnalyzing());
     }
 
     protected static void setup(String folder_, String relative_, Configuration conf_) {
@@ -290,14 +290,14 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -321,7 +321,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
@@ -332,7 +332,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -356,7 +356,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, conf_);
@@ -367,7 +367,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -391,7 +391,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setup(folder_, relative_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
@@ -399,7 +399,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -423,14 +423,14 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,context_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         context_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,context_);
@@ -453,7 +453,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setup(folder_, relative_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
@@ -461,7 +461,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -484,7 +484,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(new StringMap<String>(), cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, conf_);
@@ -495,7 +495,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -517,7 +517,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
@@ -528,7 +528,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         conf_.setDocument(doc_);
         tryInitStaticlyTypes(cont_,conf_);
@@ -551,14 +551,14 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         getHeaders(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,context_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -575,7 +575,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
@@ -586,7 +586,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -603,7 +603,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setup(folder_, relative_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
@@ -611,7 +611,7 @@ public abstract class CommonRender {
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -630,11 +630,12 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -643,7 +644,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,context_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,context_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_).getStruct();
@@ -669,14 +670,15 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -685,7 +687,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -711,13 +713,14 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -726,7 +729,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -751,14 +754,15 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -767,7 +771,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -784,11 +788,12 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -797,7 +802,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_, "c:", doc_, html_);
         context_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,context_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(context_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -814,13 +819,14 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -829,7 +835,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html",rendDocumentBlock_);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
     protected static String getAncOneBean(String folder_, String relative_, String html_, StringMap<String> files_, StringMap<String> filesSec_) {
@@ -845,14 +851,15 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
         setFiles(files_, conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -861,7 +868,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -901,7 +908,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_, "page1.html");
@@ -909,7 +916,8 @@ public abstract class CommonRender {
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -918,7 +926,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -943,14 +951,15 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         simpleSetup(folder_, relative_, conf_);
         setFiles(files_,conf_);
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_, analyzingDoc_);
+        AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,cont_.getAnalyzing());
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -959,7 +968,7 @@ public abstract class CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_, "c:", doc_, html_);
         conf_.getRenders().put("page1.html", rendDocumentBlock_1);
         setLocalFiles(cont_,conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(cont_,conf_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_).getStruct();
@@ -1008,7 +1017,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1040,7 +1049,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1069,7 +1078,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1106,7 +1115,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1150,7 +1159,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1188,7 +1197,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1227,7 +1236,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1259,7 +1268,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1299,7 +1308,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1343,7 +1352,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1391,7 +1400,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1425,7 +1434,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1454,7 +1463,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableExUtil.formatFile(folder_, locale_, relative_), content_);
@@ -1486,7 +1495,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, s);
         Navigation nav_ = newNavigation(conf_);
@@ -1511,7 +1520,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
         setupFirstUrl(folder_, relative_, conf_, "page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1536,8 +1545,8 @@ public abstract class CommonRender {
     protected static void analyze(AnalyzedTestContext _cont,Navigation _nav) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         setupAna(new AnalyzingDoc(), _cont.getAnalyzing());
-        _nav.initInstancesPattern();
-        _nav.setupRenders();
+        _nav.initInstancesPattern(_cont.getAnalyzing());
+        _nav.setupRenders(_cont.getAnalyzing());
     }
 
     protected static void setupFirstUrl(String folder_, String relative_, Configuration conf_, String _firstUrl) {
@@ -1557,7 +1566,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(new StringMap<String>(), cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
@@ -1571,8 +1580,8 @@ public abstract class CommonRender {
         conf_2.getRenders().put("page2.html",rendSecDocumentBlock_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_);
-        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_, cont_.getAnalyzing());
+        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         conf_2.setDocument(doc_);
@@ -1594,7 +1603,7 @@ public abstract class CommonRender {
         conf_1.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(new StringMap<String>(), cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_1);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration conf_ = conf_1;
 
         setup(folder_, relative_, conf_);
@@ -1608,8 +1617,8 @@ public abstract class CommonRender {
         conf_2.getRenders().put("page2.html",rendSecDocumentBlock_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_);
-        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_2, analyzingDoc_, cont_.getAnalyzing());
+        rendSecDocumentBlock_.buildFctInstructions(conf_2, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         conf_2.setDocument(doc_);
@@ -1632,7 +1641,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1640,13 +1649,13 @@ public abstract class CommonRender {
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         context_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
@@ -1657,8 +1666,8 @@ public abstract class CommonRender {
         context_1.getRenders().put("page1.html", rendDocumentBlock_1);
         context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
@@ -1686,7 +1695,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1694,13 +1703,13 @@ public abstract class CommonRender {
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         context_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
@@ -1711,8 +1720,8 @@ public abstract class CommonRender {
         context_1.getRenders().put("page1.html", rendDocumentBlock_1);
         context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
@@ -1739,7 +1748,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1747,7 +1756,7 @@ public abstract class CommonRender {
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b_ = new BeanInfo();
         b_.setClassName("pkg.BeanOne");
         b_.setExps(ops_);
@@ -1758,8 +1767,8 @@ public abstract class CommonRender {
         context_1.getRenders().put("page1.html", rendDocumentBlock_1);
         context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, context_1).getStruct();
@@ -1786,7 +1795,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1795,19 +1804,19 @@ public abstract class CommonRender {
         Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         Configuration conf_1 = a_.getConfiguration();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
         b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_two", b2_);
-        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops3_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanThree()");
         BeanInfo b3_ = new BeanInfo();
         b3_.setExps(ops3_);
         b3_.setClassName("pkg.BeanThree");
@@ -1820,9 +1829,9 @@ public abstract class CommonRender {
         conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_1).getStruct();
@@ -1838,6 +1847,10 @@ public abstract class CommonRender {
         return getException(context_);
     }
 
+    private static CustList<RendDynOperationNode> getAnalyzedOperations(AnalyzingDoc analyzingDoc_, AnalyzedTestConfiguration conf_1, String _el) {
+        return RenderExpUtil.getAnalyzedOperations(_el, 0, conf_1.getConfiguration(), analyzingDoc_, conf_1.getAnalyzing());
+    }
+
     protected static String getResThreeBean(String folder_, String relative_, String html_, String htmlTwo_, String htmlThree_, StringMap<String> filesSec_, String _currentUrl) {
         Configuration conf_ =  EquallableExUtil.newConfiguration();
         conf_.setPrefix("c:");
@@ -1851,7 +1864,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1860,19 +1873,19 @@ public abstract class CommonRender {
         Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         Configuration conf_1 = a_.getConfiguration();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
         b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_two", b2_);
-        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops3_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanThree()");
         BeanInfo b3_ = new BeanInfo();
         b3_.setExps(ops3_);
         b3_.setClassName("pkg.BeanThree");
@@ -1885,9 +1898,9 @@ public abstract class CommonRender {
         conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         tryInitStaticlyTypes(a_);
         Struct bean_ = RenderExpUtil.calculateReuse(ops_, conf_1).getStruct();
@@ -1918,7 +1931,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1927,19 +1940,19 @@ public abstract class CommonRender {
         Document docThird_ = DocumentBuilder.parseSaxNotNullRowCol(htmlThree_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         Configuration conf_1 = a_.getConfiguration();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
         b2_.setResolvedClassName(ops2_.last().getResultClass().getSingleNameOrEmpty());
         conf_1.getBeansInfos().addEntry("bean_two", b2_);
-        CustList<RendDynOperationNode> ops3_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanThree()", 0, conf_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops3_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanThree()");
         BeanInfo b3_ = new BeanInfo();
         b3_.setExps(ops3_);
         b3_.setClassName("pkg.BeanThree");
@@ -1952,9 +1965,9 @@ public abstract class CommonRender {
         conf_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         conf_1.getRenders().put("page3.html",rendDocumentBlockThird_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_);
-        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockThird_.buildFctInstructions(conf_1, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 
@@ -1971,7 +1984,7 @@ public abstract class CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         setup(folder_, relative_, context_);
         AnalyzedTestConfiguration a_ = new AnalyzedTestConfiguration(conf_,page_);
@@ -1979,13 +1992,13 @@ public abstract class CommonRender {
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(html_).getDocument();
         Document docSec_ = DocumentBuilder.parseSaxNotNullRowCol(htmlTwo_).getDocument();
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        CustList<RendDynOperationNode> ops_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanOne()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanOne()");
         BeanInfo b1_ = new BeanInfo();
         b1_.setExps(ops_);
         b1_.setClassName("pkg.BeanOne");
         b1_.setResolvedClassName(ops_.last().getResultClass().getSingleNameOrEmpty());
         context_1.getBeansInfos().addEntry("bean_one",b1_);
-        CustList<RendDynOperationNode> ops2_ = RenderExpUtil.getAnalyzedOperations("$new pkg.BeanTwo()", 0, context_1, analyzingDoc_);
+        CustList<RendDynOperationNode> ops2_ = getAnalyzedOperations(analyzingDoc_, a_, "$new pkg.BeanTwo()");
         BeanInfo b2_ = new BeanInfo();
         b2_.setExps(ops2_);
         b2_.setClassName("pkg.BeanTwo");
@@ -1996,8 +2009,8 @@ public abstract class CommonRender {
         context_1.getRenders().put("page1.html",rendDocumentBlock_);
         context_1.getRenders().put("page2.html",rendDocumentBlockSec_);
         setLocalFiles(a_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_1, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(context_1, analyzingDoc_, cont_.getAnalyzing());
         return !isEmptyErrors(cont_);
     }
 

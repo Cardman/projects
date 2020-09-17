@@ -61,9 +61,9 @@ public final class BitShiftRightOperation extends NumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
-                              ContextEl _an) {
+                              AnalyzedPageEl _page) {
         return new Argument(AliasNumber.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _an.getAnalyzing().getStandards()));
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _page.getStandards()));
     }
 
     @Override

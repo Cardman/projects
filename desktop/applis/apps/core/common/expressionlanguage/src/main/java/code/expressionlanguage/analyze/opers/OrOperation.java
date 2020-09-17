@@ -11,7 +11,7 @@ public final class OrOperation extends QuickOperation {
 
     @Override
     public void tryCalculateNode(ContextEl _conf) {
-        tryGetResult(_conf, this, true, isOkNum());
+        tryGetResult(this, true, isOkNum(), _conf.getAnalyzing());
     }
 
 

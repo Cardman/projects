@@ -46,7 +46,7 @@ public final class ElUtil {
         if (d_.getBadOffset() >= 0) {
             return names_;
         }
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
+        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_, _conf.getAnalyzing());
         if (opTwo_.getOperators().isEmpty()) {
             for (EntryCust<Integer,String> e: opTwo_.getValues().entryList()) {
                 String var_ = e.getValue();
@@ -128,7 +128,7 @@ public final class ElUtil {
         page_.setAccessStaticContext(hiddenVarTypes_);
         page_.setCurrentEmptyPartErr("");
         page_.setCurrentRoot(null);
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX, page_);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -145,7 +145,7 @@ public final class ElUtil {
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
             page_.setCurrentRoot(e_);
-            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf));
+            return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf, page_));
         }
         OperationNode op_;
         if (badOffset_ >= 0) {
@@ -153,15 +153,15 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_, page_);
+            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf, page_);
         }
         String fieldName_ = _calcul.getFieldName();
         boolean hasFieldName_ = _calcul.isHasFieldName();
         setupStaticContext(_conf, hiddenVarTypes_, op_);
         setSyntheticRoot(op_, hasFieldName_);
         CustList<OperationNode> all_ = getSortedDescNodesReadOnly(op_, _conf,fieldName_,hasFieldName_);
-        return getExecutableNodes(_conf,all_);
+        return getExecutableNodes(_conf,all_, page_);
     }
 
 
@@ -169,7 +169,7 @@ public final class ElUtil {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         page_.setAccessStaticContext(hiddenVarTypes_);
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX);
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf, CustList.FIRST_INDEX, page_);
         page_.getMapAnonymous().removeLast();
         page_.getMapAnonymousLambda().removeLast();
         int badOffset_ = d_.getBadOffset();
@@ -197,8 +197,8 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_);
-            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, _el, _conf, d_, page_);
+            op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _conf, page_);
         }
         String fieldName_ = _calcul.getFieldName();
         return getSortedDescNodesReadOnly(op_, _conf,fieldName_,false);
@@ -387,8 +387,8 @@ public final class ElUtil {
             opSeq_.setDelimiter(d_);
             return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context);
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_, _context.getAnalyzing());
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _index, block_, r_, _context, _context.getAnalyzing());
         setFieldName(_fieldName, block_, op_,_hasFieldName);
         return op_;
     }
@@ -416,8 +416,8 @@ public final class ElUtil {
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context);
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _context, d_, _context.getAnalyzing());
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context, _context.getAnalyzing());
         setFieldName(_fieldName, p_, op_,_hasFieldName);
         return op_;
     }
@@ -623,22 +623,21 @@ public final class ElUtil {
             ind_ = getNextIndex(curr_, a_.getStruct());
         }
     }
-    private static CustList<ExecOperationNode> getExecutableNodes(ContextEl _an,CustList<OperationNode> _list) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
-        Block bl_ = page_.getCurrentBlock();
+    private static CustList<ExecOperationNode> getExecutableNodes(ContextEl _an, CustList<OperationNode> _list, AnalyzedPageEl _page) {
+        Block bl_ = _page.getCurrentBlock();
         CustList<ExecOperationNode> out_ = new CustList<ExecOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an);
-        setImplicits(exp_,_an);
-        page_.setCurrentRoot(root_);
-        page_.getCoverage().putBlockOperation(page_, bl_, current_,exp_);
+        ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an, _page);
+        setImplicits(exp_, _page);
+        _page.setCurrentRoot(root_);
+        _page.getCoverage().putBlockOperation(_page, bl_, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
-                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
-                setImplicits(loc_,_an);
-                page_.getCoverage().putBlockOperation(page_, bl_, op_,loc_);
+                ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an, _page);
+                setImplicits(loc_, _page);
+                _page.getCoverage().putBlockOperation(_page, bl_, op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -657,9 +656,9 @@ public final class ElUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an);
-                    setImplicits(loc_,_an);
-                    page_.getCoverage().putBlockOperation(page_, bl_, op_,loc_);
+                    ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an, _page);
+                    setImplicits(loc_, _page);
+                    _page.getCoverage().putBlockOperation(_page, bl_, op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof ExecPossibleIntermediateDotted) {
@@ -695,23 +694,23 @@ public final class ElUtil {
         }
         return out_;
     }
-    public static void setImplicits(ExecOperationNode _ex, ContextEl _context){
+    public static void setImplicits(ExecOperationNode _ex, AnalyzedPageEl _page){
         ClassArgumentMatching resultClass_ = _ex.getResultClass();
         ImplicitMethods implicits_ = _ex.getImplicits();
         ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        setImplicits(_context, resultClass_, implicits_, implicitsTest_);
+        setImplicits(resultClass_, implicits_, implicitsTest_, _page);
     }
 
-    public static void setImplicits(ContextEl _context, ClassArgumentMatching resultClass_, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp) {
+    public static void setImplicits(ClassArgumentMatching resultClass_, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp, AnalyzedPageEl _page) {
         CustList<ClassMethodId> implicits_ = resultClass_.getImplicits();
         String owner_ = "";
         ExecNamedFunctionBlock conv_ = null;
         if (!implicits_.isEmpty()) {
             owner_ = implicits_.first().getClassName();
-            conv_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(),_context);
+            conv_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(), _page);
         }
         if (conv_ != null) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumber());
+            ExecRootBlock classBody_ = ExecOperationNode.fetchType(resultClass_.getRootNumber(), _page);
             _implicitsOp.getConverter().add(conv_);
             _implicitsOp.setOwnerClass(owner_);
             _implicitsOp.setRootBlock(classBody_);
@@ -721,10 +720,10 @@ public final class ElUtil {
         ExecNamedFunctionBlock convTest_ = null;
         if (!implicitsTest_.isEmpty()) {
             ownerTest_ = implicitsTest_.first().getClassName();
-            convTest_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(),_context);
+            convTest_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(), _page);
         }
         if (convTest_ != null) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_context,resultClass_.getRootNumberTest());
+            ExecRootBlock classBody_ = ExecOperationNode.fetchType(resultClass_.getRootNumberTest(), _page);
             _implicitsTestOp.getConverter().add(convTest_);
             _implicitsTestOp.setOwnerClass(ownerTest_);
             _implicitsTestOp.setRootBlock(classBody_);

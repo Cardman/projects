@@ -27,22 +27,20 @@ public final class AddOperation extends NumericOperation {
     }
 
     @Override
-    Argument calculateOperAna(Argument _a, String _op, Argument _b, ContextEl _cont) {
-        return localSumDiff(_a, _op, _b, _cont);
+    Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page) {
+        return localSumDiff(_a, _op, _b, _page);
     }
 
-    private Argument localSumDiff(Argument _a, String _op, Argument _b,
-                                  ContextEl _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+    private Argument localSumDiff(Argument _a, String _op, Argument _b, AnalyzedPageEl _page) {
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (catString) {
-                return AnaApplyCoreMethodUtil.localSumDiff(_a,_b,_cont);
+                return AnaApplyCoreMethodUtil.localSumDiff(_a,_b, _page);
             }
             return new Argument(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));
+                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _page.getStandards()));
         }
         return new Argument(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));
+                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _page.getStandards()));
     }
     @Override
     ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont) {

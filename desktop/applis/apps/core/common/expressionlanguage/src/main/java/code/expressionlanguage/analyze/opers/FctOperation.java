@@ -376,12 +376,12 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             str_ = NullStruct.NULL_VALUE;
         }
         CustList<Argument> firstArgs_ = quickListArguments(chidren_, _naturalVararg, _lastType, arguments_);
-        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(_conf, _classMethodId, str_, Argument.toArgArray(firstArgs_));
+        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(_classMethodId, str_, _conf.getAnalyzing(), Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }
         Argument arg_ = new Argument(out_);
-        _current.setSimpleArgumentAna(arg_, _conf);
+        _current.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
     }
     public ClassMethodId getClassMethodId() {
         return classMethodId;

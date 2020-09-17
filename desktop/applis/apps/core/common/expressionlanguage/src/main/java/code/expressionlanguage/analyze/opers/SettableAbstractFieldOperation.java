@@ -205,7 +205,7 @@ public abstract class SettableAbstractFieldOperation extends
         if (map_.isEmpty()) {
             ResultErrorStd res_ = page_.getStandards().getSimpleResult(page_, fieldId_);
             Argument arg_ = new Argument(res_.getResult());
-            _oper.setSimpleArgumentAna(arg_,_conf);
+            _oper.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
             trySetDotParent(_conf, _oper, arg_);
             return;
         }
@@ -216,7 +216,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (str_ != null) {
             Argument arg_ = new Argument(str_);
-            _oper.setSimpleArgumentAna(arg_,_conf);
+            _oper.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
             trySetDotParent(_conf, _oper, arg_);
         }
     }
@@ -227,7 +227,7 @@ public abstract class SettableAbstractFieldOperation extends
         }
         if (_oper.getIndexChild() > 0
                 && _oper.getParent() instanceof AbstractDotOperation) {
-            _oper.getParent().setSimpleArgumentAna(_arg,_conf);
+            _oper.getParent().setSimpleArgumentAna(_arg, _conf.getAnalyzing());
         }
     }
 

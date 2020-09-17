@@ -305,7 +305,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             }
         }
         exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-        ElUtil.setImplicits(_exp,_cont);
+        ElUtil.setImplicits(_exp, _cont.getAnalyzing());
     }
 
     public String getImportedClassIndexName() {

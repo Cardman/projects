@@ -58,7 +58,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(context_.getStandards().getAliasDivisionZero(), getClassName(context_));
+        assertEq(getAliasDivisionZero(context_), getClassName(context_));
     }
 
     private static String getClassName(AnalyzedTestConfiguration context_) {
@@ -87,8 +87,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(context_.getStandards().getAliasDivisionZero(), getClassName(context_));
+        assertEq(getAliasDivisionZero(context_), getClassName(context_));
     }
+
+    private static String getAliasDivisionZero(AnalyzedTestConfiguration context_) {
+        return context_.getStandards().getAliasDivisionZero();
+    }
+
     @Test
     public void processEl184Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
@@ -111,7 +116,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
 
     @Test
@@ -136,14 +141,18 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
     @Test
     public void processEl202Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         processEl("$(java.lang.Byte)\"not cast\"", context_);
-        assertEq(context_.getStandards().getAliasCastType(), getClassName2(context_));
+        assertEq(getAliasCastType(context_), getClassName2(context_));
+    }
+
+    private static String getAliasCastType(AnalyzedTestConfiguration context_) {
+        return context_.getStandards().getAliasCastType();
     }
 
     private static String getClassName2(AnalyzedTestConfiguration context_) {
@@ -163,7 +172,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl(el_, context_);
         
         assertNotNull(getException(context_));
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
     @Test
     public void processEl205Test() {
@@ -177,7 +186,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         String el_ = "$($byte)v";
         processEl(el_, context_);
 
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
     @Test
     public void processEl206Test() {
@@ -200,7 +209,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
 
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
     @Test
     public void processEl207Test() {
@@ -223,7 +232,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
 
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
     @Test
     public void processEl208Test() {
@@ -249,7 +258,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
 
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
 
     @Test
@@ -276,7 +285,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         
         calculate(all_, context_);
 
-        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
+        assertEq(getAliasNullPe(context_), getClassName(context_));
     }
 
     @Test
@@ -1252,7 +1261,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
     }
 
     private static String getClassName3(AnalyzedTestConfiguration cont_, Struct cause_) {
@@ -1301,7 +1310,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
     }
     @Test
     public void processEl297Test() {
@@ -1347,7 +1356,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
+        assertEq(getAliasNullPe(cont_), getClassName3(cont_, cause_));
     }
     @Test
     public void processEl298Test() {
@@ -1420,8 +1429,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
 
-        assertEq(cont_.getStandards().getAliasClassNotFoundError(), getClassName2(cont_));
+        assertEq(getAliasClassNotFoundError(cont_), getClassName2(cont_));
     }
+
+    private static String getAliasClassNotFoundError(AnalyzedTestConfiguration cont_) {
+        return cont_.getStandards().getAliasClassNotFoundError();
+    }
+
     @Test
     public void processEl304Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1447,8 +1461,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
 
-        assertEq(cont_.getStandards().getAliasNullPe(), getClassName2(cont_));
+        assertEq(getAliasNullPe(cont_), getClassName2(cont_));
     }
+
+    private static String getAliasNullPe(AnalyzedTestConfiguration cont_) {
+        return cont_.getStandards().getAliasNullPe();
+    }
+
     @Test
     public void processEl306Test() {
         checkSimEx(new StringMap<String>(), "$class(java.lang.String[]).getDeclaredMethods(\"clone\",$false,$false)[0i].invoke(\"\")");
@@ -2305,13 +2324,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         cont_.getContext().setFullStack(new AdvancedFullStack(conf_));
         BeanLgNames standards_ = (BeanLgNames) cont_.getStandards();
         conf_.setStandards(standards_);
-        Classes.validateWithoutInit(_files, cont_.getContext());
+        Classes.validateWithoutInit(_files, cont_.getContext(), cont_.getAnalyzing());
         assertTrue(isEmptyErrors(cont_));
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
         ReportedMessages messages_ = page_.getMessages();
         Classes.tryInitStaticlyTypes(cont_.getContext(),analysisMessages_,messages_, page_.getOptions());
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         return new AnalyzedTestConfiguration(conf_,page_);
     }
 

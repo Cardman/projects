@@ -49,33 +49,33 @@ public final class RendBreakBlock extends RendLeaf implements RendWithEl,RendCal
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getKeyWords().getKeyWordBreak(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordBreak(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordSwitch(),
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             } else {
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getKeyWords().getKeyWordBreak(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordBreak(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordSwitch(),
-                                        _cont.getKeyWords().getKeyWordTry(),
-                                        _cont.getKeyWords().getKeyWordCatch(),
-                                        _cont.getKeyWords().getKeyWordFinally(),
-                                        _cont.getKeyWords().getKeyWordIf(),
-                                        _cont.getKeyWords().getKeyWordElseif(),
-                                        _cont.getKeyWords().getKeyWordElse(),
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordTry(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCatch(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFinally(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordIf(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElseif(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordElse(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             }

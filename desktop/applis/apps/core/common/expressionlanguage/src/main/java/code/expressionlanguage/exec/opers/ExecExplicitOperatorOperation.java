@@ -26,8 +26,8 @@ public final class ExecExplicitOperatorOperation extends ExecInvokingOperation {
 
     public ExecExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
         super(_fct);
-        named = fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
-        rootBlock = fetchType(_context,_fct.getRootNumber());
+        named = fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = fetchType(_fct.getRootNumber(), _context.getAnalyzing());
         kind = getKind(_fct.getClassMethodId());
         className = getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();

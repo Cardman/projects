@@ -1,5 +1,6 @@
 package code.formathtml.errors;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.stds.ErrorCat;
@@ -327,8 +328,8 @@ public final class RendKeyWords {
     private String styleUnitPx="px";
     private String styleUnitEm="em";
     private String styleUnitSolid="solid";
-    public void validateTagContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
+    public void validateTagContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -336,7 +337,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
@@ -344,7 +345,7 @@ public final class RendKeyWords {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                    _cont.addStdError(err_);
+                    _page.addStdError(err_);
                     break;
                 }
             }
@@ -359,7 +360,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
-                _cont.addStdError(err_);
+                _cont.getContext().getAnalyzing().addStdError(err_);
             }
         }
     }
@@ -372,7 +373,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
+                _cont.getContext().getAnalyzing().addStdError(err_);
                 continue;
             }
             if (!StringList.quickEq(key_,ATTR_PARAM)
@@ -381,21 +382,21 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
                 err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
-                _cont.addStdError(err_);
+                _cont.getContext().getAnalyzing().addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
                 if (!StringList.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                    _cont.addStdError(err_);
+                    _cont.getContext().getAnalyzing().addStdError(err_);
                     break;
                 }
             }
         }
     }
-    public void validateValueContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
+    public void validateValueContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -403,12 +404,15 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }
-    public void validateStyleValueContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
+    public void validateStyleValueContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        validateTagContents(_list, _page);
+    }
+    public void validateStyleUnitContents(StringMap<String> _list, AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
         for (EntryCust<String,String> e: _list.entryList()) {
             String key_ = e.getKey();
             String keyWordValue_ = e.getValue();
@@ -416,7 +420,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
+                _page.addStdError(err_);
                 continue;
             }
             for (char c: keyWordValue_.toCharArray()) {
@@ -424,30 +428,7 @@ public final class RendKeyWords {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
                     err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                    _cont.addStdError(err_);
-                    break;
-                }
-            }
-        }
-    }
-    public void validateStyleUnitContents(Configuration _cont, StringMap<String> _list) {
-        AnalysisMessages a_ = _cont.getContext().getAnalyzing().getAnalysisMessages();
-        for (EntryCust<String,String> e: _list.entryList()) {
-            String key_ = e.getKey();
-            String keyWordValue_ = e.getValue();
-            if (keyWordValue_.isEmpty()) {
-                StdWordError err_ = new StdWordError();
-                err_.setMessage(StringList.simpleStringsFormat(a_.getEmptyWord(),key_));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
-                continue;
-            }
-            for (char c: keyWordValue_.toCharArray()) {
-                if (!StringList.isDollarWordChar(c)) {
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringList.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                    _cont.addStdError(err_);
+                    _page.addStdError(err_);
                     break;
                 }
             }
@@ -455,7 +436,7 @@ public final class RendKeyWords {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringList.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
                 err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
-                _cont.addStdError(err_);
+                _page.addStdError(err_);
             }
         }
     }

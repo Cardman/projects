@@ -65,7 +65,7 @@ public final class RenderInitStdsTest extends CommonRender {
         CommonRender.getHeaders(new StringMap<String>(), a_);
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(page_);
         String err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(), conf_).getClassName(contextEl_);
         assertEq(standards_.getAliasBadSize(),err_);
         err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), conf_).getClassName(contextEl_);
@@ -91,7 +91,7 @@ public final class RenderInitStdsTest extends CommonRender {
         CommonRender.getHeaders(_files, a_);
         conf_.setContext(cont_);
         cont_.setFullStack(new AdvancedFullStack(conf_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(page_);
         return isEmptyErrors(a_);
     }
 

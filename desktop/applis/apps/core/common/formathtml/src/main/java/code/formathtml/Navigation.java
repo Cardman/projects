@@ -1,4 +1,5 @@
 package code.formathtml;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
@@ -58,22 +59,23 @@ public final class Navigation {
     public Navigation(){
         //instance
     }
-    public void loadConfiguration(String _cont, String _lgCode,BeanLgNames _lgNames) {
+    public AnalyzedPageEl loadConfiguration(String _cont, String _lgCode,BeanLgNames _lgNames) {
         error = false;
         DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
         Document doc_ = res_.getDocument();
         if (doc_ == null) {
             error = true;
-            return;
+            return null;
         }
         session = new Configuration();
         session.setStandards(_lgNames);
-        ReadConfiguration.load(session,_lgCode,doc_, _lgNames);
+        AnalyzedPageEl page_ = ReadConfiguration.load(session, _lgCode, doc_, _lgNames);
         if (session.getContext() == null) {
             error = true;
-            return;
+            return page_;
         }
         session.init();
+        return page_;
     }
     public boolean isError() {
         return error;
@@ -122,27 +124,27 @@ public final class Navigation {
         setupText(htmlText);
     }
 
-    public ReportedMessages setupRendClassesInit() {
-        return session.getAdvStandards().setupAll(this,session,files);
+    public ReportedMessages setupRendClassesInit(AnalyzedPageEl _page) {
+        return session.getAdvStandards().setupAll(this,session,files, _page);
     }
 
-    public void setupRenders() {
+    public void setupRenders(AnalyzedPageEl _page) {
         BeanLgNames stds_ = session.getAdvStandards();
         stds_.preInitBeans(session);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setLanguages(languages);
         session.setCurrentLanguage(language);
-        session.setupRenders(files, analyzingDoc_);
+        session.setupRenders(files, analyzingDoc_, _page);
     }
 
-    public void initInstancesPattern() {
-        String keyWordNew_ = session.getKeyWords().getKeyWordNew();
+    public void initInstancesPattern(AnalyzedPageEl _page) {
+        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         AnalyzingDoc anaDoc_ = new AnalyzingDoc();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
                     StringList.concat(keyWordNew_, " ", info_.getClassName(), RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session, anaDoc_);
+                    0, session, anaDoc_, _page);
             info_.setResolvedClassName(exps_.last().getResultClass().getSingleNameOrEmpty());
             info_.setExps(exps_);
         }
@@ -150,7 +152,7 @@ public final class Navigation {
             ValidatorInfo v_ = e.getValue();
             CustList<RendDynOperationNode> exps_ = RenderExpUtil.getAnalyzedOperations(
                     StringList.concat(keyWordNew_, " ", v_.getClassName(),RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR),
-                    0, session, anaDoc_);
+                    0, session, anaDoc_, _page);
             v_.setExps(exps_);
         }
     }

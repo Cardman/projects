@@ -40,7 +40,7 @@ public final class ExecAnonymousInstancingOperation extends
     public void setExecAnonymousInstancingOperation(AnonymousInstancingOperation _s,ContextEl _context) {
         setExecAnonymousInstancingOperation(_s);
         rootBlock = _context.getAnalyzing().getMapTypes().getValue(_s.getBlock().getNumberAll());
-        ctor = fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
+        ctor = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf) {

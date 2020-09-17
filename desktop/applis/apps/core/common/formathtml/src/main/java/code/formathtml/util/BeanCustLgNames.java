@@ -229,8 +229,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         getStandards().addEntry(aliasMessage, std_);
     }
 
-    public void buildIterables(Configuration _context) {
-        _context.getImporting().add(new ImportingPage());
+    public void buildIterables(AnalyzedPageEl _page) {
         StringMap<String> args_ = new StringMap<String>();
         StringList l_ = new StringList();
         String locName_ = tr(l_);
@@ -239,21 +238,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsIterator= newCall(iteratorVar,StringList.concat(getAliasIterable(),"<?>"),
                 new ClassMethodId(getAliasIterable(),new MethodId(MethodAccessKind.INSTANCE,simpleIterator_,new StringList(
                 ))),
-                StringList.concat(getAliasIteratorType(),"<?>"), args_,_context);
+                StringList.concat(getAliasIteratorType(),"<?>"), args_, _page);
         locName_ = tr(l_);
         hasNextVar = locName_;
         String hasNext_ = getAliasHasNext();
         expsHasNext= newCall(hasNextVar,StringList.concat(getAliasIteratorType(),"<?>"),
                 new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,hasNext_,new StringList(
                 ))),
-                getAliasPrimBoolean(), args_,_context);
+                getAliasPrimBoolean(), args_, _page);
         locName_ = tr(l_);
         nextVar = locName_;
         String next_ = getAliasNext();
         expsNext= newCall(nextVar,StringList.concat(getAliasIteratorType(),"<?>"),
                 new ClassMethodId(getAliasIteratorType(),new MethodId(MethodAccessKind.INSTANCE,next_,new StringList(
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         String nextPair_ = getAliasNextPair();
         String hasNextPair_ = getAliasHasNextPair();
@@ -262,33 +261,33 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsIteratorTableCust= newCall(iteratorTableVarCust,StringList.concat(getAliasIterableTable(),"<?,?>"),
                 new ClassMethodId(getAliasIterableTable(),new MethodId(MethodAccessKind.INSTANCE,iteratorTable_,new StringList(
                 ))),
-                StringList.concat(getAliasIteratorTableType(),"<?,?>"), args_,_context);
+                StringList.concat(getAliasIteratorTableType(),"<?,?>"), args_, _page);
         locName_ = tr(l_);
         hasNextPairVarCust= locName_;
         expsHasNextPairCust= newCall(hasNextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,hasNextPair_,new StringList(
                 ))),
-                getAliasPrimBoolean(), args_,_context);
+                getAliasPrimBoolean(), args_, _page);
         locName_ = tr(l_);
         nextPairVarCust= locName_;
         expsNextPairCust= newCall(nextPairVarCust,StringList.concat(getAliasIteratorTableType(),"<?,?>"),
                 new ClassMethodId(getAliasIteratorTableType(),new MethodId(MethodAccessKind.INSTANCE,nextPair_,new StringList(
                 ))),
-                StringList.concat(getAliasPairType(),"<?,?>"), args_,_context);
+                StringList.concat(getAliasPairType(),"<?,?>"), args_, _page);
         locName_ = tr(l_);
         firstVarCust= locName_;
         String first_ = getAliasGetFirst();
         expsFirstCust= newCall(firstVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
                 new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,first_,new StringList(
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
         locName_ = tr(l_);
         secondVarCust= locName_;
         String second_ = getAliasGetSecond();
         expsSecondCust= newCall(secondVarCust,StringList.concat(getAliasPairType(),"<?,?>"),
                 new ClassMethodId(getAliasPairType(),new MethodId(MethodAccessKind.INSTANCE,second_,new StringList(
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         beforeDisplayingVar = locName_;
@@ -296,7 +295,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsBeforeDisplaying= newCall(beforeDisplayingVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,beforeDisplaying_,new StringList(
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         putVarCust = locName_;
@@ -313,7 +312,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                         getAliasString(),
                         getAliasObject()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         putAllVarCust = locName_;
@@ -326,7 +325,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,putAll_,new StringList(
                         getAliasStringMapObject()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         getValVar = locName_;
@@ -339,7 +338,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasStringMapObject(),new MethodId(MethodAccessKind.INSTANCE,getVal_,new StringList(
                         getAliasString()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         setFormsVar = locName_;
@@ -352,7 +351,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setForms_,new StringList(
                         getAliasStringMapObject()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         getFormsVar = locName_;
@@ -361,7 +360,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsGetForms= newCall(getFormsVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getForms_,new StringList(
                 ))),
-                getAliasStringMapObject(), args_,_context);
+                getAliasStringMapObject(), args_, _page);
 
         locName_ = tr(l_);
         setDataBaseVar = locName_;
@@ -374,7 +373,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setDataBase_,new StringList(
                         getAliasObject()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         getDataBaseVar = locName_;
@@ -383,7 +382,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsGetDataBase= newCall(getDataBaseVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getDataBase_,new StringList(
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         setScopeVar = locName_;
@@ -396,7 +395,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setScope_,new StringList(
                         getAliasString()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         getScopeVar = locName_;
@@ -405,7 +404,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         expsGetScope= newCall(getScopeVar,getAliasBean(),
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,getScope_,new StringList(
                 ))),
-                getAliasString(), args_,_context);
+                getAliasString(), args_, _page);
 
         locName_ = tr(l_);
         setLanguageVar = locName_;
@@ -418,7 +417,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 new ClassMethodId(getAliasBean(),new MethodId(MethodAccessKind.INSTANCE,setLanguage_,new StringList(
                         getAliasString()
                 ))),
-                getAliasObject(), args_,_context);
+                getAliasObject(), args_, _page);
 
         locName_ = tr(l_);
         validateVar = locName_;
@@ -452,22 +451,21 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                         getAliasString(),
                         getAliasString()
                 ))),
-                getAliasObject(), args_,_context);
-        newInstance(_context.getContext());
-        _context.clearPages();
+                getAliasObject(), args_, _page);
+        newInstance(_page);
     }
 
-    private CustList<RendDynOperationNode> newCall(String _varPrevious,String _previous,
+    private CustList<RendDynOperationNode> newCall(String _varPrevious, String _previous,
                                                    ClassMethodId _id,
                                                    String _res,
-                                                   StringMap<String> _args, Configuration _context) {
+                                                   StringMap<String> _args, AnalyzedPageEl _page) {
         CustList<RendDynOperationNode> ops_ = new CustList<RendDynOperationNode>();
         RendDotOperation dot_ = new RendDotOperation(0,new ClassArgumentMatching(_res),_args.size()+2);
         RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
-        ExecRootBlock classBody_ = _context.getContext().getAnalyzing().getClasses().getClassBody(id_);
+        ExecRootBlock classBody_ = _page.getClasses().getClassBody(id_);
         CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
         ExecNamedFunctionBlock fct_ = list_.first();
         RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
@@ -484,10 +482,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         ops_.add(dot_);
         return ops_;
     }
-    private void newInstance(ContextEl _context) {
+    private void newInstance(AnalyzedPageEl _page) {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = getAliasStringMapObject();
-        ExecRootBlock ex_ = _context.getAnalyzing().getClasses().getClassBody(aliasStringMapObject_);
+        ExecRootBlock ex_ = _page.getClasses().getClassBody(aliasStringMapObject_);
         opsMap.add(new RendStandardInstancingOperation(new ClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false),ex_));
     }
 
@@ -855,19 +853,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
-        setupRendClasses(_conf,_files);
-        _nav.initInstancesPattern();
-        _nav.setupRenders();
-        AnalyzedPageEl page_ = _conf.getContext().getAnalyzing();
-        ReportedMessages messages_ = page_.getMessages();
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {
+        setupRendClasses(_conf,_files, _page);
+        _nav.initInstancesPattern(_page);
+        _nav.setupRenders(_page);
+        ReportedMessages messages_ = _page.getMessages();
         if (!messages_.isAllEmptyErrors()) {
             return messages_;
         }
-        Classes.forwardAndClear(_conf.getContext(), page_);
-        buildIterables(_conf);
-        AnalysisMessages analysisMessages_ = page_.getAnalysisMessages();
-        Options options_ = page_.getOptions();
+        Classes.forwardAndClear(_conf.getContext(), _page);
+        buildIterables(_page);
+        AnalysisMessages analysisMessages_ = _page.getAnalysisMessages();
+        Options options_ = _page.getOptions();
         _conf.setNullAnalyzing();
         _conf.getContext().setFullStack(new DefaultFullStack(_conf.getContext()));
         Classes.tryInitStaticlyTypes(_conf.getContext(),analysisMessages_,messages_, options_);
@@ -875,7 +872,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return messages_;
     }
 
-    private void setupRendClasses(Configuration _conf, StringMap<String> _files) {
+    private void setupRendClasses(Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {
         String conf_ = _conf.getFilesConfName();
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -894,7 +891,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
         }
         //!classFiles_.isEmpty()
-        Classes.validateWithoutInit(classFiles_, _conf.getContext());
+        Classes.validateWithoutInit(classFiles_, _conf.getContext(), _page);
     }
     @Override
     public void preInitBeans(Configuration _conf) {
@@ -1098,7 +1095,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    protected void specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+        AnalyzedPageEl page_ = null;
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "lateValidators")) {
@@ -1114,9 +1112,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 continue;
             }
             if (StringList.quickEq(fieldName_, "context")) {
-                ReadConfiguration.loadContext(c, _lgCode, this,_configuration);
+                page_ = ReadConfiguration.loadContext(c, _lgCode, this,_configuration);
             }
         }
+        return page_;
     }
 
     @Override

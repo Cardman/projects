@@ -150,9 +150,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (!okNum) {
             return;
         }
-        tryGetResult(_conf, op, classMethodId, stringCompare, this);
+        tryGetResult(op, classMethodId, stringCompare, this, _conf.getAnalyzing());
     }
-    public static void tryGetResult(ContextEl _conf, String _op, ClassMethodId _cl, boolean _str, MethodOperation _to) {
+    private static void tryGetResult(String _op, ClassMethodId _cl, boolean _str, MethodOperation _to, AnalyzedPageEl _page) {
         if (_cl != null) {
             return;
         }
@@ -165,7 +165,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         } else {
             arg_ = calculateCommonNb(first_, second_, _op);
         }
-        _to.setSimpleArgumentAna(arg_, _conf);
+        _to.setSimpleArgumentAna(arg_, _page);
     }
     public static Argument calculateCommonNb(Argument _one, Argument _two, String _op) {
         boolean complement_ = false;

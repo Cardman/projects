@@ -121,7 +121,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setGlobalOffset(classNameOffset);
         page_.setOffset(0);
         if (!className.isEmpty()) {
-            KeyWords keyWords_ = _cont.getKeyWords();
+            KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringList.quickEq(className.trim(), keyWordVar_)) {
                 importedClassName = keyWordVar_;
@@ -144,7 +144,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (init.trim().isEmpty()) {
             opInit = new CustList<RendDynOperationNode>();
         } else {
-            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc);
+            opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         }
         if (page_.isMerged()) {
             StringList vars_ = page_.getVariablesNames();
@@ -161,7 +161,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (expression.trim().isEmpty()) {
             opExp = new CustList<RendDynOperationNode>();
         } else {
-            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc);
+            opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset, 0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
         }
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
@@ -192,7 +192,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                 }
             }
             exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-            RenderExpUtil.setImplicits(elCondition_,_cont.getContext());
+            RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing());
         }
         buildIncrementPart(_cont,_doc, _anaDoc);
     }
@@ -213,7 +213,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (step.trim().isEmpty()) {
             opStep = new CustList<RendDynOperationNode>();
         } else {
-            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc);
+            opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0, _an, _anaDoc, _an.getContext().getAnalyzing());
         }
         page_.setMerged(false);
         page_.setAcceptCommaInstr(false);

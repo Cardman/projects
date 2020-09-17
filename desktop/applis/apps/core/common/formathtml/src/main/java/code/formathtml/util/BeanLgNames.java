@@ -1,5 +1,6 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DoubleInfo;
@@ -154,7 +155,7 @@ public abstract class BeanLgNames extends LgNames {
 
         return AnaTypeUtil.isPrimitiveOrWrapper(_className, this);
     }
-    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files);
+    public abstract ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page);
     protected static Struct wrapStd(String _element) {
         if (_element == null) {
             return NullStruct.NULL_VALUE;
@@ -173,7 +174,7 @@ public abstract class BeanLgNames extends LgNames {
         gearFw(_conf, _mainBean, _node, _keepField, bean_);
     }
 
-    public void load(Configuration _configuration, String _lgCode,Document _document) {
+    public AnalyzedPageEl load(Configuration _configuration, String _lgCode,Document _document) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "firstUrl")) {
@@ -209,9 +210,9 @@ public abstract class BeanLgNames extends LgNames {
                 _configuration.setRenderFiles(ReadConfiguration.getStringList(c));
             }
         }
-        specificLoad(_configuration,_lgCode,_document);
+        return specificLoad(_configuration,_lgCode,_document);
     }
-    protected abstract void specificLoad(Configuration _configuration, String _lgCode,Document _document);
+    protected abstract AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document);
 
 
     public abstract Argument getCommonArgument(RendSettableFieldOperation _rend, Argument _previous, Configuration _conf);

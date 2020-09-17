@@ -226,7 +226,7 @@ public final class ResultText {
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(opExp_.get(i_).last().getResultClass().getSingleNameOrEmpty());
-                _cont.getLocalVars().addEntry(v,lv_);
+                _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
             }
@@ -234,9 +234,9 @@ public final class ResultText {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringList.concat(pref_,RendBlock.LEFT_PAR,RendBlock.RIGHT_PAR);
             }
-            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont, _anaDoc);
+            r_.opExpAnchor = RenderExpUtil.getAnalyzedOperations(pref_, colsGrId_, 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
             for (String v:varNames_) {
-                _cont.getLocalVars().removeKey(v);
+                _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
             }
         }
         return r_;

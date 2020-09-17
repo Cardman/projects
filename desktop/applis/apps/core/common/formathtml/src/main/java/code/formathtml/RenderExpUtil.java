@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
@@ -30,7 +31,7 @@ public final class RenderExpUtil {
     }
 
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, Configuration _conf, int _glInd, int _minIndex, AnalyzingDoc _anaDoc) {
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf.getContext(), _minIndex);
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _conf.getContext(), _minIndex, _conf.getContext().getAnalyzing());
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -49,23 +50,23 @@ public final class RenderExpUtil {
             e_.setOrder(0);
             int end_ = d_.getIndexEnd();
             _anaDoc.setNextIndex(end_+2);
-            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext()));
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext(), _conf.getContext().getAnalyzing()));
         }
         int beg_ = d_.getIndexBegin();
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
         String el_ = _el.substring(beg_,end_+1);
-        OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_, _anaDoc);
-        OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf, _anaDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc);
-        return getExecutableNodes(all_,_conf.getContext());
+        OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, _conf, d_, _anaDoc, _conf.getContext().getAnalyzing());
+        OperationNode op_ = createOperationNode(_minIndex, CustList.FIRST_INDEX, null, opTwo_, _conf, _anaDoc, _conf.getContext().getAnalyzing());
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc, _conf.getContext().getAnalyzing());
+        return getExecutableNodes(all_,_conf.getContext(), _conf.getContext().getAnalyzing());
     }
 
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf, AnalyzingDoc _anaDoc) {
-        return getAnalyzedOperations(_el,1,_index,_conf, _anaDoc);
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _index, Configuration _conf, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        return getAnalyzedOperations(_el,1,_index,_conf, _anaDoc, _page);
     }
-    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl, int _index, Configuration _conf, AnalyzingDoc _anaDoc) {
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index);
+    public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl, int _index, Configuration _conf, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -82,26 +83,26 @@ public final class RenderExpUtil {
             String argClName_ = _conf.getStandards().getAliasObject();
             e_.setResultClass(new ClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext()));
+            return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext(), _conf.getContext().getAnalyzing()));
         }
         String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_, _anaDoc);
-        OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf, _anaDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc);
-        return getExecutableNodes(all_,_conf.getContext());
+        OperationsSequence opTwo_ = getOperationsSequence(_index, el_, _conf, d_, _anaDoc, _conf.getContext().getAnalyzing());
+        OperationNode op_ = createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf, _anaDoc, _conf.getContext().getAnalyzing());
+        CustList<OperationNode> all_ = getSortedDescNodes(op_, _conf, _anaDoc, _conf.getContext().getAnalyzing());
+        return getExecutableNodes(all_,_conf.getContext(), _conf.getContext().getAnalyzing());
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, ContextEl _cont) {
+    public static CustList<RendDynOperationNode> getExecutableNodes(CustList<OperationNode> _list, ContextEl _cont, AnalyzedPageEl _page) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
-        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_,_cont);
-        setImplicits(exp_,_cont);
+        RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_,_cont, _page);
+        setImplicits(exp_, _page);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof RendMethodOperation&&op_ != null) {
-                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
-                setImplicits(loc_,_cont);
+                RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont, _page);
+                setImplicits(loc_, _page);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -120,8 +121,8 @@ public final class RenderExpUtil {
                 out_.add(exp_);
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
-                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont);
-                    setImplicits(loc_,_cont);
+                    RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont, _page);
+                    setImplicits(loc_, _page);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
@@ -157,19 +158,19 @@ public final class RenderExpUtil {
         }
         return out_;
     }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, Configuration _context, AnalyzingDoc _analyzingDoc) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, Configuration _context, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
             if (c_ instanceof PreAnalyzableOperation) {
                 ((PreAnalyzableOperation) c_).preAnalyze(_context.getContext());
             }
-            c_ = getAnalyzedNext(c_, _root, list_, _context, _analyzingDoc);
+            c_ = getAnalyzedNext(c_, _root, list_, _context, _analyzingDoc, _page);
         }
         return list_;
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Configuration _context, AnalyzingDoc _anaDoc) {
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Configuration _context, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         
         OperationNode next_ = createFirstChild(_current, _context, 0, _anaDoc);
         if (next_ != null) {
@@ -178,7 +179,7 @@ public final class RenderExpUtil {
         }
         OperationNode current_ = _current;
         while (true) {
-            _context.getContext().getAnalyzing().setOkNumOp(true);
+            _page.setOkNumOp(true);
             processAnalyze(_context, current_, _anaDoc);
             if (current_ instanceof ReductibleOperable) {
                 ((ReductibleOperable)current_).tryCalculateNode(_context.getContext());
@@ -205,10 +206,10 @@ public final class RenderExpUtil {
                 return next_;
             }
             if (par_ == _root) {
-                _context.getContext().getAnalyzing().setOkNumOp(true);
+                _page.setOkNumOp(true);
                 processAnalyze(_context, par_, _anaDoc);
                 ClassArgumentMatching cl_ = par_.getResultClass();
-                if (AnaTypeUtil.isPrimitive(cl_, _context.getContext().getAnalyzing())) {
+                if (AnaTypeUtil.isPrimitive(cl_, _page)) {
                     cl_.setUnwrapObject(cl_);
                 }
                 par_.tryCalculateNode(_context.getContext());
@@ -295,8 +296,8 @@ public final class RenderExpUtil {
             opSeq_.setDelimiter(d_);
             return new StaticInitOperation(block_.getIndexInEl(), CustList.FIRST_INDEX, block_, opSeq_);
         }
-        OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_, _anaDoc);
-        return createOperationNode(offset_, _index, block_, r_, _context, _anaDoc);
+        OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_, _anaDoc, _context.getContext().getAnalyzing());
+        return createOperationNode(offset_, _index, block_, r_, _context, _anaDoc, _context.getContext().getAnalyzing());
     }
 
     private static boolean isInitializeStaticClassFirst(int _index, MethodOperation block_) {
@@ -324,11 +325,11 @@ public final class RenderExpUtil {
         Delimiters d_ = _block.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_block.getIndexChild() + delta_);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_, _anaDoc);
-        return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context, _anaDoc);
+        OperationsSequence r_ = getOperationsSequence(offset_, value_, _context, d_, _anaDoc, _context.getContext().getAnalyzing());
+        return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _context, _anaDoc, _context.getContext().getAnalyzing());
     }
     static OperationsSequence getOperationsSequence(int _offset, String _string,
-                                                    Configuration _conf, Delimiters _d, AnalyzingDoc _anaDoc) {
+                                                    Configuration _conf, Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
@@ -338,7 +339,7 @@ public final class RenderExpUtil {
             i_++;
         }
         if (i_ < len_) {
-            KeyWords keyWords_ = _conf.getKeyWords();
+            KeyWords keyWords_ = _page.getKeyWords();
             String keyWordIntern_ = keyWords_.getKeyWordIntern();
             int lastPrintChar_ = len_ - 1;
             while (Character.isWhitespace(_string.charAt(lastPrintChar_))) {
@@ -357,11 +358,11 @@ public final class RenderExpUtil {
                 }
             }
         }
-        return ElResolver.getOperationsSequence(_offset, _string, _conf.getContext(), _d);
+        return ElResolver.getOperationsSequence(_offset, _string, _conf.getContext(), _d, _page);
     }
     static OperationNode createOperationNode(int _index,
-                                             int _indexChild, MethodOperation _m, OperationsSequence _op, Configuration _an, AnalyzingDoc _analyzingDoc) {
-        KeyWords keyWords_ = _an.getKeyWords();
+                                             int _indexChild, MethodOperation _m, OperationsSequence _op, Configuration _an, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordIntern_ = keyWords_.getKeyWordIntern();
         if (_op.getOperators().isEmpty()) {
             String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
@@ -370,7 +371,7 @@ public final class RenderExpUtil {
                 return new InternGlobalOperation(_index, _indexChild, _m, _op, _analyzingDoc);
             }
         }
-        return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an.getContext());
+        return OperationNode.createOperationNode(_index, _indexChild, _m, _op, _an.getContext(), _page);
     }
 
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Configuration _context, Argument _arg) {
@@ -480,10 +481,10 @@ public final class RenderExpUtil {
         return out_;
     }
 
-    public static void setImplicits(RendDynOperationNode _ex, ContextEl _context){
+    public static void setImplicits(RendDynOperationNode _ex, AnalyzedPageEl _page){
         ClassArgumentMatching resultClass_ = _ex.getResultClass();
         ImplicitMethods implicits_ = _ex.getImplicits();
         ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        ElUtil.setImplicits(_context,resultClass_,implicits_,implicitsTest_);
+        ElUtil.setImplicits(resultClass_,implicits_,implicitsTest_, _page);
     }
 }

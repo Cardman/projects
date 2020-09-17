@@ -101,22 +101,20 @@ public final class ElResolver {
     private ElResolver() {
     }
 
-    public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex) {
+    public static Delimiters checkSyntaxDelimiters(String _string, ContextEl _conf, int _minIndex, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setPartOfString(true);
-        AnalyzedPageEl ana_ = _conf.getAnalyzing();
-        ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
-        ana_.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
+        _page.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        _page.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
         return commonCheck(_string, _conf, _minIndex, ret_, d_);
     }
 
-    public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest) {
+    public static Delimiters checkSyntax(String _string, ContextEl _conf, int _elOffest, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        AnalyzedPageEl ana_ = _conf.getAnalyzing();
-        ana_.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
-        ana_.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
+        _page.getMapAnonymous().add(new IdMap<AnonymousInstancingOperation, ExecAnonymousInstancingOperation>());
+        _page.getMapAnonymousLambda().add(new IdMap<AnonymousLambdaOperation, ExecAnonymousLambdaOperation>());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _conf);
         return commonCheck(_string, _conf, _elOffest, ret_, d_);
     }
@@ -3145,8 +3143,8 @@ public final class ElResolver {
         return n_ == DOT_VAR;
     }
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
-            ContextEl _conf, Delimiters _d) {
-        OperationsSequence seq_ = tryGetSequence(_offset, _string, _conf, _d);
+                                                           ContextEl _conf, Delimiters _d, AnalyzedPageEl _page) {
+        OperationsSequence seq_ = tryGetSequence(_offset, _string, _d, _page);
         if (seq_ != null) {
             return seq_;
         }
@@ -3186,7 +3184,7 @@ public final class ElResolver {
     }
 
     private static OperationsSequence tryGetSequence(int _offset, String _string,
-            ContextEl _conf, Delimiters _d) {
+                                                     Delimiters _d, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = CustList.FIRST_INDEX;
         while (i_ < len_) {
@@ -3203,7 +3201,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordFalse_ = keyWords_.getKeyWordFalse();
         String keyWordNull_ = keyWords_.getKeyWordNull();
         String keyWordThis_ = keyWords_.getKeyWordThis();
@@ -3231,7 +3229,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        for (AnonymousResult a: _conf.getAnalyzing().getAnonymousResults()) {
+        for (AnonymousResult a: _page.getAnonymousResults()) {
             if (a.getIndex() != firstPrintChar_ + _offset) {
                 continue;
             }

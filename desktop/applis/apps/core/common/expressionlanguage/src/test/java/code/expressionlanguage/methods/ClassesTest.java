@@ -53,7 +53,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
-        Classes.validateAll(new StringMap<String>(),out_);
+        Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -73,7 +73,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
-        Classes.validateAll(new StringMap<String>(),out_);
+        Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyStdError());
     }
 
@@ -90,7 +90,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
-        Classes.validateAll(new StringMap<String>(),out_);
+        Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -106,7 +106,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
         AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
-        Classes.validateAll(new StringMap<String>(),out_);
+        Classes.validateAll(new StringMap<String>(),out_, page_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }

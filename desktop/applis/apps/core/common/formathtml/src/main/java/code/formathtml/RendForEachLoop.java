@@ -131,7 +131,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
-        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc);
+        opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
     }
     public void inferArrayClass(Configuration _cont, AnalyzingDoc _anaDoc) {
         RendDynOperationNode el_ = opList.last();
@@ -235,7 +235,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         }
     }
     private boolean toInfer(Configuration _cont) {
-        KeyWords keyWords_ = _cont.getKeyWords();
+        KeyWords keyWords_ = _cont.getContext().getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         return StringList.quickEq(className.trim(), keyWordVar_) || className.trim().isEmpty();
     }

@@ -2310,7 +2310,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
+    public ResultErrorStd getSimpleResult(LgNames _conf, ClassField _classField) {
         return getInnerSimpleResult(_conf, _classField);
     }
 
@@ -2324,7 +2324,7 @@ public class LgNamesGui extends LgNamesUtils {
         return super.getSimpleResult(_conf, _classField);
     }
 
-    private ResultErrorStd getInnerSimpleResult(ContextEl _conf, ClassField _classField) {
+    private ResultErrorStd getInnerSimpleResult(LgNames _conf, ClassField _classField) {
         if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
             return getResultConfirm(_classField);
         }

@@ -3,7 +3,6 @@ package code.formathtml.render;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
@@ -972,7 +971,7 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
         conf_.setContext(cont_.getContext());
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1007,7 +1006,7 @@ public final class SubmitFormTest extends CommonRender {
         AnalyzedPageEl page_ = getHeaders(filesSec_, cont_);
         assertTrue(isEmptyErrors(cont_));
         conf_.setContext(cont_.getContext());
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         setup(folder_, relative_,conf_);
         conf_.setFirstUrl("page1.html");
         Navigation nav_ = newNavigation(conf_);
@@ -1029,9 +1028,9 @@ public final class SubmitFormTest extends CommonRender {
     private static void analyze(Navigation _nav, AnalyzedPageEl page_) {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         setupAna(new AnalyzingDoc(), page_);
-        _nav.initInstancesPattern();
+        _nav.initInstancesPattern(page_);
         _nav.getSession().setPrefix("c:");
-        _nav.setupRenders();
+        _nav.setupRenders(page_);
     }
 
 

@@ -148,9 +148,9 @@ public final class CaseCondition extends SwitchPartBlock {
                 }
                 page_.setLookLocalClass(id_);
                 page_.setAccessStaticContext(MethodAccessKind.STATIC);
-                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX);
-                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_);
-                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont);
+                Delimiters d_ = ElResolver.checkSyntax(value, _cont, CustList.FIRST_INDEX, page_);
+                OperationsSequence opTwo_ = ElResolver.getOperationsSequence(CustList.FIRST_INDEX, value, _cont, d_, page_);
+                OperationNode op_ = OperationNode.createOperationNode(CustList.FIRST_INDEX, CustList.FIRST_INDEX, null, opTwo_, _cont, page_);
                 ElUtil.retrieveErrorsAnalyze(_cont,op_);
                 page_.setLookLocalClass(EMPTY_STRING);
                 op_.setOrder(0);
@@ -159,7 +159,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 fieldNameOffset = f.getFieldNameOffset();
                 typeEnum = id_;
                 CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-                ops_.add(ExecOperationNode.createExecOperationNode(op_,_cont));
+                ops_.add(ExecOperationNode.createExecOperationNode(op_,_cont, page_));
                 checkDuplicateEnumCase(_cont);
                 ExecEnumCaseCondition exec_ = new ExecEnumCaseCondition(getOffset(),value,valueOffset);
                 exec_.setFile(page_.getBlockToWrite().getFile());
@@ -277,7 +277,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 //key word len
                 un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseValue(),
                         _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(argument,_cont),
+                        AnaApplyCoreMethodUtil.getString(argument, _cont.getAnalyzing()),
                         StringList.join(_resSwitch.getNames(),"&"));
                 _cont.getAnalyzing().addLocError(un_);
                 setReachableError(true);
@@ -301,7 +301,7 @@ public final class CaseCondition extends SwitchPartBlock {
                         //key word len
                         un_.buildError(_cont.getAnalyzing().getAnalysisMessages().getUnexpectedCaseDup(),
                                 _cont.getAnalyzing().getKeyWords().getKeyWordCase(),
-                                AnaApplyCoreMethodUtil.getString(_arg,_cont),
+                                AnaApplyCoreMethodUtil.getString(_arg, _cont.getAnalyzing()),
                                 _cont.getAnalyzing().getKeyWords().getKeyWordSwitch());
                         _cont.getAnalyzing().addLocError(un_);
                         setReachableError(true);

@@ -34,8 +34,8 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         oper = _s.getOper();
         kind = getKind(_s.getClassMethodId());
         className = getType(_s.getClassMethodId());
-        named = fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
-        rootBlock = fetchType(_context, _s.getRootNumber());
+        named = fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = fetchType(_s.getRootNumber(), _context.getAnalyzing());
         converterFrom = fetchImplicits(_context,_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom());
         converterTo = fetchImplicits(_context,_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo());
         opOffset = _s.getOpOffset();

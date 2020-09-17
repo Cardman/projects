@@ -25,7 +25,7 @@ public final class ResultInput {
     public void build(Configuration _cont, RendBlock _bl, RendDocumentBlock _doc, Element _read, String _varValue, AnalyzingDoc _anaDoc) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc);
+            opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -201,7 +201,7 @@ public final class ResultInput {
         }
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
-            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc);
+            opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         }
     }
 

@@ -21,8 +21,8 @@ public abstract class ExecAbstractInvokingConstructor extends ExecInvokingOperat
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
         classFromName = _abs.getClassFromName();
-        rootBlock = fetchType(_context,_abs.getRootNumber());
-        ctor = fetchFunction(_context,_abs.getRootNumber(),_abs.getMemberNumber());
+        rootBlock = fetchType(_abs.getRootNumber(), _context.getAnalyzing());
+        ctor = fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _context.getAnalyzing());
     }
 
     public int getOffsetOper() {

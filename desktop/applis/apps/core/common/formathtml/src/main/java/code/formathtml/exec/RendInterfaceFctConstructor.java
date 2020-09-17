@@ -32,8 +32,8 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         naturalVararg = _abs.getNaturalVararg();
         offsetOper = _abs.getOffsetOper();
         classFromName = _abs.getClassFromName();
-        rootBlock = ExecOperationNode.fetchType(_context,_abs.getRootNumber());
-        ctor = ExecOperationNode.fetchFunction(_context,_abs.getRootNumber(),_abs.getMemberNumber());
+        rootBlock = ExecOperationNode.fetchType(_abs.getRootNumber(), _context.getAnalyzing());
+        ctor = ExecOperationNode.fetchFunctionOp(_abs.getRootNumber(),_abs.getMemberNumber(), _context.getAnalyzing());
 
     }
 

@@ -24,10 +24,10 @@ public final class ReadConfiguration {
 
     private ReadConfiguration(){
     }
-    public static void load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds) {
-        _stds.load(_configuration,_lgCode,_document);
+    public static AnalyzedPageEl load(Configuration _configuration, String _lgCode, Document _document, BeanLgNames _stds) {
+        return _stds.load(_configuration,_lgCode,_document);
     }
-    public static void loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
+    public static AnalyzedPageEl loadContext(Element _elt, String _lg, BeanCustLgNames _stds, Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -61,32 +61,33 @@ public final class ReadConfiguration {
         AnalysisMessages.validateMessageContents(context_, rMess_.allMessages());
         if (!page_.isEmptyMessageError()) {
             _conf.setContext(null);
-            return;
+            return page_;
         }
         StringMap<String> allTags_ = rkw_.allTags();
-        rkw_.validateTagContents(_conf,allTags_);
+        rkw_.validateTagContents(allTags_, _conf.getContext().getAnalyzing());
         rkw_.validateDuplicates(_conf,allTags_);
         StringMap<String> allAttrs_ = rkw_.allAttrs();
         rkw_.validateAttrContents(_conf,allAttrs_);
         rkw_.validateDuplicates(_conf,allAttrs_);
         StringMap<String> allValues_ = rkw_.allValues();
-        rkw_.validateValueContents(_conf,allValues_);
+        rkw_.validateValueContents(allValues_, _conf.getContext().getAnalyzing());
         rkw_.validateDuplicates(_conf,allValues_);
         StringMap<String> allStyleAttrs_ = rkw_.allStyleAttrs();
         rkw_.validateAttrContents(_conf,allStyleAttrs_);
         rkw_.validateDuplicates(_conf,allStyleAttrs_);
         StringMap<String> allSyleValues_ = rkw_.allStyleValues();
-        rkw_.validateStyleValueContents(_conf,allSyleValues_);
+        rkw_.validateStyleValueContents(allSyleValues_, _conf.getContext().getAnalyzing());
         rkw_.validateDuplicates(_conf,allSyleValues_);
         StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
-        rkw_.validateStyleUnitContents(_conf,allStyleUnits_);
+        rkw_.validateStyleUnitContents(allStyleUnits_, _conf.getContext().getAnalyzing());
         rkw_.validateDuplicates(_conf,allStyleUnits_);
         if (!page_.isEmptyStdError()) {
             _conf.setContext(null);
-            return;
+            return page_;
         }
         context_.setFullStack(new AdvancedFullStack(_conf));
         _conf.setContext(context_);
+        return page_;
     }
     private static Options loadOptions(Element _elt) {
         Options options_ = new Options();

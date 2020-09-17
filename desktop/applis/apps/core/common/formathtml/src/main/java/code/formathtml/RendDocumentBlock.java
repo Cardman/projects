@@ -31,24 +31,22 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         fileName = _fileName;
     }
 
-    public void buildFctInstructions(Configuration _cont, AnalyzingDoc _anaDoc) {
+    public void buildFctInstructions(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         beanName = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrBean()));
         imports = StringList.splitChar(elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrAlias())),';');
-        AnalyzedPageEl page_ = _cont.getContext().getAnalyzing();
-        page_.setGlobalOffset(getOffset().getOffsetTrim());
-        page_.setOffset(0);
-        page_.setAccessStaticContext(MethodAccessKind.STATIC);
-        page_.setGlobalDirType(null);
+        _page.setGlobalOffset(getOffset().getOffsetTrim());
+        _page.setOffset(0);
+        _page.setAccessStaticContext(MethodAccessKind.STATIC);
+        _page.setGlobalDirType(null);
         if (_cont.getBeansInfos().contains(beanName)) {
-            page_.setAccessStaticContext(MethodAccessKind.INSTANCE);
+            _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _cont.getBeansInfos().getVal(beanName).getResolvedClassName();
-            page_.setGlobalClass(clName_);
-            page_.setGlobalType(page_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
+            _page.setGlobalClass(clName_);
+            _page.setGlobalType(_page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(clName_)));
         } else {
-            page_.setGlobalClass("");
-            page_.setGlobalType((RootBlock)null);
+            _page.setGlobalClass("");
+            _page.setGlobalType((RootBlock)null);
         }
-        RendBlock root_ = this;
         RendBlock en_ = this;
         CustList<RendParentBlock> parents_ = new CustList<RendParentBlock>();
         CustList<RendBreakableBlock> parentsBreakables_ = new CustList<RendBreakableBlock>();
@@ -59,13 +57,13 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
         _anaDoc.setCurrentDoc(this);
         while (true) {
             _anaDoc.setCurrentBlock(en_);
-            page_.setCurrentAnaBlock(en_);
+            _page.setCurrentAnaBlock(en_);
             if (en_ instanceof RendStdElement) {
                 if (StringList.quickEq(((RendStdElement)en_).getRead().getTagName(),_cont.getRendKeyWords().getKeyWordBody())) {
                     bodies.add(en_);
                 }
             }
-            checkBreakable(en_,_cont,labels_, _anaDoc);
+            checkBreakable(en_, labels_, _anaDoc, _page);
             if (en_ instanceof RendParentBlock) {
                 RendBlock first_ = en_.getFirstChild();
                 if (first_ == null) {
@@ -111,7 +109,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 RendParentBlock par_;
                 par_ = en_.getParent();
                 if (par_ == this) {
-                    par_.removeAllVars(page_);
+                    par_.removeAllVars(_page);
                     return;
                 }
                 parents_.removeLast();
@@ -135,7 +133,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                         parentsReturnable_.removeLast();
                     }
                 }
-                par_.removeAllVars(page_);
+                par_.removeAllVars(_page);
                 if (par_ instanceof RendBreakableBlock && !((RendBreakableBlock)par_).getRealLabel().isEmpty()) {
                     labels_.removeLast();
                 }
@@ -149,7 +147,7 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
             ((RendReducableOperations)_block).reduce(_cont);
         }
     }
-    private static void checkBreakable(RendBlock _block, Configuration _conf, StringList _labels, AnalyzingDoc _anaDoc) {
+    private static void checkBreakable(RendBlock _block, StringList _labels, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (_block instanceof RendBreakableBlock) {
             String label_ = ((RendBreakableBlock)_block).getRealLabel();
             boolean wc_ = true;
@@ -164,15 +162,15 @@ public final class RendDocumentBlock extends RendParentBlock implements Accessed
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
                 bad_.setFileName(_anaDoc.getFileName());
                 bad_.setIndexFile(_block.getOffset().getOffsetTrim());
-                bad_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getBadLabel());
-                Configuration.addError(bad_, _anaDoc, _conf.getContext().getAnalyzing());
+                bad_.buildError(_page.getAnalysisMessages().getBadLabel());
+                Configuration.addError(bad_, _anaDoc, _page);
             } else if (!label_.isEmpty()){
                 if (StringList.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
                     dup_.setFileName(_anaDoc.getFileName());
                     dup_.setIndexFile(_block.getOffset().getOffsetTrim());
-                    dup_.buildError(_conf.getContext().getAnalyzing().getAnalysisMessages().getDuplicatedLabel());
-                    Configuration.addError(dup_, _anaDoc, _conf.getContext().getAnalyzing());
+                    dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
+                    Configuration.addError(dup_, _anaDoc, _page);
                 } else {
                     _labels.add(label_);
                 }

@@ -27,8 +27,8 @@ public abstract class RendQuickOperation extends RendMethodOperation implements 
         super(_q);
         kind = ExecOperationNode.getKind(_q.getClassMethodId());
         className = ExecOperationNode.getType(_q.getClassMethodId());
-        named = ExecOperationNode.fetchFunction(_context,_q.getRootNumber(),_q.getMemberNumber());
-        rootBlock = ExecOperationNode.fetchType(_context,_q.getRootNumber());
+        named = ExecOperationNode.fetchFunctionOp(_q.getRootNumber(),_q.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_q.getRootNumber(), _context.getAnalyzing());
         converter = ExecOperationNode.fetchImplicits(_context,_q.getConverter(),_q.getRootNumberConv(),_q.getMemberNumberConv());
     }
 

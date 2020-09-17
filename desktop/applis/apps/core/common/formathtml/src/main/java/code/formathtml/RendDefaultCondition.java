@@ -32,9 +32,9 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedCaseDef(),
-                    _cont.getKeyWords().getKeyWordDefault(),
+                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDefault(),
                     EMPTY_STRING,
-                    _cont.getKeyWords().getKeyWordSwitch());
+                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch());
             Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
         } else {
             RendSwitchBlock s_ = (RendSwitchBlock) b_;
@@ -48,8 +48,8 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
                         un_.setIndexFile(getOffset().getOffsetTrim());
                         //key word len
                         un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
-                                _cont.getKeyWords().getKeyWordDefault(),
-                                _cont.getKeyWords().getKeyWordSwitch());
+                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDefault(),
+                                _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch());
                         Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
                         break;
                     }
@@ -64,8 +64,8 @@ public final class RendDefaultCondition extends RendSwitchPartCondition implemen
                 un_.setIndexFile(getOffset().getOffsetTrim());
                 //key word len
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedDefDup(),
-                        _cont.getKeyWords().getKeyWordDefault(),
-                        _cont.getKeyWords().getKeyWordSwitch());
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDefault(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch());
                 Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());
             }
             TokenErrorMessage res_ = ManageTokens.partVar(page_).checkTokenVar(getVariableName(), page_);

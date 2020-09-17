@@ -4,6 +4,7 @@ import javax.swing.Timer;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -119,7 +120,7 @@ public final class ThreadActions implements Runnable {
                 afterAction();
                 return;
             }
-            page.getNavigation().loadConfiguration(content_,lgCode, stds);
+            AnalyzedPageEl page_ = page.getNavigation().loadConfiguration(content_, lgCode, stds);
             if (!page.getNavigation().isError()) {
                 HtmlPage htmlPage_ = page.getNavigation().getHtmlPage();
                 htmlPage_.setUrl(-1);
@@ -128,7 +129,7 @@ public final class ThreadActions implements Runnable {
                 } else {
                     page.getNavigation().setFiles(fileNames);
                 }
-                ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit();
+                ReportedMessages reportedMessages_ = page.getNavigation().setupRendClassesInit(page_);
                 if (!reportedMessages_.isAllEmptyErrors()) {
                     if (page.getArea() != null) {
                         page.getArea().append(reportedMessages_.displayErrors());

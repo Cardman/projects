@@ -27,8 +27,8 @@ public final class RendExplicitOperatorOperation extends RendInvokingOperation i
     private int offsetOper;
     public RendExplicitOperatorOperation(ExplicitOperatorOperation _fct,ContextEl _context) {
         super(_fct);
-        named = ExecOperationNode.fetchFunction(_context,_fct.getRootNumber(),_fct.getMemberNumber());
-        rootBlock = ExecOperationNode.fetchType(_context,_fct.getRootNumber());
+        named = ExecOperationNode.fetchFunctionOp(_fct.getRootNumber(),_fct.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_fct.getRootNumber(), _context.getAnalyzing());
         kind = ExecOperationNode.getKind(_fct.getClassMethodId());
         className = ExecOperationNode.getType(_fct.getClassMethodId());
         lastType = _fct.getLastType();

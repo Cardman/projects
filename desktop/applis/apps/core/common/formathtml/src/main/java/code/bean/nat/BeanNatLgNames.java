@@ -3,6 +3,7 @@ package code.bean.nat;
 import code.bean.Bean;
 import code.bean.BeanStruct;
 import code.bean.RealInstanceStruct;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.DefaultInitializer;
@@ -156,14 +157,14 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     }
 
     @Override
-    protected void specificLoad(Configuration _configuration, String _lgCode, Document _document) {
+    protected AnalyzedPageEl specificLoad(Configuration _configuration, String _lgCode, Document _document) {
         for (Element c: _document.getDocumentElement().getChildElements()) {
             String fieldName_ = c.getAttribute("field");
             if (StringList.quickEq(fieldName_, "validators")) {
                 setValidators(loadValidator(c));
             }
         }
-        setupNative(_configuration);
+        return setupNative(_configuration);
     }
 
     @Override
@@ -411,10 +412,10 @@ public abstract class BeanNatLgNames extends BeanLgNames {
 
     protected abstract Struct newId(Object _obj, String _className);
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files) {
-        _nav.initInstancesPattern();
-        _nav.setupRenders();
-        ReportedMessages messages_ = _conf.getContext().getAnalyzing().getMessages();
+    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, AnalyzedPageEl _page) {
+        _nav.initInstancesPattern(_page);
+        _nav.setupRenders(_page);
+        ReportedMessages messages_ = _page.getMessages();
         _conf.setNullAnalyzing();
         return messages_;
     }
@@ -470,16 +471,17 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return null;
     }
 
-    public void setupNative(Configuration _conf) {
+    public AnalyzedPageEl setupNative(Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
         Options _options = new Options();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, kw_, this, 4);
-        ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(),_options);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options);
         ContextEl context_ = contextEl_;
         _conf.setContext(context_);
+        return page_;
     }
     public void setDataBase(Object _dataBase){
         dataBase = _dataBase;

@@ -23,8 +23,8 @@ public final class MultOperation extends NumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            ContextEl _an) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+                              AnalyzedPageEl _page) {
+        AnalyzedPageEl page_ = _page;
         if (StringList.quickEq(_op.trim(), MULT)) {
             return new Argument(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(_a.getStruct()),
                     ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), page_.getStandards()));

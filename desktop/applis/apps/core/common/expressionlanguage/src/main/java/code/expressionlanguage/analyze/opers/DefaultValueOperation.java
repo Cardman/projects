@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
@@ -48,7 +47,7 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
             return;
         }
         Argument a_ = new Argument(PrimitiveTypeUtil.defaultValue(_className,_conf.getAnalyzing().getStandards()));
-        _current.setSimpleArgumentAna(a_, _conf);
+        _current.setSimpleArgumentAna(a_, _conf.getAnalyzing());
     }
 
     public String getClassName() {

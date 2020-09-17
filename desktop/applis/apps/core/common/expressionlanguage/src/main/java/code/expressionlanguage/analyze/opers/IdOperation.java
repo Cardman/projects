@@ -191,6 +191,6 @@ public final class IdOperation extends AbstractUnaryOperation {
     @Override
     public void quickCalculate(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setSimpleArgumentAna(chidren_.first().getArgument(), _conf);
+        setSimpleArgumentAna(chidren_.first().getArgument(), _conf.getAnalyzing());
     }
 }

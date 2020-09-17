@@ -28,7 +28,7 @@ public final class RendThrowing extends RendLeaf implements RendWithEl, RendRedu
         page_.setOffset(0);
         page_.setGlobalOffset(expressionOffset);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc);
+        opThrow = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
 
     }
     @Override

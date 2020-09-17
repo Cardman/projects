@@ -67,8 +67,8 @@ public final class BitOrOperation extends NumericOperation {
 
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
-            ContextEl _an) {
-        return new Argument(AliasNumber.calculateOr(_a.getStruct(), _b.getStruct(), getResultClass(), _an.getAnalyzing().getStandards()));
+                              AnalyzedPageEl _page) {
+        return new Argument(AliasNumber.calculateOr(_a.getStruct(), _b.getStruct(), getResultClass(), _page.getStandards()));
     }
 
     @Override

@@ -1272,8 +1272,8 @@ public abstract class LgNames {
         return ValidatorStandard.getSimpleResultBase(_conf, _classField);
     }
 
-    public ResultErrorStd getSimpleResult(ContextEl _conf, ClassField _classField) {
-        return ValidatorStandard.getSimpleResultBase(_conf, _classField);
+    public ResultErrorStd getSimpleResult(LgNames _conf, ClassField _classField) {
+        return ValidatorStandard.getSimpleResultBase( _classField,_conf);
     }
 
     /**@param _first le premier*/

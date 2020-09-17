@@ -291,7 +291,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static ReportedMessages validateAll(StringMap<String> files_, AnalyzedTestContext cont_) {
-        return Classes.validateAll(files_, cont_.getContext());
+        return Classes.validateAll(files_, cont_.getContext(), cont_.getAnalyzing());
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> files_) {
@@ -397,7 +397,7 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static void validateWithoutInit(StringMap<String> files_, AnalyzedTestContext cont_) {
-        Classes.validateWithoutInit(files_, cont_.getContext());
+        Classes.validateWithoutInit(files_, cont_.getContext(), cont_.getAnalyzing());
     }
 
 

@@ -519,12 +519,7 @@ public final class ValidatorStandard {
         return getSimpleResultBase(_classField, lgNames_);
     }
 
-    public static ResultErrorStd getSimpleResultBase(ContextEl _conf, ClassField _classField) {
-        LgNames lgNames_ = _conf.getStandards();
-        return getSimpleResultBase(_classField, lgNames_);
-    }
-
-    private static ResultErrorStd getSimpleResultBase(ClassField _classField, LgNames lgNames_) {
+    public static ResultErrorStd getSimpleResultBase(ClassField _classField, LgNames lgNames_) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
         String name_ = _classField.getFieldName();

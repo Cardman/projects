@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -80,11 +81,11 @@ public abstract class ExecOperationNode {
         String converterClass = "";
         if (_clMet != null) {
             converterClass = _clMet.getClassName();
-            conv_ = fetchFunction(_root,_member,_context);
+            conv_ = fetchFunction(_root,_member, _context.getAnalyzing());
         }
         if (conv_ != null) {
             ImplicitMethods converter = new ImplicitMethods();
-            ExecRootBlock classBody_ = fetchType(_context,_root);
+            ExecRootBlock classBody_ = fetchType(_root, _context.getAnalyzing());
             converter.getConverter().add(conv_);
             converter.setOwnerClass(converterClass);
             converter.setRootBlock(classBody_);
@@ -92,17 +93,17 @@ public abstract class ExecOperationNode {
         }
         return null;
     }
-    public static ExecRootBlock fetchType(ContextEl _cont, int _nbRoot) {
-        if (_cont.getAnalyzing().getMapTypes().getKeys().isValidIndex(_nbRoot)) {
-            return _cont.getAnalyzing().getMapTypes().getValue(_nbRoot);
+    public static ExecRootBlock fetchType(int _nbRoot, AnalyzedPageEl _page) {
+        if (_page.getMapTypes().getKeys().isValidIndex(_nbRoot)) {
+            return _page.getMapTypes().getValue(_nbRoot);
         }
         return null;
     }
 
-    public static ExecInfoBlock fetchField(LambdaOperation _l, ContextEl _cont) {
-        if (_cont.getAnalyzing().getMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
-            if (_cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
-                return _cont.getAnalyzing().getMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
+    public static ExecInfoBlock fetchField(LambdaOperation _l, AnalyzedPageEl _page) {
+        if (_page.getMapMembers().getKeys().isValidIndex(_l.getRootNumber())) {
+            if (_page.getMapMembers().getValue(_l.getRootNumber()).getAllFields().getKeys().isValidIndex(_l.getMemberNumber())) {
+                return _page.getMapMembers().getValue(_l.getRootNumber()).getAllFields().getValue(_l.getMemberNumber());
             }
         }
         return null;
@@ -119,28 +120,28 @@ public abstract class ExecOperationNode {
         }
         return _cl.getClassName();
     }
-    public static ExecNamedFunctionBlock fetchFunction(ContextEl _cont, int _rootNumber, int _memberNumber) {
-        return fetchFunction(_cont,_rootNumber,_memberNumber,_memberNumber);
+    public static ExecNamedFunctionBlock fetchFunctionOp(int _rootNumber, int _memberNumber, AnalyzedPageEl _page) {
+        return fetchFunction(_rootNumber,_memberNumber,_memberNumber, _page);
     }
-    public static ExecNamedFunctionBlock fetchFunction(ContextEl _cont, int _rootNumber, int _memberNumber, int _operatorNumber) {
-        if (_cont.getAnalyzing().getMapMembers().getKeys().isValidIndex(_rootNumber)) {
-            if (_cont.getAnalyzing().getMapMembers().getValue(_rootNumber).getAllNamed().getKeys().isValidIndex(_memberNumber)) {
-                return _cont.getAnalyzing().getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
+    public static ExecNamedFunctionBlock fetchFunction(int _rootNumber, int _memberNumber, int _operatorNumber, AnalyzedPageEl _page) {
+        if (_page.getMapMembers().getKeys().isValidIndex(_rootNumber)) {
+            if (_page.getMapMembers().getValue(_rootNumber).getAllNamed().getKeys().isValidIndex(_memberNumber)) {
+                return _page.getMapMembers().getValue(_rootNumber).getAllNamed().getValue(_memberNumber);
             }
             return null;
         }
-        if (_cont.getAnalyzing().getMapOperators().getKeys().isValidIndex(_operatorNumber)) {
-            return _cont.getAnalyzing().getMapOperators().getValue(_operatorNumber);
+        if (_page.getMapOperators().getKeys().isValidIndex(_operatorNumber)) {
+            return _page.getMapOperators().getValue(_operatorNumber);
         }
         return null;
     }
-    public static ExecNamedFunctionBlock fetchFunction(AbstractCallFctOperation _l, ContextEl _cont) {
-        return fetchFunction(_l.getRootNumber(),_l.getMemberNumber(),_cont);
+    public static ExecNamedFunctionBlock fetchFunction(AbstractCallFctOperation _l, AnalyzedPageEl _page) {
+        return fetchFunction(_l.getRootNumber(),_l.getMemberNumber(), _page);
     }
-    public static ExecNamedFunctionBlock fetchFunction(int _nbRoot, int _nbMember, ContextEl _cont) {
-        if (_cont.getAnalyzing().getMapMembers().getKeys().isValidIndex(_nbRoot)) {
-            if (_cont.getAnalyzing().getMapMembers().getValue(_nbRoot).getAllNamed().getKeys().isValidIndex(_nbMember)) {
-                return _cont.getAnalyzing().getMapMembers().getValue(_nbRoot).getAllNamed().getValue(_nbMember);
+    public static ExecNamedFunctionBlock fetchFunction(int _nbRoot, int _nbMember, AnalyzedPageEl _page) {
+        if (_page.getMapMembers().getKeys().isValidIndex(_nbRoot)) {
+            if (_page.getMapMembers().getValue(_nbRoot).getAllNamed().getKeys().isValidIndex(_nbMember)) {
+                return _page.getMapMembers().getValue(_nbRoot).getAllNamed().getValue(_nbMember);
             }
         }
         return null;
@@ -167,7 +168,7 @@ public abstract class ExecOperationNode {
     public final int getIndexBegin() {
         return indexBegin;
     }
-    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont) {
+    public static ExecOperationNode createExecOperationNode(OperationNode _anaNode, ContextEl _cont, AnalyzedPageEl _page) {
         if (_anaNode instanceof StaticInitOperation) {
             StaticInitOperation c_ = (StaticInitOperation) _anaNode;
             return new ExecStaticInitOperation(c_);
@@ -178,7 +179,7 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof AnnotationInstanceOperation) {
             AnnotationInstanceOperation n_ = (AnnotationInstanceOperation) _anaNode;
-            return new ExecAnnotationInstanceOperation(n_,fetchType(_cont,n_.getRootNumber()));
+            return new ExecAnnotationInstanceOperation(n_,fetchType(n_.getRootNumber(), _page));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
@@ -194,17 +195,17 @@ public abstract class ExecOperationNode {
                 if (a_.getStandardMethod() != null) {
                     return new ExecStdFctOperation(i_,a_);
                 }
-                ExecRootBlock ex_ = fetchType(_cont,a_.getRootNumber());
+                ExecRootBlock ex_ = fetchType(a_.getRootNumber(), _page);
                 if (ex_ instanceof ExecAnnotationBlock) {
                     return new ExecAnnotationMethodOperation(i_,a_);
                 }
                 if (a_.isTrueFalse()) {
                     return new ExecExplicitOperation(i_,a_,
-                            fetchFunction(a_.getRootNumber(),a_.getMemberNumber(),_cont),
-                            fetchType(_cont,a_.getRootNumber()));
+                            fetchFunction(a_, _page),
+                            fetchType(a_.getRootNumber(), _page));
                 }
                 if (a_.isStaticMethod()) {
-                    ExecNamedFunctionBlock fct_ = fetchFunction(a_, _cont);
+                    ExecNamedFunctionBlock fct_ = fetchFunction(a_, _page);
                     return new ExecStaticFctOperation(i_,a_, fct_,ex_);
                 }
             }
@@ -243,8 +244,8 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof StandardInstancingOperation) {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecNamedFunctionBlock ctor_ = fetchFunction(_cont, s_.getRootNumber(), s_.getMemberNumber());
-            ExecRootBlock rootBlock_ = fetchType(_cont, s_.getRootNumber());
+            ExecNamedFunctionBlock ctor_ = fetchFunctionOp(s_.getRootNumber(), s_.getMemberNumber(), _page);
+            ExecRootBlock rootBlock_ = fetchType(s_.getRootNumber(), _page);
             if (rootBlock_ != null) {
                 return new ExecStandardInstancingOperation(s_,rootBlock_,ctor_);
             }
@@ -253,14 +254,14 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
             ExecAnonymousInstancingOperation exec_ = new ExecAnonymousInstancingOperation(s_);
-            _cont.getAnalyzing().getMapAnonymous().last().addEntry(s_,exec_);
+            _page.getMapAnonymous().last().addEntry(s_,exec_);
             return exec_;
         }
         if (_anaNode instanceof ArrOperation) {
             ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(_cont,a_.getRootNumber());
-            ExecNamedFunctionBlock get_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _cont);
-            ExecNamedFunctionBlock set_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _cont);
+            ExecRootBlock ex_ = fetchType(a_.getRootNumber(), _page);
+            ExecNamedFunctionBlock get_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumber(), _page);
+            ExecNamedFunctionBlock set_ = fetchFunction(a_.getRootNumber(), a_.getMemberNumberSet(), _page);
             if (a_.getClassMethodId() != null) {
                 return new ExecCustArrOperation(a_, get_,set_,ex_);
             }
@@ -291,24 +292,24 @@ public abstract class ExecOperationNode {
         }
         if (_anaNode instanceof ChoiceFctOperation) {
             ChoiceFctOperation c_ = (ChoiceFctOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(_cont,c_.getRootNumber());
+            ExecRootBlock ex_ = fetchType(c_.getRootNumber(), _page);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = fetchFunction(c_, _cont);
+                ExecNamedFunctionBlock fct_ = fetchFunction(c_, _page);
                 return new ExecChoiceFctOperation(c_, fct_,ex_);
             }
         }
         if (_anaNode instanceof SuperFctOperation) {
             SuperFctOperation s_ = (SuperFctOperation) _anaNode;
-            ExecRootBlock ex_ = fetchType(_cont,s_.getRootNumber());
+            ExecRootBlock ex_ = fetchType(s_.getRootNumber(), _page);
             if (ex_ != null) {
-                ExecNamedFunctionBlock fct_ = fetchFunction(s_, _cont);
+                ExecNamedFunctionBlock fct_ = fetchFunction(s_, _page);
                 return new ExecSuperFctOperation(s_, fct_,ex_);
             }
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
-            ExecNamedFunctionBlock fct_ = fetchFunction(f_, _cont);
-            ExecRootBlock ex_ = fetchType(_cont,f_.getRootNumber());
+            ExecNamedFunctionBlock fct_ = fetchFunction(f_, _page);
+            ExecRootBlock ex_ = fetchType(f_.getRootNumber(), _page);
             if (ex_ != null) {
                 return new ExecFctOperation(f_, fct_,ex_);
             }
@@ -348,7 +349,7 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof AnonymousLambdaOperation) {
             AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
             ExecAnonymousLambdaOperation exec_ = new ExecAnonymousLambdaOperation(s_);
-            _cont.getAnalyzing().getMapAnonymousLambda().last().addEntry(s_,exec_);
+            _page.getMapAnonymousLambda().last().addEntry(s_,exec_);
             return exec_;
         }
         if (_anaNode instanceof LambdaOperation) {
@@ -385,7 +386,7 @@ public abstract class ExecOperationNode {
             if (s_.getFieldId() == null) {
                 return new ExecErrorParentOperation(_anaNode);
             }
-            return new ExecSettableFieldOperation(s_,fetchType(_cont,s_.getRootNumber()));
+            return new ExecSettableFieldOperation(s_,fetchType(s_.getRootNumber(), _page));
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -425,7 +426,7 @@ public abstract class ExecOperationNode {
                 return new ExecErrorParentOperation(_anaNode);
             }
             if (n_.getClassMethodId() != null) {
-                return new ExecCustNumericOperation(n_, _anaNode,fetchFunction(_cont,n_.getRootNumber(),n_.getMemberNumber()),fetchType(_cont,n_.getRootNumber()));
+                return new ExecCustNumericOperation(n_, _anaNode, fetchFunctionOp(n_.getRootNumber(),n_.getMemberNumber(), _page),fetchType(n_.getRootNumber(), _page));
             }
         }
         if (_anaNode instanceof UnaryBooleanOperation) {
@@ -447,14 +448,14 @@ public abstract class ExecOperationNode {
         if (_anaNode instanceof ExplicitOperation) {
             ExplicitOperation m_ = (ExplicitOperation) _anaNode;
             return new ExecExplicitOperation(m_,
-                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
-                    fetchType(_cont,m_.getRootNumber()));
+                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
+                    fetchType(m_.getRootNumber(), _page));
         }
         if (_anaNode instanceof ImplicitOperation) {
             ImplicitOperation m_ = (ImplicitOperation) _anaNode;
             return new ExecImplicitOperation(m_,
-                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(),_cont),
-                    fetchType(_cont,m_.getRootNumber()));
+                    fetchFunction(m_.getRootNumber(),m_.getMemberNumber(), _page),
+                    fetchType(m_.getRootNumber(), _page));
         }
         if (_anaNode instanceof MultOperation) {
             MultOperation m_ = (MultOperation) _anaNode;

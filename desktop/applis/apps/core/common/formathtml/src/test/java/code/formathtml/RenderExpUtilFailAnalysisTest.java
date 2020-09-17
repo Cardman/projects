@@ -1,6 +1,5 @@
 package code.formathtml;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -295,7 +294,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         getCheckedConfiguration(new AnalyzedTestConfiguration(conf_,page_), s);
         return !page_.isEmptyErrors();
     }
@@ -315,7 +314,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         conf_.setStandards(standards_);
         AnalyzedPageEl page_ = getHeaders(_files, cont_);
         assertTrue(isEmptyErrors(cont_));
-        ((BeanCustLgNames)standards_).buildIterables(conf_);
+        ((BeanCustLgNames)standards_).buildIterables(cont_.getAnalyzing());
         Configuration context_ = conf_;
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);

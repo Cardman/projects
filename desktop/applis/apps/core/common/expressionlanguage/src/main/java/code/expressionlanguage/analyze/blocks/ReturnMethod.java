@@ -142,7 +142,7 @@ public final class ReturnMethod extends AbruptBlock {
         if (AnaTypeUtil.isPrimitive(_retType, page_)) {
             ret_.setUnwrapObject(_retType);
         }
-        ElUtil.setImplicits(_ret,_cont);
+        ElUtil.setImplicits(_ret, _cont.getAnalyzing());
     }
 
 

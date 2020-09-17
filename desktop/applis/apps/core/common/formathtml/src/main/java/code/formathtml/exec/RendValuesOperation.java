@@ -20,7 +20,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
     public RendValuesOperation(ValuesOperation _v, ContextEl _cont) {
         super(_v);
         argOffset = _v.getArgOffset();
-        rootBlock = ExecOperationNode.fetchType(_cont, _v.getNumberEnum());
+        rootBlock = ExecOperationNode.fetchType(_v.getNumberEnum(), _cont.getAnalyzing());
     }
 
     @Override

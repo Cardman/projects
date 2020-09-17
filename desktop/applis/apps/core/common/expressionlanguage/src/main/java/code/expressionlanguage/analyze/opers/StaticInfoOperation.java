@@ -61,13 +61,13 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         for (ClassMetaInfo c: classMetaInfos_) {
             if (c.sameReference(candidate_)) {
                 Argument a_ = new Argument(c);
-                _current.setSimpleArgumentAna(a_, _conf);
+                _current.setSimpleArgumentAna(a_, _conf.getAnalyzing());
                 return;
             }
         }
         classMetaInfos_.add(candidate_);
         Argument a_ = new Argument(candidate_);
-        _current.setSimpleArgumentAna(a_, _conf);
+        _current.setSimpleArgumentAna(a_, _conf.getAnalyzing());
     }
 
     public String getClassName() {

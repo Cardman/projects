@@ -58,7 +58,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         page_.setGlobalOffset(valueOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
-        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc);
+        opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode op_ = opValue.last();
         ClassArgumentMatching clArg_ = op_.getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
@@ -118,11 +118,11 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
             un_.setFileName(_anaDoc.getFileName());
             un_.setIndexFile(getOffset().getOffsetTrim());
             un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedSwitch(),
-                    _cont.getKeyWords().getKeyWordSwitch(),
+                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordSwitch(),
                     StringList.join(
                             new StringList(
-                                    _cont.getKeyWords().getKeyWordCase(),
-                                    _cont.getKeyWords().getKeyWordDefault()
+                                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordCase(),
+                                    _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
             Configuration.addError(un_, _anaDoc, _cont.getContext().getAnalyzing());

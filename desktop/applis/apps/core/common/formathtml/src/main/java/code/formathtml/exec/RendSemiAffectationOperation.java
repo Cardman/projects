@@ -35,8 +35,8 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         oper = _s.getOper();
         kind = ExecOperationNode.getKind(_s.getClassMethodId());
         className = ExecOperationNode.getType(_s.getClassMethodId());
-        named = ExecOperationNode.fetchFunction(_context,_s.getRootNumber(),_s.getMemberNumber());
-        rootBlock = ExecOperationNode.fetchType(_context,_s.getRootNumber());
+        named = ExecOperationNode.fetchFunctionOp(_s.getRootNumber(),_s.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_s.getRootNumber(), _context.getAnalyzing());
         converterFrom = ExecOperationNode.fetchImplicits(_context,_s.getConverterFrom(),_s.getRootNumberFrom(),_s.getMemberNumberFrom());
         converterTo = ExecOperationNode.fetchImplicits(_context,_s.getConverterTo(),_s.getRootNumberTo(),_s.getMemberNumberTo());
     }

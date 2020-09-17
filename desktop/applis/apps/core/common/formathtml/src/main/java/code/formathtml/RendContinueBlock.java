@@ -48,25 +48,25 @@ public final class RendContinueBlock extends RendLeaf implements RendWithEl,Rend
             un_.setIndexFile(getOffset().getOffsetTrim());
             if (label.isEmpty()) {
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbrupt(),
-                        _cont.getKeyWords().getKeyWordContinue(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordContinue(),
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             } else {
                 un_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getUnexpectedAbruptLab(),
-                        _cont.getKeyWords().getKeyWordContinue(),
+                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordContinue(),
                         label,
                         StringList.join(
                                 new StringList(
-                                        _cont.getKeyWords().getKeyWordFor(),
-                                        _cont.getKeyWords().getKeyWordForeach(),
-                                        _cont.getKeyWords().getKeyWordDo(),
-                                        _cont.getKeyWords().getKeyWordWhile()
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordFor(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordForeach(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordDo(),
+                                        _cont.getContext().getAnalyzing().getKeyWords().getKeyWordWhile()
                                 ),
                                 OR_ERR));
             }

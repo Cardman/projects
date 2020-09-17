@@ -7,7 +7,6 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParametersBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.PageEl;
@@ -26,9 +25,9 @@ public final class ExecConstructorLambdaOperation extends ExecAbstractLambdaOper
     public ExecConstructorLambdaOperation(LambdaOperation _l, ContextEl _cont) {
         super(_l);
         realId = _l.getRealId();
-        functionBlock = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
-        rootBlock = fetchType(_cont,_l.getRootNumber());
-        function = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
+        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+        rootBlock = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
+        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
     }
 
     @Override

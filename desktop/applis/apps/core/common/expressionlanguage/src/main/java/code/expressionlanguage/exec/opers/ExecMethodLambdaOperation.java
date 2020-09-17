@@ -36,9 +36,9 @@ public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation
         abstractMethod = _l.isAbstractMethod();
         directCast = _l.isDirectCast();
         expCast = _l.isExpCast();
-        functionBlock = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
-        function = fetchFunction(_cont, _l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber());
-        declaring = fetchType(_cont,_l.getRootNumber());
+        functionBlock = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+        function = fetchFunction(_l.getRootNumber(), _l.getMemberNumber(), _l.getOperatorNumber(), _cont.getAnalyzing());
+        declaring = fetchType(_l.getRootNumber(), _cont.getAnalyzing());
     }
 
     @Override

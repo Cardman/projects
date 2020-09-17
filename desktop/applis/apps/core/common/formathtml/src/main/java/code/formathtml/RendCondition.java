@@ -40,7 +40,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         page_.setGlobalOffset(conditionOffset);
         page_.setOffset(0);
         _analyzingDoc.setAttribute(_cont.getRendKeyWords().getAttrCondition());
-        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc);
+        opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = page_.getStandards();
         ClassArgumentMatching exp_ = elCondition_.getResultClass();
@@ -69,7 +69,7 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
             }
         }
         exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-        RenderExpUtil.setImplicits(elCondition_,_cont.getContext());
+        RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing());
     }
 
     @Override

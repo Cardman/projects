@@ -32,8 +32,8 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         oper = _c.getOper();
         kind = ExecOperationNode.getKind(_c.getClassMethodId());
         className = ExecOperationNode.getType(_c.getClassMethodId());
-        named = ExecOperationNode.fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
-        rootBlock = ExecOperationNode.fetchType(_context,_c.getRootNumber());
+        named = ExecOperationNode.fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = ExecOperationNode.fetchType(_c.getRootNumber(), _context.getAnalyzing());
         converter = ExecOperationNode.fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
     }
 

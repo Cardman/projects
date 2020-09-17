@@ -31,8 +31,8 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         oper = _c.getOper();
         kind = getKind(_c.getClassMethodId());
         className = getType(_c.getClassMethodId());
-        named = fetchFunction(_context,_c.getRootNumber(),_c.getMemberNumber());
-        rootBlock = fetchType(_context,_c.getRootNumber());
+        named = fetchFunctionOp(_c.getRootNumber(),_c.getMemberNumber(), _context.getAnalyzing());
+        rootBlock = fetchType(_c.getRootNumber(), _context.getAnalyzing());
         converter = fetchImplicits(_context,_c.getConverter(),_c.getRootNumberConv(),_c.getMemberNumberConv());
         opOffset = _c.getOpOffset();
     }

@@ -83,7 +83,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             b_ = !b_;
         }
         Argument arg_ = new Argument(BooleanStruct.of(b_));
-        setSimpleArgumentAna(arg_, _conf);
+        setSimpleArgumentAna(arg_, _conf.getAnalyzing());
     }
     @Override
     void calculateChildren() {

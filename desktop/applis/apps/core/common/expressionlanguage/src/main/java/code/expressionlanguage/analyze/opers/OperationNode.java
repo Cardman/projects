@@ -130,17 +130,16 @@ public abstract class OperationNode {
     }
 
     public static OperationNode createOperationNode(int _index,
-                                                    int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
-        OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _an);
+                                                    int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an, AnalyzedPageEl _page) {
+        OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _an, _page);
         if (_m instanceof AbstractDotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
         }
         return res_;
     }
     private static OperationNode createOperationNodeBis(int _index,
-                                                        int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+                                                        int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an, AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         String keyWordDefault_ = keyWords_.getKeyWordDefault();
@@ -168,7 +167,7 @@ public abstract class OperationNode {
             return new DeclaringOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
-            if (page_.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
+            if (_page.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
                 return new AnnotationInstanceOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();
@@ -199,7 +198,7 @@ public abstract class OperationNode {
                     String type_ = ch_.getResultClass().getSingleNameOrEmpty();
                     if (!type_.isEmpty()) {
                         String id_ = StringExpUtil.getIdFromAllTypes(type_);
-                        String fct_ = page_.getStandards().getAliasFct();
+                        String fct_ = _page.getStandards().getAliasFct();
                         if (StringList.quickEq(id_, fct_)) {
                             return new CallDynMethodOperation(_index, _indexChild, _m, _op);
                         }
@@ -291,10 +290,10 @@ public abstract class OperationNode {
             if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
                 return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
             }
-            if (StringExpUtil.startsWithKeyWord(value_, _an.getAnalyzing().getKeyWords().getKeyWordExplicit())) {
+            if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordExplicit())) {
                 return new ExplicitOperation(_index, _indexChild, _m, _op);
             }
-            if (StringExpUtil.startsWithKeyWord(value_, _an.getAnalyzing().getKeyWords().getKeyWordCast())) {
+            if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordCast())) {
                 String clName_ = _op.getOperators().firstValue();
                 String extract_ = clName_.substring(clName_.indexOf(PAR_LEFT)+1, clName_.lastIndexOf(PAR_RIGHT));
                 StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
@@ -371,7 +370,6 @@ public abstract class OperationNode {
     }
 
     private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, ContextEl _an) {
-        KeyWords keyWords_ = _an.getAnalyzing().getKeyWords();
         ConstType ct_ = _op.getConstType();
         String originalStr_ = _op.getValues().getValue(CustList.FIRST_INDEX);
         String str_ = originalStr_.trim();
@@ -3572,10 +3570,10 @@ public abstract class OperationNode {
         argument = _argument;
     }
 
-    public final void setSimpleArgumentAna(Argument _argument, ContextEl _conf) {
-        setArgAna(this, _argument, _conf);
+    public final void setSimpleArgumentAna(Argument _argument, AnalyzedPageEl _page) {
+        setArgAna(this, _argument, _page);
     }
-    public static void setArgAna(OperationNode _op,Argument _argument, ContextEl _conf) {
+    private static void setArgAna(OperationNode _op, Argument _argument, AnalyzedPageEl _page) {
         PossibleIntermediateDotted n_ = _op.getSiblingSet();
         if (n_ != null) {
             n_.setPreviousArgument(_argument);
@@ -3585,7 +3583,7 @@ public abstract class OperationNode {
             if (_argument.isNull()) {
                 return;
             }
-            _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _conf.getAnalyzing().getStandards()));
+            _argument.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _argument.getStruct(), _page.getStandards()));
         }
         _op.setSimpleArgument(_argument);
     }

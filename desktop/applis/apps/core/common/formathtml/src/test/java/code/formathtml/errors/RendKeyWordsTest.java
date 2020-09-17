@@ -8,9 +8,7 @@ import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
-import code.formathtml.BeanCustLgNamesImpl;
-import code.formathtml.Configuration;
-import code.formathtml.InitializationLgNames;
+import code.formathtml.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import org.junit.Test;
@@ -29,18 +27,23 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setKeyWordBody("");
         r_.setKeyWordBreak("continue");
         r_.setKeyWordIf("-f");
         StringMap<String> tags_ = r_.allTags();
-        r_.validateTagContents(conf_,tags_);
-        r_.validateDuplicates(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateTagContents(ac_, r_, tags_);
+        validateDuplicates(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+    }
+
+    private static void validateTagContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateTagContents(tags_, conf_.getAnalyzing());
     }
 
     @Test
@@ -52,19 +55,20 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setAttrAction("");
         r_.setAttrAlias("bean");
         r_.setAttrChecked("-f");
         r_.setAttrPrepare("param");
         StringMap<String> tags_ = r_.allAttrs();
-        r_.validateAttrContents(conf_,tags_);
-        r_.validateDuplicates(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateAttrContents(ac_, r_, tags_);
+        validateDuplicates(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail3() {
@@ -75,17 +79,23 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setValueRadio("");
         StringMap<String> tags_ = r_.allValues();
-        r_.validateValueContents(conf_,tags_);
-        r_.validateDuplicates(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateValueContents(ac_, r_, tags_);
+        validateDuplicates(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
+
+    private static void validateValueContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateValueContents(tags_, conf_.getAnalyzing());
+    }
+
     @Test
     public void fail4() {
         RendAnalysisMessages def_ = new RendAnalysisMessages();
@@ -95,17 +105,22 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleValueRgb("");
         r_.setStyleValueRed("-");
         StringMap<String> tags_ = r_.allStyleValues();
-        r_.validateStyleValueContents(conf_,tags_);
-        r_.validateDuplicates(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateStyleValueContents(ac_, r_, tags_);
+        validateDuplicates(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+    }
+
+    private static void validateStyleValueContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateStyleValueContents(tags_, conf_.getAnalyzing());
     }
 
     @Test
@@ -117,17 +132,18 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleAttrBorder("");
         r_.setStyleAttrColor("/");
         StringMap<String> tags_ = r_.allStyleAttrs();
-        r_.validateAttrContents(conf_,tags_);
-        r_.validateDuplicates(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateAttrContents(ac_, r_, tags_);
+        validateDuplicates(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
     @Test
@@ -139,16 +155,17 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("0");
         StringMap<String> tags_ = r_.allStyleUnits();
-        r_.validateStyleUnitContents(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateStyle(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
 
     @Test
@@ -160,16 +177,17 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleUnitEm("");
         r_.setStyleUnitPx("/");
         StringMap<String> tags_ = r_.allStyleUnits();
-        r_.validateStyleUnitContents(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateStyle(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
     @Test
     public void fail8() {
@@ -180,10 +198,11 @@ public final class RendKeyWordsTest {
         BeanLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNames.basicStandards(lgName_);
         Options opts_ = new Options();
-        SingleContextEl s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
+        AnalyzedTestContext s_ = getCtx(lk_, di_, kw_, lgName_, opts_);
         Configuration conf_ = new Configuration();
-        conf_.setContext(s_);
-        AnalysisMessages.validateMessageContents(s_,def_.allMessages());
+        setCtx(s_, conf_);
+        AnalyzedTestConfiguration ac_ = new AnalyzedTestConfiguration(conf_,s_.getAnalyzing());
+        validateMess(def_, s_);
         RendKeyWords r_ = new RendKeyWords();
         r_.setStyleAttrBorder("");
         r_.setStyleAttrColor("");
@@ -335,14 +354,36 @@ public final class RendKeyWordsTest {
         r_.setAttrDelay("");
         r_.setAttrWidth("");
         StringMap<String> tags_ = r_.allStyleUnits();
-        r_.validateStyleUnitContents(conf_,tags_);
-        assertTrue(!conf_.isEmptyStdErrors());
+        validateStyle(ac_, r_, tags_);
+        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
     }
-    private static SingleContextEl getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
+
+    private static void validateStyle(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateStyleUnitContents(tags_, conf_.getAnalyzing());
+    }
+
+    private static void validateMess(RendAnalysisMessages def_, AnalyzedTestContext s_) {
+        AnalysisMessages.validateMessageContents(s_.getContext(),def_.allMessages());
+    }
+
+    private static AnalyzedTestContext getCtx(DefaultLockingClass lk_, DefaultInitializer di_, KeyWords kw_, LgNames lgName_, Options opts_) {
         SingleContextEl s_ = new SingleContextEl(-1, lk_, di_, opts_, kw_, lgName_, 4);
         AnalyzedPageEl page_ = s_.setAnalyzing();
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(kw_);
-        return s_;
+        return new AnalyzedTestContext(s_,page_);
     }
+
+    private static void setCtx(AnalyzedTestContext s_, Configuration conf_) {
+        conf_.setContext(s_.getContext());
+    }
+
+    private static void validateAttrContents(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateAttrContents(conf_.getConfiguration(),tags_);
+    }
+
+    private static void validateDuplicates(AnalyzedTestConfiguration conf_, RendKeyWords r_, StringMap<String> tags_) {
+        r_.validateDuplicates(conf_.getConfiguration(),tags_);
+    }
+
 }

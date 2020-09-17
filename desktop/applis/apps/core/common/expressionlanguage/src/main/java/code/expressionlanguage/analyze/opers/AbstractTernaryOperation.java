@@ -65,7 +65,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         if (arg_ == null) {
             return;
         }
-        _to.setSimpleArgumentAna(arg_, _conf);
+        _to.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
     }
 
     @Override

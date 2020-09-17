@@ -36,7 +36,7 @@ public final class ContextFactory {
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
         _page.getClasses().addResources(_files);
-        return Classes.validateAll(srcFiles_, _contextEl);
+        return Classes.validateAll(srcFiles_, _contextEl, _page);
     }
 
     public static ContextEl simpleBuild(int _stack, DefaultLockingClass _lock, Initializer _init, Options _options, KeyWords _definedKw, LgNames _definedLgNames, int _tabWidth) {

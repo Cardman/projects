@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -50,18 +51,6 @@ public final class ReplacementStruct extends WithoutParentStruct implements Stru
         
     }
 
-    public static Struct calculate(ContextEl _cont, ClassMethodId _method, Struct _struct) {
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
-        if (StringList.quickEq(name_, lgNames_.getAliasGetNewString())) {
-            String old_ = rp_.instance.getNewString();
-            return Argument.wrapStr(old_);
-        }
-        String new_ = rp_.instance.getOldString();
-        return Argument.wrapStr(new_);
-
-    }
     private void getOldString(ResultErrorStd _res) {
         String oldStr_ = instance.getOldString();
         _res.setResult(Argument.wrapStr(oldStr_));

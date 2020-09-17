@@ -83,7 +83,7 @@ public final class AssocationOperation extends AbstractUnaryOperation implements
     @Override
     public void quickCalculate(ContextEl _conf) {
         Argument arg_ = getFirstChild().getArgument();
-        setSimpleArgumentAna(arg_, _conf);
+        setSimpleArgumentAna(arg_, _conf.getAnalyzing());
     }
     public String getFieldName() {
         return fieldName;

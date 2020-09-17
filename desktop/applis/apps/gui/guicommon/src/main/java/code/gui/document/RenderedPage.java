@@ -3,6 +3,7 @@ package code.gui.document;
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -87,13 +88,13 @@ public final class RenderedPage implements ProcessingSession {
         _stds.setDataBase(_db);
         standards = _stds;
         String content_ = ResourceFiles.ressourceFichier(_conf);
-        navigation.loadConfiguration(content_,"", _stds);
+        AnalyzedPageEl page_ = navigation.loadConfiguration(content_, "", _stds);
         if (navigation.isError()) {
             setupText();
             return;
         }
         setFiles();
-        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit();
+        ReportedMessages reportedMessages_ = navigation.setupRendClassesInit(page_);
         if (!reportedMessages_.isAllEmptyErrors()) {
             return;
         }

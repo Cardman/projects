@@ -36,7 +36,7 @@ public final class RendField extends RendParentBlock {
             page_.setGlobalOffset(prepareOffset);
             page_.setOffset(0);
             _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrPrepare());
-            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc);
+            exps = RenderExpUtil.getAnalyzedOperations(prepare,prepareOffset,0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }

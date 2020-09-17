@@ -111,7 +111,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
         for (OperationNode o: chidren_) {
             arguments_.add(o.getArgument());
         }
-        _par.setSimpleArgumentAna(arguments_.first(), _conf);
+        _par.setSimpleArgumentAna(arguments_.first(), _conf.getAnalyzing());
     }
     public int getOffset() {
         return offset;

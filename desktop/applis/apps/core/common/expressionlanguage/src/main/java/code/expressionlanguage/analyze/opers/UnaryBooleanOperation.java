@@ -74,10 +74,10 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
 
     @Override
     public void quickCalculate(ContextEl _conf) {
-        tryGetArg(this,_conf);
+        tryGetArg(this, _conf.getAnalyzing());
     }
 
-    public static void tryGetArg(MethodOperation _par, ContextEl _conf) {
+    private static void tryGetArg(MethodOperation _par, AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = _par.getChildrenNodes();
         Argument arg_ = chidren_.first().getArgument();
         Struct value_ = arg_.getStruct();
@@ -86,7 +86,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         }
         BooleanStruct o_ = (BooleanStruct) value_;
         Argument a_ = new Argument(o_.neg());
-        _par.setSimpleArgumentAna(a_, _conf);
+        _par.setSimpleArgumentAna(a_, _page);
     }
 
 

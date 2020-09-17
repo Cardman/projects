@@ -97,7 +97,7 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                 }
             }
         }
-        ElUtil.setImplicits(_elCondition,_cont);
+        ElUtil.setImplicits(_elCondition, _cont.getAnalyzing());
         resultClass_.setUnwrapObject(stds_.getAliasPrimBoolean());
     }
 

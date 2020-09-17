@@ -2,7 +2,6 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -14,9 +13,7 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.errors.stds.StdWordError;
 
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.CausingErrorStruct;
@@ -139,10 +136,10 @@ public final class Configuration {
         renderFiles.add(firstUrl);
     }
 
-    public void setupRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc) {
+    public void setupRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         renders.clear();
         setFiles(_files);
-        setupInts(getContext().getAnalyzing(), _analyzingDoc);
+        setupInts(_page, _analyzingDoc);
         for (String s: renderFiles) {
             String link_ = RendExtractFromResources.getRealFilePath(currentLanguage,s);
             String file_ = _files.getVal(link_);
@@ -151,17 +148,17 @@ public final class Configuration {
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_analyzingDoc.getFileName());
-                badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), _analyzingDoc));
+                badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
                 badEl_.buildError(getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
-                addError(badEl_, _analyzingDoc, context.getAnalyzing());
+                addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
             currentUrl = link_;
             renders.put(link_,RendBlock.newRendDocumentBlock(this,getPrefix(), document_, file_));
         }
         for (EntryCust<String,RendDocumentBlock> d: renders.entryList()) {
-            d.getValue().buildFctInstructions(this, _analyzingDoc);
+            d.getValue().buildFctInstructions(this, _analyzingDoc, _page);
         }
         String currentUrl_ = getFirstUrl();
         String realFilePath_ = RendExtractFromResources.getRealFilePath(currentLanguage, currentUrl_);
@@ -169,10 +166,10 @@ public final class Configuration {
         if (rendDocumentBlock == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
-            badEl_.setIndexFile(getCurrentLocationIndex(getContext().getAnalyzing(), _analyzingDoc));
+            badEl_.setIndexFile(getCurrentLocationIndex(_page, _analyzingDoc));
             badEl_.buildError(getRendAnalysisMessages().getInexistantFile(),
                     realFilePath_);
-            addError(badEl_, _analyzingDoc, context.getAnalyzing());
+            addError(badEl_, _analyzingDoc, _page);
         }
     }
     public void initForms() {
@@ -389,14 +386,6 @@ public final class Configuration {
         return rendKeyWords;
     }
 
-    public void addStdError(StdWordError _err) {
-        context.getAnalyzing().addStdError(_err);
-    }
-
-    public boolean isEmptyStdErrors() {
-        return context.getAnalyzing().isEmptyStdError();
-    }
-
     public Classes getClasses() {
         return getContext().getClasses();
     }
@@ -418,14 +407,6 @@ public final class Configuration {
 
     public Struct getInternGlobal() {
         return getLastPage().getInternGlobal();
-    }
-
-    public StringMap<AnaLocalVariable> getLocalVars() {
-        return context.getAnalyzing().getInfosVars();
-    }
-
-    public KeyWords getKeyWords() {
-        return context.getAnalyzing().getKeyWords();
     }
 
     public static int getCurrentLocationIndex(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {

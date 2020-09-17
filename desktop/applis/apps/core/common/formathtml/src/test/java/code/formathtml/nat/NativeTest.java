@@ -254,9 +254,9 @@ public final class NativeTest extends CommonRender {
                 "</cfg>\n" +
                 "\n";
         Navigation n_ = new Navigation();
-        n_.loadConfiguration(xmlConf_,"",lgNames_);
+        AnalyzedPageEl page_ = n_.loadConfiguration(xmlConf_, "", lgNames_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        n_.setupRendClassesInit(page_);
         n_.initializeRendSession();
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -293,7 +293,7 @@ public final class NativeTest extends CommonRender {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        n_.setupRendClassesInit();
+        n_.setupRendClassesInit(cont_.getAnalyzing());
         n_.initializeRendSession();
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
@@ -1255,8 +1255,8 @@ public final class NativeTest extends CommonRender {
         _nav.setLanguages(new StringList(_nav.getLanguage()));
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setupAna(analyzingDoc_, _conf.getAnalyzing());
-        _nav.initInstancesPattern();
-        _nav.setupRenders();
+        _nav.initInstancesPattern(_conf.getAnalyzing());
+        _nav.setupRenders(_conf.getAnalyzing());
         _nav.initializeRendSession();
     }
 
@@ -1270,7 +1270,7 @@ public final class NativeTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_ = RendBlock.newRendDocumentBlock(context_.getConfiguration(), "c:", doc_, html_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(context_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(context_.getConfiguration(), analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(context_.getConfiguration(), analyzingDoc_, context_.getAnalyzing());
         return !context_.isEmptyErrors();
     }
 
@@ -1284,7 +1284,7 @@ public final class NativeTest extends CommonRender {
         RendDocumentBlock rendDocumentBlock_1 = RendBlock.newRendDocumentBlock(conf_.getConfiguration(), "c:", doc_, html_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        rendDocumentBlock_1.buildFctInstructions(conf_.getConfiguration(), analyzingDoc_);
+        rendDocumentBlock_1.buildFctInstructions(conf_.getConfiguration(), analyzingDoc_, conf_.getAnalyzing());
         assertTrue(conf_.isEmptyErrors());
         conf_.getConfiguration().setDocument(doc_);
         RendDocumentBlock rendDocumentBlock_ = rendDocumentBlock_1;
@@ -1315,8 +1315,8 @@ public final class NativeTest extends CommonRender {
         c_.getRenders().put("page2.html",rendDocumentBlockSec_);
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
-        rendDocumentBlock_.buildFctInstructions(c_, analyzingDoc_);
-        rendDocumentBlockSec_.buildFctInstructions(c_, analyzingDoc_);
+        rendDocumentBlock_.buildFctInstructions(c_, analyzingDoc_, conf_.getAnalyzing());
+        rendDocumentBlockSec_.buildFctInstructions(c_, analyzingDoc_, conf_.getAnalyzing());
         c_.setDocument(doc_);
         return rendDocumentBlock_;
     }
