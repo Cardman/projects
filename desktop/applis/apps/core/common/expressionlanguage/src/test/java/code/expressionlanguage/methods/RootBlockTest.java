@@ -1759,11 +1759,10 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static boolean checkErrorsValue(AnalyzedTestContext _cont) {
-        ContextEl ctx_ = _cont.getContext();
         validateIds(_cont);
         assertTrue( isEmptyErrors(_cont));
         validateOverridingInherit(_cont);
-        ClassesUtil.postValidation(ctx_);
+        postValidation(_cont);
         return !isEmptyErrors(_cont);
     }
 

@@ -317,9 +317,8 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static boolean ok(StringMap<String> files_) {
-        AnalyzedTestContext cont_1 = ctxAna();
-        validateAll(files_, cont_1);
-        AnalyzedTestContext cont_ = cont_1;
+        AnalyzedTestContext cont_ = ctxAna();
+        validateAll(files_, cont_);
         return isEmptyErrors(cont_);
     }
 
@@ -386,10 +385,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl ctxOkQuick(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxAna();
-        validateWithoutInit(files_, cont_);
-        assertTrue(isEmptyErrors(cont_));
-        forwardAndClear(cont_);
-        return cont_.getContext();
+        return validQuick(files_, cont_);
     }
 
     protected static void forwardAndClear(AnalyzedTestContext cont_) {
@@ -419,6 +415,10 @@ public abstract class ProcessMethodCommon {
 
     protected static void validateOverridingInherit(AnalyzedTestContext cont_) {
         ClassesUtil.validateOverridingInherit(cont_.getContext());
+    }
+
+    protected static void postValidation(AnalyzedTestContext ctx_) {
+        ClassesUtil.postValidation(ctx_.getContext());
     }
 
     protected static void validateEl(AnalyzedTestContext cont_) {
@@ -498,8 +498,7 @@ public abstract class ProcessMethodCommon {
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
-        validateAll(files_, cont_);
-        return !isEmptyErrors(cont_);
+        return invalid(files_, cont_);
     }
 
     protected static ContextEl ctxReadOnlyOk(StringMap<String> files_) {
@@ -526,6 +525,10 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
+        return validQuick(_files, cont_);
+    }
+
+    private static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext cont_) {
         validateWithoutInit(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
         forwardAndClear(cont_);
@@ -735,27 +738,27 @@ public abstract class ProcessMethodCommon {
 
     protected static boolean hasErrReadOnly(StringMap<String> files_) {
         AnalyzedTestContext ctx_ = ctxReadOnlyAna();
-        validateAll(files_, ctx_);
-        return !isEmptyErrors(ctx_);
+        return invalid(files_, ctx_);
     }
 
     protected static boolean hasErrDefCom(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElSingleDotDefaultComment();
+        return invalid(files_, cont_);
+    }
+
+    private static boolean invalid(StringMap<String> files_, AnalyzedTestContext cont_) {
         validateAll(files_, cont_);
         return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErr(StringMap<String> files_) {
-        AnalyzedTestContext cont_1 = ctxAna();
-        validateAll(files_, cont_1);
-        AnalyzedTestContext cont_ = cont_1;
-        return !isEmptyErrors(cont_);
+        AnalyzedTestContext cont_ = ctxAna();
+        return invalid(files_, cont_);
     }
 
     protected static boolean hasErrLg(StringMap<String> files_, String _lg) {
         AnalyzedTestContext cont_ = ctxLgAna(_lg);
-        validateAll(files_, cont_);
-        return !isEmptyErrors(cont_);
+        return invalid(files_, cont_);
     }
 
     protected static boolean isEmptyErrors(AnalyzedTestContext cont_) {
