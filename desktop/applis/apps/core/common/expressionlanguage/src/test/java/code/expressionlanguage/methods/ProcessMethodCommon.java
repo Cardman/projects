@@ -412,11 +412,6 @@ public abstract class ProcessMethodCommon {
     }
 
 
-    protected static ContextEl ctx() {
-        Options opt_ = new Options();
-        return InitializationLgNames.buildStdOne(opt_);
-    }
-
     protected static AnalyzedTestContext ctxAna() {
         Options opt_ = new Options();
         return InitializationLgNames.buildStdOneAna(opt_);
@@ -568,7 +563,7 @@ public abstract class ProcessMethodCommon {
 
     protected static AnalyzedTestContext simpleCtx() {
         Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
@@ -576,30 +571,30 @@ public abstract class ProcessMethodCommon {
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
         }
-        return new AnalyzedTestContext(cont_,page_);
+        return cont_;
     }
 
     protected static void parseFile(StringBuilder file_, AnalyzedTestContext context_, String _myFile, boolean _predefined) {
         String content_ = file_.toString();
-        parseFile(context_.getContext(), _myFile, _predefined, content_);
+        parseFile(context_.getContext(), _myFile, _predefined, content_, context_.getAnalyzing());
     }
 
     protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file) {
-        parseFile(context_.getContext(),_fileName,_predefined,_file);
+        parseFile(context_.getContext(),_fileName,_predefined,_file, context_.getAnalyzing());
     }
-    protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file) {
+    protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
-        context_.getAnalyzing().putFileBlock(_fileName, fileBlock_);
+        _page.putFileBlock(_fileName, fileBlock_);
         context_.getCoverage().putFile(fileBlock_);
-        context_.getAnalyzing().getErrors().putFile(context_,fileBlock_);
+        _page.getErrors().putFile(context_,fileBlock_);
         fileBlock_.processLinesTabsWithError(context_,_file);
         if (fileBlock_.getBinChars().isEmpty()) {
             FileResolver.parseFile(fileBlock_, _fileName, _file, context_);
         }
-        StringList basePkgFound_ = context_.getAnalyzing().getBasePackagesFound();
+        StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
-        StringList pkgFound_ = context_.getAnalyzing().getPackagesFound();
+        StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
         ClassesUtil.fetchByFile(context_,basePkgFound_,pkgFound_,fileBlock_,exFile_);
@@ -609,7 +604,7 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         for (EntryCust<String, String> e: stds_.buildFiles(page_).entryList()) {
@@ -617,7 +612,7 @@ public abstract class ProcessMethodCommon {
             String content_ = e.getValue();
             parseFile(cont_, name_, true, content_);
         }
-        return new AnalyzedTestContext(cont_,page_);
+        return cont_;
     }
 
     protected static Struct getField(Struct _struct, ClassField _key) {

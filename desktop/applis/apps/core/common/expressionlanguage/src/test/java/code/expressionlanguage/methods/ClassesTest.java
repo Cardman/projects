@@ -32,8 +32,8 @@ public final class ClassesTest extends ProcessMethodCommon {
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
-        ContextEl cont_ = InitializationLgNames.buildStdOne(opt_);
-        ReportedMessages rep_ = Classes.validateAll(files_, cont_);
+        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
+        ReportedMessages rep_ = Classes.validateAll(files_, cont_.getContext());
         assertTrue(rep_.isAllEmptyErrors());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
@@ -72,9 +72,9 @@ public final class ClassesTest extends ProcessMethodCommon {
         lgName_.setAliasBoolean("java.lang.Byte");
         Options opts_ = new Options();
         ContextEl out_ = ContextFactory.simpleBuild(-1, lk_, di_, opts_, kw_, lgName_, 4);
-        ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
+        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, lgName_, new CustList<CommentDelimiters>(), opts_);
         Classes.validateAll(new StringMap<String>(),out_);
-        assertTrue(!out_.getAnalyzing().isEmptyStdError());
+        assertTrue(!page_.isEmptyStdError());
     }
 
     @Test

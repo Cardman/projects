@@ -1,29 +1,30 @@
 package code.formathtml;
-import static code.formathtml.EquallableExUtil.assertEq;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertTrue;
 
-import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
-import code.formathtml.util.*;
-import org.junit.Test;
-import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.instr.ElResolver;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.options.Options;
+import code.expressionlanguage.common.Delimiters;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.errors.AnalysisMessages;
+import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.instr.OperationsSequence;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendDynOperationNode;
+import code.formathtml.util.AdvancedFullStack;
+import code.formathtml.util.AnalyzingDoc;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
+import org.junit.Test;
+
+import static code.formathtml.EquallableExUtil.assertEq;
+import static org.junit.Assert.*;
 
 public final class RenderExpUtilFailExecTest extends CommonRender {
     private static final String ARR_INTEGER = "[java.lang.Integer";
@@ -42,24 +43,28 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(false));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v&=1/0 > 0";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
+        assertEq(context_.getStandards().getAliasDivisionZero(), getClassName(context_));
     }
+
+    private static String getClassName(AnalyzedTestConfiguration context_) {
+        return getClassName2(context_);
+    }
+
     @Test
     public void processEl183Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
@@ -67,23 +72,22 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(true));
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v|=1/0 > 0";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(ctx_.getStandards().getAliasDivisionZero(), getException(context_).getClassName(ctx_));
+        assertEq(context_.getStandards().getAliasDivisionZero(), getClassName(context_));
     }
     @Test
     public void processEl184Test() {
@@ -92,27 +96,22 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v&=1 > 0";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
-    }
-
-    private static Delimiters checkSyntax(ContextEl ctx_, String elr_) {
-        return ElResolver.checkSyntax(elr_, ctx_, 0);
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
 
     @Test
@@ -122,49 +121,49 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v|=1 > 0";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
         assertNotNull(getException(context_));
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
     @Test
     public void processEl202Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         processEl("$(java.lang.Byte)\"not cast\"", context_);
-        
-        Struct exc_ = getException(context_);
-        assertNotNull(exc_);
-        assertEq(context_.getStandards().getAliasCastType(),exc_.getClassName(context_.getContext()));
+        assertEq(context_.getStandards().getAliasCastType(), getClassName2(context_));
     }
+
+    private static String getClassName2(AnalyzedTestConfiguration context_) {
+        return getClassName3(context_, getException(context_));
+    }
+
     @Test
     public void processEl204Test() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasBoolean());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         String el_ = "!v";
         processEl(el_, context_);
         
         assertNotNull(getException(context_));
-        ContextEl ctx_= context_.getContext();
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
     @Test
     public void processEl205Test() {
@@ -172,14 +171,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasByte());
+        lv_.setClassName(context_.getAnaStandards().getAliasByte());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         String el_ = "$($byte)v";
         processEl(el_, context_);
-        
-        ContextEl ctx_= context_.getContext();
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
     @Test
     public void processEl206Test() {
@@ -187,23 +185,22 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "++v";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
-        
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
     @Test
     public void processEl207Test() {
@@ -211,23 +208,22 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v++";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
-        
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
     @Test
     public void processEl208Test() {
@@ -241,20 +237,19 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setClassName(ARR_INTEGER);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "v[0i]++";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
-        
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
+
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
 
     @Test
@@ -269,28 +264,19 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         lv_.setClassName(ARR_INTEGER);
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
-        ContextEl ctx_ = context_.getContext();
         setupAnalyzing(context_.getAnalyzing(), context_.getLastPage());
         String elr_ = "++v[0i]";
-        Delimiters d_ = checkSyntax(ctx_, elr_);
+        Delimiters d_ = checkSyntax(context_, elr_, 0);
         assertTrue(d_.getBadOffset() < 0);
         String el_ = elr_;
-        OperationsSequence opTwo_ = ElResolver.getOperationsSequence(0, el_, ctx_, d_);
-        OperationNode op_ = OperationNode.createOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, ctx_);
+        OperationsSequence opTwo_ = getOperationsSequence(0, el_, context_, d_);
+        OperationNode op_ = getOperationNode(0, CustList.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, new AnalyzingDoc(), op_);
         
         calculate(all_, context_);
-        
-        assertEq(ctx_.getStandards().getAliasNullPe(), getException(context_).getClassName(ctx_));
-    }
 
-    private static CustList<OperationNode> getSortedDescNodes(Configuration context_, OperationNode op_) {
-        return RenderExpUtil.getSortedDescNodes(op_, context_, new AnalyzingDoc());
-    }
-
-    private static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration context_, OperationNode op_) {
-        return RenderExpUtil.getSortedDescNodes(op_, context_.getConfiguration(), new AnalyzingDoc());
+        assertEq(context_.getStandards().getAliasNullPe(), getClassName(context_));
     }
 
     @Test
@@ -1266,8 +1252,13 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_.getContext()));
+        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
     }
+
+    private static String getClassName3(AnalyzedTestConfiguration cont_, Struct cause_) {
+        return cause_.getClassName(cont_.getContext());
+    }
+
     @Test
     public void processEl296Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1310,7 +1301,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct exc_ = getException(cont_);
         assertTrue(exc_ instanceof InvokeTargetErrorStruct);
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_.getContext()));
+        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
     }
     @Test
     public void processEl297Test() {
@@ -1356,7 +1347,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
         assertTrue(cause_ instanceof CausingErrorStruct);
         cause_ = ((CausingErrorStruct)cause_).getCause();
-        assertEq(cont_.getStandards().getAliasNullPe(), cause_.getClassName(cont_.getContext()));
+        assertEq(cont_.getStandards().getAliasNullPe(), getClassName3(cont_, cause_));
     }
     @Test
     public void processEl298Test() {
@@ -1428,9 +1419,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertEq(cont_.getStandards().getAliasClassNotFoundError(), exc_.getClassName(cont_.getContext()));
+
+        assertEq(cont_.getStandards().getAliasClassNotFoundError(), getClassName2(cont_));
     }
     @Test
     public void processEl304Test() {
@@ -1456,9 +1446,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration cont_ = getConfiguration(files_);
         addImportingPage(cont_);
         processEl("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertEq(cont_.getStandards().getAliasNullPe(), exc_.getClassName(cont_.getContext()));
+
+        assertEq(cont_.getStandards().getAliasNullPe(), getClassName2(cont_));
     }
     @Test
     public void processEl306Test() {
@@ -1574,11 +1563,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(true));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -1591,11 +1580,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimBoolean());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(true));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         lv_.setStruct(new IntStruct(0));
         localVars_.put("arg2", lv_);
         addImportingPage(context_);
@@ -1608,7 +1597,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getStandards().getAliasString()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasString()));
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
         addImportingPage(context_);
@@ -2102,10 +2091,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfiguration(files_);
-        ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
+        Struct value_ = init(conf_, "pkg.Ex");
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -2148,10 +2136,9 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfiguration(files_);
-        ContextEl cont_ = conf_.getContext();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct value_ = cont_.getInit().processInit(cont_, NullStruct.NULL_VALUE, "pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), "", -1);
+        Struct value_ = init(conf_, "pkg.Ex");
         setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
         lv_.setStruct(value_);
         lv_.setClassName("pkg.Ex");
@@ -2161,6 +2148,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         processEl("pkg.Ex.st[0].myval", conf_);
         assertNotNull(getException(conf_));
     }
+
+    private static Struct init(AnalyzedTestConfiguration cont_, String _cl) {
+        return cont_.getContext().getInit().processInit(cont_.getContext(), NullStruct.NULL_VALUE, _cl,cont_.getClasses().getClassBody(_cl), "", -1);
+    }
+
     @Test
     public void processEl450Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -2208,10 +2200,10 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getStandards().getAliasPrimInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasPrimInteger());
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getStandards().getAliasInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v=v2", context_);
@@ -2236,7 +2228,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(cont_.getStandards().getAliasInteger());
+        lv_.setClassName(cont_.getAnaStandards().getAliasInteger());
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(cont_.getLastPage(), localVars_);
         processEl("$classchoice(pkg.Ex)inst=v", cont_);
@@ -2246,7 +2238,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processAffect12FailTest() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
-        LgNames custLgNames_ = context_.getContext().getStandards();
+        LgNames custLgNames_ = context_.getAnaStandards();
         String stringType_ = custLgNames_.getAliasString();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2254,11 +2246,11 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         Struct[] exp_ = new Struct[1];
         exp_[0] = NullStruct.NULL_VALUE;
         lv_.setStruct(new ArrayStruct(exp_, StringExpUtil.getPrettyArrayType(stringType_)));
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getStandards().getAliasObject()));
+        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAnaStandards().getAliasObject()));
         localVars_.put("v", lv_);
         lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getStandards().getAliasInteger());
+        lv_.setClassName(context_.getAnaStandards().getAliasInteger());
         localVars_.put("v2", lv_);
         CommonRender.setLocalVars(context_.getLastPage(), localVars_);
         processEl("v[0i]=v2", context_);
@@ -2268,7 +2260,7 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
     @Test
     public void processAffect16FailTest() {
         AnalyzedTestConfiguration context_ = getConfiguration(new StringMap<String>());
-        LgNames custLgNames_ = context_.getContext().getStandards();
+        LgNames custLgNames_ = context_.getAnaStandards();
         String primIntType_ = custLgNames_.getAliasPrimInteger();
         addImportingPage(context_);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -2297,15 +2289,8 @@ public final class RenderExpUtilFailExecTest extends CommonRender {
         checkEx2(getConfiguration(files_), _el);
     }
 
-    private static void calculate(CustList<OperationNode> _ops, Configuration _an) {
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
-        out_ = RenderExpUtil.getReducedNodes(out_.last());
-        RenderExpUtil.calculateReuse(out_, _an);
-        assertNotNull(getException(_an));
-    }
-
     private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
-        CustList<RendDynOperationNode> out_ = RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
+        CustList<RendDynOperationNode> out_ = getExecutableNodes(_an, _ops);
         out_ = RenderExpUtil.getReducedNodes(out_.last());
         RenderExpUtil.calculateReuse(out_, _an.getConfiguration());
         assertNotNull(getException(_an));

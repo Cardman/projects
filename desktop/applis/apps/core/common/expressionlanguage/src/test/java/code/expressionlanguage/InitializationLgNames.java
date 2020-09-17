@@ -18,17 +18,10 @@ import org.junit.Assert;
 
 public final class InitializationLgNames {
 
-    public static ContextEl buildStdOne(Options _opt) {
-        return buildStdOne(CustList.INDEX_NOT_FOUND_ELT, _opt);
-    }
     public static AnalyzedTestContext buildStdOneAna(Options _opt) {
         return buildStdOneAna(CustList.INDEX_NOT_FOUND_ELT, _opt);
     }
-    private static ContextEl buildStdOne(int _stack, Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        return build(_stack,lgName_, _opt);
-    }
+
     public static AnalyzedTestContext buildStdOneAna(int _stack, Options _opt) {
         LgNames lgName_ = new CustLgNames();
         basicStandards(lgName_);
@@ -59,16 +52,7 @@ public final class InitializationLgNames {
         basicStandards(lgName_);
         return buildLgAna(_lg, lgName_, _opt);
     }
-    private static ContextEl build(int _stack, LgNames _lgNames, Options _opt) {
-        DefaultLockingClass lk_ = new DefaultLockingClass();
-        DefaultInitializer di_ = new DefaultInitializer();
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        ContextEl out_ = ContextFactory.simpleBuild(_stack, lk_, di_, _opt, kw_, _lgNames, 4);
-        AnalyzedPageEl page_ = ContextFactory.validateStds(out_, a_, kw_, _lgNames, new CustList<CommentDelimiters>(), _opt);
-        Assert.assertTrue(page_.isEmptyStdError());
-        return out_;
-    }
+
     public static AnalyzedTestContext buildAna(int _stack, LgNames _lgNames, Options _opt) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();

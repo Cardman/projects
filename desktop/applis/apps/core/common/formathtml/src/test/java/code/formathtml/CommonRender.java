@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -41,10 +42,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public abstract class CommonRender {
-
-    protected static void addImportingPage(Configuration _conf) {
-        addInnerPage(_conf);
-    }
 
     protected static void addImportingPage(AnalyzedTestConfiguration _conf) {
         addInnerPage(_conf.getConfiguration());
@@ -182,12 +179,12 @@ public abstract class CommonRender {
     }
 
     static Argument processEl(String _el, int _index, AnalyzedTestConfiguration _conf) {
-        ContextEl context_ = _conf.getContext();
         CustList<RendDynOperationNode> out_ = getAnalyzed(_el,_index,_conf, new AnalyzingDoc());
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!_conf.isEmptyErrors()) {
             return Argument.createVoid();
         }
+        ContextEl context_ = _conf.getContext();
         Classes.forwardAndClear(context_, page_);
         for (ClassMetaInfo c: context_.getClasses().getClassMetaInfos()) {
             String name_ = c.getName();
@@ -214,7 +211,7 @@ public abstract class CommonRender {
     }
 
     protected static CustList<RendDynOperationNode> getList(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
-        Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index);
+        Delimiters d_ = checkSyntax(_conf,_el, _index);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -228,10 +225,46 @@ public abstract class CommonRender {
             return new CustList<RendDynOperationNode>();
         }
         String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = RenderExpUtil.getOperationsSequence(_index, el_, _conf.getConfiguration(), d_, _analyzingDoc);
-        OperationNode op_ = RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf.getConfiguration(), _analyzingDoc);
-        CustList<OperationNode> all_ = RenderExpUtil.getSortedDescNodes(op_, _conf.getConfiguration(), _analyzingDoc);
-        return RenderExpUtil.getExecutableNodes(all_,_conf.getContext());
+        OperationsSequence opTwo_ = rendOpSeq3(_index, _conf, _analyzingDoc, d_, el_);
+        OperationNode op_ = rendOp3(_index, _conf, _analyzingDoc, opTwo_);
+        CustList<OperationNode> all_ = getSortedDescNodes(_conf, _analyzingDoc, op_);
+        return getExecutableNodes(_conf, all_);
+    }
+
+    protected static OperationNode rendOp3(int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationsSequence opTwo_) {
+        return RenderExpUtil.createOperationNode(_index, CustList.FIRST_INDEX, null, opTwo_, _conf.getConfiguration(), _analyzingDoc);
+    }
+
+    protected static OperationNode rendOp2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
+        return rendOp3(i, conf_, analyzingDoc_, opTwo_);
+    }
+
+    protected static OperationsSequence rendOpSeq2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
+        return rendOpSeq3(i, conf_, analyzingDoc_, d_, el_);
+    }
+
+    private static OperationsSequence rendOpSeq3(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {
+        return RenderExpUtil.getOperationsSequence(i, el_, conf_.getConfiguration(), d_, analyzingDoc_);
+    }
+
+    protected static CustList<OperationNode> getSortedDescNodes(AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, OperationNode op_) {
+        return RenderExpUtil.getSortedDescNodes(op_, _conf.getConfiguration(), _analyzingDoc);
+    }
+
+    protected static CustList<RendDynOperationNode> getExecutableNodes(AnalyzedTestConfiguration _an, CustList<OperationNode> _ops) {
+        return RenderExpUtil.getExecutableNodes(_ops,_an.getContext());
+    }
+
+    protected static OperationsSequence getOperationsSequence(int _offset, String el_, AnalyzedTestConfiguration ctx_, Delimiters d_) {
+        return ElResolver.getOperationsSequence(_offset, el_, ctx_.getContext(), d_);
+    }
+
+    protected static Delimiters checkSyntax(AnalyzedTestConfiguration ctx_, String elr_, int _off) {
+        return ElResolver.checkSyntax(elr_, ctx_.getContext(), _off);
+    }
+
+    protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence opTwo_, AnalyzedTestConfiguration ctx_) {
+        return OperationNode.createOperationNode(_ind, _ch, _par, opTwo_, ctx_.getContext());
     }
 
     protected static void setup(String folder_, String relative_, Configuration conf_) {

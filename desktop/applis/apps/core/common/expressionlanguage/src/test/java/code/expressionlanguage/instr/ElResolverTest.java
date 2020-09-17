@@ -5455,8 +5455,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
         return ElResolver.getOperationsSequence(_offset, el_, conf_.getContext(), d_);
     }
     private AnalyzedTestContext contextEl() {
-        ContextEl ctx_ = ctx();
-        return new AnalyzedTestContext(ctx_,ctx_.getAnalyzing());
+        return ctxAna();
     }
 
     private static Delimiters checkSyntax(AnalyzedTestContext conf_, String el_) {

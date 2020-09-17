@@ -25,6 +25,10 @@ public final class AnalyzedTestConfiguration {
         return analyzing;
     }
 
+    public LgNames getAnaStandards() {
+        return analyzing.getStandards();
+    }
+
     public LgNames getStandards() {
         return configuration.getStandards();
     }

@@ -979,20 +979,20 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
     private static AnalyzedTestContext simpleContextEl() {
-        ContextEl cont_ = ctx();
+        AnalyzedTestContext cont_ = ctxAna();
         AnalyzedPageEl page_ = cont_.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         StringMap<String> files_ = stds_.buildFiles(page_);
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        ClassesUtil.buildFilesBodies(cont_, files_,true,out_,outExec_);
-        ClassesUtil.parseFiles(cont_,out_,outExec_);
-        ClassesUtil.validateInheritingClasses(cont_);
-        ClassesUtil.validateIds(cont_);
-        ClassesUtil.validateOverridingInherit(cont_);
-        ClassesUtil.validateEl(cont_);
-        AnaTypeUtil.checkInterfaces(cont_);
-        return new AnalyzedTestContext(cont_,page_);
+        ClassesUtil.buildFilesBodies(cont_.getContext(), files_,true,out_,outExec_);
+        ClassesUtil.parseFiles(cont_.getContext(),out_,outExec_);
+        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        ClassesUtil.validateIds(cont_.getContext());
+        ClassesUtil.validateOverridingInherit(cont_.getContext());
+        ClassesUtil.validateEl(cont_.getContext());
+        AnaTypeUtil.checkInterfaces(cont_.getContext());
+        return cont_;
     }
 
     private static String getFullTypeByBases(AnalyzedTestContext context_, String s, String s2) {
