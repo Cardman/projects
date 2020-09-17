@@ -1018,9 +1018,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
 
     private static ContextEl validated(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxAna();
-        Classes.validateWithoutInit(files_,cont_.getContext());
+        validateWithoutInit(files_,cont_);
         assertTrue(isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_.getContext(),cont_.getAnalyzing());
+        forwardAndClear(cont_);
         return cont_.getContext();
     }
 

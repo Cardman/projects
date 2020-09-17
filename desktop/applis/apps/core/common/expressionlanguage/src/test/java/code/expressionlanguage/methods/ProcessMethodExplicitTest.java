@@ -121,7 +121,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertNull(getException(cont_));
+
         assertTrue(ret_.isNull());
     }
     @Test
@@ -1009,7 +1009,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("method");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertNull(getException(cont_));
+
         assertTrue(ret_.isNull());
     }
     @Test
@@ -2040,7 +2040,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getParameters().addEntry(method_.getParametersNames().first(),lv_);
         Argument ret_ = ProcessMethod.castArgument("pkg.ExClass", classBody_, method_,p_,cont_);
-        assertNull(getException(cont_));
+
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));
         assertEq(5, ((IntStruct) getField(struct_, new ClassField("pkg.ExClass", "field"))).intStruct());

@@ -236,7 +236,7 @@ public abstract class CommonRender {
     }
 
     protected static OperationNode rendOp2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, OperationsSequence opTwo_) {
-        return rendOp3(i, conf_, analyzingDoc_, opTwo_);
+        return RenderExpUtil.createOperationNode(i, CustList.FIRST_INDEX, null, opTwo_, conf_.getConfiguration(), analyzingDoc_);
     }
 
     protected static OperationsSequence rendOpSeq2(int i, AnalyzedTestConfiguration conf_, AnalyzingDoc analyzingDoc_, Delimiters d_, String el_) {

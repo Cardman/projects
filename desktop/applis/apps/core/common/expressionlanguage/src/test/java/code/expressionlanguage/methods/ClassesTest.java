@@ -33,7 +33,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        ReportedMessages rep_ = Classes.validateAll(files_, cont_.getContext());
+        ReportedMessages rep_ = validateAll(files_, cont_);
         assertTrue(rep_.isAllEmptyErrors());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());

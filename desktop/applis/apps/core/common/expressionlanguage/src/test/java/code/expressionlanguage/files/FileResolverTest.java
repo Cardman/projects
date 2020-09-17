@@ -9675,7 +9675,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         AnalyzedTestContext contextBis_ = ctxAna();
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("my_file",file_.toString());
-        Classes.validateWithoutInit(files_,contextBis_.getContext());
+        validateWithoutInit(files_,contextBis_);
         assertTrue(!isEmptyErrors(contextBis_));
     }
     @Test

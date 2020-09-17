@@ -5443,11 +5443,10 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     private AnalyzedTestContext prepare(StringMap<String> _files) {
         AnalyzedTestContext conf_ = contextEl();
-        ContextEl ctx_ = conf_.getContext();
-        parseCustomFiles(_files, ctx_);
-        ClassesUtil.validateInheritingClasses(ctx_);
-        ClassesUtil.validateIds(ctx_);
-        ClassesUtil.validateOverridingInherit(ctx_);
+        parseCustomFiles(_files, conf_);
+        validateInheritingClasses(conf_);
+        validateIds(conf_);
+        validateOverridingInherit(conf_);
         return conf_;
     }
 

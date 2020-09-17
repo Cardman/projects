@@ -100,7 +100,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument5Test() {
@@ -175,7 +175,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument9Test() {
@@ -199,7 +199,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument10Test() {
@@ -315,7 +315,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument16Test() {
@@ -336,7 +336,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument17Test() {
@@ -357,7 +357,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument18Test() {
@@ -378,7 +378,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument19Test() {
@@ -399,7 +399,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument20Test() {
@@ -420,7 +420,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument21Test() {
@@ -441,7 +441,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument22Test() {
@@ -462,7 +462,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument23Test() {
@@ -483,7 +483,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument24Test() {
@@ -504,7 +504,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument25Test() {
@@ -525,7 +525,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument26Test() {
@@ -546,7 +546,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument27Test() {
@@ -567,7 +567,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument28Test() {
@@ -588,7 +588,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument29Test() {
@@ -609,7 +609,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument30Test() {
@@ -631,7 +631,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument31Test() {
@@ -652,7 +652,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument32Test() {
@@ -673,7 +673,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument33Test() {
@@ -695,7 +695,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument34Test() {
@@ -715,7 +715,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument35Test() {
@@ -736,7 +736,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument36Test() {
@@ -756,7 +756,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument37Test() {
@@ -777,7 +777,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument38Test() {
@@ -798,7 +798,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument39Test() {
@@ -819,7 +819,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument40Test() {
@@ -840,7 +840,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument41Test() {
@@ -862,7 +862,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument42Test() {
@@ -884,7 +884,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument43Test() {
@@ -906,7 +906,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument44Test() {
@@ -927,7 +927,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument45Test() {
@@ -948,7 +948,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument46Test() {
@@ -969,7 +969,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument47Test() {
@@ -991,7 +991,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument48Test() {
@@ -1013,7 +1013,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument49Test() {
@@ -1035,7 +1035,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument50Test() {
@@ -1056,7 +1056,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument51Test() {
@@ -1077,7 +1077,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument52Test() {
@@ -1098,7 +1098,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument53Test() {
@@ -1120,7 +1120,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument54Test() {
@@ -1142,7 +1142,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument55Test() {
@@ -1164,7 +1164,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument56Test() {
@@ -1186,7 +1186,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument57Test() {
@@ -1208,7 +1208,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument58Test() {
@@ -1230,7 +1230,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument59Test() {
@@ -1252,7 +1252,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument60Test() {
@@ -1274,7 +1274,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument61Test() {
@@ -1296,7 +1296,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument62Test() {
@@ -1324,7 +1324,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument63Test() {
@@ -1352,7 +1352,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument64Test() {
@@ -1381,7 +1381,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument65Test() {
@@ -1410,7 +1410,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument66Test() {
@@ -1438,7 +1438,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument67Test() {
@@ -1466,7 +1466,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument68Test() {
@@ -1495,7 +1495,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument69Test() {
@@ -1524,7 +1524,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument70Test() {
@@ -1552,7 +1552,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument71Test() {
@@ -1580,7 +1580,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument72Test() {
@@ -1609,7 +1609,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument73Test() {
@@ -1638,7 +1638,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument74Test() {
@@ -2114,7 +2114,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument96Test() {
@@ -2134,7 +2134,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument97Test() {
@@ -2154,7 +2154,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument98Test() {
@@ -2174,7 +2174,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument99Test() {
@@ -2194,7 +2194,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getChar(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument100Test() {
@@ -2214,7 +2214,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getChar(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument101Test() {
@@ -2234,7 +2234,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getChar(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument102Test() {
@@ -2253,7 +2253,7 @@ public final class ProcessMethodNullSafeTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument1FailTest() {

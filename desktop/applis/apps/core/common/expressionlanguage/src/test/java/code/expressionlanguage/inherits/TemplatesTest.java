@@ -963,17 +963,17 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
     private static AnalyzedTestContext unfullValidateOverridingMethodsStd(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxLgAna("en");
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_.getContext(), new StringMap<ExecFileBlock>());
+        parseCustomFiles(_files, cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         return cont_;
     }
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_.getContext(), new StringMap<ExecFileBlock>());
+        parseCustomFiles(_files, cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
         return cont_;
     }
@@ -985,13 +985,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = stds_.buildFiles(page_);
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        ClassesUtil.buildFilesBodies(cont_.getContext(), files_,true,out_,outExec_);
-        ClassesUtil.parseFiles(cont_.getContext(),out_,outExec_);
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
-        ClassesUtil.validateIds(cont_.getContext());
-        ClassesUtil.validateOverridingInherit(cont_.getContext());
-        ClassesUtil.validateEl(cont_.getContext());
-        AnaTypeUtil.checkInterfaces(cont_.getContext());
+        buildFilesBodies(cont_, files_, out_, outExec_);
+        parseFiles(cont_,out_,outExec_);
+        validateInheritingClasses(cont_);
+        validateIds(cont_);
+        validateOverridingInherit(cont_);
+        validateEl(cont_);
+        checkInterfaces(cont_);
         return cont_;
     }
 

@@ -2773,7 +2773,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateArgument81Test() {
@@ -2797,7 +2797,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
 
     @Test
@@ -2818,7 +2818,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
 
     @Test
@@ -2838,7 +2838,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
 
     @Test
@@ -2859,7 +2859,7 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
 
     @Test

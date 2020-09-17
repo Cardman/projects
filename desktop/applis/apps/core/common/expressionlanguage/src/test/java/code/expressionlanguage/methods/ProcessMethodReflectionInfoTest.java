@@ -186,7 +186,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl229Test() {
@@ -599,7 +599,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl342Test() {
@@ -618,7 +618,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl343Test() {
@@ -639,7 +639,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl344Test() {
@@ -715,7 +715,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl347Test() {
@@ -788,7 +788,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl351Test() {
@@ -882,7 +882,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl356Test() {
@@ -1337,7 +1337,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl378Test() {
@@ -1358,7 +1358,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument ret_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl379Test() {
@@ -1813,7 +1813,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl398Test() {
@@ -1856,7 +1856,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl400Test() {
@@ -1897,7 +1897,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl402Test() {
@@ -1918,7 +1918,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl403Test() {
@@ -2030,7 +2030,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl408Test() {
@@ -2049,7 +2049,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl409Test() {
@@ -3420,7 +3420,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl462Test() {
@@ -3439,7 +3439,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void processEl463Test() {
@@ -4208,7 +4208,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate32Test() {
@@ -6928,7 +6928,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
         assertTrue(out_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate159Test() {
@@ -7045,7 +7045,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate165Test() {
@@ -7068,7 +7068,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate166Test() {
@@ -7092,7 +7092,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate167Test() {
@@ -7112,7 +7112,7 @@ public final class ProcessMethodReflectionInfoTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculate168Test() {

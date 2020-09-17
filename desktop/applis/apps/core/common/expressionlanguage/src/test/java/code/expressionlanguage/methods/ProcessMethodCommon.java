@@ -7,6 +7,7 @@ import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.GeneMethod;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
@@ -246,8 +247,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl covEnReadOnly(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEn();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
@@ -259,15 +259,12 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl covEn(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covValEn(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElCoverageEnAna() {
@@ -278,9 +275,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElEnum(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElEnumAna();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElEnumAna() {
@@ -290,16 +285,18 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl ctxMustInitFail(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        ReportedMessages reportedMessages_ = Classes.validateAll(files_, cont_.getContext());
+        ReportedMessages reportedMessages_ = validateAll(files_, cont_);
         assertTrue(reportedMessages_.displayErrors(),!reportedMessages_.isAllEmptyErrors());
         return cont_.getContext();
     }
 
+    protected static ReportedMessages validateAll(StringMap<String> files_, AnalyzedTestContext cont_) {
+        return Classes.validateAll(files_, cont_.getContext());
+    }
+
     protected static ContextEl ctxMustInit(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElReadOnlyMustInit() {
@@ -311,9 +308,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElToString(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElToStringAna();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElToStringAna() {
@@ -322,15 +317,15 @@ public abstract class ProcessMethodCommon {
     }
 
     protected static boolean ok(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxVal(files_);
+        AnalyzedTestContext cont_1 = ctxAna();
+        validateAll(files_, cont_1);
+        AnalyzedTestContext cont_ = cont_1;
         return isEmptyErrors(cont_);
     }
 
     protected static ContextEl ctxNoErrExp(StringMap<String> files_) {
         AnalyzedTestContext ctx_ = contextElExp();
-        Classes.validateAll(files_,ctx_.getContext());
-        assertTrue(isEmptyErrors(ctx_));
-        return ctx_.getContext();
+        return validateAndRet(files_, ctx_);
     }
 
     private static AnalyzedTestContext contextElExp() {
@@ -346,9 +341,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElDefault(StringMap<String> files_, int i) {
         AnalyzedTestContext cont_ = contextElDefault(i);
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElDefault(int _m) {
@@ -358,9 +351,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl contextElTypes(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElTypes("pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext contextElTypes(String... _types) {
@@ -374,43 +365,69 @@ public abstract class ProcessMethodCommon {
     protected static ContextEl ctxResOk(StringMap<String> srcFiles_, StringMap<String> all_) {
         AnalyzedTestContext cont_ = ctxAna();
         cont_.getContext().getClasses().addResources(all_);
-        Classes.validateAll(srcFiles_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(srcFiles_, cont_);
     }
 
     protected static ContextEl ctxOk(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxVal(files_);
+        AnalyzedTestContext cont_ = ctxAna();
+        return validateAndRet(files_, cont_);
+    }
+
+    private static ContextEl validateAndRet(StringMap<String> files_, AnalyzedTestContext cont_) {
+        validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         return cont_.getContext();
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxLgAna(_lg);
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     protected static ContextEl ctxOkQuick(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxValQuick(files_);
+        AnalyzedTestContext cont_ = ctxAna();
+        validateWithoutInit(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing());
+        forwardAndClear(cont_);
         return cont_.getContext();
     }
 
-    private static AnalyzedTestContext ctxVal(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxAna();
-        Classes.validateAll(files_, cont_.getContext());
-        return cont_;
+    protected static void forwardAndClear(AnalyzedTestContext cont_) {
+        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing());
     }
 
-    protected static AnalyzedTestContext ctxValQuick(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxAna();
+    protected static void validateWithoutInit(StringMap<String> files_, AnalyzedTestContext cont_) {
         Classes.validateWithoutInit(files_, cont_.getContext());
-        return cont_;
     }
 
+
+    protected static void buildFilesBodies(AnalyzedTestContext cont_, StringMap<String> files_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
+        ClassesUtil.buildFilesBodies(cont_.getContext(), files_,true,out_,outExec_);
+    }
+
+    protected static void parseFiles(AnalyzedTestContext cont_, StringMap<FileBlock> out_, StringMap<ExecFileBlock> outExec_) {
+        ClassesUtil.parseFiles(cont_.getContext(),out_,outExec_);
+    }
+
+    protected static void validateInheritingClasses(AnalyzedTestContext cont_) {
+        ClassesUtil.validateInheritingClasses(cont_.getContext());
+    }
+
+    protected static void validateIds(AnalyzedTestContext cont_) {
+        ClassesUtil.validateIds(cont_.getContext());
+    }
+
+    protected static void validateOverridingInherit(AnalyzedTestContext cont_) {
+        ClassesUtil.validateOverridingInherit(cont_.getContext());
+    }
+
+    protected static void validateEl(AnalyzedTestContext cont_) {
+        ClassesUtil.validateEl(cont_.getContext());
+    }
+
+    protected static void checkInterfaces(AnalyzedTestContext cont_) {
+        AnaTypeUtil.checkInterfaces(cont_.getContext());
+    }
 
     protected static AnalyzedTestContext ctxAna() {
         Options opt_ = new Options();
@@ -468,7 +485,7 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        Classes.validateWithoutInit(_files, cont_.getContext());
+        validateWithoutInit(_files, cont_);
         ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
         headers_.displayErrors();
         return !isEmptyErrors(cont_);
@@ -476,22 +493,18 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
-        Classes.validateAll(files_, cont_.getContext());
+        validateAll(files_, cont_);
         return !isEmptyErrors(cont_);
     }
 
     protected static ContextEl ctxReadOnlyOk(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxReadOnlyAna();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
+        return validateAndRet(files_, cont_);
     }
 
     private static AnalyzedTestContext ctxReadOnlyAna() {
@@ -513,9 +526,9 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        Classes.validateWithoutInit(_files,cont_.getContext());
+        validateWithoutInit(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_.getContext(),cont_.getAnalyzing());
+        forwardAndClear(cont_);
         return cont_.getContext();
     }
 
@@ -523,7 +536,7 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        Classes.validateWithoutInit(_files,cont_.getContext());
+        validateWithoutInit(_files, cont_);
         assertTrue(! isEmptyErrors(cont_));
         return cont_.getContext();
     }
@@ -531,9 +544,9 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_.getContext());
+        parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
@@ -541,9 +554,9 @@ public abstract class ProcessMethodCommon {
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
         Options opt_ = new Options();
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_.getContext());
+        parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         return !isEmptyErrors(cont_);
     }
 
@@ -551,14 +564,18 @@ public abstract class ProcessMethodCommon {
         Options opt_ = new Options();
 
         AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_.getContext());
+        parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         return !isEmptyErrors(cont_);
     }
 
-    protected static void parseCustomFiles(StringMap<String> _files, ContextEl _cont) {
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont, new StringMap<ExecFileBlock>());
+    protected static void parseCustomFiles(StringMap<String> _files, AnalyzedTestContext _cont) {
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files,_cont.getContext(), new StringMap<ExecFileBlock>());
+    }
+
+    protected static void validateInheritingClassesId(AnalyzedTestContext cont_) {
+        ClassesUtil.validateInheritingClassesId(cont_.getContext());
     }
 
     protected static AnalyzedTestContext simpleCtx() {
@@ -576,28 +593,30 @@ public abstract class ProcessMethodCommon {
 
     protected static void parseFile(StringBuilder file_, AnalyzedTestContext context_, String _myFile, boolean _predefined) {
         String content_ = file_.toString();
-        parseFile(context_.getContext(), _myFile, _predefined, content_, context_.getAnalyzing());
+        parseFile(context_, _myFile, _predefined, content_, context_.getAnalyzing());
     }
 
     protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file) {
-        parseFile(context_.getContext(),_fileName,_predefined,_file, context_.getAnalyzing());
+        parseFile(context_,_fileName,_predefined,_file, context_.getAnalyzing());
     }
-    protected static void parseFile(ContextEl context_, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
+
+    protected static void parseFile(AnalyzedTestContext context_, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(new OffsetsBlock(),_predefined);
         fileBlock_.setFileName(_fileName);
         _page.putFileBlock(_fileName, fileBlock_);
-        context_.getCoverage().putFile(fileBlock_);
-        _page.getErrors().putFile(context_,fileBlock_);
-        fileBlock_.processLinesTabsWithError(context_,_file);
+        ContextEl ctx_ = context_.getContext();
+        ctx_.getCoverage().putFile(fileBlock_);
+        _page.getErrors().putFile(ctx_,fileBlock_);
+        fileBlock_.processLinesTabsWithError(ctx_,_file);
         if (fileBlock_.getBinChars().isEmpty()) {
-            FileResolver.parseFile(fileBlock_, _fileName, _file, context_);
+            FileResolver.parseFile(fileBlock_, _fileName, _file, ctx_);
         }
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
         ExecFileBlock exFile_ = new ExecFileBlock(fileBlock_);
-        ClassesUtil.fetchByFile(context_,basePkgFound_,pkgFound_,fileBlock_,exFile_);
+        ClassesUtil.fetchByFile(ctx_,basePkgFound_,pkgFound_,fileBlock_,exFile_);
     }
 
     protected static AnalyzedTestContext simpleCtxComment() {
@@ -629,36 +648,35 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl cov(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covReadOnly(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageReadOnlyDef();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covDisplay(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDisplayDef();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covCom(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDefaultComment();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covEnCom(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDefaultEnComment();
-        validateAndCheckValid(files_, cont_);
-        return cont_.getContext();
+        return validateCovAndRet(files_, cont_);
     }
 
     protected static ContextEl covVal(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
+        return validateCovAndRet(files_, cont_);
+    }
+
+    private static ContextEl validateCovAndRet(StringMap<String> files_, AnalyzedTestContext cont_) {
         validate(cont_,files_);
         assertTrue(isEmptyErrors(cont_));
         return cont_.getContext();
@@ -666,14 +684,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl covVal2(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        Classes.validateAll(files_, cont_.getContext());
-        assertTrue(isEmptyErrors(cont_));
-        return cont_.getContext();
-    }
-
-    protected static void validateAndCheckValid(StringMap<String> _files, AnalyzedTestContext _cont) {
-        validate(_cont, _files);
-        assertTrue(isEmptyErrors(_cont));
+        return validateAndRet(files_, cont_);
     }
 
     protected static ReportedMessages validate(AnalyzedTestContext _c, StringMap<String> _f) {
@@ -716,7 +727,7 @@ public abstract class ProcessMethodCommon {
 
     protected static ContextEl checkWarn(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxAna();
-        ReportedMessages methodHeaders_ = Classes.validateAll(files_, cont_.getContext());
+        ReportedMessages methodHeaders_ = validateAll(files_, cont_);
         assertTrue(isEmptyErrors(cont_));
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
         return cont_.getContext();
@@ -724,24 +735,26 @@ public abstract class ProcessMethodCommon {
 
     protected static boolean hasErrReadOnly(StringMap<String> files_) {
         AnalyzedTestContext ctx_ = ctxReadOnlyAna();
-        Classes.validateAll(files_,ctx_.getContext());
+        validateAll(files_, ctx_);
         return !isEmptyErrors(ctx_);
     }
 
     protected static boolean hasErrDefCom(StringMap<String> files_) {
         AnalyzedTestContext cont_ = contextElSingleDotDefaultComment();
-        Classes.validateAll(files_, cont_.getContext());
+        validateAll(files_, cont_);
         return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErr(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxVal(files_);
+        AnalyzedTestContext cont_1 = ctxAna();
+        validateAll(files_, cont_1);
+        AnalyzedTestContext cont_ = cont_1;
         return !isEmptyErrors(cont_);
     }
 
     protected static boolean hasErrLg(StringMap<String> files_, String _lg) {
         AnalyzedTestContext cont_ = ctxLgAna(_lg);
-        Classes.validateAll(files_, cont_.getContext());
+        validateAll(files_, cont_);
         return !isEmptyErrors(cont_);
     }
 

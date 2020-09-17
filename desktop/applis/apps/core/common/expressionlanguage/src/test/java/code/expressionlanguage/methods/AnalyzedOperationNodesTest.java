@@ -3,7 +3,6 @@ package code.expressionlanguage.methods;
 import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.common.ClassField;
@@ -5133,16 +5132,22 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean hasNot(StringMap<String> files_) {
-        AnalyzedTestContext cont_ = ctxValQuick(files_);
+        AnalyzedTestContext cont_1 = ctxAna();
+        validateWithoutInit(files_, cont_1);
+        AnalyzedTestContext cont_ = cont_1;
         assertTrue(isEmptyErrors(cont_));
-        Classes.forwardAndClear(cont_.getContext(), cont_.getAnalyzing());
+        forwardAndClear(cont_);
         return isEmptyErrors(cont_);
     }
 
     private static void failAna(StringMap<String> files_, String en) {
         AnalyzedTestContext cont_ = ctxLgAna(en);
-        ClassesUtil.buildAllBracesBodies(files_, cont_.getContext());
+        buildAllBracesBodies(files_, cont_);
         assertTrue(!isEmptyErrors(cont_));
+    }
+
+    private static void buildAllBracesBodies(StringMap<String> files_, AnalyzedTestContext cont_) {
+        ClassesUtil.buildAllBracesBodies(files_, cont_.getContext());
     }
 
 }

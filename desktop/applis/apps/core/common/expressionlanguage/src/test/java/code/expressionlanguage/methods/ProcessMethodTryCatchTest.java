@@ -1930,7 +1930,6 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
     }
     @Test
     public void calculateArgument110Test() {
@@ -1956,7 +1955,6 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
     }
     @Test
     public void calculateArgument111Test() {
@@ -1986,7 +1984,6 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
     }
     @Test
     public void calculateArgument112Test() {
@@ -2158,7 +2155,6 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
     }
     @Test
     public void calculateArgument1161Test() {
@@ -2188,7 +2184,6 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isNull());
-        assertNull(getException(cont_));
     }
 
     @Test

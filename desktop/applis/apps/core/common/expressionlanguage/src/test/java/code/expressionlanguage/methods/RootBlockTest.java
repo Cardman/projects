@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
@@ -129,9 +128,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $interface pkg.ExFour :pkg.ExTwo<java.lang.Number>:pkg.ExThree<java.lang.String>{}\n");
         files_.put("pkg/ExFour", xml_.toString());
         AnalyzedTestContext cont_ = ctxAna();
-        parseCustomFiles(files_, cont_.getContext());
+        parseCustomFiles(files_, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue( !isEmptyErrors(cont_));
     }
 
@@ -1735,19 +1734,18 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        parseCustomFiles(_files, cont_.getContext());
+        parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
 
 
     private static void checkOverrides(AnalyzedTestContext _cont) {
-        ContextEl ctx_ = _cont.getContext();
-        ClassesUtil.validateIds(ctx_);
+        validateIds(_cont);
         assertTrue( isEmptyErrors(_cont));
-        ClassesUtil.validateOverridingInherit(ctx_);
+        validateOverridingInherit(_cont);
         assertTrue( isEmptyErrors(_cont));
     }
 
@@ -1762,9 +1760,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
 
     private static boolean checkErrorsValue(AnalyzedTestContext _cont) {
         ContextEl ctx_ = _cont.getContext();
-        ClassesUtil.validateIds(ctx_);
+        validateIds(_cont);
         assertTrue( isEmptyErrors(_cont));
-        ClassesUtil.validateOverridingInherit(ctx_);
+        validateOverridingInherit(_cont);
         ClassesUtil.postValidation(ctx_);
         return !isEmptyErrors(_cont);
     }

@@ -8,9 +8,7 @@ import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.DimComp;
-import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -5082,7 +5080,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext context_ = simpleContextEl();
         String first_ = context_.getStandards().getAliasString();
         String second_ = context_.getStandards().getAliasInteger();
-        assertEq(second_, wildCardFormatReturn(context_.getContext(), first_, second_));
+        assertEq(second_, wildCardFormatReturn(context_, first_, second_));
     }
 
 
@@ -5177,10 +5175,6 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         String first_ = "pkg.Ex<?>";
         String second_ = "pkg.Ex<![#T>";
         assertEq("pkg.Ex<java.lang.Object>", wildCardFormatParam(context_, first_, second_));
-    }
-
-    private static String wildCardFormatParam(ContextEl context_, String first_, String second_) {
-        return AnaTemplates.wildCardFormatParam(first_, second_, context_);
     }
 
     private static String wildCardFormatParam(AnalyzedTestContext context_, String first_, String second_) {
@@ -6419,9 +6413,9 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
 
     private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
         AnalyzedTestContext cont_ = ctxAna();
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, cont_.getContext(), new StringMap<ExecFileBlock>());
+        parseCustomFiles(_files, cont_);
         assertTrue( isEmptyErrors(cont_));
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
+        validateInheritingClasses(cont_);
         assertTrue( isEmptyErrors(cont_));
         return cont_;
     }
@@ -6433,13 +6427,13 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<String> files_ = stds_.buildFiles(page_);
         StringMap<FileBlock> out_ = new StringMap<FileBlock>();
         StringMap<ExecFileBlock> outExec_ = new StringMap<ExecFileBlock>();
-        ClassesUtil.buildFilesBodies(cont_.getContext(), files_,true,out_,outExec_);
-        ClassesUtil.parseFiles(cont_.getContext(),out_,outExec_);
-        ClassesUtil.validateInheritingClasses(cont_.getContext());
-        ClassesUtil.validateIds(cont_.getContext());
-        ClassesUtil.validateOverridingInherit(cont_.getContext());
-        ClassesUtil.validateEl(cont_.getContext());
-        AnaTypeUtil.checkInterfaces(cont_.getContext());
+        buildFilesBodies(cont_, files_,out_,outExec_);
+        parseFiles(cont_, out_, outExec_);
+        validateInheritingClasses(cont_);
+        validateIds(cont_);
+        validateOverridingInherit(cont_);
+        validateEl(cont_);
+        checkInterfaces(cont_);
         return cont_;
     }
 

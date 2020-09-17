@@ -55,7 +55,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertSame(NullStruct.NULL_VALUE,ret_.getStruct());
-        assertNull(getException(cont_));
+
     }
 
     @Test
@@ -78,7 +78,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isFalse());
-        assertNull(getException(cont_));
+
     }
 
     @Test
@@ -101,7 +101,7 @@ public final class ProcessMethodFullFunctionalInterfaceTest extends ProcessMetho
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
         assertTrue(ret_.isTrue());
-        assertNull(getException(cont_));
+
     }
     @Test
     public void calculateRetTest() {
