@@ -54,7 +54,7 @@ public final class RendRadio extends RendInput {
                 _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(opsConverterFieldValue.last().getResultClass());
+            m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

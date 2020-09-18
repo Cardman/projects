@@ -3,8 +3,8 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -54,7 +54,7 @@ public final class ResourcesStruct {
 	}
 
 	private static Struct getResourceIndex(Struct _in, StringMap<String> res_) {
-		int name_ = ClassArgumentMatching.convertToNumber(_in).intStruct();
+		int name_ = NumParsers.convertToNumber(_in).intStruct();
 		CustList<String> values_ = res_.getKeys();
 		if (values_.isValidIndex(name_)) {
 			return  Argument.wrapStr(values_.get(name_));

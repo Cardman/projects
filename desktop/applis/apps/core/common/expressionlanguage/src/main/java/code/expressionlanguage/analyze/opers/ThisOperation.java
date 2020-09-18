@@ -4,17 +4,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ThisOperation extends LeafOperation implements PossibleIntermediateDotted {
 
-    private ClassArgumentMatching previousResultClass;
+    private AnaClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private int nbAncestors;
     private int off;
@@ -42,7 +42,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                 page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
-                setResultClass(new ClassArgumentMatching(arg_));
+                setResultClass(new AnaClassArgumentMatching(arg_));
                 return;
             }
             String access_ = previousResultClass.getName();
@@ -59,7 +59,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         _conf.getAnalyzing().getKeyWords().getKeyWordThis());
                 page_.getLocalizer().addError(static_);
                 getErrs().add(static_.getBuiltError());
-                setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
                 return;
             }
             for (RootBlock r: g_.getSelfAndParentTypes().getReverse()) {
@@ -94,7 +94,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         }
                     }
                     String className_ = r.getGenericString();
-                    setResultClass(new ClassArgumentMatching(className_));
+                    setResultClass(new AnaClassArgumentMatching(className_));
                     return;
                 }
                 nbAncestors++;
@@ -110,7 +110,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             getErrs().add(static_.getBuiltError());
             int off_ = StringList.getFirstPrintableCharIndex(access_);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _conf);
-            setResultClass(new ClassArgumentMatching(arg_));
+            setResultClass(new AnaClassArgumentMatching(arg_));
             return;
         }
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off, _conf);
@@ -125,7 +125,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
         }
-        setResultClass(new ClassArgumentMatching(arg_));
+        setResultClass(new AnaClassArgumentMatching(arg_));
     }
 
     @Override
@@ -138,7 +138,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
     }
 

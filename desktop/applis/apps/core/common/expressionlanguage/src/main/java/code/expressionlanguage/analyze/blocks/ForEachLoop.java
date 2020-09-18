@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -16,7 +17,6 @@ import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
@@ -142,7 +142,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         MemberCallingsBlock f_ = _cont.getAnalyzing().getCurrentFct();
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont)) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(page_.getStandards().getAliasLong());
@@ -184,8 +184,8 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         return static_;
     }
 
-    public void inferArrayClass(ContextEl _cont, ClassArgumentMatching _elt) {
-        ClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_elt);
+    public void inferArrayClass(ContextEl _cont, AnaClassArgumentMatching _elt) {
+        AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_elt);
         KeyWords keyWords_ = _cont.getAnalyzing().getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (StringList.quickEq(className.trim(), keyWordVar_) && compo_.getNames().onlyOneElt()) {
@@ -231,7 +231,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         root = page_.getCurrentRoot();
         ExecOperationNode l_ = op_.last();
         argument = l_.getArgument();
-        checkMatchs(_cont, l_.getResultClass());
+        checkMatchs(_cont, root.getResultClass());
         if (okVar) {
             processVariable(_cont);
         }
@@ -243,7 +243,7 @@ public final class ForEachLoop extends BracedBlock implements ForLoop,ImportForE
         page_.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkMatchs(ContextEl _cont, ClassArgumentMatching _elt) {
+    private void checkMatchs(ContextEl _cont, AnaClassArgumentMatching _elt) {
         if (Argument.isNullValue(argument)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(_cont.getAnalyzing().getCurrentBlock().getFile().getFileName());

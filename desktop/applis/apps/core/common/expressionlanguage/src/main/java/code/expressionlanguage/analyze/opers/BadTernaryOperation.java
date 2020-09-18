@@ -2,9 +2,9 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
@@ -39,7 +39,7 @@ public final class BadTernaryOperation extends MethodOperation {
         int i_ = page_.getLocalizer().getCurrentLocationIndex();
         getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
         getPartOffsetsEnd().add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordBool().length()));
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
 
     @Override

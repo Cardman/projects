@@ -6,14 +6,15 @@ import code.bean.RealInstanceStruct;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.DefaultInitializer;
 import code.expressionlanguage.exec.DefaultLockingClass;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.files.CommentDelimiters;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.IterableAnalysisResult;
 import code.formathtml.exec.*;
 import code.formathtml.structs.BeanInfo;
@@ -21,7 +22,6 @@ import code.formathtml.structs.Message;
 import code.bean.validator.Validator;
 import code.expressionlanguage.*;
 import code.expressionlanguage.errors.AnalysisMessages;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -65,9 +65,9 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         for (int i = 0; i < len_; i++) {
             Struct argStruct_ = _args[i];
             if (argStruct_ instanceof IntStruct) {
-                args_[i] = ClassArgumentMatching.convertToNumber(argStruct_).intStruct();
+                args_[i] = NumParsers.convertToNumber(argStruct_).intStruct();
             } else {
-                args_[i] = ClassArgumentMatching.convertToNumber(argStruct_).longStruct();
+                args_[i] = NumParsers.convertToNumber(argStruct_).longStruct();
             }
         }
         return args_;
@@ -198,8 +198,8 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         int i_ =0;
         ClassMethodId classMethodId_ = _rend.getClassMethodId();
         for (Argument a: firstArgs_) {
-            ClassArgumentMatching match_ = new ClassArgumentMatching(classMethodId_.getConstraints().getParametersTypes().get(i_));
-            a.setStruct(PrimitiveTypeUtil.convertToInt(match_, PrimitiveTypeUtil.convertToNumber(match_,a.getStruct(),_conf.getContext().getStandards()),this));
+            byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(classMethodId_.getConstraints().getParametersTypes().get(i_), this);
+            a.setStruct(NumParsers.convertToInt(cast_, NumParsers.convertToNumber(cast_,a.getStruct())));
             i_++;
         }
         ResultErrorStd res_ = LgNames.invokeMethod(_conf.getContext(), classMethodId_, _previous.getStruct(), Argument.toArgArray(firstArgs_));

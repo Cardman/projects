@@ -1,14 +1,13 @@
 package code.expressionlanguage.analyze.inherits;
 
-import code.expressionlanguage.inherits.Templates;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.StringList;
 import code.util.StringMap;
 
 public class Mapping {
 
-    private ClassArgumentMatching arg;
-    private ClassArgumentMatching param;
+    private AnaClassArgumentMatching arg;
+    private AnaClassArgumentMatching param;
     private StringMap<StringList> mapping = new StringMap<StringList>();
 
     public StringList getCyclic() {
@@ -151,22 +150,22 @@ public class Mapping {
             currentBounds_ = nextBounds_;
         }
     }
-    public ClassArgumentMatching getArg() {
+    public AnaClassArgumentMatching getArg() {
         return arg;
     }
     public void setArg(String _arg) {
-        arg = new ClassArgumentMatching(_arg);
+        arg = new AnaClassArgumentMatching(_arg);
     }
-    public void setArg(ClassArgumentMatching _arg) {
+    public void setArg(AnaClassArgumentMatching _arg) {
         arg = _arg;
     }
-    public ClassArgumentMatching getParam() {
+    public AnaClassArgumentMatching getParam() {
         return param;
     }
     public void setParam(String _param) {
-        param = new ClassArgumentMatching(_param);
+        param = new AnaClassArgumentMatching(_param);
     }
-    public void setParam(ClassArgumentMatching _param) {
+    public void setParam(AnaClassArgumentMatching _param) {
         param = _param;
     }
     public StringMap<StringList> getMapping() {

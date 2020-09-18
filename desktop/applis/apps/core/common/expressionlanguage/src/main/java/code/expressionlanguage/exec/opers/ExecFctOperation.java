@@ -10,10 +10,10 @@ import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -46,7 +46,7 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         rootBlock = _rootBlock;
     }
 
-    public ExecFctOperation(ClassArgumentMatching _res,
+    public ExecFctOperation(ExecClassArgumentMatching _res,
                             ClassMethodId _classMethodId,
                             int _child, int _order, ExecNamedFunctionBlock _named, ExecRootBlock _rootBlock) {
         super(_child,_res,_order,true);

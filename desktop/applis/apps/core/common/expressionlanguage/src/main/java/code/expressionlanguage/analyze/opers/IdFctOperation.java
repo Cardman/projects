@@ -5,12 +5,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.MethodAccessId;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -54,7 +54,7 @@ public final class IdFctOperation extends LeafOperation {
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (!isFirstChildInParent()) {
@@ -69,7 +69,7 @@ public final class IdFctOperation extends LeafOperation {
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordId().length()));
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
@@ -85,7 +85,7 @@ public final class IdFctOperation extends LeafOperation {
             cl_ = ResolvingImportTypes.resolveAccessibleIdType(_conf,off_+className.indexOf('(')+1,fromType_);
             partOffsets.addAllElts(page_.getCurrentParts());
             if (cl_.isEmpty()) {
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             String keyWordStatic_ = _conf.getAnalyzing().getKeyWords().getKeyWordStatic();
@@ -109,7 +109,7 @@ public final class IdFctOperation extends LeafOperation {
         }
         MethodId argsRes_ = resolveArguments(i_, _conf, cl_, EMPTY_STRING, static_, args_, className, partOffsets);
         if (argsRes_ == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         method = new ClassMethodIdAncestor(new ClassMethodId(cl_, argsRes_),anc_);
@@ -161,7 +161,7 @@ public final class IdFctOperation extends LeafOperation {
             methodInfos_.addAllElts(newList_);
         }
         setSimpleArgument(new Argument());
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
     public static MethodId resolveArguments(int _from, ContextEl _conf, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, CustList<PartOffset> _partOffsets){
         StringList out_ = new StringList();

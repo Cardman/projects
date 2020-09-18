@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -15,16 +15,16 @@ public final class StandardFieldOperation extends SettableAbstractFieldOperation
     }
 
     @Override
-    ClassArgumentMatching getFrom(ContextEl _conf) {
-        ClassArgumentMatching cl_;
+    AnaClassArgumentMatching getFrom(ContextEl _conf) {
+        AnaClassArgumentMatching cl_;
         if (isIntermediateDottedOperation()) {
             cl_ = getPreviousResultClass();
         } else {
             String look_ = _conf.getAnalyzing().getLookLocalClass();
             if (look_.isEmpty()) {
-                cl_ = new ClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
+                cl_ = new AnaClassArgumentMatching(_conf.getAnalyzing().getGlobalClass());
             } else {
-                cl_ = new ClassArgumentMatching(look_);
+                cl_ = new AnaClassArgumentMatching(look_);
             }
         }
         return cl_;

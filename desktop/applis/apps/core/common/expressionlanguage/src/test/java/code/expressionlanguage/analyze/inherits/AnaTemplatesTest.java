@@ -3386,7 +3386,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
-        assertTrue(!res_.isUnwrapSecond());
+        assertTrue(res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary8Test() {
@@ -3400,7 +3400,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
-        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapFirst());
         assertTrue(res_.isUnwrapSecond());
     }
     @Test
@@ -3416,7 +3416,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
         assertTrue(res_.isUnwrapFirst());
-        assertTrue(!res_.isUnwrapSecond());
+        assertTrue(res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary10Test() {
@@ -3430,7 +3430,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
-        assertTrue(!res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapFirst());
         assertTrue(res_.isUnwrapSecond());
     }
     @Test
@@ -3475,8 +3475,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
-        assertTrue(!res_.isUnwrapFirst());
-        assertTrue(!res_.isUnwrapSecond());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary14Test() {
@@ -3490,8 +3490,8 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         ResultTernary res_ = getResultTernary(one_, two_, argOne_, argTwo_, map_, c_);
         assertEq(1, res_.getTypes().size());
         assertEq("$short", res_.getTypes().first());
-        assertTrue(!res_.isUnwrapFirst());
-        assertTrue(!res_.isUnwrapSecond());
+        assertTrue(res_.isUnwrapFirst());
+        assertTrue(res_.isUnwrapSecond());
     }
     @Test
     public void getResultTernary15Test() {

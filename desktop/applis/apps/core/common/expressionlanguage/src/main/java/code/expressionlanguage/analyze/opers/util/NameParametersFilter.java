@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.CustList;
 
 public final class NameParametersFilter {
@@ -9,7 +9,7 @@ public final class NameParametersFilter {
     private boolean ok;
     private final CustList<NamedArgumentOperation> parameterFilter = new CustList<NamedArgumentOperation>();
     private final CustList<NamedArgumentOperation> parameterFilterErr = new CustList<NamedArgumentOperation>();
-    private final CustList<ClassArgumentMatching> positional = new CustList<ClassArgumentMatching>();
+    private final CustList<OperationNode> positional = new CustList<OperationNode>();
 
     public int getIndex() {
         return index;
@@ -29,10 +29,10 @@ public final class NameParametersFilter {
     public boolean isEmptyArg() {
         return positional.size() + parameterFilter.size() == 0;
     }
-    public CustList<ClassArgumentMatching> getAll() {
-        CustList<ClassArgumentMatching> out_ = new CustList<ClassArgumentMatching>();
+    public CustList<OperationNode> getAll() {
+        CustList<OperationNode> out_ = new CustList<OperationNode>();
         CustList<NamedArgumentOperation> named_ = new CustList<NamedArgumentOperation>();
-        for (ClassArgumentMatching c: positional) {
+        for (OperationNode c: positional) {
             out_.add(c);
         }
         for (NamedArgumentOperation c: parameterFilter) {
@@ -52,7 +52,7 @@ public final class NameParametersFilter {
                     i_ = i;
                 }
             }
-            out_.add(min_.getResultClass());
+            out_.add(min_);
             named_.remove(i_);
         }
         return out_;
@@ -66,7 +66,7 @@ public final class NameParametersFilter {
         return parameterFilterErr;
     }
 
-    public CustList<ClassArgumentMatching> getPositional() {
+    public CustList<OperationNode> getPositional() {
         return positional;
     }
 }

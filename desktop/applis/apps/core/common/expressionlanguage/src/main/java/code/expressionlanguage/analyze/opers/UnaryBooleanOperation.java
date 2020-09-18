@@ -4,12 +4,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -34,11 +35,11 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         LgNames stds_ = page_.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
-        ClassArgumentMatching clMatch_;
+        AnaClassArgumentMatching clMatch_;
         clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,clMatch_, oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _conf);
         if (clId_ != null) {
             classMethodId = clId_.getSymbol();
             rootNumber = clId_.getRootNumber();
@@ -67,9 +68,9 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
                 page_.getLocalizer().addError(un_);
             }
         }
-        clMatch_.setUnwrapObject(booleanPrimType_);
-        child_.cancelArgument();
-        setResultClass(new ClassArgumentMatching(booleanPrimType_));
+        clMatch_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        child_.quickCancel();
+        setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));
     }
 
     @Override

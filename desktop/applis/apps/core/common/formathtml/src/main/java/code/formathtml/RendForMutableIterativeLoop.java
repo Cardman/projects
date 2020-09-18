@@ -3,21 +3,22 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -107,7 +108,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -166,7 +167,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         if (!opExp.isEmpty()) {
             RendDynOperationNode elCondition_ = opExp.last();
             LgNames stds_ = page_.getStandards();
-            ClassArgumentMatching exp_ = elCondition_.getResultClass();
+            OperationNode root_ = page_.getCurrentRoot();
+            AnaClassArgumentMatching exp_ = root_.getResultClass();
             if (!exp_.isBoolType(page_)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
                 if (res_.isFoundMethod()) {
@@ -191,8 +193,8 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
                     }
                 }
             }
-            exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-            RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing());
+            exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing(), root_);
         }
         buildIncrementPart(_cont,_doc, _anaDoc);
     }
@@ -245,7 +247,7 @@ public final class RendForMutableIterativeLoop extends RendParentBlock implement
         }
         ip_.setOffset(initOffset);
         ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrInit());
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _cont.getContext());
         for (String v: variableNames) {
             LoopVariable lv_ = new LoopVariable();
             lv_.setIndexClassName(importedClassIndexName);

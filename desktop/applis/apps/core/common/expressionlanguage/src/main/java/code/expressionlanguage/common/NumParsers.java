@@ -1,6 +1,6 @@
 package code.expressionlanguage.common;
 
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.Numbers;
@@ -1081,10 +1081,10 @@ public final class NumParsers {
     public static double asDouble(Struct _struct, StringList list_, Struct[] _args) {
         double one_;
         if (list_.isEmpty()) {
-            NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+            NumberStruct instance_ = convertToNumber(_struct);
             one_ = instance_.doubleStruct();
         } else {
-            one_ = (ClassArgumentMatching.convertToNumber(_args[0])).doubleStruct();
+            one_ = (convertToNumber(_args[0])).doubleStruct();
         }
         return one_;
     }
@@ -1092,7 +1092,7 @@ public final class NumParsers {
     public static int getRadix(StringList _list, Struct[] _args) {
         int radix_ = DEFAULT_RADIX;
         if (_list.size() != 1) {
-            radix_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+            radix_ = (convertToNumber(_args[1])).intStruct();
         }
         return radix_;
     }
@@ -1118,8 +1118,8 @@ public final class NumParsers {
     }
 
     public static boolean sameValue(Struct _first, Struct _other) {
-        NumberStruct first_ = ClassArgumentMatching.convertToNumber(_first);
-        NumberStruct other_ = ClassArgumentMatching.convertToNumber(_other);
+        NumberStruct first_ = convertToNumber(_first);
+        NumberStruct other_ = convertToNumber(_other);
         return cmpWide(first_, other_);
     }
 
@@ -1295,5 +1295,660 @@ public final class NumParsers {
             return (StringStruct) _previous;
         }
         return new StringStruct("");
+    }
+
+    public static NumberStruct convertToNumber(byte _match, Struct _obj) {
+        if (_obj instanceof NumberStruct) {
+            return convertObject(_match, (NumberStruct)_obj);
+        }
+        return convertObject(_match,new ByteStruct((byte)0));
+    }
+
+    public static Struct convertObject(byte _match, Struct _obj) {
+        if (_obj instanceof NumberStruct) {
+            return convertObject(_match, (NumberStruct)_obj);
+        }
+        return _obj;
+    }
+
+    private static Struct convertStrictObject(byte _match, Struct _obj) {
+        if (_obj instanceof NumberStruct) {
+            return convertStrictObject(_match, (NumberStruct)_obj);
+        }
+        return _obj;
+    }
+
+    private static NumberStruct convertObject(byte _match, NumberStruct _obj) {
+        if (_match == PrimitiveTypes.DOUBLE_WRAP) {
+            return new DoubleStruct(_obj.doubleStruct());
+        }
+        if (_match == PrimitiveTypes.FLOAT_WRAP) {
+            return new FloatStruct(_obj.floatStruct());
+        }
+        return convertIntNb(_match, _obj);
+    }
+
+    private static NumberStruct convertStrictObject(byte _match, NumberStruct _obj) {
+        if (isFloatType(_obj)) {
+            return convertToFloat(_match, _obj);
+        }
+        return convertToInt(_match, _obj);
+    }
+
+    public static NumberStruct convertToInt(byte _match, NumberStruct _obj) {
+        return convertIntNb(_match, _obj);
+    }
+
+    public static NumberStruct convertToFloat(byte _match, NumberStruct _obj) {
+        if (isInternFloat(_match)) {
+            return new FloatStruct(_obj.floatStruct());
+        }
+        return new DoubleStruct(_obj.doubleStruct());
+    }
+
+    private static NumberStruct convertIntNb(byte _match, NumberStruct _obj) {
+        if (_match == PrimitiveTypes.LONG_WRAP) {
+            return new LongStruct(_obj.longStruct());
+        }
+        if (_match == PrimitiveTypes.INT_WRAP) {
+            return new IntStruct(_obj.intStruct());
+        }
+        if (_match == PrimitiveTypes.SHORT_WRAP) {
+            return new ShortStruct(_obj.shortStruct());
+        }
+        if (_match == PrimitiveTypes.BYTE_WRAP) {
+            return new ByteStruct(_obj.byteStruct());
+        }
+        if (_match == PrimitiveTypes.CHAR_WRAP) {
+            return new CharStruct((char) _obj.intStruct());
+        }
+        return _obj;
+    }
+
+    public static Struct unwrapObject(byte _match, Struct _obj) {
+        return convertStrictObject(_match, _obj);
+    }
+
+    public static boolean isLessInt(byte _class) {
+        return _class < PrimitiveTypes.INT_WRAP;
+    }
+
+    public static boolean isByte(byte _class) {
+        return _class == PrimitiveTypes.BYTE_WRAP;
+    }
+
+    public static boolean isShort(byte _class) {
+        return _class == PrimitiveTypes.SHORT_WRAP;
+    }
+
+    public static boolean isChar(byte _class) {
+        return _class == PrimitiveTypes.CHAR_WRAP;
+    }
+
+    public static boolean isIntOrLess(byte _class) {
+        return isInt(_class) || isLessInt(_class);
+    }
+
+    public static boolean isInt(byte _class) {
+        return _class == PrimitiveTypes.INT_WRAP;
+    }
+
+    public static boolean isLong(byte _class) {
+        return _class == PrimitiveTypes.LONG_WRAP;
+    }
+
+    public static boolean isFloat(byte _class) {
+        return isInternFloat(_class);
+    }
+
+    public static boolean isInternFloat(byte _class) {
+        return _class == PrimitiveTypes.FLOAT_WRAP;
+    }
+
+    public static Struct convert(byte _cast) {
+        if (_cast == PrimitiveTypes.DOUBLE_WRAP) {
+            return new DoubleStruct(0);
+        }
+        if (_cast == PrimitiveTypes.FLOAT_WRAP) {
+            return new FloatStruct(0);
+        }
+        if (_cast == PrimitiveTypes.LONG_WRAP) {
+            return new LongStruct(0);
+        }
+        if (_cast == PrimitiveTypes.INT_WRAP) {
+            return new IntStruct(0);
+        }
+        if (_cast == PrimitiveTypes.CHAR_WRAP) {
+            return new CharStruct((char)0);
+        }
+        if (_cast == PrimitiveTypes.SHORT_WRAP) {
+            return new ShortStruct((short)0);
+        }
+        return new ByteStruct((byte)0);
+    }
+
+    public static String getSingleNameOrEmpty(StringList className) {
+        if (className.size() != 1) {
+            return "";
+        }
+        return className.first();
+    }
+
+    public static BooleanStruct convertToBoolean(Struct _arg) {
+        if (_arg instanceof BooleanStruct) {
+            return (BooleanStruct) _arg;
+        }
+        return BooleanStruct.of(false);
+    }
+
+    public static CharStruct convertToChar(Struct _arg) {
+        if (_arg instanceof CharStruct) {
+            return (CharStruct) _arg;
+        }
+        return new CharStruct((char)0);
+    }
+
+    public static NumberStruct convertToNumber(Struct _arg) {
+        if (_arg instanceof NumberStruct) {
+            return (NumberStruct) _arg;
+        }
+        return new ByteStruct((byte)0);
+    }
+
+    public static BooleanStruct quickCalculateLowerNb(Struct _a, Struct _b) {
+        if (isFloatType(_a,_b)) {
+            return BooleanStruct.of(convertToNumber(_a).doubleStruct() < convertToNumber(_b).doubleStruct());
+        }
+        return BooleanStruct.of(convertToNumber(_a).longStruct() < convertToNumber(_b).longStruct());
+    }
+
+    public static BooleanStruct quickCalculateGreaterNb(Struct _a, Struct _b) {
+        if (isFloatType(_a,_b)) {
+            return BooleanStruct.of(convertToNumber(_a).doubleStruct() > convertToNumber(_b).doubleStruct());
+        }
+        return BooleanStruct.of(convertToNumber(_a).longStruct() > convertToNumber(_b).longStruct());
+    }
+
+    public static BooleanStruct quickCalculateLowerStr(Struct _a, Struct _b) {
+        String first_ = getCharSeq(_a).toStringInstance();
+        String second_ = getCharSeq(_b).toStringInstance();
+        return BooleanStruct.of(first_.compareTo(second_) < 0);
+    }
+
+    public static BooleanStruct quickCalculateGreaterStr(Struct _a, Struct _b) {
+        String first_ = getCharSeq(_a).toStringInstance();
+        String second_ = getCharSeq(_b).toStringInstance();
+        return BooleanStruct.of(first_.compareTo(second_) > 0);
+    }
+
+    public static NumberStruct idNumber(NumberStruct _a, byte _cast) {
+        return convertToNumber(_cast, _a);
+    }
+
+    public static NumberStruct negBinNumber(NumberStruct _a, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            boolean[] bits_ = toBits(left_);
+            int len_ = bits_.length;
+            for (int i = 0; i<len_; i++) {
+                bits_[i] = !bits_[i];
+            }
+            return new IntStruct(toInt(bits_));
+        }
+        long left_ = _a.longStruct();
+        boolean[] bits_ = toBits(left_);
+        int len_ = bits_.length;
+        for (int i = 0; i<len_; i++) {
+            bits_[i] = !bits_[i];
+        }
+        return new LongStruct(toLong(bits_));
+    }
+
+    public static NumberStruct calculateIncr(NumberStruct _a, int _dir, byte _cast) {
+        if (isByte(_cast)) {
+            byte left_ = _a.byteStruct();
+            left_+=_dir;
+            return new ByteStruct(left_);
+        }
+        if (isShort(_cast)) {
+            short left_ = _a.shortStruct();
+            left_+=_dir;
+            return new ShortStruct(left_);
+        }
+        if (isChar(_cast)) {
+            char left_ = (char)_a.intStruct();
+            left_+=_dir;
+            return new CharStruct(left_);
+        }
+        if (isInt(_cast)) {
+            int left_ = _a.intStruct();
+            int nb_ = left_ + _dir;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long nb_ = left_ + _dir;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double nb_ = left_ + (double)_dir;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static NumberStruct calculateSum(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (isIntOrLess(_cast)) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            int nb_ = left_ + right_;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long right_ = _b.longStruct();
+            long nb_ = left_ + right_;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double right_ = _b.doubleStruct();
+        double nb_ = left_ + right_;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static NumberStruct opposite(NumberStruct _a, byte _cast) {
+        NumberStruct tmp_;
+        if (isIntOrLess(_cast)) {
+            tmp_ = new IntStruct(-_a.intStruct());
+        } else if (isLong(_cast)) {
+            tmp_ = new LongStruct(-_a.longStruct());
+        } else if (isFloat(_cast)){
+            tmp_ = new FloatStruct(-_a.floatStruct());
+        } else {
+            tmp_ = new DoubleStruct(-_a.doubleStruct());
+        }
+        return tmp_;
+    }
+
+    public static NumberStruct calculateDiff(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (isIntOrLess(_cast)) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            int nb_ = left_ - right_;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long right_ = _b.longStruct();
+            long nb_ = left_ - right_;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double right_ = _b.doubleStruct();
+        double nb_ = left_ - right_;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static NumberStruct calculateMult(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (isIntOrLess(_cast)) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            int nb_ = left_ * right_;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long right_ = _b.longStruct();
+            long nb_ = left_ * right_;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double right_ = _b.doubleStruct();
+        double nb_ = left_ * right_;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static Struct calculateDiv(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (isIntOrLess(_cast)) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            if (right_ == 0) {
+                return NullStruct.NULL_VALUE;
+            }
+            int nb_ = left_ / right_;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long right_ = _b.longStruct();
+            if (right_ == 0) {
+                return NullStruct.NULL_VALUE;
+            }
+            long nb_ = left_ / right_;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double right_ = _b.doubleStruct();
+        double nb_ = left_ / right_;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static Struct calculateMod(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (isIntOrLess(_cast)) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            if (right_ == 0) {
+                return NullStruct.NULL_VALUE;
+            }
+            int nb_ = left_ % right_;
+            return new IntStruct(nb_);
+        }
+        if (isLong(_cast)) {
+            long left_ = _a.longStruct();
+            long right_ = _b.longStruct();
+            if (right_ == 0) {
+                return NullStruct.NULL_VALUE;
+            }
+            long nb_ = left_ % right_;
+            return new LongStruct(nb_);
+        }
+        double left_ = _a.doubleStruct();
+        double right_ = _b.doubleStruct();
+        double nb_ = left_ % right_;
+        if (isFloat(_cast)) {
+            return new FloatStruct((float)nb_);
+        }
+        return new DoubleStruct(nb_);
+    }
+
+    public static Struct calculateAnd(Struct _a, Struct _b, byte _cast) {
+        if (_cast == PrimitiveTypes.BOOL_WRAP) {
+            return convertToBoolean(_a).and(convertToBoolean(_b));
+        }
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = convertToNumber(_a).intStruct();
+            int right_ = convertToNumber(_b).intStruct();
+            boolean[] bitsLeft_ = toBits(left_);
+            boolean[] bitsRight_ = toBits(right_);
+            int len_ = bitsLeft_.length;
+            boolean[] bits_ = new boolean[len_];
+            for (int i = 0; i < len_; i++) {
+                bits_[i] = bitsLeft_[i] && bitsRight_[i];
+            }
+            int value_ = toInt(bits_);
+            return new IntStruct(value_);
+        }
+        long left_ = convertToNumber(_a).longStruct();
+        long right_ = convertToNumber(_b).longStruct();
+        boolean[] bitsLeft_ = toBits(left_);
+        boolean[] bitsRight_ = toBits(right_);
+        int len_ = bitsLeft_.length;
+        boolean[] bits_ = new boolean[len_];
+        for (int i = 0; i < len_; i++) {
+            bits_[i] = bitsLeft_[i] && bitsRight_[i];
+        }
+        long value_ = toLong(bits_);
+        return new LongStruct(value_);
+    }
+
+    public static Struct calculateOr(Struct _a, Struct _b, byte _cast) {
+        if (_cast == PrimitiveTypes.BOOL_WRAP) {
+            return convertToBoolean(_a).or(convertToBoolean(_b));
+        }
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = convertToNumber(_a).intStruct();
+            int right_ = convertToNumber(_b).intStruct();
+            boolean[] bitsLeft_ = toBits(left_);
+            boolean[] bitsRight_ = toBits(right_);
+            int len_ = bitsLeft_.length;
+            boolean[] bits_ = new boolean[len_];
+            for (int i = 0; i < len_; i++) {
+                bits_[i] = bitsLeft_[i] || bitsRight_[i];
+            }
+            int value_ = toInt(bits_);
+            return new IntStruct(value_);
+        }
+        long left_ = convertToNumber(_a).longStruct();
+        long right_ = convertToNumber(_b).longStruct();
+        boolean[] bitsLeft_ = toBits(left_);
+        boolean[] bitsRight_ = toBits(right_);
+        int len_ = bitsLeft_.length;
+        boolean[] bits_ = new boolean[len_];
+        for (int i = 0; i < len_; i++) {
+            bits_[i] = bitsLeft_[i] || bitsRight_[i];
+        }
+        long value_ = toLong(bits_);
+        return new LongStruct(value_);
+    }
+
+    public static Struct calculateXor(Struct _a, Struct _b, byte _cast) {
+        if (_cast == PrimitiveTypes.BOOL_WRAP) {
+            return BooleanStruct.of(!convertToBoolean(_a).sameReference(convertToBoolean(_b)));
+        }
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = convertToNumber(_a).intStruct();
+            int right_ = convertToNumber(_b).intStruct();
+            boolean[] bitsLeft_ = toBits(left_);
+            boolean[] bitsRight_ = toBits(right_);
+            int len_ = bitsLeft_.length;
+            boolean[] bits_ = new boolean[len_];
+            for (int i = 0; i < len_; i++) {
+                bits_[i] = bitsLeft_[i] != bitsRight_[i];
+            }
+            int value_ = toInt(bits_);
+            return new IntStruct(value_);
+        }
+        long left_ = convertToNumber(_a).longStruct();
+        long right_ = convertToNumber(_b).longStruct();
+        boolean[] bitsLeft_ = toBits(left_);
+        boolean[] bitsRight_ = toBits(right_);
+        int len_ = bitsLeft_.length;
+        boolean[] bits_ = new boolean[len_];
+        for (int i = 0; i < len_; i++) {
+            bits_[i] = bitsLeft_[i] != bitsRight_[i];
+        }
+        long value_ = toLong(bits_);
+        return new LongStruct(value_);
+    }
+
+    public static NumberStruct calculateShiftLeft(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            int power_ = 1;
+            for (int i = 0; i< value_; i++) {
+                power_ *= 2;
+            }
+            return new IntStruct(left_*power_);
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        long value_ = toUnsignedLong(bitsRight_,6);
+        long power_ = 1;
+        for (int i = 0; i< value_; i++) {
+            power_ *= 2;
+        }
+        return new LongStruct(left_*power_);
+    }
+
+    public static NumberStruct calculateShiftRight(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            int power_ = 1;
+            for (int i = 0; i< value_; i++) {
+                power_ *= 2;
+            }
+            return new IntStruct(Numbers.quot(left_, power_));
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        long value_ = toUnsignedLong(bitsRight_,6);
+        long power_ = 1;
+        for (int i = 0; i< value_; i++) {
+            power_ *= 2;
+        }
+        return new LongStruct(Numbers.quot(left_, power_));
+    }
+
+    public static NumberStruct calculateBitShiftLeft(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = toBits(left_);
+            int diff_ = 32 - value_;
+            for (int i = 1; i < diff_; i++) {
+                shift(value_, bitsLeft_, i);
+            }
+            for (int i = diff_; i < 32; i++) {
+                bitsLeft_[i] = false;
+            }
+            return new IntStruct(toInt(bitsLeft_));
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        int value_ = (int) toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = toBits(left_);
+        int diff_ = 64 - value_;
+        for (int i = 1; i < diff_; i++) {
+            shift(value_, bitsLeft_, i);
+        }
+        for (int i = diff_; i < 64; i++) {
+            bitsLeft_[i] = false;
+        }
+        return new LongStruct(toLong(bitsLeft_));
+    }
+
+    private static void shift(int _value, boolean[] _bits, int _i) {
+        _bits[_i] = _bits[_i + _value];
+    }
+
+    public static NumberStruct calculateBitShiftRight(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = toBits(left_);
+            int diff_ = 32 - value_;
+            for (int i = 0; i < diff_; i++) {
+                int index_ = 31 - i;
+                bitsLeft_[index_] = bitsLeft_[index_ - value_];
+            }
+            for (int i = diff_; i < 32; i++) {
+                int index_ = 31 - i;
+                bitsLeft_[index_] = false;
+            }
+            return new IntStruct(toInt(bitsLeft_));
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        long value_ = toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = toBits(left_);
+        int diff_ = 64 - (int)value_;
+        for (int i = 0; i < diff_; i++) {
+            int index_ = 63 - i;
+            bitsLeft_[index_] = bitsLeft_[index_ - (int)value_];
+        }
+        for (int i = diff_; i < 64; i++) {
+            int index_ = 63 - i;
+            bitsLeft_[index_] = false;
+        }
+        return new LongStruct(toLong(bitsLeft_));
+    }
+
+    public static NumberStruct calculateRotateLeft(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = toBits(left_);
+            int max_ = bitsLeft_.length - 1;
+            for (int i = 0; i < value_; i++) {
+                boolean firstBit_ = bitsLeft_[0];
+                for (int j = 0; j < max_; j++) {
+                    shift(bitsLeft_, j);
+                }
+                bitsLeft_[max_] = firstBit_;
+            }
+            return new IntStruct(toInt(bitsLeft_));
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        long value_ = toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = toBits(left_);
+        int max_ = bitsLeft_.length - 1;
+        for (int i = 0; i < value_; i++) {
+            boolean firstBit_ = bitsLeft_[0];
+            for (int j = 0; j < max_; j++) {
+                shift(bitsLeft_, j);
+            }
+            bitsLeft_[max_] = firstBit_;
+        }
+        return new LongStruct(toLong(bitsLeft_));
+    }
+
+    private static void shift(boolean[] _bits, int _j) {
+        shift(1, _bits, _j);
+    }
+
+    public static NumberStruct calculateRotateRight(NumberStruct _a, NumberStruct _b, byte _cast) {
+        if (_cast <= PrimitiveTypes.INT_WRAP) {
+            int left_ = _a.intStruct();
+            int right_ = _b.intStruct();
+            boolean[] bitsRight_ = toBits(right_);
+            int value_ = toUnsignedInt(bitsRight_,5);
+            boolean[] bitsLeft_ = toBits(left_);
+            int max_ = bitsLeft_.length - 1;
+            for (int i = 0; i < value_; i++) {
+                boolean firstBit_ = bitsLeft_[max_];
+                for (int j = 0; j < max_; j++) {
+                    int index_ = max_ - j;
+                    bitsLeft_[index_] = bitsLeft_[index_ - 1];
+                }
+                bitsLeft_[0] = firstBit_;
+            }
+            return new IntStruct(toInt(bitsLeft_));
+        }
+        long left_ = _a.longStruct();
+        long right_ = _b.longStruct();
+        boolean[] bitsRight_ = toBits(right_);
+        long value_ = toUnsignedLong(bitsRight_,6);
+        boolean[] bitsLeft_ = toBits(left_);
+        int max_ = bitsLeft_.length - 1;
+        for (int i = 0; i < value_; i++) {
+            boolean firstBit_ = bitsLeft_[max_];
+            for (int j = 0; j < max_; j++) {
+                int index_ = max_ - j;
+                bitsLeft_[index_] = bitsLeft_[index_ - 1];
+            }
+            bitsLeft_[0] = firstBit_;
+        }
+        return new LongStruct(toLong(bitsLeft_));
     }
 }

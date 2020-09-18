@@ -1,7 +1,7 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -89,7 +89,7 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
 
     @Test
     public void getQuickComponentType1Test() {
-        ClassArgumentMatching arg_ = new ClassArgumentMatching("$int");
+        AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching("$int");
         assertTrue(StringExpUtil.getQuickComponentType(arg_).getNames().isEmpty());
     }
     @Test

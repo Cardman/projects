@@ -13,8 +13,8 @@ import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.types.ExecResultPartType;
 import code.expressionlanguage.exec.util.Cache;
@@ -82,7 +82,7 @@ public final class ExecTemplates {
         indexesArray_.put(new Ints(), output_);
         int glDim_ = _dims.size();
         int i_ = CustList.FIRST_INDEX;
-        Struct defClass_ = PrimitiveTypeUtil.defaultClass(_className, _cont);
+        Struct defClass_ = ExecClassArgumentMatching.defaultValue(_className, _cont);
         for (int i : _dims) {
             dims_.add(i);
             glDim_--;
@@ -336,9 +336,8 @@ public final class ExecTemplates {
 
     public static boolean checkObject(String _param, Argument _arg, ContextEl _context) {
         Struct str_ = _arg.getStruct();
-        LgNames stds_ = _context.getStandards();
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_param);
-        _arg.setStruct(PrimitiveTypeUtil.convertObject(cl_, str_, stds_));
+        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_param, _context.getStandards());
+        _arg.setStruct(NumParsers.convertObject(cast_, str_));
         return checkQuick(_param, _arg, _context);
     }
 
@@ -644,7 +643,7 @@ public final class ExecTemplates {
                 return;
             }
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+            int index_ = NumParsers.convertToNumber(_index).intStruct();
             inst_[index_] = _value;
             return;
         }
@@ -657,7 +656,7 @@ public final class ExecTemplates {
             String cast_ = stds_.getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+            int index_ = NumParsers.convertToNumber(_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
                 mess_.append(index_);
@@ -702,7 +701,7 @@ public final class ExecTemplates {
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         Struct[] inst_ = arr_.getInstance();
-        int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+        int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= inst_.length) {
             return ErrorType.BAD_INDEX;
         }
@@ -743,7 +742,7 @@ public final class ExecTemplates {
         if (err_ == ErrorType.NOTHING) {
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+            int index_ = NumParsers.convertToNumber(_index).intStruct();
             return inst_[index_];
         }
         if (err_ == ErrorType.NPE) {
@@ -755,7 +754,7 @@ public final class ExecTemplates {
             String cast_ = stds_.getAliasBadIndex();
             ArrayStruct arr_ = (ArrayStruct) _array;
             Struct[] inst_ = arr_.getInstance();
-            int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+            int index_ = NumParsers.convertToNumber(_index).intStruct();
             StringBuilder mess_ = new StringBuilder();
             if (index_ < 0) {
                 mess_.append(index_);
@@ -788,7 +787,7 @@ public final class ExecTemplates {
         }
         ArrayStruct arr_ = (ArrayStruct) _array;
         Struct[] inst_ = arr_.getInstance();
-        int index_ = ClassArgumentMatching.convertToNumber(_index).intStruct();
+        int index_ = NumParsers.convertToNumber(_index).intStruct();
         if (index_ < 0 || index_ >= inst_.length) {
             return ErrorType.BAD_INDEX;
         }
@@ -1102,9 +1101,9 @@ public final class ExecTemplates {
         if (cache_ != null) {
             LoopVariable loopVar_ = cache_.getLoopVar(_val,_deep);
             if (loopVar_ != null) {
-                ClassArgumentMatching clArg_ = new ClassArgumentMatching(loopVar_.getIndexClassName());
+                byte cast_ = ClassArgumentMatching.getPrimitiveCast(loopVar_.getIndexClassName(), _context.getStandards());
                 LongStruct str_ = new LongStruct(loopVar_.getIndex());
-                Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
+                Struct value_ = NumParsers.convertToInt(cast_, str_);
                 return new Argument(value_);
             }
         }
@@ -1114,9 +1113,9 @@ public final class ExecTemplates {
             _context.setException(new ErrorStruct(_context,npe_));
             return new Argument(new IntStruct(0));
         }
-        ClassArgumentMatching clArg_ = new ClassArgumentMatching(locVar_.getIndexClassName());
+        byte cast_ = ClassArgumentMatching.getPrimitiveCast(locVar_.getIndexClassName(), _context.getStandards());
         LongStruct str_ = new LongStruct(locVar_.getIndex());
-        Struct value_ = PrimitiveTypeUtil.convertToInt(clArg_, str_, stds_);
+        Struct value_ = NumParsers.convertToInt(cast_, str_);
         return new Argument(value_);
     }
 
@@ -1222,7 +1221,7 @@ public final class ExecTemplates {
         if (dBaseArg_.getDim() != dim_) {
             return "";
         }
-        if (PrimitiveTypeUtil.isPrimitive(baseArr_,_context)) {
+        if (ExecClassArgumentMatching.isPrimitive(baseArr_,_context)) {
             PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
             if (StringList.contains(pr_.getAllSuperType(_context), classParam_)) {
                 return _superType;
@@ -1402,7 +1401,7 @@ public final class ExecTemplates {
         String compo_ = StringExpUtil.getQuickComponentBaseType(idCl_).getComponent();
         GeneType info_ = _context.getClassBody(compo_);
         if (info_ == null) {
-            if (PrimitiveTypeUtil.isPrimitive(compo_,_context)) {
+            if (ExecClassArgumentMatching.isPrimitive(compo_,_context)) {
                 return true;
             }
             return StringList.quickEq(compo_, _context.getStandards().getAliasVoid());

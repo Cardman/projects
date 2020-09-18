@@ -2,9 +2,9 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -35,7 +35,7 @@ public final class ExecDeclareVariable extends ExecLeaf implements StackableBloc
     public void processEl(ContextEl _cont) {
         AbstractPageEl ip_ = _cont.getLastPage();
         String formatted_ = ip_.formatVarType(importedClassName, _cont);
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
         for (String v: variableNames) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,formatted_);
             ip_.putLocalVar(v, lv_);

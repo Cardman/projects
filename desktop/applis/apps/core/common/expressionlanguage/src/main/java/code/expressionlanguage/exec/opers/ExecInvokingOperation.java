@@ -16,7 +16,6 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.stds.AliasReflection;
@@ -24,6 +23,7 @@ import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
 
 public abstract class ExecInvokingOperation extends ExecMethodOperation implements ExecPossibleIntermediateDotted, AtomicExecCalculableOperation {
@@ -35,7 +35,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         intermediate = _inter.isIntermediateDottedOperation();
     }
 
-    public ExecInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
+    public ExecInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
                                  boolean _intermediate) {
         super(_indexChild,_res,_order);
         intermediate = _intermediate;
@@ -786,7 +786,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             if (forId_.startsWith(ARR)) {
                 Ints dims_ = new Ints();
                 for (Argument a: _values) {
-                    int dim_ = ClassArgumentMatching.convertToNumber(a.getStruct()).intStruct();
+                    int dim_ = NumParsers.convertToNumber(a.getStruct()).intStruct();
                     dims_.add(dim_);
                 }
                 String c_ = forId_.substring(ARR.length());
@@ -801,7 +801,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
@@ -861,7 +861,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Argument instance_ = l_.getInstanceCall();
             if (l_.isSafeInstance()&&instance_.isNull()) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
             CustList<Argument> nList_ = new CustList<Argument>();
             Argument realInstance_;
@@ -903,7 +903,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             Struct instanceStruct_ = l_.getInstanceCall().getStruct();
             if (l_.isSafeInstance()&&instanceStruct_ == NullStruct.NULL_VALUE) {
                 String last_ = StringExpUtil.getAllTypes(l_.getClassName(_conf)).last();
-                return new Argument(PrimitiveTypeUtil.defaultValue(last_,_conf));
+                return new Argument(ExecClassArgumentMatching.defaultValue(last_,_conf));
             }
             String obj_ = _conf.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);

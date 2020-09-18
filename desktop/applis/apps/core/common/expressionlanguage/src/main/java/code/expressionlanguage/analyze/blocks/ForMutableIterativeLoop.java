@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.blocks.ExecForMutableIterativeLoop;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -11,7 +12,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
@@ -21,6 +21,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
 
 public final class ForMutableIterativeLoop extends BracedBlock implements
@@ -192,7 +193,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
             ExecOperationNode l_ = exp_.last();
             argument = l_.getArgument();
-            checkBoolCondition(_cont, l_);
+            checkBoolCondition(_cont, l_, page_.getCurrentRoot());
             rootExp = page_.getCurrentRoot();
         }
         page_.getCoverage().putBlockOperationsConditions(this);
@@ -243,7 +244,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -272,8 +273,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             page_.setMerged(false);
         }
     }
-    private void checkBoolCondition(ContextEl _cont, ExecOperationNode _exp) {
-        ClassArgumentMatching exp_ = _exp.getResultClass();
+    private void checkBoolCondition(ContextEl _cont, ExecOperationNode _exp, OperationNode _root) {
+        AnaClassArgumentMatching exp_ = _root.getResultClass();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         if (!exp_.isBoolType(page_)) {
@@ -283,6 +284,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 exp_.getImplicits().add(cl_);
                 exp_.setRootNumber(res_.getRootNumber());
                 exp_.setMemberNumber(res_.getMemberNumber());
+//                _exp.getResultClass().getImplicits().add(cl_);
+//                _exp.getResultClass().setRootNumber(res_.getRootNumber());
+//                _exp.getResultClass().setMemberNumber(res_.getMemberNumber());
             } else {
                 ClassMethodIdReturn trueOp_ = OperationNode.fetchTrueOperator(_cont, exp_);
                 if (trueOp_.isFoundMethod()) {
@@ -290,6 +294,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     exp_.getImplicitsTest().add(cl_);
                     exp_.setRootNumberTest(trueOp_.getRootNumber());
                     exp_.setMemberNumberTest(trueOp_.getMemberNumber());
+//                    _exp.getResultClass().getImplicitsTest().add(cl_);
+//                    _exp.getResultClass().setRootNumberTest(trueOp_.getRootNumber());
+//                    _exp.getResultClass().setMemberNumberTest(trueOp_.getMemberNumber());
                     test = cl_;
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -304,8 +311,8 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 }
             }
         }
-        exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-        ElUtil.setImplicits(_exp, _cont.getAnalyzing());
+        exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        ElUtil.setImplicits(_exp, _cont.getAnalyzing(), _root);
     }
 
     public String getImportedClassIndexName() {

@@ -3,16 +3,16 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.util.StringList;
 
 public final class ParentInstanceOperation extends LeafOperation implements PossibleIntermediateDotted {
-    private ClassArgumentMatching previousResultClass;
+    private AnaClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private int off;
     protected ParentInstanceOperation(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -34,7 +34,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
             converted_.add(_conf.getAnalyzing().getGlobalClass());
         }
         StringList rs_ = getParentTypeList(_conf,converted_);
-        setResultClass(new ClassArgumentMatching(rs_));
+        setResultClass(new AnaClassArgumentMatching(rs_));
     }
 
     static StringList getParentTypeList(ContextEl _conf, StringList _converted) {
@@ -76,7 +76,7 @@ public final class ParentInstanceOperation extends LeafOperation implements Poss
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
     }
 

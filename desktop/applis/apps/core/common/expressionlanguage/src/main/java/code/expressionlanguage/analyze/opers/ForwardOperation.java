@@ -3,12 +3,12 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -18,7 +18,7 @@ import code.util.StringMap;
 
 public final class ForwardOperation extends LeafOperation implements PossibleIntermediateDotted {
 
-    private ClassArgumentMatching previousResultClass;
+    private AnaClassArgumentMatching previousResultClass;
     private boolean intermediate;
     private String classType = EMPTY_STRING;
     private boolean staticChoiceMethod;
@@ -38,10 +38,10 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         if (isIntermediateDottedOperation()) {
-            setResultClass(new ClassArgumentMatching(previousResultClass.getNames()));
+            setResultClass(new AnaClassArgumentMatching(previousResultClass.getNames()));
         } else {
             String arg_ = _conf.getAnalyzing().getGlobalClass();
-            setResultClass(new ClassArgumentMatching(arg_));
+            setResultClass(new AnaClassArgumentMatching(arg_));
         }
         KeyWords keyWords_ = _conf.getAnalyzing().getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
@@ -94,7 +94,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             int loc_ = StringList.getFirstPrintableCharIndex(className_);
             classType = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
             partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
-            setResultClass(new ClassArgumentMatching(classType));
+            setResultClass(new AnaClassArgumentMatching(classType));
             accessSuperTypes = false;
             staticChoiceMethod = true;
         } else {
@@ -149,7 +149,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _static) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _static) {
         previousResultClass = _previousResultClass;
     }
 

@@ -7,8 +7,8 @@ import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -32,7 +32,7 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         off = _v.getOff();
         deep = _v.getDeep();
     }
-    public RendStdVariableOperation(int _indexChild, String _varName, ClassArgumentMatching _res, int _order) {
+    public RendStdVariableOperation(int _indexChild, String _varName, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
         variableName  = _varName;
         deep = -1;
@@ -75,18 +75,18 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        return getCommonCompoundSetting(_conf, store_, _op, _right);
+        return getCommonCompoundSetting(_conf, store_, _op, _right, _cl, _cast);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast) {
         Struct store_;
         store_ = _store.getStruct();
-        return getCommonSemiSetting(_conf, store_, _op, _post);
+        return getCommonSemiSetting(_conf, store_, _op, _post, _cast);
     }
 
     private Argument getCommonSetting(Configuration _conf, Argument _right) {
@@ -94,23 +94,21 @@ public final class RendStdVariableOperation  extends RendLeafOperation implement
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         return ExecTemplates.setValue(_conf.getContext(),variableName,ip_,_right,deep);
     }
-    private Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(Configuration _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         Argument left_ = new Argument(_store);
-        ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
         ExecTemplates.setValue(_conf.getContext(), variableName, ip_, res_,deep);
         return res_;
     }
-    private Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Configuration _conf, Struct _store, String _op, boolean _post, byte _cast) {
         PageEl ip_ = _conf.getPageEl();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off, _conf);
         Argument left_ = new Argument(_store);
-        ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, cl_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         ExecTemplates.setValue(_conf.getContext(),variableName,ip_,res_,deep);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

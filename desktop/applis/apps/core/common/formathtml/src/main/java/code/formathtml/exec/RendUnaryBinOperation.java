@@ -1,9 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryBinOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.AliasNumber;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -25,7 +24,6 @@ public final class RendUnaryBinOperation extends RendAbstractUnaryOperation {
     Argument getArgument(Configuration _conf,
                          Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        ClassArgumentMatching res_ = getResultClass();
-        return new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf.getContext(), res_));
+        return new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(_in.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
 }

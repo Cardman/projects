@@ -1,13 +1,13 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
 public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
 
-    private ClassArgumentMatching previousResultClass;
+    private AnaClassArgumentMatching previousResultClass;
     private boolean intermediate;
 
     private Argument previousArgument;
@@ -16,7 +16,7 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         off = _op.getOffset();
-        previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
+        previousResultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
 
     @Override
@@ -28,16 +28,16 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
         return intermediate;
     }
 
-    public final ClassArgumentMatching getPreviousResultClass() {
+    public final AnaClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
     }
 
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         setPreviousResultClass(_previousResultClass);
     }
 
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass) {
         previousResultClass = _previousResultClass;
     }
 

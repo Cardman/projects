@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
@@ -98,7 +99,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
             _cont.getContext().getAnalyzing().getInfosVars().put(getVariableName(), lv_);
             return;
         }
-        ClassArgumentMatching resSwitch_ = sw_.getOpValue().last().getResultClass();
+        AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!type_.isEmpty()) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
@@ -143,7 +144,7 @@ public final class RendCaseCondition extends RendSwitchPartCondition implements 
         }
         opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, page_);
         RendDynOperationNode op_ = opValue.last();
-        ClassArgumentMatching resCase_ = op_.getResultClass();
+        AnaClassArgumentMatching resCase_ = page_.getCurrentRoot().getResultClass();
         Argument arg_ = op_.getArgument();
         if (arg_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();

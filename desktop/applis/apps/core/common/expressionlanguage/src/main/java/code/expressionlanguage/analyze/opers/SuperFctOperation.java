@@ -6,13 +6,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -93,10 +93,10 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
         boolean import_ = false;
-        ClassArgumentMatching clCur_;
+        AnaClassArgumentMatching clCur_;
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!isIntermediateDottedOperation()) {
-            clCur_ = new ClassArgumentMatching(page_.getGlobalClass());
+            clCur_ = new AnaClassArgumentMatching(page_.getGlobalClass());
             import_ = true;
             setStaticAccess(page_.getStaticContext());
         } else {
@@ -155,17 +155,17 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         if (isTrueFalseKeyWord(_conf, trimMeth_)) {
             ClassMethodId f_ = getTrueFalse(_conf, feedBase_);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(name_.getPositional());
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getPositional());
             clMeth_ = getDeclaredCustTrueFalse(this,_conf, staticAccess_,bounds_,trimMeth_,f_, argsClass_);
             if (!clMeth_.isFoundMethod()) {
-                setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+                setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()),_conf));
                 return;
             }
             rootNumber = clMeth_.getRootNumber();
@@ -176,14 +176,14 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             classMethodId = new ClassMethodId(foundClass_, id_);
             MethodId realId_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getPositional(), _conf);
-            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getPositional(), _conf);
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()),_conf));
             return;
         }
         ClassMethodIdReturn clMeth_ = getDeclaredCustMethod(this,_conf, varargOnly_, isStaticAccess(), bounds_, trimMeth_, true, false, import_, feed_, varargParam_,name_);
         anc = clMeth_.getAncestor();
         if (!clMeth_.isFoundMethod()) {
-            setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType()),_conf));
             return;
         }
         standardMethod = clMeth_.getStandardMethod();
@@ -215,8 +215,8 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             lastType = paramtTypes_.last();
         }
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
-        setResultClass(voidToObject(new ClassArgumentMatching(clMeth_.getReturnType()),_conf));
+        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
+        setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()),_conf));
         if (isIntermediateDottedOperation() && !staticMethod) {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);

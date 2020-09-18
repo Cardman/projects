@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -22,10 +23,10 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -56,7 +57,7 @@ public abstract class RendDynOperationNode {
 
     private final int indexChild;
 
-    private ClassArgumentMatching resultClass;
+    private ExecClassArgumentMatching resultClass;
 
     private RendPossibleIntermediateDotted siblingSet;
 
@@ -68,12 +69,12 @@ public abstract class RendDynOperationNode {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
-        resultClass = _oper.getResultClass();
+        resultClass = PrimitiveTypeUtil.toExec(_oper.getResultClass());
         argument = _oper.getArgument();
         order = _oper.getOrder();
     }
 
-    RendDynOperationNode(int _indexChild, ClassArgumentMatching _res, int _order) {
+    RendDynOperationNode(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         indexChild = _indexChild;
         resultClass = _res;
         order = _order;
@@ -492,8 +493,8 @@ public abstract class RendDynOperationNode {
         if (_cont.getContext().hasException()) {
             return;
         }
-        String un_ = resultClass.getUnwrapObject();
-        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
+        byte unwrapObjectNb_ = resultClass.getUnwrapObjectNb();
+        if (resultClass.isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (_arg.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -503,8 +504,8 @@ public abstract class RendDynOperationNode {
                 return;
             }
         }
-        if (!un_.isEmpty()) {
-            _arg.setStruct(PrimitiveTypeUtil.unwrapObject(un_, _arg.getStruct(), _cont.getStandards()));
+        if (unwrapObjectNb_ > -1) {
+            _arg.setStruct(NumParsers.unwrapObject(unwrapObjectNb_, _arg.getStruct()));
         }
     }
 
@@ -752,7 +753,7 @@ public abstract class RendDynOperationNode {
         }
         return out_;
     }
-    public final ClassArgumentMatching getResultClass() {
+    public final ExecClassArgumentMatching getResultClass() {
         return resultClass;
     }
 

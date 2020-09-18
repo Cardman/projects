@@ -4,11 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 
@@ -21,7 +21,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
     }
 
     @Override
-    ClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(ContextEl _conf) {
         int index_ = getIndexChild();
         if (index_ <= 0) {
             return null;
@@ -80,7 +80,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
             getErrs().add(call_.getBuiltError());
             return null;
         }
-        return new ClassArgumentMatching(superClass_);
+        return new AnaClassArgumentMatching(superClass_);
     }
 
     @Override

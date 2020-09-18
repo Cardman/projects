@@ -6,10 +6,10 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
 
 public final class ExecSettableFieldOperation extends
@@ -74,20 +74,20 @@ public final class ExecSettableFieldOperation extends
     @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
+            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, getResultClass());
+        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, _cl, _cast);
     }
     @Override
     public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
+            String _op, boolean _post, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
+        return getCommonSemiSetting(previous_, store_, _conf, _op, _post, _cast);
     }
     private Argument getCommonSetting(Argument _previous, ContextEl _conf, Argument _right) {
         int off_ = getOff();
@@ -109,22 +109,21 @@ public final class ExecSettableFieldOperation extends
         //Come from code directly so constant static fields can be initialized here
         return ExecInvokingOperation.setField(new DefaultSetOffset(_conf),new DefaultExiting(_conf),rootBlock,className_, fieldName_, isStatic_, isFinal_, false, fieldType_, previous_, _right, _conf, off_);
     }
-    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ClassArgumentMatching _arg) {
+    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
         if (_conf.callsOrException()) {
             return res_;
         }
         return getCommonSetting(_previous,_conf,res_);
     }
-    private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Argument _previous, Struct _store, ContextEl _conf, String _op, boolean _post, byte _cast) {
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        ClassArgumentMatching cl_ = getResultClass();
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         getCommonSetting(_previous,_conf,res_);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

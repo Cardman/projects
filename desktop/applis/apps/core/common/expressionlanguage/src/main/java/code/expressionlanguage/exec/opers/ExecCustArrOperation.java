@@ -9,11 +9,11 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -70,14 +70,14 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, getResultClass());
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
         if (_conf.callsOrException()) {
             return Argument.createVoid();
         }
@@ -85,15 +85,14 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post) {
+    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast) {
         Argument previous_ = getPreviousArg(this, _nodes, _conf);
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         return getArgument(previous_,_nodes, _conf,res_);
     }
 

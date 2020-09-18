@@ -8,10 +8,10 @@ import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -125,7 +125,7 @@ public final class ExecForMutableIterativeLoop extends ExecBracedBlock implement
         int index_ = 0;
         if (ip_.isEmptyEl()) {
             String formatted_ = ip_.formatVarType(importedClassName, _cont);
-            Struct struct_ = PrimitiveTypeUtil.defaultValue(formatted_, _cont);
+            Struct struct_ = ExecClassArgumentMatching.defaultValue(formatted_, _cont);
             for (String v: variableNames) {
                 LoopVariable lv_ = new LoopVariable();
                 lv_.setIndexClassName(importedClassIndexName);

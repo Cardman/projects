@@ -5,12 +5,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.*;
 
@@ -52,7 +52,7 @@ public final class ValuesOperation extends LeafOperation {
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             String argClName_ = page_.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         numberEnum = r_.getNumberAll();
@@ -71,7 +71,7 @@ public final class ValuesOperation extends LeafOperation {
         }
         className = r_.getWildCardElement();
         String ret_ = StringExpUtil.getPrettyArrayType(className);
-        setResultClass(new ClassArgumentMatching(ret_));
+        setResultClass(new AnaClassArgumentMatching(ret_));
     }
 
     public int getArgOffset() {

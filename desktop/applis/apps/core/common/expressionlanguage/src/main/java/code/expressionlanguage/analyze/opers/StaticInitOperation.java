@@ -3,8 +3,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.StringList;
 
 public final class StaticInitOperation extends LeafOperation {
@@ -20,7 +20,7 @@ public final class StaticInitOperation extends LeafOperation {
 
     @Override
     public void analyze(ContextEl _conf) {
-        setResultClass(new ClassArgumentMatching(EMPTY_STRING));
+        setResultClass(new AnaClassArgumentMatching(EMPTY_STRING));
     }
 
     void setInit(ContextEl _conf, String _base, boolean _staticType) {
@@ -28,7 +28,7 @@ public final class StaticInitOperation extends LeafOperation {
         if (!_staticType) {
             possibleInitClass = false;
             String argClName_ = page_.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
@@ -38,7 +38,7 @@ public final class StaticInitOperation extends LeafOperation {
         } else {
             setSimpleArgument(new Argument());
         }
-        setResultClass(new ClassArgumentMatching(_base));
+        setResultClass(new AnaClassArgumentMatching(_base));
     }
 
     public boolean isPossibleInitClass() {

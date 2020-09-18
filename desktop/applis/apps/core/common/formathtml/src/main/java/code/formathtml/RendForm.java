@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetsBlock;
@@ -16,6 +17,7 @@ import code.util.StringList;
 
 public final class RendForm extends RendElement {
     private CustList<CustList<RendDynOperationNode>> opExp;
+    private CustList<OperationNode> opExpRoot;
     private CustList<RendDynOperationNode> opForm;
 
     private StringList texts = new StringList();
@@ -38,16 +40,17 @@ public final class RendForm extends RendElement {
             r_.build(lk_,_cont,rowsGrId_,_doc, _anaDoc);
             texts = r_.getTexts();
             opExp = r_.getOpExp();
-            for (CustList<RendDynOperationNode> e: opExp) {
+            opExpRoot = r_.getOpExpRoot();
+            for (OperationNode e: r_.getOpExpRoot()) {
                 Mapping m_ = new Mapping();
-                m_.setArg(e.last().getResultClass());
+                m_.setArg(e.getResultClass());
                 m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(e.last().getResultClass().getNames(),AND_ERR),
+                            StringList.join(e.getResultClass().getNames(),AND_ERR),
                             _cont.getStandards().getAliasLong());
                     Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
@@ -63,7 +66,7 @@ public final class RendForm extends RendElement {
             int i_ = 0;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(opExp.get(i_).last().getResultClass().getSingleNameOrEmpty());
+                lv_.setClassName(opExpRoot.get(i_).getResultClass().getSingleNameOrEmpty());
                 _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;

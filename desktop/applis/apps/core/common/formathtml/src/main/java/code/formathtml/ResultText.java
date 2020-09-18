@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -21,6 +22,7 @@ public final class ResultText {
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
     private CustList<CustList<RendDynOperationNode>> opExp;
+    private CustList<OperationNode> opExpRoot;
     private CustList<RendDynOperationNode> opExpAnchor;
 
     private StringList texts = new StringList();
@@ -29,6 +31,7 @@ public final class ResultText {
     private Ints expEnds = new Ints();
     public void build(String _expression, Configuration _conf, int _off, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
+        opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -84,6 +87,7 @@ public final class ResultText {
 //                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf,_off, i_, _anaDoc);
                 opExp.add(opsLoc_);
+                opExpRoot.add(_conf.getContext().getAnalyzing().getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;
@@ -107,6 +111,7 @@ public final class ResultText {
     }
     public void buildId(String _expression, Configuration _conf, int _begin, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         opExp = new CustList<CustList<RendDynOperationNode>>();
+        opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
         int length_ = _expression.length();
         boolean escaped_ = false;
@@ -166,6 +171,7 @@ public final class ResultText {
 //                _conf.getLastPage().setOffset(i_);
                 CustList<RendDynOperationNode> opsLoc_ = RenderExpUtil.getAnalyzedOperations(_expression, _conf, _begin,i_, _anaDoc);
                 opExp.add(opsLoc_);
+                opExpRoot.add(_conf.getContext().getAnalyzing().getCurrentRoot());
                 i_ = _anaDoc.getNextIndex();
                 expEnds.add(i_);
                 continue;
@@ -194,22 +200,24 @@ public final class ResultText {
         ResultText r_ = new ResultText();
         r_.opExpAnchor = new CustList<RendDynOperationNode>();
         r_.opExp = new CustList<CustList<RendDynOperationNode>>();
+        r_.opExpRoot = new CustList<OperationNode>();
         r_.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
             r_.build(lk_,_cont,colsGrId_,_doc, _anaDoc);
+            CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
             CustList<CustList<RendDynOperationNode>> opExp_ = r_.getOpExp();
-            for (CustList<RendDynOperationNode> e: opExp_) {
+            for (OperationNode e: opExpRoot_) {
                 Mapping m_ = new Mapping();
-                m_.setArg(e.last().getResultClass());
+                m_.setArg(e.getResultClass());
                 m_.setParam(_cont.getStandards().getAliasLong());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
                     badEl_.setIndexFile(colsGrId_);
                     badEl_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                            StringList.join(e.last().getResultClass().getNames(),RendBlock.AND_ERR),
+                            StringList.join(e.getResultClass().getNames(),RendBlock.AND_ERR),
                             _cont.getStandards().getAliasLong());
                     Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
@@ -225,7 +233,7 @@ public final class ResultText {
             int i_ = 0;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(opExp_.get(i_).last().getResultClass().getSingleNameOrEmpty());
+                lv_.setClassName(opExpRoot_.get(i_).getResultClass().getSingleNameOrEmpty());
                 _cont.getContext().getAnalyzing().getInfosVars().addEntry(v,lv_);
                 formArg_.add(StringList.concat(RendBlock.LEFT_PAR, v,RendBlock.RIGHT_PAR));
                 i_++;
@@ -323,6 +331,10 @@ public final class ResultText {
 
     public CustList<CustList<RendDynOperationNode>> getOpExp() {
         return opExp;
+    }
+
+    public CustList<OperationNode> getOpExpRoot() {
+        return opExpRoot;
     }
 
     public CustList<RendDynOperationNode> getOpExpAnchor() {

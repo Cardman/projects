@@ -3,7 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryOperation;
 import code.expressionlanguage.exec.opers.ExecUnaryOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -27,7 +27,7 @@ public final class RendUnaryOperation extends RendAbstractUnaryOperation {
     Argument getArgument(Configuration _conf,
                          Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        ClassArgumentMatching to_ = getResultClass();
-        return ExecUnaryOperation.getArgument(_conf.getContext(),_in,to_,oper);
+        ExecClassArgumentMatching to_ = getResultClass();
+        return ExecUnaryOperation.getArgument(_in,to_,oper);
     }
 }

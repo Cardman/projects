@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.WithEl;
 
 public abstract class AbstractMethodPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -13,7 +13,7 @@ public abstract class AbstractMethodPageEl extends AbstractPageEl implements For
         setGlobalArgument(_gl);
         setGlobalClass(_glClass);
         String ret_ = formatVarType(_ret, _context);
-        setReturnedArgument(new Argument(PrimitiveTypeUtil.defaultValue(ret_,_context)));
+        setReturnedArgument(new Argument(ExecClassArgumentMatching.defaultValue(ret_,_context)));
     }
 
     @Override

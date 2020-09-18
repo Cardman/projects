@@ -6,12 +6,12 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ConstructorBlock;
@@ -30,7 +30,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     private int naturalVararg = -1;
     private int offsetOper;
-    private ClassArgumentMatching from;
+    private AnaClassArgumentMatching from;
     private CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private int rootNumber = -1;
     private int memberNumber = -1;
@@ -68,7 +68,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         LgNames stds_ = page_.getStandards();
         String varargParam_ = getVarargParam(chidren_);
         if (from == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
             return;
         }
@@ -86,13 +86,13 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         RootBlock type_ = page_.getAnaClassBody(id_);
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, from,id_,type_, feed_, varargParam_, name_);
         if (ctorRes_.getRealId() == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             checkPositionBasis(_conf);
             return;
         }
@@ -100,18 +100,18 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         memberNumber = ctorRes_.getMemberNumber();
         constId = ctorRes_.getRealId();
         checkPositionBasis(_conf);
-        postAnalysis(_conf, ctorRes_, chidren_, name_);
+        postAnalysis(_conf, ctorRes_, name_);
     }
 
-    abstract ClassArgumentMatching getFrom(ContextEl _conf);
-    private void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, CustList<OperationNode> _children, NameParametersFilter _args) {
+    abstract AnaClassArgumentMatching getFrom(ContextEl _conf);
+    private void postAnalysis(ContextEl _conf, ConstrustorIdVarArg _res, NameParametersFilter _args) {
         if (_res.isVarArgToCall()) {
             naturalVararg = constId.getParametersTypes().size() - 1;
             lastType = constId.getParametersTypes().last();
         }
-        unwrapArgsFct(_children, constId, naturalVararg, lastType, _args.getAll(), _conf);
+        unwrapArgsFct(constId, naturalVararg, lastType, _args.getAll(), _conf);
         LgNames stds_ = _conf.getAnalyzing().getStandards();
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
 
     void checkPositionBasis(ContextEl _conf) {

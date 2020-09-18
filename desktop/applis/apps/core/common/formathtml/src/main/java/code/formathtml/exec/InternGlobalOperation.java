@@ -2,11 +2,11 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.LeafOperation;
 import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.util.AnalyzingDoc;
 
@@ -36,7 +36,7 @@ public final class InternGlobalOperation extends LeafOperation {
                     page_.getKeyWords().getKeyWordThis());
             Configuration.addError(static_, analyzingDoc, page_);
         }
-        setResultClass(new ClassArgumentMatching(arg_));
+        setResultClass(new AnaClassArgumentMatching(arg_));
     }
 
     public int getOff() {

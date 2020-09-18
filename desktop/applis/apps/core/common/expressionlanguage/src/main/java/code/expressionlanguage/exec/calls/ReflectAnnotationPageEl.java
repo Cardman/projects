@@ -8,9 +8,9 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 
 public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
@@ -58,7 +58,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                     for (CustList<CustList<ExecOperationNode>> a: annotationsParams) {
                         CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                         for (CustList<ExecOperationNode> b: a) {
-                            ClassArgumentMatching arg_ = b.last().getResultClass();
+                            ExecClassArgumentMatching arg_ = b.last().getResultClass();
                             if (arg_.matchClass(cl_)) {
                                 filter_.add(b);
                             }
@@ -69,7 +69,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
                 } else {
                     CustList<CustList<ExecOperationNode>> filter_ = new CustList<CustList<ExecOperationNode>>();
                     for (CustList<ExecOperationNode> a: annotations) {
-                        ClassArgumentMatching arg_ = a.last().getResultClass();
+                        ExecClassArgumentMatching arg_ = a.last().getResultClass();
                         if (arg_.matchClass(cl_)) {
                             filter_.add(a);
                         }

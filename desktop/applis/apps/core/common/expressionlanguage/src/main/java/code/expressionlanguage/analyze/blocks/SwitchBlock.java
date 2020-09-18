@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -10,7 +11,6 @@ import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -25,7 +25,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     private final String value;
     private int valueOffset;
 
-    private ClassArgumentMatching result;
+    private AnaClassArgumentMatching result;
 
     private boolean enumTest;
     private String instanceTest = "";
@@ -75,7 +75,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         page_.setOffset(0);
         CustList<ExecOperationNode> op_ = ElUtil.getAnalyzedOperationsReadOnly(value, _cont, Calculation.staticCalculation(f_.getStaticContext()));
         err = page_.getCurrentEmptyPartErr();
-        result = op_.last().getResultClass();
+        result = page_.getCurrentRoot().getResultClass();
         processAfterEl(_cont);
         ExecBracedBlock exec_;
         root = page_.getCurrentRoot();
@@ -232,7 +232,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         return def_;
     }
 
-    public ClassArgumentMatching getResult() {
+    public AnaClassArgumentMatching getResult() {
         return result;
     }
 

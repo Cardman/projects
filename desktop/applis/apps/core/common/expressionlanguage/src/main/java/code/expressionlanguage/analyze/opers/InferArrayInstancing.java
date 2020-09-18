@@ -7,13 +7,13 @@ import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.OperationsSequence;
 
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.instr.PartOffset;
@@ -134,7 +134,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
         String n_ = type_;
@@ -153,7 +153,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
         String classNameFinal_ = StringExpUtil.getQuickComponentType(cp_);
@@ -171,7 +171,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
+            setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(stds_.getAliasObject())));
             return;
         }
         setClassName(classNameFinal_);
@@ -184,7 +184,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
-            ClassArgumentMatching argType_ = o.getResultClass();
+            AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
             if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
@@ -209,12 +209,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                 }
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, page_)) {
-                o.getResultClass().setUnwrapObject(classNameFinal_);
-                o.cancelArgument();
+                o.getResultClass().setUnwrapObject(classNameFinal_,page_.getStandards());
+                o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);
         }
-        setResultClass(new ClassArgumentMatching(cp_));
+        setResultClass(new AnaClassArgumentMatching(cp_));
     }
 
     public CustList<PartOffset> getPartOffsetsErr() {

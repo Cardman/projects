@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.ClassField;
@@ -27,10 +28,10 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
 
 public final class ElUtil {
@@ -142,7 +143,7 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = page_.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             page_.setCurrentRoot(e_);
             return new CustList<ExecOperationNode>((ExecOperationNode)ExecOperationNode.createExecOperationNode(e_,_conf, page_));
@@ -187,7 +188,7 @@ public final class ElUtil {
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = page_.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             return new CustList<OperationNode>(e_);
         }
@@ -290,8 +291,7 @@ public final class ElUtil {
             if (par_ == _root) {
                 _context.getAnalyzing().setOkNumOp(true);
                 retrieveErrorsAnalyze(_context, par_);
-                ClassArgumentMatching cl_ = par_.getResultClass();
-                unwrapPrimitive(_context, par_, cl_);
+                unwrapPrimitive(_context, par_);
                 tryCalculateNode(_context,par_);
                 par_.setOrder(_sortedNodes.size());
                 _sortedNodes.add(par_);
@@ -301,6 +301,14 @@ public final class ElUtil {
                 return null;
             }
             current_ = par_;
+        }
+    }
+
+    private static void unwrapPrimitive(ContextEl _context, MethodOperation par_) {
+        AnaClassArgumentMatching cl_ = par_.getResultClass();
+        if (AnaTypeUtil.isPrimitive(cl_, _context.getAnalyzing())) {
+            cl_.setUnwrapObject(cl_,_context.getAnalyzing().getStandards());
+            par_.quickCancel();
         }
     }
 
@@ -342,13 +350,6 @@ public final class ElUtil {
                     last_.getErrs().addAllElts(_current.getErrs());
                 }
             }
-        }
-    }
-
-    private static void unwrapPrimitive(ContextEl _context, MethodOperation _par, ClassArgumentMatching _cl) {
-        if (AnaTypeUtil.isPrimitive(_cl, _context.getAnalyzing())) {
-            _cl.setUnwrapObject(_cl);
-            _par.cancelArgument();
         }
     }
 
@@ -629,14 +630,18 @@ public final class ElUtil {
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
         ExecOperationNode exp_ = ExecOperationNode.createExecOperationNode(current_,_an, _page);
-        setImplicits(exp_, _page);
+        setImplicits(exp_, _page, current_);
+        cancelUnwrap(exp_);
+        cancelUnwrap(current_);
         _page.setCurrentRoot(root_);
         _page.getCoverage().putBlockOperation(_page, bl_, current_,exp_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof ExecMethodOperation && op_ != null) {
                 ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an, _page);
-                setImplicits(loc_, _page);
+                cancelUnwrap(loc_);
+                cancelUnwrap(op_);
+                setImplicits(loc_, _page, op_);
                 _page.getCoverage().putBlockOperation(_page, bl_, op_,loc_);
                 ((ExecMethodOperation)exp_).appendChild(loc_);
                 exp_ = loc_;
@@ -657,7 +662,9 @@ public final class ElUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     ExecOperationNode loc_ = ExecOperationNode.createExecOperationNode(op_,_an, _page);
-                    setImplicits(loc_, _page);
+                    cancelUnwrap(loc_);
+                    cancelUnwrap(op_);
+                    setImplicits(loc_, _page, op_);
                     _page.getCoverage().putBlockOperation(_page, bl_, op_,loc_);
                     ExecMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
@@ -694,40 +701,56 @@ public final class ElUtil {
         }
         return out_;
     }
-    public static void setImplicits(ExecOperationNode _ex, AnalyzedPageEl _page){
-        ClassArgumentMatching resultClass_ = _ex.getResultClass();
-        ImplicitMethods implicits_ = _ex.getImplicits();
-        ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        setImplicits(resultClass_, implicits_, implicitsTest_, _page);
+
+    private static void cancelUnwrap(ExecOperationNode exp_) {
+        if (exp_.getArgument() != null) {
+            exp_.getResultClass().setUnwrapObjectNb((byte) -1);
+        }
     }
 
-    public static void setImplicits(ClassArgumentMatching resultClass_, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp, AnalyzedPageEl _page) {
-        CustList<ClassMethodId> implicits_ = resultClass_.getImplicits();
+    private static void cancelUnwrap(OperationNode exp_) {
+        if (exp_.getArgument() != null) {
+            exp_.getResultClass().setUnwrapObjectNb((byte) -1);
+        }
+    }
+
+    public static void setImplicits(ExecOperationNode _ex, AnalyzedPageEl _page, OperationNode _ana){
+        ExecClassArgumentMatching ex_ = _ex.getResultClass();
+        AnaClassArgumentMatching ana_ = _ana.getResultClass();
+        ImplicitMethods implicits_ = _ex.getImplicits();
+        ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
+        setImplicits(ex_,ana_, implicits_, implicitsTest_, _page);
+    }
+
+    public static void setImplicits(ExecClassArgumentMatching resultClass_, AnaClassArgumentMatching _ana, ImplicitMethods _implicitsOp, ImplicitMethods _implicitsTestOp, AnalyzedPageEl _page) {
+        CustList<ClassMethodId> implicits_ = _ana.getImplicits();
         String owner_ = "";
         ExecNamedFunctionBlock conv_ = null;
         if (!implicits_.isEmpty()) {
             owner_ = implicits_.first().getClassName();
-            conv_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumber(),resultClass_.getMemberNumber(), _page);
+            conv_ = ExecOperationNode.fetchFunction(_ana.getRootNumber(),_ana.getMemberNumber(), _page);
         }
         if (conv_ != null) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(resultClass_.getRootNumber(), _page);
+            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_ana.getRootNumber(), _page);
             _implicitsOp.getConverter().add(conv_);
             _implicitsOp.setOwnerClass(owner_);
             _implicitsOp.setRootBlock(classBody_);
         }
-        CustList<ClassMethodId> implicitsTest_ = resultClass_.getImplicitsTest();
+        CustList<ClassMethodId> implicitsTest_ = _ana.getImplicitsTest();
         String ownerTest_ = "";
         ExecNamedFunctionBlock convTest_ = null;
         if (!implicitsTest_.isEmpty()) {
             ownerTest_ = implicitsTest_.first().getClassName();
-            convTest_ = ExecOperationNode.fetchFunction(resultClass_.getRootNumberTest(),resultClass_.getMemberNumberTest(), _page);
+            convTest_ = ExecOperationNode.fetchFunction(_ana.getRootNumberTest(),_ana.getMemberNumberTest(), _page);
         }
         if (convTest_ != null) {
-            ExecRootBlock classBody_ = ExecOperationNode.fetchType(resultClass_.getRootNumberTest(), _page);
+            ExecRootBlock classBody_ = ExecOperationNode.fetchType(_ana.getRootNumberTest(), _page);
             _implicitsTestOp.getConverter().add(convTest_);
             _implicitsTestOp.setOwnerClass(ownerTest_);
             _implicitsTestOp.setRootBlock(classBody_);
         }
+        resultClass_.setUnwrapObjectNb(_ana.getUnwrapObjectNb());
+//        resultClass_.setUnwrapObject(_ana.getUnwrapObject());
     }
 
     public static int getNextIndex(OperationNode _operation, Struct _value) {

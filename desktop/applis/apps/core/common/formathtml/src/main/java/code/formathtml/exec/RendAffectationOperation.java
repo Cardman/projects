@@ -3,8 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -15,7 +15,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
     public RendAffectationOperation(AffectationOperation _a) {
         super(_a);
     }
-    public RendAffectationOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    public RendAffectationOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
 
@@ -64,7 +64,7 @@ public final class RendAffectationOperation extends RendMethodOperation implemen
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }

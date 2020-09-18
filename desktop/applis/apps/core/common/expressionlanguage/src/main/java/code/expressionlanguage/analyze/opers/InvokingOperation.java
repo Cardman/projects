@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
@@ -20,7 +21,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.options.KeyWords;
@@ -33,7 +33,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InvokingOperation extends MethodOperation implements PossibleIntermediateDotted {
-    private ClassArgumentMatching previousResultClass;
+    private AnaClassArgumentMatching previousResultClass;
     private MethodAccessKind staticAccess;
     private boolean intermediate;
 
@@ -42,7 +42,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        previousResultClass = new ClassArgumentMatching(EMPTY_STRING);
+        previousResultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
 
     @Override
@@ -78,7 +78,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
         CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
         CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
-        CustList<ClassArgumentMatching> positionalArgs_ = out_.getPositional();
+        CustList<OperationNode> positionalArgs_ = out_.getPositional();
         StringList names_ = new StringList();
         int delta_ = getDeltaCount(_par.getFirstChild());
         boolean ok_ = true;
@@ -99,7 +99,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 if (!(o instanceof VarargOperation
                         || o instanceof IdFctOperation
                         || o instanceof StaticInitOperation)) {
-                    positionalArgs_.add(o.getResultClass());
+                    positionalArgs_.add(o);
                 }
             }
         }
@@ -134,7 +134,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             AffectationOperation a_ = (AffectationOperation) _m;
             SettableElResult s_ = AffectationOperation.tryGetSettable(a_);
             if (s_ != null) {
-                ClassArgumentMatching c_ = s_.getResultClass();
+                AnaClassArgumentMatching c_ = s_.getResultClass();
                 return c_.getSingleNameOrEmpty();
             }
         }
@@ -312,7 +312,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 String returnType_ = methodInfo_.getReturnType();
                 mapping_.setArg(returnType_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_,_an)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_an, typeAff_, new ClassArgumentMatching(returnType_));
+                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(_an, typeAff_, new AnaClassArgumentMatching(returnType_));
                     if (!res_.isFoundMethod()) {
                         continue;
                     }
@@ -345,17 +345,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
 
     protected static boolean isUndefined(String typeAff_, String keyWordVar_) {
         return typeAff_.isEmpty() || StringList.quickEq(typeAff_, keyWordVar_);
-    }
-    private static CustList<OperationNode> filterOperands(CustList<OperationNode> _children) {
-        CustList<OperationNode> firstArgs_ = new CustList<OperationNode>();
-        for (OperationNode o: _children) {
-            if (o instanceof IdFctOperation
-                    || o instanceof VarargOperation) {
-                continue;
-            }
-            firstArgs_.add(o);
-        }
-        return firstArgs_;
     }
 
     public static CustList<Argument> quickListArguments(CustList<OperationNode> _children, int _natVararg, String _lastType, CustList<Argument> _nodes) {
@@ -418,37 +407,37 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return bounds_;
     }
 
-    static void unwrapArgsFct(CustList<OperationNode> _ch, Identifiable _id, int _natvararg, String _lasttype, CustList<ClassArgumentMatching> _args, ContextEl _conf) {
+    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, ContextEl _conf) {
         if (_natvararg > -1) {
             int lenCh_ = _args.size();
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
+                OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _conf.getAnalyzing())) {
-                        a_.setUnwrapObject(_lasttype);
+                        a_.getResultClass().setUnwrapObject(_lasttype,_conf.getAnalyzing().getStandards());
+                        a_.quickCancel();
                     }
                 } else {
                     String param_ = _id.getParametersTypes().get(i);
                     if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
-                        a_.setUnwrapObject(param_);
+                        a_.getResultClass().setUnwrapObject(param_,_conf.getAnalyzing().getStandards());
+                        a_.quickCancel();
                     }
                 }
             }
         } else {
             int lenCh_ = _args.size();
             for (int i = CustList.FIRST_INDEX; i < lenCh_; i++) {
-                ClassArgumentMatching a_ = _args.get(i);
+                OperationNode a_ = _args.get(i);
                 String param_ = _id.getParametersTypes().get(i);
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }
                 if (AnaTypeUtil.isPrimitive(param_, _conf.getAnalyzing())) {
-                    a_.setUnwrapObject(param_);
+                    a_.getResultClass().setUnwrapObject(param_,_conf.getAnalyzing().getStandards());
+                    a_.quickCancel();
                 }
             }
-        }
-        for (OperationNode o: filterOperands(_ch)) {
-            o.cancelArgument();
         }
     }
     final int lookOnlyForVarArg() {
@@ -509,12 +498,12 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return intermediate;
     }
 
-    public final ClassArgumentMatching getPreviousResultClass() {
+    public final AnaClassArgumentMatching getPreviousResultClass() {
         return previousResultClass;
     }
 
     @Override
-    public final void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public final void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         previousResultClass = _previousResultClass;
         staticAccess = _staticAccess;
     }

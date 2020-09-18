@@ -6,12 +6,12 @@ import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -112,7 +112,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             );
             page_.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodId id_ = null;
@@ -124,7 +124,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodIdReturn cust_;
@@ -141,17 +141,17 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             undefined_.setIndexFile(page_.getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
-            for (ClassArgumentMatching c: name_.getAll()) {
-                classesNames_.add(StringList.join(c.getNames(), "&"));
+            for (OperationNode c: name_.getAll()) {
+                classesNames_.add(StringList.join(c.getResultClass().getNames(), "&"));
             }
             undefined_.buildError(_conf.getAnalyzing().getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, cl_, classesNames_).getSignature(page_));
             page_.getLocalizer().addError(undefined_);
             getErrs().add(undefined_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
-        setResultClass(new ClassArgumentMatching(cust_.getReturnType()));
+        setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(),page_.getStandards()));
         String foundClass_ = cust_.getRealClass();
         MethodId realId_ = cust_.getRealId();
         if (realId_.getKind() != MethodAccessKind.STATIC_CALL) {
@@ -165,7 +165,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             naturalVararg = paramtTypes_.size() - 1;
             lastType = paramtTypes_.last();
         }
-        unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
+        unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
     }
 
 

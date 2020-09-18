@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.DeadCodeTernary;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -11,10 +12,10 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -76,7 +77,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         LgNames stds_ = page_.getStandards();
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode opOne_ = chidren_.first();
-        ClassArgumentMatching clMatch_ = opOne_.getResultClass();
+        AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(page_)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimBoolean(), clMatch_);
             if (res_.isFoundMethod()) {
@@ -113,14 +114,13 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
             list_.add(new PartOffset("</a>",i_+1));
             getPartOffsetsChildren().add(list_);
         }
-        opOne_.getResultClass().setUnwrapObject(booleanPrimType_);
-        opOne_.cancelArgument();
+        opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        opOne_.getResultClass().setCheckOnlyNullPe(true);
+        opOne_.quickCancel();
         OperationNode opTwo_ = chidren_.get(CustList.SECOND_INDEX);
         OperationNode opThree_ = chidren_.last();
-        ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
-        ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-        StringList one_ = clMatchTwo_.getNames();
-        StringList two_ = clMatchThree_.getNames();
+        AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
+        AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
@@ -146,25 +146,27 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         if (!type_.isEmpty()) {
             if (AnaTypeUtil.isPrimitive(type_, page_)) {
-                opTwo_.getResultClass().setUnwrapObject(type_);
-                opThree_.getResultClass().setUnwrapObject(type_);
-                opTwo_.cancelArgument();
-                opThree_.cancelArgument();
+                opTwo_.getResultClass().setUnwrapObject(type_,page_.getStandards());
+                opThree_.getResultClass().setUnwrapObject(type_,page_.getStandards());
+                opTwo_.quickCancel();
+                opThree_.quickCancel();
             }
-            setResultClass(new ClassArgumentMatching(type_));
+            setResultClass(new AnaClassArgumentMatching(type_));
             checkDeadCode(_conf, opOne_);
             return;
         }
+        StringList one_ = clMatchTwo_.getNames();
+        StringList two_ = clMatchThree_.getNames();
         ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _conf);
         if (res_.isUnwrapFirst()) {
-            opTwo_.getResultClass().setUnwrapObject(res_.getTypes().first());
-            opTwo_.cancelArgument();
+            opTwo_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
+            opTwo_.quickCancel();
         }
         if (res_.isUnwrapSecond()) {
-            opThree_.getResultClass().setUnwrapObject(res_.getTypes().first());
-            opThree_.cancelArgument();
+            opThree_.getResultClass().setUnwrapObjectNb(res_.getCastPrim());
+            opThree_.quickCancel();
         }
-        setResultClass(new ClassArgumentMatching(res_.getTypes()));
+        setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
         checkDeadCode(_conf, opOne_);
     }
 

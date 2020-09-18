@@ -3,13 +3,14 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -33,10 +34,10 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         OperationNode child_ = getFirstChild();
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        ClassArgumentMatching clMatch_ = child_.getResultClass();
+        AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperations().getOperators().firstKey();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_.getResultClass(), oper_, _conf);
+        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _conf);
         if (clId_ != null) {
             if (!AnaTypeUtil.isPrimitive(clId_.getSymbol().getClassName(),page_)) {
                 classMethodId = clId_.getSymbol();
@@ -61,18 +62,18 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             if (!MethodOperation.isEmptyError(getFirstChild())){
                 getErrs().add(un_.getBuiltError());
             }
-            ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+            AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
             setResultClass(arg_);
             return;
         }
         int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
-        ClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, page_);
+        AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, page_);
         if (AnaTypeUtil.getIntOrderClass(cl_, _conf) < intOrder_) {
-            cl_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
+            cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
-        clMatch_.setUnwrapObject(cl_);
-        child_.cancelArgument();
-        setResultClass(ClassArgumentMatching.copy(cl_));
+        clMatch_.setUnwrapObject(cl_,page_.getStandards());
+        child_.quickCancel();
+        setResultClass(AnaClassArgumentMatching.copy(cl_,page_.getStandards()));
     }
 
     @Override
@@ -90,8 +91,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         if (!(nb_ instanceof NumberStruct)) {
             return;
         }
-        ClassArgumentMatching res_ = _par.getResultClass();
-        Argument out_ = new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(nb_), _page, res_));
+        AnaClassArgumentMatching res_ = _par.getResultClass();
+        Argument out_ = new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(nb_), res_.getUnwrapObjectNb()));
         _par.setSimpleArgumentAna(out_, _page);
     }
 

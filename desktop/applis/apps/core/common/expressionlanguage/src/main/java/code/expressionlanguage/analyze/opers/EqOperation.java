@@ -3,13 +3,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.*;
@@ -53,9 +54,9 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        ClassArgumentMatching first_ = chidren_.first().getResultClass();
-        ClassArgumentMatching second_ = chidren_.last().getResultClass();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, custOp_, _conf);
+        OperationNode l_ = chidren_.first();
+        OperationNode r_ = chidren_.last();
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _conf);
         if (cl_.getSymbol() != null) {
             classMethodId = cl_.getSymbol();
             rootNumber = cl_.getRootNumber();
@@ -63,7 +64,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             return;
         }
         LgNames stds_ = page_.getStandards();
-        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
     @Override
     public void quickCalculate(ContextEl _conf) {

@@ -3,10 +3,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -47,7 +47,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             String base_ = ((CastOperation) par_).getClassName();
@@ -70,7 +70,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                 parts_.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 parts_.add(new PartOffset("</a>",i_+1));
                 getPartOffsetsChildren().add(parts_);
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             int len_ = children_.size();
@@ -93,7 +93,7 @@ public final class IdOperation extends AbstractUnaryOperation {
                             Integer.toString(1),
                             Integer.toString(children_.size()));
                     page_.getLocalizer().addError(un_);
-                    setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                    setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                     parts_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                     parts_.add(new PartOffset("</a>",i_+1));
                     getPartOffsetsChildren().add(parts_);
@@ -113,7 +113,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             }
             if (!existAll_) {
                 LgNames stds_ = page_.getStandards();
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             StringList all_ = new StringList(rBase_.getAllSuperTypes());
@@ -134,12 +134,12 @@ public final class IdOperation extends AbstractUnaryOperation {
                 page_.getLocalizer().addError(un_);
                 getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",i_));
                 getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
             standard = false;
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (children_.isEmpty()) {
@@ -153,10 +153,10 @@ public final class IdOperation extends AbstractUnaryOperation {
                     Integer.toString(0));
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
-        setResultClass(ClassArgumentMatching.copy(children_.first().getResultClass()));
+        setResultClass(AnaClassArgumentMatching.copy(children_.first().getResultClass(),page_.getStandards()));
     }
 
     private static void checkInherits(ContextEl _conf, OperationNode _op, StringList _previousInts, String _cl) {

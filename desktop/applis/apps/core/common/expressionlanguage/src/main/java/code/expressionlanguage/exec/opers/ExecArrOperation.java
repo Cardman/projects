@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -75,7 +75,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
+            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -84,13 +84,13 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        return new Argument(compoundAffectArray(array_, store_, lastArg_, _op,_right, _conf,getResultClass()));
+        return new Argument(compoundAffectArray(array_, store_, lastArg_, _op,_right, _conf,_cl, _cast));
     }
 
     @Override
     public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
+            String _op, boolean _post, byte _cast) {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -99,7 +99,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
         Argument lastArg_ = getArgument(_nodes, lastElement_);
-        return new Argument(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf));
+        return new Argument(semiAffectArray(array_, store_, lastArg_, _op, _post, _conf, _cast));
     }
 
     private Struct affectArray(Struct _array, Argument _index, Argument _right, ContextEl _conf) {
@@ -108,23 +108,22 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         return _right.getStruct();
     }
 
-    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, String _op, Argument _right, ContextEl _conf, ClassArgumentMatching _arg) {
+    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, String _op, Argument _right, ContextEl _conf, ExecClassArgumentMatching _arg, byte _cast) {
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
         if (_conf.callsOrException()) {
             return _stored;
         }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         return res_.getStruct();
     }
-    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf) {
+    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, String _op, boolean _post, ContextEl _conf, byte _cast) {
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, clArg_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf);
         Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();

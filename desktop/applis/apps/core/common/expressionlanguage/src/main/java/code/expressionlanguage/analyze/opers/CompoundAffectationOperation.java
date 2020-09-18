@@ -4,12 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.analyze.blocks.Block;
@@ -51,10 +51,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode root_ = chidren_.first();
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
-        boolean ok_ = elt_ != null;
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        if (!ok_) {
+        if (!(elt_ instanceof OperationNode)) {
             setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
@@ -70,7 +69,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+oper.length()));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         settable = elt_;
@@ -94,9 +93,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         int opLocat_ = page_.getLocalizer().getCurrentLocationIndex();
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);
-        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
-        ClassArgumentMatching second_ = right_.getResultClass();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,clMatchLeft_,second_, op_, _conf);
+        AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,(OperationNode) elt_,right_, op_, _conf);
         if (cl_.getSymbol() != null) {
             ClassMethodId test_ = cl_.getTest();
             if (test_ != null) {
@@ -130,18 +128,18 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     page_.getLocalizer().addError(cast_);
                     getErrs().add(cast_.getBuiltError());
                 }
-                setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_)));
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_),page_.getStandards()));
             }
             return;
         }
-        setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_)));
+        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_,page_),page_.getStandards()));
         elt_.setVariable(false);
         String stringType_ = stds_.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         if (isString_&&!StringList.quickEq(oper, Block.NULL_EQ)) {
             settable.setCatenizeStrings();
         }
-        ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         if (StringList.quickEq(oper, Block.PLUS_EQ)) {
@@ -180,7 +178,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
+            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
             if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
                     && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_,_conf)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -197,10 +195,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            elt_.getResultClass().setUnwrapObject(unwrapped_);
-            right_.getResultClass().setUnwrapObject(unwrapped_);
-            ((OperationNode) elt_).cancelArgument();
-            right_.cancelArgument();
+            elt_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            right_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            ((OperationNode) elt_).quickCancel();
+            right_.quickCancel();
             return;
         }
         if (StringList.quickEq(oper, Block.AND_EQ) || StringList.quickEq(oper, Block.OR_EQ) || StringList.quickEq(oper, Block.XOR_EQ)) {
@@ -227,11 +225,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
-            elt_.getResultClass().setUnwrapObject(unwrapped_);
-            right_.getResultClass().setUnwrapObject(unwrapped_);
-            ((OperationNode) elt_).cancelArgument();
-            right_.cancelArgument();
+            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
+            elt_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            right_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            ((OperationNode) elt_).quickCancel();
+            right_.quickCancel();
             return;
         }
         if (StringList.quickEq(oper, Block.AND_LOG_EQ) || StringList.quickEq(oper, Block.OR_LOG_EQ)) {
@@ -250,11 +248,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 getPartOffsetsChildren().add(err_);
                 return;
             }
-            ClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
-            elt_.getResultClass().setUnwrapObject(unwrapped_);
-            right_.getResultClass().setUnwrapObject(unwrapped_);
-            ((OperationNode) elt_).cancelArgument();
-            right_.cancelArgument();
+            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
+            elt_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            right_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            ((OperationNode) elt_).quickCancel();
+            right_.quickCancel();
             return;
         }
         if (StringList.quickEq(oper, Block.NULL_EQ)) {
@@ -285,7 +283,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     getPartOffsetsChildren().add(err_);
                 }
             }
-            setResultClass(ClassArgumentMatching.copy(clMatchLeft_));
+            setResultClass(AnaClassArgumentMatching.copy(clMatchLeft_,page_.getStandards()));
             return;
         }
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_,_conf)
@@ -302,6 +300,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(cast_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+oper.length()-1));
             getPartOffsetsChildren().add(err_);
+        } else {
+            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, page_);
+            elt_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            right_.getResultClass().setUnwrapObject(unwrapped_,page_.getStandards());
+            ((OperationNode) elt_).quickCancel();
+            right_.quickCancel();
         }
     }
 

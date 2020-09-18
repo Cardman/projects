@@ -14,7 +14,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
@@ -579,24 +578,24 @@ public final class AnaTypeUtil {
         return CustList.EQ_CMP;
     }
 
-    public static boolean isFloatOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo, ContextEl _context) {
+    public static boolean isFloatOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, ContextEl _context) {
         return isFloatOrderClass(_class, _context) && isFloatOrderClass(_classTwo, _context);
     }
 
-    private static boolean isFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+    private static boolean isFloatOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
         return isFloatOrderClass(_class,_context.getAnalyzing().getStandards());
     }
 
-    private static boolean isFloatOrderClass(ClassArgumentMatching _class, LgNames _context) {
+    private static boolean isFloatOrderClass(AnaClassArgumentMatching _class, LgNames _context) {
         return getFloatOrderClass(_class,_context) > 0;
     }
 
-    public static int getFloatOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+    public static int getFloatOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
         return getFloatOrderClass(_class, _context.getAnalyzing().getStandards());
     }
 
-    private static int getFloatOrderClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching class_ = PrimitiveTypeUtil.toPrimitive(_class, _stds);
+    private static int getFloatOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
+        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds);
         if (class_.matchClass(_stds.getAliasPrimDouble())) {
             return DOUBLE_CASTING;
         }
@@ -611,23 +610,23 @@ public final class AnaTypeUtil {
     }
 
     private static int getIntOrderClass(String _class, LgNames _stds) {
-        return getIntOrderClass(new ClassArgumentMatching(_class), _stds);
+        return getIntOrderClass(new AnaClassArgumentMatching(_class), _stds);
     }
 
-    public static boolean isIntOrderClass(ClassArgumentMatching _class, ClassArgumentMatching _classTwo, ContextEl _context) {
+    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, AnaClassArgumentMatching _classTwo, ContextEl _context) {
         return isIntOrderClass(_class, _context) && isIntOrderClass(_classTwo, _context);
     }
 
-    public static boolean isIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+    public static boolean isIntOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
         return getIntOrderClass(_class,_context) > 0;
     }
 
-    public static int getIntOrderClass(ClassArgumentMatching _class, ContextEl _context) {
+    public static int getIntOrderClass(AnaClassArgumentMatching _class, ContextEl _context) {
         return getIntOrderClass(_class, _context.getAnalyzing().getStandards());
     }
 
-    private static int getIntOrderClass(ClassArgumentMatching _class, LgNames _stds) {
-        ClassArgumentMatching class_ = PrimitiveTypeUtil.toPrimitive(_class, _stds);
+    private static int getIntOrderClass(AnaClassArgumentMatching _class, LgNames _stds) {
+        AnaClassArgumentMatching class_ = toPrimitive(_class, _stds);
         if (class_.matchClass(_stds.getAliasPrimLong())) {
             return LONG_CASTING;
         }
@@ -666,7 +665,7 @@ public final class AnaTypeUtil {
         return isWrapper(_className, _stds);
     }
 
-    public static boolean isPrimitiveOrWrapper(ClassArgumentMatching _className, ContextEl _context) {
+    public static boolean isPrimitiveOrWrapper(AnaClassArgumentMatching _className, ContextEl _context) {
         for (String c: _className.getNames()) {
             if (isPrimitiveOrWrapper(c, _context.getAnalyzing().getStandards())) {
                 return true;
@@ -693,22 +692,60 @@ public final class AnaTypeUtil {
         return PrimitiveTypeUtil.isPrimitive(_className, _context.getStandards());
     }
 
-    public static boolean isLessInt(ClassArgumentMatching _class, AnalyzedPageEl _context) {
-        LgNames stds_ = _context.getStandards();
-        return PrimitiveTypeUtil.isLessInt(_class, stds_);
+    public static boolean isPureNumberClass(AnaClassArgumentMatching _class, AnalyzedPageEl _context) {
+        return isPureNumberClass(_class, _context.getStandards());
     }
 
-    public static boolean isPureNumberClass(ClassArgumentMatching _class, AnalyzedPageEl _context) {
-        return PrimitiveTypeUtil.isPureNumberClass(_class, _context.getStandards());
+    public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, AnalyzedPageEl _context) {
+        return toPrimitive(_class, _context.getStandards());
     }
 
-    public static ClassArgumentMatching toPrimitive(ClassArgumentMatching _class, AnalyzedPageEl _context) {
-        return PrimitiveTypeUtil.toPrimitive(_class, _context.getStandards());
-    }
-
-    public static boolean isPrimitive(ClassArgumentMatching _clMatchLeft,
+    public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft,
                                       AnalyzedPageEl _conf) {
         LgNames stds_ = _conf.getStandards();
-        return PrimitiveTypeUtil.isPrimitive(_clMatchLeft, stds_);
+        return isPrimitive(_clMatchLeft, stds_);
+    }
+
+    public static boolean isPureNumberClass(AnaClassArgumentMatching _class, LgNames _stds) {
+        AnaClassArgumentMatching out_ = toPrimitive(_class, _stds);
+        if (out_.matchClass(_stds.getAliasPrimDouble())) {
+            return true;
+        }
+        if (out_.matchClass(_stds.getAliasPrimFloat())) {
+            return true;
+        }
+        if (out_.matchClass(_stds.getAliasPrimLong())) {
+            return true;
+        }
+        if (out_.matchClass(_stds.getAliasPrimInteger())) {
+            return true;
+        }
+        if (out_.matchClass(_stds.getAliasPrimChar())) {
+            return true;
+        }
+        if (out_.matchClass(_stds.getAliasPrimShort())) {
+            return true;
+        }
+        return out_.matchClass(_stds.getAliasPrimByte());
+    }
+
+    public static AnaClassArgumentMatching toPrimitive(AnaClassArgumentMatching _class, LgNames _stds) {
+        for (String w: _class.getNames()) {
+            for (EntryCust<String, PrimitiveType> e: _stds.getPrimitiveTypes().entryList()) {
+                if (StringList.quickEq(e.getValue().getWrapper(), w)) {
+                    return new AnaClassArgumentMatching(e.getKey(),e.getValue().getCastNb());
+                }
+            }
+        }
+        return _class;
+    }
+
+    public static boolean isPrimitive(AnaClassArgumentMatching _clMatchLeft, LgNames stds_) {
+        for (String n: _clMatchLeft.getNames()) {
+            if (PrimitiveTypeUtil.isPrimitive(n, stds_)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

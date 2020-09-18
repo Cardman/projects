@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
@@ -13,6 +14,7 @@ import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class ExecCompoundAffectationOperation extends ExecMethodOperation implements AtomicExecCalculableOperation, CallExecSimpleOperation {
 
@@ -51,7 +53,7 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
                 ArgumentsPair pair_ = getArgumentPair(_nodes,this);
                 pair_.setIndexImplicitCompound(-1);
                 pair_.setEndCalculate(true);
-                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),NullStruct.NULL_VALUE,_conf));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -88,12 +90,14 @@ public final class ExecCompoundAffectationOperation extends ExecMethodOperation 
         if (implicits_.isValidIndex(indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
             Argument res_;
-            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
+            StringList arg = new StringList(tres_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
+            res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, arg, cast_);
             pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_));
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset,_conf);
-        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
     }

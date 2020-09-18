@@ -9,8 +9,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
@@ -43,7 +43,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         ctor = _ctor;
     }
 
-    public RendStandardInstancingOperation(ClassArgumentMatching _res,
+    public RendStandardInstancingOperation(ExecClassArgumentMatching _res,
                                  ConstructorId _constId, ExecRootBlock _rootBlock) {
         super(0,_res,0,false);
         className = _constId.getName();

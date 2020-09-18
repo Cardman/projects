@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 
@@ -25,7 +25,7 @@ public final class StaticAccessOperation extends LeafOperation {
             partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(ext_));
+            setResultClass(new AnaClassArgumentMatching(ext_));
             return;
         }
         int relativeOff_ = op_.getOffset();
@@ -46,7 +46,7 @@ public final class StaticAccessOperation extends LeafOperation {
         checkClassAccess(this,_conf, glClass_, classStr_);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
-        setResultClass(new ClassArgumentMatching(classStr_));
+        setResultClass(new AnaClassArgumentMatching(classStr_));
     }
 
     public CustList<PartOffset> getPartOffsets() {

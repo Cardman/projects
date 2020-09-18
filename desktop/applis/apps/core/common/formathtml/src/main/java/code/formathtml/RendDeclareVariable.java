@@ -1,9 +1,9 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -58,7 +58,7 @@ public final class RendDeclareVariable extends RendLeaf implements RendWithEl {
     @Override
     public void processEl(Configuration _cont) {
         ImportingPage ip_ = _cont.getLastPage();
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _cont.getContext());
         for (String v: getVariableNames()) {
             LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
             ip_.putLocalVar(v, lv_);

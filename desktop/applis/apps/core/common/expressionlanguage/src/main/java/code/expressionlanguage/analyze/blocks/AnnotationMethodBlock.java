@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
@@ -13,7 +14,6 @@ import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -140,7 +140,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
-        ClassArgumentMatching arg_ = ops_.last().getResultClass();
+        AnaClassArgumentMatching arg_ = root.getResultClass();
         mapping_.setArg(arg_);
         mapping_.setParam(import_);
         if (!AnaTemplates.isCorrectOrNumbers(mapping_, _cont)) {
@@ -155,7 +155,7 @@ public final class AnnotationMethodBlock extends NamedFunctionBlock implements
             addNameErrors(cast_);
         }
         if (AnaTypeUtil.isPrimitive(import_, page_)) {
-            ops_.last().getResultClass().setUnwrapObject(import_);
+            ops_.last().getResultClass().setUnwrapObject(import_,page_.getStandards());
         }
     }
 

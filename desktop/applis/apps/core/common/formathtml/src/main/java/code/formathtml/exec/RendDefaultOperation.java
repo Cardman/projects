@@ -1,9 +1,9 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.DefaultOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -26,6 +26,6 @@ public final class RendDefaultOperation extends RendAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, Configuration _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl() + offset, _conf);
-        return new Argument(ClassArgumentMatching.convertWide(_conf.getPageEl(),getResultClass(), _arguments.first().getStruct(), _conf.getContext()));
+        return new Argument(ExecClassArgumentMatching.convertWide(_conf.getPageEl(), _arguments.first().getStruct(), _conf.getContext(), getResultClass().getNames()));
     }
 }

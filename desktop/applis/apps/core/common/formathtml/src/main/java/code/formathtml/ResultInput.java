@@ -1,9 +1,11 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.*;
 import code.formathtml.util.AnalyzingDoc;
 import code.sml.Element;
@@ -17,6 +19,8 @@ public final class ResultInput {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
+    private OperationNode opsReadRoot;
+    private OperationNode opsValueRoot;
     private String varName = EMPTY_STRING;
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
@@ -26,6 +30,7 @@ public final class ResultInput {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
             opsRead = RenderExpUtil.getAnalyzedOperations(name_,_bl.getAttributeDelimiter(_cont.getRendKeyWords().getAttrName()), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opsReadRoot = _cont.getContext().getAnalyzing().getCurrentRoot();
             RendDynOperationNode last_ = opsRead.last();
             RendDynOperationNode res_;
             if (last_ instanceof RendIdOperation) {
@@ -41,7 +46,7 @@ public final class ResultInput {
                 badEl_.buildError(_cont.getRendAnalysisMessages().getBadInputName());
                 Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
             } else {
-                className = ((RendDynOperationNode)settable_).getResultClass().getSingleNameOrEmpty();
+                className = NumParsers.getSingleNameOrEmpty(((RendDynOperationNode) settable_).getResultClass().getNames());
                 if (settable_ instanceof RendSettableFieldOperation) {
                     FieldInfo infoField_ = ((RendSettableFieldOperation) settable_).getFieldMetaInfo();
                     ClassField clField_ = infoField_.getClassField();
@@ -64,12 +69,12 @@ public final class ResultInput {
                     idClass = clField_.getClassName();
                     idName = clField_.getFieldName();
                     id = StringList.concat(idClass,".",idName);
-                    String cl_ = ((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty();
-                    ClassArgumentMatching pr_;
+                    String cl_ = NumParsers.getSingleNameOrEmpty(((RendSettableFieldOperation) settable_).getResultClass().getNames());
+                    ExecClassArgumentMatching pr_;
                     if (((RendSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
                         pr_ = ((RendSettableFieldOperation) settable_).getPrevious();
                     } else {
-                        pr_ = new ClassArgumentMatching(_cont.getContext().getAnalyzing().getGlobalClass());
+                        pr_ = new ExecClassArgumentMatching(_cont.getContext().getAnalyzing().getGlobalClass());
                     }
                     StringList varNames_ = new StringList();
                     String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
@@ -79,7 +84,7 @@ public final class ResultInput {
                     varName = StringList.concat(varPrevLoc_,RendBlock.COMMA,varLoc_);
 
                     RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4);
-                    ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                    ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
                     RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2);
                     RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                     RendSettableFieldOperation rendField_ = new RendSettableFieldOperation((RendSettableFieldOperation) settable_, 1, clResField_, 1, true);
@@ -98,15 +103,15 @@ public final class ResultInput {
                     opsWrite.add(rendAff_);
                 } else {
                     if (settable_ instanceof RendArrOperation) {
-                        String cl_ = ((RendArrOperation) settable_).getResultClass().getSingleNameOrEmpty();
+                        String cl_ = NumParsers.getSingleNameOrEmpty(((RendArrOperation) settable_).getResultClass().getNames());
                         CustList<RendDynOperationNode> childrenNodes_ = ((RendArrOperation) settable_).getChildrenNodes();
                         StringList varNames_ = new StringList();
                         String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
                         varNames_.add(varPrevLoc_);
-                        ClassArgumentMatching pr_ = ((RendArrOperation) settable_).getPrevious();
-                        idClass = pr_.getSingleNameOrEmpty();
+                        ExecClassArgumentMatching pr_ = ((RendArrOperation) settable_).getPrevious();
+                        idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
                         RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
-                        ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                        ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
                         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                         RendArrOperation arr_ = new RendArrOperation((RendArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
@@ -143,15 +148,15 @@ public final class ResultInput {
                         opsWrite.add(rendVar_);
                         opsWrite.add(rendAff_);
                     } else {
-                        String cl_ = ((RendCustArrOperation) settable_).getResultClass().getSingleNameOrEmpty();
+                        String cl_ = NumParsers.getSingleNameOrEmpty(((RendCustArrOperation) settable_).getResultClass().getNames());
                         CustList<RendDynOperationNode> childrenNodes_ = ((RendCustArrOperation) settable_).getChildrenNodes();
                         StringList varNames_ = new StringList();
                         String varPrevLoc_ = RendBlock.lookForVar(_cont, varNames_);
                         varNames_.add(varPrevLoc_);
-                        ClassArgumentMatching pr_ = ((RendCustArrOperation) settable_).getPrevious();
-                        idClass = pr_.getSingleNameOrEmpty();
+                        ExecClassArgumentMatching pr_ = ((RendCustArrOperation) settable_).getPrevious();
+                        idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
                         RendAffectationOperation rendAff_ = new RendAffectationOperation(0,pr_,4+childrenNodes_.size());
-                        ClassArgumentMatching clResField_ = new ClassArgumentMatching(cl_);
+                        ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
                         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
                         RendCustArrOperation arr_ = new RendCustArrOperation((RendCustArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
@@ -202,6 +207,7 @@ public final class ResultInput {
         if (_read.hasAttribute(_varValue)) {
             String value_ = _read.getAttribute(_varValue);
             opsValue = RenderExpUtil.getAnalyzedOperations(value_,_bl.getAttributeDelimiter(_varValue), 0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+            opsValueRoot = _cont.getContext().getAnalyzing().getCurrentRoot();
         }
     }
 
@@ -236,4 +242,13 @@ public final class ResultInput {
     public String getClassName() {
         return className;
     }
+
+    public OperationNode getOpsReadRoot() {
+        return opsReadRoot;
+    }
+
+    public OperationNode getOpsValueRoot() {
+        return opsValueRoot;
+    }
+
 }

@@ -6,11 +6,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.Parametrable;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -48,7 +48,7 @@ public final class VarargOperation extends LeafOperation {
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
@@ -64,7 +64,7 @@ public final class VarargOperation extends LeafOperation {
             page_.getLocalizer().addError(varg_);
             partOffsets.add(new PartOffset("<a title=\""+LinkageUtil.transform(varg_.getBuiltError()) +"\" class=\"e\">",i_));
             partOffsets.add(new PartOffset("</a>",i_+ _conf.getAnalyzing().getKeyWords().getKeyWordVararg().length()));
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             setSimpleArgument(new Argument());
             return;
         }
@@ -73,7 +73,7 @@ public final class VarargOperation extends LeafOperation {
         int off_ = StringList.getFirstPrintableCharIndex(str_);
         str_ = ResolvingImportTypes.resolveCorrectTypeAccessible(_conf,afterLeftPar_+off_,str_);
         partOffsets.addAllElts(page_.getCurrentParts());
-        setResultClass(new ClassArgumentMatching(str_));
+        setResultClass(new AnaClassArgumentMatching(str_));
         className = str_;
         if (m_ instanceof RetrieveMethod) {
             RetrieveMethod f_ = (RetrieveMethod) m_;

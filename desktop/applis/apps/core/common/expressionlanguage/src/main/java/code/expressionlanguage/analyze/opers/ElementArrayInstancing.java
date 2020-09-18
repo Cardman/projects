@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.DimComp;
@@ -16,7 +17,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.LinkageUtil;
@@ -270,7 +270,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
             String obj_ = page_.getStandards().getAliasObject();
             obj_ = StringExpUtil.getPrettyArrayType(obj_);
-            ClassArgumentMatching class_ = new ClassArgumentMatching(obj_);
+            AnaClassArgumentMatching class_ = new AnaClassArgumentMatching(obj_);
             setResultClass(class_);
             return;
         }
@@ -284,7 +284,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
-            ClassArgumentMatching argType_ = o.getResultClass();
+            AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
             mapping_.setMapping(map_);
             if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
@@ -309,14 +309,14 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                 }
             }
             if (AnaTypeUtil.isPrimitive(eltType_, page_)) {
-                o.getResultClass().setUnwrapObject(eltType_);
-                o.cancelArgument();
+                o.getResultClass().setUnwrapObject(eltType_,page_.getStandards());
+                o.quickCancel();
             }
             getPartOffsetsChildren().add(parts_);
         }
         String arrayCl_ = className_;
         setClassName(StringExpUtil.getQuickComponentType(arrayCl_));
-        setResultClass(new ClassArgumentMatching(arrayCl_));
+        setResultClass(new AnaClassArgumentMatching(arrayCl_));
     }
 
     public CustList<PartOffset> getPartOffsets() {

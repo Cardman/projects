@@ -44,7 +44,7 @@ public abstract class RendInput extends RendElement {
         String converterValue_ = _read.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!converterValue_.trim().isEmpty()) {
             Mapping m_ = new Mapping();
-            m_.setArg(opsRead.last().getResultClass());
+            m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 String string_ = _cont.getStandards().getAliasString();
@@ -61,8 +61,8 @@ public abstract class RendInput extends RendElement {
                 for (String v:varNames_) {
                     _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
                 }
-                m_.setArg(opsConverter.last().getResultClass());
-                m_.setParam(opsRead.last().getResultClass());
+                m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
+                m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -87,7 +87,7 @@ public abstract class RendInput extends RendElement {
                     Configuration.addError(badEl_, _anaDoc, _cont.getContext().getAnalyzing());
                 }
             } else if (!opsRead.isEmpty()) {
-                if (!_cont.getAdvStandards().isConveritble(opsRead.last().getResultClass().getSingleNameOrEmpty())) {
+                if (!_cont.getAdvStandards().isConveritble(r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringList.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -116,7 +116,7 @@ public abstract class RendInput extends RendElement {
                 _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(opsConverterField.last().getResultClass());
+            m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -30,7 +29,7 @@ class ExecNamePartType extends ExecLeafPartType {
             setAnalyzedType(concat_);
             return;
         }
-        if (PrimitiveTypeUtil.isPrimitive(concat_, _an)) {
+        if (ExecClassArgumentMatching.isPrimitive(concat_, _an)) {
             setImportedTypeName(typeName_);
             setAnalyzedType(typeName_);
             return;

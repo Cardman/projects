@@ -5,6 +5,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -13,15 +15,14 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.analyze.blocks.ImportForEachLoop;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.IterableAnalysisResult;
 import code.expressionlanguage.structs.*;
@@ -98,9 +99,9 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     public String getImportedClassName() {
         return importedClassName;
     }
-    public void buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
+    public OperationNode buildEl(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -132,10 +133,10 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrList());
         opList = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
+        return page_.getCurrentRoot();
     }
-    public void inferArrayClass(Configuration _cont, AnalyzingDoc _anaDoc) {
-        RendDynOperationNode el_ = opList.last();
-        ClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(el_.getResultClass());
+    public void inferArrayClass(Configuration _cont, AnalyzingDoc _anaDoc, OperationNode _root) {
+        AnaClassArgumentMatching compo_ = StringExpUtil.getQuickComponentType(_root.getResultClass());
         if (toInfer(_cont) && compo_.getNames().onlyOneElt()) {
             importedClassName = compo_.getName();
         } else {
@@ -166,7 +167,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
     }
     @Override
     public void buildExpressionLanguage(Configuration _cont, RendDocumentBlock _doc, AnalyzingDoc _anaDoc) {
-        buildEl(_cont,_doc, _anaDoc);
+        OperationNode root_ = buildEl(_cont, _doc, _anaDoc);
         RendDynOperationNode el_ = opList.last();
         Argument arg_ = el_.getArgument();
         if (Argument.isNullValue(arg_)) {
@@ -176,8 +177,8 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
             static_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getNullValue(),
                     _cont.getStandards().getAliasNullPe());
             Configuration.addError(static_, _anaDoc, _cont.getContext().getAnalyzing());
-        } else if (el_.getResultClass().isArray()) {
-            inferArrayClass(_cont, _anaDoc);
+        } else if (root_.getResultClass().isArray()) {
+            inferArrayClass(_cont, _anaDoc, root_);
         } else {
             StringList names_ = el_.getResultClass().getNames();
             StringList out_ = getInferredIterable(names_, _cont);
@@ -300,7 +301,7 @@ public final class RendForEachLoop extends RendParentBlock implements RendLoop, 
         ip_.addBlock(l_);
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndex(-1);
-        Struct struct_ = PrimitiveTypeUtil.defaultValue(importedClassName, _cont.getContext());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _cont.getContext());
         lv_.setIndexClassName(importedClassIndexName);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         varsLoop_.put(variableName, lv_);

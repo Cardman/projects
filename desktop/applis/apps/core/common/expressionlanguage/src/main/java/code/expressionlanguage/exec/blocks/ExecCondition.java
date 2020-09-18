@@ -2,12 +2,12 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.exec.ExpressionLanguage;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 
@@ -41,7 +41,7 @@ public abstract class ExecCondition extends ExecBracedBlock implements WithNotEm
         }
         last_.clearCurrentEls();
         _context.getCoverage().passConditions(_context,arg_,opCondition.last());
-        if (BooleanStruct.isTrue(ClassArgumentMatching.convertToBoolean(arg_.getStruct()))) {
+        if (BooleanStruct.isTrue(NumParsers.convertToBoolean(arg_.getStruct()))) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

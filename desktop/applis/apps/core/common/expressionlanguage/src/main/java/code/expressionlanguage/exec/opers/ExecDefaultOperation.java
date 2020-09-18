@@ -2,9 +2,9 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.DefaultOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -26,6 +26,6 @@ public final class ExecDefaultOperation extends ExecAbstractUnaryOperation {
 
     Argument getArgument(CustList<Argument> _arguments, ContextEl _conf) {
         setRelativeOffsetPossibleLastPage(getIndexInEl()+offset, _conf);
-        return new Argument(ClassArgumentMatching.convertWide(_conf.getLastPage(),getResultClass(), _arguments.first().getStruct(), _conf));
+        return new Argument(ExecClassArgumentMatching.convertWide(_conf.getLastPage(), _arguments.first().getStruct(), _conf, getResultClass().getNames()));
     }
 }

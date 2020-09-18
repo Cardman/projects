@@ -3,15 +3,16 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.*;
 
 public final class InstanceOfOperation extends AbstractUnaryOperation {
@@ -48,7 +49,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             className = page_.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         sub_ = ResolvingImportTypes.resolveCorrectType(_conf, begin_ + off_, sub_, exact_);
@@ -60,7 +61,7 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
             }
         }
         className = sub_;
-        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
     public String getClassName() {

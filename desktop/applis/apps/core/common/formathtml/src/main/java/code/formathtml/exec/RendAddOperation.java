@@ -2,9 +2,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AddOperation;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.AliasNumber;
 import code.util.StringList;
 
 
@@ -30,11 +29,11 @@ public final class RendAddOperation extends RendStdNumericOperation {
             if (catString) {
                 return ExecCatOperation.localSumDiff(_a, _b, _cont);
             }
-            return new Argument(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                    ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
+            return new Argument(NumParsers.calculateSum(NumParsers.convertToNumber(_a.getStruct()),
+                    NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
         }
-        return new Argument(AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
+        return new Argument(NumParsers.calculateDiff(NumParsers.convertToNumber(_a.getStruct()),
+                NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
 
 }

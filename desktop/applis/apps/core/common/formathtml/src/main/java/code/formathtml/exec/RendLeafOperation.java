@@ -1,7 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.analyze.opers.LeafOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 
 public abstract class RendLeafOperation extends RendDynOperationNode {
 
@@ -9,7 +9,7 @@ public abstract class RendLeafOperation extends RendDynOperationNode {
         super(_l);
     }
 
-    RendLeafOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    RendLeafOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
     @Override

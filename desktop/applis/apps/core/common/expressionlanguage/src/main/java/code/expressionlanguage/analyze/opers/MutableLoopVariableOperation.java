@@ -3,12 +3,12 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
@@ -94,12 +94,12 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             lInfo_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.getInfosVars().put(str_,lInfo_);
             page_.getVariablesNames().add(str_);
-            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
+            setResultClass(new AnaClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting(),page_.getStandards()));
             return;
         }
         variableName = StringExpUtil.skipPrefix(str_);
         realVariableName = str_;
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className,_conf.getAnalyzing().getStandards()));
     }
 
     @Override

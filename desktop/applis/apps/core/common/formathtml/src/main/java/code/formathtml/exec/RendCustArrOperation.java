@@ -10,13 +10,14 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
@@ -38,7 +39,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     private int anc;
 
     private boolean staticChoiceMethod;
-    private ClassArgumentMatching previous;
+    private ExecClassArgumentMatching previous;
     private ExecNamedFunctionBlock get;
     private ExecNamedFunctionBlock set;
     private ExecRootBlock rootBlock;
@@ -53,12 +54,12 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         naturalVararg = _arr.getNaturalVararg();
         anc = _arr.getAnc();
         staticChoiceMethod = _arr.isStaticChoiceMethod();
-        previous = _arr.getPreviousResultClass();
+        previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
         get = _get;
         set = _set;
         rootBlock = _rootBlock;
     }
-    public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
+    public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ExecClassArgumentMatching _res, int _order,
                             boolean _intermediate, Argument _previousArgument) {
         super(_indexChild,_res,_order, _intermediate);
         className = _arr.className;
@@ -96,14 +97,13 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
         if (_conf.getContext().hasException()) {
             return res_;
         }
@@ -111,10 +111,9 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored) {
-        ClassArgumentMatching clArg_ = getResultClass();
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _stored, byte _cast) {
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(_stored, _conf.getContext(), _op, clArg_);
+        res_ = ExecNumericOperation.calculateIncrDecr(_stored, _op, _cast);
         Argument arg_ = processCalling(_nodes, _conf, res_);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,arg_);
     }
@@ -182,7 +181,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         return classMethodId;
     }
 
-    public ClassArgumentMatching getPrevious() {
+    public ExecClassArgumentMatching getPrevious() {
         return previous;
     }
 

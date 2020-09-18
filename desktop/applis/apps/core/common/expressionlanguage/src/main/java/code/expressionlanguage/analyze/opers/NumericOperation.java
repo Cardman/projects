@@ -5,12 +5,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.*;
 
@@ -29,18 +30,18 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         opOffset = _op.getOperators().firstKey();
     }
 
-    static ClassArgumentMatching getIntResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
+    static AnaClassArgumentMatching getIntResultClass(AnaClassArgumentMatching _a, ContextEl _cont, AnaClassArgumentMatching _b) {
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
-    static ClassArgumentMatching getFloatResultClass(ClassArgumentMatching _a, ContextEl _cont, ClassArgumentMatching _b) {
+    static AnaClassArgumentMatching getFloatResultClass(AnaClassArgumentMatching _a, ContextEl _cont, AnaClassArgumentMatching _b) {
         int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
         int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
         return getQuickResultClass(_a, oa_, _cont, _b, ob_);
     }
-    static ClassArgumentMatching getQuickResultClass(ClassArgumentMatching _a, int _oa, ContextEl _cont, ClassArgumentMatching _b, int _ob) {
-        ClassArgumentMatching arg_;
+    static AnaClassArgumentMatching getQuickResultClass(AnaClassArgumentMatching _a, int _oa, ContextEl _cont, AnaClassArgumentMatching _b, int _ob) {
+        AnaClassArgumentMatching arg_;
         int max_ = Math.max(_oa, _ob);
         if (_oa > _ob) {
             arg_ = _a;
@@ -51,7 +52,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         LgNames stds_ = page_.getStandards();
         int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
         if (max_ < intOrder_) {
-            arg_ = new ClassArgumentMatching(stds_.getAliasPrimInteger());
+            arg_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
         return AnaTypeUtil.toPrimitive(arg_, page_);
     }
@@ -59,13 +60,14 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     @Override
     public final void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        ClassArgumentMatching a_ = chidren_.first().getResultClass();
-        ResultOperand r_;
+        OperationNode l_ = chidren_.first();
+        AnaClassArgumentMatching a_ = l_.getResultClass();
         IntTreeMap< String> ops_ = getOperations().getOperators();
-        ClassArgumentMatching c_ = chidren_.last().getResultClass();
+        OperationNode r_ = chidren_.last();
+        AnaClassArgumentMatching c_ = r_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         okNum = true;
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,a_,c_, ops_.firstValue(), _conf);
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, ops_.firstValue(), _conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
@@ -75,21 +77,21 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             }
             return;
         }
-        r_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
-        if (!r_.isCatString()) {
-            chidren_.first().cancelArgument();
-            chidren_.last().cancelArgument();
+        ResultOperand res_ = analyzeOper(a_, ops_.firstValue(), c_, _conf);
+        if (!res_.isCatString()) {
+            l_.quickCancel();
+            r_.quickCancel();
         } else {
-            chidren_.first().cancelArgumentString();
-            chidren_.last().cancelArgumentString();
+            l_.cancelArgumentString();
+            r_.cancelArgumentString();
         }
-        setCatenize(r_);
+        setCatenize(res_);
         okNum = page_.isOkNumOp();
-        a_ = r_.getResult();
-        setResultClass(ClassArgumentMatching.copy(a_));
+        a_ = res_.getResult();
+        setResultClass(AnaClassArgumentMatching.copy(a_,page_.getStandards()));
     }
 
-    abstract ResultOperand analyzeOper(ClassArgumentMatching _a, String _op, ClassArgumentMatching _b, ContextEl _cont);
+    abstract ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, ContextEl _cont);
 
     abstract Argument calculateOperAna(Argument _a, String _op, Argument _b, AnalyzedPageEl _page);
 

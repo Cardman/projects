@@ -1,16 +1,17 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public final class ResultOperand {
 
-    private ClassArgumentMatching result;
+    private AnaClassArgumentMatching result;
 
     private boolean catString;
-    public ClassArgumentMatching getResult() {
+    public AnaClassArgumentMatching getResult() {
         return result;
     }
-    public void setResult(ClassArgumentMatching _result) {
+    public void setResult(AnaClassArgumentMatching _result) {
         result = _result;
     }
     public boolean isCatString() {

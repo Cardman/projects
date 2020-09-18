@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ParentInferring;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -16,10 +17,10 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.analyze.blocks.Block;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -250,7 +251,7 @@ public final class DimensionArrayInstancing extends
             IntTreeMap<String> operators_ = getOperations().getOperators();
             CustList<PartOffset> parts_ = new CustList<PartOffset>();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _conf);
-            ClassArgumentMatching resCh_ = o.getResultClass();
+            AnaClassArgumentMatching resCh_ = o.getResultClass();
             if (!resCh_.isNumericInt(_conf)) {
                 ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_conf, page_.getStandards().getAliasPrimInteger(), resCh_);
                 if (res_.isFoundMethod()) {
@@ -271,12 +272,12 @@ public final class DimensionArrayInstancing extends
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
             }
-            resCh_.setUnwrapObject(page_.getStandards().getAliasPrimInteger());
-            o.cancelArgument();
+            resCh_.setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);
+            o.quickCancel();
             getPartOffsetsChildren().add(parts_);
         }
         setClassName(className_);
-        setResultClass(new ClassArgumentMatching(StringExpUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));
+        setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(className_, chidren_.size()+countArrayDims)));
     }
 
     public int getCountArrayDims() {

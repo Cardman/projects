@@ -2,12 +2,12 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 
@@ -52,7 +52,7 @@ public final class FinalVariableOperation extends LeafOperation {
         if (!className.isEmpty()) {
             variableName = StringExpUtil.skipPrefix(str_);
             realVariableName = str_;
-            setResultClass(new ClassArgumentMatching(className));
+            setResultClass(new AnaClassArgumentMatching(className,page_.getStandards()));
             return;
         }
         int deep_ = -1;
@@ -72,7 +72,7 @@ public final class FinalVariableOperation extends LeafOperation {
             ref = val_.getRef();
             variableName = shortStr_;
             realVariableName = str_;
-            setResultClass(new ClassArgumentMatching(val_.getIndexClassName()));
+            setResultClass(new AnaClassArgumentMatching(val_.getIndexClassName(),page_.getStandards()));
             return;
         }
         variableName = str_;
@@ -85,7 +85,7 @@ public final class FinalVariableOperation extends LeafOperation {
                 variableName);
         page_.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
 
     public String getVariableName() {

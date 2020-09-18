@@ -8,8 +8,8 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.AnalysisMessages;
 import code.expressionlanguage.errors.custom.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.PolymorphMethod;
-import code.expressionlanguage.inherits.*;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.*;
@@ -207,7 +207,7 @@ public final class Classes {
         if (strInit_ != null) {
             return strInit_;
         }
-        return PrimitiveTypeUtil.defaultClass(_returnType, _context);
+        return ExecClassArgumentMatching.defaultValue(_returnType, _context);
     }
     public Struct getStaticField(ClassField _clField) {
         StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName());

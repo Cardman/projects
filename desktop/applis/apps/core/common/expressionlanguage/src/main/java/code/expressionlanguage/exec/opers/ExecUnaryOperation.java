@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -29,16 +29,16 @@ public final class ExecUnaryOperation extends ExecAbstractUnaryOperation {
     Argument getArgument(ContextEl _conf,
             Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        ClassArgumentMatching to_ = getResultClass();
-        return getArgument(_conf, _in, to_, oper);
+        ExecClassArgumentMatching to_ = getResultClass();
+        return getArgument(_in, to_, oper);
     }
 
-    public static Argument getArgument(ContextEl _conf, Argument _in, ClassArgumentMatching _to, String _oper) {
+    public static Argument getArgument(Argument _in, ExecClassArgumentMatching _to, String _oper) {
         Argument out_;
         if (StringList.quickEq(_oper, PLUS)) {
-            out_ = new Argument(AliasNumber.idNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _to, _conf.getStandards()));
+            out_ = new Argument(NumParsers.idNumber(NumParsers.convertToNumber(_in.getStruct()), _to.getUnwrapObjectNb()));
         } else {
-            out_ = new Argument(AliasNumber.opposite(ClassArgumentMatching.convertToNumber(_in.getStruct()), _to, _conf.getStandards()));
+            out_ = new Argument(NumParsers.opposite(NumParsers.convertToNumber(_in.getStruct()), _to.getUnwrapObjectNb()));
         }
         return out_;
     }

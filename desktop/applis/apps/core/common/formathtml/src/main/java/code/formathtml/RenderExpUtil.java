@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
@@ -13,13 +14,13 @@ import code.expressionlanguage.instr.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 
 import code.expressionlanguage.exec.opers.ReductibleOperable;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.*;
 import code.formathtml.util.AnalyzingDoc;
 import code.util.CustList;
@@ -46,7 +47,7 @@ public final class RenderExpUtil {
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
             int end_ = d_.getIndexEnd();
             _anaDoc.setNextIndex(end_+2);
@@ -68,6 +69,7 @@ public final class RenderExpUtil {
     public static CustList<RendDynOperationNode> getAnalyzedOperations(String _el, int _gl, int _index, Configuration _conf, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _conf.getContext(), _index, _page);
         int badOffset_ = d_.getBadOffset();
+        _page.setCurrentRoot(null);
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_anaDoc.getFileName());
@@ -81,8 +83,9 @@ public final class RenderExpUtil {
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _conf.getStandards().getAliasObject();
-            e_.setResultClass(new ClassArgumentMatching(argClName_));
+            e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
+            _page.setCurrentRoot(e_);
             return new CustList<RendDynOperationNode>((RendDynOperationNode)RendDynOperationNode.createExecOperationNode(e_,_conf.getContext(), _conf.getContext().getAnalyzing()));
         }
         String el_ = _el.substring(_index);
@@ -96,13 +99,14 @@ public final class RenderExpUtil {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         OperationNode root_ = _list.last();
         OperationNode current_ = root_;
+        _page.setCurrentRoot(root_);
         RendDynOperationNode exp_ = RendDynOperationNode.createExecOperationNode(current_,_cont, _page);
-        setImplicits(exp_, _page);
+        setImplicits(exp_, _page, current_);
         while (current_ != null) {
             OperationNode op_ = current_.getFirstChild();
             if (exp_ instanceof RendMethodOperation&&op_ != null) {
                 RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont, _page);
-                setImplicits(loc_, _page);
+                setImplicits(loc_, _page, op_);
                 ((RendMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 current_ = op_;
@@ -122,7 +126,7 @@ public final class RenderExpUtil {
                 op_ = current_.getNextSibling();
                 if (op_ != null) {
                     RendDynOperationNode loc_ = RendDynOperationNode.createExecOperationNode(op_,_cont, _page);
-                    setImplicits(loc_, _page);
+                    setImplicits(loc_, _page, op_);
                     RendMethodOperation par_ = exp_.getParent();
                     par_.appendChild(loc_);
                     if (op_.getParent() instanceof AbstractDotOperation && loc_ instanceof RendPossibleIntermediateDotted) {
@@ -208,9 +212,9 @@ public final class RenderExpUtil {
             if (par_ == _root) {
                 _page.setOkNumOp(true);
                 processAnalyze(_context, par_, _anaDoc);
-                ClassArgumentMatching cl_ = par_.getResultClass();
+                AnaClassArgumentMatching cl_ = par_.getResultClass();
                 if (AnaTypeUtil.isPrimitive(cl_, _page)) {
-                    cl_.setUnwrapObject(cl_);
+                    cl_.setUnwrapObject(cl_,_page.getStandards());
                 }
                 par_.tryCalculateNode(_context.getContext());
                 par_.setOrder(_sortedNodes.size());
@@ -481,10 +485,11 @@ public final class RenderExpUtil {
         return out_;
     }
 
-    public static void setImplicits(RendDynOperationNode _ex, AnalyzedPageEl _page){
-        ClassArgumentMatching resultClass_ = _ex.getResultClass();
+    public static void setImplicits(RendDynOperationNode _ex, AnalyzedPageEl _page, OperationNode _ana){
+        ExecClassArgumentMatching ex_ = _ex.getResultClass();
+        AnaClassArgumentMatching ana_ = _ana.getResultClass();
         ImplicitMethods implicits_ = _ex.getImplicits();
         ImplicitMethods implicitsTest_ = _ex.getImplicitsTest();
-        ElUtil.setImplicits(resultClass_,implicits_,implicitsTest_, _page);
+        ElUtil.setImplicits(ex_,ana_,implicits_,implicitsTest_, _page);
     }
 }

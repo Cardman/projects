@@ -7,8 +7,8 @@ import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
 
 public final class ExecStdVariableOperation extends ExecLeafOperation implements
@@ -76,21 +76,21 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
     @Override
     public Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right) {
+            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        return getCommonCompoundSetting(_conf, store_, _op, _right,getResultClass());
+        return getCommonCompoundSetting(_conf, store_, _op, _right,_cl, _cast);
     }
 
     @Override
     public Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post) {
+            String _op, boolean _post, byte _cast) {
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
         store_ = a_.getStruct();
-        return getCommonSemiSetting(_conf, store_, _op, _post);
+        return getCommonSemiSetting(_conf, store_, _op, _post, _cast);
     }
 
     private Argument getCommonSetting(ContextEl _conf, Argument _right) {
@@ -98,20 +98,19 @@ public final class ExecStdVariableOperation extends ExecLeafOperation implements
         return ExecTemplates.setValue(_conf,variableName,ip_,_right,deep);
     }
 
-    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ClassArgumentMatching _arg) {
+    private Argument getCommonCompoundSetting(ContextEl _conf, Struct _store, String _op, Argument _right, ExecClassArgumentMatching _arg, byte _cast) {
         PageEl ip_ = _conf.getLastPage();
         Argument left_ = new Argument(_store);
         Argument res_;
-        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg);
+        res_ = ExecNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _arg.getNames(), _cast);
         setVar(_conf,variableName, ip_, res_,deep);
         return res_;
     }
-    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(ContextEl _conf, Struct _store, String _op, boolean _post, byte _cast) {
         PageEl ip_ = _conf.getLastPage();
         Argument left_ = new Argument(_store);
-        ClassArgumentMatching cl_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf, _op, cl_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         setVar(_conf, variableName,ip_, res_,deep);
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }

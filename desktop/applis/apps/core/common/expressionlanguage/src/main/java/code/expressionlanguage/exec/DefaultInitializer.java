@@ -7,8 +7,8 @@ import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 
 import code.expressionlanguage.common.ClassField;
 
@@ -39,7 +39,7 @@ public class DefaultInitializer implements Initializer {
                 fieldDeclClass_ = ExecTemplates.quickFormat(c.getRootBlock(),formatted_,fieldDeclClass_);
                 for (String f: b.getFieldName()) {
                     ClassField key_ = new ClassField(id_, f);
-                    fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
+                    fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));
                 }
             }
         }
@@ -60,7 +60,7 @@ public class DefaultInitializer implements Initializer {
             if (str_ != null) {
                 fields_.add(new ClassFieldStruct(key_, str_));
             } else {
-                fields_.add(new ClassFieldStruct(key_, PrimitiveTypeUtil.defaultClass(fieldDeclClass_, _context)));
+                fields_.add(new ClassFieldStruct(key_, ExecClassArgumentMatching.defaultValue(fieldDeclClass_, _context)));
             }
         }
         return new AnnotationStruct(_className, fields_);

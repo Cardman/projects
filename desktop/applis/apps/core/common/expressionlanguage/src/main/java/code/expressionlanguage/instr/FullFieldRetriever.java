@@ -3,6 +3,7 @@ package code.expressionlanguage.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -11,7 +12,6 @@ import code.expressionlanguage.common.Delimiters;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.VariableInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -249,7 +249,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         boolean field_;
         boolean stCtx_ = _conf.getAnalyzing().isStaticContext() || _ctor;
         field_ = true;
-        ClassArgumentMatching clArg_ = new ClassArgumentMatching(_fromClass);
+        AnaClassArgumentMatching clArg_ = new AnaClassArgumentMatching(_fromClass);
         FieldResult fr_ = OperationNode.resolveDeclaredCustField(_conf, stCtx_, clArg_, true, true, _word, true, false);
         if (fr_.getStatus() != SearchingMemberStatus.UNIQ) {
             field_ = false;

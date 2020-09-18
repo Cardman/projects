@@ -3,14 +3,15 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendDynOperationNode;
 import code.formathtml.util.AnalyzingDoc;
@@ -43,7 +44,8 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
         opCondition = RenderExpUtil.getAnalyzedOperations(condition,conditionOffset,0, _cont, _analyzingDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode elCondition_ = opCondition.last();
         LgNames stds_ = page_.getStandards();
-        ClassArgumentMatching exp_ = elCondition_.getResultClass();
+        OperationNode root_ = page_.getCurrentRoot();
+        AnaClassArgumentMatching exp_ = root_.getResultClass();
         if (!exp_.isBoolType(page_)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _cont.getStandards().getAliasPrimBoolean(), exp_);
             if (res_.isFoundMethod()) {
@@ -68,8 +70,8 @@ public abstract class RendCondition extends RendParentBlock implements RendWithE
                 }
             }
         }
-        exp_.setUnwrapObject(stds_.getAliasPrimBoolean());
-        RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing());
+        exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        RenderExpUtil.setImplicits(elCondition_, _cont.getContext().getAnalyzing(), root_);
     }
 
     @Override

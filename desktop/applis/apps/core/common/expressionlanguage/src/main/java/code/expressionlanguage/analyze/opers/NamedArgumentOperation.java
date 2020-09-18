@@ -3,8 +3,8 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
@@ -48,11 +48,11 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation {
                     name);
             page_.getLocalizer().addError(varg_);
             getErrs().add(varg_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         OperationNode child_ = getFirstChild();
-        setResultClass(ClassArgumentMatching.copy(child_.getResultClass()));
+        setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(),page_.getStandards()));
     }
 
     public int getOffset() {

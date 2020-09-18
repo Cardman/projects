@@ -3,9 +3,8 @@ package code.formathtml.exec;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.AbstractFieldOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
-import code.util.CustList;
 import code.util.IdMap;
 
 public abstract class RendAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted,RendCallable {
@@ -19,7 +18,7 @@ public abstract class RendAbstractFieldOperation extends RendLeafOperation imple
         intermediate = _a.isIntermediateDottedOperation();
         off = _a.getOff();
     }
-    RendAbstractFieldOperation(int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
+    RendAbstractFieldOperation(int _indexChild, ExecClassArgumentMatching _res, int _order, boolean _int) {
         super(_indexChild,_res,_order);
         intermediate = _int;
     }

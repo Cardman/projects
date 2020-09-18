@@ -5,9 +5,10 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.IdMap;
 
@@ -21,7 +22,7 @@ public final class RendSettableFieldOperation extends
 
     private int anc;
 
-    private ClassArgumentMatching previous;
+    private ExecClassArgumentMatching previous;
     private ExecRootBlock rootBlock;
     public RendSettableFieldOperation(SettableAbstractFieldOperation _s, ExecRootBlock _rootBlock) {
         super(_s);
@@ -29,10 +30,10 @@ public final class RendSettableFieldOperation extends
         fieldMetaInfo = _s.getFieldMetaInfo();
         catString = _s.isCatString();
         anc = _s.getAnc();
-        previous = _s.getPreviousResultClass();
+        previous = PrimitiveTypeUtil.toExec(_s.getPreviousResultClass());
         rootBlock = _rootBlock;
     }
-    public RendSettableFieldOperation(RendSettableFieldOperation _s,int _indexChild, ClassArgumentMatching _res, int _order, boolean _int) {
+    public RendSettableFieldOperation(RendSettableFieldOperation _s, int _indexChild, ExecClassArgumentMatching _res, int _order, boolean _int) {
         super(_indexChild,_res,_order,_int);
         variable = _s.variable;
         rootBlock = _s.rootBlock;
@@ -61,41 +62,39 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Argument current_ = getArgument(_nodes,this);
         Struct store_ = current_.getStruct();
-        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right);
+        return getCommonCompoundSetting(previous_, store_, _conf, _op, _right, _cl, _cast);
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast) {
         Argument previous_ = getPreviousArg(this,_nodes,_conf);
         Struct store_ = _store.getStruct();
-        return getCommonSemiSetting(previous_, store_, _conf, _op, _post);
+        return getCommonSemiSetting(previous_, store_, _conf, _op, _post, _cast);
     }
 
     private Argument getCommonSetting(Argument _previous, Configuration _conf, Argument _right) {
         return _conf.getAdvStandards().getCommonSetting(this,_previous,_conf,_right);
     }
-    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right) {
+    private Argument getCommonCompoundSetting(Argument _previous, Struct _store, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        ClassArgumentMatching cl_ = getResultClass();
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, cl_);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
         return getCommonSetting(_previous,_conf,res_);
     }
-    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post) {
+    private Argument getCommonSemiSetting(Argument _previous, Struct _store, Configuration _conf, String _op, boolean _post, byte _cast) {
         int off_ = getOff();
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
         Argument left_ = new Argument(_store);
         Argument res_;
 
-        ClassArgumentMatching cl_ = getResultClass();
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, cl_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         getCommonSetting(_previous,_conf,res_);
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
@@ -130,7 +129,7 @@ public final class RendSettableFieldOperation extends
         return anc;
     }
 
-    public ClassArgumentMatching getPrevious() {
+    public ExecClassArgumentMatching getPrevious() {
         return previous;
     }
 

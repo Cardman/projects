@@ -3,10 +3,9 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SymbolOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
+import code.util.StringList;
 
 public abstract class RendNumericOperation extends RendMethodOperation implements RendCalculableOperation {
     private int opOffset;
@@ -16,9 +15,9 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
         opOffset = _n.getOpOffset();
     }
 
-    static Argument calculateAffect(Argument _left, Configuration _conf, Argument _right, String _op, boolean _catString, ClassArgumentMatching _arg) {
+    static Argument calculateAffect(Argument _left, Configuration _conf, Argument _right, String _op, boolean _catString, StringList _cls, byte _cast) {
         ResultErrorStd res_= new ResultErrorStd();
-        ExecNumericOperation.calculateOperator(_conf.getPageEl(),_conf.getContext(), res_, _arg, _op, _catString, _left.getStruct(), _right.getStruct());
+        ExecNumericOperation.calculateOperator(_conf.getPageEl(),_conf.getContext(), res_, _op, _catString, _left.getStruct(), _right.getStruct(), _cls, _cast);
         return new Argument(res_.getResult());
     }
 

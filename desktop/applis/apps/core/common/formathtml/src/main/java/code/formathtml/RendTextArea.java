@@ -53,7 +53,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
         String converterValue_ = elt.getAttribute(StringList.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         if (!opsRead.isEmpty()){
             Mapping m_ = new Mapping();
-            m_.setArg(opsRead.last().getResultClass());
+            m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 if (converterValue_.trim().isEmpty()) {
@@ -78,8 +78,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 for (String v:varNames_) {
                     _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
                 }
-                m_.setArg(opsConverter.last().getResultClass());
-                m_.setParam(opsRead.last().getResultClass());
+                m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
+                m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFileName(_anaDoc.getFileName());
@@ -108,7 +108,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl, R
                 _cont.getContext().getAnalyzing().getInfosVars().removeKey(v);
             }
             Mapping m_ = new Mapping();
-            m_.setArg(opsConverterField.last().getResultClass());
+            m_.setArg(_cont.getContext().getAnalyzing().getCurrentRoot().getResultClass());
             m_.setParam(_cont.getStandards().getAliasCharSequence());
             if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();

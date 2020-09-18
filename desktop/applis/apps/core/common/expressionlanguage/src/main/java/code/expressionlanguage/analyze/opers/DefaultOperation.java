@@ -1,8 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.IntTreeMap;
 
 public final class DefaultOperation extends AbstractUnaryOperation {
@@ -25,12 +25,12 @@ public final class DefaultOperation extends AbstractUnaryOperation {
     public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _conf);
         OperationNode child_ = getFirstChild();
-        ClassArgumentMatching res_ = child_.getResultClass();
+        AnaClassArgumentMatching res_ = child_.getResultClass();
         if (res_.isVariable()) {
-            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
             return;
         }
-        setResultClass(ClassArgumentMatching.copy(res_));
+        setResultClass(AnaClassArgumentMatching.copy(res_,_conf.getAnalyzing().getStandards()));
     }
 
     public int getOffset() {

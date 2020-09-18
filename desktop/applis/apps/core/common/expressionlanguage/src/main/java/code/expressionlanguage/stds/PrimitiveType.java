@@ -17,12 +17,15 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
 
     private final boolean nb;
 
+    private final byte castNb;
+
     public PrimitiveType(String _name, String _wrapper,
-                         String _directUpperPrimitiveInherit, boolean _nb) {
+                         String _directUpperPrimitiveInherit, boolean _nb, byte _castNb) {
         name = _name;
         wrapper = _wrapper;
         directUpperPrimitiveInherit = _directUpperPrimitiveInherit;
         nb = _nb;
+        castNb = _castNb;
     }
 
     public String getWrapper() {
@@ -67,5 +70,9 @@ public final class PrimitiveType implements InheritedType,AnaInheritedType {
     @Override
     public boolean isSubTypeOf(String _fullName, AnalyzedPageEl _an) {
         return StringList.contains(getAllSuperType(_an),_fullName);
+    }
+
+    public byte getCastNb() {
+        return castNb;
     }
 }

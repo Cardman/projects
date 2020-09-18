@@ -3,9 +3,9 @@ package code.expressionlanguage.assign.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.assign.blocks.AssBlock;
 import code.expressionlanguage.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public abstract class AssOperationNode {
 
@@ -20,7 +20,7 @@ public abstract class AssOperationNode {
 
     private final int indexChild;
 
-    private ClassArgumentMatching resultClass;
+    private AnaClassArgumentMatching resultClass;
 
     AssOperationNode(OperationNode _ex) {
         indexInEl = _ex.getIndexInEl();
@@ -173,7 +173,7 @@ public abstract class AssOperationNode {
     final void setNextSibling(AssOperationNode _nextSibling) {
         nextSibling = _nextSibling;
     }
-    public final ClassArgumentMatching getResultClass() {
+    public final AnaClassArgumentMatching getResultClass() {
         return resultClass;
     }
 

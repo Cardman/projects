@@ -6,10 +6,10 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.*;
@@ -121,7 +121,7 @@ public final class ContextUtil {
                 //type len
                 call_.buildError(_an.getAnalyzing().getAnalysisMessages().getIllegalCtorEnum());
                 _an.getAnalyzing().getLocalizer().addError(call_);
-                _op.setResultClass(new ClassArgumentMatching(_realClassName));
+                _op.setResultClass(new AnaClassArgumentMatching(_realClassName));
                 _op.getErrs().add(call_.getBuiltError());
                 return -2;
             }

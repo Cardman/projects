@@ -1,6 +1,6 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 
 public abstract class ExecMethodOperation extends ExecOperationNode {
@@ -11,7 +11,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
         super(_m);
     }
 
-    public ExecMethodOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    public ExecMethodOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
 

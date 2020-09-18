@@ -8,10 +8,10 @@ import code.expressionlanguage.analyze.blocks.CaseCondition;
 import code.expressionlanguage.analyze.opers.util.FieldInfo;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -64,9 +64,9 @@ public abstract class SettableAbstractFieldOperation extends
         LgNames stds_ = page_.getStandards();
         String fieldName_ = getFieldName();
         fieldNameLength = fieldName_.length();
-        ClassArgumentMatching cl_ = getFrom(_conf);
+        AnaClassArgumentMatching cl_ = getFrom(_conf);
         if (cl_ == null) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         boolean baseAccess_ = isBaseAccess();
@@ -92,7 +92,7 @@ public abstract class SettableAbstractFieldOperation extends
         r_ = getDeclaredCustField(this,_conf, isStaticAccess(), cl_, baseAccess_, superAccess_, fieldName_, import_, affect_);
         anc = r_.getAnc();
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         rootNumber = r_.getRootNumber();
@@ -100,14 +100,14 @@ public abstract class SettableAbstractFieldOperation extends
         valueOffset = e_.getValOffset();
         fieldMetaInfo = e_;
         String c_ = fieldMetaInfo.getType();
-        setResultClass(new ClassArgumentMatching(c_));
+        setResultClass(new AnaClassArgumentMatching(c_,page_.getStandards()));
         if (isIntermediateDottedOperation() && !fieldMetaInfo.isStaticField()) {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);
         }
     }
 
-    abstract ClassArgumentMatching getFrom(ContextEl _an);
+    abstract AnaClassArgumentMatching getFrom(ContextEl _an);
     abstract String getFieldName();
     abstract boolean isBaseAccess();
     abstract boolean isSuperAccess();
@@ -132,7 +132,7 @@ public abstract class SettableAbstractFieldOperation extends
         return staticAccess;
     }
     @Override
-    public void setPreviousResultClass(ClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
+    public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass, MethodAccessKind _staticAccess) {
         setPreviousResultClass(_previousResultClass);
         setStaticAccess(_staticAccess);
     }

@@ -1,10 +1,9 @@
 package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.UnaryBinOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.AliasNumber;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -26,7 +25,6 @@ public final class ExecUnaryBinOperation extends ExecAbstractUnaryOperation {
     Argument getArgument(ContextEl _conf,
             Argument _in) {
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        ClassArgumentMatching res_ = getResultClass();
-        return new Argument(AliasNumber.negBinNumber(ClassArgumentMatching.convertToNumber(_in.getStruct()), _conf, res_));
+        return new Argument(NumParsers.negBinNumber(NumParsers.convertToNumber(_in.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
 }

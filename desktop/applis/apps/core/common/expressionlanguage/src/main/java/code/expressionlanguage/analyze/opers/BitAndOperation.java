@@ -4,13 +4,14 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -22,23 +23,23 @@ public final class BitAndOperation extends NumericOperation {
     }
 
     @Override
-    ResultOperand analyzeOper(ClassArgumentMatching _a, String _op,
-                              ClassArgumentMatching _b, ContextEl _cont) {
+    ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op,
+                              AnaClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         if (_a.isBoolType(page_) && _b.isBoolType(page_)) {
             String bool_ = page_.getStandards().getAliasPrimBoolean();
-            _a.setUnwrapObject(bool_);
-            _b.setUnwrapObject(bool_);
-            res_.setResult(new ClassArgumentMatching(bool_));
+            _a.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            _b.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
             return res_;
         }
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
         if (oa_ > 0 && ob_ > 0) {
-            ClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
-            _a.setUnwrapObject(out_);
-            _b.setUnwrapObject(out_);
+            AnaClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+            _a.setUnwrapObject(out_,page_.getStandards());
+            _b.setUnwrapObject(out_,page_.getStandards());
             res_.setResult(out_);
             return res_;
         }
@@ -60,7 +61,7 @@ public final class BitAndOperation extends NumericOperation {
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+getOp().length()));
         getPartOffsetsChildren().add(err_);
-        ClassArgumentMatching arg_ = new ClassArgumentMatching(exp_);
+        AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;
     }
@@ -68,7 +69,7 @@ public final class BitAndOperation extends NumericOperation {
     @Override
     Argument calculateOperAna(Argument _a, String _op, Argument _b,
                               AnalyzedPageEl _page) {
-        return new Argument(AliasNumber.calculateAnd(_a.getStruct(), _b.getStruct(), getResultClass(), _page.getStandards()));
+        return new Argument(NumParsers.calculateAnd(_a.getStruct(), _b.getStruct(), getResultClass().getUnwrapObjectNb()));
     }
 
     @Override

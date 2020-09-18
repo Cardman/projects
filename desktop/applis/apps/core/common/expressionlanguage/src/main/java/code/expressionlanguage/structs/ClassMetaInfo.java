@@ -7,8 +7,8 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnonymousFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecTypeVar;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.ClassCategory;
@@ -71,7 +71,7 @@ public final class ClassMetaInfo extends WithoutParentStruct implements Annotate
         if (_cat == ClassCategory.ARRAY) {
             String id_ = StringExpUtil.getIdFromAllTypes(_name);
             String comp_ = StringExpUtil.getQuickComponentBaseType(id_).getComponent();
-            if (PrimitiveTypeUtil.isPrimitive(comp_, _context)) {
+            if (ExecClassArgumentMatching.isPrimitive(comp_, _context)) {
                 abstractType = true;
                 superClass = EMPTY_STRING;
                 access = AccessEnum.PUBLIC;

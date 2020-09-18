@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.TwoStepsArgumentsPair;
@@ -59,7 +60,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
                 if (pairBefore_ instanceof TwoStepsArgumentsPair) {
                     ((TwoStepsArgumentsPair)pairBefore_).setCalledIndexer(true);
                 }
-                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getLastPage(),getResultClass(),NullStruct.NULL_VALUE,_conf));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getLastPage(), NullStruct.NULL_VALUE,_conf, getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -90,7 +91,7 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
             return;
         }
         setRelativeOffsetPossibleLastPage(getIndexInEl()+opOffset, _conf);
-        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post);
+        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post, getResultClass().getUnwrapObjectNb());
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes);
@@ -117,9 +118,9 @@ public final class ExecSemiAffectationOperation extends ExecAbstractUnaryOperati
         indexImplicit_ = pair_.getIndexImplicitSemiTo();
         if (implicits_.isValidIndex(indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getImportedParametersTypes().first();
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
             Argument res_;
-            res_ = ExecNumericOperation.calculateIncrDecr(_right, _conf, oper, cl_);
+            res_ = ExecNumericOperation.calculateIncrDecr(_right, oper, cast_);
             pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, implicits_,indexImplicit_));
             return;
         }

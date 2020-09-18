@@ -5,19 +5,21 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
@@ -114,7 +116,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont.getContext())) {
             Mapping mapping_ = new Mapping();
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_cont.getStandards().getAliasLong());
@@ -129,11 +131,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         page_.setOffset(0);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont.getContext(),className);
         String cl_ = importedClassName;
-        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
+        AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _cont.getContext())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(elementClass_);
-            mapping_.setParam(_cont.getStandards().getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
             cast_.setIndexFile(classNameOffset);
@@ -157,11 +156,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode initEl_ = opInit.last();
         Mapping m_ = new Mapping();
-        m_.setArg(initEl_.getResultClass());
+        m_.setArg(page_.getCurrentRoot().getResultClass());
         m_.setParam(elementClass_);
         if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(initEl_.getResultClass());
+            mapping_.setArg(page_.getCurrentRoot().getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -176,11 +175,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrTo());
         opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode expressionEl_ = opExp.last();
-        m_.setArg(expressionEl_.getResultClass());
+        m_.setArg(page_.getCurrentRoot().getResultClass());
         m_.setParam(elementClass_);
         if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(expressionEl_.getResultClass());
+            mapping_.setArg(page_.getCurrentRoot().getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -195,11 +194,11 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrStep());
         opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode stepEl_ = opStep.last();
-        m_.setArg(stepEl_.getResultClass());
+        m_.setArg(page_.getCurrentRoot().getResultClass());
         m_.setParam(elementClass_);
         if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
             Mapping mapping_ = new Mapping();
-            mapping_.setArg(stepEl_.getResultClass());
+            mapping_.setArg(page_.getCurrentRoot().getResultClass());
             mapping_.setParam(elementClass_);
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(_anaDoc.getFileName());
@@ -291,10 +290,9 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             _conf.setException(new ErrorStruct(_conf.getContext(),null_));
             return;
         }
-        String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argFrom_.getStruct()), stds_).longStruct();
-        long toValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argTo_.getStruct()), stds_).longStruct();
-        stepValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argStep_.getStruct()), stds_).longStruct();
+        fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
+        long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
+        stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -347,7 +345,7 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         }
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
-        Struct struct_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(fromValue_), stds_);
+        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getStandards()), new LongStruct(fromValue_));
         varsLoop_.put(var_, lv_);
         ip_.putValueVar(var_, LocalVariable.newLocalVariable(struct_,importedClassName));
     }
@@ -396,8 +394,8 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         String var_ = getVariableName();
         LoopVariable lv_ = _vars.getVal(var_);
         LocalVariable lInfo_ = _varsInfos.getVal(var_);
-        long o_ = ClassArgumentMatching.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
-        lInfo_.setStruct(PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(o_), _conf.getStandards()));
+        long o_ = NumParsers.convertToNumber(lInfo_.getStruct()).longStruct()+_l.getStep();
+        lInfo_.setStruct(NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName,_conf.getStandards()), new LongStruct(o_)));
         lv_.setIndex(lv_.getIndex() + 1);
     }
 }

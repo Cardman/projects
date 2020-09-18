@@ -6,17 +6,19 @@ import code.expressionlanguage.analyze.blocks.AnalyzedBlock;
 import code.expressionlanguage.analyze.blocks.ReturnMethod;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.NumberStruct;
 import code.util.CustList;
 import code.util.IntTreeMap;
@@ -61,7 +63,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             accessFromSuper_ = fwd_.isAccessFromSuper();
         }
         String trimMeth_ = "[]";
-        ClassArgumentMatching class_ = getPreviousResultClass();
+        AnaClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";
         if (fwd_ != null) {
             classType_ = fwd_.getClassType();
@@ -135,7 +137,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMeth_, params_, vararg_)),idMethod_.getAncestor());
             feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, new MethodId(MethodAccessKind.INSTANCE, trimMethSet_, params_, vararg_)),idMethod_.getAncestor());
         }
-        ClassArgumentMatching class_ = getPreviousResultClass();
+        AnaClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";
         if (fwd_ != null) {
             classType_ = fwd_.getClassType();
@@ -153,7 +155,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         NameParametersFilter name_ = buildFilter(_conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(_conf, varargOnly_, isStaticAccess(),false,
@@ -197,8 +199,8 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 naturalVararg = paramtTypes_.size() - 1;
                 lastType = paramtTypes_.last();
             }
-            unwrapArgsFct(chidren_, realId_, naturalVararg, lastType, name_.getAll(), _conf);
-            setResultClass(new ClassArgumentMatching(clMeth_.getReturnType()));
+            unwrapArgsFct(realId_, naturalVararg, lastType, name_.getAll(), _conf);
+            setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(),page_.getStandards()));
             return;
         }
         if (chidren_.size() != 1) {
@@ -220,20 +222,19 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             list_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",i_));
             list_.add(new PartOffset("</a>",i_+ 1));
             getPartOffsetsChildren().add(list_);
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         OperationNode right_ = chidren_.last();
-        ClassArgumentMatching indexClass_ = right_.getResultClass();
+        AnaClassArgumentMatching indexClass_ = right_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(right_.getIndexInEl(), _conf);
         LgNames stds_ = page_.getStandards();
-        String primInt_ = stds_.getAliasPrimInteger();
         Argument rightArg_ = right_.getArgument();
         boolean convertNumber_ = false;
         if (rightArg_ != null && rightArg_.getStruct() instanceof NumberStruct) {
-            long valueUnwrapped_ = ClassArgumentMatching.convertToNumber(rightArg_.getStruct()).longStruct();
+            long valueUnwrapped_ = NumParsers.convertToNumber(rightArg_.getStruct()).longStruct();
             if (valueUnwrapped_ >= Integer.MIN_VALUE && valueUnwrapped_ <= Integer.MAX_VALUE) {
-                right_.getResultClass().setUnwrapObject(primInt_);
+                right_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);
                 convertNumber_ = true;
             }
         }
@@ -265,15 +266,16 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     StringList.join(class_.getNames(),"&"));
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            class_ = new ClassArgumentMatching(page_.getStandards().getAliasObject());
+            class_ = new AnaClassArgumentMatching(page_.getStandards().getAliasObject());
             setResultClass(class_);
             return;
         }
         if (!convertNumber_) {
-            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_,  page_));
-            right_.cancelArgument();
+            indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_,  page_),page_.getStandards());
+            right_.quickCancel();
         }
         class_ = StringExpUtil.getQuickComponentType(class_);
+        class_.setUnwrapObject(class_,stds_);
         setResultClass(class_);
     }
 

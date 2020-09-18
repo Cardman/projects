@@ -2,11 +2,11 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.PageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.DimensionArrayInstancing;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -43,7 +43,7 @@ public final class RendDimensionArrayInstancing extends
         int i_ = CustList.FIRST_INDEX;
         Ints offs_ = new Ints();
         for (RendDynOperationNode o: filter_) {
-            NumberStruct n_ = ClassArgumentMatching.convertToNumber(_arguments.get(i_).getStruct());
+            NumberStruct n_ = NumParsers.convertToNumber(_arguments.get(i_).getStruct());
             int offset_ = getIndexBegin()+ o.getIndexInEl() + off_;
             offs_.add(offset_);
             _conf.setOpOffset(offset_);

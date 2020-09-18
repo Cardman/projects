@@ -3,8 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.opers.BitShiftLeftOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.stds.AliasNumber;
+import code.expressionlanguage.common.NumParsers;
 
 public final class ExecBitShiftLeftOperation extends ExecStdNumericOperation {
 
@@ -15,8 +14,8 @@ public final class ExecBitShiftLeftOperation extends ExecStdNumericOperation {
     @Override
     Argument calculateOper(Argument _a, String _op, Argument _b,
                            ContextEl _cont) {
-        return new Argument(AliasNumber.calculateBitShiftLeft(ClassArgumentMatching.convertToNumber(_a.getStruct()),
-                ClassArgumentMatching.convertToNumber(_b.getStruct()), getResultClass(), _cont.getStandards()));
+        return new Argument(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(_a.getStruct()),
+                NumParsers.convertToNumber(_b.getStruct()), getResultClass().getUnwrapObjectNb()));
     }
 
 }

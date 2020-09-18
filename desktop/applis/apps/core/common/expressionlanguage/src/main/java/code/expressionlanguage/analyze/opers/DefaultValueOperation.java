@@ -3,11 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.StringList;
@@ -35,7 +35,7 @@ public final class DefaultValueOperation extends LeafOperation implements Reduct
         classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + offLoc_, realCl_);
         partOffsets.addAllElts(_conf.getAnalyzing().getCurrentParts());
         className = classStr_;
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className,_conf.getAnalyzing().getStandards()));
     }
 
     @Override

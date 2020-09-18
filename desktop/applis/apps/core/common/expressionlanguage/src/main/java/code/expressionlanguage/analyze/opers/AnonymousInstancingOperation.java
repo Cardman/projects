@@ -5,11 +5,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -94,7 +94,7 @@ public final class AnonymousInstancingOperation extends
         page_.getLocalizer().addError(static_);
         getErrs().add(static_.getBuiltError());
         LgNames stds_ = page_.getStandards();
-        setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
     }
     private void analyzeCtor(ContextEl _conf, String _realClassName) {
         AnalyzedPageEl page_ = _conf.getAnalyzing();
@@ -109,7 +109,7 @@ public final class AnonymousInstancingOperation extends
             call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             page_.getLocalizer().addError(call_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             getErrs().add(call_.getBuiltError());
             return;
         }
@@ -168,7 +168,7 @@ public final class AnonymousInstancingOperation extends
         }
         block.getStaticInitInterfaces().addAllElts(getStaticInitInterfaces());
         block.getStaticInitInterfacesOffset().addAllElts(getStaticInitInterfacesOffset());
-        setResultClass(new ClassArgumentMatching(_realClassName));
+        setResultClass(new AnaClassArgumentMatching(_realClassName));
         glClass = page_.getGlobalClass();
     }
 
@@ -177,10 +177,10 @@ public final class AnonymousInstancingOperation extends
         CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         String varargParam_ = getVarargParam(filter_);
-        ClassArgumentMatching aClass_ = new ClassArgumentMatching(block.getGenericString());
+        AnaClassArgumentMatching aClass_ = new AnaClassArgumentMatching(block.getGenericString());
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(_conf.getAnalyzing().getStandards().getAliasObject()));
             return;
         }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, aClass_,block.getFullName(),block, null, varargParam_, name_);
@@ -195,7 +195,7 @@ public final class AnonymousInstancingOperation extends
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
         }
-        unwrapArgsFct(filter_, getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
+        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
     }
 
     public AnonymousTypeBlock getBlock() {

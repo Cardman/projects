@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
@@ -11,7 +12,6 @@ import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 
@@ -71,7 +71,7 @@ public final class AffectationOperation extends MethodOperation {
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
             err_.add(new PartOffset("</a>",opLocat_+1));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         if (elt_ instanceof VariableOperation) {
@@ -79,10 +79,10 @@ public final class AffectationOperation extends MethodOperation {
             settableOp = v_;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _conf) && StringList.contains(page_.getVariablesNamesToInfer(), inf_)) {
-                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_,page_.getStandards());
                     AnaLocalVariable lv_ = page_.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     page_.getVariablesNamesToInfer().removeString(inf_);
@@ -97,10 +97,10 @@ public final class AffectationOperation extends MethodOperation {
             settableOp = v_;
             String inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringLoopVariable(v_, _conf) && StringList.contains(page_.getVariablesNamesToInfer(), inf_)) {
-                ClassArgumentMatching clMatchRight_ = right_.getResultClass();
+                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
-                    ClassArgumentMatching n_ = new ClassArgumentMatching(type_);
+                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_,page_.getStandards());
                     AnaLocalVariable lv_ = page_.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     page_.getVariablesNamesToInfer().removeString(inf_);
@@ -130,16 +130,16 @@ public final class AffectationOperation extends MethodOperation {
                 err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",opLocat_));
                 err_.add(new PartOffset("</a>",opLocat_+1));
                 getPartOffsetsChildren().add(err_);
-                setResultClass(ClassArgumentMatching.copy(elt_.getResultClass()));
+                setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(),page_.getStandards()));
                 elt_.setVariable(true);
                 return;
             }
         }
 
-        setResultClass(ClassArgumentMatching.copy(elt_.getResultClass()));
+        setResultClass(AnaClassArgumentMatching.copy(elt_.getResultClass(),page_.getStandards()));
         elt_.setVariable(true);
-        ClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        ClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
+        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        AnaClassArgumentMatching clMatchLeft_ = elt_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(root_.getIndexInEl(), _conf);
 
         if (clMatchRight_.isVariable()) {
@@ -198,8 +198,8 @@ public final class AffectationOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _conf);
         foundOffset = page_.getLocalizer().getCurrentLocationIndex();
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, page_)) {
-            right_.getResultClass().setUnwrapObject(clMatchLeft_);
-            right_.cancelArgument();
+            right_.getResultClass().setUnwrapObject(clMatchLeft_,page_.getStandards());
+            right_.quickCancel();
         }
     }
 

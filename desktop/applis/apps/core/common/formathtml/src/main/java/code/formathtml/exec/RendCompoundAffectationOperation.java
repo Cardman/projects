@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
@@ -16,6 +17,7 @@ import code.formathtml.Configuration;
 import code.formathtml.util.AdvancedExiting;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringList;
 
 public final class RendCompoundAffectationOperation extends RendMethodOperation implements RendCalculableOperation,RendCallable {
 
@@ -47,7 +49,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -83,7 +85,9 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
         if (converter != null) {
             String tres_ = converter.get(0).getImportedParametersTypes().get(0);
             Argument res_;
-            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, new ClassArgumentMatching(tres_));
+            StringList arg = new StringList(tres_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
+            res_ = RendNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, oper, false, arg, cast_);
             Argument conv_ = tryConvert(converter.getRootBlock(),converter.get(0),converter.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
@@ -93,7 +97,7 @@ public final class RendCompoundAffectationOperation extends RendMethodOperation 
             setSimpleArgument(arg_, _conf,_nodes);
             return;
         }
-        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_);
+        Argument arg_ = settable.calculateCompoundSetting(_nodes, _conf, oper, rightArg_, getResultClass(), getResultClass().getUnwrapObjectNb());
         setSimpleArgument(arg_, _conf,_nodes);
     }
 

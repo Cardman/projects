@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
@@ -31,6 +32,7 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
     private int valueOffset;
 
     private CustList<RendDynOperationNode> opValue;
+    private AnaClassArgumentMatching result;
 
     private boolean enumTest;
     private String instanceTest = "";
@@ -59,8 +61,8 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrValue());
         opValue = RenderExpUtil.getAnalyzedOperations(value,valueOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
-        RendDynOperationNode op_ = opValue.last();
-        ClassArgumentMatching clArg_ = op_.getResultClass();
+        result = page_.getCurrentRoot().getResultClass();
+        AnaClassArgumentMatching clArg_ = page_.getCurrentRoot().getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -285,11 +287,12 @@ public final class RendSwitchBlock extends RendParentBlock implements RendBreaka
         }
         return null;
     }
-    public CustList<RendDynOperationNode> getOpValue() {
-        return opValue;
-    }
 
     public String getInstanceTest() {
         return instanceTest;
+    }
+
+    public AnaClassArgumentMatching getResult() {
+        return result;
     }
 }

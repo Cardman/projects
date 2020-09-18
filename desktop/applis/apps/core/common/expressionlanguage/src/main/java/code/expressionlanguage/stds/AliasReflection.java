@@ -11,11 +11,10 @@ import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.OperatorCmp;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.Classes;
@@ -825,7 +824,7 @@ public final class AliasReflection {
                     MethodMetaInfo method_ = NumParsers.getMethod(_struct);
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
-                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),args_[2]);
+                        cache_.putLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),args_[2]);
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
                     return result_;
@@ -835,7 +834,7 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
                         if (cache_ != null) {
-                            result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                            result_.setResult(cache_.getLocalValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
                         } else {
                             result_.setResult(NullStruct.NULL_VALUE);
                         }
@@ -880,7 +879,7 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (cache_ != null) {
                         if (args_[2] instanceof NumberStruct) {
-                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
+                            cache_.putLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct(),((NumberStruct)args_[2]).longStruct());
                         }
                     }
                     result_.setResult(NullStruct.NULL_VALUE);
@@ -891,7 +890,7 @@ public final class AliasReflection {
                     Cache cache_ = method_.getCache();
                     if (StringList.quickEq(_method.getConstraints().getParametersType(1),lgNames_.getAliasPrimLong())) {
                         if (cache_ != null) {
-                            result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]).longStruct()));
+                            result_.setResult(cache_.getLoopValue(NumParsers.getStringValue(args_[0]), NumParsers.convertToNumber(args_[1]).longStruct()));
                         } else {
                             result_.setResult(NullStruct.NULL_VALUE);
                         }
@@ -1128,7 +1127,7 @@ public final class AliasReflection {
                 String param_ = class_.getName();
                 Struct subType_ = args_[0];
                 if (!(subType_ instanceof ClassMetaInfo)) {
-                    result_.setResult(BooleanStruct.of(!PrimitiveTypeUtil.isPrimitive(param_,_cont)));
+                    result_.setResult(BooleanStruct.of(!ExecClassArgumentMatching.isPrimitive(param_,_cont)));
                     return result_;
                 }
                 String arg_ = NumParsers.getClass(subType_).getName();
@@ -1914,7 +1913,7 @@ public final class AliasReflection {
                 }
                 Struct[] arrayDim_ = ((ArrayStruct)inst_).getInstance();
                 for (Struct s: arrayDim_) {
-                    int dim_ = ClassArgumentMatching.convertToNumber(s).intStruct();
+                    int dim_ = NumParsers.convertToNumber(s).intStruct();
                     dims_.add(dim_);
                 }
                 Struct res_ = ExecTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont);

@@ -4,8 +4,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -31,10 +31,8 @@ public final class NullSafeOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
-        ClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
-        ClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
-        StringList one_ = clMatchTwo_.getNames();
-        StringList two_ = clMatchThree_.getNames();
+        AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
+        AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _conf.getAnalyzing().getCurrentConstraints().getCurrentConstraints();
         OperationNode current_ = this;
         MethodOperation m_ = getParent();
@@ -59,11 +57,13 @@ public final class NullSafeOperation extends MethodOperation {
             type_ = c_.getClassName();
         }
         if (!type_.isEmpty()) {
-            setResultClass(new ClassArgumentMatching(type_));
+            setResultClass(new AnaClassArgumentMatching(type_));
             return;
         }
+        StringList one_ = clMatchTwo_.getNames();
+        StringList two_ = clMatchThree_.getNames();
         ResultTernary res_ = AnaTemplates.getResultTernary(one_, null, two_, null, vars_, _conf);
-        setResultClass(new ClassArgumentMatching(res_.getTypes()));
+        setResultClass(new AnaClassArgumentMatching(res_.getTypes()));
     }
 
     @Override

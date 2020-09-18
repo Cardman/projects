@@ -1,6 +1,6 @@
 package code.formathtml.exec;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 
 public abstract class RendMethodOperation extends RendDynOperationNode {
@@ -11,7 +11,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
         super(_m);
     }
 
-    public RendMethodOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    public RendMethodOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
     public final void appendChild(RendDynOperationNode _child) {

@@ -8,11 +8,10 @@ import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.exec.RendStdFctOperation;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -121,23 +120,23 @@ public abstract class BeanLgNames extends LgNames {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        ClassArgumentMatching cl_ = new ClassArgumentMatching(_className);
-        if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
+        ExecClassArgumentMatching cl_ = new ExecClassArgumentMatching(_className);
+        if (ExecClassArgumentMatching.toPrimitive(cl_,this).matchClass(getAliasPrimBoolean())) {
             res_.setResult(BooleanStruct.of(StringList.quickEq(_values.first(),ON)));
             return res_;
         }
-        if (PrimitiveTypeUtil.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
+        if (ExecClassArgumentMatching.toPrimitive(cl_,this).matchClass(getAliasPrimChar())) {
             res_.setResult(new CharStruct(_values.first().trim().charAt(0)));
             return res_;
         }
-        int order_ = AnaTypeUtil.getIntOrderClass(cl_, _context.getContext());
-        if (order_ == 0) {
+        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
+        if (cast_ > PrimitiveTypes.LONG_WRAP) {
             DoubleInfo doubleInfo_ = NumParsers.splitDouble(_values.first());
             if (!doubleInfo_.isValid()) {
                 res_.setError(getAliasCastType());
                 return res_;
             }
-            res_.setResult(PrimitiveTypeUtil.convertToFloat(cl_,new DoubleStruct(doubleInfo_.getValue()),this));
+            res_.setResult(NumParsers.convertToFloat(cast_,new DoubleStruct(doubleInfo_.getValue())));
             return res_;
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
@@ -145,9 +144,10 @@ public abstract class BeanLgNames extends LgNames {
             res_.setError(getAliasCastType());
             return res_;
         }
-        res_.setResult(PrimitiveTypeUtil.convertToInt(cl_,new LongStruct(val_.getValue()),this));
+        res_.setResult(NumParsers.convertToInt(cast_,new LongStruct(val_.getValue())));
         return res_;
     }
+
     public boolean isConveritble(String _className) {
         if (StringList.quickEq(_className, getAliasString())) {
             return true;

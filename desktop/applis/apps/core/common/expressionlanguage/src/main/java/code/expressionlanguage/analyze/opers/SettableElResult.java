@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public interface SettableElResult {
 
     void setVariable(boolean _variable);
     void setCatenizeStrings();
-    ClassArgumentMatching getResultClass();
+    AnaClassArgumentMatching getResultClass();
 
 }

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -13,7 +14,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
@@ -98,7 +98,7 @@ public final class StandardInstancingOperation extends
         }
         int offset_ = StringList.getFirstPrintableCharIndex(realClassName_);
         realClassName_ = realClassName_.trim();
-        ClassArgumentMatching arg_ = getPreviousResultClass();
+        AnaClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFileName(page_.getLocalizer().getCurrentFileName());
@@ -109,7 +109,7 @@ public final class StandardInstancingOperation extends
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         StringMap<String> ownersMap_ = new StringMap<String>();
@@ -145,7 +145,7 @@ public final class StandardInstancingOperation extends
             }
             if (!ok_) {
                 LgNames stds_ = page_.getStandards();
-                setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+                setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
                 return;
             }
         }
@@ -166,7 +166,7 @@ public final class StandardInstancingOperation extends
             page_.getLocalizer().addError(static_);
             getErrs().add(static_.getBuiltError());
             LgNames stds_ = page_.getStandards();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
         String sup_ = ownersMap_.values().first();
@@ -184,8 +184,6 @@ public final class StandardInstancingOperation extends
 
 
     private void analyzeCtor(ContextEl _conf, String _realClassName, String _paramVargArg) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        CustList<OperationNode> filter_ = ElUtil.filterInvoking(chidren_);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         int varargOnly_ = lookOnlyForVarArg();
@@ -200,7 +198,7 @@ public final class StandardInstancingOperation extends
             call_.buildError(_conf.getAnalyzing().getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
             page_.getLocalizer().addError(call_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             getErrs().add(call_.getBuiltError());
             return;
         }
@@ -243,7 +241,7 @@ public final class StandardInstancingOperation extends
                     base_);
             page_.getLocalizer().addError(call_);
             getErrs().add(call_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(_realClassName));
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
         blockIndex = ContextUtil.getCurrentChildTypeIndex(_conf,this, g_,fieldName,_realClassName);
@@ -260,12 +258,12 @@ public final class StandardInstancingOperation extends
         }
         NameParametersFilter name_ = buildFilter(_conf);
         if (!name_.isOk()) {
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new ClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, name_);
+        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(this,_conf, varargOnly_, new AnaClassArgumentMatching(_realClassName),base_,g_, feed_, _paramVargArg, name_);
         if (ctorRes_.getRealId() == null) {
-            setResultClass(new ClassArgumentMatching(_realClassName));
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
         setConstId(ctorRes_.getRealId());
@@ -276,8 +274,8 @@ public final class StandardInstancingOperation extends
             setNaturalVararg(getConstId().getParametersTypes().size() - 1);
             setLastType(getConstId().getParametersTypes().last());
         }
-        unwrapArgsFct(filter_, getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
-        setResultClass(new ClassArgumentMatching(_realClassName));
+        unwrapArgsFct(getConstId(), getNaturalVararg(), getLastType(), name_.getAll(), _conf);
+        setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
 
     @Override

@@ -5,20 +5,17 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.InferenceConstraints;
-import code.expressionlanguage.inherits.MappingPairs;
-import code.expressionlanguage.inherits.Matching;
-import code.expressionlanguage.inherits.MatchingEnum;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.inherits.*;
 
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.IntStruct;
 import code.util.*;
 
@@ -47,30 +44,30 @@ public final class AnaTemplates {
                                                  StringMap<StringList> _vars,
                                                  ContextEl _conf) {
         if (StringList.equalsSet(_first, _second)) {
-            return new ResultTernary(_first, false, false);
+            return ResultTernary.noUnwrap(_first);
         }
         LgNames stds_ = _conf.getAnalyzing().getStandards();
-        ClassArgumentMatching first_ = new ClassArgumentMatching(_first);
-        ClassArgumentMatching second_ = new ClassArgumentMatching(_second);
+        AnaClassArgumentMatching first_ = new AnaClassArgumentMatching(_first);
+        AnaClassArgumentMatching second_ = new AnaClassArgumentMatching(_second);
         if (first_.isPrimitive(_conf) && second_.isWrapper(_conf) && StringList.equalsSet(new StringList(PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_)), second_.getNames())) {
-            return new ResultTernary(_first, false, true);
+            return ResultTernary.unwrapRight(_first, first_.getPrimitiveCast(_conf));
         }
         if (second_.isPrimitive(_conf) && first_.isWrapper(_conf) && StringList.equalsSet(new StringList(PrimitiveTypeUtil.toWrapper(second_.getSingleNameOrEmpty(), stds_)), first_.getNames())) {
-            return new ResultTernary(_second, true, false);
+            return ResultTernary.unwrapLeft(_second, second_.getPrimitiveCast(_conf));
         }
         if (StringList.contains(_first, NO_SUB_CLASS) && !second_.isPrimitive(_conf)) {
-            return new ResultTernary(_second, false, false);
+            return ResultTernary.noUnwrap(_second);
         }
         if (StringList.contains(_first, NO_SUB_CLASS)) {
             String w_ = PrimitiveTypeUtil.toWrapper(second_.getSingleNameOrEmpty(), stds_);
-            return new ResultTernary(new StringList(w_), false, false);
+            return ResultTernary.noUnwrap(new StringList(w_));
         }
         if (StringList.contains(_second, NO_SUB_CLASS) && !first_.isPrimitive(_conf)) {
-            return new ResultTernary(_first, false, false);
+            return ResultTernary.noUnwrap(_first);
         }
         if (StringList.contains(_second, NO_SUB_CLASS)) {
             String w_ = PrimitiveTypeUtil.toWrapper(first_.getSingleNameOrEmpty(), stds_);
-            return new ResultTernary(new StringList(w_), false, false);
+            return ResultTernary.noUnwrap(new StringList(w_));
         }
         if (AnaTypeUtil.isPrimitiveOrWrapper(first_, _conf) && AnaTypeUtil.isPrimitiveOrWrapper(second_, _conf)) {
             String primShort_ = stds_.getAliasPrimShort();
@@ -79,56 +76,46 @@ public final class AnaTemplates {
             String short_ = stds_.getAliasShort();
             String char_ = stds_.getAliasCharacter();
             String byte_ = stds_.getAliasByte();
-            if (StringList.contains(_first, primByte_) || StringList.contains(_first, byte_)) {
-                if (StringList.contains(_second, primShort_) || StringList.contains(_second, short_)) {
-                    return new ResultTernary(new StringList(primShort_), StringList.contains(_first, byte_), StringList.contains(_second, short_));
-                }
-            }
-            if (StringList.contains(_second, primByte_) || StringList.contains(_second, byte_)) {
-                if (StringList.contains(_first, primShort_) || StringList.contains(_first, short_)) {
-                    return new ResultTernary(new StringList(primShort_), StringList.contains(_first, short_), StringList.contains(_second, byte_));
-                }
-            }
             if (_secondArg != null && _secondArg.getStruct() instanceof IntStruct) {
-                int value_ = ClassArgumentMatching.convertToNumber(_secondArg.getStruct()).intStruct();
+                int value_ = NumParsers.convertToNumber(_secondArg.getStruct()).intStruct();
                 if (StringList.contains(_first, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primByte_), false, true);
+                    return ResultTernary.unwrapRight(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
                 }
                 if (StringList.contains(_first, primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primChar_), false, true);
+                    return ResultTernary.unwrapRight(new StringList(primChar_), PrimitiveTypes.CHAR_WRAP);
                 }
                 if (StringList.contains(_first, primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primShort_), false, true);
+                    return ResultTernary.unwrapRight(new StringList(primShort_), PrimitiveTypes.SHORT_WRAP);
                 }
                 if (StringList.contains(_first, byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primByte_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
                 }
                 if (StringList.contains(_first, char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primChar_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primChar_), PrimitiveTypes.CHAR_WRAP);
                 }
                 if (StringList.contains(_first, short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primShort_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primShort_), PrimitiveTypes.SHORT_WRAP);
                 }
             }
             if (_firstArg != null && _firstArg.getStruct() instanceof IntStruct) {
-                int value_ = ClassArgumentMatching.convertToNumber(_firstArg.getStruct()).intStruct();
+                int value_ = NumParsers.convertToNumber(_firstArg.getStruct()).intStruct();
                 if (StringList.contains(_second, primByte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primByte_), true, false);
+                    return ResultTernary.unwrapLeft(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
                 }
                 if (StringList.contains(_second, primChar_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primChar_), true, false);
+                    return ResultTernary.unwrapLeft(new StringList(primChar_), PrimitiveTypes.CHAR_WRAP);
                 }
                 if (StringList.contains(_second, primShort_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primShort_), true, false);
+                    return ResultTernary.unwrapLeft(new StringList(primShort_), PrimitiveTypes.SHORT_WRAP);
                 }
                 if (StringList.contains(_second, byte_) && value_ >= Byte.MIN_VALUE && value_ <= Byte.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primByte_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primByte_), PrimitiveTypes.BYTE_WRAP);
                 }
                 if (StringList.contains(_second, char_) && value_ >= Character.MIN_VALUE && value_ <= Character.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primChar_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primChar_), PrimitiveTypes.CHAR_WRAP);
                 }
                 if (StringList.contains(_second, short_) && value_ >= Short.MIN_VALUE && value_ <= Short.MAX_VALUE) {
-                    return new ResultTernary(new StringList(primShort_), true, true);
+                    return ResultTernary.unwrapBoth(new StringList(primShort_), PrimitiveTypes.SHORT_WRAP);
                 }
             }
             StringList prOne_ = new StringList();
@@ -144,7 +131,7 @@ public final class AnaTemplates {
             StringList ints_ = StringList.intersect(superTypesFirst_,superTypesSecond_);
             StringList bases_;
             bases_ = getTernarySubclasses(ints_, _vars, _conf);
-            return new ResultTernary(bases_, true, true);
+            return ResultTernary.unwrapBoth(bases_, AnaClassArgumentMatching.getPrimitiveCast(_conf,bases_));
         }
         StringList superTypesFirst_ = getSuperTypesSet(_first, _vars, _conf);
         StringList superTypesSecond_ = getSuperTypesSet(_second, _vars, _conf);
@@ -184,13 +171,13 @@ public final class AnaTemplates {
             out_.add(basesGene_.getVal(l));
         }
         out_.removeDuplicates();
-        return new ResultTernary(out_, false, false);
+        return ResultTernary.noUnwrap(out_);
     }
 
-    private static CustList<ClassArgumentMatching> getAllSuperTypes(ClassArgumentMatching _class, ContextEl _context) {
+    private static CustList<AnaClassArgumentMatching> getAllSuperTypes(AnaClassArgumentMatching _class, ContextEl _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        CustList<ClassArgumentMatching> gt_ = new CustList<ClassArgumentMatching>();
+        CustList<AnaClassArgumentMatching> gt_ = new CustList<AnaClassArgumentMatching>();
         String name_ = _class.getName();
         StringMap<PrimitiveType> prs_ = stds_.getPrimitiveTypes();
         PrimitiveType pr_ = prs_.getVal(name_);
@@ -199,7 +186,7 @@ public final class AnaTemplates {
             if (!prs_.contains(s)) {
                 continue;
             }
-            gt_.add(new ClassArgumentMatching(s));
+            gt_.add(new AnaClassArgumentMatching(s));
         }
         return gt_;
     }
@@ -319,8 +306,8 @@ public final class AnaTemplates {
                 continue;
             }
             if (AnaTypeUtil.isPrimitive(base_, page_)) {
-                ClassArgumentMatching c_ = new ClassArgumentMatching(base_);
-                for (ClassArgumentMatching s: getAllSuperTypes(c_, _conf)) {
+                AnaClassArgumentMatching c_ = new AnaClassArgumentMatching(base_);
+                for (AnaClassArgumentMatching s: getAllSuperTypes(c_, _conf)) {
                     for (String p: s.getNames()) {
                         superTypes_.add(StringExpUtil.getPrettyArrayType(p, d_));
                         String w_ = PrimitiveTypeUtil.toWrapper(p, stds_);
@@ -782,8 +769,8 @@ public final class AnaTemplates {
     }
 
     public static boolean isCorrectOrNumbers(Mapping _m, ContextEl _context) {
-        ClassArgumentMatching a_ = _m.getArg();
-        ClassArgumentMatching p_ = _m.getParam();
+        AnaClassArgumentMatching a_ = _m.getArg();
+        AnaClassArgumentMatching p_ = _m.getParam();
         if (_m.getParam().isVariable()) {
             return false;
         }
@@ -794,7 +781,7 @@ public final class AnaTemplates {
         if (AnaTypeUtil.isPrimitive(p_, page_)) {
             LgNames stds_ = page_.getStandards();
             Mapping m_ = new Mapping();
-            m_.setArg(PrimitiveTypeUtil.toPrimitive(a_, stds_));
+            m_.setArg(AnaTypeUtil.toPrimitive(a_, stds_));
             m_.setParam(p_);
             m_.setMapping(_m.getMapping());
             return isCorrect(m_, _context);
@@ -803,8 +790,8 @@ public final class AnaTemplates {
     }
 
     public static boolean isCorrect(Mapping _m, ContextEl _context) {
-        ClassArgumentMatching arg_ = _m.getArg();
-        ClassArgumentMatching param_ = _m.getParam();
+        AnaClassArgumentMatching arg_ = _m.getArg();
+        AnaClassArgumentMatching param_ = _m.getParam();
         StringMap<StringList> generalMapping_ = _m.getMapping();
         Mapping map_ = new Mapping();
         map_.setParam(param_);

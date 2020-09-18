@@ -12,11 +12,10 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbMonteCarlo;
@@ -176,7 +175,7 @@ public final class ApplyCoreMethodUtil {
             return _result;
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        _result.setResult(new LongStruct(AbMonteCarlo.randomLong(ClassArgumentMatching.convertToNumber(_args[0]).longStruct(),generator_)));
+        _result.setResult(new LongStruct(AbMonteCarlo.randomLong(NumParsers.convertToNumber(_args[0]).longStruct(),generator_)));
         return _result;
     }
 
@@ -392,12 +391,13 @@ public final class ApplyCoreMethodUtil {
         if (!_firstArgs.isEmpty()) {
             previous_ = _firstArgs.first().getStruct();
         }
-        if (ClassArgumentMatching.isPureNumberClass(new ClassArgumentMatching(_id),_conf)) {
-            return PrimitiveTypeUtil.convertToNumber(new ClassArgumentMatching(_id),previous_,stds_);
+        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_id, stds_);
+        if (cast_ > 0) {
+            return NumParsers.convertToNumber(cast_,previous_);
         }
         String aliasBoolean_ = stds_.getAliasBoolean();
         if (StringList.quickEq(aliasBoolean_, _id)) {
-            return ClassArgumentMatching.convertToBoolean(previous_);
+            return NumParsers.convertToBoolean(previous_);
         }
         String aliasString_ = stds_.getAliasString();
         String aliasStringBuilder_ = stds_.getAliasStringBuilder();

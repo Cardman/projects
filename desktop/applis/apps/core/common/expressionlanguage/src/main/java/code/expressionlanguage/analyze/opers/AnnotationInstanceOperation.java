@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
@@ -13,7 +14,6 @@ import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.common.AnnotationFieldInfo;
 import code.expressionlanguage.common.AnnotationTypeInfo;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.util.*;
@@ -108,7 +108,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             RootBlock g_ = page_.getAnaClassBody(realClassName_);
             if (!(g_ instanceof AnnotationBlock)) {
                 className = page_.getStandards().getAliasObject();
-                setResultClass(new ClassArgumentMatching(realClassName_));
+                setResultClass(new AnaClassArgumentMatching(realClassName_));
                 return;
             }
             rootNumber = g_.getNumberAll();
@@ -142,7 +142,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             page_.getLocalizer().addError(un_);
             partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         if (array) {
@@ -162,7 +162,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 page_.getLocalizer().addError(un_);
                 partOffsetsErr.add(new PartOffset("<a title=\""+un_.getBuiltError()+"\" class=\"e\">",i_));
                 partOffsetsErr.add(new PartOffset("</a>",i_+1));
-                setResultClass(new ClassArgumentMatching(className));
+                setResultClass(new AnaClassArgumentMatching(className));
                 return;
             }
             Mapping mapping_ = new Mapping();
@@ -173,7 +173,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _conf);
                 int i_ = page_.getLocalizer().getCurrentLocationIndex();
                 CustList<PartOffset> parts_ = new CustList<PartOffset>();
-                ClassArgumentMatching argType_ = o.getResultClass();
+                AnaClassArgumentMatching argType_ = o.getResultClass();
                 mapping_.setArg(argType_);
                 mapping_.setMapping(map_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_, _conf)) {
@@ -189,12 +189,12 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     parts_.add(new PartOffset("</a>",i_+1));
                 }
                 if (AnaTypeUtil.isPrimitive(eltType_, page_)) {
-                    o.getResultClass().setUnwrapObject(eltType_);
-                    o.cancelArgument();
+                    o.getResultClass().setUnwrapObject(eltType_,page_.getStandards());
+                    o.quickCancel();
                 }
                 getPartOffsetsChildren().add(parts_);
             }
-            setResultClass(new ClassArgumentMatching(className));
+            setResultClass(new AnaClassArgumentMatching(className));
             return;
         }
         setStaticAccess(page_.getStaticContext());
@@ -217,7 +217,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             page_.getLocalizer().addError(call_);
             partOffsetsErr.add(new PartOffset("<a title=\""+call_.getBuiltError()+"\" class=\"e\">",i_));
             partOffsetsErr.add(new PartOffset("</a>",i_+1));
-            setResultClass(new ClassArgumentMatching(className));
+            setResultClass(new AnaClassArgumentMatching(className));
             return;
         }
 
@@ -241,23 +241,23 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
         if (filter_.size() == 1 && suppliedFields_.isEmpty()) {
             if (fields_.size() == 1) {
                 //guess the unique field
-                ClassArgumentMatching arg_ = filter_.first().getResultClass();
+                AnaClassArgumentMatching arg_ = filter_.first().getResultClass();
                 String paramName_ = fields_.getValue(0).getType();
-                ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
+                AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
                 Mapping mapping_ = new Mapping();
                 mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_,_conf)) {
                     if (param_.isArray()) {
-                        ClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
+                        AnaClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
                         mapping_.setParam(c_);
                         if (AnaTemplates.isCorrectOrNumbers(mapping_,_conf)) {
                             AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                             i_.setType(paramName_);
                             i_.setWrap(true);
                             fieldNames.put(fields_.getKey(0), i_);
-                            setResultClass(new ClassArgumentMatching(className));
+                            setResultClass(new AnaClassArgumentMatching(className));
                             return;
                         }
                     }
@@ -280,7 +280,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                 i_.setType(paramName_);
                 fieldNames.put(fields_.getKey(0),i_);
-                setResultClass(new ClassArgumentMatching(className));
+                setResultClass(new AnaClassArgumentMatching(className));
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -296,7 +296,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
             int i_ = page_.getLocalizer().getCurrentLocationIndex()+k_;
             getPartOffsetsEnd().add(new PartOffset("<a title=\""+LinkageUtil.transform(StringList.join(deep_,"\n\n")) +"\" class=\"e\">",i_));
             getPartOffsetsEnd().add(new PartOffset("</a>",i_+1));
-            setResultClass(new ClassArgumentMatching(className));
+            setResultClass(new AnaClassArgumentMatching(className));
             return;
         }
         if (filter_.size() != suppliedFields_.size()) {
@@ -389,15 +389,15 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                     continue;
                 }
                 String paramName_ = f.getValue().getType();
-                ClassArgumentMatching param_ = new ClassArgumentMatching(paramName_);
-                ClassArgumentMatching arg_ = e.getResultClass();
+                AnaClassArgumentMatching param_ = new AnaClassArgumentMatching(paramName_);
+                AnaClassArgumentMatching arg_ = e.getResultClass();
                 Mapping mapping_ = new Mapping();
                 mapping_.setMapping(page_.getCurrentConstraints().getCurrentConstraints());
                 mapping_.setArg(arg_);
                 mapping_.setParam(param_);
                 if (!AnaTemplates.isCorrectOrNumbers(mapping_,_conf)) {
                     if (param_.isArray()) {
-                        ClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
+                        AnaClassArgumentMatching c_ = StringExpUtil.getQuickComponentType(param_);
                         mapping_.setParam(c_);
                         if (AnaTemplates.isCorrectOrNumbers(mapping_,_conf)) {
                             AnnotationTypeInfo i_ = fieldNames.getVal(suppliedKey_);
@@ -421,7 +421,7 @@ public final class AnnotationInstanceOperation extends InvokingOperation impleme
                 i_.setType(paramName_);
             }
         }
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className));
     }
 
     public String getMethodName() {

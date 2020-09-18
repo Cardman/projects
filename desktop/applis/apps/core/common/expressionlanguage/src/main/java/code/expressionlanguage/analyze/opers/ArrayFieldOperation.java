@@ -3,10 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -26,12 +27,12 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _conf);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        ClassArgumentMatching cl_ = getPreviousResultClass();
+        AnaClassArgumentMatching cl_ = getPreviousResultClass();
         String aliasLength_ = page_.getStandards().getAliasLength();
         if (StringList.quickEq(str_, aliasLength_)) {
             Argument arg_ = getPreviousArgument();
             checkNull(arg_,_conf);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
             return;
         }
         FoundErrorInterpret und_ = new FoundErrorInterpret();
@@ -43,7 +44,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
                 StringList.join(cl_.getNames(), "&"));
         page_.getLocalizer().addError(und_);
         getErrs().add(und_.getBuiltError());
-        setResultClass(new ClassArgumentMatching(stds_.getAliasPrimInteger()));
+        setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP));
     }
 
 }

@@ -3,11 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
@@ -25,7 +25,7 @@ public final class SuperFromFieldOperation extends
     }
 
     @Override
-    ClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(ContextEl _conf) {
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(CustList.FIRST_INDEX);
         AnalyzedPageEl page_ = _conf.getAnalyzing();
@@ -36,9 +36,9 @@ public final class SuperFromFieldOperation extends
         int loc_ = StringList.getFirstPrintableCharIndex(className_);
         className_ = ResolvingImportTypes.resolveCorrectType(_conf,lenPref_+loc_,className_);
         partOffsets.addAllElts(page_.getCurrentParts());
-        ClassArgumentMatching clCur_;
+        AnaClassArgumentMatching clCur_;
         if (!isIntermediateDottedOperation()) {
-            clCur_ = new ClassArgumentMatching(page_.getGlobalClass());
+            clCur_ = new AnaClassArgumentMatching(page_.getGlobalClass());
         } else {
             clCur_ = getPreviousResultClass();
         }
@@ -57,10 +57,10 @@ public final class SuperFromFieldOperation extends
                     className_);
             page_.getLocalizer().addError(cast_);
             getErrs().add(cast_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return null;
         }
-        return new ClassArgumentMatching(className_);
+        return new AnaClassArgumentMatching(className_);
     }
 
     @Override

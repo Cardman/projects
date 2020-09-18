@@ -1,8 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.util.CustList;
 import code.util.IntTreeMap;
 
@@ -14,7 +14,7 @@ public abstract class AbstractDotOperation extends MethodOperation {
     @Override
     public void analyze(ContextEl _conf) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setResultClass(ClassArgumentMatching.copy(chidren_.last().getResultClass()));
+        setResultClass(AnaClassArgumentMatching.copy(chidren_.last().getResultClass(),_conf.getAnalyzing().getStandards()));
     }
     @Override
     void calculateChildren() {

@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -17,10 +18,10 @@ import code.expressionlanguage.exec.util.PolymorphMethod;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -52,7 +53,7 @@ public abstract class ExecOperationNode {
 
     private final int indexChild;
 
-    private ClassArgumentMatching resultClass;
+    private ExecClassArgumentMatching resultClass;
 
     private ExecPossibleIntermediateDotted siblingSet;
 
@@ -65,12 +66,12 @@ public abstract class ExecOperationNode {
         indexInEl = _oper.getIndexInEl();
         indexBegin = _oper.getIndexBegin();
         indexChild = _oper.getIndexChild();
-        resultClass = _oper.getResultClass();
+        resultClass = PrimitiveTypeUtil.toExec(_oper.getResultClass());
         argument = _oper.getArgument();
         order = _oper.getOrder();
     }
 
-    ExecOperationNode(int _indexChild, ClassArgumentMatching _res, int _order) {
+    ExecOperationNode(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         indexChild = _indexChild;
         resultClass = _res;
         order = _order;
@@ -591,9 +592,9 @@ public abstract class ExecOperationNode {
         if (_cont.callsOrException()) {
             return;
         }
-        String un_ = resultClass.getUnwrapObject();
+        byte unwrapObjectNb_ = resultClass.getUnwrapObjectNb();
         Argument last_ = Argument.getNullableValue(_nodes.getValue(getOrder()).getArgument());
-        if (resultClass.isCheckOnlyNullPe() || !un_.isEmpty()) {
+        if (resultClass.isCheckOnlyNullPe() || unwrapObjectNb_ > -1) {
             if (last_.isNull()) {
                 LgNames stds_ = _cont.getStandards();
                 String null_;
@@ -603,8 +604,8 @@ public abstract class ExecOperationNode {
                 return;
             }
         }
-        if (!un_.isEmpty()) {
-            Argument arg_ = new Argument(PrimitiveTypeUtil.unwrapObject(un_, last_.getStruct(), _cont.getStandards()));
+        if (unwrapObjectNb_ > -1) {
+            Argument arg_ = new Argument(NumParsers.unwrapObject(unwrapObjectNb_, last_.getStruct()));
             _nodes.getValue(getOrder()).setArgument(arg_);
         }
     }
@@ -811,7 +812,7 @@ public abstract class ExecOperationNode {
     private static Struct getValueStruct(ExecOperationNode _oper, ArgumentsPair _v) {
         Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
-        if (_oper.getNextSibling() != null&&!_oper.getResultClass().getImplicitsTest().isEmpty()){
+        if (_oper.getNextSibling() != null&&_oper.getResultClass().getImplicitsTest() > 0){
             ExecMethodOperation par_ = _oper.getParent();
             if (par_ instanceof ExecAndOperation){
                 v_ = BooleanStruct.of(!_v.isArgumentTest());
@@ -857,7 +858,7 @@ public abstract class ExecOperationNode {
         return out_;
     }
 
-    public final ClassArgumentMatching getResultClass() {
+    public final ExecClassArgumentMatching getResultClass() {
         return resultClass;
     }
 

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.exec.blocks.ExecReturnMethod;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
@@ -12,7 +13,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -68,7 +68,7 @@ public final class ReturnMethod extends AbruptBlock {
             getErrorsBlock().add(page_.getCurrentEmptyPartErr());
             setReachableError(true);
         }
-        checkTypes(_cont, retType_, op_.last());
+        checkTypes(_cont, retType_, op_.last(), page_.getCurrentRoot());
         ExecReturnMethod exec_ = new ExecReturnMethod(getOffset(), false,expressionOffset,op_, retType_);
         root = page_.getCurrentRoot();
         exec_.setFile(page_.getBlockToWrite().getFile());
@@ -96,8 +96,8 @@ public final class ReturnMethod extends AbruptBlock {
         }
         return retType_;
     }
-    private void checkTypes(ContextEl _cont, String _retType, ExecOperationNode _ret) {
-        ClassArgumentMatching ret_ = _ret.getResultClass();
+    private void checkTypes(ContextEl _cont, String _retType, ExecOperationNode _ret, OperationNode _root) {
+        AnaClassArgumentMatching ret_ = _root.getResultClass();
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         StringMap<StringList> vars_ = page_.getCurrentConstraints().getCurrentConstraints();
@@ -125,6 +125,9 @@ public final class ReturnMethod extends AbruptBlock {
                 ret_.getImplicits().add(cl_);
                 ret_.setRootNumber(res_.getRootNumber());
                 ret_.setMemberNumber(res_.getMemberNumber());
+//                _ret.getResultClass().getImplicits().add(cl_);
+//                _ret.getResultClass().setRootNumber(res_.getRootNumber());
+//                _ret.getResultClass().setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
@@ -140,9 +143,9 @@ public final class ReturnMethod extends AbruptBlock {
 
         }
         if (AnaTypeUtil.isPrimitive(_retType, page_)) {
-            ret_.setUnwrapObject(_retType);
+            ret_.setUnwrapObject(_retType,page_.getStandards());
         }
-        ElUtil.setImplicits(_ret, _cont.getAnalyzing());
+        ElUtil.setImplicits(_ret, _cont.getAnalyzing(), _root);
     }
 
 

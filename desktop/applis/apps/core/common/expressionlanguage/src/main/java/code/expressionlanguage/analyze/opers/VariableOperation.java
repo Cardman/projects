@@ -3,11 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
@@ -103,12 +103,12 @@ public final class VariableOperation extends LeafOperation implements
             lv_.setFinalVariable(_conf.getAnalyzing().isFinalVariable());
             page_.getInfosVars().put(str_, lv_);
             page_.getVariablesNames().add(str_);
-            setResultClass(new ClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting()));
+            setResultClass(new AnaClassArgumentMatching(_conf.getAnalyzing().getCurrentVarSetting(),page_.getStandards()));
             return;
         }
         variableName = StringExpUtil.skipPrefix(str_);
         realVariableName = str_;
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className,_conf.getAnalyzing().getStandards()));
     }
 
     public boolean isDeclare() {

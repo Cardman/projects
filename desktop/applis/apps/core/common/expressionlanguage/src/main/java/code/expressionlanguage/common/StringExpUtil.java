@@ -1,5 +1,6 @@
 package code.expressionlanguage.common;
 
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.inherits.MappingPairs;
 import code.expressionlanguage.inherits.Matching;
 import code.expressionlanguage.inherits.MatchingEnum;
@@ -945,7 +946,7 @@ public final class StringExpUtil {
         }
     }
 
-    public static ClassArgumentMatching getQuickComponentType(ClassArgumentMatching _className) {
+    public static AnaClassArgumentMatching getQuickComponentType(AnaClassArgumentMatching _className) {
         StringList cl_ = new StringList();
         for (String c: _className.getNames()) {
             String res_ = getQuickComponentType(c);
@@ -954,7 +955,7 @@ public final class StringExpUtil {
             }
             cl_.add(res_);
         }
-        return new ClassArgumentMatching(cl_);
+        return new AnaClassArgumentMatching(cl_);
     }
     public static String getQuickComponentType(String _className) {
         return getQuickComponentType(_className,1);

@@ -4,11 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.exec.opers.ReductibleOperable;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.CustList;
@@ -37,7 +37,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         if (StringList.quickEq(realCl_.trim(), page_.getStandards().getAliasVoid())) {
             className = realCl_.trim();
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasClassType()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasClassType()));
             return;
         }
         int off_ = StringList.getFirstPrintableCharIndex(realCl_);
@@ -45,7 +45,7 @@ public final class StaticInfoOperation extends LeafOperation implements Reductib
         classStr_ = ResolvingImportTypes.resolveCorrectType(_conf, afterLeftPar_ + off_, realCl_, realCl_.contains(Templates.TEMPLATE_BEGIN));
         partOffsets.addAllElts(page_.getCurrentParts());
         className = classStr_;
-        setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasClassType()));
+        setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasClassType()));
     }
 
     @Override

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
@@ -16,7 +17,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 import code.util.*;
@@ -314,7 +314,7 @@ public final class AnonymousLambdaOperation extends
         foundClass = res_.getId().getClassName();
         method = new ClassMethodId(foundClass_, idCt_);
         String fct_ = LambdaOperation.formatReturn(foundClass, _conf, res_, false);
-        setResultClass(new ClassArgumentMatching(fct_));
+        setResultClass(new AnaClassArgumentMatching(fct_));
     }
 
     public ClassMethodId getMethod() {

@@ -4,10 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.blocks.UniqueRootedBlock;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 
 public final class SuperInvokingConstructor extends AbstractInvokingConstructor {
 
@@ -17,7 +17,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
     }
 
     @Override
-    ClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(ContextEl _conf) {
         String clCurName_ = _conf.getAnalyzing().getGlobalClass();
         String base_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         RootBlock clBody_ = _conf.getAnalyzing().getAnaClassBody(base_);
@@ -33,7 +33,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         }
         UniqueRootedBlock unique_ =(UniqueRootedBlock) clBody_;
         String superClass_ = AnaTemplates.quickFormat(clBody_,clCurName_, unique_.getImportedDirectGenericSuperClass(), _conf);
-        return new ClassArgumentMatching(superClass_);
+        return new AnaClassArgumentMatching(superClass_);
     }
 
 }

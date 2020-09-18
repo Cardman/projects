@@ -4,12 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
 
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
@@ -24,7 +24,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
     }
 
     @Override
-    ClassArgumentMatching getFrom(ContextEl _conf) {
+    AnaClassArgumentMatching getFrom(ContextEl _conf) {
         String cl_ = getMethodName();
         int leftPar_ = cl_.indexOf(PAR_LEFT) + 1;
         cl_ = cl_.substring(leftPar_, cl_.lastIndexOf(PAR_RIGHT));
@@ -53,7 +53,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             getErrs().add(call_.getBuiltError());
             return null;
         }
-        return new ClassArgumentMatching(superClass_);
+        return new AnaClassArgumentMatching(superClass_);
     }
 
     @Override

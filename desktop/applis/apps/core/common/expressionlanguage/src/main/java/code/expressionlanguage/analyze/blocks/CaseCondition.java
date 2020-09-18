@@ -6,6 +6,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -20,7 +21,6 @@ import code.expressionlanguage.instr.*;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.util.CustList;
 import code.util.StringList;
@@ -99,7 +99,7 @@ public final class CaseCondition extends SwitchPartBlock {
         }
         page_.getCoverage().putBlockOperationsSwitchs(par_,this);
         SwitchBlock sw_ = (SwitchBlock) par_;
-        ClassArgumentMatching resSwitch_ = sw_.getResult();
+        AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         String type_ = resSwitch_.getSingleNameOrEmpty();
         if (!sw_.getInstanceTest().isEmpty()) {
             page_.setGlobalOffset(variableOffset);
@@ -197,7 +197,7 @@ public final class CaseCondition extends SwitchPartBlock {
         ExecOperationNode last_ = op_.last();
         root = page_.getCurrentRoot();
         argument = last_.getArgument();
-        processNumValues(_cont, resSwitch_, last_.getResultClass());
+        processNumValues(_cont, resSwitch_, root.getResultClass());
         if (argument == null) {
             ExecBracedBlock exec_ = new ExecUnclassedBracedBlock(getOffset());
             exec_.setFile(page_.getBlockToWrite().getFile());
@@ -253,7 +253,7 @@ public final class CaseCondition extends SwitchPartBlock {
         emptErrs.add(un_.getBuiltError());
     }
 
-    private void processNumValues(ContextEl _cont, ClassArgumentMatching _resSwitch, ClassArgumentMatching _resCase) {
+    private void processNumValues(ContextEl _cont, AnaClassArgumentMatching _resSwitch, AnaClassArgumentMatching _resCase) {
         if (argument == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(getFile().getFileName());

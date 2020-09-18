@@ -13,12 +13,11 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.inherits.Templates;
 
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.*;
 
 public final class ExecutingUtil {
@@ -660,10 +659,10 @@ public final class ExecutingUtil {
         return getClassMetaInfo(_context,_name);
     }
     public static ClassMetaInfo getClassMetaInfo(ContextEl _context,String _name) {
-        if (PrimitiveTypeUtil.isPrimitive(_name, _context)) {
+        if (ExecClassArgumentMatching.isPrimitive(_name, _context)) {
             return new ClassMetaInfo(_name, _context, ClassCategory.PRIMITIVE,"");
         }
-        if (new ClassArgumentMatching(_name).isArray()) {
+        if (new ExecClassArgumentMatching(_name).isArray()) {
             return new ClassMetaInfo(_name, _context, ClassCategory.ARRAY, "");
         }
         String base_ = StringExpUtil.getIdFromAllTypes(_name);

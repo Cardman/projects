@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
@@ -12,7 +13,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
@@ -52,7 +52,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             );
             page_.getLocalizer().addError(badCall_);
             getErrs().add(badCall_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(page_.getStandards().getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(page_.getStandards().getAliasObject()));
             return;
         }
         String res_;
@@ -61,12 +61,12 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         className = res_;
         classNameOwner = res_;
         partOffsets = new CustList<PartOffset>(page_.getCurrentParts());
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className,page_.getStandards()));
         if (!customCast(res_)) {
             return;
         }
         if (AnaTypeUtil.isPrimitive(className, page_)) {
-            getFirstChild().getResultClass().setUnwrapObject(className);
+            getFirstChild().getResultClass().setUnwrapObject(className,page_.getStandards());
             Argument arg_ = getFirstChild().getArgument();
             checkNull(arg_,_conf);
         }
@@ -95,10 +95,10 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             }
             String gene_ = geneType_.getGenericString();
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(gene_,lastType_)));
-            ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-            CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
+            AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
+            CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(className,page_.getStandards()));
             args_.add(resultClass_);
-            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, uniq_, argsClass_);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
@@ -130,11 +130,11 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             String lastType_ = ResolvingImportTypes.resolveCorrectAccessibleType(_conf,lc_ +types_.get(1).length()+1,arg_, className);
             partOffsets.addAllElts(page_.getCurrentParts());
             uniq_ = new ClassMethodId(className,new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
-            ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-            ClassArgumentMatching virtual_ = new ClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_, _conf));
-            CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(virtual_);
+            AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
+            AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaTemplates.quickFormat(geneType_,className, midType_, _conf),page_.getStandards());
+            CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
             args_.add(resultClass_);
-            ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
             ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, uniq_, argsClass_);
             if (resMethod_.isFoundMethod()) {
                 classNameOwner = resMethod_.getRealClass();
@@ -147,10 +147,10 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             buildError(_conf,argsClass_);
             return;
         }
-        ClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
-        CustList<ClassArgumentMatching> args_ = new CustList<ClassArgumentMatching>(new ClassArgumentMatching(className));
+        AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
+        CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(className,page_.getStandards()));
         args_.add(resultClass_);
-        ClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
+        AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
         ClassMethodIdReturn resMethod_ = tryGetDeclaredCast(_conf,  className, null, argsClass_);
         if (!resMethod_.isFoundMethod()) {
             return;
@@ -160,9 +160,9 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         classNameOwner = resMethod_.getRealClass();
         castOpId = resMethod_.getRealId();
     }
-    private void buildError(ContextEl _conf,ClassArgumentMatching[] _argsClass) {
+    private void buildError(ContextEl _conf,AnaClassArgumentMatching[] _argsClass) {
         StringList classesNames_ = new StringList();
-        for (ClassArgumentMatching c: _argsClass) {
+        for (AnaClassArgumentMatching c: _argsClass) {
             classesNames_.add(StringList.join(c.getNames(), "&"));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
@@ -194,7 +194,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (_type.startsWith("#")) {
             return false;
         }
-        return !new ClassArgumentMatching(_type).isArray();
+        return !new AnaClassArgumentMatching(_type).isArray();
     }
     public String getClassName() {
         return className;

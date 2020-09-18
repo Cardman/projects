@@ -8,7 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -140,21 +139,21 @@ public final class AnaApplyCoreMethodUtil {
         String aliasPrimLong_ = lgNames_.getAliasPrimLong();
         if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                return(new LongStruct(Math.abs(ClassArgumentMatching.convertToNumber(args_[0]).longStruct())));
+                return(new LongStruct(Math.abs(NumParsers.convertToNumber(args_[0]).longStruct())));
             }
-            return(new IntStruct(Math.abs(ClassArgumentMatching.convertToNumber(args_[0]).intStruct())));
+            return(new IntStruct(Math.abs(NumParsers.convertToNumber(args_[0]).intStruct())));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasMod())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = ClassArgumentMatching.convertToNumber(args_[0]).longStruct();
-                long den_ = ClassArgumentMatching.convertToNumber(args_[1]).longStruct();
+                long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
+                long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
                     return null;
                 }
                 return(new LongStruct(Numbers.mod(num_, den_)));
             }
-            int num_ = ClassArgumentMatching.convertToNumber(args_[0]).intStruct();
-            int den_ = ClassArgumentMatching.convertToNumber(args_[1]).intStruct();
+            int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
+            int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
                 return null;
             }
@@ -162,15 +161,15 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringList.quickEq(name_, lgNames_.getAliasQuot())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
-                long num_ = ClassArgumentMatching.convertToNumber(args_[0]).longStruct();
-                long den_ = ClassArgumentMatching.convertToNumber(args_[1]).longStruct();
+                long num_ = NumParsers.convertToNumber(args_[0]).longStruct();
+                long den_ = NumParsers.convertToNumber(args_[1]).longStruct();
                 if (den_ == 0) {
                     return null;
                 }
                 return(new LongStruct(Numbers.quot(num_, den_)));
             }
-            int num_ = ClassArgumentMatching.convertToNumber(args_[0]).intStruct();
-            int den_ = ClassArgumentMatching.convertToNumber(args_[1]).intStruct();
+            int num_ = NumParsers.convertToNumber(args_[0]).intStruct();
+            int den_ = NumParsers.convertToNumber(args_[1]).intStruct();
             if (den_ == 0) {
                 return null;
             }
@@ -180,116 +179,106 @@ public final class AnaApplyCoreMethodUtil {
             if (paramList_.size() == 1) {
                 return(args_[0]);
             }
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateSum(ClassArgumentMatching.convertToNumber(args_[0]),ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateSum(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasMinus())) {
             if (paramList_.size() != 1) {
-                ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-                return (AliasNumber.calculateDiff(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+                return (NumParsers.calculateDiff(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
+                        ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_)));
             }
-            NumberStruct b_ = ClassArgumentMatching.convertToNumber(_args[0].getStruct());
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            if (PrimitiveTypeUtil.isInt(clArg_, page_.getStandards())) {
+            NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_);
+            if (NumParsers.isInt(cast_)) {
                 return (new IntStruct(-b_.intStruct()));
             }
-            if (PrimitiveTypeUtil.isLong(clArg_, page_.getStandards())) {
+            if (NumParsers.isLong(cast_)) {
                 return (new LongStruct(-b_.longStruct()));
             }
-            if (PrimitiveTypeUtil.isFloat(clArg_, page_.getStandards())) {
+            if (NumParsers.isFloat(cast_)) {
                 return (new FloatStruct(-b_.floatStruct()));
             }
             return (new DoubleStruct(-b_.doubleStruct()));
         }
         if (StringList.quickEq(name_, am_.getAliasMult())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateMult(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasBinMod())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            Struct arg_ = AliasNumber.calculateMod(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards());
+            Struct arg_ = NumParsers.calculateMod(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
             return(arg_);
         }
         if (StringList.quickEq(name_, am_.getAliasBinQuot())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            Struct arg_ = AliasNumber.calculateDiv(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards());
+            Struct arg_ = NumParsers.calculateDiv(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
+                    ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_));
             if (arg_ == NullStruct.NULL_VALUE) {
                 return null;
             }
             return(arg_);
         }
         if (StringList.quickEq(name_, am_.getAliasNegBin())) {
-            ClassArgumentMatching res_ = new ClassArgumentMatching(paramList_.first());
-            if (res_.matchClass(aliasPrimInteger_)) {
-                int left_ = ClassArgumentMatching.convertToNumber(_args[0].getStruct()).intStruct();
+            if (NumParsers.isIntOrLess(ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_))) {
+                int left_ = NumParsers.convertToNumber(_args[0].getStruct()).intStruct();
                 boolean[] bits_ = NumParsers.toBits(left_);
                 AliasMath.negateBits(bits_);
                 return(new IntStruct(NumParsers.toInt(bits_)));
             }
-            long left_ = ClassArgumentMatching.convertToNumber(_args[0].getStruct()).longStruct();
+            long left_ = NumParsers.convertToNumber(_args[0].getStruct()).longStruct();
             boolean[] bits_ = NumParsers.toBits(left_);
             AliasMath.negateBits(bits_);
             return(new LongStruct(NumParsers.toLong(bits_)));
         }
         if (StringList.quickEq(name_, am_.getAliasNeg())) {
-            return(ClassArgumentMatching.convertToBoolean(_args[0].getStruct()).neg());
+            return(NumParsers.convertToBoolean(_args[0].getStruct()).neg());
         }
         if (StringList.quickEq(name_, am_.getAliasAnd())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateAnd(args_[0], args_[1], clArg_, page_.getStandards()));
+            return(NumParsers.calculateAnd(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasOr())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateOr(args_[0], args_[1], clArg_, page_.getStandards()));
+            return(NumParsers.calculateOr(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasXor())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateXor(args_[0], args_[1], clArg_, page_.getStandards()));
+            return(NumParsers.calculateXor(args_[0], args_[1], ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasLt())) {
-            return(AliasNumber.quickCalculateLowerNb(args_[0], args_[1]));
+            return(NumParsers.quickCalculateLowerNb(args_[0], args_[1]));
         }
         if (StringList.quickEq(name_, am_.getAliasGt())) {
-            return(AliasNumber.quickCalculateGreaterNb(args_[0], args_[1]));
+            return(NumParsers.quickCalculateGreaterNb(args_[0], args_[1]));
         }
         if (StringList.quickEq(name_, am_.getAliasLe())) {
             if (NumParsers.sameValue(args_[0],args_[1])) {
                 return(BooleanStruct.of(true));
             }
-            return(AliasNumber.quickCalculateLowerNb(args_[0], args_[1]));
+            return(NumParsers.quickCalculateLowerNb(args_[0], args_[1]));
         }
         if (StringList.quickEq(name_, am_.getAliasGe())) {
             if (NumParsers.sameValue(args_[0],args_[1])) {
                 return(BooleanStruct.of(true));
             }
-            return(AliasNumber.quickCalculateGreaterNb(args_[0], args_[1]));
+            return(NumParsers.quickCalculateGreaterNb(args_[0], args_[1]));
         }
         if (StringList.quickEq(name_, am_.getAliasShiftLeft())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateShiftLeft(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasShiftRight())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateShiftRight(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasBitShiftLeft())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateBitShiftLeft(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasBitShiftRight())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateBitShiftRight(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasRotateLeft())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateRotateLeft(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         if (StringList.quickEq(name_, am_.getAliasRotateRight())) {
-            ClassArgumentMatching clArg_ = new ClassArgumentMatching(paramList_.first());
-            return(AliasNumber.calculateRotateRight(ClassArgumentMatching.convertToNumber(args_[0]), ClassArgumentMatching.convertToNumber(args_[1]), clArg_, page_.getStandards()));
+            return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_)));
         }
         return null;
     }
@@ -314,7 +303,7 @@ public final class AnaApplyCoreMethodUtil {
                 }
                 return(BooleanStruct.of(false));
             }
-            return(ClassArgumentMatching.convertToBoolean(_args[0]));
+            return(NumParsers.convertToBoolean(_args[0]));
         }
         if (StringList.quickEq(type_, charType_)) {
             return(_args[0]);
@@ -323,41 +312,41 @@ public final class AnaApplyCoreMethodUtil {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseByte(list_,_args,true);
             }
-            byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).byteStruct();
+            byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
             return(new ByteStruct(one_));
         }
         if (StringList.quickEq(type_, shortType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseShort(list_,_args,true);
             }
-            short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).shortStruct();
+            short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
             return(new ShortStruct(one_));
         }
         if (StringList.quickEq(type_, intType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseInt(list_,_args,true);
             }
-            int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+            int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
             return(new IntStruct(one_));
         }
         if (StringList.quickEq(type_, longType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseLong(list_,_args,true);
             }
-            long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+            long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
             return(new LongStruct(one_));
         }
         if (StringList.quickEq(type_, floatType_)) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return parseFloat(_args[0],true);
             }
-            float one_ = (ClassArgumentMatching.convertToNumber(_args[0])).floatStruct();
+            float one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
             return (new FloatStruct(one_));
         }
         if (StringList.quickEq(list_.first(), stringType_)) {
             return parseDouble(_args[0],true);
         }
-        double one_ = (ClassArgumentMatching.convertToNumber(_args[0])).doubleStruct();
+        double one_ = (NumParsers.convertToNumber(_args[0])).doubleStruct();
         return(new DoubleStruct(one_));
     }
 
@@ -508,17 +497,17 @@ public final class AnaApplyCoreMethodUtil {
         String booleanPrimType_ = lgNames_.getAliasPrimBoolean();
         if (StringList.quickEq(type_, booleanType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasBooleanValue())) {
-                return(ClassArgumentMatching.convertToBoolean(_struct));
+                return(NumParsers.convertToBoolean(_struct));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                return(NumParsers.cmpBool((ClassArgumentMatching.convertToBoolean(_args[0])),(ClassArgumentMatching.convertToBoolean(_args[1]))));
+                return(NumParsers.cmpBool((NumParsers.convertToBoolean(_args[0])),(NumParsers.convertToBoolean(_args[1]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
-                return(NumParsers.cmpBool(instance_,(ClassArgumentMatching.convertToBoolean(_args[0]))));
+                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
+                return(NumParsers.cmpBool(instance_,(NumParsers.convertToBoolean(_args[0]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
-                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
                 return(BooleanStruct.of(instance_.sameReference(_args[0])));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasParseBoolean())) {
@@ -530,9 +519,9 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                 if (!list_.isEmpty()) {
-                    return ((ClassArgumentMatching.convertToBoolean(_args[0])).getDisplayedString(page_));
+                    return ((NumParsers.convertToBoolean(_args[0])).getDisplayedString(page_));
                 }
-                BooleanStruct instance_ = ClassArgumentMatching.convertToBoolean(_struct);
+                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
                 return (instance_.getDisplayedString(page_));
             }
             if (StringList.quickEq(list_.first(), booleanPrimType_)) {
@@ -547,72 +536,72 @@ public final class AnaApplyCoreMethodUtil {
         if (StringList.quickEq(type_, charType_)) {
             if (_method.getConstraints().isStaticMethod()) {
                 if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
-                    char two_ = ClassArgumentMatching.convertToChar(_args[1]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
+                    char two_ = NumParsers.convertToChar(_args[1]).getChar();
                     return(new IntStruct(Numbers.compareLg(one_,two_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasDigit())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
-                    Integer two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
+                    Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
                     return(new IntStruct(Character.digit(one_, two_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasForDigit())) {
-                    Integer one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
-                    Integer two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+                    Integer one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+                    Integer two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
                     return(new CharStruct(Character.forDigit(one_, two_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasGetDirectionality())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new ByteStruct(Character.getDirectionality(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasGetType())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new IntStruct(Character.getType(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsDigit())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(StringExpUtil.isDigit(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetter())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isLetter(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLetterOrDigit())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isLetterOrDigit(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsLowerCase())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isLowerCase(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsUpperCase())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isUpperCase(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsSpace())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isWhitespace(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWhitespace())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(Character.isWhitespace(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsWordChar())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(BooleanStruct.of(StringList.isWordChar(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToLowerCaseChar())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new CharStruct(Character.toLowerCase(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToUpperCaseChar())) {
-                    char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
                     return(new CharStruct(Character.toUpperCase(one_)));
                 }
-                char one_ = ClassArgumentMatching.convertToChar(_args[0]).getChar();
+                char one_ = NumParsers.convertToChar(_args[0]).getChar();
                 return(new StringStruct(Character.toString(one_)));
             }
-            CharStruct ch_ = ClassArgumentMatching.convertToChar(_struct);
+            CharStruct ch_ = NumParsers.convertToChar(_struct);
             if (StringList.quickEq(name_, lgNames_.getAliasCharValue())) {
                 return(new CharStruct(ch_.getChar()));
             }
@@ -630,15 +619,15 @@ public final class AnaApplyCoreMethodUtil {
                 || StringList.quickEq(type_, floatType_)
                 || StringList.quickEq(type_, doubleType_)) {
             if (StringList.quickEq(name_, lgNames_.getAliasCompare())) {
-                return(new IntStruct(NumParsers.compare(ClassArgumentMatching.convertToNumber(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]))));
+                return(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
-                return(new IntStruct(NumParsers.compare(instance_,ClassArgumentMatching.convertToNumber(_args[0]))));
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
+                return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             if (StringList.quickEq(type_, byteType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    byte one_ = (ClassArgumentMatching.convertToNumber(_args[0])).byteStruct();
+                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseByte());
@@ -646,7 +635,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(type_, shortType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    short one_ = (ClassArgumentMatching.convertToNumber(_args[0])).shortStruct();
+                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseShort());
@@ -654,7 +643,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(type_, intType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
+                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                     return (new StringStruct(Integer.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseInt());
@@ -662,7 +651,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(type_, longType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
-                    long one_ = (ClassArgumentMatching.convertToNumber(_args[0])).longStruct();
+                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                     return (new StringStruct(Long.toString(one_)));
                 }
                 boolean exc_ = StringList.quickEq(name_, lgNames_.getAliasParseLong());
@@ -671,17 +660,17 @@ public final class AnaApplyCoreMethodUtil {
             if (StringList.quickEq(type_, floatType_)) {
                 if (StringList.quickEq(name_, lgNames_.getAliasIsNan())) {
                     float one_;
-                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).floatStruct();
+                    one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
                     return (BooleanStruct.of(Float.isNaN(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasIsInfinite())) {
                     float one_;
-                    one_ = (ClassArgumentMatching.convertToNumber(_args[0])).floatStruct();
+                    one_ = (NumParsers.convertToNumber(_args[0])).floatStruct();
                     return (BooleanStruct.of(Float.isInfinite(one_)));
                 }
                 if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                     DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
-                    NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_args[0]);
+                    NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                     return NumParsers.getFloatString(nb_,dis_.getInfinity(),
                             dis_.getNan(),
                             dis_.getExponent());
@@ -699,7 +688,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             if (StringList.quickEq(name_, lgNames_.getAliasToStringMethod())) {
                 DisplayedStrings dis_ = page_.getStandards().getDisplayedStrings();
-                NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_args[0]);
+                NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                 return NumParsers.getDoubleString(nb_,dis_.getInfinity(),
                         dis_.getNan(),
                         dis_.getExponent());
@@ -715,14 +704,14 @@ public final class AnaApplyCoreMethodUtil {
                 if (!(_args[1] instanceof  NumberStruct)) {
                     return null;
                 }
-                return(new IntStruct(NumParsers.compareGene(ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]))));
+                return(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasCompareTo())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 if (!(_args[0] instanceof  NumberStruct)) {
                     return null;
                 }
-                return(new IntStruct(NumParsers.compareGene(instance_, ClassArgumentMatching.convertToNumber(_args[0]))));
+                return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasEquals())) {
                 if (list_.size() > 1) {
@@ -731,31 +720,31 @@ public final class AnaApplyCoreMethodUtil {
                 return(BooleanStruct.of(NumParsers.sameValue(_struct,_args[0])));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasByteValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new ByteStruct(instance_.byteStruct()));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasShortValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new ShortStruct(instance_.shortStruct()));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasIntValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new IntStruct(instance_.intStruct()));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasLongValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new LongStruct(instance_.longStruct()));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasFloatValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new FloatStruct(instance_.floatStruct()));
             }
             if (StringList.quickEq(name_, lgNames_.getAliasDoubleValue())) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(new DoubleStruct(instance_.doubleStruct()));
             }
             if (list_.isEmpty()) {
-                NumberStruct instance_ = ClassArgumentMatching.convertToNumber(_struct);
+                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 return(instance_.getDisplayedString(page_));
             }
             AnaDisplayableStruct instance_ = getAnaDisplayable(_args[0]);
@@ -807,13 +796,13 @@ public final class AnaApplyCoreMethodUtil {
         int len_ = argArr_.length;
         char[] arr_ = new char[len_];
         for (int i = 0; i < len_; i++) {
-            arr_[i] = ClassArgumentMatching.convertToChar(argArr_[i]).getChar();
+            arr_[i] = NumParsers.convertToChar(argArr_[i]).getChar();
         }
         if (_list.size() == 1) {
             return new StringStruct(String.valueOf(arr_));
         }
-        int one_ = (ClassArgumentMatching.convertToNumber(_args[0])).intStruct();
-        int two_ = (ClassArgumentMatching.convertToNumber(_args[1])).intStruct();
+        int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
+        int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
         if (NumParsers.okArray(arr_, one_, two_)) {
             return null;
         }
@@ -826,14 +815,14 @@ public final class AnaApplyCoreMethodUtil {
         LgNames lgNames_ = _page.getStandards();
         String stringType_ = lgNames_.getAliasString();
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-            return regionMatches(_str,ClassArgumentMatching.convertToBoolean(_args[0]),ClassArgumentMatching.convertToNumber(_args[1]), _args[2],
-                    ClassArgumentMatching.convertToNumber(_args[3]), ClassArgumentMatching.convertToNumber(_args[4]));
+            return regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
+                    NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplaceString())) {
             if (StringList.quickEq(list_.first(), stringType_)) {
                 return replaceString(_str,_args[0], _args[1]);
             }
-            return replace(_str,ClassArgumentMatching.convertToChar(_args[0]), ClassArgumentMatching.convertToChar(_args[1]));
+            return replace(_str, NumParsers.convertToChar(_args[0]), NumParsers.convertToChar(_args[1]));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasReplaceMultiple())) {
             return replaceMultiple(_str,_args[0]);
@@ -948,13 +937,13 @@ public final class AnaApplyCoreMethodUtil {
             return compareTo(_charSequence, _args[0]);
         }
         if (StringList.quickEq(name_, lgNames_.getAliasRegionMatches())) {
-            return regionMatches(_charSequence, ClassArgumentMatching.convertToNumber(_args[0]), _args[1], ClassArgumentMatching.convertToNumber(_args[2]), ClassArgumentMatching.convertToNumber(_args[3]));
+            return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasStartsWith())) {
             if (list_.size() == 1) {
                 return startsWith(_charSequence, _args[0]);
             }
-            return startsWith(_charSequence, _args[0], ClassArgumentMatching.convertToNumber(_args[1]));
+            return startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasEndsWith())) {
             return endsWith(_charSequence, _args[0]);
@@ -967,7 +956,7 @@ public final class AnaApplyCoreMethodUtil {
                 return indexOf(_charSequence, _args[0]);
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                return indexOfString(_charSequence, _args[0], ClassArgumentMatching.convertToNumber(_args[1]));
+                return indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
             }
             return indexOf(_charSequence, _args[0], _args[1]);
         }
@@ -982,15 +971,15 @@ public final class AnaApplyCoreMethodUtil {
                 return lastIndexOf(_charSequence, _args[0]);
             }
             if (!(_args[0] instanceof NumberStruct)) {
-                return lastIndexOfString(_charSequence, _args[0], ClassArgumentMatching.convertToNumber(_args[1]));
+                return lastIndexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
             }
             return lastIndexOf(_charSequence, _args[0], _args[1]);
         }
         if (StringList.quickEq(name_, lgNames_.getAliasSubstring()) || StringList.quickEq(name_, lgNames_.getAliasSubSequence())) {
             if (list_.size() == 1) {
-                return substring(_charSequence, ClassArgumentMatching.convertToNumber(_args[0]));
+                return substring(_charSequence, NumParsers.convertToNumber(_args[0]));
             }
-            return substring(_charSequence, ClassArgumentMatching.convertToNumber(_args[0]), ClassArgumentMatching.convertToNumber(_args[1]));
+            return substring(_charSequence, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]));
         }
         if (StringList.quickEq(name_, lgNames_.getAliasTrim())) {
             return trim(_charSequence);
@@ -1005,7 +994,7 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct charAt(CharSequenceStruct _charSequence, Struct _index) {
-        NumberStruct nb_ = ClassArgumentMatching.convertToNumber(_index);
+        NumberStruct nb_ = NumParsers.convertToNumber(_index);
         int ind_ = nb_.intStruct();
         if (_charSequence.isValidIndex(ind_)) {
             return null;
@@ -1059,9 +1048,9 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct indexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
-        NumberStruct ch_ = ClassArgumentMatching.convertToNumber(_ch);
+        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
         int int_ = ch_.intStruct();
-        NumberStruct index_ = ClassArgumentMatching.convertToNumber(_fromIndex);
+        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         return new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_));
     }
@@ -1096,9 +1085,9 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct lastIndexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
-        NumberStruct ch_ = ClassArgumentMatching.convertToNumber(_ch);
+        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
         int int_ = ch_.intStruct();
-        NumberStruct index_ = ClassArgumentMatching.convertToNumber(_fromIndex);
+        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         return new IntStruct(_charSequence.toStringInstance().lastIndexOf(int_, from_));
     }

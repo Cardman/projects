@@ -2,8 +2,8 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.util.IdMap;
@@ -12,7 +12,7 @@ public final class RendInternVariableOperation extends RendLeafOperation impleme
 
     private String variableName;
 
-    public RendInternVariableOperation(int _indexChild, ClassArgumentMatching _res, int _order, String _varName) {
+    public RendInternVariableOperation(int _indexChild, ExecClassArgumentMatching _res, int _order, String _varName) {
         super(_indexChild,_res,_order);
         variableName = _varName;
     }

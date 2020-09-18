@@ -2,18 +2,19 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.exec.blocks.ExecCondition;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -59,16 +60,16 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
         page_.getCoverage().putBlockOperationsConditions(this);
         page_.getCoverage().putBlockOperations(exec_,this);
         ExecOperationNode last_ = opCondition_.last();
-        processBoolean(_cont, last_);
+        processBoolean(_cont, last_, root);
         argument = last_.getArgument();
     }
 
     protected abstract ExecCondition newCondition(String _condition, int _conditionOffset,CustList<ExecOperationNode> _ops);
 
-    private void processBoolean(ContextEl _cont, ExecOperationNode _elCondition) {
+    private void processBoolean(ContextEl _cont, ExecOperationNode _elCondition, OperationNode _root) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         LgNames stds_ = page_.getStandards();
-        ClassArgumentMatching resultClass_ = _elCondition.getResultClass();
+        AnaClassArgumentMatching resultClass_ = _root.getResultClass();
         if (!resultClass_.isBoolType(page_)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont, page_.getStandards().getAliasPrimBoolean(), resultClass_);
             if (res_.isFoundMethod()) {
@@ -97,8 +98,8 @@ public abstract class Condition extends BracedBlock implements BuildableElMethod
                 }
             }
         }
-        ElUtil.setImplicits(_elCondition, _cont.getAnalyzing());
-        resultClass_.setUnwrapObject(stds_.getAliasPrimBoolean());
+        resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        ElUtil.setImplicits(_elCondition, _cont.getAnalyzing(), _root);
     }
 
 

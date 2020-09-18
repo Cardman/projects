@@ -22,11 +22,11 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -662,14 +662,14 @@ public final class ValidatorStandard {
                                                        ClassMethodId _id,
                                                        String _res, AnalyzedPageEl _analyzing) {
         CustList<ExecOperationNode> ops_ = new CustList<ExecOperationNode>();
-        ExecDotOperation dot_ = new ExecDotOperation(0,new ClassArgumentMatching(_res),2);
-        ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
+        ExecDotOperation dot_ = new ExecDotOperation(0,new ExecClassArgumentMatching(_res),2);
+        ExecInternVariableOperation r_ = new ExecInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _analyzing.getClasses().getClassBody(id_);
         ExecNamedFunctionBlock fct_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints()).first();
-        ExecFctOperation f_ = new ExecFctOperation(new ClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
+        ExecFctOperation f_ = new ExecFctOperation(new ExecClassArgumentMatching(_res),_id,1,1,fct_,classBody_);
         dot_.appendChild(f_);
         r_.setSiblingSet(f_);
         ops_.add(f_);

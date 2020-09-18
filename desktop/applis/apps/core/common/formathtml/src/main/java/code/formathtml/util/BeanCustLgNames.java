@@ -13,9 +13,9 @@ import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
@@ -460,18 +460,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                                                    String _res,
                                                    StringMap<String> _args, AnalyzedPageEl _page) {
         CustList<RendDynOperationNode> ops_ = new CustList<RendDynOperationNode>();
-        RendDotOperation dot_ = new RendDotOperation(0,new ClassArgumentMatching(_res),_args.size()+2);
-        RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ClassArgumentMatching(_previous),0,_varPrevious);
+        RendDotOperation dot_ = new RendDotOperation(0,new ExecClassArgumentMatching(_res),_args.size()+2);
+        RendInternVariableOperation r_ = new RendInternVariableOperation(0,new ExecClassArgumentMatching(_previous),0,_varPrevious);
         ops_.add(r_);
         dot_.appendChild(r_);
         String id_ = StringExpUtil.getIdFromAllTypes(_id.getClassName());
         ExecRootBlock classBody_ = _page.getClasses().getClassBody(id_);
         CustList<ExecNamedFunctionBlock> list_ = ExecBlock.getMethodBodiesById(classBody_, _id.getConstraints());
         ExecNamedFunctionBlock fct_ = list_.first();
-        RendFctOperation f_ = new RendFctOperation(new ClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
+        RendFctOperation f_ = new RendFctOperation(new ExecClassArgumentMatching(_res),_id,1,_args.size()+1,fct_,classBody_);
         int i_ = 1;
         for (EntryCust<String,String> e: _args.entryList()) {
-            RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ClassArgumentMatching(e.getValue()),i_,e.getKey());
+            RendInternVariableOperation a_ = new RendInternVariableOperation(i_-1,new ExecClassArgumentMatching(e.getValue()),i_,e.getKey());
             f_.appendChild(a_);
             ops_.add(a_);
             i_++;
@@ -486,7 +486,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         opsMap = new CustList<RendDynOperationNode>();
         String aliasStringMapObject_ = getAliasStringMapObject();
         ExecRootBlock ex_ = _page.getClasses().getClassBody(aliasStringMapObject_);
-        opsMap.add(new RendStandardInstancingOperation(new ClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false),ex_));
+        opsMap.add(new RendStandardInstancingOperation(new ExecClassArgumentMatching(aliasStringMapObject_),new ConstructorId(aliasStringMapObject_,new StringList(),false),ex_));
     }
 
     @Override

@@ -3,6 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.IdMap;
 
 public interface ExecSettableElResult {
@@ -12,11 +13,11 @@ public interface ExecSettableElResult {
 
     Argument calculateCompoundSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right);
+            String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast);
 
     Argument calculateSemiSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post);
+            String _op, boolean _post, byte _cast);
 
     boolean resultCanBeSet();
     Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right);

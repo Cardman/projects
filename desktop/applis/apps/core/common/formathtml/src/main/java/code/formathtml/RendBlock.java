@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.EndCallValue;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.files.OffsetBooleanInfo;
@@ -751,17 +752,17 @@ public abstract class RendBlock implements AnalyzedBlock {
             } else {
                 obj_ = new CustList<Struct>(_cont.getLastPage().getGlobalArgument().getStruct());
             }
-            objClasses_ = new StringList(((RendSettableFieldOperation) settable_).getResultClass().getSingleNameOrEmpty());
+            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(((RendSettableFieldOperation) settable_).getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
         } else {
             ArgumentsPair pair_ = args_.getValue(((RendMethodOperation) settable_).getOrder());
             obj_ = new CustList<Struct>(pair_.getPreviousArgument().getStruct());
-            objClasses_ = new StringList(((RendMethodOperation) settable_).getResultClass().getSingleNameOrEmpty());
+            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(((RendMethodOperation) settable_).getResultClass().getNames()));
             arg_ = Argument.getNullableValue(pair_.getArgument());
             for (RendDynOperationNode r: ((RendMethodOperation) settable_).getChildrenNodes()) {
                 pair_ = args_.getValue(r.getOrder());
                 obj_.add(Argument.getNullableValue(pair_.getArgument()).getStruct());
-                objClasses_.add(r.getResultClass().getSingleNameOrEmpty());
+                objClasses_.add(NumParsers.getSingleNameOrEmpty(r.getResultClass().getNames()));
             }
         }
         CustList<LongTreeMap<NodeContainer>> stack_ = _cont.getContainersMapStack();

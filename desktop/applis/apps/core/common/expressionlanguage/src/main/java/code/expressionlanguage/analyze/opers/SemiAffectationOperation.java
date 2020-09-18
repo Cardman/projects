@@ -3,13 +3,13 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.stds.LgNames;
@@ -45,7 +45,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         settable = AffectationOperation.tryGetSettable(this);
-        if (settable == null) {
+        if (!(settable instanceof OperationNode)) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _conf);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFileName(page_.getLocalizer().getCurrentFileName());
@@ -55,9 +55,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                     oper);
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
-            setResultClass(new ClassArgumentMatching(stds_.getAliasObject()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasObject()));
             return;
         }
+        OperationNode set_ = (OperationNode) settable;
         if (settable instanceof SettableAbstractFieldOperation) {
             SettableAbstractFieldOperation cst_ = (SettableAbstractFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = page_.getDeclaredAssignments();
@@ -73,11 +74,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 getErrs().add(un_.getBuiltError());
             }
         }
-        setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(),page_)));
+        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(),page_),page_.getStandards()));
         settable.setVariable(false);
         IntTreeMap< String> ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_.getResultClass(), op_, _conf);
+        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _conf);
         if (cl_ != null) {
             String foundClass_ = cl_.getRealClass();
             MethodId id_ = cl_.getRealId();
@@ -86,7 +87,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             classMethodId = new ClassMethodId(foundClass_,id_);
             return;
         }
-        ClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
+        AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _conf);
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, page_)) {
             ReversibleConversion reversibleConversion_ = tryGetPair(_conf, clMatchLeft_);
@@ -112,8 +113,8 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             }
             return;
         }
-        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, page_));
-        leftEl_.cancelArgument();
+        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, page_),page_.getStandards());
+        leftEl_.quickCancel();
     }
 
     public boolean isPost() {

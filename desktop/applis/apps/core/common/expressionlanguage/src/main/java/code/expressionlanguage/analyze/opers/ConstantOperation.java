@@ -2,10 +2,10 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.Delimiters;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.ParsedArgument;
 import code.expressionlanguage.stds.LgNames;
@@ -36,27 +36,27 @@ public final class ConstantOperation extends LeafOperation {
             argClName_ = stds_.getAliasPrimBoolean();
             Argument a_ = new Argument(BooleanStruct.of(true));
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.FALSE_CST) {
             argClName_ = stds_.getAliasPrimBoolean();
             Argument a_ = new Argument(BooleanStruct.of(false));
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.NULL_CST) {
             argClName_ = EMPTY_STRING;
             Argument a_ = new Argument();
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         if (op_.getConstType() == ConstType.STRING) {
             Argument a_ = new Argument(new StringStruct(originalStr_));
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(stringType_));
+            setResultClass(new AnaClassArgumentMatching(stringType_));
             if (op_.getStrInfo().isKo()) {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
                 badFormat_.setFileName(page_.getLocalizer().getCurrentFileName());
@@ -93,7 +93,7 @@ public final class ConstantOperation extends LeafOperation {
                 getErrs().add(badFormat_.getBuiltError());
             }
             setSimpleArgument(a_);
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         ParsedArgument parsed_ = parse(_conf, op_);
@@ -111,7 +111,7 @@ public final class ConstantOperation extends LeafOperation {
         }
         Argument arg_ = new Argument(parsed_.getStruct());
         setSimpleArgument(arg_);
-        setResultClass(new ClassArgumentMatching(argClassName_));
+        setResultClass(new AnaClassArgumentMatching(argClassName_));
     }
 
     private static ParsedArgument parse(ContextEl _conf, OperationsSequence _op) {

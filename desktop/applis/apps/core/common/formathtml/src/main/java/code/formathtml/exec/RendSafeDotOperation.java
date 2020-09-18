@@ -1,8 +1,8 @@
 package code.formathtml.exec;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
@@ -20,7 +20,7 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
         RendDynOperationNode l_ = chidren_.last();
         Argument a_ = getArgument(_nodes,o_);
         if (a_.isNull()&&!(l_ instanceof RendLambdaOperation)) {
-            a_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
+            a_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
             setQuickConvertSimpleArgument(a_, _conf, _nodes);
             return;
         }

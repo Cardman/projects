@@ -4,15 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
-import code.expressionlanguage.stds.AliasNumber;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.*;
@@ -60,14 +61,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(badNb_.getBuiltError()) +"\" class=\"e\">",index_));
             err_.add(new PartOffset("</a>",index_+getOperations().getOperators().getValue(in_).length()));
             getPartOffsetsChildren().add(err_);
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         opOffset = getOperations().getOperators().firstKey();
-        ClassArgumentMatching first_ = chidren_.first().getResultClass();
-        ClassArgumentMatching second_ = chidren_.last().getResultClass();
+        OperationNode l_ = chidren_.first();
+        AnaClassArgumentMatching first_ = l_.getResultClass();
+        OperationNode r_ = chidren_.last();
+        AnaClassArgumentMatching second_ = r_.getResultClass();
         String op_ = getOperations().getOperators().firstValue().trim();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,first_,second_, op_, _conf);
+        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _conf);
         if (cl_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(cl_.getSymbol().getClassName(),page_)) {
                 classMethodId = cl_.getSymbol();
@@ -79,33 +82,33 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         String stringType_ = stds_.getAliasString();
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
-            Argument arg_ = chidren_.first().getArgument();
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            Argument arg_ = l_.getArgument();
             checkNull(arg_,_conf);
-            arg_ = chidren_.last().getArgument();
+            arg_ = r_.getArgument();
             checkNull(arg_,_conf);
             first_.setCheckOnlyNullPe(true);
             second_.setCheckOnlyNullPe(true);
             return;
         }
         if (AnaTypeUtil.isFloatOrderClass(first_,second_, _conf)) {
-            ClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
-            ClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
-            chidren_.first().getResultClass().setUnwrapObject(classFirst_);
-            chidren_.last().getResultClass().setUnwrapObject(classSecond_);
-            chidren_.first().cancelArgument();
-            chidren_.last().cancelArgument();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
+            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
+            l_.getResultClass().setUnwrapObject(classFirst_,page_.getStandards());
+            r_.getResultClass().setUnwrapObject(classSecond_,page_.getStandards());
+            l_.quickCancel();
+            r_.quickCancel();
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         if (AnaTypeUtil.isIntOrderClass(first_,second_, _conf)) {
-            ClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
-            ClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
-            chidren_.first().getResultClass().setUnwrapObject(classFirst_);
-            chidren_.last().getResultClass().setUnwrapObject(classSecond_);
-            chidren_.first().cancelArgument();
-            chidren_.last().cancelArgument();
-            setResultClass(new ClassArgumentMatching(stds_.getAliasPrimBoolean()));
+            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_,  page_);
+            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_,  page_);
+            l_.getResultClass().setUnwrapObject(classFirst_,page_.getStandards());
+            r_.getResultClass().setUnwrapObject(classSecond_,page_.getStandards());
+            l_.quickCancel();
+            r_.quickCancel();
+            setResultClass(new AnaClassArgumentMatching(stds_.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
         okNum = false;
@@ -131,7 +134,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         err_.add(new PartOffset("<a title=\""+LinkageUtil.transform(un_.getBuiltError()) +"\" class=\"e\">",index_));
         err_.add(new PartOffset("</a>",index_+op.length()));
         getPartOffsetsChildren().add(err_);
-        setResultClass(new ClassArgumentMatching(res_));
+        setResultClass(new AnaClassArgumentMatching(res_,page_.getStandards()));
     }
     @Override
     void checkNull(Argument _arg, ContextEl _an) {
@@ -179,9 +182,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         BooleanStruct arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = AliasNumber.quickCalculateLowerNb(_one.getStruct(), _two.getStruct());
+            arg_ = NumParsers.quickCalculateLowerNb(_one.getStruct(), _two.getStruct());
         } else {
-            arg_ = AliasNumber.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
+            arg_ = NumParsers.quickCalculateGreaterNb(_one.getStruct(), _two.getStruct());
         }
         if (complement_) {
             arg_ = arg_.neg();
@@ -200,9 +203,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         BooleanStruct arg_;
         if (StringList.quickEq(useOp_, LOWER)) {
-            arg_ = AliasNumber.quickCalculateLowerStr(_one.getStruct(), _two.getStruct());
+            arg_ = NumParsers.quickCalculateLowerStr(_one.getStruct(), _two.getStruct());
         } else {
-            arg_ = AliasNumber.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
+            arg_ = NumParsers.quickCalculateGreaterStr(_one.getStruct(), _two.getStruct());
         }
         if (complement_) {
             arg_ = arg_.neg();

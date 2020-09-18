@@ -4,8 +4,9 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.ArrOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.inherits.PrimitiveTypeUtil;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -15,15 +16,15 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     private boolean variable;
 
     private boolean catString;
-    private ClassArgumentMatching previous;
+    private ExecClassArgumentMatching previous;
     public RendArrOperation(ArrOperation _arr) {
         super(_arr);
         variable = _arr.isVariable();
         catString = _arr.isCatString();
-        previous = _arr.getPreviousResultClass();
+        previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
     }
-    public RendArrOperation(RendArrOperation _arr,int _indexChild, ClassArgumentMatching _res, int _order,
-                                 boolean _intermediate, Argument _previousArgument) {
+    public RendArrOperation(RendArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,
+                            boolean _intermediate, Argument _previousArgument) {
         super(_indexChild,_res,_order, _intermediate);
         previous = _arr.previous;
         variable = true;
@@ -76,7 +77,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right) {
+    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, Argument _right, ExecClassArgumentMatching _cl, byte _cast) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Argument a_ = getArgument(_nodes,this);
         Struct store_;
@@ -85,11 +86,11 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
-        return new Argument(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf));
+        return new Argument(compoundAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _right, _conf, _cl, _cast));
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store) {
+    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Configuration _conf, String _op, boolean _post, Argument _store, byte _cast) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         Struct store_;
         store_ = _store.getStruct();
@@ -97,7 +98,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument last_ = getArgument(_nodes,lastElement_);
         Struct array_;
         array_ = getPreviousArgument(_nodes,this).getStruct();
-        return new Argument(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf));
+        return new Argument(semiAffectArray(array_, store_, last_, lastElement_.getIndexInEl(), _op, _post, _conf, _cast));
     }
 
     private Struct affectArray(Struct _array, Argument _index, int _indexEl, Argument _right, Configuration _conf) {
@@ -107,26 +108,24 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         return _right.getStruct();
     }
 
-    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf) {
+    private Struct compoundAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, Argument _right, Configuration _conf, ExecClassArgumentMatching _cl, byte _cast) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, clArg_);
+        res_ = RendNumericOperation.calculateAffect(left_, _conf, _right, _op, catString, _cl.getNames(), _cast);
         if (_conf.getContext().hasException()) {
             return _stored;
         }
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf.getContext());
         return res_.getStruct();
     }
-    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf) {
+    private Struct semiAffectArray(Struct _array, Struct _stored, Argument _index, int _indexEl, String _op, boolean _post, Configuration _conf, byte _cast) {
         setRelativeOffsetPossibleLastPage(_indexEl, _conf);
         Struct o_ = _index.getStruct();
         Argument left_ = new Argument(_stored);
-        ClassArgumentMatching clArg_ = getResultClass();
         Argument res_;
-        res_ = ExecNumericOperation.calculateIncrDecr(left_, _conf.getContext(), _op, clArg_);
+        res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
         ExecInvokingOperation.setElement(_array, o_, res_.getStruct(), _conf.getContext());
         Argument out_ = RendSemiAffectationOperation.getPrePost(_post, left_, res_);
         return out_.getStruct();
@@ -154,7 +153,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         ExecInvokingOperation.setElement(array_, index_.getStruct(), _right.getStruct(), _conf.getContext());
     }
 
-    public ClassArgumentMatching getPrevious() {
+    public ExecClassArgumentMatching getPrevious() {
         return previous;
     }
 }

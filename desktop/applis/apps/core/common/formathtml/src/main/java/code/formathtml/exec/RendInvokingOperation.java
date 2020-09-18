@@ -4,8 +4,8 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.util.RendArgumentList;
 import code.util.CustList;
 import code.util.IdMap;
@@ -19,7 +19,7 @@ public abstract class RendInvokingOperation extends RendMethodOperation implemen
         intermediate = _inter.isIntermediateDottedOperation();
     }
 
-    public RendInvokingOperation(int _indexChild, ClassArgumentMatching _res, int _order,
+    public RendInvokingOperation(int _indexChild, ExecClassArgumentMatching _res, int _order,
                                  boolean _intermediate) {
         super(_indexChild,_res,_order);
         intermediate = _intermediate;

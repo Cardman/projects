@@ -5,15 +5,16 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.PartOffset;
 import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -80,10 +81,10 @@ public abstract class QuickOperation extends MethodOperation {
         String booleanPrimType_ = stds_.getAliasPrimBoolean();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
-        ClassArgumentMatching leftRes_ = left_.getResultClass();
-        ClassArgumentMatching rightRes_ = right_.getResultClass();
+        AnaClassArgumentMatching leftRes_ = left_.getResultClass();
+        AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperations().getOperators().firstValue();
-        OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, leftRes_, rightRes_, oper_, _conf);
+        OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _conf);
         if (opConv_.getSymbol() != null) {
             if (!AnaTypeUtil.isPrimitive(opConv_.getSymbol().getClassName(),page_)) {
                 classMethodId = opConv_.getSymbol();
@@ -123,7 +124,7 @@ public abstract class QuickOperation extends MethodOperation {
                     errFirst.add(new PartOffset("</a>",index_+1));
                     okNum = false;
                 }
-                setResultClass(ClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_,page_)));
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_,page_),page_.getStandards()));
             }
             return;
         }
@@ -156,11 +157,11 @@ public abstract class QuickOperation extends MethodOperation {
             errSecond.add(new PartOffset("</a>",index_+1));
             okNum = false;
         }
-        leftRes_.setUnwrapObject(booleanPrimType_);
-        rightRes_.setUnwrapObject(booleanPrimType_);
-        left_.cancelArgument();
-        right_.cancelArgument();
-        setResultClass(ClassArgumentMatching.copy(leftRes_));
+        leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        rightRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+        left_.quickCancel();
+        right_.quickCancel();
+        setResultClass(AnaClassArgumentMatching.copy(leftRes_,page_.getStandards()));
     }
 
     public boolean isOkNum() {

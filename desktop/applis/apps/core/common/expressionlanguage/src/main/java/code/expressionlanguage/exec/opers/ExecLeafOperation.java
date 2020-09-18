@@ -1,7 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.analyze.opers.LeafOperation;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 
 public abstract class ExecLeafOperation extends ExecOperationNode {
 
@@ -9,7 +9,7 @@ public abstract class ExecLeafOperation extends ExecOperationNode {
         super(_l);
     }
 
-    ExecLeafOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    ExecLeafOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
     @Override

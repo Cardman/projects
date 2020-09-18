@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.errors.custom.GraphicErrorInterpret;
@@ -4011,7 +4012,7 @@ public final class LinkageUtil {
         }
         return str_.toString();
     }
-    private static boolean canCallToString(VariablesOffsets _vars, ClassArgumentMatching _type, CustList<RootBlock> _refFoundTypes) {
+    private static boolean canCallToString(VariablesOffsets _vars, AnaClassArgumentMatching _type, CustList<RootBlock> _refFoundTypes) {
         if (_type.matchClass(_vars.getStds().getAliasObject())) {
             return true;
         }

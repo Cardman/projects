@@ -5,12 +5,12 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.util.CustList;
 import code.util.*;
@@ -45,7 +45,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
     @Override
     public void analyzeUnary(ContextEl _conf) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+argOffset, _conf);
-        CustList<ClassArgumentMatching> firstArgs_ = new CustList<ClassArgumentMatching>();
+        CustList<AnaClassArgumentMatching> firstArgs_ = new CustList<AnaClassArgumentMatching>();
         firstArgs_.add(getFirstChild().getResultClass());
         AnalyzedPageEl page_ = _conf.getAnalyzing();
         String glClass_ = page_.getGlobalClass();
@@ -63,7 +63,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             page_.getLocalizer().addError(un_);
             getErrs().add(un_.getBuiltError());
             String argClName_ = page_.getStandards().getAliasObject();
-            setResultClass(new ClassArgumentMatching(argClName_));
+            setResultClass(new AnaClassArgumentMatching(argClName_));
             return;
         }
         numberEnum = r_.getNumberAll();
@@ -80,7 +80,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             page_.getLocalizer().addError(badAccess_);
             getErrs().add(badAccess_.getBuiltError());
         }
-        ClassArgumentMatching argCl_ = firstArgs_.first();
+        AnaClassArgumentMatching argCl_ = firstArgs_.first();
         String stringType_ = page_.getStandards().getAliasString();
         if (!argCl_.matchClass(stringType_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -93,7 +93,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
             getErrs().add(un_.getBuiltError());
         }
         className = r_.getWildCardElement();
-        setResultClass(new ClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(className));
     }
 
     public CustList<PartOffset> getPartOffsets() {

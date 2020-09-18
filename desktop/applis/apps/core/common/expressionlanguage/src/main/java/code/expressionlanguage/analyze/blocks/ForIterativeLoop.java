@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -17,7 +18,6 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -170,19 +170,19 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         CustList<ExecOperationNode> init_ = ElUtil.getAnalyzedOperationsReadOnly(init, _cont, Calculation.staticCalculation(static_));
         rootInit = page_.getCurrentRoot();
         ExecOperationNode initEl_ = init_.last();
-        checkType(_cont, cl_, initEl_, initOffset);
+        checkType(_cont, cl_, initEl_, initOffset, rootInit);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> exp_ = ElUtil.getAnalyzedOperationsReadOnly(expression, _cont, Calculation.staticCalculation(static_));
         rootExp = page_.getCurrentRoot();
         ExecOperationNode expressionEl_ = exp_.last();
-        checkType(_cont, cl_, expressionEl_, expressionOffset);
+        checkType(_cont, cl_, expressionEl_, expressionOffset, rootExp);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         CustList<ExecOperationNode> step_ = ElUtil.getAnalyzedOperationsReadOnly(step, _cont, Calculation.staticCalculation(static_));
         rootStep = page_.getCurrentRoot();
         ExecOperationNode stepEl_ = step_.last();
-        checkType(_cont, cl_, stepEl_, stepOffset);
+        checkType(_cont, cl_, stepEl_, stepOffset, rootStep);
         if (res_) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setRef(variableNameOffset);
@@ -204,9 +204,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.getCoverage().putBlockOperations(exec_,this);
     }
 
-    private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset) {
+    private void checkType(ContextEl _cont, String _elementClass, ExecOperationNode _stepEl, int _offset, OperationNode _root) {
         Mapping m_ = new Mapping();
-        ClassArgumentMatching arg_ = _stepEl.getResultClass();
+        AnaClassArgumentMatching arg_ = _root.getResultClass();
         m_.setArg(arg_);
         m_.setParam(_elementClass);
         if (!AnaTemplates.isCorrectOrNumbers(m_,_cont)) {
@@ -216,6 +216,9 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 arg_.getImplicits().add(cl_);
                 arg_.setRootNumber(res_.getRootNumber());
                 arg_.setMemberNumber(res_.getMemberNumber());
+//                _stepEl.getResultClass().getImplicits().add(cl_);
+//                _stepEl.getResultClass().setRootNumber(res_.getRootNumber());
+//                _stepEl.getResultClass().setMemberNumber(res_.getMemberNumber());
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(getFile().getFileName());
@@ -229,7 +232,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
                 getErrorsBlock().add(cast_.getBuiltError());
             }
         }
-        ElUtil.setImplicits(_stepEl, _cont.getAnalyzing());
+        ElUtil.setImplicits(_stepEl, _cont.getAnalyzing(), _root);
     }
 
     private boolean processVariableNames(ContextEl _cont) {
@@ -237,7 +240,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.setGlobalOffset(classIndexNameOffset);
         page_.setOffset(0);
         importedClassIndexName = ResolvingImportTypes.resolveCorrectType(_cont,classIndexName);
-        if (!AnaTypeUtil.isIntOrderClass(new ClassArgumentMatching(importedClassIndexName), _cont)) {
+        if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());
             cast_.setIndexFile(classIndexNameOffset);
@@ -252,7 +255,7 @@ public final class ForIterativeLoop extends BracedBlock implements ForLoop {
         page_.setOffset(0);
         importedClassName = ResolvingImportTypes.resolveCorrectType(_cont,className);
         String cl_ = importedClassName;
-        ClassArgumentMatching elementClass_ = new ClassArgumentMatching(cl_);
+        AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _cont)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFileName(getFile().getFileName());

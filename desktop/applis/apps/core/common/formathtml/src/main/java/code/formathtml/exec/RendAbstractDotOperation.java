@@ -2,7 +2,7 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
 import code.util.CustList;
 import code.util.IdMap;
@@ -11,7 +11,7 @@ public abstract class RendAbstractDotOperation extends RendMethodOperation imple
     public RendAbstractDotOperation(OperationNode _op) {
         super(_op);
     }
-    public RendAbstractDotOperation(int _indexChild, ClassArgumentMatching _res, int _order) {
+    public RendAbstractDotOperation(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         super(_indexChild,_res,_order);
     }
 

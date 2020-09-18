@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -9,10 +10,10 @@ import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.files.OffsetsBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
@@ -172,10 +173,9 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
             return null;
         }
         ip_.clearCurrentEls();
-        String prLong_ = stds_.getAliasPrimLong();
-        fromValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argFrom_.getStruct()), stds_).longStruct();
-        long toValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argTo_.getStruct()), stds_).longStruct();
-        stepValue_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(prLong_), ClassArgumentMatching.convertToNumber(argStep_.getStruct()), stds_).longStruct();
+        fromValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argFrom_.getStruct())).longStruct();
+        long toValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argTo_.getStruct())).longStruct();
+        stepValue_ = NumParsers.convertToInt(PrimitiveTypes.LONG_WRAP, NumParsers.convertToNumber(argStep_.getStruct())).longStruct();
         if (stepValue_ > 0) {
             if (fromValue_ > toValue_) {
                 stepValue_ = -stepValue_;
@@ -228,7 +228,7 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         if (finished_) {
             return l_;
         }
-        Struct struct_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(fromValue_), stds_);
+        Struct struct_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards()), new LongStruct(fromValue_));
         LoopVariable lv_ = new LoopVariable();
         lv_.setIndexClassName(importedClassIndexName);
         varsLoop_.put(var_, lv_);
@@ -252,8 +252,8 @@ public final class ExecForIterativeLoop extends ExecBracedBlock implements ExecL
         _conf.getLastPage().setOffset(0);
         String var_ = getVariableName();
         Argument struct_ = ExecTemplates.getValue(_conf,var_,_conf.getLastPage(),-1);
-        long o_ = ClassArgumentMatching.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
-        Struct element_ = PrimitiveTypeUtil.convertToInt(new ClassArgumentMatching(importedClassName), new LongStruct(o_), _conf.getStandards());
+        long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getStep();
+        Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _conf.getStandards()), new LongStruct(o_));
         ExecTemplates.setValue(_conf,var_,_conf.getLastPage(),new Argument(element_),-1);
         ExecTemplates.incrIndexLoop(_conf,var_,_conf.getLastPage(), -1);
     }

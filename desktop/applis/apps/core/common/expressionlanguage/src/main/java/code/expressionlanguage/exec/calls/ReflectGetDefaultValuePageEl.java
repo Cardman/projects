@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.inherits.PrimitiveTypeUtil;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.MethodMetaInfo;
@@ -30,7 +30,7 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
             ops = ann_.getOpValue();
             if (ops.isEmpty()) {
                 String clMethod_ = ann_.getImportedReturnType();
-                Struct value_ = PrimitiveTypeUtil.defaultValue(clMethod_, _context);
+                Struct value_ = ExecClassArgumentMatching.defaultValue(clMethod_, _context);
                 Argument out_ = new Argument(value_);
                 setReturnedArgument(out_);
                 return true;

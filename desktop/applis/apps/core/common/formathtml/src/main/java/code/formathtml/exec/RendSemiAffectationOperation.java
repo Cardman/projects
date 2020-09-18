@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.SemiAffectationOperation;
@@ -51,7 +52,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             RendDynOperationNode left_ = ((RendDynOperationNode) settable).getParent().getFirstChild();
             Argument leftArg_ = getArgument(_nodes,left_);
             if (leftArg_.isNull()) {
-                leftArg_ = new Argument(ClassArgumentMatching.convert(_conf.getPageEl(),getResultClass(),NullStruct.NULL_VALUE,_conf.getContext()));
+                leftArg_ = new Argument(ExecClassArgumentMatching.convert(_conf.getPageEl(), NullStruct.NULL_VALUE,_conf.getContext(), getResultClass().getNames()));
                 setQuickConvertSimpleArgument(leftArg_, _conf, _nodes);
                 return;
             }
@@ -82,9 +83,9 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
         }
         if (converterTo != null) {
             String tres_ = converterTo.get(0).getImportedParametersTypes().get(0);
-            ClassArgumentMatching cl_ = new ClassArgumentMatching(tres_);
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards());
             Argument res_;
-            res_ = ExecNumericOperation.calculateIncrDecr(stored_, _conf.getContext(), oper, cl_);
+            res_ = ExecNumericOperation.calculateIncrDecr(stored_, oper, cast_);
             Argument conv_ = tryConvert(converterTo.getRootBlock(),converterTo.get(0),converterTo.getOwnerClass(), res_, _conf);
             if (conv_ == null) {
                 return;
@@ -94,7 +95,7 @@ public final class RendSemiAffectationOperation extends RendAbstractUnaryOperati
             setSimpleArgument(stored_, _conf,_nodes);
             return;
         }
-        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post,stored_);
+        Argument arg_ = settable.calculateSemiSetting(_nodes, _conf, oper, post,stored_, getResultClass().getUnwrapObjectNb());
         setSimpleArgument(arg_, _conf,_nodes);
     }
 
