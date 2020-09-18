@@ -135,7 +135,6 @@ public final class AnaApplyCoreMethodUtil {
         AnalyzedPageEl page_ = _page;
         LgNames lgNames_ = page_.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
-        String aliasPrimInteger_ = lgNames_.getAliasPrimInteger();
         String aliasPrimLong_ = lgNames_.getAliasPrimLong();
         if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
             if (StringList.quickEq(paramList_.first(), aliasPrimLong_)) {
@@ -189,16 +188,7 @@ public final class AnaApplyCoreMethodUtil {
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(),lgNames_);
-            if (NumParsers.isInt(cast_)) {
-                return (new IntStruct(-b_.intStruct()));
-            }
-            if (NumParsers.isLong(cast_)) {
-                return (new LongStruct(-b_.longStruct()));
-            }
-            if (NumParsers.isFloat(cast_)) {
-                return (new FloatStruct(-b_.floatStruct()));
-            }
-            return (new DoubleStruct(-b_.doubleStruct()));
+            return NumParsers.opposite(b_,cast_);
         }
         if (StringList.quickEq(name_, am_.getAliasMult())) {
             return(NumParsers.calculateMult(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]),
@@ -221,16 +211,8 @@ public final class AnaApplyCoreMethodUtil {
             return(arg_);
         }
         if (StringList.quickEq(name_, am_.getAliasNegBin())) {
-            if (NumParsers.isIntOrLess(ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_))) {
-                int left_ = NumParsers.convertToNumber(_args[0].getStruct()).intStruct();
-                boolean[] bits_ = NumParsers.toBits(left_);
-                AliasMath.negateBits(bits_);
-                return(new IntStruct(NumParsers.toInt(bits_)));
-            }
-            long left_ = NumParsers.convertToNumber(_args[0].getStruct()).longStruct();
-            boolean[] bits_ = NumParsers.toBits(left_);
-            AliasMath.negateBits(bits_);
-            return(new LongStruct(NumParsers.toLong(bits_)));
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
+            return NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_);
         }
         if (StringList.quickEq(name_, am_.getAliasNeg())) {
             return(NumParsers.convertToBoolean(_args[0].getStruct()).neg());

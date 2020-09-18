@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.instr.OperationsSequence;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -85,9 +84,12 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             setResultClass(arg_);
             return;
         }
-        byte ord_ = ClassArgumentMatching.getPrimitiveCast(cl_.getNames(),page_.getStandards());
-        if (NumParsers.isLessInt(ord_)) {
-            cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
+        if (AnaTypeUtil.isIntOrderClass(cl_, _conf)) {
+            int res_ = AnaTypeUtil.getIntOrderClass(cl_, _conf);
+            int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _conf);
+            if (res_ < intOrder_) {
+                cl_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
+            }
         }
         clMatch_.setUnwrapObject(cl_,page_.getStandards());
         child_.quickCancel();

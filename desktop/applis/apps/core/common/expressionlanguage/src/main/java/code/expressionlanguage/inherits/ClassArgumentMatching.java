@@ -1,7 +1,6 @@
 package code.expressionlanguage.inherits;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
-import code.expressionlanguage.structs.*;
 import code.util.StringList;
 
 public final class ClassArgumentMatching {

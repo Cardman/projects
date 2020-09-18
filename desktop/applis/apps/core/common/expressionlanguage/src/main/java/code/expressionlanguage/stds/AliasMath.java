@@ -339,19 +339,7 @@ public final class AliasMath {
             }
             NumberStruct b_ = NumParsers.convertToNumber(_args[0].getStruct());
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
-            if (NumParsers.isInt(cast_)) {
-                result_.setResult(new IntStruct(-b_.intStruct()));
-                return result_;
-            }
-            if (NumParsers.isLong(cast_)) {
-                result_.setResult(new LongStruct(-b_.longStruct()));
-                return result_;
-            }
-            if (NumParsers.isFloat(cast_)) {
-                result_.setResult(new FloatStruct(-b_.floatStruct()));
-                return result_;
-            }
-            result_.setResult(new DoubleStruct(-b_.doubleStruct()));
+            result_.setResult(NumParsers.opposite(b_,cast_));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasMult)) {
@@ -380,17 +368,8 @@ public final class AliasMath {
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasNegBin)) {
-            if (NumParsers.isIntOrLess(ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_))) {
-                int left_ = NumParsers.convertToNumber(_args[0].getStruct()).intStruct();
-                boolean[] bits_ = NumParsers.toBits(left_);
-                negateBits(bits_);
-                result_.setResult(new IntStruct(NumParsers.toInt(bits_)));
-                return result_;
-            }
-            long left_ = NumParsers.convertToNumber(_args[0].getStruct()).longStruct();
-            boolean[] bits_ = NumParsers.toBits(left_);
-            negateBits(bits_);
-            result_.setResult(new LongStruct(NumParsers.toLong(bits_)));
+            byte cast_ = ClassArgumentMatching.getPrimitiveCast(paramList_.first(), lgNames_);
+            result_.setResult(NumParsers.negBinNumber(NumParsers.convertToNumber(_args[0].getStruct()),cast_));
             return result_;
         }
         if (StringList.quickEq(name_, am_.aliasNeg)) {
@@ -458,13 +437,6 @@ public final class AliasMath {
             return result_;
         }
         return result_;
-    }
-
-    public static void negateBits(boolean[] _bits) {
-        int len_ = _bits.length;
-        for (int i = 0; i<len_; i++) {
-            _bits[i] = !_bits[i];
-        }
     }
 
     public static Struct[] getObjects(Argument... _args) {
