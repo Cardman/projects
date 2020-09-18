@@ -148,10 +148,16 @@ public final class ExecTemplates {
             PrimitiveType pr_ = _an.getStandards().getPrimitiveTypes().getVal(dimCurrent_.getComponent());
             GeneType g_ = _an.getClassBody(dimCurrent_.getComponent());
             InheritedType in_ = null;
+            boolean without;
+            if (g_ != null) {
+                without = g_.withoutInstance();
+            } else {
+                without = false;
+            }
             if (pr_ != null) {
                 in_ = pr_;
             } else {
-                if (cl_.startsWith(Templates.ARR_BEG_STRING) || g_.withoutInstance()) {
+                if (cl_.startsWith(Templates.ARR_BEG_STRING) || without) {
                     in_ = g_;
                 }
             }
@@ -180,7 +186,7 @@ public final class ExecTemplates {
         String cl_ = StringExpUtil.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
         GeneType g_ = _an.getClassBody(cl_);
-        while (!g_.isSubTypeOf(id_,_an)) {
+        while (hasToLookForParent(_an, id_, g_)) {
             if (StringList.contains(list_, cl_)) {
                 _an.setException(new ErrorStruct(_an,cast_));
                 break;
@@ -199,6 +205,11 @@ public final class ExecTemplates {
         }
         return current_;
     }
+
+    static boolean hasToLookForParent(ContextEl _an, String id_, GeneType g_) {
+        return g_!= null && !g_.isSubTypeOf(id_,_an);
+    }
+
     /**Calls Templates.isCorrect*/
     public static String correctClassPartsDynamic(String _className, ContextEl _context) {
         ExecResultPartType className_ = ExecPartTypeUtil.processExec(_className, _context);
@@ -898,7 +909,7 @@ public final class ExecTemplates {
             return _arg;
         }
         GeneType classBody_ = _context.getClassBody(idArg_);
-        generic_ = getSuperGeneric(classBody_, _context, 0, _classParam, _arg);
+        generic_ = getSuperGeneric(classBody_, _context, 0, _classParam);
         return quickFormat(classBody_,_arg, generic_);
     }
     public static String getFullObject(String _subType, String _superType, ContextEl _context) {
@@ -916,8 +927,7 @@ public final class ExecTemplates {
             return _subType;
         }
         GeneType classBody_ = _context.getClassBody(baseArr_);
-        String geneSubType_ = classBody_.getGenericString();
-        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_, geneSubType_);
+        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_);
         return quickFormat(classBody_,_subType, generic_);
     }
 
@@ -1235,8 +1245,7 @@ public final class ExecTemplates {
             return "";
         }
         GeneType classBody_ = _context.getClassBody(baseArr_);
-        String geneSubType_ = classBody_.getGenericString();
-        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_, geneSubType_);
+        String generic_ = getSuperGeneric(classBody_,_context, dim_, classParam_);
         return format(classBody_,_subType, generic_);
     }
 
@@ -1247,15 +1256,11 @@ public final class ExecTemplates {
             return _subType;
         }
         GeneType classBody_ = _context.getClassBody(idArg_);
-        if (classBody_ == null) {
-            return "";
-        }
-        String geneSubType_ = classBody_.getGenericString();
-        String generic_ = getSuperGeneric(classBody_,_context, 0, idSuperType_, geneSubType_);
+        String generic_ = getSuperGeneric(classBody_,_context, 0, idSuperType_);
         return quickFormat(classBody_,_subType, generic_);
     }
 
-    public static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam, String _geneSubType) {
+    public static String getSuperGeneric(GeneType _subType, ContextEl _context, int _dim, String _classParam) {
         String generic_ = "";
         String param_ = StringExpUtil.getIdFromAllTypes(_classParam);
         if (_subType instanceof ExecAnnotationBlock) {

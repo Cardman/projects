@@ -1015,6 +1015,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecTemplates.processBlockAndRemove(cont_,null);
         assertNull(instancingClass_.getReadWrite());
     }
+    @Test
+    public void hasToLookForParent() {
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl cont_ = validated(files_);
+        assertTrue(!ExecTemplates.hasToLookForParent(cont_,"",null));
+    }
 
     private static ContextEl validated(StringMap<String> files_) {
         AnalyzedTestContext cont_ = ctxAna();

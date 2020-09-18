@@ -24,20 +24,19 @@ public final class AnaApplyCoreMethodUtil {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
-        AnalyzedPageEl page_ = _page;
-        LgNames lgNames_ = page_.getStandards();
+        LgNames lgNames_ = _page.getStandards();
         String mathType_ = lgNames_.getAliasMath();
         String stringType_ = lgNames_.getAliasString();
         String replType_ = lgNames_.getAliasReplacement();
         if (StringList.quickEq(type_, lgNames_.getAliasResources())) {
             if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesNamesLength())) {
-                return ResourcesStruct.getResourceNamesLength(page_);
+                return ResourcesStruct.getResourceNamesLength(_page);
             }
             if (StringList.quickEq(name_, lgNames_.getAliasReadResourcesIndex())) {
-                return ResourcesStruct.getResourceIndex(page_,args_[0]);
+                return ResourcesStruct.getResourceIndex(_page,args_[0]);
             }
             if (StringList.quickEq(name_, lgNames_.getAliasReadResources())) {
-                result_ = ResourcesStruct.getResource(page_, NumParsers.getString(args_[0]));
+                result_ = ResourcesStruct.getResource(_page, NumParsers.getString(args_[0]));
             }
             return result_;
         }
@@ -132,8 +131,7 @@ public final class AnaApplyCoreMethodUtil {
         Struct[] args_ = AliasMath.getObjects(_args);
         String name_ = _method.getConstraints().getName();
         StringList paramList_ = _method.getConstraints().getParametersTypes();
-        AnalyzedPageEl page_ = _page;
-        LgNames lgNames_ = page_.getStandards();
+        LgNames lgNames_ = _page.getStandards();
         AliasMath am_ = lgNames_.getMathRef();
         String aliasPrimLong_ = lgNames_.getAliasPrimLong();
         if (StringList.quickEq(name_, lgNames_.getAliasAbs())) {
