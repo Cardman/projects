@@ -1342,10 +1342,6 @@ public abstract class LgNames {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className,_rootBock);
         return new FullFunctionalInstance(_className,_functional,fs_);
     }
-    public String getStructClassName(Struct _struct, ContextEl _context) {
-        return _struct.getClassName(_context);
-    }
-    
     public StringMap<StandardType> getStandards() {
         return standards;
     }

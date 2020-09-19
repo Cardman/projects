@@ -98,8 +98,4 @@ public final class Argument {
         return BooleanStruct.isFalse(object);
     }
 
-    public String getObjectClassName(ContextEl _context) {
-        return _context.getStandards().getStructClassName(object, _context);
-    }
-
 }

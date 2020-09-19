@@ -2,7 +2,6 @@ package code.expressionlanguage.methods;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.ProcessMethod;
@@ -4530,7 +4529,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
+        assertEq("code.util.Replacement", out_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl360_Test() {
@@ -4548,7 +4547,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
+        assertEq("code.util.Replacement", out_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl360__Test() {
@@ -4566,7 +4565,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("code.util.Replacement",out_.getObjectClassName(cont_));
+        assertEq("code.util.Replacement", out_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl361Test() {
@@ -4584,7 +4583,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
-        assertEq("java.lang.Object",out_.getObjectClassName(cont_));
+        assertEq("java.lang.Object", out_.getStruct().getClassName(cont_));
     }
     @Test
     public void processEl454Test() {

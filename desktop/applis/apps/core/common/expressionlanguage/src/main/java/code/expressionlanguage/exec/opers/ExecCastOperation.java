@@ -11,7 +11,6 @@ import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.analyze.opers.ExplicitOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
@@ -86,7 +85,7 @@ public final class ExecCastOperation extends ExecAbstractUnaryOperation {
                         ret_ = ExecTemplates.quickFormat(r_,geneStr_,ret_);
                         String fctParam_ = formatReturn(EMPTY_STRING,_conf, false, ret_, idMeth_, realId_.isStaticMethod());
                         fctParam_ = ExecTemplates.quickFormat(r_,geneFor_,fctParam_);
-                        String argCl_ = _objArg.getObjectClassName(_conf);
+                        String argCl_ = str_.getClassName(_conf);
                         if (ExecTemplates.isCorrectExecute(argCl_,fctParam_,_conf)) {
                             if (_full) {
                                 AbstractFunctionalInstance struct_ = _conf.getStandards().newFullFunctionalInstance(_className,r_,(LambdaStruct) str_,_conf);

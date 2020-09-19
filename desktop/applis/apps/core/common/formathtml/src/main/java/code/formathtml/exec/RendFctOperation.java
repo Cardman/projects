@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.formathtml.Configuration;
@@ -70,7 +69,6 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(getMethodName());
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
         String lastType_ = getLastType();
         int naturalVararg_ = getNaturalVararg();
@@ -78,30 +76,25 @@ public final class RendFctOperation extends RendInvokingOperation implements Ren
         ExecNamedFunctionBlock fct_ = named;
         ExecRootBlock type_ = rootBlock;
         classNameFound_ =className;
-        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), _conf.getContext()));
-        if (_conf.getContext().hasException()) {
+        ContextEl ctx_ = _conf.getContext();
+        Argument prev_ = new Argument(ExecTemplates.getParent(getAnc(), classNameFound_, _previous.getStruct(), ctx_));
+        if (ctx_.hasException()) {
             return new Argument();
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         CustList<Argument> first_ = RendInvokingOperation.listNamedArguments(_all, chidren_).getArguments();
-        if (isStaticChoiceMethod()) {
-            String argClassName_ = prev_.getObjectClassName(_conf.getContext());
-            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
-        } else {
-            Struct previous_ = prev_.getStruct();
-            ContextEl context_ = _conf.getContext();
-            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(context_, previous_, rootBlock, named);
+        Struct pr_ = prev_.getStruct();
+        String cl_ = pr_.getClassName(ctx_);
+        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, ctx_);
+        lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
+        firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
+        if (!isStaticChoiceMethod()) {
+            ExecOverrideInfo polymorph_ = ExecInvokingOperation.polymorph(ctx_, pr_, rootBlock, named);
             fct_ = polymorph_.getOverridableBlock();
             type_ = polymorph_.getRootBlock();
-            String argClassName_ = stds_.getStructClassName(previous_, context_);
-            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
-            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = RendInvokingOperation.listArguments(chidren_, naturalVararg_, lastType_, first_);
             classNameFound_ = polymorph_.getClassName();
         }
-        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf),_conf.getContext(), classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
+        return ExecInvokingOperation.callPrepare(new AdvancedExiting(_conf), ctx_, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE,"");
     }
 
     public int getNaturalVararg() {

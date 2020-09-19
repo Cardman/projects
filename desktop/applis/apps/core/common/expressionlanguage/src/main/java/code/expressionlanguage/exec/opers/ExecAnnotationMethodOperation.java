@@ -3,10 +3,8 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.opers.AbstractCallFctOperation;
-import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.analyze.opers.InvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.AnnotationStruct;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ErrorStruct;
@@ -45,7 +43,7 @@ public final class ExecAnnotationMethodOperation extends ExecInvokingOperation {
             _conf.setException(new ErrorStruct(_conf,npe_));
             return new Argument();
         }
-        String clName_ = _previous.getObjectClassName(_conf);
+        String clName_ = argPrev_.getClassName(_conf);
         Struct ret_ = getInstanceField(clName_, _name,_previous,_conf).getStruct();
         Argument a_;
         if (ret_ instanceof ArrayStruct) {

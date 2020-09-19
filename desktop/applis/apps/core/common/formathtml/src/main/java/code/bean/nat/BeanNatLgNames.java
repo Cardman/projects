@@ -391,7 +391,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
     @Override
     public Argument iterator(Struct _arg, Configuration _cont) {
         Object instance_ = ((RealInstanceStruct) _arg).getInstance();
-        String typeInst_ = getStructClassName(_arg, _cont.getContext());
+        String typeInst_ = _arg.getClassName(_cont.getContext());
         String it_ = getIterables().getVal(typeInst_);
         return new Argument(newId(((SimpleIterable) instance_).simpleIterator(), StringList.concat(TYPE_ITERATOR,Templates.TEMPLATE_BEGIN,it_,Templates.TEMPLATE_END)));
     }
@@ -434,7 +434,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
             }
         }
         ContextEl context_ = _cont.getContext();
-        return _arg.getObjectClassName(context_);
+        return struct_.getClassName(context_);
     }
 
     @Override
@@ -471,7 +471,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         return null;
     }
 
-    public AnalyzedPageEl setupNative(Configuration _conf) {
+    private AnalyzedPageEl setupNative(Configuration _conf) {
         DefaultLockingClass lk_ = new DefaultLockingClass();
         DefaultInitializer di_ = new DefaultInitializer();
         AnalysisMessages a_ = new AnalysisMessages();
@@ -479,8 +479,7 @@ public abstract class BeanNatLgNames extends BeanLgNames {
         Options _options = new Options();
         ContextEl contextEl_ = ContextFactory.simpleBuild(-1, lk_, di_, _options, kw_, this, 4);
         AnalyzedPageEl page_ = ContextFactory.validateStds(contextEl_, a_, kw_, this, new CustList<CommentDelimiters>(), _options);
-        ContextEl context_ = contextEl_;
-        _conf.setContext(context_);
+        _conf.setContext(contextEl_);
         return page_;
     }
     public void setDataBase(Object _dataBase){

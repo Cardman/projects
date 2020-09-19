@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.analyze.opers.FctOperation;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.util.CustList;
@@ -68,7 +67,6 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         CustList<ExecOperationNode> chidren_ = getChildrenNodes();
         int off_ = StringList.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleLastPage(getIndexInEl()+off_, _conf);
-        LgNames stds_ = _conf.getStandards();
         CustList<Argument> firstArgs_;
         String lastType_ = lastType;
         int naturalVararg_ = naturalVararg;
@@ -83,20 +81,15 @@ public final class ExecFctOperation extends ExecInvokingOperation {
         }
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         CustList<Argument> first_ = listNamedArguments(_nodes, chidren_).getArguments();
-        if (staticChoiceMethod) {
-            String argClassName_ = prev_.getObjectClassName(_conf);
-            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
-        } else {
-            Struct previous_ = prev_.getStruct();
-            ExecOverrideInfo polymorph_ = polymorph(_conf, previous_, rootBlock, named);
+        Struct pr_ = prev_.getStruct();
+        String cl_ = pr_.getClassName(_conf);
+        String clGen_ = ExecTemplates.getSuperGeneric(cl_, base_, _conf);
+        lastType_ = ExecTemplates.quickFormat(rootBlock, clGen_, lastType_);
+        firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
+        if (!staticChoiceMethod) {
+            ExecOverrideInfo polymorph_ = polymorph(_conf, pr_, rootBlock, named);
             fct_ = polymorph_.getOverridableBlock();
             type_ = polymorph_.getRootBlock();
-            String argClassName_ = stds_.getStructClassName(previous_, _conf);
-            String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
-            lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
-            firstArgs_ = listArguments(chidren_, naturalVararg_, lastType_, first_);
             classNameFound_ = polymorph_.getClassName();
         }
         return callPrepare(new DefaultExiting(_conf),_conf, classNameFound_,type_, prev_, firstArgs_, null,fct_, MethodAccessKind.INSTANCE, "");

@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.opers.ArrayFieldOperation;
 import code.expressionlanguage.structs.ArrayStruct;
@@ -27,7 +28,8 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
         String npe_;
         npe_ = _conf.getStandards().getAliasNullPe();
         setRelativeOffsetPossibleLastPage(getIndexInEl(), _conf);
-        String argCl_ = _previous.getObjectClassName(_conf.getContext());
+        ContextEl _context = _conf.getContext();
+        String argCl_ = inst_.getClassName(_context);
         String arrObj_ = _conf.getStandards().getAliasObject();
         arrObj_ = StringExpUtil.getPrettyArrayType(arrObj_);
         _conf.setException(new ErrorStruct(_conf.getContext(), StringList.concat(argCl_,RETURN_LINE,arrObj_,RETURN_LINE),npe_));

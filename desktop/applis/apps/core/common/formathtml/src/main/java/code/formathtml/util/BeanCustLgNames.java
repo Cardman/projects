@@ -1349,7 +1349,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public void beforeDisplaying(Struct _arg, Configuration _cont) {
-        String clName_ = getStructClassName(_arg, _cont.getContext());
+        String clName_ = _arg.getClassName(_cont.getContext());
         if (!ExecTemplates.isCorrectExecute(clName_,getAliasBean(),_cont.getContext())) {
             return;
         }

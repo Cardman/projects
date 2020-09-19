@@ -130,7 +130,7 @@ public final class ExecTemplates {
         Argument arg_ = new Argument();
         String cast_ = lgNames_.getAliasCastType();
         if (_current != NullStruct.NULL_VALUE) {
-            String className_ = lgNames_.getStructClassName(_current, _an);
+            String className_ = _current.getClassName(_an);
             String cl_ = StringExpUtil.getIdFromAllTypes(className_);
             DimComp dimReq_ = StringExpUtil.getQuickComponentBaseType(id_);
             DimComp dimCurrent_ = StringExpUtil.getQuickComponentBaseType(cl_);
@@ -182,7 +182,7 @@ public final class ExecTemplates {
             return arg_.getStruct();
         }
         Struct current_ = arg_.getStruct();
-        String className_ = lgNames_.getStructClassName(current_, _an);
+        String className_ = current_.getClassName(_an);
         String cl_ = StringExpUtil.getIdFromAllTypes(className_);
         StringList list_ = new StringList();
         GeneType g_ = _an.getClassBody(cl_);
@@ -591,7 +591,7 @@ public final class ExecTemplates {
         } else {
             String arrType_ = arr_.getClassName();
             String param_ = StringExpUtil.getQuickComponentType(arrType_);
-            String arg_ = stds_.getStructClassName(s, _conf);
+            String arg_ = s.getClassName(_conf);
             String cast_ = stds_.getAliasStore();
             StringBuilder mess_ = new StringBuilder();
             mess_.append(arg_);
@@ -630,7 +630,7 @@ public final class ExecTemplates {
         LgNames stds_ = _context.getStandards();
         Struct str_ = _arg.getStruct();
         if (str_ != NullStruct.NULL_VALUE) {
-            String a_ = stds_.getStructClassName(str_, _context);
+            String a_ = str_.getClassName(_context);
             String param_ = PrimitiveTypeUtil.toWrapper(_param, stds_);
             if (!isCorrectExecute(a_, param_, _context)) {
                 return ErrorType.CAST;
@@ -689,7 +689,7 @@ public final class ExecTemplates {
         ArrayStruct arr_ = (ArrayStruct) _array;
         String arrType_ = arr_.getClassName();
         String param_ = StringExpUtil.getQuickComponentType(arrType_);
-        String arg_ = stds_.getStructClassName(_value, _context);
+        String arg_ = _value.getClassName(_context);
         String cast_ = stds_.getAliasStore();
         StringBuilder mess_ = new StringBuilder();
         mess_.append(arg_);
@@ -723,7 +723,7 @@ public final class ExecTemplates {
             return ErrorType.NPE;
         }
         if (_value != NullStruct.NULL_VALUE) {
-            String arg_ = stds_.getStructClassName(_value, _context);
+            String arg_ = _value.getClassName(_context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;
@@ -739,7 +739,7 @@ public final class ExecTemplates {
             return ErrorType.NPE;
         }
         if (_value != NullStruct.NULL_VALUE) {
-            String arg_ = stds_.getStructClassName(_value, _context);
+            String arg_ = _value.getClassName(_context);
             param_ = PrimitiveTypeUtil.toWrapper(param_, stds_);
             if (!isCorrectExecute(arg_, param_, _context)) {
                 return ErrorType.STORE;

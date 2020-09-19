@@ -174,7 +174,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             _conf.setException(new ErrorStruct(_conf,npe_));
             return;
         }
-        String arg_ = _previous.getObjectClassName(_conf);
+        String arg_ = _previous.getStruct().getClassName(_conf);
         if (!ExecTemplates.isCorrectExecute(arg_, param_, _conf)) {
             String cast_;
             cast_ = stds_.getAliasCastType();
@@ -332,7 +332,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                             _cont.setException(new ErrorStruct(_cont,null_));
                             return Argument.createVoid();
                         }
-                        String argCl_ = stds_.getStructClassName(par_, _cont);
+                        String argCl_ = par_.getClassName(_cont);
                         //From analyze
                         StringList inners_ = StringExpUtil.getAllPartInnerTypes(className_);
                         String param_ = StringList.join(inners_.mid(0, inners_.size() - 2), "");
@@ -700,7 +700,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         cast_ = stds_.getAliasCastType();
         String classFormat_ = _classNameFound;
         if (!_methodId.isStaticMethod()) {
-            String className_ = stds_.getStructClassName(Argument.getNullableValue(_previous).getStruct(), _conf);
+            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = ExecTemplates.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
@@ -721,7 +721,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String classFormat_ = _classNameFound;
         FormattedParameters f_ = new FormattedParameters();
         if (!(_methodId instanceof GeneMethod) || !((GeneMethod)_methodId).getId().isStaticMethod()) {
-            String className_ = stds_.getStructClassName(Argument.getNullableValue(_previous).getStruct(), _conf);
+            String className_ = Argument.getNullableValue(_previous).getStruct().getClassName(_conf);
             classFormat_ = ExecTemplates.getQuickFullTypeByBases(className_, classFormat_, _conf);
             if (classFormat_.isEmpty()) {
                 _conf.setException(new ErrorStruct(_conf,cast_));
@@ -762,7 +762,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         Struct ls_ = _previous.getStruct();
         LgNames lgNames_ = _conf.getStandards();
         if (ls_ instanceof LambdaStruct) {
-            String typeFct_ = lgNames_.getStructClassName(ls_, _conf);
+            String typeFct_ = ls_.getClassName(_conf);
             StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
             CustList<String> paramsFct_ = parts_.mid(1, parts_.size() - 2);
             int valuesSize_ = _values.size();

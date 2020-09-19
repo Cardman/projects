@@ -57,7 +57,7 @@ public final class ExecSuperFctOperation extends ExecInvokingOperation {
         if (_conf.callsOrException()) {
             return new Argument();
         }
-        String argClassName_ = prev_.getObjectClassName(_conf);
+        String argClassName_ = prev_.getStruct().getClassName(_conf);
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf);
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);

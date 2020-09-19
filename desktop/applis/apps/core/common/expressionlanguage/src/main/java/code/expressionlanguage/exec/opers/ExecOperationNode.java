@@ -810,7 +810,7 @@ public abstract class ExecOperationNode {
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();
-        String argClassName_ = _conf.getStandards().getStructClassName(struct_, _conf);
+        String argClassName_ = struct_.getClassName(_conf);
         String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
         PolymorphMethod valBody_ = _conf.getClasses().getToStringMethodsToCallBodies().getVal(idCl_);
         String clCall_ = "";

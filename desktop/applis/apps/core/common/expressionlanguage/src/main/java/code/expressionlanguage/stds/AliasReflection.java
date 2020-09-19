@@ -1259,7 +1259,7 @@ public final class AliasReflection {
                 if (str_ == NullStruct.NULL_VALUE) {
                     result_.setResult(NullStruct.NULL_VALUE);
                 } else {
-                    String className_ = lgNames_.getStructClassName(str_, _cont);
+                    String className_ = str_.getClassName(_cont);
                     result_.setResult(ExecutingUtil.getClassMetaInfo(_cont,className_));
                 }
                 return result_;

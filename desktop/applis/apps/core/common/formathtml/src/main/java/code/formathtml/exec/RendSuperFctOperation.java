@@ -1,6 +1,7 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -59,7 +60,8 @@ public final class RendSuperFctOperation extends RendInvokingOperation implement
         if (_conf.getContext().hasException()) {
             return new Argument();
         }
-        String argClassName_ = prev_.getObjectClassName(_conf.getContext());
+        ContextEl _context = _conf.getContext();
+        String argClassName_ = prev_.getStruct().getClassName(_context);
         String base_ = StringExpUtil.getIdFromAllTypes(classNameFound_);
         String fullClassNameFound_ = ExecTemplates.getSuperGeneric(argClassName_, base_, _conf.getContext());
         lastType_ = ExecTemplates.quickFormat(rootBlock,fullClassNameFound_, lastType_);
