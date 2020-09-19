@@ -17,7 +17,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.inherits.Templates;
 import code.expressionlanguage.instr.PartOffset;
-import code.expressionlanguage.linkage.LinkageUtil;
+import code.expressionlanguage.instr.PartOffsetsClassMethodId;
+import code.expressionlanguage.instr.PartOffsetsClassMethodIdList;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -25,7 +26,7 @@ public final class InternOverrideBlock extends Leaf {
     private CustList<OverridingMethodDto> overrides = new CustList<OverridingMethodDto>();
     private String definition;
     private int definitionOffset;
-    private CustList<PartOffset> allParts = new CustList<PartOffset>();
+    private CustList<PartOffsetsClassMethodIdList> allPartsTypes = new CustList<PartOffsetsClassMethodIdList>();
     public InternOverrideBlock(OffsetsBlock _offset, String _definition, int _definitionOffset) {
         super(_offset);
         definition = _definition;
@@ -70,11 +71,11 @@ public final class InternOverrideBlock extends Leaf {
             CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             MethodId methodId_ = IdFctOperation.resolveArguments(0, _context, idCurrent_, name_, MethodAccessKind.INSTANCE, typesKeys_, key_, partOffsets_);
             if (methodId_ == null) {
-                allParts.addAllElts(partOffsets_);
+                allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,new CustList<PartOffsetsClassMethodId>()));
                 sum_ += o.length()+1;
                 continue;
             }
-            allParts.addAllElts(partOffsets_);
+            CustList<PartOffsetsClassMethodId> listPart_ = new CustList<PartOffsetsClassMethodId>();
             FormattedMethodId formattedMethodId_ = MethodId.to(methodId_);
             OverridingMethodDto ov_ = new OverridingMethodDto(formattedMethodId_);
             int localSum_ = key_.length()+1;
@@ -97,51 +98,47 @@ public final class InternOverrideBlock extends Leaf {
                 String formatted_ = AnaTemplates.getOverridingFullTypeByBases(_root, cl_, _context);
                 RootBlock formattedType_ = analyzing_.getAnaClassBody(StringExpUtil.getIdFromAllTypes(formatted_));
                 if (formattedType_ == null) {
-                    allParts.addAllElts(superPartOffsets_);
                     localSum_ += s.length()+1;
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
                 MethodId superMethodId_ = IdFctOperation.resolveArguments(1,_context,cl_,nameLoc_,MethodAccessKind.INSTANCE,args_,s, superPartOffsets_);
                 if (superMethodId_ == null) {
-                    allParts.addAllElts(superPartOffsets_);
                     localSum_ += s.length()+1;
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
                 if (!formattedMethodId_.eqPartial(superMethodId_.quickOverrideFormat(formattedType_,formatted_,_context))) {
-                    allParts.addAllElts(superPartOffsets_);
                     localSum_ += s.length()+1;
+                    listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,null, 0, 0));
                     continue;
                 }
-                CustList<PartOffset> partMethods_ = new CustList<PartOffset>();
                 RootBlock root_ = analyzing_.getAnaClassBody(cl_);
                 CustList<OverridableBlock> methods_ = ClassesUtil.getMethodExecBlocks(root_);
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
                 int rc_ = _context.getAnalyzing().getTraceIndex();
+                ClassMethodId id_ = null;
                 for (OverridableBlock m: methods_) {
                     if (m.getId().eq(superMethodId_)) {
-                        ClassMethodId ref_ = new ClassMethodId(cl_,m.getId());
-                        CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
-                        StringList l_ = new StringList();
-                        LinkageUtil.addParts(analyzing_.getStandards().getDisplayedStrings(),analyzing_.getRefFoundTypes(),_root.getFile().getRenderFileName(),ref_,rc_,nameLoc_.length(), l_,l_,partMethod_,-1);
-                        partMethods_.addAllElts(partMethod_);
+                        id_ = new ClassMethodId(cl_,m.getId());
                         GeneStringOverridable g_ = new GeneStringOverridable(formatted_,root_,m);
                         list_.add(g_);
                         break;
                     }
                 }
-                allParts.addAllElts(partMethods_);
-                allParts.addAllElts(superPartOffsets_);
+                listPart_.add(new PartOffsetsClassMethodId(new CustList<PartOffset>(),superPartOffsets_,id_, rc_,nameLoc_.length()));
                 CustList<GeneStringOverridable> methodIds_ = ov_.getMethodIds();
                 methodIds_.addAllElts(list_);
                 localSum_ += s.length()+1;
             }
             sum_ += o.length()+1;
             overrides.add(ov_);
+            allPartsTypes.add(new PartOffsetsClassMethodIdList(partOffsets_,listPart_));
         }
     }
 
-    public CustList<PartOffset> getAllParts() {
-        return allParts;
+    public CustList<PartOffsetsClassMethodIdList> getAllPartsTypes() {
+        return allPartsTypes;
     }
 
     public CustList<OverridingMethodDto> getOverrides() {

@@ -16,10 +16,7 @@ import code.expressionlanguage.exec.coverage.NullBooleanCoverageResult;
 import code.expressionlanguage.exec.coverage.NullCoverageResult;
 import code.expressionlanguage.exec.coverage.StandardCoverageResult;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.inherits.ClassArgumentMatching;
-import code.expressionlanguage.instr.ElUtil;
-import code.expressionlanguage.instr.OperationsSequence;
-import code.expressionlanguage.instr.PartOffset;
+import code.expressionlanguage.instr.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
@@ -199,7 +196,7 @@ public final class LinkageUtil {
                 }
             }
             if (child_ instanceof InternOverrideBlock) {
-                list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
+                processInternOverrideBlock(vars_,list_, (InternOverrideBlock) child_);
             }
             if (child_ instanceof OperatorBlock) {
                 processOverridableBlockError(vars_,(OperatorBlock)child_, list_);
@@ -435,7 +432,7 @@ public final class LinkageUtil {
                 processOverridableBlockReport(vars_,(OverridableBlock)child_, list_);
             }
             if (child_ instanceof InternOverrideBlock) {
-                list_.addAllElts(((InternOverrideBlock)child_).getAllParts());
+                processInternOverrideBlock(vars_,list_, (InternOverrideBlock) child_);
             }
             if (child_ instanceof AnnotationMethodBlock) {
                 processAnnotationMethodBlockReport(vars_,(AnnotationMethodBlock)child_, list_);
@@ -471,6 +468,27 @@ public final class LinkageUtil {
         }
         return list_;
     }
+
+    private static void processInternOverrideBlock(VariablesOffsets _vars,CustList<PartOffset> _parts, InternOverrideBlock child_) {
+        for (PartOffsetsClassMethodIdList l: child_.getAllPartsTypes()) {
+            _parts.addAllElts(l.getTypes());
+            LgNames stds_ = _vars.getStds();
+            for (PartOffsetsClassMethodId p:l.getOverrides()) {
+                _parts.addAllElts(p.getTypes());
+                ClassMethodId id_ = p.getId();
+                if (id_ != null) {
+                    int rc_ = p.getBegin();
+                    int len_ = p.getLength();
+                    CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
+                    StringList l_ = new StringList();
+                    LinkageUtil.addParts(stds_.getDisplayedStrings(),_vars.getRefFoundTypes(),child_.getFile().getRenderFileName(),id_,rc_,len_, l_,l_,partMethod_);
+                    _parts.addAllElts(partMethod_);
+                }
+                _parts.addAllElts(p.getSuperTypes());
+            }
+        }
+    }
+
     private static void processIfConditionReport(VariablesOffsets _vars, IfCondition _cond, CustList<PartOffset> _parts) {
         if (_vars.getStack().last().getCurrent() == null) {
             AbstractCoverageResult result_ = _vars.getCoverage().getCoversConditions(_cond);
@@ -1658,7 +1676,7 @@ public final class LinkageUtil {
         if (_vars.getState() != null) {
             return;
         }
-        _parts.addAllElts(m_.getAllInternParts());
+        processOverridableRedef(_vars,m_,_parts);
     }
 
     private static void processAnonymousFctReport(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
@@ -1721,9 +1739,25 @@ public final class LinkageUtil {
         if (_vars.getState() != null) {
             return;
         }
-        _parts.addAllElts(m_.getAllInternParts());
+        processOverridableRedef(_vars,m_,_parts);
     }
 
+    private static void processOverridableRedef(VariablesOffsets _vars, OverridableBlock _cond, CustList<PartOffset> _parts) {
+        LgNames stds_ = _vars.getStds();
+        for (PartOffsetsClassMethodId p:_cond.getAllInternTypesParts()) {
+            _parts.addAllElts(p.getTypes());
+            ClassMethodId id_ = p.getId();
+            if (id_ != null) {
+                int rc_ = p.getBegin();
+                int len_ = p.getLength();
+                CustList<PartOffset> partMethod_ = new CustList<PartOffset>();
+                StringList l_ = new StringList();
+                LinkageUtil.addParts(stds_.getDisplayedStrings(),_vars.getRefFoundTypes(),_cond.getFile().getRenderFileName(),id_,rc_,len_, l_,l_,partMethod_);
+                _parts.addAllElts(partMethod_);
+            }
+            _parts.addAllElts(p.getSuperTypes());
+        }
+    }
     private static void processAnonymousFctBlockError(int _begin, AnonymousFunctionBlock _cond, CustList<PartOffset> _parts) {
         int begName_ = _cond.getNameOffset();
         _parts.add(new PartOffset("<span class=\"t\">", _begin));
@@ -3821,15 +3855,15 @@ public final class LinkageUtil {
         _parts,-1);
     }
 
-    public static void addParts(DisplayedStrings _vars, CustList<RootBlock> _refFoundTypes, String _currentFileName, ClassMethodId _id,
-                                int _begin, int _length,
-                                StringList _errors,
-                                StringList _title,
-                                CustList<PartOffset> _parts, int _name) {
+    private static void addParts(DisplayedStrings _vars, CustList<RootBlock> _refFoundTypes, String _currentFileName, ClassMethodId _id,
+                                 int _begin, int _length,
+                                 StringList _errors,
+                                 StringList _title,
+                                 CustList<PartOffset> _parts) {
         MethodId id_ = _id.getConstraints();
         String cl_ = _id.getClassName();
         cl_ = StringExpUtil.getIdFromAllTypes(cl_);
-        addParts(_vars, _refFoundTypes, new CustList<OperatorBlock>(),_currentFileName,cl_,id_,_begin,_length,_errors,_title,_parts,_name);
+        addParts(_vars, _refFoundTypes, new CustList<OperatorBlock>(),_currentFileName,cl_,id_,_begin,_length,_errors,_title,_parts, -1);
     }
     private static void addParts(VariablesOffsets _vars, CustList<RootBlock> _refFoundTypes, CustList<OperatorBlock> _refOperators, String _currentFileName, String _className,
                                  Identifiable _id, int _begin, int _length,
