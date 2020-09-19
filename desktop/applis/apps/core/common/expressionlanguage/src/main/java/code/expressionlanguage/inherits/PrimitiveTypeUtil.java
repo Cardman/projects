@@ -26,9 +26,6 @@ public final class PrimitiveTypeUtil {
         e_.setCheckOnlyNullPe(_cl.isCheckOnlyNullPe());
         e_.setConvertToString(_cl.isConvertToString());
         e_.setUnwrapObjectNb(_cl.getUnwrapObjectNb());
-        if (!_cl.getImplicitsTest().isEmpty()) {
-            e_.setImplicitsTest(1);
-        }
         return e_;
     }
 

@@ -59,8 +59,8 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         set = _set;
         rootBlock = _rootBlock;
     }
-    public RendCustArrOperation(RendCustArrOperation _arr,int _indexChild, ExecClassArgumentMatching _res, int _order,
-                            boolean _intermediate, Argument _previousArgument) {
+    public RendCustArrOperation(RendCustArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,
+                                boolean _intermediate) {
         super(_indexChild,_res,_order, _intermediate);
         className = _arr.className;
         previous = _arr.previous;

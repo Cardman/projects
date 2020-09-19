@@ -33,7 +33,7 @@ public final class ReflectGetFieldPageEl extends AbstractReflectPageEl {
         if (stds_.getStandards().contains(baseClass_)) {
             String name_ =method_.getName();
             ClassField id_ = new ClassField(baseClass_, name_);
-            Argument arg_ = new Argument(stds_.getSimpleResult(stds_, id_).getResult());
+            Argument arg_ = new Argument(stds_.getSimpleResult(id_).getResult());
             setReturnedArgument(arg_);
             return true;
         }

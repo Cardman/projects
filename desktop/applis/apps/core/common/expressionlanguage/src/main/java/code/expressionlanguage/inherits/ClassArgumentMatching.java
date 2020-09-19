@@ -14,14 +14,15 @@ public final class ClassArgumentMatching {
     }
 
     public static byte getPrimitiveCast(StringList _className, LgNames stds_) {
-        byte cast_ = 8;
+        byte max_ = stds_.getMaxWrap();
+        byte cast_ = max_;
         for (String b: _className) {
             PrimitiveType pr_ = stds_.getPrimitiveTypes().getVal(b);
             if (pr_ != null) {
                 cast_ = (byte)Math.min(cast_,pr_.getCastNb());
             }
         }
-        if (cast_ == 8) {
+        if (cast_ == max_) {
             return -1;
         }
         return cast_;

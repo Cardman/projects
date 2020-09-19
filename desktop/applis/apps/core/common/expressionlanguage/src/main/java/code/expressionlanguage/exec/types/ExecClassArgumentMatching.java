@@ -22,7 +22,6 @@ public final class ExecClassArgumentMatching {
 
     private boolean checkOnlyNullPe;
     private boolean convertToString;
-    private int implicitsTest;
 
     public ExecClassArgumentMatching(String _className) {
         className.add(_className);
@@ -194,11 +193,4 @@ public final class ExecClassArgumentMatching {
         convertToString = _convertToString;
     }
 
-    public int getImplicitsTest() {
-        return implicitsTest;
-    }
-
-    public void setImplicitsTest(int implicitsTest) {
-        this.implicitsTest = implicitsTest;
-    }
 }

@@ -1268,12 +1268,8 @@ public abstract class LgNames {
         return res_;
     }
 
-    public ResultErrorStd getSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
-        return ValidatorStandard.getSimpleResultBase(_conf, _classField);
-    }
-
-    public ResultErrorStd getSimpleResult(LgNames _conf, ClassField _classField) {
-        return ValidatorStandard.getSimpleResultBase( _classField,_conf);
+    public ResultErrorStd getSimpleResult(ClassField _classField) {
+        return ValidatorStandard.getSimpleResultBase( _classField,this);
     }
 
     /**@param _first le premier*/
@@ -1355,6 +1351,10 @@ public abstract class LgNames {
     }
     public StringMap<PrimitiveType> getPrimitiveTypes() {
         return primTypes.getPrimitiveTypes();
+    }
+
+    public byte getMaxWrap() {
+        return primTypes.getMaxWrap();
     }
     public String getAliasObject() {
         return coreNames.getAliasObject();

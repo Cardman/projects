@@ -285,6 +285,29 @@ public final class RenderForIterativeLoopTest extends CommonRender {
 
         return getCommEx(html_, _files);
     }
+    @Test
+    public void process25Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html><body><c:for className=\"$int\" var=\"k\" from=\"$new pkg.Ex(0)\" to=\"$new pkg.Ex(2)\" step=\"$new pkg.Ex(1)\">{k} - {([k])} - <c:for className=\"$int\" var=\"l\" from=\"0\" to=\"2\" step=\"1\">{l} - {([l])} -<br/></c:for>+<br/></c:for></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableExUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{");
+        xml_.append(" $private $int v;");
+        xml_.append(" $public Ex($int p){");
+        xml_.append("  v=p;");
+        xml_.append(" }");
+        xml_.append(" $public $static $int $(Ex e){");
+        xml_.append("  $return e.v;");
+        xml_.append(" }");
+        xml_.append("}");
+        filesSec_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>0 - 0 - 0 - 0 -<br/>1 - 1 -<br/>+<br/>1 - 1 - 0 - 0 -<br/>1 - 1 -<br/>+<br/></body></html>", getRes(html_, filesSec_));
+    }
 
     @Test
     public void process1FailTest() {

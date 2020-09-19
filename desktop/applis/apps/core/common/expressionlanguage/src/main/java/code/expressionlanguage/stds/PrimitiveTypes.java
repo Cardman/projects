@@ -21,6 +21,7 @@ public final class PrimitiveTypes {
     private String aliasPrimLong;
     private String aliasPrimFloat;
     private String aliasPrimDouble;
+    private byte maxWrap;
     public void buildPrimitiveTypes(LgNames _lgNames) {
         primitiveTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getAliasBoolean(), EMPTY_STRING,false,BOOL_WRAP));
         primitiveTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getAliasCharacter(), aliasPrimInteger,true,CHAR_WRAP));
@@ -30,6 +31,14 @@ public final class PrimitiveTypes {
         primitiveTypes.put(aliasPrimLong, new PrimitiveType(aliasPrimLong, _lgNames.getAliasLong(), EMPTY_STRING,true,LONG_WRAP));
         primitiveTypes.put(aliasPrimFloat, new PrimitiveType(aliasPrimFloat, _lgNames.getAliasFloat(), aliasPrimDouble,true,FLOAT_WRAP));
         primitiveTypes.put(aliasPrimDouble, new PrimitiveType(aliasPrimDouble, _lgNames.getAliasDouble(), EMPTY_STRING,true,DOUBLE_WRAP));
+        maxWrap = (byte)Math.max(BOOL_WRAP,CHAR_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,BYTE_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,SHORT_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,INT_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,LONG_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,FLOAT_WRAP);
+        maxWrap = (byte)Math.max(maxWrap,DOUBLE_WRAP);
+        maxWrap++;
     }
     public String getAliasPrimBoolean() {
         return aliasPrimBoolean;
@@ -83,4 +92,7 @@ public final class PrimitiveTypes {
         return primitiveTypes;
     }
 
+    public byte getMaxWrap() {
+        return maxWrap;
+    }
 }

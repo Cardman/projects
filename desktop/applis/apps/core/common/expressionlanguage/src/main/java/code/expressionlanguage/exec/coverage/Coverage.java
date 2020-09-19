@@ -12,8 +12,11 @@ import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.opers.*;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -236,7 +239,7 @@ public final class Coverage {
         cov_.setInit(_context.getInitializingTypeInfos().isWideInitEnums());
         cov_.cover(_value);
     }
-    public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, Argument _value, boolean _full) {
+    public void passBlockOperation(ContextEl _context, ExecOperationNode _exec, boolean _full, ArgumentsPair _pair) {
         if (!isCovering()) {
             return;
         }
@@ -249,7 +252,8 @@ public final class Coverage {
         if (instr_ == null) {
             return;
         }
-        AbstractCoverageResult result_ = instr_.getVal(mapping.getVal(bl_).getVal(_exec));
+        OperationNode ana_ = mapping.getVal(bl_).getVal(_exec);
+        AbstractCoverageResult result_ = instr_.getVal(ana_);
         if (result_ == null) {
             return;
         }
@@ -257,8 +261,32 @@ public final class Coverage {
         if (_full) {
             result_.fullCover();
         } else {
-            result_.cover(_value);
+            Struct valueStruct_ = getValueStruct(_exec,ana_, _pair);
+            result_.cover(new Argument(valueStruct_));
         }
+    }
+    private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
+        Argument res_ = Argument.getNullableValue(_v.getArgument());
+        Struct v_ = res_.getStruct();
+        if (_oper.getNextSibling() != null&&!_ana.getResultClass().getImplicitsTest().isEmpty()){
+            ExecMethodOperation par_ = _oper.getParent();
+            if (par_ instanceof ExecAndOperation){
+                v_ = BooleanStruct.of(!_v.isArgumentTest());
+            }
+            if (par_ instanceof ExecOrOperation){
+                v_ = BooleanStruct.of(_v.isArgumentTest());
+            }
+            if (par_ instanceof ExecCompoundAffectationOperation){
+                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    v_ = BooleanStruct.of(!_v.isArgumentTest());
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    v_ = BooleanStruct.of(_v.isArgumentTest());
+                }
+            }
+        }
+        return v_;
     }
     public void passCalls(String _type, ExecNamedFunctionBlock _block) {
         if (!isCovering()) {

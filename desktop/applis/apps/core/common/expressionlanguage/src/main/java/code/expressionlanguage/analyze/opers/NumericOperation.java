@@ -33,21 +33,8 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     static AnaClassArgumentMatching getIntResultClass(AnaClassArgumentMatching _a, ContextEl _cont, AnaClassArgumentMatching _b) {
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
-        return getQuickResultClass(_a, oa_, _cont, _b, ob_);
-    }
-    static AnaClassArgumentMatching getFloatResultClass(AnaClassArgumentMatching _a, ContextEl _cont, AnaClassArgumentMatching _b) {
-        int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
-        int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
-        return getQuickResultClass(_a, oa_, _cont, _b, ob_);
-    }
-    static AnaClassArgumentMatching getQuickResultClass(AnaClassArgumentMatching _a, int _oa, ContextEl _cont, AnaClassArgumentMatching _b, int _ob) {
-        AnaClassArgumentMatching arg_;
-        int max_ = Math.max(_oa, _ob);
-        if (_oa > _ob) {
-            arg_ = _a;
-        } else {
-            arg_ = _b;
-        }
+        int max_ = Math.max(oa_, ob_);
+        AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
         LgNames stds_ = page_.getStandards();
         int intOrder_ = AnaTypeUtil.getIntOrderClass(stds_.getAliasPrimInteger(), _cont);
@@ -55,6 +42,23 @@ public abstract class NumericOperation extends MethodOperation implements Middle
             arg_ = new AnaClassArgumentMatching(stds_.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
         return AnaTypeUtil.toPrimitive(arg_, page_);
+    }
+    static AnaClassArgumentMatching getFloatResultClass(AnaClassArgumentMatching _a, ContextEl _cont, AnaClassArgumentMatching _b) {
+        int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
+        int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
+        AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
+        return AnaTypeUtil.toPrimitive(arg_, page_);
+    }
+
+    private static AnaClassArgumentMatching getMaxWrap(AnaClassArgumentMatching _a, int _oa, AnaClassArgumentMatching _b, int _ob) {
+        AnaClassArgumentMatching arg_;
+        if (_oa > _ob) {
+            arg_ = _a;
+        } else {
+            arg_ = _b;
+        }
+        return arg_;
     }
 
     @Override

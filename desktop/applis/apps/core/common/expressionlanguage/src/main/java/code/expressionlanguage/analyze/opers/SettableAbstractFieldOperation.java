@@ -203,7 +203,8 @@ public abstract class SettableAbstractFieldOperation extends
         StringMap<Struct> map_ = cl_.getStaticFieldMap(fieldId_.getClassName());
         Struct str_ = cl_.getStaticField(fieldId_);
         if (map_.isEmpty()) {
-            ResultErrorStd res_ = page_.getStandards().getSimpleResult(page_, fieldId_);
+            LgNames stds_ = page_.getStandards();
+            ResultErrorStd res_ = stds_.getSimpleResult(fieldId_);
             Argument arg_ = new Argument(res_.getResult());
             _oper.setSimpleArgumentAna(arg_, _conf.getAnalyzing());
             trySetDotParent(_conf, _oper, arg_);

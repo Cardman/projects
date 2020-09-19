@@ -114,7 +114,7 @@ public final class ResultInput {
                         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
                         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
-                        RendArrOperation arr_ = new RendArrOperation((RendArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
+                        RendArrOperation arr_ = new RendArrOperation((RendArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true);
                         int i_ = 1;
                         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
                         StringList varParamNames_ = new StringList();
@@ -159,7 +159,7 @@ public final class ResultInput {
                         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
                         RendDotOperation rendDot_ = new RendDotOperation(0, clResField_,2+childrenNodes_.size());
                         RendStdVariableOperation rendPrevVar_ = new RendStdVariableOperation(0, varPrevLoc_,pr_,0);
-                        RendCustArrOperation arr_ = new RendCustArrOperation((RendCustArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true, null);
+                        RendCustArrOperation arr_ = new RendCustArrOperation((RendCustArrOperation) settable_, 1, pr_, childrenNodes_.size() + 1, true);
                         int i_ = 1;
                         CustList<RendDynOperationNode> list_ = new CustList<RendDynOperationNode>();
                         StringList varParamNames_ = new StringList();

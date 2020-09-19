@@ -806,31 +806,7 @@ public abstract class ExecOperationNode {
         }
         ArgumentsPair pair_ = _nodes.getValue(getOrder());
         pair_.setArgument(arg_);
-        Struct valueStruct_ = getValueStruct(this, pair_);
-        _conf.getCoverage().passBlockOperation(_conf, this,new Argument(valueStruct_),!_possiblePartial);
-    }
-    private static Struct getValueStruct(ExecOperationNode _oper, ArgumentsPair _v) {
-        Argument res_ = Argument.getNullableValue(_v.getArgument());
-        Struct v_ = res_.getStruct();
-        if (_oper.getNextSibling() != null&&_oper.getResultClass().getImplicitsTest() > 0){
-            ExecMethodOperation par_ = _oper.getParent();
-            if (par_ instanceof ExecAndOperation){
-                v_ = BooleanStruct.of(!_v.isArgumentTest());
-            }
-            if (par_ instanceof ExecOrOperation){
-                v_ = BooleanStruct.of(_v.isArgumentTest());
-            }
-            if (par_ instanceof ExecCompoundAffectationOperation){
-                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                if (StringList.quickEq(p_.getOper(),"&&=")) {
-                    v_ = BooleanStruct.of(!_v.isArgumentTest());
-                }
-                if (StringList.quickEq(p_.getOper(),"||=")) {
-                    v_ = BooleanStruct.of(_v.isArgumentTest());
-                }
-            }
-        }
-        return v_;
+        _conf.getCoverage().passBlockOperation(_conf, this, !_possiblePartial, pair_);
     }
     public static Argument processString(Argument _argument, ContextEl _conf) {
         Struct struct_ = Argument.getNullableValue(_argument).getStruct();

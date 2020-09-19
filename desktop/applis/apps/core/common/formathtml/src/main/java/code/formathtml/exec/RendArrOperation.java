@@ -24,7 +24,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         previous = PrimitiveTypeUtil.toExec(_arr.getPreviousResultClass());
     }
     public RendArrOperation(RendArrOperation _arr, int _indexChild, ExecClassArgumentMatching _res, int _order,
-                            boolean _intermediate, Argument _previousArgument) {
+                            boolean _intermediate) {
         super(_indexChild,_res,_order, _intermediate);
         previous = _arr.previous;
         variable = true;

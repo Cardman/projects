@@ -25,11 +25,9 @@ public final class BitShiftRightOperation extends NumericOperation {
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op,
                               AnaClassArgumentMatching _b, ContextEl _cont) {
         ResultOperand res_ = new ResultOperand();
-        int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
-        int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        if (oa_ > 0 && ob_ > 0) {
-            AnaClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+        if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
+            AnaClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
             _a.setUnwrapObject(out_,page_.getStandards());
             _b.setUnwrapObject(out_,page_.getStandards());
             res_.setResult(out_);

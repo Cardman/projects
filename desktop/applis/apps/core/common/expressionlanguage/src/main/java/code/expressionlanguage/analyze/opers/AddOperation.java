@@ -49,18 +49,14 @@ public final class AddOperation extends NumericOperation {
         String stringType_ = page_.getStandards().getAliasString();
         if (StringList.quickEq(_op.trim(), PLUS)) {
             if (AnaTypeUtil.isIntOrderClass(_a,_b,_cont)) {
-                int oa_ = AnaTypeUtil.getIntOrderClass(_a, _cont);
-                int ob_ = AnaTypeUtil.getIntOrderClass(_b, _cont);
-                AnaClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+                AnaClassArgumentMatching out_ = getIntResultClass(_a, _cont, _b);
                 _a.setUnwrapObject(out_,page_.getStandards());
                 _b.setUnwrapObject(out_,page_.getStandards());
                 res_.setResult(out_);
                 return res_;
             }
             if (AnaTypeUtil.isFloatOrderClass(_a,_b,_cont)) {
-                int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _cont);
-                int ob_ = AnaTypeUtil.getFloatOrderClass(_b, _cont);
-                AnaClassArgumentMatching out_ = getQuickResultClass(_a, oa_, _cont, _b, ob_);
+                AnaClassArgumentMatching out_ = getFloatResultClass(_a, _cont, _b);
                 _a.setUnwrapObject(out_,page_.getStandards());
                 _b.setUnwrapObject(out_,page_.getStandards());
                 res_.setResult(out_);

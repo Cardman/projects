@@ -409,46 +409,48 @@ public final class RenderExpUtil {
             if (!(o instanceof RendCalculableOperation)) {
                 Argument a_ = Argument.getNullableValue(o.getArgument());
                 o.setSimpleArgument(a_,_context,arguments_);
-                Struct st_ = a_.getStruct();
-                fr_ = RendDynOperationNode.getNextIndex(o, st_);
+                fr_ = getNextIndex(_context,len_,o, pair_);
                 continue;
             }
             if (pair_.getArgument() != null) {
                 o.setSimpleArgument(pair_.getArgument(),_context,arguments_);
-                Argument res_ = Argument.getNullableValue(pair_.getArgument());
-                Struct st_ = res_.getStruct();
-                fr_ = RendDynOperationNode.getNextIndex(o, st_);
+                fr_ = getNextIndex(_context,len_,o, pair_);
                 continue;
             }
             RendCalculableOperation a_ = (RendCalculableOperation)o;
             a_.calculate(arguments_, _context);
-            if (_context.getContext().hasException()) {
-                return arguments_;
-            }
-            Argument res_ = Argument.getNullableValue(pair_.getArgument());
-            Struct st_ = res_.getStruct();
-            if (o.getNextSibling() != null&&pair_.isArgumentTest()){
-                RendMethodOperation par_ = o.getParent();
-                if (par_ instanceof RendAndOperation){
-                    st_ = BooleanStruct.of(false);
-                }
-                if (par_ instanceof RendOrOperation){
-                    st_ = BooleanStruct.of(true);
-                }
-                if (par_ instanceof RendCompoundAffectationOperation){
-                    RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
-                    if (StringList.quickEq(p_.getOper(),"&&=")) {
-                        st_ = BooleanStruct.of(false);
-                    }
-                    if (StringList.quickEq(p_.getOper(),"||=")) {
-                        st_ = BooleanStruct.of(true);
-                    }
-                }
-            }
-            fr_ = RendDynOperationNode.getNextIndex(o, st_);
+            fr_ = getNextIndex(_context,len_,o, pair_);
         }
         return arguments_;
     }
+
+    private static int getNextIndex(Configuration _conf, int _max,RendDynOperationNode o, ArgumentsPair pair_) {
+        if (_conf.getContext().hasException()) {
+            return _max;
+        }
+        Argument res_ = Argument.getNullableValue(pair_.getArgument());
+        Struct st_ = res_.getStruct();
+        if (o.getNextSibling() != null&&pair_.isArgumentTest()){
+            RendMethodOperation par_ = o.getParent();
+            if (par_ instanceof RendAndOperation){
+                st_ = BooleanStruct.of(false);
+            }
+            if (par_ instanceof RendOrOperation){
+                st_ = BooleanStruct.of(true);
+            }
+            if (par_ instanceof RendCompoundAffectationOperation){
+                RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
+                if (StringList.quickEq(p_.getOper(),"&&=")) {
+                    st_ = BooleanStruct.of(false);
+                }
+                if (StringList.quickEq(p_.getOper(),"||=")) {
+                    st_ = BooleanStruct.of(true);
+                }
+            }
+        }
+        return RendDynOperationNode.getNextIndex(o, st_);
+    }
+
     public static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
         CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
         RendDynOperationNode current_ = _root;

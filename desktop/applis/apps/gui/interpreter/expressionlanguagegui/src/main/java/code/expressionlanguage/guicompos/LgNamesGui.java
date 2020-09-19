@@ -2305,33 +2305,18 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public ResultErrorStd getSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
-        return getInnerSimpleResult(_conf, _classField);
+    public ResultErrorStd getSimpleResult(ClassField _classField) {
+        return getInnerSimpleResult(_classField);
     }
 
-    @Override
-    public ResultErrorStd getSimpleResult(LgNames _conf, ClassField _classField) {
-        return getInnerSimpleResult(_conf, _classField);
-    }
-
-    private ResultErrorStd getInnerSimpleResult(AnalyzedPageEl _conf, ClassField _classField) {
+    private ResultErrorStd getInnerSimpleResult(ClassField _classField) {
         if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
             return getResultConfirm(_classField);
         }
         if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
             return getResultPanelBorder(_classField);
         }
-        return super.getSimpleResult(_conf, _classField);
-    }
-
-    private ResultErrorStd getInnerSimpleResult(LgNames _conf, ClassField _classField) {
-        if (StringList.quickEq(_classField.getClassName(),aliasConfirm)) {
-            return getResultConfirm(_classField);
-        }
-        if (StringList.quickEq(_classField.getClassName(),aliasPanelBorder)) {
-            return getResultPanelBorder(_classField);
-        }
-        return super.getSimpleResult(_conf, _classField);
+        return super.getSimpleResult(_classField);
     }
 
     private ResultErrorStd getResultPanelBorder(ClassField _classField) {

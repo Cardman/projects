@@ -5,8 +5,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
@@ -17,6 +19,7 @@ import code.expressionlanguage.files.OffsetBooleanInfo;
 import code.expressionlanguage.files.OffsetStringInfo;
 import code.expressionlanguage.files.OffsetsBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.inherits.ClassArgumentMatching;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -155,59 +158,19 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrFrom());
         opInit = RenderExpUtil.getAnalyzedOperations(init,initOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode initEl_ = opInit.last();
-        Mapping m_ = new Mapping();
-        m_.setArg(page_.getCurrentRoot().getResultClass());
-        m_.setParam(elementClass_);
-        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(page_.getCurrentRoot().getResultClass());
-            mapping_.setParam(elementClass_);
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
-            cast_.setIndexFile(initOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(elementClass_.getNames(),AND_ERR),
-                    StringList.join(initEl_.getResultClass().getNames(),AND_ERR));
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
-        }
+        checkResult(_cont, _anaDoc, page_, cl_, initEl_, initOffset);
         page_.setGlobalOffset(expressionOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrTo());
         opExp = RenderExpUtil.getAnalyzedOperations(expression,expressionOffset,0, _cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode expressionEl_ = opExp.last();
-        m_.setArg(page_.getCurrentRoot().getResultClass());
-        m_.setParam(elementClass_);
-        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(page_.getCurrentRoot().getResultClass());
-            mapping_.setParam(elementClass_);
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
-            cast_.setIndexFile(expressionOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(elementClass_.getNames(),AND_ERR),
-                    StringList.join(expressionEl_.getResultClass().getNames(),AND_ERR));
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
-        }
+        checkResult(_cont, _anaDoc, page_, cl_, expressionEl_, expressionOffset);
         page_.setGlobalOffset(stepOffset);
         page_.setOffset(0);
         _anaDoc.setAttribute(_cont.getRendKeyWords().getAttrStep());
         opStep = RenderExpUtil.getAnalyzedOperations(step,stepOffset, 0,_cont, _anaDoc, _cont.getContext().getAnalyzing());
         RendDynOperationNode stepEl_ = opStep.last();
-        m_.setArg(page_.getCurrentRoot().getResultClass());
-        m_.setParam(elementClass_);
-        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
-            Mapping mapping_ = new Mapping();
-            mapping_.setArg(page_.getCurrentRoot().getResultClass());
-            mapping_.setParam(elementClass_);
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
-            cast_.setIndexFile(stepOffset);
-            cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
-                    StringList.join(elementClass_.getNames(),AND_ERR),
-                    StringList.join(stepEl_.getResultClass().getNames(),AND_ERR));
-            Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
-        }
+        checkResult(_cont, _anaDoc, page_, cl_, stepEl_, stepOffset);
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();
             lv_.setIndexClassName(importedClassIndexName);
@@ -217,6 +180,32 @@ public final class RendForIterativeLoop extends RendParentBlock implements RendL
             lInfo_.setConstType(ConstType.FIX_VAR);
             _cont.getContext().getAnalyzing().getInfosVars().put(variableName, lInfo_);
         }
+    }
+
+    private static void checkResult(Configuration _cont, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, String _result, RendDynOperationNode _exec, int _offset) {
+        Mapping m_ = new Mapping();
+        OperationNode root_ = _page.getCurrentRoot();
+        AnaClassArgumentMatching resCl_ = root_.getResultClass();
+        m_.setArg(resCl_);
+        m_.setParam(_result);
+        if (!AnaTemplates.isCorrectOrNumbers(m_,_cont.getContext())) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_cont.getContext(), _result, resCl_);
+            if (res_.isFoundMethod()) {
+                ClassMethodId cl_ = new ClassMethodId(res_.getId().getClassName(),res_.getRealId());
+                resCl_.getImplicits().add(cl_);
+                resCl_.setRootNumber(res_.getRootNumber());
+                resCl_.setMemberNumber(res_.getMemberNumber());
+            } else {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFileName(_anaDoc.getFileName());
+                cast_.setIndexFile(_offset);
+                cast_.buildError(_cont.getContext().getAnalyzing().getAnalysisMessages().getBadImplicitCast(),
+                        _result,
+                        StringList.join(_exec.getResultClass().getNames(),AND_ERR));
+                Configuration.addError(cast_, _anaDoc, _cont.getContext().getAnalyzing());
+            }
+        }
+        RenderExpUtil.setImplicits(_exec,_page,root_);
     }
 
     @Override

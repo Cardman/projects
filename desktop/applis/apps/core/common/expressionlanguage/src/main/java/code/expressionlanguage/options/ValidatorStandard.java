@@ -514,11 +514,6 @@ public final class ValidatorStandard {
         return new IterableAnalysisResult(out_);
     }
 
-    public static ResultErrorStd getSimpleResultBase(AnalyzedPageEl _conf, ClassField _classField) {
-        LgNames lgNames_ = _conf.getStandards();
-        return getSimpleResultBase(_classField, lgNames_);
-    }
-
     public static ResultErrorStd getSimpleResultBase(ClassField _classField, LgNames lgNames_) {
         ResultErrorStd result_ = new ResultErrorStd();
         String type_ = _classField.getClassName();
